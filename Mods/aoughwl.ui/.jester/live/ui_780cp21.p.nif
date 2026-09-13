@@ -1,0 +1,66 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,ui_dsl.nim
+ (comment)
+ (import@,M vec@7)
+ (import@,N ui@7)
+ (export@,O ui@7)
+ (comment@,Q)
+ (template@,R screen@9 x . .
+  (params@G
+   (param@1 body . . untyped@6 .)). . .
+  (stmts@2,1
+   (call@A beginFrame~A)body@,1
+   (call@8,2 endFrame~8)))
+ (comment@,W)
+ (template@,Y screenAt@9 x . .
+  (params@I
+   (param@1 at . . Vec2@4 .)
+   (param@B down . . bool@6 .)
+   (param@N area . . Rect@6 .)
+   (param@Z body . . untyped@6 .)). . .
+  (stmts@2,1
+   (call@A beginFrame~A at@1 down@5 area@B)body@,1
+   (call@8,2 endFrame~8)))
+ (comment@,d)
+ (template@,f cropped@9 x . .
+  (params@H
+   (param@1 area . . Rect@6 .)
+   (param@D body . . untyped@6 .)). . .
+  (stmts@2,1
+   (call@8 pushClip~8 area@1)body@,1
+   (call@7,2 popClip~7)))
+ (comment@,k)
+ (template@,m inside@9 x . .
+  (params@G
+   (param@1 name . . string@6 .)
+   (param@F body . . untyped@6 .)). . .
+  (stmts@2,1
+   (call@6 pushId~6 name@1)body@,1
+   (call@5,2 popId~5)))
+ (comment@,r)
+ (template@,s scrolling@9 x . .
+  (params@J
+   (param@1 view . . untyped@d .)
+   (param@7 name . . untyped@X .)
+   (param@D area . . untyped@R .)
+   (param@J contentHeight . . untyped@L .)
+   (param@Y body . . untyped@6 .)). . .
+  (stmts@2,1
+   (var@4 view . . .
+    (call@I beginScroll~B name@1 area@7 contentHeight@D))body@,1
+   (call@9,2 endScroll~9 view@1)))
+ (comment@,x)
+ (template@,10 listing@9 x . .
+  (params@H
+   (param@1 rows . . untyped@d .)
+   (param@7 name . . untyped@X .)
+   (param@D area . . untyped@R .)
+   (param@J count . . untyped@L .)
+   (param@Q height . . untyped@E .)
+   (param@Y body . . untyped@6 .)). . .
+  (stmts@2,1
+   (var@4 rows . . .
+    (call@G beginList~9 name@1 area@7 count@D height@K))body@,1
+   (call@7,2 endList~7 rows@1))))

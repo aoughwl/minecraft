@@ -1,0 +1,168 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/deps/aoughwl_mcdebug/dbgfmt.nim
+ (comment)
+ (comment@,J)
+ (proc@,M fixed@5 x . .
+  (params@B
+   (param@1 value . . float@7 .)
+   (param@F places . . int@8 .))string@T . .
+  (stmts@2,1
+   (var@4 v . . . value@4)
+   (var@4,1 sign . . . ""@7)
+   (if@,2
+    (elif@3
+     (infix@2 < v~2 0.0@2)
+     (stmts~1,1
+      (asgn@5 sign~5 "-"@2)
+      (asgn@2,1 v~2
+       (prefix@2 \2D v@1)))))
+   (var@4,5 scale . . . 1@8)
+   (var@4,6 p . . . 0@4)
+   (while@,7
+    (infix@8 < p~2 places@2)
+    (stmts@2,1
+     (asgn@6 scale~6
+      (infix@8 * scale~6 10@2))
+     (cmd@,1 inc p@4)))
+   (let@4,A scaled . . .
+    (call@C int~3
+     (infix@I \2B
+      (infix~F * v~2
+       (call@7 float~5 scale@1))0.5@2)))
+   (if@,D
+    (elif@3
+     (infix@7 == scaled~7 0@3)
+     (stmts@D
+      (asgn@5 sign~5 ""@2))))
+   (let@4,E whole . . .
+    (infix@F div scaled~7 scale@4))
+   (if@,F
+    (elif@3
+     (infix@7 <= places~7 0@3)
+     (stmts@D
+      (ret
+       (infix@C & sign~5
+        (prefix@2 $ whole@1))))))
+   (var@4,G frac . . .
+    (prefix@7 $
+     (par@1
+      (infix@8 mod scaled~7 scale@4))))
+   (while@,H
+    (infix@F <
+     (dot~5 frac~4 len@1)places@2)
+    (stmts@P
+     (asgn@5 frac~5
+      (infix@6 & "0"~4 frac@2))))
+   (infix@K,I &
+    (infix~6 &
+     (infix~9 & sign~5
+      (prefix@2 $ whole@1))"."@2)frac@2)))
+ (comment@,h)
+ (proc@,k wholeBelow@5 x . .
+  (params@G
+   (param@1 value . . float@7 .))int@G . .
+  (stmts@2,1
+   (let@4 t . . .
+    (call@7 int~3 value@1))
+   (if@,1
+    (elif@3
+     (infix@C and
+      (infix~6 < value~6 0.0@2)
+      (infix@D !=
+       (call~4 float~5 t@1)value@3))
+     (stmts@Z
+      (ret
+       (infix@9 \2D t~2 1@2)))))t@,2))
+ (const@D,q CoordPlaces~B x . int@3 3@9)
+ (const@G,u CoordSeparator~E x . string@3 " / "@C)
+ (const@F,w SizeSeparator~D x . string@3 "x"@C)
+ (proc@,y coords@5 x . .
+  (params@C
+   (param@1 x . . float@9 .)
+   (param@4 y . . float@6 .)
+   (param@7 z . . float@3 .))string@I . .
+  (stmts@2,1
+   (infix@H,1 &
+    (infix@k,~1 &
+     (infix~O &
+      (infix~H &
+       (call~H fixed~5 x@1 CoordPlaces@4)CoordSeparator@2)
+      (call@7 fixed~5 y@1 CoordPlaces@4))CoordSeparator~z,1)
+    (call@7 fixed~5 z@1 CoordPlaces@4))))
+ (proc@,12 blocks@5 x . .
+  (params@C
+   (param@1 x . . float@9 .)
+   (param@4 y . . float@6 .)
+   (param@7 z . . float@3 .))string@I . .
+  (stmts@2,1
+   (infix@14 &
+    (infix~H &
+     (infix~H &
+      (infix~H &
+       (prefix~F $
+        (call@B wholeBelow~A x@1))CoordSeparator@2)
+      (prefix@2 $
+       (call@B wholeBelow~A y@1)))CoordSeparator@2)
+    (prefix~12,1 $
+     (call@B wholeBelow~A z@1)))))
+ (proc@,16 size@5 x . .
+  (params@A
+   (param@1 w . . int@6 .)
+   (param@4 h . . int@3 .))string@D . .
+  (stmts@W
+   (infix@J &
+    (infix~G &
+     (prefix~3 $ w@1)SizeSeparator@2)
+    (prefix@2 $ h@1))))
+ (comment@,18)
+ (proc@,1F axisOf@5 x . .
+  (params@C
+   (param@1 forwardX . . float@K .)
+   (param@B forwardZ . . float@A .))string@T . .
+  (stmts@2,1
+   (var@4 ax . . . forwardX@5)
+   (if@,1
+    (elif@3
+     (infix@3 < ax~3 0.0@2)
+     (stmts@A
+      (asgn@3 ax~3
+       (prefix@2 \2D ax@1)))))
+   (var@4,2 az . . . forwardZ@5)
+   (if@,3
+    (elif@3
+     (infix@3 < az~3 0.0@2)
+     (stmts@A
+      (asgn@3 az~3
+       (prefix@2 \2D az@1)))))
+   (if@,4
+    (elif@3
+     (infix@3 >= az~3 ax@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@9 >= forwardZ~9 0.0@3)
+        (stmts@H
+         (ret "+Z"@7))))
+      (ret@,1 "-Z"@7))))
+   (if@,7
+    (elif@3
+     (infix@9 >= forwardX~9 0.0@3)
+     (stmts@H
+      (ret "+X"@7))))"-X"@,8))
+ (comment@,1Q)
+ (proc@,1T rate@5 x . .
+  (params@A
+   (param@1 frames . . int@8 .)
+   (param@E seconds . . float@9 .))int@V . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 <= seconds~8 0.0@3)
+     (stmts@G
+      (ret 0@7))))
+   (call@3,1 int~3
+    (infix@P \2B
+     (infix~A /
+      (call~9 float~5 frames@1)seconds@2)0.5@2)))))

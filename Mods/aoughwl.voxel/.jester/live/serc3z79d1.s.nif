@@ -1,0 +1,126 @@
+(.nif27)
+(.indexat 3907             )
+(stmts@,1,../../../../Packages/com.aoughwl.jester/ModSdk/services.nim
+ (import
+  (kv sysvq0asl "../../../../../../nimony/lib/std/system.nim")
+  (kv jesaqohvh1 "../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim"))
+ (proc@,y :hostServiceCall.0.@5 . . .
+  (params@K
+   (param@1 :service.0 . . string.0.sysvq0asl@J .)
+   (param@A :argument.0 . . string.0.sysvq0asl@A .))string.0.sysvq0asl@T
+  (pragmas@2,1
+   (importc@2 "jester_service_call"@9)). .)
+ (proc@,10 :hostServiceAvailable.0.@5 . . .
+  (params@P
+   (param@1 :service.1 . . string.0.sysvq0asl@9 .))
+  (bool@J)
+  (pragmas@2,1
+   (importc@2 "jester_service_available"@9)). .)
+ (proc@,12 :hostServiceProblem.0.@5 . . .
+  (params@N)string.0.sysvq0asl@4
+  (pragmas@Y
+   (importc@2 "jester_service_problem"@9)). .)
+ (proc@,13 :hostServiceName.0.@5 . . .
+  (params@K)string.0.sysvq0asl@4
+  (pragmas@V
+   (importc@2 "jester_service_name"@9)). .)
+ (proc@,14 :hostServiceArgument.0.@5 . . .
+  (params@O)string.0.sysvq0asl@4
+  (pragmas@Z
+   (importc@2 "jester_service_argument"@9)). .)
+ (proc@,15 :hostServiceCaller.0.@5 . . .
+  (params@M)string.0.sysvq0asl@4
+  (pragmas@X
+   (importc@2 "jester_service_caller"@9)). .)
+ (proc@,16 :hostServiceAnswer.0.@5 . . .
+  (params@M
+   (param@1 :text.0 . . string.0.sysvq0asl@6 .)).
+  (pragmas@b
+   (importc@2 "jester_service_answer"@9)). .)
+ (const@D,1E :ServiceKind.0.~B x . string.0.sysvq0asl@R,~G "aoughwl.service"@4)
+ (const@G,1F :ServiceCatalog.0.~E x . string.0.sysvq0asl@O,~H "aoughwl.services"@4)
+ (proc@,1P :provideService.0.@5 x . .
+  (params@K
+   (param@1 :service.2 . . string.0.sysvq0asl@9 .)
+   (param@I :handler.0 . . string.0.sysvq0asl@2,~R "serveRequest"@A)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (eq@b
+      (i 64)
+      (call~5 len.4.sysvq0asl@1
+       (call~G catalogSignature.0.jesaqohvh1~G ServiceCatalog.0.@1))0@3)
+     (stmts~1,1
+      (call@H defineCatalogKind.0.jesaqohvh1~H ServiceKind.0.@1 "text"@E "A service name and the proc that answers it."~F,1)
+      (call@D,2 createCatalog.0.jesaqohvh1~D ServiceCatalog.0.@1 ServiceKind.0.@H "Which mod answers which question."~B,1))))
+   (call@C,5 addToCatalog.0.jesaqohvh1~C ServiceCatalog.0.@1 service.2@H handler.0@Q)))
+ (proc@,1a :serves.0.@5 x . .
+  (params@C
+   (param@1 :service.3 . . string.0.sysvq0asl@9 .))
+  (bool@J). .
+  (stmts@c
+   (result@K :result.0 . .
+    (bool~d,~a).)
+   (asgn@K result.0
+    (call hostServiceAvailable.0.~K service.3@1))
+   (ret~c result.0)))
+ (proc@,1f :callService.0.@5 x . .
+  (params@H
+   (param@1 :service.4 . . string.0.sysvq0asl@J .)
+   (param@A :argument.1 . . string.0.sysvq0asl@A .))string.0.sysvq0asl@T . .
+  (stmts@2,1
+   (result@F :result.1 . . string.0.sysvq0asl@N,~i .)
+   (asgn@F result.1
+    (call hostServiceCall.0.~F service.4@1 argument.1@A))
+   (ret~2,~1 result.1)))
+ (proc@,1l :serviceProblem.0.@5 x . .
+  (params@K)string.0.sysvq0asl@4 . .
+  (stmts@X
+   (result@I :result.2 . . string.0.sysvq0asl~B,~n .)
+   (asgn@I result.2
+    (call hostServiceProblem.0.~I))
+   (ret~X result.2)))
+ (proc@,1t :serviceName.0.@5 x . .
+  (params@H)string.0.sysvq0asl@4 . .
+  (stmts@U
+   (result@F :result.3 . . string.0.sysvq0asl~5,~v .)
+   (asgn@F result.3
+    (call hostServiceName.0.~F))
+   (ret~U result.3)))
+ (proc@,1u :serviceArgument.0.@5 x . .
+  (params@L)string.0.sysvq0asl@4 . .
+  (stmts@Y
+   (result@J :result.4 . . string.0.sysvq0asl~D,~w .)
+   (asgn@J result.4
+    (call hostServiceArgument.0.~J))
+   (ret~Y result.4)))
+ (proc@,1v :serviceCaller.0.@5 x . .
+  (params@J)string.0.sysvq0asl@4 . .
+  (stmts@W
+   (result@H :result.5 . . string.0.sysvq0asl~9,~x .)
+   (asgn@H result.5
+    (call hostServiceCaller.0.~H))
+   (ret~W result.5)))
+ (proc@,20 :answerService.0.@5 x . .
+  (params@J
+   (param@1 :text.1 . . string.0.sysvq0asl@6 .)). . .
+  (stmts@a
+   (call@H hostServiceAnswer.0.~H text.1@1)))
+ (comment@J,10 bool.0.sysvq0asl bool.0.sysvq0asl@,a))(.index@,1,../../../../Packages/com.aoughwl.jester/ModSdk/services.nim
+ (h hostServiceCall.0. 258)
+ (h hostServiceAvailable.0. 233)
+ (h hostServiceProblem.0. 183)
+ (h hostServiceName.0. 135)
+ (h hostServiceArgument.0. 129)
+ (h hostServiceCaller.0. 137)
+ (h hostServiceAnswer.0. 133)
+ (x ServiceKind.0. 162)
+ (x ServiceCatalog.0. 80)
+ (x provideService.0. 84)
+ (x serves.0. 692)
+ (x callService.0. 256)
+ (x serviceProblem.0. 345)
+ (x serviceName.0. 218)
+ (x serviceArgument.0. 212)
+ (x serviceCaller.0. 220)
+ (x answerService.0. 216))

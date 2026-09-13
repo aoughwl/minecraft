@@ -1,0 +1,268 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/source/jester_mod_e1064ed627a34e4d.nim
+ (comment)
+ (import@,B jester@7)
+ (import@,C
+  (infix@O / aoughwl_inventory~H inventory@1))
+ (import@,D invpanel@7)
+ (comment@2,G)
+ (const@2,J CheckItems . . . "aoughwl.inventory.selfcheck.items"@D)
+ (const@2,K CheckContainers . . . "aoughwl.inventory.selfcheck.containers"@I)
+ (var@2,N checks . . . 0@9)
+ (var@2,O passed . . . 0@9)
+ (var@2,P ask . . . AskNothing@6)
+ (var@2,Q loadedAt . . . 0.0@B)
+ (proc@,S expect@5 . . .
+  (params@B
+   (param@1 what . . string@6 .)
+   (param@F ok . . bool@4 .)). . .
+  (stmts@2,1
+   (asgn@7 checks~7
+    (infix@9 \2B checks~7 1@2))
+   (if@,1
+    (elif@3 ok
+     (stmts@4
+      (asgn@7 passed~7
+       (infix@9 \2B passed~7 1@2))))
+    (else@,1
+     (stmts@6
+      (call@3 log~3
+       (infix@X & "inventory self-check failed\3A "~W what@2)))))))
+ (proc@,X expectTrouble@5 . . .
+  (params@I
+   (param@1 what . . string@6 .)
+   (param@F o . . Outcome@3 .)
+   (param@R want . . Trouble@6 .)). . .
+  (stmts@2,1
+   (call@6 expect~6
+    (infix@Z &
+     (infix~I &
+      (infix~B & what~5 " \28was "@2)
+      (call@6 name~4
+       (dot@2 o~1 trouble@1)))"\29"@2)
+    (infix@q ==
+     (dot~9 o~1 trouble@1)want@3))))
+ (comment@,a)
+ (proc@,f selfCheck@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (let@4 kit . . .
+    (call@H itemCatalog~B CheckItems@1 "Items the inventory library checks itself with"@D))
+   (call@E,1
+    (dot~B kit~3 defineItem@1)"bandage"@1 "Bandage"@C
+    (vv@T stack~6 4@2)
+    (vv@d bulk~5 1.0@2)
+    (vv@r weight~7 0.1@2)
+    (vv~6,1 shape~6 "1x1"@2)
+    (vv@8,1 tags~5 "medical small"@2))
+   (call@E,3
+    (dot~B kit~3 defineItem@1)"rifle"@1 "Rifle"@A
+    (vv@P stack~6 1@2)
+    (vv@Z bulk~5 4.0@2)
+    (vv@n weight~7 3.5@2)
+    (vv~6,1 shape~6 "4x1"@2)
+    (vv@8,1 tags~5 "weapon large"@2))
+   (let@4,6 bags . . .
+    (call@N containerCatalog~G CheckContainers@1 "Containers the inventory library checks itself with"~P,1))
+   (call@K,8
+    (dot~G bags~4 defineContainer@1)"pouch"@1 "Belt pouch"@A
+    (vv@U slots~6 2@2)
+    (vv@i capacity~9 4.0@2)
+    (vv~D,1 load~5 2.0@2)
+    (vv@2,1 accepts~8 "medical"@2))
+   (call@K,A
+    (dot~G bags~4 defineContainer@1)"crate"@1 "Crate"@A
+    (vv@P slots~6 8@2)
+    (vv@d capacity~9 40.0@2)
+    (vv@q load~5 100.0@2))
+   (let@4,C bandage . . .
+    (call@G itemOf~6 "bandage"@1))
+   (call@6,D expect~6 "a defined item reads back"@1
+    (infix@i and
+     (dot~7 bandage~7 known@1)
+     (infix@I ==
+      (dot~7 bandage~7 stack@1)4@3)))
+   (call@6,E expect~6 "an undefined item is not known"@1
+    (prefix@Z not
+     (dot@L
+      (call~B itemOf~6 "nothing"@1)known@1)))
+   (call@6,F expect~6 "a shape is carried but never read here"@1
+    (infix@v ==
+     (dot~7 bandage~7 shape@1)"1x1"@3))
+   (call@6,G expect~6 "tags match whole words"@1
+    (infix@x and
+     (call~Q tagged~6
+      (dot@8 bandage~7 tags@1)"medical"@F)
+     (prefix~11,1 not
+      (call@A tagged~6
+       (dot@8 bandage~7 tags@1)"medic"@F))))
+   (let@4,J pouch . . .
+    (call@L openContainer~D CheckContainers@1 "pouch"@I "belt"@R))
+   (let@4,K crate . . .
+    (call@L openContainer~D CheckContainers@1 "crate"@I))
+   (call@6,L expect~6 "a container opens"@1
+    (infix@Z and
+     (call~3
+      (dot~5 pouch~5 open@1))
+     (call@E
+      (dot~5 crate~5 open@1))))
+   (call@6,M expect~6 "an undefined container does not"@1
+    (call@G,1
+     (dot~A
+      (call@h,~1 openContainer~D CheckContainers@1 "nothing"~r,1)isNothing@1)))
+   (call@D,P expectTrouble~D "a pouch refuses a rifle by tag"@1
+    (call@i
+     (dot~4 pouch~5 put@1)"rifle"@1 1@A)NotAccepted@w)
+   (call@D,Q expectTrouble~D "an unknown item is refused"@1
+    (call@e
+     (dot~4 pouch~5 put@1)"nothing"@1 1@C)UnknownItem@u)
+   (call@6,R expect~6 "four bandages are one stack"@1
+    (infix@z and
+     (dot~6
+      (call~E
+       (dot~4 pouch~5 put@1)"bandage"@1 4@C)went@1)
+     (infix~k,1 ==
+      (call~3
+       (dot~B pouch~5 stackCount@1))1@3)))
+   (call@D,T expectTrouble~D "a fifth bandage does not fit the bulk"@1
+    (call@p
+     (dot~4 pouch~5 put@1)"bandage"@1 1@C)NoRoom~B,1)
+   (call@6,V expect~6 "a refusal changes nothing"@1
+    (infix@t ==
+     (call~C
+      (dot~8 pouch~5 countOf@1)"bandage"@1)4@3))
+   (call@6,X expect~6 "a crate takes two rifles as two stacks"@1
+    (infix@18 and
+     (dot~6
+      (call~C
+       (dot~4 crate~5 put@1)"rifle"@1 2@A)went@1)
+     (infix~t,1 ==
+      (call~3
+       (dot~B crate~5 stackCount@1))2@3)))
+   (call@D,Z expectTrouble~D "a move the target refuses is refused"@1
+    (call~2,1 moveStack~9 crate@1 pouch@8 0@F)NotAccepted@H,1)
+   (call@6,b expect~6 "and leaves the source alone"@1
+    (infix@t ==
+     (call~A
+      (dot~8 crate~5 countOf@1)"rifle"@1)2@3))
+   (call@6,d expect~6 "a stack splits"@1
+    (infix@l and
+     (dot~6
+      (call~6
+       (dot~B pouch~5 splitStack@1)0@1 2@4)went@1)
+     (infix@N ==
+      (call~3
+       (dot~B pouch~5 stackCount@1))2@3)))
+   (call@6,e expect~6 "and merges back"@1
+    (infix@n and
+     (dot~6
+      (call~6
+       (dot~C pouch~5 mergeStacks@1)1@1 0@4)went@1)
+     (infix~Y,1 ==
+      (call~3
+       (dot~B pouch~5 stackCount@1))1@3)))
+   (let@4,h moved . . .
+    (call@H moveStack~9 pouch@1 crate@8 0@F 2@I))
+   (call@6,i expect~6 "a move that fits moves exactly what it said"@1
+    (infix@l,1 and
+     (infix~Y and
+      (infix@k,~1 and
+       (dot~6 moved~5 went@1)
+       (infix~p,1 ==
+        (dot~7 moved~5 moved@1)2@3))
+      (infix@T ==
+       (call~C
+        (dot~8 pouch~5 countOf@1)"bandage"@1)2@3))
+     (infix~Q,1 ==
+      (call~C
+       (dot~8 crate~5 countOf@1)"bandage"@1)2@3)))
+   (call@D,l expectTrouble~D "a move within one container is neither"@1
+    (call@q moveStack~9 pouch@1 pouch@8 0@F)Nowhere~B,1)
+   (call@D,n expectTrouble~D "a move of more than is there is refused"@1
+    (call~2,1 moveStack~9 pouch@1 crate@8 0@F 99@I)NotEnough@L,1)
+   (call@6,q expect~6 "taking works across stacks"@1
+    (infix@z and
+     (dot~6
+      (call~E
+       (dot~5 pouch~5 take@1)"bandage"@1 2@C)went@1)
+     (infix~k,1 ==
+      (call~3
+       (dot~B pouch~5 stackCount@1))0@3)))
+   (call@D,s expectTrouble~D "taking what is not there is refused"@1
+    (call@o
+     (dot~5 pouch~5 take@1)"bandage"@1 1@C)NotEnough~B,1)
+   (call@6,v expect~6 "a closed container is gone"@1
+    (infix@x and
+     (dot~6
+      (call~2
+       (dot~F crate~5 closeContainer@1))went@1)
+     (prefix~11,1 not
+      (call@E
+       (dot~5 crate~5 open@1)))))
+   (call@D,x expectTrouble~D "and stays gone"@1
+    (call@S
+     (dot~4 crate~5 put@1)"rifle"@1 1@A)NoSuchContainer@g)
+   (discard@,y
+    (call@S
+     (dot~F pouch~5 closeContainer@1)))))
+ (proc@,1g start@5 . . .
+  (params@A). . .
+  (stmts@2,1
+   (call@L declareInventoryKinds~L)
+   (call@9,1 selfCheck~9)
+   (asgn@9,2 loadedAt~9
+    (call@A gameTime~8))
+   (call@3,3 log~3
+    (infix@16 &
+     (infix~A &
+      (infix~6 &
+       (infix~A & "inventory\3A kinds declared, self-check "~f
+        (prefix@2 $ passed@1))"/"@2)
+      (prefix@2 $ checks@1))" \28L shows this on the screen\29"~17,1))))
+ (comment@,1n)
+ (proc@,1p showing@5 . . .
+  (params@C)bool@4 . .
+  (stmts@2,1
+   (call@6 wanted~6 passed@1 checks@9
+    (infix@S \2D
+     (call~3 gameTime~8)loadedAt@2)ask@e)))
+ (proc@,1s update@5 . . .
+  (params@B). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@7 pressed~7 "L"@1)
+     (stmts@E
+      (asgn@4 ask~4
+       (call@9 toggled~7
+        (call@8 showing~7))))))))
+ (comment@,1v)
+ (proc@,2A drawGui@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@B showing~7))
+     (stmts@F
+      (ret .))))
+   (call@9,1 beginMenu~9 "Inventory Library"@1)
+   (call@5,2 label~5 "kinds declared\3A item, container"@1)
+   (call@5,3 label~5
+    (infix@i &
+     (infix~A &
+      (infix~9 &
+       (infix~A & "self-check "~E
+        (prefix@2 $ passed@1))" of "@2)
+      (prefix@2 $ checks@1))
+     (expr
+      (stmts~l,1)
+      (if@1
+       (elif@3
+        (infix@7 == passed~7 checks@3)" - all pass"@I)
+       (else@Z " - SEE THE LOG"@6)))))
+   (call@5,5 label~5 "a mod that fills a catalog of these kinds draws the screen"@1)
+   (call@5,6 label~5 "L hides this"@1)
+   (call@7,7 endMenu~7))))

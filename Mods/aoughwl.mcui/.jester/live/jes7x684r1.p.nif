@@ -1,0 +1,5763 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/source/jester_mod_c9fe10cf9fd0fa16.nim
+ (comment)
+ (import@,j jester@7)
+ (import@,k desktop@7)
+ (import@,l textures@7)
+ (import@,m services@7)
+ (import@,n importing@7)
+ (import@,o window@7)
+ (import@,p input@7)
+ (import@,q sound@7)
+ (import@,r mcuicore@7)
+ (import@,s mcuiscale@7)
+ (import@,t mcuinine@7)
+ (import@,u mcuisprite@7)
+ (import@,v mcuigrant@7)
+ (import@,w mcuifont@7)
+ (import@,x mcuilang@7)
+ (import@,y mcuimenu@7)
+ (import@,z mcuilist@7)
+ (import@,10 mcuiload@7)
+ (import@,11 mcuistack@7)
+ (import@,12 mcuitext@7)
+ (import@,13 mcuiworlds@7)
+ (import@,14 mcuipacks@7)
+ (import@,15 mcuiservers@7)
+ (import@,16 mcuiopts@7)
+ (import@,17 mcuikeys@7)
+ (import@,18 mcuipause@7)
+ (import@,19 render@7)
+ (import@,1A
+  (infix@M / aoughwl_handoff~F handoff@1))
+ (const@2,1D Provider . . . "aoughwl.minecraft"@B)
+ (const@2,1E StudioProvider . . . "aoughwl.mcui"@H)
+ (const@2,1F StudioLogo . . . "gui/title/aoughwlstudios"@D)
+ (const@2,1G EditionLogo . . . "gui/title/aoughwledition"@E)
+ (const@2,1H GuiService . . . "minecraft.gui"@D)
+ (const@2,1J WidgetsSheet . . . 256.0@F)
+ (const@2,1P LogoSheet . . . 256.0@C)
+ (const@2,1T EditionWidth . . . 142.0@F)
+ (const@2,1Z EditionHeight . . . 16.0@G)
+ (const@2,1a FontSheet . . . 128.0@C)
+ (const@2,1b DirtSheet . . . 16.0@C)
+ (const@2,1d PollEvery . . . 12@C)
+ (const@2,1j Ghost . . . 0.0039@8)
+ (const@2,1w Button . . . "gui/sprites/widget/button"@9)
+ (const@2,1x ButtonHover . . . "gui/sprites/widget/button_highlighted"@E)
+ (const@2,1y ButtonOff . . . "gui/sprites/widget/button_disabled"@C)
+ (const@2,1z Widgets . . . "gui/widgets"@A)
+ (type@7,22 Skin~5 . . .
+  (enum@2 .
+   (efld~5,1 NoSkin . . . .)
+   (efld~5,2 PackSkin . . . .)))
+ (type@9,26 Layout~7 . . .
+  (enum@2 .
+   (efld~7,9 NoLayout . . . .)
+   (efld@3,9 ClassicLayout . . . .)
+   (efld@I,9 ModernLayout . . . .)))
+ (var@2,2I stack . . .
+  (call@E atBoot~6))
+ (var@2,2M heardImporter . . . false@G)
+ (var@2,2P skin . . . NoSkin@7)
+ (var@2,2Q playing . . . false@A)
+ (var@2,2S handedOver . . . false@D)
+ (var@2,2T lang . . .
+  (call@D noLang~6))
+ (var@2,2U advances . .
+  (at@D seq~3 int@1)
+  (prefix@L \40
+   (bracket@1)))
+ (var@2,2V fontCell . . . 8@B)
+ (var@2,2W splashes . .
+  (at@D seq~3 string@1)
+  (prefix@O \40
+   (bracket@1)))
+ (var@2,2X splash . . . ""@9)
+ (var@2,2Y version . . . ""@A)
+ (var@2,2Z packLabel . . . ""@C)
+ (var@2,2a language . . . ""@B)
+ (var@2,2b scaleSetting . . . AutoGuiScale@F)
+ (var@2,2c scaleNow . . . 1@B)
+ (var@2,2d guiW . . . 320@7)
+ (var@2,2e guiH . . . 240@7)
+ (var@2,2f clock . . . 0.0@8)
+ (var@2,2g ticks . . . 0@8)
+ (var@2,2h askedFont . . . false@C)
+ (var@2,2i askedLang . . . false@C)
+ (var@2,2j askedSplash . . . false@E)
+ (var@2,2k askedTrim . . . false@C)
+ (var@2,2l noticeHidden . . . false@F)
+ (var@2,2t hasDirt . . . false@A)
+ (var@2,2u hasLogo . . . false@A)
+ (var@2,2v hasEdition . . . false@D)
+ (var@2,2w hasStudio . . . false@C)
+ (var@2,30 hasHover . . . false@B)
+ (var@2,31 hasDisabled . . . false@E)
+ (var@2,32 hasPanorama . . . false@E)
+ (var@2,33 hasOverlay . . . false@D)
+ (var@2,34 layout . . . NoLayout@9)
+ (var@2,35 notice . . .
+  (call@K parseNotice~B ""@1))
+ (var@2,36 toldState . . . ""@C)
+ (var@2,37 buttonScaling . . .
+  (call@P stretched~9 ButtonWidth@1 ButtonHeight@E))
+ (var@2,38 hoverScaling . . .
+  (call@O stretched~9 ButtonWidth@1 ButtonHeight@E))
+ (var@2,39 offScaling . . .
+  (call@M stretched~9 ButtonWidth@1 ButtonHeight@E))
+ (var@4,3E toldName . .
+  (at@D seq~3 string@1)
+  (prefix@O \40
+   (bracket@1)))
+ (var@4,3F toldValue . .
+  (at@E seq~3 string@1)
+  (prefix@P \40
+   (bracket@1)))
+ (comment@,3H)
+ (proc@,3J tell@5 . . .
+  (params@9
+   (param@1 name . . string@D .)
+   (param@7 value . . string@7 .)). . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@A toldName~8 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@C ==
+        (at~4 toldName~8 i@1)name@3)
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@D ==
+           (at~4 toldValue~9 i@1)value@3)
+          (stmts@N
+           (ret .))))
+        (asgn@D,1
+         (at~4 toldValue~9 i@1)value@2)
+        (call@3,2 log~3
+         (infix@V &
+          (infix~6 &
+           (infix~7 & "\5Bassert\5D mcui."~H name@2)"="@2)value@2))
+        (ret@,3 .))))
+     (cmd@,5 inc i@4)))
+   (cmd@8,8
+    (dot toldName~8 add@1)name@5)
+   (cmd@9,9
+    (dot toldValue~9 add@1)value@5)
+   (call@3,A log~3
+    (infix@V &
+     (infix~6 &
+      (infix~7 & "\5Bassert\5D mcui."~H name@2)"="@2)value@2))))
+ (proc@,3W say@5 . . .
+  (params@8
+   (param@1 text . . string@6 .)). . .
+  (stmts@P
+   (call@3 log~3
+    (infix@B & "\5Bmcui\5D "~A text@2))))
+ (comment@,3f)
+ (proc@,3h tr@5 . . .
+  (params@7
+   (param@1 key . . string@5 .))string@F . .
+  (stmts@V
+   (call@9 translate~9 lang@1 key@7)))
+ (comment@,3j)
+ (proc@,3k trf@5 . . .
+  (params@8
+   (param@1 key . . string@5 .)
+   (param@E args . .
+    (at@9 seq~3 string@1).))string@Y . .
+  (stmts@p
+   (call@9 translate~9 lang@1 key@7 args@C)))
+ (comment@,3m)
+ (proc@,3w ours@5 . . .
+  (params@9
+   (param@1 text . . string@6 .))string@G . .
+  (stmts@Y text))
+ (proc@,41 numbers@5 . . .
+  (params@C
+   (param@1 text . . string@6 .))
+  (at@J seq~3 int@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 value . . . 0@8)
+   (var@4,2 sign . . . 1@7)
+   (var@4,3 digits . . . false@9)
+   (var@4,4 i . . . 0@4)
+   (while@,5
+    (infix@8 <= i~2
+     (dot@7 text~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@E or
+        (infix~C == i~2
+         (dot@7 text~4 len@1))
+        (infix@B ==
+         (at~4 text~4 i@1)' '@3))
+       (stmts~1,1
+        (if
+         (elif@3 digits
+          (stmts@8
+           (cmd@6
+            (dot result~6 add@1)
+            (infix@B * value~6 sign@2)))))
+        (asgn@6,1 value~6 0@2)
+        (asgn@5,2 sign~5 1@2)
+        (asgn@7,3 digits~7 false@2)))
+      (elif@5,5
+       (infix@8 ==
+        (at~4 text~4 i@1)'-'@3)
+       (stmts~3,1
+        (asgn@5 sign~5 -1@2)))
+      (elif@5,7
+       (infix@F and
+        (infix~7 >=
+         (at~4 text~4 i@1)'0'@3)
+        (infix@C <=
+         (at~4 text~4 i@1)'9'@3))
+       (stmts~3,1
+        (asgn@6 value~6
+         (infix@D \2B
+          (infix~5 * value~6 10@2)
+          (par@2
+           (infix@E \2D
+            (call~A int~3
+             (at@5 text~4 i@1))
+            (call@5 int~3 '0'@1)))))
+        (asgn@7,1 digits~7 true@2))))
+     (cmd@,A inc i@4)))))
+ (proc@,4K askFont@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (if
+    (elif@3 askedFont
+     (stmts@B
+      (ret .))))
+   (let@4,1 line . . .
+    (call@I callService~B GuiService@1 "font"@D))
+   (if@,2
+    (elif@3
+     (infix@9 ==
+      (dot~5 line~4 len@1)0@3)
+     (stmts@F
+      (ret .))))
+   (let@4,3 read . . .
+    (call@E numbers~7 line@1))
+   (if@,4
+    (elif@3
+     (infix@9 <
+      (dot~5 read~4 len@1)3@2)
+     (stmts@E
+      (ret .))))
+   (asgn@A,5 askedFont~A true@2)
+   (asgn@9,6 fontCell~9
+    (at@6 read~4 0@1))
+   (var@4,7 columns . .
+    (at@C seq~3 int@1)
+    (prefix@K \40
+     (bracket@1)))
+   (var@4,8 i . . . 2@4)
+   (while@,9
+    (infix@8 < i~2
+     (dot@6 read~4 len@1))
+    (stmts@2,1
+     (cmd@7
+      (dot columns~7 add@1)
+      (at@9 read~4 i@1))
+     (cmd@,1 inc i@4)))
+   (asgn@9,C advances~9
+    (call@L advancesFromColumns~J columns@1 fontCell@A))
+   (call@3,D say~3
+    (infix@13 &
+     (infix~G &
+      (infix~L &
+       (infix~C & "the font is "~F
+        (prefix@2 $ fontCell@1))" pixels a cell; "@2)
+      (prefix@2 $
+       (dot@9 advances~8 len@1)))" advances measured"~14,1))
+   (call@4,F tell~4 "font"@1
+    (prefix@9 $
+     (dot@9 advances~8 len@1)))))
+ (const@2,51 RowsPerPump . . . 24@E)
+ (const@2,55 RowsPerPumpMost . . . 96@I)
+ (const@2,58 RowsPerPumpLeast . . . 6@J)
+ (const@2,5B MostPumps . . . 8@C)
+ (const@2,5S SlowFrameMs . . . 20@E)
+ (const@2,5U FastFrameMs . . . 10@E)
+ (var@2,5Y langWanted . . . ""@D)
+ (var@2,5e langBody . . . ""@B)
+ (var@2,5f langAt . . . 0@9)
+ (var@2,5g langReading . . . false@E)
+ (var@2,5h rowsPerPump . . . RowsPerPump@E)
+ (var@2,5i pumpsLeft . . . MostPumps@C)
+ (comment@,5n)
+ (proc@,5v rowBudget@5 . . .
+  (params@E)int@4 . .
+  (stmts@2,1
+   (asgn@7 result~7 rowsPerPump@2)
+   (if@,1
+    (elif@3
+     (infix@A > pumpsLeft~A 1@2)
+     (stmts@F
+      (asgn@A pumpsLeft~A
+       (infix@C \2D pumpsLeft~A 1@2)))))
+   (if@,2
+    (elif@3
+     (infix@H or
+      (infix~5 <=
+       (call~7 count~5 lang@1)0@3)
+      (infix@A <= langAt~7 0@3))
+     (stmts@X
+      (ret .))))
+   (let@4,3 perRow . . .
+    (infix@G div langAt~7
+     (call@9 count~5 lang@1)))
+   (if@,4
+    (elif@3
+     (infix@7 <= perRow~7 0@3)
+     (stmts@D
+      (ret .))))
+   (let@4,5 least . . .
+    (infix@x \2B
+     (infix~E div
+      (par~b
+       (infix@P div
+        (par~O
+         (infix@E \2D
+          (dot~5 langBody~8 len@1)langAt@2))perRow@4))pumpsLeft@4)1@2))
+   (if@,6
+    (elif@3
+     (infix@7 < result~7 least@2)
+     (stmts@G
+      (asgn@7 result~7 least@2))))))
+ (proc@,64 paceRows@5 . . .
+  (params@D
+   (param@1 frameMs . . int@9 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 > frameMs~8 SlowFrameMs@2)
+     (stmts~1,1
+      (asgn@C rowsPerPump~C
+       (infix@E div rowsPerPump~C 2@4))
+      (if@,1
+       (elif@3
+        (infix@C < rowsPerPump~C RowsPerPumpLeast@2)
+        (stmts@W
+         (asgn@C rowsPerPump~C RowsPerPumpLeast@2))))))
+    (elif@5,3
+     (infix@8 < frameMs~8 FastFrameMs@2)
+     (stmts~3,1
+      (asgn@C rowsPerPump~C
+       (infix@E \2B rowsPerPump~C 8@2))
+      (if@,1
+       (elif@3
+        (infix@C > rowsPerPump~C RowsPerPumpMost@2)
+        (stmts@V
+         (asgn@C rowsPerPump~C RowsPerPumpMost@2)))))))))
+ (proc@,6C askLang@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (if
+    (elif@3 askedLang
+     (stmts@B
+      (ret .))))
+   (if@,6
+    (elif@3
+     (infix@Q or
+      (infix~D ==
+       (dot~7 notice~6 state@1)Importing@3)
+      (infix@G ==
+       (dot~7 notice~6 state@1)NotImported@3))
+     (stmts@w
+      (ret .))))
+   (if@,7
+    (elif@3
+     (prefix not langReading@4)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@F ==
+         (dot~5 langWanted~A len@1)0@3)
+        (stmts~1,1
+         (var@4 code . . .
+          (call@J languageFrom~C
+           (call@9 remember~8 "lang"@1
+            (call@K callService~B GuiService@1 "language"@D))))
+         (if@,1
+          (elif@3
+           (infix@G and
+            (infix~B != code~5 "en_us"@3)
+            (infix@l !=
+             (call~W callService~B GuiService@1
+              (infix@O & "haslang "~B code@2))"yes"@3))
+           (stmts~1,4
+            (asgn@5 code~5 "en_us"@2))))
+         (asgn@B,6 langWanted~B code@2)
+         (if@,7
+          (elif@3
+           (infix@n !=
+            (call~c callService~B GuiService@1
+             (infix@O & "haslang "~B langWanted@2))"yes"@3)
+           (stmts~1,8
+            (asgn@A askedLang~A true@2)
+            (asgn@9,1 language~9 ""@2)
+            (asgn@5,2 lang~5
+             (call@C beginTable~A ""@1))
+            (call@3,3 say~3 "no language file in this install; every label is its own key"@1)
+            (call@4,4 tell~4 "lang"@1 "none"@9)
+            (call@4,5 tell~4 "keys"@1 "0"@9)
+            (ret@,6 .)))))))
+      (let@4,N table . . .
+       (call@J callService~B GuiService@1
+        (infix@L & "lang "~8 langWanted@2)))
+      (if@,O
+       (elif@3
+        (infix@A ==
+         (dot~5 table~5 len@1)0@3)
+        (stmts@G
+         (ret .))))
+      (asgn@9,P langBody~9 table@2)
+      (asgn@7,Q langAt~7 0@2)
+      (asgn@5,R lang~5
+       (call@C beginTable~A langWanted@1))
+      (asgn@C,S langReading~C true@2)
+      (asgn@A,T pumpsLeft~A MostPumps@2))))
+   (call@7,c addRows~7 lang@1 langBody@7 langAt@H
+    (call@Y rowBudget~9))
+   (if@,d
+    (elif@3
+     (infix@7 < langAt~7
+      (dot@A langBody~8 len@1))
+     (stmts@N
+      (ret .))))
+   (asgn@C,e langReading~C false@2)
+   (asgn@9,f langBody~9 ""@2)
+   (asgn@A,g askedLang~A true@2)
+   (asgn@9,h language~9 langWanted@2)
+   (call@4,i save~4 "lang"@1 language@9)
+   (call@3,j say~3
+    (infix@c &
+     (infix~O &
+      (prefix~D $
+       (call@6 count~5 lang@1))" translations from "@2)language@2))
+   (call@4,k tell~4 "lang"@1 language@9)
+   (call@4,l tell~4 "keys"@1
+    (prefix@9 $
+     (call@6 count~5 lang@1)))))
+ (proc@,70 askSplash@5 . . .
+  (params@E). . .
+  (stmts@2,4
+   (if
+    (elif@3
+     (infix@C or askedSplash~C
+      (prefix@3 not askedLang@4))
+     (stmts@U
+      (ret .))))
+   (let@4,1 body . . .
+    (call@I callService~B GuiService@1 "splashes"@D))
+   (if@,2
+    (elif@3
+     (infix@9 ==
+      (dot~5 body~4 len@1)0@3)
+     (stmts@F
+      (ret .))))
+   (asgn@C,3 askedSplash~C true@2)
+   (asgn@9,4 splashes~9
+    (call@D splashLines~B body@1))
+   (if@,5
+    (elif@3
+     (infix@D >
+      (dot~5 splashes~8 len@1)0@2)
+     (stmts~1,3
+      (asgn@7 splash~7
+       (call@A splashAt~8 splashes@1
+        (infix@a \2B
+         (call~M int~3
+          (infix@C *
+           (call~3 gameTime~8)1000.0@2))
+         (call@7 count~5 lang@1)))))))
+   (call@3,9 say~3
+    (infix@F &
+     (prefix~E $
+      (dot@9 splashes~8 len@1))" splashes"@2))))
+ (proc@,7F askTrim@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (if
+    (elif@3 askedTrim
+     (stmts@B
+      (ret .))))
+   (asgn@8,1 version~8
+    (call@D callService~B GuiService@1 "version"@D))
+   (asgn@A,2 packLabel~A
+    (call@D callService~B GuiService@1 "pack"@D))
+   (if@,3
+    (elif@3
+     (infix@G or
+      (infix~4 >
+       (dot~5 version~7 len@1)0@2)
+      (infix@H >
+       (dot~5 packLabel~9 len@1)0@2))
+     (stmts@c
+      (asgn@A askedTrim~A true@2))))
+   (var@4,5 cut . . .
+    (dot@D version~7 len@1))
+   (var@4,6 i . . . 0@4)
+   (while@,7
+    (infix@C <
+     (infix~4 \2B i~2 3@2)
+     (dot@9 version~7 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@18 and
+        (infix~Q and
+         (infix~Q and
+          (infix~7 ==
+           (at~4 version~7 i@1)'.'@3)
+          (infix@J ==
+           (at~8 version~7
+            (infix@3 \2B i~2 1@2))'j'@3))
+         (infix@J ==
+          (at~8 version~7
+           (infix@3 \2B i~2 2@2))'a'@3))
+        (infix~t,1 ==
+         (at~8 version~7
+          (infix@3 \2B i~2 3@2))'r'@3))
+       (stmts~1,2
+        (asgn@4 cut~4 i@2))))
+     (cmd@,3 inc i@4)))
+   (var@4,C trimmed . . . ""@A)
+   (asgn@2,D i~2 0@2)
+   (while@,E
+    (infix@8 < i~2 cut@2)
+    (stmts@2,1
+     (cmd@7
+      (dot trimmed~7 add@1)
+      (at@C version~7 i@1))
+     (cmd@,1 inc i@4)))
+   (asgn@8,H version~8 trimmed@2)))
+ (comment@,7Z)
+ (proc@,81 wordsSettled@5 . . .
+  (params@H)bool@4 . .
+  (stmts@2,3
+   (if
+    (elif@3
+     (prefix not
+      (call@A serves~6 GuiService@1))
+     (stmts@O
+      (ret true@7))))
+   (if@,1
+    (elif@3 askedLang
+     (stmts@B
+      (ret true@7))))
+   (infix@D,8 ==
+    (dot~7 notice~6 state@1)NotImported@3)))
+ (proc@,8E askNotice@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (asgn@7 notice~7
+    (call@D parseNotice~B
+     (call@C callService~B GuiService@1 "notice"@D)))
+   (asgn@E,1 heardImporter~E true@2)
+   (if@,A
+    (elif@3
+     (call@C wordsSettled~C)
+     (stmts@G
+      (call@6 arrive~6 stack@1
+       (dot@E notice~6 state@1)))))
+   (var@4,B word . . . "ready"@7)
+   (if@,C
+    (elif@3
+     (infix@D ==
+      (dot~7 notice~6 state@1)NoGrant@3)
+     (stmts@P
+      (asgn@5 word~5 "nogrant"@2)))
+    (elif@5,1
+     (infix@D ==
+      (dot~7 notice~6 state@1)NoJar@3)
+     (stmts@N
+      (asgn@5 word~5 "nojar"@2)))
+    (elif@5,2
+     (infix@D ==
+      (dot~7 notice~6 state@1)Importing@3)
+     (stmts@R
+      (asgn@5 word~5 "importing"@2)))
+    (elif@5,3
+     (infix@D ==
+      (dot~7 notice~6 state@1)NotImported@3)
+     (stmts@T
+      (asgn@5 word~5 "notimported"@2)))
+    (elif@5,4
+     (infix@D ==
+      (dot~7 notice~6 state@1)PackMismatch@3)
+     (stmts@U
+      (asgn@5 word~5 "mismatch"@2)))
+    (elif@5,5
+     (infix@D ==
+      (dot~7 notice~6 state@1)UnknownGrant@3)
+     (stmts@U
+      (asgn@5 word~5 "unknown"@2))))
+   (if@,I
+    (elif@3
+     (infix@5 != word~5 toldState@3)
+     (stmts~1,1
+      (asgn@A toldState~A word@2)
+      (call@4,1 tell~4 "grant"@1 word@A)
+      (let@4,2 lines . . .
+       (call@J noticeLines~B notice@1))
+      (var@4,3 i . . . 0@4)
+      (while@,4
+       (infix@8 < i~2
+        (dot@7 lines~5 len@1))
+       (stmts@2,1
+        (call@3 say~3
+         (at@6 lines~5 i@1))
+        (cmd@,1 inc i@4))))))))
+ (proc@,8g poll@5 . . .
+  (params@9). . .
+  (stmts@2,1
+   (cmd inc ticks@4)
+   (if@,5
+    (elif@3
+     (infix@u and
+      (infix~V and
+       (infix~5 !=
+        (infix~E mod ticks~6 PollEvery@4)0@3)
+       (infix@G !=
+        (call~8 here~4 stack@1)LoadingPage@3))
+      (prefix~u,1 not langReading@4))
+     (stmts@H,1
+      (ret .))))
+   (if@,7
+    (elif@3
+     (prefix not
+      (call@A serves~6 GuiService@1))
+     (stmts~1,5
+      (asgn@E heardImporter~E true@2)
+      (call@6,1 arrive~6 stack@1 UnknownGrant@8)
+      (ret@,2 .))))
+   (call@9,F askNotice~9)
+   (if@,G
+    (elif@3
+     (infix@j and
+      (infix~E and
+       (infix~E and
+        (infix~C == skin~5 PackSkin@3)askedFont@4)askedLang@4)askedSplash@4)
+     (stmts@10
+      (ret .))))
+   (if@,H
+    (elif@3
+     (infix@F and
+      (infix~A == skin~5 NoSkin@3)
+      (call@E hasPicture~A Provider@1 "font/ascii"@B))
+     (stmts~1,4
+      (let@4 said . . .
+       (call@I callService~B GuiService@1 "layout"@D))
+      (if@,1
+       (elif@3
+        (infix@H and
+         (infix~C == said~5 "modern"@3)
+         (call@E hasPicture~A Provider@1 Button@B))
+        (stmts~1,1
+         (asgn@7 layout~7 ModernLayout@2)))
+       (elif@5,2
+        (infix@I and
+         (infix~D == said~5 "classic"@3)
+         (call@E hasPicture~A Provider@1 Widgets@B))
+        (stmts~3,1
+         (asgn@7 layout~7 ClassicLayout@2)))
+       (elif@5,4
+        (call@A hasPicture~A Provider@1 Button@B)
+        (stmts~3,1
+         (asgn@7 layout~7 ModernLayout@2)))
+       (elif@5,6
+        (call@A hasPicture~A Provider@1 Widgets@B)
+        (stmts~3,1
+         (asgn@7 layout~7 ClassicLayout@2))))
+      (if@,9
+       (elif@3
+        (infix@7 != layout~7 NoLayout@3)
+        (stmts~1,1
+         (asgn@5 skin~5 PackSkin@2)
+         (asgn@8,3 hasDirt~8
+          (call@C hasPicture~A Provider@1 "block/dirt"@B))
+         (asgn@8,4 hasLogo~8
+          (call@C hasPicture~A Provider@1 "gui/title/minecraft"@B))
+         (asgn@B,5 hasEdition~B
+          (call@C hasPicture~A StudioProvider@1 EditionLogo@H))
+         (asgn@A,6 hasStudio~A
+          (call@C hasPicture~A StudioProvider@1 StudioLogo@H))
+         (asgn@B,7 hasOverlay~B
+          (call@C hasPicture~A Provider@1 "gui/title/panorama_overlay"@B))
+         (asgn@C,8 hasPanorama~C true@2)
+         (var@4,9 f . . . 0@4)
+         (while@,A
+          (infix@8 < f~2 PanoramaSides@2)
+          (stmts@2,1
+           (if
+            (elif@3
+             (prefix not
+              (call@E hasPicture~A Provider@1
+               (infix@X & "gui/title/panorama_"~M
+                (prefix@2 $ f@1))))
+             (stmts~1,1
+              (asgn@C hasPanorama~C false@2))))
+           (cmd@,2 inc f@4)))
+         (if@,E
+          (elif@3
+           (infix@7 == layout~7 ModernLayout@3)
+           (stmts~1,3
+            (asgn@9 hasHover~9
+             (call@C hasPicture~A Provider@1 ButtonHover@B))
+            (asgn@C,1 hasDisabled~C
+             (call@C hasPicture~A Provider@1 ButtonOff@B))
+            (asgn@E,2 buttonScaling~E
+             (call@E parseScaling~C
+              (call~F,1 callService~B GuiService@1 "sprite widget/button"@D)ButtonWidth~Q,2 ButtonHeight~D,2))
+            (asgn@D,5 hoverScaling~D
+             (call@E parseScaling~C
+              (call~E,1 callService~B GuiService@1 "sprite widget/button_highlighted"@D)ButtonWidth~P,2 ButtonHeight~C,2))
+            (asgn@B,8 offScaling~B
+             (call@E parseScaling~C
+              (call~C,1 callService~B GuiService@1 "sprite widget/button_disabled"@D)ButtonWidth~N,2 ButtonHeight~A,2))
+            (call@3,B say~3
+             (infix@L,3 &
+              (infix@g,~1 &
+               (infix~6 &
+                (infix~N &
+                 (infix~D &
+                  (infix@W,~1 &
+                   (infix~6 &
+                    (infix~N &
+                     (infix~6 &
+                      (infix@W,~1 &
+                       (infix~6 &
+                        (infix~M & "the button slices "~L
+                         (prefix@2 $
+                          (dot@E buttonScaling~D left@1)))"/"@2)
+                       (prefix~p,1 $
+                        (dot@E buttonScaling~D top@1)))"/"@2)
+                     (prefix@2 $
+                      (dot@E buttonScaling~D right@1)))"/"@2)
+                   (prefix~s,1 $
+                    (dot@E buttonScaling~D bottom@1)))" out of "@2)
+                 (prefix@2 $
+                  (dot@E buttonScaling~D width@1)))"x"@2)
+               (prefix~12,1 $
+                (dot@E buttonScaling~D height@1)))", as its own .mcmeta says"@2))
+            (call@4,F tell~4 "border"@1
+             (prefix@B $
+              (dot@E buttonScaling~D left@1))))))
+         (call@3,X say~3 "the player\27s own interface pictures are in place"@1)
+         (call@4,Y tell~4 "skin"@1 "pack"@9)
+         (call@4,Z tell~4 "layout"@1
+          (if@B
+           (elif@3
+            (infix@7 == layout~7 ModernLayout@3)
+            (stmts@O "modern"))
+           (else@a
+            (stmts@6 "classic"))))))))))
+   (call@7,15 askFont~7)
+   (call@7,16 askLang~7)
+   (call@9,17 askSplash~9)
+   (call@7,18 askTrim~7)))
+ (proc@,9y up@5 . . .
+  (params@7
+   (param@1 v . . float@3 .))float@C . .
+  (stmts@R
+   (infix@2 * v~2
+    (call@7 float~5 scaleNow@1))))
+ (proc@,A0 onScreen@5 . . .
+  (params@D
+   (param@1 r . . MRect@3 .))MRect@C . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@3 up~2
+     (dot@2 r~1 x@1))
+    (call@C up~2
+     (dot@2 r~1 y@1))
+    (call@L up~2
+     (dot@2 r~1 w@1))
+    (call@U up~2
+     (dot@2 r~1 h@1)))))
+ (proc@,A3 drawQuads@5 . . .
+  (params@E
+   (param@1 name . . string@6 .)
+   (param@F quads . .
+    (at@A seq~3 Quad@1).)
+   (param@X sheetW . . float@G .)
+   (param@f sheetH . . float@8 .)
+   (param@1,1 red . . float@P .)
+   (param@6,1 green . . float@K .)
+   (param@D,1 blue . . float@D .)
+   (param@J,1 alpha . . float@7 .)). . .
+  (stmts@2,2
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@7 quads~5 len@1))
+    (stmts@2,1
+     (let@4 q . . .
+      (at@9 quads~5 i@1))
+     (cmd@,1 inc i@4)
+     (call@B,2 drawPicture~B Provider@1 name@B
+      (dot@N
+       (dot~5 q~1 dest@1)x@1)
+      (dot@X
+       (dot~5 q~1 dest@1)y@1)
+      (dot@h
+       (dot~5 q~1 dest@1)w@1)
+      (dot@r
+       (dot~5 q~1 dest@1)h@1)
+      (infix~1,1 /
+       (dot~3
+        (dot~4 q~1 src@1)x@1)sheetW@2)
+      (infix@H,1 /
+       (dot~3
+        (dot~4 q~1 src@1)y@1)sheetH@2)
+      (infix@B,2 /
+       (par~K
+        (infix@9 \2B
+         (dot~3
+          (dot~4 q~1 src@1)x@1)
+         (dot@7
+          (dot~4 q~1 src@1)w@1)))sheetW@2)
+      (infix@f,2 /
+       (par~K
+        (infix@9 \2B
+         (dot~3
+          (dot~4 q~1 src@1)y@1)
+         (dot@7
+          (dot~4 q~1 src@1)h@1)))sheetH@2)red~9,3 green~4,3 blue@3,3 alpha@9,3)))))
+ (comment@,AE)
+ (proc@,AF widthOf@5 . . .
+  (params@C
+   (param@1 text . . string@6 .))int@G . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@H and
+      (infix~C == skin~5 PackSkin@3)
+      (call@C settable~8 text@1))
+     (stmts@b
+      (ret
+       (call@E measure~7 text@1 advances@7)))))
+   (call@3,1 int~3
+    (infix@s \2B
+     (infix~I /
+      (call~Q textWidth~9 text@1
+       (call@C float~5 LineHeight@1))
+      (call@7 float~5 scaleNow@1))0.5@2))))
+ (comment@,AJ)
+ (proc@,AK setRun@5 . . .
+  (params@B
+   (param@1 text . . string@6 .)
+   (param@F at . . MRect@4 .)
+   (param@Q red . . float@I .)
+   (param@V green . . float@D .)
+   (param@c blue . . float@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@H or
+      (infix~C != skin~5 PackSkin@3)
+      (prefix@3 not
+       (call@C settable~8 text@1)))
+     (stmts~1,3
+      (var@4 wide . . .
+       (infix@L \2D
+        (call~3 screenWidth~B)
+        (call@4 up~2
+         (dot@3 at~2 x@1))))
+      (if@,1
+       (elif@3
+        (infix@5 < wide~5
+         (call@4 up~2
+          (call@6 float~5 LineHeight@1)))
+        (stmts@U
+         (asgn@5 wide~5
+          (call@D screenWidth~B)))))
+      (call@7,2 writeIn~7 text@1
+       (call@9 up~2
+        (dot@3 at~2 x@1))
+       (infix@Q \2D
+        (call~7 up~2
+         (dot@3 at~2 y@1))
+        (call@4 up~2 1.0@1))wide@b
+       (call@j up~2
+        (call@6 float~5 LineHeight@1))
+       (call~3,1 up~2
+        (call@6 float~5 LineHeight@1))"left"@I,1 red@Q,1 green@V,1 blue@c,1 1.0@i,1)
+      (ret@,4 .))))
+   (let@4,8 glyphs . . .
+    (call@F layout~6 text@1 advances@7
+     (dot@J at~2 x@1)
+     (dot@P at~2 y@1)))
+   (var@4,B pass . . . 0@7)
+   (while@,C
+    (infix@B < pass~5 2@2)
+    (stmts@2,1
+     (var@4 list . . . glyphs@7)
+     (var@4,1 r . . . red@4)
+     (var@4,2 g . . . green@4)
+     (var@4,3 b . . . blue@4)
+     (if@,4
+      (elif@3
+       (infix@5 == pass~5 0@3)
+       (stmts~1,1
+        (asgn@5 list~5
+         (call@A shadowed~8 glyphs@1))
+        (asgn@2,1 r~2
+         (call@D shadowLevel~B red@1))
+        (asgn@2,2 g~2
+         (call@D shadowLevel~B green@1))
+        (asgn@2,3 b~2
+         (call@D shadowLevel~B blue@1)))))
+     (var@4,9 i . . . 0@4)
+     (while@,A
+      (infix@8 < i~2
+       (dot@6 list~4 len@1))
+      (stmts@2,1
+       (let@4 one . . .
+        (at@A list~4 i@1))
+       (cmd@,1 inc i@4)
+       (call@B,2 drawPicture~B Provider@1 "font/ascii"@B
+        (call~7,1 up~2
+         (dot@9
+          (dot~5 one~3 dest@1)x@1))
+        (call@9,1 up~2
+         (dot@9
+          (dot~5 one~3 dest@1)y@1))
+        (call@P,1 up~2
+         (dot@9
+          (dot~5 one~3 dest@1)w@1))
+        (call@f,1 up~2
+         (dot@9
+          (dot~5 one~3 dest@1)h@1))
+        (infix@1,2 /
+         (dot~3
+          (dot~4 one~3 src@1)x@1)FontSheet@2)
+        (infix@O,2 /
+         (dot~3
+          (dot~4 one~3 src@1)y@1)FontSheet@2)
+        (infix@F,3 /
+         (par~O
+          (infix@B \2B
+           (dot~3
+            (dot~4 one~3 src@1)x@1)
+           (dot@9
+            (dot~4 one~3 src@1)w@1)))FontSheet@2)
+        (infix@F,4 /
+         (par~O
+          (infix@B \2B
+           (dot~3
+            (dot~4 one~3 src@1)y@1)
+           (dot@9
+            (dot~4 one~3 src@1)h@1)))FontSheet@2)r~9,5 g~6,5 b~3,5 1.0@,5)))
+     (cmd@,J inc pass@4)))))
+ (proc@,At setCentred@5 . . .
+  (params@F
+   (param@1 text . . string@6 .)
+   (param@F centreX . . float@C .)
+   (param@O y . . float@3 .)
+   (param@Y red . . float@I .)
+   (param@d green . . float@D .)
+   (param@k blue . . float@6 .)). . .
+  (stmts@2,1
+   (call@6 setRun~6 text@1
+    (call@C mrect~5
+     (call@D centredStart~C centreX@1
+      (call@H widthOf~7 text@1))y@d 0.0@g 0.0@l)red~4,1 green@1,1 blue@8,1)))
+ (comment@,Ax)
+ (proc@,B0 announce@5 . . .
+  (params@D
+   (param@1 text . . string@B .)
+   (param@7 key . . string@5 .)
+   (param@K within . . MRect@8 .)). . .
+  (stmts@2,1
+   (let@4 box . . .
+    (call@E onScreen~8 within@1))
+   (call@7,1 writeIn~7 text@1
+    (dot@A box~3 x@1)
+    (dot@H box~3 y@1)
+    (dot@O box~3 w@1)
+    (dot@V box~3 h@1)
+    (call@b up~2
+     (call@6 float~5 LineHeight@1))"centre"@w 1.0~5,1 1.0@,1 1.0@5,1 Ghost@A,1)
+   (if@,3
+    (elif@3
+     (infix@C and
+      (infix~4 >
+       (dot~5 key~3 len@1)0@2)
+      (infix@8 != key~4 text@3))
+     (stmts~1,1
+      (call@7 writeIn~7 key@1
+       (dot@9 box~3 x@1)
+       (dot@G box~3 y@1)
+       (dot@N box~3 w@1)
+       (dot@U box~3 h@1)
+       (call@a up~2
+        (call@6 float~5 LineHeight@1))"centre"@v 1.0~5,1 1.0@,1 1.0@5,1 Ghost@A,1))))))
+ (comment@,BB)
+ (proc@,BE drawWidget@5 . . .
+  (params@F
+   (param@1 rect . . MRect@6 .)
+   (param@E key . . string@C .)
+   (param@J label . . string@7 .)
+   (param@Y enabled . . bool@I .)
+   (param@h hovered . . bool@9 .)). . .
+  (stmts@2,1
+   (let@4 b . . .
+    (oconstr@E MenuButton~A
+     (kv@4 key~3 key@2)
+     (kv@F rect~4 rect@2)
+     (kv@U enabled~7 enabled@2)))
+   (let@4,1 dest . . .
+    (call@F onScreen~8
+     (dot@2 b~1 rect@1)))
+   (if@,2
+    (elif@3
+     (infix@H and
+      (infix~C == skin~5 PackSkin@3)
+      (infix@B == layout~7 ModernLayout@3))
+     (stmts~1,4
+      (var@4 name . . . Button@7)
+      (var@4,1 how . . . buttonScaling@6)
+      (if@,2
+       (elif@3
+        (infix@E and
+         (prefix~E not
+          (dot@5 b~1 enabled@1))hasDisabled@4)
+        (stmts~1,1
+         (asgn@5 name~5 ButtonOff@2)
+         (asgn@4,1 how~4 offScaling@2)))
+       (elif@5,3
+        (infix@M and
+         (infix~C and
+          (dot~9 b~1 enabled@1)hovered@4)hasHover@4)
+        (stmts~3,1
+         (asgn@5 name~5 ButtonHover@2)
+         (asgn@4,1 how~4 hoverScaling@2))))
+      (call@9,8 drawQuads~9 name@1
+       (call@I spriteQuads~B how@1 dest@6 scaleNow@C)
+       (call~2,1 float~5
+        (dot@4 how~3 width@1))
+       (call@G,1 float~5
+        (dot@4 how~3 height@1))1.0@U,1 1.0@Z,1 1.0@e,1 1.0@j,1)))
+    (elif@5,E
+     (infix@5 == skin~5 PackSkin@3)
+     (stmts~3,1
+      (call@9 drawQuads~9 Widgets@1
+       (call@1,1 twoSlice~8 dest@1
+        (call@J buttonSprite~C
+         (call@8 stateOf~7
+          (dot@2 b~1 enabled@1)hovered@C))scaleNow@o)WidgetsSheet~7,2 WidgetsSheet@7,2 1.0@L,2 1.0@Q,2 1.0@V,2 1.0@a,2)))
+    (else@,I
+     (stmts@2,2
+      (var@4 level . . . 0.22@8)
+      (if@,1
+       (elif@3
+        (prefix not
+         (dot@5 b~1 enabled@1))
+        (stmts@F
+         (asgn@6 level~6 0.12@2)))
+       (elif@5,1 hovered
+        (stmts@9
+         (asgn@6 level~6 0.34@2))))
+      (call@4,3 fill~4
+       (dot@5 dest~4 x@1)
+       (dot@D dest~4 y@1)
+       (dot@L dest~4 w@1)
+       (dot@T dest~4 h@1)level@X level@e
+       (infix@r \2B level~6 0.03@2)1.0@z)
+      (call@7,4 outline~7
+       (dot@5 dest~4 x@1)
+       (dot@D dest~4 y@1)
+       (dot@L dest~4 w@1)
+       (dot@T dest~4 h@1)
+       (call@c float~5 scaleNow@1)0.55~5,1 0.55@1,1 0.58@7,1 1.0@D,1))))
+   (var@4,S red . . . 1.0@6)
+   (var@4,T green . . . 1.0@8)
+   (var@4,U blue . . . 1.0@7)
+   (if@,V
+    (elif@3
+     (prefix not
+      (dot@5 b~1 enabled@1))
+     (stmts~1,1
+      (asgn@4 red~4 0.63@2)
+      (asgn@6,1 green~6 0.63@2)
+      (asgn@5,2 blue~5 0.63@2)))
+    (elif@5,4 hovered
+     (stmts~3,2
+      (asgn@5 blue~5 0.63@2))))
+   (call@A,c setCentred~A label@1
+    (infix@H \2B
+     (dot~3
+      (dot~5 b~1 rect@1)x@1)
+     (infix@B *
+      (dot~3
+       (dot~5 b~1 rect@1)w@1)0.5@2))
+    (call@m labelBaseline~D
+     (dot@2 b~1 rect@1))red~8,1 green~3,1 blue@4,1)
+   (call@8,e announce~8 label@1
+    (dot@9 b~1 key@1)
+    (dot@G b~1 rect@1))))
+ (proc@,Bv drawButton@5 . . .
+  (params@F
+   (param@1 b . . MenuButton@3 .)
+   (param@G label . . string@7 .)
+   (param@V hovered . . bool@9 .)). . .
+  (stmts@2,1
+   (call@A drawWidget~A
+    (dot@2 b~1 rect@1)
+    (dot@A b~1 key@1)label@G
+    (dot@O b~1 enabled@1)hovered@Y)))
+ (proc@,By drawBackdrop@5 . . .
+  (params@H
+   (param@1 panorama . . . true@B)). . .
+  (stmts@2,1
+   (let@4 whole . . .
+    (call@D mrect~5 0.0@1 0.0@6
+     (call@M screenWidth~B)
+     (call@c screenHeight~C)))
+   (if@,1
+    (elif@3
+     (infix@U and
+      (infix~L and panorama~9
+       (infix@9 == skin~5 PackSkin@3))hasPanorama@4)
+     (stmts~1,6
+      (let@4 pieces . . .
+       (call@N panoramaPieces~E guiW@1 guiH@7
+        (infix@J * clock~6 PanoramaTurnsPerSecond@2)))
+      (var@4,1 i . . . 0@4)
+      (while@,2
+       (infix@8 < i~2
+        (dot@8 pieces~6 len@1))
+       (stmts@2,1
+        (let@4 one . . .
+         (at@C pieces~6 i@1))
+        (cmd@,1 inc i@4)
+        (let@4,2 box . . .
+         (call@E onScreen~8
+          (dot@4 one~3 dest@1)))
+        (call@B,3 drawPicture~B Provider@1
+         (infix@X & "gui/title/panorama_"~M
+          (prefix@2 $
+           (dot@4 one~3 face@1)))
+         (dot~6,1 box~3 x@1)
+         (dot@1,1 box~3 y@1)
+         (dot@8,1 box~3 w@1)
+         (dot@F,1 box~3 h@1)
+         (dot~2,2
+          (dot~4 one~3 src@1)x@1)
+         (dot@9,2
+          (dot~4 one~3 src@1)y@1)
+         (infix@N,2 \2B
+          (dot~3
+           (dot~4 one~3 src@1)x@1)
+          (dot@9
+           (dot~4 one~3 src@1)w@1))
+         (infix@k,2 \2B
+          (dot~3
+           (dot~4 one~3 src@1)y@1)
+          (dot@9
+           (dot~4 one~3 src@1)h@1))PanoramaShade~9,3 PanoramaShade@6,3 PanoramaShade@L,3 1.0@a,3)))
+      (if@,A
+       (elif@3 hasOverlay
+        (stmts~1,1
+         (call@B drawPicture~B Provider@1 "gui/title/panorama_overlay"@B
+          (dot~4,1 whole~5 x@1)
+          (dot@5,1 whole~5 y@1)
+          (dot@E,1 whole~5 w@1)
+          (dot@N,1 whole~5 h@1)0.0@R,1 0.0@W,1 1.0@b,1 1.0@g,1 1.0~9,2 1.0~4,2 1.0@1,2 1.0@6,2))))
+      (ret@,E .))))
+   (if@,M
+    (elif@3
+     (infix@H and
+      (infix~C == skin~5 PackSkin@3)hasDirt@4)
+     (stmts~1,1
+      (call@9 drawQuads~9 "block/dirt"@1
+       (call~2,1 tiled~5 whole@1
+        (call@D mrect~5 0.0@1 0.0@6 DirtSheet@B DirtSheet@M)BackgroundTile@l scaleNow@1,1)DirtSheet~7,3 DirtSheet@4,3 BackgroundShade~7,4 BackgroundShade@A,4 BackgroundShade@R,4 1.0@i,4)))
+    (else@,6
+     (stmts@2,1
+      (call@4 fill~4
+       (dot@6 whole~5 x@1)
+       (dot@F whole~5 y@1)
+       (dot@O whole~5 w@1)
+       (dot@X whole~5 h@1)0.06@b 0.06@h 0.08@n 1.0@t))))))
+ (proc@,CU drawLogo@5 . . .
+  (params@D). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@H or
+      (infix~C != skin~5 PackSkin@3)
+      (prefix@3 not hasLogo@4))
+     (stmts@X
+      (ret .))))
+   (var@4,5 plan . .
+    (at@9 seq~3 Quad@1)
+    (prefix@I \40
+     (bracket@1)))
+   (var@4,6 sheetW . . . LogoSheet@9)
+   (var@4,7 sheetH . . . LogoSheet@9)
+   (if@,8
+    (elif@3
+     (infix@7 == layout~7 ModernLayout@3)
+     (stmts~1,1
+      (asgn@5 plan~5
+       (call@H logoQuadsModern~F guiW@1))
+      (asgn@7,1 sheetW~7 ModernLogoSheetW@2)
+      (asgn@7,2 sheetH~7 ModernLogoSheetH@2)))
+    (else@,4
+     (stmts@2,1
+      (asgn@5 plan~5
+       (call@B logoQuads~9 guiW@1 LogoSheet@7)))))
+   (var@4,E quads . .
+    (at@A seq~3 Quad@1)
+    (prefix@J \40
+     (bracket@1)))
+   (var@4,F i . . . 0@4)
+   (while@,G
+    (infix@8 < i~2
+     (dot@6 plan~4 len@1))
+    (stmts@2,1
+     (cmd@5
+      (dot quads~5 add@1)
+      (call@9 quad~4
+       (call@9 onScreen~8
+        (dot@8
+         (at~3 plan~4 i@1)dest@1))
+       (dot@W
+        (at~3 plan~4 i@1)src@1)))
+     (cmd@,1 inc i@4)))
+   (call@9,J drawQuads~9 "gui/title/minecraft"@1 quads@O sheetW@V sheetH@d 1.0@l 1.0@q 1.0@v 1.0@10)
+   (if@,K
+    (elif@3
+     (infix@H and
+      (infix~C == skin~5 PackSkin@3)hasEdition@4)
+     (stmts~1,5
+      (let@4 edition . . .
+       (call@I onScreen~8
+        (call@6 mrect~5
+         (infix@J \2D
+          (infix~6 *
+           (call~7 float~5 guiW@1)0.5@2)
+          (infix@F * EditionWidth~D 0.5@2))76.0@f EditionWidth~Q,1 EditionHeight~C,1)))
+      (call@B,2 drawPicture~B StudioProvider@1 EditionLogo@H
+       (dot@b edition~7 x@1)
+       (dot@m edition~7 y@1)
+       (dot~2,1 edition~7 w@1)
+       (dot@9,1 edition~7 h@1)0.0@D,1 0.0@I,1 1.0@N,1 1.0@S,1 1.0@X,1 1.0@c,1 1.0@h,1 1.0@m,1))))))
+ (comment@,Cz)
+ (proc@,D6 drawSplash@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@H or
+      (infix~C != skin~5 PackSkin@3)
+      (infix@E ==
+       (dot~5 splash~6 len@1)0@3))
+     (stmts@b
+      (ret .))))
+   (let@4,1 width . . .
+    (call@F widthOf~7 splash@1))
+   (if@,2
+    (elif@3
+     (infix@6 <= width~6 0@3)
+     (stmts@C
+      (ret .))))
+   (let@4,3 size . . .
+    (call@I splashScale~B width@1 clock@8))
+   (let@4,4 anchor . . .
+    (call@L splashAnchor~C guiW@1))
+   (var@4,5 pen . . .
+    (infix@K *
+     (prefix~E \2D
+      (call@6 float~5 width@1))0.5@2))
+   (var@4,6 i . . . 0@4)
+   (let@4,7 radians . . .
+    (infix@Q /
+     (infix~5 * SplashTurn~B Pi@2)180.0@2))
+   (let@4,8 shear . . .
+    (infix@M /
+     (call~A sine~4 radians@1)
+     (call@8 cosine~6 radians@1)))
+   (while@,9
+    (infix@8 < i~2
+     (dot@8 splash~6 len@1))
+    (stmts@2,1
+     (var@4 one . . . ""@6)
+     (cmd@3,1
+      (dot one~3 add@1)
+      (at@B splash~6 i@1))
+     (cmd@,2 inc i@4)
+     (let@4,3 where . . .
+      (call@J splashPlace~B
+       (infix@5 \2B pen~4
+        (infix@M *
+         (call~F float~5
+          (call@8 widthOf~7 one@1))0.5@2))
+       (call@6,1 float~5 SplashRise@1)size@K,1))
+     (if@,5
+      (elif@3
+       (call@8 settable~8 one@1)
+       (stmts~1,1
+        (let@4 glyphs . . .
+         (call@F layout~6 one@1 advances@6 0.0@G 0.0@L))
+        (var@4,1 g . . . 0@4)
+        (while@,2
+         (infix@8 < g~2
+          (dot@8 glyphs~6 len@1))
+         (stmts@2,1
+          (let@4 glyph . . .
+           (at@E glyphs~6 g@1))
+          (let@4,1 w . . .
+           (infix@H *
+            (dot~3
+             (dot~5 glyph~5 dest@1)w@1)size@2))
+          (let@4,2 h . . .
+           (infix@H *
+            (dot~3
+             (dot~5 glyph~5 dest@1)h@1)size@2))
+          (let@4,3 x . . .
+           (infix@D \2B
+            (dot~3 anchor~6 x@1)
+            (dot@7 where~5 x@1)))
+          (let@4,4 y . . .
+           (infix@D \2B
+            (dot~3 anchor~6 y@1)
+            (dot@7 where~5 y@1)))
+          (var@4,9 pass . . . 0@7)
+          (while@,A
+           (infix@B < pass~5 2@2)
+           (stmts@2,1
+            (let@4 red . . .
+             (if@6
+              (elif@3
+               (infix@5 == pass~5 0@3)
+               (stmts@B
+                (call@B shadowLevel~B 1.0@1)))
+              (else@V
+               (stmts@6 1.0))))
+            (let@4,1 green . . .
+             (if@8
+              (elif@3
+               (infix@5 == pass~5 0@3)
+               (stmts@B
+                (call@B shadowLevel~B 1.0@1)))
+              (else@V
+               (stmts@6 1.0))))
+            (let@4,2 blue . . .
+             (if@7
+              (elif@3
+               (infix@5 == pass~5 0@3)
+               (stmts@B
+                (call@B shadowLevel~B 0.0@1)))
+              (else@V
+               (stmts@6 0.0))))
+            (var@4,3 slice . . . 0@8)
+            (const@6,4 Slices . . . 4@9)
+            (while@,5
+             (infix@C < slice~6 Slices@2)
+             (stmts@2,1
+              (let@4 sy0 . . .
+               (infix@J /
+                (call~8 float~5 slice@1)
+                (call@7 float~5 Slices@1)))
+              (let@4,1 sy1 . . .
+               (infix@N /
+                (call~C float~5
+                 (infix@7 \2B slice~6 1@2))
+                (call@7 float~5 Slices@1)))
+              (let@4,2 dy . . .
+               (infix@9 * sy0~4 h@2))
+              (let@4,3 dh . . .
+               (infix@H *
+                (par~C
+                 (infix@5 \2D sy1~4 sy0@2))h@2))
+              (let@4,4 shift . . .
+               (infix@E * shear~6
+                (par@2
+                 (infix@F \2D
+                  (infix~B \2B dy~3
+                   (infix@5 * dh~3 0.5@2))
+                  (infix@4 * h~2 0.5@2)))))
+              (let@4,5 shadow . . .
+               (if@9
+                (elif@3
+                 (infix@5 == pass~5 0@3)
+                 (stmts@B
+                  (call@2 up~2 1.0@1)))
+                (else@M
+                 (stmts@6 0.0))))
+              (call@B,6 drawPicture~B Provider@1 "font/ascii"@B
+               (call@R up~2
+                (infix@B \2B
+                 (infix~8 \2B x~2 shift@2)shadow@2))
+               (call~7,1 up~2
+                (infix@8 \2B
+                 (infix~5 \2B y~2 dy@2)shadow@2))
+               (call@E,1 up~2 w@1)
+               (call@L,1 up~2 dh@1)
+               (infix@3,2 /
+                (dot~3
+                 (dot~4 glyph~5 src@1)x@1)FontSheet@2)
+               (infix@P,3 /
+                (par~Y
+                 (infix@D \2B
+                  (dot~3
+                   (dot~4 glyph~5 src@1)y@1)
+                  (infix@E *
+                   (dot~3
+                    (dot~4 glyph~5 src@1)h@1)sy0@2)))FontSheet@2)
+               (infix@J,4 /
+                (par~S
+                 (infix@D \2B
+                  (dot~3
+                   (dot~4 glyph~5 src@1)x@1)
+                  (dot@B
+                   (dot~4 glyph~5 src@1)w@1)))FontSheet@2)
+               (infix@P,5 /
+                (par~Y
+                 (infix@D \2B
+                  (dot~3
+                   (dot~4 glyph~5 src@1)y@1)
+                  (infix@E *
+                   (dot~3
+                    (dot~4 glyph~5 src@1)h@1)sy1@2)))FontSheet@2)red~9,6 green~4,6 blue@3,6 1.0@9,6)
+              (cmd@,D inc slice@4)))
+            (cmd@,K inc pass@4)))
+          (cmd@,W inc g@4)))))
+      (else@,b
+       (stmts@2,1
+        (call@6 setRun~6 one@1
+         (call@B mrect~5
+          (infix@A \2B
+           (dot~3 anchor~6 x@1)
+           (dot@7 where~5 x@1))
+          (infix@U \2B
+           (dot~3 anchor~6 y@1)
+           (dot@7 where~5 y@1))0.0@f 0.0@k)1.0~4,1 1.0@1,1 0.0@6,1))))
+     (asgn@4,j pen~4
+      (infix@6 \2B pen~4
+       (call@7 float~5
+        (call@8 widthOf~7 one@1))))))))
+ (proc@,E5 drawNotice@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (comment)
+   (let@4,C lines . . .
+    (call@J noticeLines~B notice@1))
+   (if@,D
+    (elif@3
+     (infix@F or
+      (infix~5 ==
+       (dot~5 lines~5 len@1)0@3)noticeHidden@3)
+     (stmts@W
+      (ret .))))
+   (var@4,E shown . .
+    (at@A seq~3 string@1)
+    (prefix@L \40
+     (bracket@1)))
+   (var@4,F li . . . 0@5)
+   (while@,G
+    (infix@9 < li~3
+     (dot@7 lines~5 len@1))
+    (stmts@2,1
+     (let@4 source . . .
+      (call@D ours~4
+       (at@6 lines~5 li@1)))
+     (var@4,1 at . . . 0@5)
+     (while@,2
+      (infix@9 < at~3
+       (dot@8 source~6 len@1))
+      (stmts@2,1
+       (let@4 stop . . .
+        (call@A min~3
+         (infix@4 \2B at~3 30@2)
+         (dot@G source~6 len@1)))
+       (cmd@5,1
+        (dot shown~5 add@1)
+        (at@B source~6
+         (infix@4 \2E\2E at~3
+          (infix@8 \2D stop~5 1@2))))
+       (asgn@3,2 at~3 stop@2)))
+     (cmd@,6 inc li@4)))
+   (var@4,Q top . . .
+    (call@B float~5
+     (infix@6 \2D guiH~5 72@2)))
+   (var@4,R room . . . 5@7)
+   (var@4,S count . . .
+    (dot@D shown~5 len@1))
+   (if@,T
+    (elif@3
+     (infix@6 > count~6 room@2)
+     (stmts@E
+      (asgn@6 count~6 room@2))))
+   (let@4,U high . . .
+    (call@C float~5
+     (infix@C \2B
+      (infix~5 * count~6 10@2)30@2)))
+   (let@4,V cardW . . .
+    (call@B min~3 240.0@1
+     (infix@K \2D
+      (call~7 float~5 guiW@1)16.0@2)))
+   (let@4,W band . . .
+    (call@F onScreen~8
+     (call@6 mrect~5
+      (infix@L \2D
+       (infix~8 \2D
+        (call~7 float~5 guiW@1)cardW@2)10.0@2)
+      (infix@X \2D top~4 7.0@2)cardW@e high@l)))
+   (call@4,X fill~4
+    (dot@5 band~4 x@1)
+    (dot@D band~4 y@1)
+    (dot@L band~4 w@1)
+    (dot@T band~4 h@1)0.1@X 0.07@d 0.05@j 0.94@p)
+   (call@4,Y fill~4
+    (infix@8 \2B
+     (dot~3 band~4 x@1)
+     (call@4 up~2 2.0@1))
+    (infix@Q \2B
+     (dot~3 band~4 y@1)
+     (call@4 up~2 2.0@1))
+    (infix@i \2D
+     (dot~3 band~4 w@1)
+     (call@4 up~2 4.0@1))
+    (call@v up~2 2.0@1)0.65@12 0.52@18 0.32@1E 1.0@1K)
+   (let@4,Z left . . .
+    (infix@R \2B
+     (infix~8 \2D
+      (call~7 float~5 guiW@1)cardW@2)2.0@2))
+   (var@4,a y . . . top@4)
+   (var@4,b i . . . 0@4)
+   (while@,c
+    (infix@8 < i~2 count@2)
+    (stmts@2,1
+     (var@4 red . . . 1.0@6)
+     (var@4,1 green . . . 0.85@8)
+     (var@4,2 blue . . . 0.35@7)
+     (if@,3
+      (elif@3
+       (infix@2 > i~2 0@2)
+       (stmts~1,1
+        (asgn@4 red~4 0.88@2)
+        (asgn@6,1 green~6 0.88@2)
+        (asgn@5,2 blue~5 0.92@2))))
+     (call@6,7 setRun~6
+      (at@6 shown~5 i@1)
+      (call@G mrect~5 left@1 y@7 0.0@A 0.0@F)
+      (infix@f * red~4 0.82@2)
+      (infix@t * green~6 0.82@2)
+      (infix@16 * blue~5 0.82@2))
+     (asgn@2,8 y~2
+      (infix@4 \2B y~2 10.0@2))
+     (cmd@,9 inc i@4)))
+   (let@4,n dismiss . . .
+    (call@F mrect~5
+     (infix@D \2D
+      (call~7 float~5 guiW@1)92.0@2)
+     (infix@j \2B
+      (infix~K \2B top~4
+       (call@7 float~5
+        (infix@7 * count~6 10@2)))4.0@2)76.0@q 16.0@w))
+   (let@4,o at . . .
+    (call@F pointerGui~A))
+   (call@A,p drawWidget~A dismiss@1 "notice.dismiss"@A "Dismiss"@S true@d
+    (call@w
+     (dot~6 dismiss~7 holds@1)
+     (dot@3 at~2 x@1)
+     (dot@9 at~2 y@1)))
+   (if@,q
+    (elif@3
+     (infix@G and
+      (call~9 clicked~7 "left"@1)
+      (call@H
+       (dot~6 dismiss~7 holds@1)
+       (dot@3 at~2 x@1)
+       (dot@9 at~2 y@1)))
+     (stmts@l
+      (asgn@D noticeHidden~D true@2))))))
+ (proc@,Ey drawCorners@5 . . .
+  (params@G). . .
+  (stmts@2,5
+   (let@4 status . . .
+    (call@J statusLine~A notice@1))
+   (let@4,1 at . . .
+    (call@F bottomLeft~A guiH@1))
+   (if@,2
+    (elif@3
+     (infix@B >
+      (dot~5 status~6 len@1)0@2)
+     (stmts~1,1
+      (call@6 setRun~6
+       (call@5 ours~4 status@1)at@F 0.95@J 0.85@P 0.45@V)))
+    (elif@5,2
+     (infix@C >
+      (dot~5 version~7 len@1)0@2)
+     (stmts~3,1
+      (call@6 setRun~6 version@1 at@A 1.0@E 1.0@J 1.0@O))))
+   (if@,6
+    (elif@3
+     (infix@E >
+      (dot~5 packLabel~9 len@1)0@2)
+     (stmts~1,1
+      (let@4 at . . .
+       (call@G bottomRight~B guiW@1 guiH@7
+        (call@K widthOf~7 packLabel@1)))
+      (call@6,1 setRun~6 packLabel@1 at@C 1.0@G 1.0@L 1.0@Q))))))
+ (var@2,FL worlds . . .
+  (call@H noWorlds~8))
+ (var@2,FM form . . .
+  (call@E newForm~7))
+ (var@2,FN worldsLoaded . . . false@F)
+ (var@2,FO servers . . .
+  (call@J noServers~9))
+ (var@2,FP serverForm . . .
+  (call@K addForm~7 ""@1 ""@5 true@9))
+ (var@2,FQ editingServer . . . -1@G)
+ (var@2,FR serversLoaded . . . false@G)
+ (var@2,FS packChoice . . .
+  (call@L noChoice~8))
+ (var@2,FT packWas . .
+  (at@C seq~3 string@1)
+  (prefix@N \40
+   (bracket@1)))
+ (var@2,FU packsAsked . . . false@D)
+ (var@2,FV jarFormat . . . 0@C)
+ (var@2,FW frameCap . . . 0@B)
+ (var@2,FX loadingCap . . . false@D)
+ (var@2,FY grantPicking . . . false@F)
+ (var@2,FZ grantPath . . . ""@C)
+ (var@2,Fa caretTicks . . . 0@D)
+ (var@2,Fb netTold . . . ""@A)
+ (var@2,Fd storeAt . .
+  (at@C seq~3 string@1)
+  (prefix@N \40
+   (bracket@1)))
+ (var@2,Fe storeIs . .
+  (at@C seq~3 int@1)
+  (prefix@K \40
+   (bracket@1)))
+ (var@2,Fi optsLoaded . . . false@D)
+ (var@2,Fj optScroll . . . 0@C)
+ (var@2,Fk gripping . . . -1@B)
+ (var@2,Fo worldKey . .
+  (at@D seq~3 string@1)
+  (prefix@O \40
+   (bracket@1)))
+ (var@2,Fp worldWhy . .
+  (at@D seq~3 string@1)
+  (prefix@O \40
+   (bracket@1)))
+ (var@2,Fs worldAsked . . . false@D)
+ (var@2,Ft binds . . .
+  (call@K defaultBinds~C))
+ (var@2,Fu bindsLoaded . . . false@E)
+ (var@2,Fv bindScroll . . . 0@D)
+ (var@2,Fw capturing . . . -1@C)
+ (var@2,Fz languages . .
+  (at@E seq~3 string@1)
+  (prefix@P \40
+   (bracket@1)))
+ (var@2,G0 langScroll . . . 0@D)
+ (var@2,G1 langListed . . . false@D)
+ (proc@,G3 firstNumber@5 . . .
+  (params@G
+   (param@1 text . . string@6 .))int@G . .
+  (stmts@2,1
+   (let@4 read . . .
+    (call@E numbers~7 text@1))
+   (if@,1
+    (elif@3
+     (infix@9 ==
+      (dot~5 read~4 len@1)0@3)
+     (stmts@F 0))
+    (else@K
+     (stmts@6
+      (at@4 read~4 0@1))))))
+ (proc@,G7 linesOf@5 . . .
+  (params@C
+   (param@1 body . . string@6 .))
+  (at@J seq~3 string@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 line . . . ""@7)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 <= i~2
+     (dot@7 body~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@E or
+        (infix~C == i~2
+         (dot@7 body~4 len@1))
+        (infix@B ==
+         (at~4 body~4 i@1)'\0A'@3))
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@9 >
+           (dot~5 line~4 len@1)0@2)
+          (stmts@E
+           (cmd@6
+            (dot result~6 add@1)line@5))))
+        (asgn@5,1 line~5 ""@2)))
+      (else@,3
+       (stmts@2,1
+        (if
+         (elif@3
+          (infix@8 !=
+           (at~4 body~4 i@1)'\0D'@3)
+          (stmts@H
+           (cmd@4
+            (dot line~4 add@1)
+            (at@9 body~4 i@1))))))))
+     (cmd@,5 inc i@4)))))
+ (proc@,GJ piecesOf@5 . . .
+  (params@D
+   (param@1 line . . string@6 .)
+   (param@F sep . . char@5 .))
+  (at@U seq~3 string@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 piece . . . ""@8)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 <= i~2
+     (dot@7 line~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@E or
+        (infix~C == i~2
+         (dot@7 line~4 len@1))
+        (infix@B ==
+         (at~4 line~4 i@1)sep@3))
+       (stmts~1,1
+        (cmd@6
+         (dot result~6 add@1)piece@5)
+        (asgn@6,1 piece~6 ""@2)))
+      (else@,3
+       (stmts@2,1
+        (cmd@5
+         (dot piece~5 add@1)
+         (at@9 line~4 i@1)))))
+     (cmd@,5 inc i@4)))))
+ (proc@,Gd loadWorlds@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (if
+    (elif@3 worldsLoaded
+     (stmts@E
+      (ret .))))
+   (asgn@D,1 worldsLoaded~D true@2)
+   (asgn@E,2
+    (dot~8 worlds~6 worlds@1)
+    (call@B byRecency~9
+     (call@D readRegistry~C
+      (call@9 remember~8 "worlds"@1 ""@B))))
+   (call@4,3 tell~4 "worlds"@1
+    (prefix@B $
+     (dot@E
+      (dot~7 worlds~6 worlds@1)len@1)))))
+ (proc@,Gj keepWorlds@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (call@4 save~4 "worlds"@1
+    (call@O writeRegistry~D
+     (dot@7 worlds~6 worlds@1)))
+   (call@4,1 tell~4 "worlds"@1
+    (prefix@B $
+     (dot@E
+      (dot~7 worlds~6 worlds@1)len@1)))))
+ (proc@,Gn loadServers@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (if
+    (elif@3 serversLoaded
+     (stmts@F
+      (ret .))))
+   (asgn@E,1 serversLoaded~E true@2)
+   (asgn@G,2
+    (dot~9 servers~7 servers@1)
+    (call@D readServers~B
+     (call@9 remember~8 "servers"@1 ""@C)))
+   (call@4,3 tell~4 "servers"@1
+    (prefix@C $
+     (dot@G
+      (dot~8 servers~7 servers@1)len@1)))))
+ (proc@,Gt keepServers@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (call@4 save~4 "servers"@1
+    (call@O writeServers~C
+     (dot@8 servers~7 servers@1)))
+   (call@4,1 tell~4 "servers"@1
+    (prefix@C $
+     (dot@G
+      (dot~8 servers~7 servers@1)len@1)))))
+ (comment@,Gx)
+ (proc@,H1 askPacks@5 . . .
+  (params@D
+   (param@1 force . . . false@8)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@B and packsAsked~B
+      (prefix@4 not force@4))
+     (stmts@Q
+      (ret .))))
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@A serves~6 GuiService@1))
+     (stmts@O
+      (ret .))))
+   (asgn@B,2 packsAsked~B true@2)
+   (asgn@A,3 jarFormat~A
+    (call@D firstNumber~B
+     (call@C callService~B GuiService@1 "format"@D)))
+   (let@4,4 rows . . .
+    (call@E linesOf~7
+     (call@C callService~B GuiService@1 "packs"@D)))
+   (var@4,5 entries . .
+    (at@C seq~3 PackEntry@1)
+    (prefix@Q \40
+     (bracket@1)))
+   (var@4,6 places . .
+    (at@B seq~3 int@1)
+    (prefix@J \40
+     (bracket@1)))
+   (var@4,7 i . . . 0@4)
+   (while@,8
+    (infix@8 < i~2
+     (dot@6 rows~4 len@1))
+    (stmts@2,1
+     (let@4 f . . .
+      (call@C piecesOf~8
+       (at@5 rows~4 i@1)'\09'@A))
+     (cmd@,1 inc i@4)
+     (if@,2
+      (elif@3
+       (infix@6 <
+        (dot~5 f~1 len@1)5@2)
+       (stmts@B
+        (continue .))))
+     (cmd@7,3
+      (dot entries~7 add@1)
+      (oconstr@E PackEntry~9
+       (kv@5 name~4
+        (at@3 f~1 0@1))
+       (kv@O description~B
+        (call@F unescapeValue~D
+         (at@2 f~1 4@1)))
+       (kv~D,1 lowest~6
+        (call@D firstNumber~B
+         (at@2 f~1 2@1)))
+       (kv@F,1 highest~7
+        (call@D firstNumber~B
+         (at@2 f~1 3@1)))
+       (kv@e,1 icon~4 false@2)))
+     (cmd@6,5
+      (dot places~6 add@1)
+      (call@G firstNumber~B
+       (at@2 f~1 1@1)))))
+   (var@4,I on . .
+    (at@7 seq~3 string@1)
+    (prefix@I \40
+     (bracket@1)))
+   (var@4,J want . . . 1@7)
+   (var@4,K guard . . . 0@8)
+   (while@,L
+    (infix@C <= guard~6
+     (dot@A entries~7 len@1))
+    (stmts@2,1
+     (cmd inc guard@4)
+     (var@4,1 k . . . 0@4)
+     (while@,2
+      (infix@8 < k~2
+       (dot@8 places~6 len@1))
+      (stmts@2,1
+       (if
+        (elif@3
+         (infix@A ==
+          (at~4 places~6 k@1)want@3)
+         (stmts@J
+          (cmd@2
+           (dot on~2 add@1)
+           (dot@F
+            (at~3 entries~7 k@1)name@1)))))
+       (cmd@,1 inc k@4)))
+     (cmd@,5 inc want@4)))
+   (asgn@B,S packChoice~B
+    (call@C chooseFrom~A entries@1 on@A))
+   (asgn@8,T packWas~8
+    (call@F priorityOrder~D packChoice@1))
+   (call@4,U tell~4 "packs"@1
+    (prefix@A $
+     (dot@8 entries~7 len@1)))
+   (call@4,V tell~4 "packson"@1
+    (prefix@C $
+     (dot@8 packWas~7 len@1)))))
+ (comment@,Hc)
+ (proc@,Hk drawTitle@5 . . .
+  (params@E
+   (param@1 key . . string@5 .)
+   (param@E top . . int@5 .)
+   (param@O quiet . . . false@8)). . .
+  (stmts@2,1
+   (call@A setCentred~A
+    (call@3 tr~2 key@1)
+    (infix@M *
+     (call~7 float~5 guiW@1)0.5@2)
+    (call@Y float~5 top@1)1.0@f 1.0@k 1.0@p)
+   (if@,1
+    (elif@3 quiet
+     (stmts@7
+      (ret .))))
+   (call@8,2 announce~8
+    (call@3 tr~2 key@1)key@A
+    (call@K mrect~5 0.0@1
+     (call@B float~5 top@1)
+     (call@N float~5 guiW@1)
+     (call~L,1 float~5 LineHeight@1)))))
+ (comment@,Hq)
+ (proc@,Ht drawField@5 . . .
+  (params@E
+   (param@1 r . . MRect@3 .)
+   (param@B f . . Field@3 .)
+   (param@L key . . string@5 .)). . .
+  (stmts@2,1
+   (let@4 box . . .
+    (call@E onScreen~8 r@1))
+   (let@4,1 edge . . .
+    (call@9 up~2 1.0@1))
+   (call@4,2 fill~4
+    (infix@7 \2D
+     (dot~3 box~3 x@1)edge@2)
+    (infix@L \2D
+     (dot~3 box~3 y@1)edge@2)
+    (infix@Z \2B
+     (dot~3 box~3 w@1)
+     (infix@7 * edge~5 2.0@2))
+    (infix@t \2B
+     (dot~3 box~3 h@1)
+     (infix@7 * edge~5 2.0@2))0.63~2,1 0.63@4,1 0.63@A,1 1.0@G,1)
+   (call@4,4 fill~4
+    (dot@4 box~3 x@1)
+    (dot@B box~3 y@1)
+    (dot@I box~3 w@1)
+    (dot@P box~3 h@1)0.0@T 0.0@Y 0.0@d 1.0@i)
+   (let@4,5 baseline . . .
+    (call@H floorf~6
+     (infix@5 \2B
+      (dot~3 r~1 y@1)
+      (infix@M *
+       (par~K
+        (infix@5 \2D
+         (dot~3 r~1 h@1)NominalCell@2))0.5@2))))
+   (call@6,6 setRun~6
+    (dot@2 f~1 text@1)
+    (call@E mrect~5
+     (infix@5 \2B
+      (dot~3 r~1 x@1)
+      (call@7 float~5 FieldTextInset@1))baseline@U 0.0@e 0.0@j)0.88~4,1 0.88@2,1 0.88@8,1)
+   (if@,8
+    (elif@3
+     (call@C caretShowing~C caretTicks@1
+      (dot@E f~1 focused@1))
+     (stmts~1,1
+      (let@4 ahead . . .
+       (call@D float~5
+        (call@8 widthOf~7
+         (call@C beforeCaret~B f@1))))
+      (let@4,1 at . . .
+       (call@D onScreen~8
+        (call@6 mrect~5
+         (infix@T \2B
+          (infix~O \2B
+           (dot~3 r~1 x@1)
+           (call@7 float~5 FieldTextInset@1))ahead@2)baseline@c 1.0~L,1
+         (infix~4,1 \2B NominalCell~C 1.0@2))))
+      (call@4,3 fill~4
+       (dot@3 at~2 x@1)
+       (dot@9 at~2 y@1)
+       (dot@F at~2 w@1)
+       (dot@L at~2 h@1)0.85@P 0.85@V 0.85@b 1.0@h))))
+   (call@8,D announce~8
+    (dot@2 f~1 text@1)key@9 r@E)))
+ (comment@,I9)
+ (proc@,ID drawListFrame@5 . . .
+  (params@I
+   (param@1 b . . ListBox@3 .)
+   (param@D scroll . . int@8 .)). . .
+  (stmts@2,1
+   (let@4 backing . . .
+    (call@I onScreen~8
+     (call@6 mrect~5
+      (call@6 float~5
+       (infix@8 \2D
+        (dot~6 b~1 left@1)2@2))
+      (call@P float~5
+       (dot@2 b~1 top@1))
+      (call~L,1 float~5
+       (infix@9 \2B
+        (dot~7 b~1 width@1)4@2))
+      (call~1,1 float~5
+       (infix@A \2D
+        (dot~8 b~1 bottom@1)
+        (dot@3 b~1 top@1))))))
+   (call@4,2 fill~4
+    (dot@8 backing~7 x@1)
+    (dot@J backing~7 y@1)
+    (dot@U backing~7 w@1)
+    (dot@f backing~7 h@1)0.0@j 0.0@o 0.0@t 0.35@y)
+   (if@,3
+    (elif@3
+     (prefix not
+      (call@E scrollable~A b@1))
+     (stmts@J
+      (ret .))))
+   (let@4,4 bar . . .
+    (call@E onScreen~8
+     (call@A scrollbar~9 b@1)))
+   (call@4,5 fill~4
+    (dot@4 bar~3 x@1)
+    (dot@B bar~3 y@1)
+    (dot@I bar~3 w@1)
+    (dot@P bar~3 h@1)0.0@T 0.0@Y 0.0@d 0.6@i)
+   (let@4,6 grip . . .
+    (call@F onScreen~8
+     (call@6 thumb~5 b@1 scroll@4)))
+   (call@4,7 fill~4
+    (dot@5 grip~4 x@1)
+    (dot@D grip~4 y@1)
+    (dot@L grip~4 w@1)
+    (dot@T grip~4 h@1)0.5@X 0.5@c 0.5@h 1.0@m)
+   (call@4,8 fill~4
+    (dot@5 grip~4 x@1)
+    (dot@D grip~4 y@1)
+    (infix@O \2D
+     (dot~3 grip~4 w@1)
+     (call@4 up~2 1.0@1))
+    (infix@g \2D
+     (dot~3 grip~4 h@1)
+     (call@4 up~2 1.0@1))0.75~2,1 0.75@4,1 0.75@A,1 1.0@G,1)))
+ (comment@,IP)
+ (proc@,IR drawRowFrame@5 . . .
+  (params@H
+   (param@1 r . . MRect@3 .)
+   (param@B chosen . . bool@8 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not chosen@4)
+     (stmts@C
+      (ret .))))
+   (let@4,1 box . . .
+    (call@E onScreen~8 r@1))
+   (call@7,2 outline~7
+    (dot@4 box~3 x@1)
+    (dot@B box~3 y@1)
+    (dot@I box~3 w@1)
+    (dot@P box~3 h@1)
+    (call@V up~2 1.0@1)1.0@c 1.0@h 1.0@m 1.0@r)))
+ (comment@,IW)
+ (proc@,Ib screenWord@5 . . .
+  (params@F
+   (param@1 p . . Page@3 .))string@B . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@2 == p~2 WorldsPage@3)
+     (stmts@H "worlds"))
+    (elif@5,1
+     (infix@2 == p~2 CreatePage@3)
+     (stmts@H "create"))
+    (elif@5,2
+     (infix@2 == p~2 ServersPage@3)
+     (stmts@I "servers"))
+    (elif@5,3
+     (infix@2 == p~2 AddServerPage@3)
+     (stmts@K
+      (expr
+       (stmts)
+       (if@1
+        (elif@3
+         (dot@A serverForm~A keeping@1)"addserver"@K)
+        (else@Z "direct"@6)))))
+    (elif@5,4
+     (infix@2 == p~2 OptionsPage@3)
+     (stmts@I "options"))
+    (elif@5,5
+     (infix@2 == p~2 VideoPage@3)
+     (stmts@G "video"))
+    (elif@5,6
+     (infix@2 == p~2 ControlsPage@3)
+     (stmts@J "controls"))
+    (elif@5,7
+     (infix@2 == p~2 MousePage@3)
+     (stmts@G "mouse"))
+    (elif@5,8
+     (infix@2 == p~2 LanguagePage@3)
+     (stmts@J "language"))
+    (elif@5,9
+     (infix@2 == p~2 SoundPage@3)
+     (stmts@G "sound"))
+    (elif@5,A
+     (infix@2 == p~2 ChatPage@3)
+     (stmts@F "chat"))
+    (elif@5,B
+     (infix@2 == p~2 SkinPage@3)
+     (stmts@F "skin"))
+    (elif@5,C
+     (infix@2 == p~2 AccessPage@3)
+     (stmts@H "accessibility"))
+    (elif@5,D
+     (infix@2 == p~2 PacksPage@3)
+     (stmts@G "packs"))
+    (elif@5,E
+     (infix@2 == p~2 PausePage@3)
+     (stmts@G "pause"))
+    (elif@5,F
+     (infix@2 == p~2 LoadingPage@3)
+     (stmts@I "loading"))
+    (elif@5,G
+     (infix@2 == p~2 WorldPage@3)
+     (stmts@G "world"))
+    (else@,H
+     (stmts@6 "title")))))
+ (proc@,Iv pointerGui@5 . . .
+  (params@F)MRect@4 . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 toGui~5
+     (call@9 pointerX~8)scaleNow@D)
+    (call@Z toGui~5
+     (call@9 pointerY~8)scaleNow@D)0.0@x 0.0@12)))
+ (proc@,Iy notches@5 . . .
+  (params@C)int@4 . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@I wheelAvailable~E))
+     (stmts@M
+      (ret 0@7))))
+   (let@4,1 w . . .
+    (call@A wheelY~6))
+   (if@,2
+    (elif@3
+     (infix@2 > w~2 0.5@2)
+     (stmts@9 1))
+    (elif@5,1
+     (infix@2 < w~2 -0.5@2)
+     (stmts@A -1))
+    (else@,2
+     (stmts@6 0)))))
+ (proc@,JC typeInto@5 . . .
+  (params@D
+   (param@1 f . .
+    (mut@3 Field@4).)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (dot@5 f~1 focused@1))
+     (stmts@F
+      (ret .))))
+   (call@6,1 insert~6 f@1
+    (call@9 typed~5))
+   (if@,2
+    (elif@3
+     (call@7 pressed~7 Backspace@1)
+     (stmts@K
+      (call@9 backspace~9 f@1))))
+   (if@,3
+    (elif@3
+     (call@7 pressed~7 Delete@1)
+     (stmts@H
+      (call@B deleteAhead~B f@1))))
+   (if@,4
+    (elif@3
+     (call@7 pressed~7 LeftArrow@1)
+     (stmts@K
+      (call@9 caretLeft~9 f@1))))
+   (if@,5
+    (elif@3
+     (call@7 pressed~7 RightArrow@1)
+     (stmts@L
+      (call@A caretRight~A f@1))))
+   (if@,6
+    (elif@3
+     (call@7 pressed~7 Home@1)
+     (stmts@F
+      (call@9 caretHome~9 f@1))))
+   (if@,7
+    (elif@3
+     (call@7 pressed~7 End@1)
+     (stmts@E
+      (call@8 caretEnd~8 f@1))))))
+ (proc@,JP enterChosen@5 . . .
+  (params@G
+   (param@1 w . . World@3 .)
+   (param@B fresh . . bool@7 .)). . .
+  (stmts@2,1
+   (asgn@E
+    (dot~8 worlds~6 worlds@1)
+    (call@B byRecency~9
+     (call@6 visit~5
+      (dot@7 worlds~6 worlds@1)
+      (dot@H w~1 folder@1))))
+   (call@A,1 keepWorlds~A)
+   (call@8,5 handOver~8 "seed"@1
+    (dot@A w~1 folder@1)
+    (dot@K w~1 seed@1))
+   (if@,6
+    (elif@3 fresh
+     (stmts@7
+      (discard
+       (call@N startFreshWorld~F
+        (dot@2 w~1 folder@1)))))
+    (else@,1
+     (stmts@6
+      (discard
+       (call@I enterWorld~A
+        (dot@2 w~1 folder@1))))))
+   (asgn@B,D worldAsked~B false@2)
+   (asgn@8,E playing~8 true@2)
+   (cmd@5,F
+    (dot stack~5 resetTo@1)WorldPage@9)
+   (call@8,G handOver~8 "world"@1 "playing"@A)
+   (call@8,H handOver~8 "pointer"@1 "held"@C)
+   (call@B,I lockPointer~B)
+   (call@3,J say~3
+    (infix@D & "entering "~C
+     (dot@3 w~1 folder@1)))
+   (call@4,M tell~4 "screen"@1 "world"@B)
+   (call@4,N tell~4 "world"@1
+    (dot@B w~1 folder@1))
+   (call@4,O tell~4 "seed"@1
+    (prefix@9 $
+     (dot@2 w~1 seed@1)))))
+ (proc@,Jt takeTitle@5 . . .
+  (params@E
+   (param@1 index . . int@7 .)
+   (param@D buttons . .
+    (at@C seq~3 MenuButton@1).)). . .
+  (stmts@2,1
+   (let@4 key . . .
+    (dot@K
+     (at~7 buttons~7 index@1)key@1))
+   (if@,1
+    (elif@3
+     (prefix not
+      (dot@I
+       (at~7 buttons~7 index@1)enabled@1))
+     (stmts@S
+      (ret .))))
+   (if@,2
+    (elif@3
+     (infix@4 == key~4 KeySingleplayer@3)
+     (stmts~1,1
+      (call@A loadWorlds~A)
+      (cmd@5,1
+       (dot stack~5 go@1)WorldsPage@4)))
+    (elif@5,3
+     (infix@4 == key~4 KeyMultiplayer@3)
+     (stmts~3,1
+      (call@B loadServers~B)
+      (cmd@5,1
+       (dot stack~5 go@1)ServersPage@4)))
+    (elif@5,6
+     (infix@4 == key~4 KeyOptions@3)
+     (stmts~3,1
+      (cmd@5
+       (dot stack~5 go@1)OptionsPage@4)))
+    (elif@5,8
+     (infix@4 == key~4 KeyQuit@3)
+     (stmts~3,1
+      (call@3 say~3 "quit"@1)
+      (if@,1
+       (elif@3
+        (call@F windowAvailable~F)
+        (stmts@J
+         (call@B windowClose~B)))))))))
+ (proc@,K8 drawGrantScreen@5 . . .
+  (params@K). . .
+  (stmts@2,1
+   (let@4 whole . . .
+    (call@D mrect~5 0.0@1 0.0@6
+     (call@M screenWidth~B)
+     (call@c screenHeight~C)))
+   (if@,1
+    (elif@3 hasDirt
+     (stmts~1,1
+      (call@9 drawQuads~9 "block/dirt"@1
+       (call~2,1 tiled~5 whole@1
+        (call@D mrect~5 0.0@1 0.0@6 DirtSheet@B DirtSheet@M)BackgroundTile@l scaleNow~3,1)DirtSheet@6,2 DirtSheet@H,2 BackgroundShade~7,3 BackgroundShade@A,3 BackgroundShade@R,3 1.0@i,3)))
+    (else@,5
+     (stmts@2,1
+      (call@4 fill~4
+       (dot@6 whole~5 x@1)
+       (dot@F whole~5 y@1)
+       (dot@O whole~5 w@1)
+       (dot@X whole~5 h@1)0.1@b 0.075@h 0.055@o 1.0@v))))
+   (let@4,8 panelW . . .
+    (call@C min~3
+     (call@6 float~5
+      (infix@6 \2D guiW~5 24@2))360.0@J))
+   (let@4,9 panelX . . .
+    (infix@W *
+     (par~N
+      (infix@D \2D
+       (call~7 float~5 guiW@1)panelW@2))0.5@2))
+   (let@4,A panelY . . .
+    (infix@R \2D
+     (infix~6 *
+      (call~7 float~5 guiH@1)0.5@2)82.0@2))
+   (let@4,B panel . . .
+    (call@G onScreen~8
+     (call@6 mrect~5
+      (infix@8 \2D panelX~7 8.0@2)
+      (infix@M \2D panelY~7 14.0@2)
+      (infix@b \2B panelW~7 16.0@2)176.0@j)))
+   (call@4,C fill~4
+    (dot@6 panel~5 x@1)
+    (dot@F panel~5 y@1)
+    (dot@O panel~5 w@1)
+    (dot@X panel~5 h@1)0.035@b 0.035@i 0.035@p 0.92@w)
+   (call@7,D outline~7
+    (dot@6 panel~5 x@1)
+    (dot@F panel~5 y@1)
+    (dot@O panel~5 w@1)
+    (dot@X panel~5 h@1)
+    (call@g float~5 scaleNow@1)0.55~5,1 0.55@1,1 0.55@7,1 1.0@D,1)
+   (let@4,F titleText . . . "Minecraft"@C)
+   (let@4,G chooseText . . . "Choose your Minecraft folder to begin."@D)
+   (let@4,H localText . . . "Your files stay on your computer."@C)
+   (let@4,I addText . . . "Then add it to imports.txt\3A"@A)
+   (let@4,J pathText . . .
+    (infix@Q & "minecraft = "~F grantPath@2))
+   (let@4,K clickText . . . "Choose the folder containing your Minecraft installation."@C)
+   (call@A,L setCentred~A titleText@1
+    (infix@O *
+     (call~7 float~5 guiW@1)0.5@2)panelY@V 1.0@d 1.0@i 1.0@n)
+   (call@A,M setCentred~A chooseText@1
+    (infix@P *
+     (call~7 float~5 guiW@1)0.5@2)
+    (infix~1,1 \2B panelY~7 24.0@2)0.92@7,1 0.92@D,1 0.92@J,1)
+   (call@A,O setCentred~A localText@1
+    (infix@O *
+     (call~7 float~5 guiW@1)0.5@2)
+    (infix~1,1 \2B panelY~7 38.0@2)0.72@7,1 0.72@D,1 0.72@J,1)
+   (if@,Q
+    (elif@3
+     (infix@E >
+      (dot~5 grantPath~9 len@1)0@2)
+     (stmts~1,1
+      (call@A setCentred~A addText@1
+       (infix@M *
+        (call~7 float~5 guiW@1)0.5@2)
+       (infix~1,1 \2B panelY~7 55.0@2)1.0@7,1 0.85@C,1 0.35@I,1)
+      (call@A,2 setCentred~A pathText@1
+       (infix@N *
+        (call~7 float~5 guiW@1)0.5@2)
+       (infix~1,1 \2B panelY~7 69.0@2)0.85@7,1 0.85@D,1 0.85@J,1)))
+    (else@,5
+     (stmts@2,1
+      (call@A setCentred~A clickText@1
+       (infix@O *
+        (call~7 float~5 guiW@1)0.5@2)
+       (infix~1,1 \2B panelY~7 55.0@2)1.0@7,1 0.85@C,1 0.35@I,1))))
+   (let@4,Y grant . . .
+    (call@D mrect~5
+     (infix@8 \2B panelX~7
+      (infix@J *
+       (par~H
+        (infix@8 \2D panelW~7 200.0@2))0.5@2))
+     (infix@f \2B panelY~7 88.0@2)200.0~F,1 20.0~8,1))
+   (let@4,a quit . . .
+    (call@C mrect~5
+     (infix@8 \2B panelX~7
+      (infix@J *
+       (par~H
+        (infix@8 \2D panelW~7 200.0@2))0.5@2))
+     (infix@f \2B panelY~7 114.0@2)200.0~E,1 20.0~7,1))
+   (let@4,c at . . .
+    (call@F pointerGui~A))
+   (call@A,d drawWidget~A grant@1 "grant.minecraft"@8 "Choose Minecraft Folder..."@R true@v
+    (call@3,1
+     (dot~6 grant~5 holds@1)
+     (dot@3 at~2 x@1)
+     (dot@9 at~2 y@1)))
+   (call@A,f drawWidget~A quit@1 KeyQuit@7 "Quit"@G true@O
+    (call@e
+     (dot~6 quit~4 holds@1)
+     (dot@3 at~2 x@1)
+     (dot@9 at~2 y@1)))
+   (if@,g
+    (elif@3
+     (prefix not
+      (call@B clicked~7 "left"@1))
+     (stmts@L
+      (ret .))))
+   (if@,h
+    (elif@3
+     (call@A
+      (dot~6 quit~4 holds@1)
+      (dot@3 at~2 x@1)
+      (dot@9 at~2 y@1))
+     (stmts~1,1
+      (if
+       (elif@3
+        (call@F windowAvailable~F)
+        (stmts@J
+         (call@B windowClose~B))))))
+    (elif@5,2
+     (infix@O and
+      (call~D
+       (dot~6 grant~5 holds@1)
+       (dot@3 at~2 x@1)
+       (dot@9 at~2 y@1))
+      (prefix@4 not grantPicking@4))
+     (stmts~3,1
+      (if
+       (elif@3
+        (call@9 askFolder~9 "Choose your Minecraft folder"@1
+         (call@i importKnown~B "appdata"@1))
+        (stmts~1,1
+         (asgn@D grantPicking~D true@2)))))))))
+ (proc@,Kw grantUpdate@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@D and grantPicking~D
+      (call@F chosenReady~B))
+     (stmts~1,1
+      (asgn@D grantPicking~D false@2)
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@J chooseCancelled~F))
+        (stmts@N
+         (asgn@A grantPath~A
+          (call@A filePath~8
+           (call@B chosenFile~A)))))))))))
+ (proc@,L1 drawTitleScreen@5 . . .
+  (params@K). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@H and
+      (infix~C == skin~5 PackSkin@3)
+      (prefix@4 not askedFont@4))
+     (stmts@a
+      (ret .))))
+   (let@4,1 buttons . . .
+    (call@M titleButtons~C guiW@1 guiH@7))
+   (let@4,2 at . . .
+    (call@F pointerGui~A))
+   (let@4,3 over . . .
+    (call@I buttonUnder~B buttons@1
+     (dot@C at~2 x@1)
+     (dot@I at~2 y@1)))
+   (var@4,4 i . . . 0@4)
+   (while@,5
+    (infix@8 < i~2
+     (dot@9 buttons~7 len@1))
+    (stmts@2,1
+     (call@A drawButton~A
+      (at@8 buttons~7 i@1)
+      (call@F tr~2
+       (dot@B
+        (at~3 buttons~7 i@1)key@1))
+      (infix@Z == i~2 over@3))
+     (cmd@,1 inc i@4)))
+   (call@8,8 drawLogo~8)
+   (call@A,9 drawSplash~A)
+   (call@B,A drawCorners~B)
+   (call@A,B drawNotice~A)
+   (if@,C
+    (elif@3
+     (infix@A and
+      (infix~5 >= over~5 0@3)
+      (call@B clicked~7 "left"@1))
+     (stmts@V
+      (call@9 takeTitle~9 over@1 buttons@7))))))
+ (proc@,LX drawLoading@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (let@4 whole . . .
+    (call@D mrect~5 0.0@1 0.0@6
+     (call@M screenWidth~B)
+     (call@c screenHeight~C)))
+   (call@4,1 fill~4
+    (dot@6 whole~5 x@1)
+    (dot@F whole~5 y@1)
+    (dot@O whole~5 w@1)
+    (dot@X whole~5 h@1)
+    (infix@r /
+     (call~B float~5 BrandRed@1)255.0@2)
+    (infix@G,1 /
+     (call~D float~5 BrandGreen@1)255.0@2)
+    (infix@g,1 /
+     (call~C float~5 BrandBlue@1)255.0@2)1.0@p,1)
+   (let@4,3 plan . . .
+    (call@F loadPlan~8 guiW@1 guiH@7))
+   (if@,4
+    (elif@3 hasStudio
+     (stmts~1,3
+      (let@4 halves . . .
+       (call@J logoHalves~A
+        (dot@5 plan~4 logo@1)))
+      (var@4,1 band . . . 0@7)
+      (while@,2
+       (infix@B < band~5
+        (dot@8 halves~6 len@1))
+       (stmts@2,1
+        (var@4 dest . . .
+         (call@F onScreen~8
+          (at@7 halves~6 band@1)))
+        (if@,3
+         (elif@3
+          (infix@5 == band~5 0@3)
+          (stmts@B
+           (asgn@7
+            (dot~3 dest~4 w@1)
+            (infix@9 \2B
+             (dot~3 dest~4 w@1)
+             (call@4 up~2 1.0@1)))))
+         (elif@5,1
+          (infix@5 == band~5 1@3)
+          (stmts~3,1
+           (asgn@7
+            (dot~3 dest~4 x@1)
+            (infix@9 \2D
+             (dot~3 dest~4 x@1)
+             (call@4 up~2 1.0@1)))
+           (asgn@7,1
+            (dot~3 dest~4 w@1)
+            (infix@9 \2B
+             (dot~3 dest~4 w@1)
+             (call@4 up~2 1.0@1))))))
+        (let@4,7 src . . .
+         (call@E logoBand~8 band@1))
+        (call@B,8 drawPicture~B StudioProvider@1 StudioLogo@H
+         (dot@X dest~4 x@1)
+         (dot@f dest~4 y@1)
+         (dot@n dest~4 w@1)
+         (dot@v dest~4 h@1)
+         (infix~3,1 /
+          (dot~3 src~3 x@1)MojangSheet@2)
+         (infix@I,1 /
+          (dot~3 src~3 y@1)MojangSheet@2)
+         (infix@1,2 /
+          (dot~7 src~3 right@1)MojangSheet@2)
+         (infix@R,2 /
+          (dot~8 src~3 bottom@1)MojangSheet@2)1.0~9,3 1.0~4,3 1.0@1,3 1.0@6,3)
+        (cmd@,C inc band@4))))))
+   (let@4,S barW . . .
+    (call@A min~3
+     (call@6 float~5
+      (infix@6 \2D guiW~5 24@2))320.0@J))
+   (let@4,T barX . . .
+    (infix@S *
+     (par~L
+      (infix@D \2D
+       (call~7 float~5 guiW@1)barW@2))0.5@2))
+   (let@4,U overallGuiY . . .
+    (call@J float~5
+     (infix@6 \2D guiH~5 52@2)))
+   (let@4,V stepGuiY . . .
+    (infix@N \2B overallGuiY~C 25.0@2))
+   (let@4,W overallY . . .
+    (call@D up~2 overallGuiY@1))
+   (let@4,X stepY . . .
+    (call@A up~2 stepGuiY@1))
+   (let@4,Y sx0 . . .
+    (call@8 up~2 barX@1))
+   (let@4,Z sw . . .
+    (call@7 up~2 barW@1))
+   (let@4,a sh . . .
+    (call@7 up~2 12.0@1))
+   (let@4,b overall . . .
+    (call@M loadFraction~C
+     (dot@7 notice~6 progress@1)))
+   (let@4,c inner . . .
+    (infix@B \2D sw~3
+     (call@4 up~2 4.0@1)))
+   (let@4,d overallRun . . .
+    (if@D
+     (elif@3
+      (infix@8 < overall~8 0.0@2)
+      (stmts@F 0.0))
+     (else@M
+      (stmts@6
+       (infix@6 * inner~6 overall@2)))))
+   (call@4,e fill~4 sx0@1 overallY@6 sw@G sh@K 1.0@O 1.0@T 1.0@Y 1.0@d)
+   (call@4,f fill~4
+    (infix@5 \2B sx0~4 2.0@2)
+    (infix@L \2B overallY~9 2.0@2)inner@S
+    (infix@c \2D sh~3 4.0@2)0.08@j 0.08@p 0.08@v 1.0@11)
+   (if@,g
+    (elif@3
+     (infix@B > overallRun~B 0.0@2)
+     (stmts~1,1
+      (call@4 fill~4
+       (infix@5 \2B sx0~4 2.0@2)
+       (infix@L \2B overallY~9 2.0@2)overallRun@S
+       (infix@h \2D sh~3 4.0@2)1.0@o 1.0@t 1.0@y 1.0@13))))
+   (let@4,i step . . .
+    (call@F loadStep~8
+     (dot@7 notice~6 progress@1)))
+   (let@4,j knownSteps . . .
+    (infix@Q and
+     (infix~4 >
+      (dot~5 step~4 len@1)0@2)
+     (infix@9 != step~5 "0/0"@3)))
+   (call@4,k fill~4 sx0@1 stepY@6 sw@D sh@H 1.0@L 1.0@Q 1.0@V 1.0@a)
+   (call@4,l fill~4
+    (infix@5 \2B sx0~4 2.0@2)
+    (infix@I \2B stepY~6 2.0@2)inner@P
+    (infix@Z \2D sh~3 4.0@2)0.08@g 0.08@m 0.08@s 1.0@y)
+   (if@,m
+    (elif@3 knownSteps
+     (stmts~1,1
+      (var@4 slash . . . 0@8)
+      (while@,1
+       (infix@N and
+        (infix~B < slash~6
+         (dot@6 step~4 len@1))
+        (infix@G !=
+         (at~8 step~4 slash@1)'/'@3))
+       (stmts@l
+        (cmd inc slash@4)))
+      (var@4,2 current . . . 0@A)
+      (var@4,3 maximum . . . 0@A)
+      (var@4,4 n . . . 0@4)
+      (while@,5
+       (infix@8 < n~2 slash@2)
+       (stmts@2,1
+        (if
+         (elif@3
+          (infix@F and
+           (infix~7 >=
+            (at~4 step~4 n@1)'0'@3)
+           (infix@C <=
+            (at~4 step~4 n@1)'9'@3))
+          (stmts@Z
+           (asgn@8 current~8
+            (infix@U \2D
+             (infix~F \2B
+              (infix~5 * current~8 10@2)
+              (call@5 int~3
+               (at@5 step~4 n@1)))
+             (call@5 int~3 '0'@1))))))
+        (cmd@,1 inc n@4)))
+      (asgn@2,8 n~2
+       (infix@8 \2B slash~6 1@2))
+      (while@,9
+       (infix@8 < n~2
+        (dot@6 step~4 len@1))
+       (stmts@2,1
+        (if
+         (elif@3
+          (infix@F and
+           (infix~7 >=
+            (at~4 step~4 n@1)'0'@3)
+           (infix@C <=
+            (at~4 step~4 n@1)'9'@3))
+          (stmts@Z
+           (asgn@8 maximum~8
+            (infix@U \2D
+             (infix~F \2B
+              (infix~5 * maximum~8 10@2)
+              (call@5 int~3
+               (at@5 step~4 n@1)))
+             (call@5 int~3 '0'@1))))))
+        (cmd@,1 inc n@4)))
+      (if@,C
+       (elif@3
+        (infix@8 > maximum~8 0@2)
+        (stmts~1,1
+         (var@4 fillFraction . . .
+          (infix@U /
+           (call~A float~5 current@1)
+           (call@7 float~5 maximum@1)))
+         (if@,1
+          (elif@3
+           (infix@D < fillFraction~D 0.0@2)
+           (stmts@K
+            (asgn@D fillFraction~D 0.0@2))))
+         (if@,2
+          (elif@3
+           (infix@D > fillFraction~D 1.0@2)
+           (stmts@K
+            (asgn@D fillFraction~D 1.0@2))))
+         (call@4,3 fill~4
+          (infix@5 \2B sx0~4 2.0@2)
+          (infix@I \2B stepY~6 2.0@2)
+          (infix@V * inner~6 fillFraction@2)
+          (infix@o \2D sh~3 4.0@2)1.0~2,1 1.0@3,1 1.0@8,1 1.0@D,1))))
+      (call@A,I setCentred~A step@1
+       (infix@J *
+        (call~7 float~5 guiW@1)0.5@2)
+       (infix@Z \2B stepGuiY~9 1.0@2)1.0@g 1.0@l 1.0@q)))
+    (else@,K
+     (stmts@2,1
+      (let@4 moving . . .
+       (call@I pacerSpan~9 clock@1 1.6@8))
+      (call@4,1 fill~4
+       (infix@B \2B
+        (infix~6 \2B sx0~4 2.0@2)
+        (infix@C *
+         (at~4 moving~6 0@1)inner@2))
+       (infix@c \2B stepY~6 2.0@2)
+       (infix@8,1 *
+        (at~4 moving~6 1@1)inner@2)
+       (infix@K,1 \2D sh~3 4.0@2)1.0@R,1 1.0@W,1 1.0@b,1 1.0@g,1))))
+   (let@4,1A stepText . . .
+    (if@B
+     (elif@3
+      (infix@U >
+       (dot~5
+        (call~H loadNote~8
+         (dot@7 notice~6 progress@1))len@1)0@2)
+      (stmts@Z
+       (call@8 loadNote~8
+        (dot@7 notice~6 progress@1))))
+     (else~D,1
+      (stmts@6 "locating Minecraft"))))
+   (let@4,1C overallText . . . "Overall progress"@E)
+   (let@4,1D currentText . . .
+    (infix@V & "Current step\3A "~H stepText@2))
+   (call@6,1E setRun~6 overallText@1
+    (call@J mrect~5 barX@1
+     (infix@J \2D overallGuiY~C 12.0@2)0.0@R 0.0@W)1.0@v 1.0@10 1.0@15)
+   (call@6,1F setRun~6 currentText@1
+    (call@J mrect~5 barX@1
+     (infix@G \2D stepGuiY~9 12.0@2)0.0@O 0.0@T)1.0@s 1.0@x 1.0@12)
+   (if@,1G
+    (elif@3
+     (infix@8 >= overall~8 0.0@3)
+     (stmts~1,1
+      (call@A setCentred~A
+       (infix@N &
+        (prefix~M $
+         (call@4 int~3
+          (infix@9 * overall~8 100.0@2)))"%"@2)
+       (infix@g *
+        (call~7 float~5 guiW@1)0.5@2)
+       (infix@4,1 \2B overallGuiY~C 1.0@2)1.0@B,1 1.0@G,1 1.0@L,1))))))
+ (proc@,Mv drawWorlds@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (call@A loadWorlds~A)
+   (let@4,1 box . . .
+    (call@E worldBox~8 guiW@1 guiH@7
+     (dot@Q
+      (dot~7 worlds~6 worlds@1)len@1)))
+   (asgn@E,2
+    (dot~8 worlds~6 scroll@1)
+    (call@H scrollByNotches~F box@1
+     (dot@C worlds~6 scroll@1)
+     (call@S notches~7)))
+   (let@4,3 at . . .
+    (call@F pointerGui~A))
+   (call@D,4 drawListFrame~D box@1
+    (dot@C worlds~6 scroll@1))
+   (call@9,5 drawTitle~9 KeyWorldsTitle@1 TitleBaseline@H)
+   (let@4,6 seen . . .
+    (call@E visible~7 box@1
+     (dot@C worlds~6 scroll@1)))
+   (var@4,7 i . . .
+    (at@8 seen~4 0@1))
+   (while@,8
+    (infix@8 < i~2
+     (at@6 seen~4 1@1))
+    (stmts@2,1
+     (let@4 row . . .
+      (call@D rowRect~7 box@1 i@6
+       (dot@F worlds~6 scroll@1)))
+     (let@4,1 w . . .
+      (at@H
+       (dot~7 worlds~6 worlds@1)i@1))
+     (call@C,2 drawRowFrame~C row@1
+      (infix@8 == i~2
+       (dot@9 worlds~6 pick@1)))
+     (call@6,3 setRun~6
+      (dot@2 w~1 name@1)
+      (call@E mrect~5
+       (infix@7 \2B
+        (dot~3 row~3 x@1)2.0@2)
+       (infix@K \2B
+        (dot~3 row~3 y@1)1.0@2)0.0@R 0.0@W)1.0@q 1.0@v 1.0@10)
+     (call@6,4 setRun~6
+      (dot@2 w~1 folder@1)
+      (call@G mrect~5
+       (infix@7 \2B
+        (dot~3 row~3 x@1)2.0@2)
+       (infix@K \2B
+        (dot~3 row~3 y@1)12.0@2)0.0@S 0.0@X)0.53~4,1 0.53@2,1 0.53@8,1)
+     (call@6,6 setRun~6
+      (call@3 tr~2
+       (call@8 modeKey~7
+        (dot@2 w~1 mode@1)))
+      (call@R mrect~5
+       (infix@7 \2B
+        (dot~3 row~3 x@1)2.0@2)
+       (infix@K \2B
+        (dot~3 row~3 y@1)22.0@2)0.0@S 0.0@X)0.53~4,1 0.53@2,1 0.53@8,1)
+     (call@8,8 announce~8
+      (dot@2 w~1 name@1)
+      (dot@A w~1 folder@1)row@J)
+     (cmd@,9 inc i@4)))
+   (if@,J
+    (elif@3
+     (infix@I ==
+      (dot~5
+       (dot~7 worlds~6 worlds@1)len@1)0@3)
+     (stmts~1,1
+      (let@4 middle . . .
+       (call@E float~5
+        (infix@9 \2B
+         (dot~5 box~3 top@1)
+         (infix@P div
+          (par~N
+           (infix@C \2D
+            (dot~8 box~3 bottom@1)
+            (dot@5 box~3 top@1)))2@4))))
+      (call@A,1 setCentred~A
+       (call@3 tr~2 KeyEmpty@1)
+       (infix@R *
+        (call~7 float~5 guiW@1)0.5@2)middle@Y 1.0@g 1.0@l 1.0@q)
+      (call@8,2 announce~8
+       (call@3 tr~2 KeyEmpty@1)KeyEmpty@F
+       (call~1,1 mrect~5 0.0@1 middle@6
+        (call@J float~5 guiW@1)
+        (call@W float~5 LineHeight@1))))))
+   (let@4,O buttons . . .
+    (call@L worldFooter~B guiW@1 guiH@7
+     (infix@P >=
+      (dot~6 worlds~6 pick@1)0@3)))
+   (let@4,P over . . .
+    (call@I footerUnder~B buttons@1
+     (dot@C at~2 x@1)
+     (dot@I at~2 y@1)))
+   (asgn@2,Q i~2 0@2)
+   (while@,R
+    (infix@8 < i~2
+     (dot@9 buttons~7 len@1))
+    (stmts@2,1
+     (call@A drawWidget~A
+      (dot@B
+       (at~3 buttons~7 i@1)rect@1)
+      (dot@S
+       (at~3 buttons~7 i@1)key@1)
+      (call@a tr~2
+       (dot@B
+        (at~3 buttons~7 i@1)key@1))
+      (dot@2,1
+       (at~3 buttons~7 i@1)enabled@1)
+      (infix@E,1 == i~2 over@3))
+     (cmd@,2 inc i@4)))
+   (if@,V
+    (elif@3
+     (prefix not
+      (call@B clicked~7 "left"@1))
+     (stmts@L
+      (ret .))))
+   (let@4,W row . . .
+    (call@E rowUnder~8 box@1
+     (dot@C worlds~6 scroll@1)
+     (dot@N at~2 x@1)
+     (dot@T at~2 y@1)))
+   (if@,X
+    (elif@3
+     (infix@4 >= row~4 0@3)
+     (stmts~1,1
+      (asgn@C
+       (dot~6 worlds~6 pick@1)row@2)
+      (ret@,1 .))))
+   (if@,a
+    (elif@3
+     (infix@5 < over~5 0@2)
+     (stmts@A
+      (ret .))))
+   (let@4,b b . . .
+    (at@B buttons~7 over@1))
+   (if@,c
+    (elif@3
+     (prefix not
+      (dot@5 b~1 enabled@1))
+     (stmts@F
+      (ret .))))
+   (if@,d
+    (elif@3
+     (infix@9 ==
+      (dot~8 b~1 action@1)LeaveWorlds@3)
+     (stmts~1,1
+      (call@A
+       (dot~5 stack~5 back@1))))
+    (elif@5,2
+     (infix@9 ==
+      (dot~8 b~1 action@1)CreateWorld@3)
+     (stmts~3,1
+      (asgn@5 form~5
+       (call@9 newForm~7))
+      (cmd@5,1
+       (dot stack~5 go@1)CreatePage@4)))
+    (elif@5,5
+     (infix@9 ==
+      (dot~8 b~1 action@1)PlayWorld@3)
+     (stmts~3,1
+      (call@B enterChosen~B
+       (at@E
+        (dot~7 worlds~6 worlds@1)
+        (dot@7 worlds~6 pick@1))false@T)))
+    (elif@5,7
+     (infix@Q or
+      (infix~H ==
+       (dot~8 b~1 action@1)RecreateWorld@3)
+      (infix@C ==
+       (dot~8 b~1 action@1)EditWorld@3))
+     (stmts~3,5
+      (let@4 w . . .
+       (at@H
+        (dot~7 worlds~6 worlds@1)
+        (dot@7 worlds~6 pick@1)))
+      (asgn@5,1 form~5
+       (call@9 newForm~7
+        (dot@2 w~1 name@1)
+        (prefix@9 $
+         (dot@2 w~1 seed@1))))
+      (asgn@A,2
+       (dot~6 form~4 mode@1)
+       (dot@3 w~1 mode@1))
+      (cmd@5,3
+       (dot stack~5 go@1)CreatePage@4)))
+    (elif@5,G
+     (infix@9 ==
+      (dot~8 b~1 action@1)DeleteWorld@3)
+     (stmts~3,1
+      (let@4 w . . .
+       (at@H
+        (dot~7 worlds~6 worlds@1)
+        (dot@7 worlds~6 pick@1)))
+      (asgn@E,1
+       (dot~8 worlds~6 worlds@1)
+       (call@9 without~7
+        (dot@7 worlds~6 worlds@1)
+        (dot@H w~1 folder@1)))
+      (asgn@C,2
+       (dot~6 worlds~6 pick@1)-1@2)
+      (call@A,3 keepWorlds~A)
+      (call@3,4 say~3
+       (infix@C & "deleted "~B
+        (dot@3 w~1 folder@1))))))))
+ (proc@,Nz drawCreate@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@F pointerGui~A))
+   (let@4,A make . . .
+    (call@H createRect~A guiW@1 guiH@7))
+   (let@4,B leave . . .
+    (call@I cancelRect~A guiW@1 guiH@7))
+   (call@A,C drawWidget~A make@1 KeyCreate@7
+    (call@K tr~2 KeyCreate@1)true@X
+    (call@n
+     (dot~6 make~4 holds@1)
+     (dot@3 at~2 x@1)
+     (dot@9 at~2 y@1)))
+   (call@A,D drawWidget~A leave@1 KeyCancel@8
+    (call@L tr~2 KeyCancel@1)true@Y
+    (call@p
+     (dot~6 leave~5 holds@1)
+     (dot@3 at~2 x@1)
+     (dot@9 at~2 y@1)))
+   (call@9,E drawTitle~9 KeyCreate@1 TitleBaseline@C true@R)
+   (call@A,F setCentred~A
+    (call@3 tr~2 KeyEnterName@1)
+    (infix@V *
+     (call~7 float~5 guiW@1)0.5@2)
+    (call@h float~5 NameLabelTop@1)0.63~8,1 0.63~2,1 0.63@4,1)
+   (call@9,H drawField~9
+    (call@9 nameRect~8 guiW@1)
+    (dot@L form~4 name@1)KeyEnterName@S)
+   (let@4,I folder . . .
+    (call@M previewFolder~D form@1
+     (dot@D worlds~6 worlds@1)))
+   (call@A,J setCentred~A
+    (call@4 trf~3 KeyResultFolder@1
+     (prefix@I \40
+      (bracket@1 folder@1)))
+    (infix@k *
+     (call~7 float~5 guiW@1)0.5@2)
+    (call~3,1 float~5 FolderNoteTop@1)0.53@E,1 0.53@K,1 0.53@Q,1)
+   (call@A,L setCentred~A
+    (call@3 tr~2 KeyEnterSeed@1)
+    (infix@V *
+     (call~7 float~5 guiW@1)0.5@2)
+    (call@h float~5 SeedLabelTop@1)0.63~8,1 0.63~2,1 0.63@4,1)
+   (call@9,N drawField~9
+    (call@9 seedRect~8 guiW@1)
+    (dot@L form~4 seed@1)KeyEnterSeed@S)
+   (call@A,O setCentred~A
+    (call@3 tr~2 KeySeedInfo@1)
+    (infix@U *
+     (call~7 float~5 guiW@1)0.5@2)
+    (call@g float~5 SeedNoteTop@1)0.53~8,1 0.53~2,1 0.53@4,1)
+   (let@4,Q mode . . .
+    (call@F modeRect~8 guiW@1))
+   (call@A,R drawWidget~A mode@1 KeyGameMode@7
+    (call~5,1 trf~3 KeyGenericValue@1
+     (prefix@I \40
+      (bracket@1
+       (call@3 tr~2 KeyGameMode@1)
+       (call@K tr~2
+        (call@8 modeKey~7
+         (dot@5 form~4 mode@1))))))true~8,2
+    (call@8,2
+     (dot~6 mode~4 holds@1)
+     (dot@3 at~2 x@1)
+     (dot@9 at~2 y@1)))
+   (if@,U
+    (elif@3
+     (call@7 pressed~7 Tab@1)
+     (stmts@E
+      (call@9 nextField~9 form@1))))
+   (call@8,V typeInto~8
+    (dot@5 form~4 name@1))
+   (call@8,W typeInto~8
+    (dot@5 form~4 seed@1))
+   (if@,X
+    (elif@3
+     (call@7 pressed~7 Escape@1)
+     (stmts~1,1
+      (call@A
+       (dot~5 stack~5 back@1))
+      (ret@,1 .))))
+   (if@,a
+    (elif@3
+     (prefix not
+      (call@B clicked~7 "left"@1))
+     (stmts@L
+      (ret .))))
+   (let@4,b which . . .
+    (call@I fieldUnder~A guiW@1
+     (dot@9 at~2 x@1)
+     (dot@F at~2 y@1)))
+   (if@,c
+    (elif@3
+     (infix@6 == which~6 0@3)
+     (stmts~1,1
+      (call@9 focusName~9 form@1)
+      (ret@,1 .))))
+   (if@,f
+    (elif@3
+     (infix@6 == which~6 1@3)
+     (stmts~1,1
+      (call@9 focusSeed~9 form@1)
+      (ret@,1 .))))
+   (if@,i
+    (elif@3
+     (call@A
+      (dot~6 mode~4 holds@1)
+      (dot@3 at~2 x@1)
+      (dot@9 at~2 y@1))
+     (stmts~1,1
+      (asgn@A
+       (dot~6 form~4 mode@1)
+       (call@A nextMode~8
+        (dot@5 form~4 mode@1)))))
+    (elif@5,2
+     (call@B
+      (dot~6 leave~5 holds@1)
+      (dot@3 at~2 x@1)
+      (dot@9 at~2 y@1))
+     (stmts~3,1
+      (call@A
+       (dot~5 stack~5 back@1))))
+    (elif@5,4
+     (call@A
+      (dot~6 make~4 holds@1)
+      (dot@3 at~2 x@1)
+      (dot@9 at~2 y@1))
+     (stmts~3,4
+      (let@4 fallback . . .
+       (infix@a \2B
+        (call~M int~3
+         (infix@C *
+          (call~3 gameTime~8)1000.0@2))
+        (infix@K *
+         (dot~5
+          (dot~7 worlds~6 worlds@1)len@1)7919@2)))
+      (let@4,1 made . . .
+       (call@F newWorld~8
+        (dot@7 worlds~6 worlds@1)
+        (dot@P
+         (dot~5 form~4 name@1)text@1)
+        (call~B,1 seedOf~6
+         (dot@A
+          (dot~5 form~4 seed@1)text@1)fallback@H)
+        (dot@L,1 form~4 mode@1)))
+      (var@4,3 kept . . .
+       (dot@D worlds~6 worlds@1))
+      (cmd@4,4
+       (dot kept~4 add@1)made@5)
+      (asgn@E,5
+       (dot~8 worlds~6 worlds@1)
+       (call@B byRecency~9 kept@1))
+      (asgn@C,6
+       (dot~6 worlds~6 pick@1)0@2)
+      (call@A,7 keepWorlds~A)
+      (cmd@5,8
+       (dot stack~5 swapTo@1)WorldsPage@8)
+      (call@B,9 enterChosen~B made@1 true@7))))))
+ (proc@,P4 packRowLines@5 . . .
+  (params@H
+   (param@1 e . . PackEntry@3 .))
+  (at@J seq~3 string@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1
+      (dot@2 e~1 name@1))))
+   (let@4,1 f . . .
+    (call@B fitness~7 e@1 jarFormat@4))
+   (if@,2
+    (elif@3
+     (infix@2 == f~2 PackFits@3)
+     (stmts~1,1
+      (cmd@6
+       (dot result~6 add@1)
+       (dot@6 e~1 description@1))))
+    (else@,2
+     (stmts@2,3
+      (cmd@6
+       (dot result~6 add@1)
+       (infix@L & "Incompatible "~G
+        (expr
+         (stmts@2)
+         (if@1
+          (elif@3
+           (infix@2 == f~2 PackOld@3)"Old"@E)
+          (else@N "New"@6))))))))))
+ (proc@,PE localizedPackLabel@5 . . .
+  (params@N
+   (param@1 key . . string@F .)
+   (param@6 fallback . . string@A .))string@P . .
+  (stmts@2,1
+   (let@4 value . . .
+    (call@A tr~2 key@1))
+   (if@,1
+    (elif@3
+     (infix@D or
+      (infix~7 == value~6 key@3)
+      (infix@D ==
+       (dot~5 value~5 len@1)0@3))
+     (stmts@W fallback))
+    (else@i
+     (stmts@6 value)))))
+ (proc@,PI drawPackColumn@5 . . .
+  (params@J
+   (param@1 b . . ListBox@3 .)
+   (param@D which . .
+    (at@A seq~3 int@1).)
+   (param@U scroll . . int@E .)
+   (param@c pick . . int@6 .)). . .
+  (stmts@2,1
+   (call@D drawListFrame~D b@1 scroll@4)
+   (let@4,1 seen . . .
+    (call@E visible~7 b@1 scroll@4))
+   (var@4,2 i . . .
+    (at@8 seen~4 0@1))
+   (while@,3
+    (infix@8 < i~2
+     (at@6 seen~4 1@1))
+    (stmts@2,1
+     (let@4 row . . .
+      (call@D rowRect~7 b@1 i@4 scroll@7))
+     (let@4,1 e . . .
+      (at@K
+       (dot~6 packChoice~A packs@1)
+       (at@6 which~5 i@1)))
+     (call@C,2 drawRowFrame~C row@1
+      (infix@8 == i~2 pick@3))
+     (let@4,3 icon . . .
+      (call@F onScreen~8
+       (call@9 iconRect~8 row@1)))
+     (call@4,4 fill~4
+      (dot@5 icon~4 x@1)
+      (dot@D icon~4 y@1)
+      (dot@L icon~4 w@1)
+      (dot@T icon~4 h@1)0.16@X 0.16@d 0.18@j 1.0@p)
+     (let@4,5 lines . . .
+      (call@K packRowLines~C e@1))
+     (var@4,6 red . . . 1.0@6)
+     (var@4,7 green . . . 1.0@8)
+     (var@4,8 blue . . . 1.0@7)
+     (if@,9
+      (elif@3
+       (infix@M !=
+        (call~F fitness~7 e@1 jarFormat@4)PackFits@3)
+       (stmts~1,1
+        (asgn@6 green~6 0.4@2)
+        (asgn@5,1 blue~5 0.4@2))))
+     (call@6,C setRun~6
+      (at@6 lines~5 0@1)
+      (call@G mrect~5
+       (call@9 textLeft~8 row@1)
+       (infix@M \2B
+        (dot~3 row~3 y@1)1.0@2)0.0@T 0.0@Y)1.0~4,1 1.0@1,1 1.0@6,1)
+     (call@6,E setRun~6
+      (at@6 lines~5 1@1)
+      (call@G mrect~5
+       (call@9 textLeft~8 row@1)
+       (infix@M \2B
+        (dot~3 row~3 y@1)12.0@2)0.0@U 0.0@Z)red~4,1 green@1,1 blue@8,1)
+     (call@8,G announce~8
+      (dot@2 e~1 name@1)
+      (dot@A e~1 name@1)row@H)
+     (cmd@,H inc i@4)))))
+ (comment@,Pg)
+ (proc@,Pi applyPacks@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@F changedFrom~B packChoice@1 packWas@D))
+     (stmts~1,1
+      (call@A
+       (dot~5 stack~5 back@1))
+      (ret@,1 .))))
+   (var@4,3 argument . . . ""@B)
+   (let@4,4 want . . .
+    (call@K priorityOrder~D packChoice@1))
+   (var@4,5 i . . . 0@4)
+   (while@,6
+    (infix@8 < i~2
+     (dot@6 want~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 > i~2 0@2)
+       (stmts@7
+        (cmd@8
+         (dot argument~8 add@1)"|"@5))))
+     (cmd@8,1
+      (dot argument~8 add@1)
+      (at@9 want~4 i@1))
+     (cmd@,2 inc i@4)))
+   (discard@,A
+    (call@J callService~B GuiService@1
+     (infix@N & "choose "~A argument@2)))
+   (asgn@8,B packWas~8 want@2)
+   (asgn@B,C packsAsked~B false@2)
+   (call@3,D say~3
+    (infix@R & "resource packs chosen\3A "~Q
+     (prefix@2 $
+      (dot@5 want~4 len@1))))
+   (call@4,E tell~4 "packson"@1
+    (prefix@C $
+     (dot@5 want~4 len@1)))
+   (call@D,H sendToLoading~D stack@1 PackChange@8 TitlePage@K)))
+ (proc@,Q2 drawPacks@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (call@8 askPacks~8)
+   (let@4,1 left . . .
+    (call@J availableBox~C guiW@1 guiH@7
+     (dot@X
+      (dot~A packChoice~A available@1)len@1)))
+   (let@4,2 right . . .
+    (call@J selectedBox~B guiW@1 guiH@7
+     (dot@W
+      (dot~9 packChoice~A selected@1)len@1)))
+   (let@4,3 turn . . .
+    (call@E notches~7))
+   (asgn@M,4
+    (dot~C packChoice~A leftScroll@1)
+    (call@H scrollByNotches~F left@1
+     (dot@H packChoice~A leftScroll@1)turn@U))
+   (asgn@N,5
+    (dot~D packChoice~A rightScroll@1)
+    (call@H scrollByNotches~F right@1
+     (dot@I packChoice~A rightScroll@1)turn@W))
+   (let@4,6 at . . .
+    (call@F pointerGui~A))
+   (call@A,7 setCentred~A
+    (call@J localizedPackLabel~I PackAvailable@1 "Available resource packs"@G)
+    (dot@1O
+     (call~6 availableTitleAt~G guiW@1)x@1)
+    (call@1X float~5 PackTitleTop@1)1.0~8,1 1.0~3,1 1.0@2,1)
+   (call@8,9 announce~8
+    (call@J localizedPackLabel~I PackAvailable@1 "Available resource packs"@G)PackAvailable@12
+    (call~1,1 mrect~5
+     (call@6 float~5
+      (dot@5 left~4 left@1))
+     (call@O float~5 PackTitleTop@1)
+     (call@j float~5
+      (dot@5 left~4 width@1))
+     (call@6,1 float~5 LineHeight@1)))
+   (call@A,C setCentred~A
+    (call@J localizedPackLabel~I PackSelected@1 "Selected resource packs"@F)
+    (dot@1L
+     (call~6 selectedTitleAt~F guiW@1)x@1)
+    (call@1U float~5 PackTitleTop@1)1.0~8,1 1.0~3,1 1.0@2,1)
+   (call@8,E announce~8
+    (call@J localizedPackLabel~I PackSelected@1 "Selected resource packs"@F)PackSelected@10
+    (call~1,1 mrect~5
+     (call@6 float~5
+      (dot@6 right~5 left@1))
+     (call@P float~5 PackTitleTop@1)
+     (call@k float~5
+      (dot@6 right~5 width@1))
+     (call@6,1 float~5 LineHeight@1)))
+   (call@E,H drawPackColumn~E left@1
+    (dot@H packChoice~A available@1)
+    (dot@d packChoice~A leftScroll@1)
+    (dot~2,1 packChoice~A leftPick@1))
+   (call@E,J drawPackColumn~E right@1
+    (dot@I packChoice~A selected@1)
+    (dot@d packChoice~A rightScroll@1)
+    (dot~2,1 packChoice~A rightPick@1))
+   (let@4,L done . . .
+    (call@J packDoneRect~C guiW@1 guiH@7))
+   (let@4,M folder . . .
+    (call@N packFolderRect~E guiW@1 guiH@7))
+   (call@A,N drawWidget~A done@1 KeyDone@7
+    (call@I tr~2 KeyDone@1)true@T
+    (call@j
+     (dot~6 done~4 holds@1)
+     (dot@3 at~2 x@1)
+     (dot@9 at~2 y@1)))
+   (call@A,Q drawWidget~A folder@1 PackFolderInfo@9
+    (call@R tr~2 PackFolderInfo@1)false@j
+    (call@4,1
+     (dot~6 folder~6 holds@1)
+     (dot@3 at~2 x@1)
+     (dot@9 at~2 y@1)))
+   (if@,S
+    (elif@3
+     (call@7 pressed~7 Escape@1)
+     (stmts~1,1
+      (call@A applyPacks~A)
+      (ret@,1 .))))
+   (if@,V
+    (elif@3
+     (prefix not
+      (call@B clicked~7 "left"@1))
+     (stmts@L
+      (ret .))))
+   (let@4,W onLeft . . .
+    (call@H rowUnder~8 left@1
+     (dot@H packChoice~A leftScroll@1)
+     (dot@W at~2 x@1)
+     (dot@c at~2 y@1)))
+   (if@,X
+    (elif@3
+     (infix@7 >= onLeft~7 0@3)
+     (stmts~1,3
+      (if
+       (elif@3
+        (infix@K ==
+         (dot~A packChoice~A leftPick@1)onLeft@3)
+        (stmts@V
+         (call@6 enable~6 packChoice@1 onLeft@D)))
+       (else@,1
+        (stmts@6
+         (asgn@K
+          (dot~A packChoice~A leftPick@1)onLeft@2))))
+      (ret@,2 .))))
+   (let@4,d onRight . . .
+    (call@I rowUnder~8 right@1
+     (dot@I packChoice~A rightScroll@1)
+     (dot@Y at~2 x@1)
+     (dot@e at~2 y@1)))
+   (if@,e
+    (elif@3
+     (infix@8 >= onRight~8 0@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@L ==
+         (dot~B packChoice~A rightPick@1)onRight@3)
+        (stmts@X
+         (call@7 disable~7 packChoice@1 onRight@D)))
+       (else@,1
+        (stmts@6
+         (asgn@L
+          (dot~B packChoice~A rightPick@1)onRight@2))))
+      (ret@,2 .))))
+   (if@,i
+    (elif@3
+     (call@A
+      (dot~6 done~4 holds@1)
+      (dot@3 at~2 x@1)
+      (dot@9 at~2 y@1))
+     (stmts@O
+      (call@A applyPacks~A))))))
+ (proc@,Qq joinAt@5 . . .
+  (params@B
+   (param@1 address . . string@9 .)). . .
+  (stmts@2,1
+   (let@4 host . . .
+    (call@D hostOf~6 address@1))
+   (if@,1
+    (elif@3
+     (infix@9 ==
+      (dot~5 host~4 len@1)0@3)
+     (stmts@F
+      (ret .))))
+   (call@3,2 say~3
+    (infix@C & "joining "~B address@2))
+   (if@,3
+    (elif@3
+     (call@8 joinGame~8 host@1
+      (call@D portOf~6 address@1)""@O
+      (call@c myPeerName~A))
+     (stmts~1,1
+      (asgn@8 playing~8 true@2)
+      (cmd@5,1
+       (dot stack~5 resetTo@1)WorldPage@9)
+      (call@8,2 handOver~8 "world"@1 "playing"@A)
+      (call@8,3 handOver~8 "pointer"@1 "held"@C)
+      (call@B,4 lockPointer~B)
+      (asgn@8,5 netTold~8 ""@2)
+      (call@4,6 tell~4 "screen"@1 "world"@B)))
+    (else@,8
+     (stmts@2,1
+      (asgn@8 netTold~8
+       (call@G networkProblem~E))
+      (call@3,1 say~3
+       (infix@J & "could not join "~I address@2)))))
+   (call@4,E tell~4 "joined"@1
+    (if@B
+     (elif@3
+      (infix@C ==
+       (dot~5 netTold~7 len@1)0@3)
+      (stmts@I "yes"))
+     (else@R
+      (stmts@6 "no"))))))
+ (proc@,R7 drawServers@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (call@B loadServers~B)
+   (let@4,1 box . . .
+    (call@F serverBox~9 guiW@1 guiH@7
+     (dot@S
+      (dot~8 servers~7 servers@1)len@1)))
+   (asgn@F,2
+    (dot~8 servers~7 scroll@1)
+    (call@H scrollByNotches~F box@1
+     (dot@D servers~7 scroll@1)
+     (call@T notches~7)))
+   (let@4,3 at . . .
+    (call@F pointerGui~A))
+   (call@D,4 drawListFrame~D box@1
+    (dot@D servers~7 scroll@1))
+   (call@9,5 drawTitle~9 SrvTitle@1 TitleBaseline@B)
+   (let@4,6 seen . . .
+    (call@E visible~7 box@1
+     (dot@D servers~7 scroll@1)))
+   (var@4,7 i . . .
+    (at@8 seen~4 0@1))
+   (while@,8
+    (infix@8 < i~2
+     (at@6 seen~4 1@1))
+    (stmts@2,1
+     (let@4 row . . .
+      (call@D rowRect~7 box@1 i@6
+       (dot@G servers~7 scroll@1)))
+     (let@4,1 one . . .
+      (at@L
+       (dot~8 servers~7 servers@1)i@1))
+     (call@C,2 drawRowFrame~C row@1
+      (infix@8 == i~2
+       (dot@A servers~7 pick@1)))
+     (call@6,6 setRun~6
+      (call@3 tr~2
+       (dot@4 one~3 name@1))
+      (call@K mrect~5
+       (infix@7 \2B
+        (dot~3 row~3 x@1)2.0@2)
+       (infix@K \2B
+        (dot~3 row~3 y@1)1.0@2)0.0@R 0.0@W)1.0~4,1 1.0@1,1 1.0@6,1)
+     (call@6,8 setRun~6
+      (dot@4 one~3 address@1)
+      (call@J mrect~5
+       (infix@7 \2B
+        (dot~3 row~3 x@1)2.0@2)
+       (infix@K \2B
+        (dot~3 row~3 y@1)12.0@2)0.0@S 0.0@X)0.53~4,1 0.53@2,1 0.53@8,1)
+     (call@6,D setRun~6
+      (call@3 tr~2 SrvUnknownStatus@1)
+      (call@S mrect~5
+       (infix@7 \2B
+        (dot~3 row~3 x@1)2.0@2)
+       (infix@K \2B
+        (dot~3 row~3 y@1)22.0@2)0.0@S 0.0@X)0.53~4,1 0.53@2,1 0.53@8,1)
+     (call@8,F announce~8
+      (call@3 tr~2
+       (dot@4 one~3 name@1))
+      (dot@I one~3 address@1)row@S)
+     (cmd@,G inc i@4)))
+   (let@4,Q buttons . . .
+    (call@M serverFooter~C guiW@1 guiH@7
+     (infix@Q >=
+      (dot~6 servers~7 pick@1)0@3)))
+   (let@4,R over . . .
+    (call@I buttonUnder~B buttons@1
+     (dot@C at~2 x@1)
+     (dot@I at~2 y@1)))
+   (asgn@2,S i~2 0@2)
+   (while@,T
+    (infix@8 < i~2
+     (dot@9 buttons~7 len@1))
+    (stmts@2,1
+     (call@A drawWidget~A
+      (dot@B
+       (at~3 buttons~7 i@1)rect@1)
+      (dot@S
+       (at~3 buttons~7 i@1)key@1)
+      (call@a tr~2
+       (dot@B
+        (at~3 buttons~7 i@1)key@1))
+      (dot@2,1
+       (at~3 buttons~7 i@1)enabled@1)
+      (infix@E,1 == i~2 over@3))
+     (cmd@,2 inc i@4)))
+   (if@,X
+    (elif@3
+     (infix@C >
+      (dot~5 netTold~7 len@1)0@2)
+     (stmts~1,1
+      (call@A setCentred~A
+       (call@5 ours~4 netTold@1)
+       (infix@S *
+        (call~7 float~5 guiW@1)0.5@2)
+       (call@e float~5
+        (infix@6 \2D guiH~5 66@2))1.0~8,1 0.45~3,1 0.45@3,1))))
+   (if@,a
+    (elif@3
+     (prefix not
+      (call@B clicked~7 "left"@1))
+     (stmts@L
+      (ret .))))
+   (let@4,b row . . .
+    (call@E rowUnder~8 box@1
+     (dot@D servers~7 scroll@1)
+     (dot@O at~2 x@1)
+     (dot@U at~2 y@1)))
+   (if@,c
+    (elif@3
+     (infix@4 >= row~4 0@3)
+     (stmts~1,1
+      (asgn@D
+       (dot~6 servers~7 pick@1)row@2)
+      (ret@,1 .))))
+   (if@,f
+    (elif@3
+     (infix@5 < over~5 0@2)
+     (stmts@A
+      (ret .))))
+   (let@4,g b . . .
+    (at@B buttons~7 over@1))
+   (if@,h
+    (elif@3
+     (prefix not
+      (dot@5 b~1 enabled@1))
+     (stmts@F
+      (ret .))))
+   (if@,i
+    (elif@3
+     (infix@9 ==
+      (dot~8 b~1 action@1)LeaveServers@3)
+     (stmts~1,1
+      (call@A
+       (dot~5 stack~5 back@1))))
+    (elif@5,2
+     (infix@9 ==
+      (dot~8 b~1 action@1)AddServer@3)
+     (stmts~3,1
+      (asgn@B serverForm~B
+       (call@9 addForm~7 ""@1 ""@5 true@9))
+      (asgn@E,1 editingServer~E -1@2)
+      (cmd@5,2
+       (dot stack~5 go@1)AddServerPage@4)))
+    (elif@5,6
+     (infix@9 ==
+      (dot~8 b~1 action@1)DirectConnect@3)
+     (stmts~3,1
+      (asgn@B serverForm~B
+       (call@9 addForm~7 ""@1 ""@5 false@9))
+      (asgn@E,1 editingServer~E -1@2)
+      (cmd@5,2
+       (dot stack~5 go@1)AddServerPage@4)))
+    (elif@5,A
+     (infix@9 ==
+      (dot~8 b~1 action@1)EditServer@3)
+     (stmts~3,1
+      (let@4 one . . .
+       (at@L
+        (dot~8 servers~7 servers@1)
+        (dot@8 servers~7 pick@1)))
+      (asgn@B,1 serverForm~B
+       (call@9 addForm~7
+        (dot@4 one~3 name@1)
+        (dot@E one~3 address@1)true@O))
+      (asgn@E,2 editingServer~E
+       (dot@9 servers~7 pick@1))
+      (cmd@5,3
+       (dot stack~5 go@1)AddServerPage@4)))
+    (elif@5,F
+     (infix@9 ==
+      (dot~8 b~1 action@1)DeleteServer@3)
+     (stmts~3,1
+      (asgn@G
+       (dot~9 servers~7 servers@1)
+       (call@B withoutAt~9
+        (dot@8 servers~7 servers@1)
+        (dot@P servers~7 pick@1)))
+      (asgn@D,1
+       (dot~6 servers~7 pick@1)-1@2)
+      (call@B,2 keepServers~B)))
+    (elif@5,J
+     (infix@9 ==
+      (dot~8 b~1 action@1)JoinServer@3)
+     (stmts~3,1
+      (call@6 joinAt~6
+       (dot@U
+        (at~E
+         (dot~8 servers~7 servers@1)
+         (dot@8 servers~7 pick@1))address@1)))))))
+ (proc@,SC drawAddServer@5 . . .
+  (params@I). . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@F pointerGui~A))
+   (let@4,1 keeping . . .
+    (dot@K serverForm~A keeping@1))
+   (call@9,2 drawTitle~9
+    (if@1
+     (elif@3 keeping
+      (stmts@9 SrvAddTitle))
+     (else@O
+      (stmts@6 SrvDirectTitle)))TitleBaseline@l)
+   (if@,3
+    (elif@3 keeping
+     (stmts~1,1
+      (call@A setCentred~A
+       (call@3 tr~2 SrvEnterName@1)
+       (infix@V *
+        (call~7 float~5 guiW@1)0.5@2)
+       (call@h float~5 SrvNameLabelTop@1)0.63~8,1 0.63~2,1 0.63@4,1)
+      (call@9,2 drawField~9
+       (call@F serverNameRect~E guiW@1)
+       (dot@X serverForm~A name@1)SrvEnterName@e))))
+   (call@A,7 setCentred~A
+    (call@3 tr~2 SrvEnterIp@1)
+    (infix@T *
+     (call~7 float~5 guiW@1)0.5@2)
+    (call~3,1 float~5
+     (call@J srvAddressLabelTop~I keeping@1))0.63@S,1 0.63@Y,1 0.63@e,1)
+   (call@9,9 drawField~9
+    (call@C addressRect~B guiW@1 keeping@7)
+    (dot@d serverForm~A address@1)SrvEnterIp@n)
+   (let@4,A accept . . .
+    (call@J acceptRect~A guiW@1 guiH@7))
+   (let@4,B leave . . .
+    (call@G backRect~8 guiW@1 guiH@7))
+   (let@4,C acceptKey . . .
+    (if@C
+     (elif@3 keeping
+      (stmts@9 SrvAddButton))
+     (else@P
+      (stmts@6 SrvJoin))))
+   (call@A,D drawWidget~A accept@1 acceptKey@9
+    (call@M tr~2 acceptKey@1)
+    (call@3,1 connectable~B
+     (dot@J
+      (dot~8 serverForm~A address@1)text@1))
+    (call@g,1
+     (dot~6 accept~6 holds@1)
+     (dot@3 at~2 x@1)
+     (dot@9 at~2 y@1)))
+   (call@A,F drawWidget~A leave@1 SrvCancel@8
+    (call@L tr~2 SrvCancel@1)true@Y
+    (call@p
+     (dot~6 leave~5 holds@1)
+     (dot@3 at~2 x@1)
+     (dot@9 at~2 y@1)))
+   (if@,G
+    (elif@3
+     (call@7 pressed~7 Tab@1)
+     (stmts@E
+      (call@9 nextField~9 serverForm@1))))
+   (call@8,H typeInto~8
+    (dot@B serverForm~A name@1))
+   (call@8,I typeInto~8
+    (dot@B serverForm~A address@1))
+   (if@,J
+    (elif@3
+     (call@7 pressed~7 Escape@1)
+     (stmts~1,1
+      (call@A
+       (dot~5 stack~5 back@1))
+      (ret@,1 .))))
+   (if@,M
+    (elif@3
+     (prefix not
+      (call@B clicked~7 "left"@1))
+     (stmts@L
+      (ret .))))
+   (let@4,N which . . .
+    (call@M formFieldUnder~E guiW@1 keeping@7
+     (dot@I at~2 x@1)
+     (dot@O at~2 y@1)))
+   (if@,O
+    (elif@3
+     (infix@6 == which~6 0@3)
+     (stmts~1,1
+      (asgn@L
+       (dot~B serverForm~A onAddress@1)false@2)
+      (asgn@O,1
+       (dot~9
+        (dot~5 serverForm~A name@1)focused@1)true@2)
+      (asgn@R,2
+       (dot~9
+        (dot~8 serverForm~A address@1)focused@1)false@2)
+      (ret@,3 .))))
+   (if@,T
+    (elif@3
+     (infix@6 == which~6 1@3)
+     (stmts~1,1
+      (asgn@L
+       (dot~B serverForm~A onAddress@1)true@2)
+      (asgn@O,1
+       (dot~9
+        (dot~5 serverForm~A name@1)focused@1)false@2)
+      (asgn@R,2
+       (dot~9
+        (dot~8 serverForm~A address@1)focused@1)true@2)
+      (ret@,3 .))))
+   (if@,Y
+    (elif@3
+     (call@B
+      (dot~6 leave~5 holds@1)
+      (dot@3 at~2 x@1)
+      (dot@9 at~2 y@1))
+     (stmts~1,1
+      (call@A
+       (dot~5 stack~5 back@1))))
+    (elif@5,2
+     (infix@P and
+      (call~D
+       (dot~6 accept~6 holds@1)
+       (dot@3 at~2 x@1)
+       (dot@9 at~2 y@1))
+      (call@F connectable~B
+       (dot@J
+        (dot~8 serverForm~A address@1)text@1)))
+     (stmts~3,1
+      (let@4 one . . .
+       (oconstr@C Server~6
+        (kv@5 name~4
+         (call@B nameOrKey~9 serverForm@1))
+        (kv~7,1 address~7
+         (call@9 trimmed~7
+          (dot@J
+           (dot~8 serverForm~A address@1)text@1)))
+        (kv~A,2 port~4
+         (call@8 portOf~6
+          (dot@J
+           (dot~8 serverForm~A address@1)text@1)))))
+      (if@,3
+       (elif@3
+        (prefix not keeping@4)
+        (stmts~1,1
+         (call@A
+          (dot~5 stack~5 back@1))
+         (call@6,1 joinAt~6
+          (dot@4 one~3 address@1))
+         (ret@,2 .))))
+      (if@,7
+       (elif@3
+        (infix@E >= editingServer~E 0@3)
+        (stmts~1,1
+         (asgn@G
+          (dot~9 servers~7 servers@1)
+          (call@D replacingAt~B
+           (dot@8 servers~7 servers@1)editingServer@I one@X))))
+       (else@,2
+        (stmts@2,1
+         (asgn@G
+          (dot~9 servers~7 servers@1)
+          (call@C withServer~A
+           (dot@8 servers~7 servers@1)one@I)))))
+      (call@B,B keepServers~B)
+      (call@A,C
+       (dot~5 stack~5 back@1)))))))
+ (const@2,Td WorldSettings . . . "voxel.settings"@G)
+ (proc@,Tj storeIndex@5 . . .
+  (params@F
+   (param@1 name . . string@6 .))int@G . .
+  (stmts@2,1
+   (asgn@7 result~7 -1@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@9 storeAt~7 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@B ==
+        (at~4 storeAt~7 i@1)name@3)
+       (stmts@K
+        (ret i@7))))
+     (cmd@,1 inc i@4)))))
+ (proc@,Tq valueOf@5 . . .
+  (params@C
+   (param@1 o . . Option@3 .))int@D . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@F storeIndex~A
+     (dot@2 o~1 store@1)))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret
+       (dot@8 o~1 fallback@1)))))
+   (at@7,2 storeIs~7 at@1)))
+ (proc@,Tv putValue@5 . . .
+  (params@D
+   (param@1 o . . Option@3 .)
+   (param@C value . . int@7 .)). . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@F storeIndex~A
+     (dot@2 o~1 store@1)))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts~1,1
+      (cmd@7
+       (dot storeAt~7 add@1)
+       (dot@6 o~1 store@1))
+      (cmd@7,1
+       (dot storeIs~7 add@1)value@5)))
+    (else@,3
+     (stmts@2,1
+      (asgn@C
+       (at~5 storeIs~7 at@1)value@2))))
+   (call@4,6 save~4
+    (dot@2 o~1 store@1)
+    (call@F int64~5 value@1))))
+ (comment@,U4)
+ (proc@,U6 loadOptions@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (if
+    (elif@3 optsLoaded
+     (stmts@C
+      (ret .))))
+   (asgn@B,1 optsLoaded~B true@2)
+   (let@4,2 rows . . .
+    (call@E allRows~7))
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@6 rows~4 len@1))
+    (stmts@2,1
+     (let@4 one . . .
+      (at@A rows~4 i@1))
+     (cmd@,1 inc i@4)
+     (if@,2
+      (elif@3
+       (infix@E ==
+        (dot~5
+         (dot~6 one~3 store@1)len@1)0@3)
+       (stmts@K
+        (continue .))))
+     (if@,3
+      (elif@3
+       (infix@M >=
+        (call~C storeIndex~A
+         (dot@4 one~3 store@1))0@3)
+       (stmts@S
+        (continue .))))
+     (cmd@7,4
+      (dot storeAt~7 add@1)
+      (dot@8 one~3 store@1))
+     (cmd@7,5
+      (dot storeIs~7 add@1)
+      (call@8 int~3
+       (call@9 remember~8
+        (dot@4 one~3 store@1)
+        (call@H int64~5
+         (dot@4 one~3 fallback@1)))))))
+   (if@,G
+    (elif@3
+     (call@F windowAvailable~F)
+     (stmts~1,1
+      (let@4 at . . .
+       (call@F storeIndex~A KeyFullscreenStore@1))
+      (if@,1
+       (elif@3
+        (infix@3 >= at~3 0@3)
+        (stmts~1,1
+         (if
+          (elif@3
+           (infix@E ==
+            (call~3 displayMode~B)InWindow@3)
+           (stmts@R
+            (asgn@C
+             (at~5 storeIs~7 at@1)0@2)))
+          (else@,1
+           (stmts@6
+            (asgn@C
+             (at~5 storeIs~7 at@1)1@2))))))))))
+   (call@4,L tell~4 "settings"@1
+    (prefix@D $
+     (dot@8 storeAt~7 len@1)))))
+ (proc@,UU loadBinds@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (if
+    (elif@3 bindsLoaded
+     (stmts@D
+      (ret .))))
+   (asgn@C,1 bindsLoaded~C true@2)
+   (asgn@6,2 binds~6
+    (call@B readBinds~9
+     (call@9 remember~8 "keys"@1 ""@9)))
+   (call@4,3 tell~4 "binds"@1
+    (prefix@A $
+     (dot@9
+      (dot~3 binds~5 to@1)len@1)))))
+ (proc@,Uc worldReason@5 . . .
+  (params@G
+   (param@1 name . . string@6 .))string@G . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@A worldKey~8 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@C ==
+        (at~4 worldKey~8 i@1)name@3)
+       (stmts@L
+        (ret
+         (at@F worldWhy~8 i@1)))))
+     (cmd@,1 inc i@4)))
+   (call@4,6 ours~4 "no world is drawing yet, so nothing here has anything to change"@1)))
+ (comment@,Ul)
+ (proc@,Us reasonIn@5 . . .
+  (params@D
+   (param@1 status . . string@8 .))string@I . .
+  (stmts@2,1
+   (asgn@7 result~7 status@2)
+   (if@,1
+    (elif@3
+     (infix@B <
+      (dot~5 status~6 len@1)3@2)
+     (stmts@G
+      (ret result@7))))
+   (if@,2
+    (elif@3
+     (infix@b or
+      (infix~K or
+       (infix~7 !=
+        (at~4 status~6 0@1)'n'@3)
+       (infix@D !=
+        (at~4 status~6 1@1)'o'@3))
+      (infix@D !=
+       (at~4 status~6 2@1)' '@3))
+     (stmts@w
+      (ret result@7))))
+   (asgn@7,3 result~7 ""@2)
+   (var@4,4 j . . . 3@4)
+   (while@,5
+    (infix@8 < j~2
+     (dot@8 status~6 len@1))
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (at@B status~6 j@1))
+     (cmd@,1 inc j@4)))))
+ (proc@,V2 noteAnswer@5 . . .
+  (params@F
+   (param@1 name . . string@E .)
+   (param@7 status . . string@8 .)). . .
+  (stmts@2,1
+   (var@4 why . . . ""@6)
+   (if@,1
+    (elif@3
+     (infix@7 != status~7 "ok"@3)
+     (stmts@G
+      (asgn@4 why~4
+       (call@A reasonIn~8 status@1)))))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@A worldKey~8 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@C ==
+        (at~4 worldKey~8 i@1)name@3)
+       (stmts~1,1
+        (asgn@C
+         (at~4 worldWhy~8 i@1)why@2)
+        (call@4,1 tell~4
+         (infix@A & "world."~9 name@2)
+         (if@I
+          (elif@3
+           (infix@8 ==
+            (dot~5 why~3 len@1)0@3)
+           (stmts@E "ok"))
+          (else@M
+           (stmts@6 "no"))))
+        (ret@,2 .))))
+     (cmd@,4 inc i@4)))
+   (cmd@8,9
+    (dot worldKey~8 add@1)name@5)
+   (cmd@8,A
+    (dot worldWhy~8 add@1)why@5)
+   (call@4,B tell~4
+    (infix@A & "world."~9 name@2)
+    (if@I
+     (elif@3
+      (infix@8 ==
+       (dot~5 why~3 len@1)0@3)
+      (stmts@E "ok"))
+     (else@M
+      (stmts@6 "no"))))))
+ (comment@,VG)
+ (proc@,VM applyToWorld@5 . . .
+  (params@H
+   (param@1 lines . . string@7 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A ==
+      (dot~5 lines~5 len@1)0@3)
+     (stmts@G
+      (ret .))))
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@A serves~6 WorldSettings@1))
+     (stmts~1,1
+      (asgn@9 worldKey~9
+       (prefix@2 \40
+        (bracket@1)))
+      (asgn@9,1 worldWhy~9
+       (prefix@2 \40
+        (bracket@1)))
+      (ret@,2 .))))
+   (let@4,5 reply . . .
+    (call@F linesOf~7
+     (call@C callService~B WorldSettings@1 lines@G)))
+   (var@4,6 i . . . 0@4)
+   (while@,7
+    (infix@8 < i~2
+     (dot@7 reply~5 len@1))
+    (stmts@2,1
+     (let@4 f . . .
+      (call@C piecesOf~8
+       (at@6 reply~5 i@1)'\09'@B))
+     (cmd@,1 inc i@4)
+     (if@,2
+      (elif@3
+       (infix@6 >=
+        (dot~5 f~1 len@1)2@3)
+       (stmts@C
+        (call@A noteAnswer~A
+         (at@2 f~1 0@1)
+         (at@8 f~1 1@1)))))))))
+ (comment@,VZ)
+ (proc@,Vc pushWorld@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (var@4 lines . . . ""@8)
+   (let@4,1 rows . . .
+    (call@E allRows~7))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@6 rows~4 len@1))
+    (stmts@2,1
+     (let@4 one . . .
+      (at@A rows~4 i@1))
+     (cmd@,1 inc i@4)
+     (let@4,2 name . . .
+      (call@G worldName~9
+       (dot@4 one~3 effect@1)))
+     (if@,3
+      (elif@3
+       (infix@9 ==
+        (dot~5 name~4 len@1)0@3)
+       (stmts@F
+        (continue .))))
+     (cmd@5,4
+      (dot lines~5 add@1)name@5)
+     (cmd@5,5
+      (dot lines~5 add@1)' '@5)
+     (cmd@5,6
+      (dot lines~5 add@1)
+      (prefix@5 $
+       (call@8 valueOf~7 one@1)))
+     (cmd@5,7
+      (dot lines~5 add@1)'\0A'@5)))
+   (var@4,C b . . . 0@4)
+   (while@,D
+    (infix@8 < b~2
+     (dot@A Bindings~8 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (call@C bindingWired~C b@1)
+       (stmts~1,1
+        (let@4 action . . .
+         (call@I worldName~9
+          (at@E BindingWiring~D b@1)))
+        (if@,1
+         (elif@3
+          (infix@B >
+           (dot~5 action~6 len@1)0@2)
+          (stmts~1,1
+           (cmd@5
+            (dot lines~5 add@1)"bind."@5)
+           (cmd@5,1
+            (dot lines~5 add@1)action@5)
+           (cmd@5,2
+            (dot lines~5 add@1)' '@5)
+           (cmd@5,3
+            (dot lines~5 add@1)
+            (call@C boundTo~7 binds@1 b@8))
+           (cmd@5,4
+            (dot lines~5 add@1)'\0A'@5)))))))
+     (cmd@,8 inc b@4)))
+   (call@C,N applyToWorld~C lines@1)
+   (asgn@B,O worldAsked~B true@2)))
+ (comment@,W5)
+ (proc@,W7 applyHere@5 . . .
+  (params@E
+   (param@1 o . . Option@3 .)
+   (param@C value . . int@7 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 ==
+      (dot~5 o~1 key@1)KeyGuiScale@3)
+     (stmts~1,1
+      (asgn@D scaleSetting~D value@2)
+      (call@4,1 tell~4 "guiscale"@1
+       (prefix@D $ scaleSetting@1))
+      (ret@,2 .))))
+   (if@,4
+    (elif@3
+     (infix@6 ==
+      (dot~5 o~1 key@1)KeyFramerate@3)
+     (stmts~1,1
+      (asgn@9 frameCap~9
+       (call@D frameCapFor~B value@1))
+      (call@9,1 frameRate~9 frameCap@1)
+      (call@4,2 tell~4 "framecap"@1
+       (prefix@D $ frameCap@1))
+      (ret@,3 .))))
+   (if@,9
+    (elif@3
+     (infix@6 ==
+      (dot~5 o~1 key@1)KeyFullscreen@3)
+     (stmts~1,4
+      (if
+       (elif@3
+        (call@F windowAvailable~F)
+        (stmts~1,1
+         (if
+          (elif@3
+           (infix@6 != value~6 0@3)
+           (stmts@C
+            (call@B displayMode~B Borderless@1)))
+          (else@,1
+           (stmts@6
+            (call@B displayMode~B InWindow@1)))))))
+      (call@4,3 tell~4 "fullscreen"@1
+       (prefix@F $ value@1))
+      (ret@,4 .))))
+   (if@,I
+    (elif@3
+     (call@A isSoundRow~A
+      (dot@2 o~1 key@1))
+     (stmts~1,1
+      (if
+       (elif@3
+        (call@E soundAvailable~E)
+        (stmts@I
+         (call@9 busVolume~9
+          (call@6 busOf~5
+           (dot@2 o~1 key@1))
+          (infix@S /
+           (call~8 float~5 value@1)100.0@2)))))
+      (call@4,1 tell~4
+       (infix@8 & "bus."~7
+        (call@7 busOf~5
+         (dot@2 o~1 key@1)))
+       (prefix@O $ value@1))
+      (ret@,2 .))))))
+ (comment@,WV)
+ (proc@,WZ hereReason@5 . . .
+  (params@F
+   (param@1 o . . Option@3 .))string@D . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@I and
+      (call~8 isSoundRow~A
+       (dot@2 o~1 key@1))
+      (prefix@4 not
+       (call@I soundAvailable~E)))
+     (stmts~1,1
+      (ret
+       (infix@g &
+        (call~V ours~4 "there is no audio device\3A "@1)
+        (call@E soundProblem~C))))))
+   (if@,2
+    (elif@3
+     (infix@N and
+      (infix~H ==
+       (dot~5 o~1 key@1)KeyFullscreen@3)
+      (prefix@4 not
+       (call@J windowAvailable~F)))
+     (stmts~1,1
+      (ret
+       (call@B ours~4 "there is no window to make full screen"@1)))))""@,4))
+ (comment@,Wg)
+ (proc@,Wi refusal@5 . . .
+  (params@C
+   (param@1 o . . Option@3 .))string@D . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@D >
+      (dot~5
+       (dot~7 o~1 reason@1)len@1)0@2)
+     (stmts@I
+      (ret
+       (dot@8 o~1 reason@1)))))
+   (let@4,1 name . . .
+    (call@G worldName~9
+     (dot@2 o~1 effect@1)))
+   (if@,2
+    (elif@3
+     (infix@9 >
+      (dot~5 name~4 len@1)0@2)
+     (stmts@E
+      (ret
+       (call@I worldReason~B name@1)))))
+   (call@A,3 hereReason~A o@1)))
+ (comment@,Wq)
+ (proc@,Ws labelOf@5 . . .
+  (params@C
+   (param@1 o . . Option@3 .)
+   (param@C value . . int@7 .))string@P . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 ==
+      (dot~6 o~1 kind@1)ScreenOption@3)
+     (stmts@O
+      (ret
+       (call@9 tr~2
+        (dot@2 o~1 key@1))))))
+   (let@4,1 shown . . .
+    (call@I shownValue~A o@1 value@4))
+   (var@4,2 text . . .
+    (dot@C shown~5 valueText@1))
+   (if@,3
+    (elif@3
+     (infix@J >
+      (dot~5
+       (dot~9 shown~5 valueKey@1)len@1)0@2)
+     (stmts@O
+      (asgn@5 text~5
+       (call@4 tr~2
+        (dot@6 shown~5 valueKey@1)))))
+    (elif@5,1
+     (infix@N >
+      (dot~5
+       (dot~D shown~5 valuePattern@1)len@1)0@2)
+     (stmts@S
+      (asgn@5 text~5
+       (call@5 trf~3
+        (dot@6 shown~5 valuePattern@1)
+        (prefix@L \40
+         (bracket@1 text@1)))))))
+   (call@3,5 trf~3
+    (dot@6 shown~5 pattern@1)
+    (prefix@G \40
+     (bracket@1
+      (call@3 tr~2
+       (dot@2 o~1 key@1))text@C)))))
+ (comment@,X0)
+ (proc@,X3 drawSlider@5 . . .
+  (params@F
+   (param@1 o . . Option@3 .)
+   (param@C value . . int@7 .)
+   (param@O live . . bool@F .)
+   (param@U hovered . . bool@9 .)). . .
+  (stmts@2,1
+   (call@A drawWidget~A
+    (dot@2 o~1 rect@1)
+    (dot@A o~1 key@1)""@G false@K false@R)
+   (if@,1
+    (elif@3
+     (infix@Q and
+      (infix~L and live~5
+       (infix@9 == skin~5 PackSkin@3))
+      (infix@B == layout~7 ClassicLayout@3))
+     (stmts~1,1
+      (call@9 drawQuads~9 Widgets@1
+       (call@J knobQuads~9 o@1 value@4 hovered@B)WidgetsSheet@e WidgetsSheet~7,1 1.0@7,1 1.0@C,1 1.0@H,1 1.0@M,1)))
+    (elif@5,3 live
+     (stmts~3,3
+      (let@4 quads . . .
+       (call@H knobQuads~9 o@1 value@4 hovered@B))
+      (var@4,1 i . . . 0@4)
+      (while@,2
+       (infix@8 < i~2
+        (dot@7 quads~5 len@1))
+       (stmts@2,1
+        (let@4 box . . .
+         (call@E onScreen~8
+          (dot@9
+           (at~3 quads~5 i@1)dest@1)))
+        (cmd@,1 inc i@4)
+        (var@4,2 level . . . 0.62@8)
+        (if@,3
+         (elif@3 hovered
+          (stmts@9
+           (asgn@6 level~6 0.82@2))))
+        (call@4,4 fill~4
+         (dot@4 box~3 x@1)
+         (dot@B box~3 y@1)
+         (dot@I box~3 w@1)
+         (dot@P box~3 h@1)level@T level@a level@h 1.0@o))))))
+   (var@4,F red . . . 1.0@6)
+   (var@4,G green . . . 1.0@8)
+   (var@4,H blue . . . 1.0@7)
+   (if@,I
+    (elif@3
+     (prefix not live@4)
+     (stmts~1,1
+      (asgn@4 red~4 0.63@2)
+      (asgn@6,1 green~6 0.63@2)
+      (asgn@5,2 blue~5 0.63@2))))
+   (let@4,M text . . .
+    (call@E labelOf~7 o@1 value@4))
+   (call@A,N setCentred~A text@1
+    (infix@G \2B
+     (dot~3
+      (dot~5 o~1 rect@1)x@1)
+     (infix@B *
+      (dot~3
+       (dot~5 o~1 rect@1)w@1)0.5@2))
+    (call@l labelBaseline~D
+     (dot@2 o~1 rect@1))red~8,1 green~3,1 blue@4,1)
+   (call@8,P announce~8 text@1
+    (dot@8 o~1 key@1)
+    (dot@F o~1 rect@1))))
+ (comment@,XV)
+ (proc@,Xd drawRefusal@5 . . .
+  (params@G
+   (param@1 o . . Option@3 .)
+   (param@C why . . string@5 .)
+   (param@P hovered . . bool@9 .)). . .
+  (stmts@2,1
+   (call@8 announce~8
+    (call@5 ours~4 why@1)
+    (infix@I &
+     (dot~5 o~1 key@1)".why"@2)
+    (dot@T o~1 rect@1))
+   (if@,1
+    (elif@3
+     (prefix not hovered@4)
+     (stmts@D
+      (ret .))))
+   (call@A,2 setCentred~A
+    (call@5 ours~4 why@1)
+    (infix@O *
+     (call~7 float~5 guiW@1)0.5@2)
+    (call@a float~5
+     (infix@6 \2D guiH~5 ReasonBaseline@2))0.66~8,1 0.66~2,1 0.66@4,1)))
+ (proc@,Xj drawRow@5 . . .
+  (params@C
+   (param@1 o . . Option@3 .)
+   (param@C hovered . . bool@9 .)). . .
+  (stmts@2,1
+   (let@4 why . . .
+    (call@D refusal~7 o@1))
+   (let@4,1 live . . .
+    (infix@F ==
+     (dot~5 why~3 len@1)0@3))
+   (let@4,2 value . . .
+    (call@F valueOf~7 o@1))
+   (if@,3
+    (elif@3
+     (infix@7 ==
+      (dot~6 o~1 kind@1)SliderOption@3)
+     (stmts@O
+      (call@A drawSlider~A o@1 value@4 live@B
+       (infix@P and hovered~8 live@4))))
+    (else@,1
+     (stmts@6
+      (call@A drawWidget~A
+       (dot@2 o~1 rect@1)
+       (dot@A o~1 key@1)
+       (call@N labelOf~7 o@1 value@4)live@Z
+       (infix@n and hovered~8 live@4)))))
+   (if@,5
+    (elif@3
+     (prefix not live@4)
+     (stmts@A
+      (call@B drawRefusal~B o@1 why@4 hovered@9))))))
+ (comment@,Xr)
+ (proc@,Xt takeRow@5 . . .
+  (params@C
+   (param@1 o . . Option@3 .)
+   (param@C at . . MRect@4 .)
+   (param@N dragged . . bool@9 .))bool@d . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@F >
+      (dot~5
+       (call~3 refusal~7 o@1)len@1)0@2)
+     (stmts@K
+      (ret false@7))))
+   (if@,1
+    (elif@3
+     (infix@7 ==
+      (dot~6 o~1 kind@1)ScreenOption@3)
+     (stmts~1,1
+      (if
+       (elif@3 dragged
+        (stmts@9
+         (ret false@7))))
+      (let@4,1 where . . .
+       (call@H opensPage~9
+        (dot@2 o~1 effect@1)))
+      (if@,2
+       (elif@3
+        (infix@6 == where~6 PacksPage@3)
+        (stmts@K
+         (call@8 askPacks~8 true@1))))
+      (if@,3
+       (elif@3
+        (infix@6 == where~6 LanguagePage@3)
+        (stmts@N
+         (asgn@B langListed~B false@2))))
+      (cmd@5,4
+       (dot stack~5 go@1)where@4)
+      (asgn@A,5 optScroll~A 0@2)
+      (ret@,6 true@7))))
+   (if@,9
+    (elif@3
+     (infix@7 ==
+      (dot~6 o~1 kind@1)SliderOption@3)
+     (stmts~1,1
+      (let@4 want . . .
+       (call@E valueAt~7 o@1
+        (dot@6 at~2 x@1)))
+      (if@,1
+       (elif@3
+        (infix@J and
+         (infix~E == want~5
+          (call@A valueOf~7 o@1))dragged@4)
+        (stmts@W
+         (ret false@7))))
+      (call@8,2 putValue~8 o@1 want@4)
+      (call@9,3 applyHere~9 o@1 want@4)
+      (let@4,4 name . . .
+       (call@G worldName~9
+        (dot@2 o~1 effect@1)))
+      (if@,5
+       (elif@3
+        (infix@9 >
+         (dot~5 name~4 len@1)0@2)
+        (stmts@E
+         (call@C applyToWorld~C
+          (infix@K &
+           (infix~8 &
+            (infix~6 & name~5 " "@2)
+            (prefix@2 $ want@1))"\0A"@2)))))
+      (ret@,6 true@7))))
+   (if@,H
+    (elif@3 dragged
+     (stmts@9
+      (ret false@7))))
+   (let@4,I want . . .
+    (call@G nextValue~9 o@1
+     (call@B valueOf~7 o@1)))
+   (call@8,J putValue~8 o@1 want@4)
+   (call@9,K applyHere~9 o@1 want@4)
+   (let@4,L name . . .
+    (call@G worldName~9
+     (dot@2 o~1 effect@1)))
+   (if@,M
+    (elif@3
+     (infix@9 >
+      (dot~5 name~4 len@1)0@2)
+     (stmts@E
+      (call@C applyToWorld~C
+       (infix@K &
+        (infix~8 &
+         (infix~6 & name~5 " "@2)
+         (prefix@2 $ want@1))"\0A"@2)))))true@,N))
+ (proc@,YL drawOptionsScreen@5 . . .
+  (params@M
+   (param@1 page . . Page@6 .)). . .
+  (stmts@2,1
+   (call@B loadOptions~B)
+   (call@9,1 loadBinds~9)
+   (if@,2
+    (elif@3
+     (infix@F and
+      (prefix~F not worldAsked@4)
+      (call@A serves~6 WorldSettings@1))
+     (stmts@g
+      (call@9 pushWorld~9))))
+   (let@4,3 at . . .
+    (call@F pointerGui~A))
+   (let@4,4 rows . . .
+    (call@E options~7 page@1 guiW@7 guiH@D playing@J optScroll@S))
+   (call@9,5 drawTitle~9
+    (call@9 titleKey~8 page@1)
+    (call@P titleTop~8 page@1))
+   (var@4,6 band . . .
+    (call@E listBox~7 OptListTop@1
+     (infix@I \2D guiH~5 OptListBottom@2)
+     (infix~5,1 \2D
+      (infix~6 div guiW~5 2@4)GridLeft@2)WideWidth@7,1 OptListRow@I,1
+     (call@f,1 optListRows~B
+      (dot@5 rows~4 len@1))))
+   (if@,8
+    (elif@3
+     (call@7 scrolls~7 page@1)
+     (stmts~1,1
+      (asgn@A optScroll~A
+       (call@D clampScroll~B band@1
+        (infix@H \2B optScroll~A
+         (infix@C *
+          (call~3 notches~7)
+          (prefix@2 \2D OptListRow@1)))))
+      (call@D,1 drawListFrame~D band@1 optScroll@7))))
+   (var@4,B over . . . -1@7)
+   (var@4,C i . . . 0@4)
+   (while@,D
+    (infix@8 < i~2
+     (dot@6 rows~4 len@1))
+    (stmts@2,1
+     (let@4 one . . .
+      (at@A rows~4 i@1))
+     (let@4,1 on . . .
+      (infix@W and
+       (call~D
+        (dot~6
+         (dot~5 one~3 rect@1)holds@1)
+        (dot@3 at~2 x@1)
+        (dot@9 at~2 y@1))
+       (par~Y,1
+        (infix@L or
+         (par~K
+          (prefix@1 not
+           (call@B scrolls~7 page@1)))
+         (par@3
+          (infix@P and
+           (infix~J >=
+            (dot~3 at~2 y@1)
+            (call@8 float~5
+             (dot@5 band~4 top@1)))
+           (infix~J,1 <
+            (dot~3 at~2 y@1)
+            (call@7 float~5
+             (dot@5 band~4 bottom@1)))))))))
+     (if@,4
+      (elif@3 on
+       (stmts@4
+        (asgn@5 over~5 i@2))))
+     (if@,5
+      (elif@3
+       (infix@K or
+        (par~K
+         (prefix@1 not
+          (call@B scrolls~7 page@1)))
+        (par~K,1
+         (infix@Z and
+          (infix~I >
+           (dot~8
+            (dot~5 one~3 rect@1)bottom@1)
+           (call@7 float~5
+            (dot@5 band~4 top@1)))
+          (infix@F <
+           (dot~3
+            (dot~5 one~3 rect@1)y@1)
+           (call@7 float~5
+            (dot@5 band~4 bottom@1))))))
+       (stmts~1,2
+        (call@7 drawRow~7 one@1 on@6))))
+     (cmd@,8 inc i@4)))
+   (let@4,N done . . .
+    (call@F doneRect~8 page@1 guiW@7 guiH@D))
+   (call@A,O drawWidget~A done@1 KeyDone@7
+    (call@I tr~2 KeyDone@1)true@T
+    (call@j
+     (dot~6 done~4 holds@1)
+     (dot@3 at~2 x@1)
+     (dot@9 at~2 y@1)))
+   (if@,P
+    (elif@3
+     (call@7 pressed~7 Escape@1)
+     (stmts~1,1
+      (asgn@9 gripping~9 -1@2)
+      (call@A,1
+       (dot~5 stack~5 back@1))
+      (asgn@A,2 optScroll~A 0@2)
+      (ret@,3 .))))
+   (if@,U
+    (elif@3
+     (infix@9 >= gripping~9 0@3)
+     (stmts~1,5
+      (if
+       (elif@3
+        (prefix not
+         (call@8 held~4 LeftButton@1))
+        (stmts~1,1
+         (asgn@9 gripping~9 -1@2)))
+       (elif@5,2
+        (infix@9 < gripping~9
+         (dot@6 rows~4 len@1))
+        (stmts~3,1
+         (discard
+          (call@F takeRow~7
+           (at@5 rows~4 gripping@1)at@H true@L)))))
+      (ret@,4 .))))
+   (if@,e
+    (elif@3
+     (prefix not
+      (call@B clicked~7 "left"@1))
+     (stmts@L
+      (ret .))))
+   (if@,f
+    (elif@3
+     (call@A
+      (dot~6 done~4 holds@1)
+      (dot@3 at~2 x@1)
+      (dot@9 at~2 y@1))
+     (stmts~1,1
+      (call@A
+       (dot~5 stack~5 back@1))
+      (asgn@A,1 optScroll~A 0@2)
+      (ret@,2 .))))
+   (if@,j
+    (elif@3
+     (infix@5 < over~5 0@2)
+     (stmts@A
+      (ret .))))
+   (if@,k
+    (elif@3
+     (infix@W and
+      (infix~G ==
+       (dot~6
+        (at~6 rows~4 over@1)kind@1)SliderOption@3)
+      (infix@S ==
+       (dot~5
+        (call~C refusal~7
+         (at@5 rows~4 over@1))len@1)0@3))
+     (stmts~1,1
+      (asgn@9 gripping~9 over@2))))
+   (discard@,m
+    (call@F takeRow~7
+     (at@5 rows~4 over@1)at@D false@H))))
+ (proc@,ZW capturedName@5 . . .
+  (params@H)string@4 . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@D CaptureKeys~B len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (call@7 pressed~7
+        (at@C CaptureKeys~B i@1))
+       (stmts@P
+        (ret
+         (at@I CaptureKeys~B i@1)))))
+     (cmd@,1 inc i@4)))
+   (if@,4
+    (elif@3
+     (call@7 clicked~7 "left"@1)
+     (stmts@H
+      (ret MouseLeft@7))))
+   (if@,5
+    (elif@3
+     (call@7 clicked~7 "right"@1)
+     (stmts@I
+      (ret MouseRight@7))))
+   (if@,6
+    (elif@3
+     (call@7 clicked~7 "middle"@1)
+     (stmts@J
+      (ret MouseMiddle@7))))""@,7))
+ (proc@,Zg keepBinds@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (call@4 save~4 "keys"@1
+    (call@J writeBinds~A binds@1))
+   (call@4,1 tell~4 "binds"@1
+    (prefix@A $
+     (dot@9
+      (dot~3 binds~5 to@1)len@1)))))
+ (comment@,Zk)
+ (proc@,Zn sendBind@5 . . .
+  (params@D
+   (param@1 row . . int@5 .)). . .
+  (stmts@2,1
+   (let@4 action . . .
+    (call@I worldName~9
+     (at@E BindingWiring~D row@1)))
+   (if@,1
+    (elif@3
+     (infix@B ==
+      (dot~5 action~6 len@1)0@3)
+     (stmts@H
+      (ret .))))
+   (call@C,2 applyToWorld~C
+    (infix@k &
+     (infix~M &
+      (infix~6 &
+       (infix~9 & "bind."~8 action@2)" "@2)
+      (call@9 boundTo~7 binds@1 row@8))"\0A"@2))))
+ (proc@,Zs drawControlsScreen@5 . . .
+  (params@N). . .
+  (stmts@2,1
+   (call@9 loadBinds~9)
+   (call@B,1 loadOptions~B)
+   (if@,2
+    (elif@3
+     (infix@F and
+      (prefix~F not worldAsked@4)
+      (call@A serves~6 WorldSettings@1))
+     (stmts@g
+      (call@9 pushWorld~9))))
+   (let@4,3 at . . .
+    (call@F pointerGui~A))
+   (call@9,4 drawTitle~9 KeyControlsTitle@1 ControlsTitleTop@J)
+   (var@4,6 heads . . .
+    (call@F options~7 ControlsPage@1 guiW@F guiH@L playing@R 0@a))
+   (var@4,7 i . . . 0@4)
+   (var@4,8 over . . . -1@7)
+   (while@,9
+    (infix@8 < i~2
+     (dot@7 heads~5 len@1))
+    (stmts@2,1
+     (var@4 one . . .
+      (at@B heads~5 i@1))
+     (asgn@9,1
+      (dot~6 one~3 rect@1)
+      (call@7 mrect~5
+       (call@6 float~5
+        (infix@V \2B
+         (infix~J \2D
+          (infix~6 div guiW~5 2@4)ControlsGridLeft@2)
+         (infix~f,1 *
+          (par~A
+           (infix@3 mod i~2 2@4))ControlsColumnStep@2)))
+       (call@O,1 float~5 ControlsTopRow@1)
+       (call~9,2 float~5 ControlsHalfWidth@1)
+       (call@H,2 float~5 RowHeight@1)))
+     (let@4,4 on . . .
+      (call@J
+       (dot~6
+        (dot~5 one~3 rect@1)holds@1)
+       (dot@3 at~2 x@1)
+       (dot@9 at~2 y@1)))
+     (if@,5
+      (elif@3 on
+       (stmts@4
+        (asgn@5 over~5 i@2))))
+     (call@7,6 drawRow~7 one@1 on@6)
+     (asgn@9,7
+      (at~4 heads~5 i@1)one@2)
+     (cmd@,8 inc i@4)))
+   (let@4,K entries . . .
+    (call@L bindEntries~B))
+   (let@4,L band . . .
+    (call@E listBox~7 ControlsListTop@1
+     (infix@N \2D guiH~5 ControlsListBottom@2)
+     (call~5,1 bindRowLeft~B guiW@1)WideWidth@3,1 BindRowHeight@E,1
+     (dot@a,1 entries~7 len@1)))
+   (asgn@B,N bindScroll~B
+    (call@D clampScroll~B band@1
+     (infix@I \2B bindScroll~B
+      (infix@C *
+       (call~3 notches~7)
+       (prefix@2 \2D BindRowHeight@1)))))
+   (call@D,O drawListFrame~D band@1 bindScroll@7)
+   (var@4,P chosen . . . -1@9)
+   (var@4,Q resetting . . . -1@C)
+   (var@4,R e . . . 0@4)
+   (while@,S
+    (infix@8 < e~2
+     (dot@9 entries~7 len@1))
+    (stmts@2,1
+     (let@4 one . . .
+      (at@D entries~7 e@1))
+     (let@4,1 slot . . .
+      (call@E rowSlot~7 band@1 e@7 bindScroll@A))
+     (cmd@,2 inc e@4)
+     (if@,3
+      (elif@3
+       (infix@V or
+        (infix~J <=
+         (dot~8 slot~4 bottom@1)
+         (call@8 float~5
+          (dot@5 band~4 top@1)))
+        (infix@A >=
+         (dot~3 slot~4 y@1)
+         (call@8 float~5
+          (dot@5 band~4 bottom@1))))
+       (stmts@12
+        (continue .))))
+     (if@,4
+      (elif@3
+       (infix@9 ==
+        (dot~6 one~3 kind@1)HeadingRow@3)
+       (stmts~1,1
+        (call@A setCentred~A
+         (call@3 tr~2
+          (at@B Categories~A
+           (dot@4 one~3 at@1)))
+         (infix@b *
+          (call~7 float~5 guiW@1)0.5@2)
+         (call@5,1 labelBaseline~D slot@1)1.0@D,1 1.0@I,1 1.0@N,1)
+        (call@8,2 announce~8
+         (call@3 tr~2
+          (at@B Categories~A
+           (dot@4 one~3 at@1)))
+         (at@Z Categories~A
+          (dot@4 one~3 at@1))slot@j)
+        (continue@,3 .))))
+     (let@4,9 row . . .
+      (dot@9 one~3 at@1))
+     (let@4,A why . . .
+      (if@6
+       (elif@3
+        (call@C bindingWired~C row@1)
+        (stmts@J ""))
+       (else@P
+        (stmts@6
+         (at@D BindingReason~D row@1)))))
+     (let@4,B keyBox . . .
+      (call@K bindKeyRect~B guiW@1 slot@7))
+     (let@4,C resetBox . . .
+      (call@O bindResetRect~D guiW@1 slot@7))
+     (let@4,D onKey . . .
+      (infix@z and
+       (infix~S and
+        (call~D
+         (dot~6 keyBox~6 holds@1)
+         (dot@3 at~2 x@1)
+         (dot@9 at~2 y@1))
+        (infix@9 >=
+         (dot~3 at~2 y@1)
+         (call@8 float~5
+          (dot@5 band~4 top@1))))
+       (infix~w,1 <
+        (dot~3 at~2 y@1)
+        (call@7 float~5
+         (dot@5 band~4 bottom@1)))))
+     (let@4,F onReset . . .
+      (infix@13 and
+       (infix~S and
+        (call~D
+         (dot~6 resetBox~8 holds@1)
+         (dot@3 at~2 x@1)
+         (dot@9 at~2 y@1))
+        (infix@9 >=
+         (dot~3 at~2 y@1)
+         (call@8 float~5
+          (dot@5 band~4 top@1))))
+       (infix~10,1 <
+        (dot~3 at~2 y@1)
+        (call@7 float~5
+         (dot@5 band~4 bottom@1)))))
+     (if@,H
+      (elif@3 onKey
+       (stmts@7
+        (asgn@7 chosen~7 row@2))))
+     (if@,I
+      (elif@3 onReset
+       (stmts@9
+        (asgn@A resetting~A row@2))))
+     (let@4,K named . . .
+      (call@A tr~2
+       (at@9 Bindings~8 row@1)))
+     (call@6,L setRun~6 named@1
+      (call@D mrect~5
+       (infix@L \2D
+        (call~7 bindNameRight~D guiW@1)
+        (call@7 float~5
+         (call@8 widthOf~7 named@1)))
+       (call~4,1 labelBaseline~D slot@1)0.0@4,1 0.0@9,1)1.0@S,1 1.0@X,1 1.0@c,1)
+     (var@4,N shown . . .
+      (call@A tr~2
+       (call@9 boundKey~8
+        (call@8 boundTo~7 binds@1 row@8))))
+     (if@,O
+      (elif@3
+       (infix@A == capturing~A row@3)
+       (stmts@I
+        (asgn@6 shown~6
+         (call@E waitingLabel~C shown@1))))
+      (elif@5,1
+       (infix@K >
+        (call~D clashes~7 binds@1 row@8)0@2)
+       (stmts@P
+        (asgn@6 shown~6
+         (call@C clashLabel~A shown@1)))))
+     (call@A,Q drawWidget~A keyBox@1
+      (at@H Bindings~8 row@1)shown@O
+      (infix@d ==
+       (dot~5 why~3 len@1)0@3)onKey@j)
+     (call@8,R announce~8 named@1
+      (at@G Bindings~8 row@1)slot@N)
+     (if@,S
+      (elif@3
+       (infix@8 >
+        (dot~5 why~3 len@1)0@2)
+       (stmts~1,1
+        (call@8 announce~8
+         (call@5 ours~4 why@1)
+         (infix@Q &
+          (at~6 Bindings~8 row@1)".why"@2)slot@a)
+        (if@,1
+         (elif@3
+          (infix@6 or onKey~6 onReset@3)
+          (stmts~1,1
+           (call@A setCentred~A
+            (call@5 ours~4 why@1)
+            (infix@O *
+             (call~7 float~5 guiW@1)0.5@2)
+            (call~3,1 float~5
+             (infix@6 \2D guiH~5 ReasonBaseline@2))0.66@M,1 0.66@S,1 0.66@Y,1)))))))
+     (call@A,X drawWidget~A resetBox@1 KeyBindReset@B
+      (call@R tr~2 KeyBindReset@1)
+      (infix@5,1 and
+       (infix~5 ==
+        (dot~5 why~3 len@1)0@3)
+       (infix@O !=
+        (call~D boundTo~7 binds@1 row@8)
+        (at@H BindingDefault~E row@1)))onReset@r,1)))
+   (let@4,13 resetAll . . .
+    (call@G mrect~5
+     (call@6 float~5
+      (call@C bindRowLeft~B guiW@1))
+     (call@W float~5
+      (infix@6 \2D guiH~5 ControlsFooter@2))
+     (call~D,1 float~5 ControlsHalfWidth@1)
+     (call@D,1 float~5 RowHeight@1)))
+   (let@4,15 done . . .
+    (call@C mrect~5
+     (call@6 float~5
+      (infix@J \2B
+       (call~7 bindRowLeft~B guiW@1)ControlsColumnStep@2))
+     (call~9,1 float~5
+      (infix@6 \2D guiH~5 ControlsFooter@2))
+     (call@L,1 float~5 ControlsHalfWidth@1)
+     (call@l,1 float~5 RowHeight@1)))
+   (call@A,17 drawWidget~A resetAll@1 KeyResetAll@B
+    (call@Q tr~2 KeyResetAll@1)
+    (prefix@f not
+     (call@E atDefaults~A binds@1))
+    (call@6,1
+     (dot~6 resetAll~8 holds@1)
+     (dot@3 at~2 x@1)
+     (dot@9 at~2 y@1)))
+   (call@A,19 drawWidget~A done@1 KeyDone@7
+    (call@I tr~2 KeyDone@1)true@T
+    (call@j
+     (dot~6 done~4 holds@1)
+     (dot@3 at~2 x@1)
+     (dot@9 at~2 y@1)))
+   (if@,1C
+    (elif@3
+     (infix@A >= capturing~A 0@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (call@7 pressed~7 Escape@1)
+        (stmts~1,1
+         (call@6 unbind~6 binds@1 capturing@8)
+         (call@9,1 keepBinds~9)
+         (call@8,2 sendBind~8 capturing@1)
+         (asgn@A,3 capturing~A -1@2)
+         (ret@,4 .))))
+      (let@4,6 got . . .
+       (call@I capturedName~C))
+      (if@,7
+       (elif@3
+        (infix@8 >
+         (dot~5 got~3 len@1)0@2)
+        (stmts~1,1
+         (call@6 rebind~6 binds@1 capturing@8 got@J)
+         (call@9,1 keepBinds~9)
+         (call@8,2 sendBind~8 capturing@1)
+         (call@4,3 tell~4
+          (infix@A & "bound."~9
+           (at@A Bindings~8 capturing@1))got@X)
+         (asgn@A,4 capturing~A -1@2))))
+      (ret@,D .))))
+   (if@,1R
+    (elif@3
+     (call@7 pressed~7 Escape@1)
+     (stmts~1,1
+      (call@A
+       (dot~5 stack~5 back@1))
+      (ret@,1 .))))
+   (if@,1U
+    (elif@3
+     (prefix not
+      (call@B clicked~7 "left"@1))
+     (stmts@L
+      (ret .))))
+   (if@,1V
+    (elif@3
+     (call@A
+      (dot~6 done~4 holds@1)
+      (dot@3 at~2 x@1)
+      (dot@9 at~2 y@1))
+     (stmts~1,1
+      (call@A
+       (dot~5 stack~5 back@1))
+      (ret@,1 .))))
+   (if@,1Y
+    (elif@3
+     (infix@R and
+      (call~D
+       (dot~6 resetAll~8 holds@1)
+       (dot@3 at~2 x@1)
+       (dot@9 at~2 y@1))
+      (prefix@4 not
+       (call@E atDefaults~A binds@1)))
+     (stmts~1,1
+      (call@8 resetAll~8 binds@1)
+      (call@9,1 keepBinds~9)
+      (var@4,2 b . . . 0@4)
+      (while@,3
+       (infix@8 < b~2
+        (dot@A Bindings~8 len@1))
+       (stmts@2,1
+        (if
+         (elif@3
+          (call@C bindingWired~C b@1)
+          (stmts@H
+           (call@8 sendBind~8 b@1))))
+        (cmd@,1 inc b@4)))
+      (ret@,6 .))))
+   (if@,1g
+    (elif@3
+     (infix@F and
+      (infix~5 >= resetting~A 0@3)
+      (call@G bindingWired~C resetting@1))
+     (stmts~1,1
+      (call@8 resetOne~8 binds@1 resetting@8)
+      (call@9,1 keepBinds~9)
+      (call@8,2 sendBind~8 resetting@1)
+      (ret@,3 .))))
+   (if@,1l
+    (elif@3
+     (infix@C and
+      (infix~5 >= chosen~7 0@3)
+      (call@G bindingWired~C chosen@1))
+     (stmts~1,1
+      (asgn@A capturing~A chosen@2)
+      (ret@,1 .))))
+   (if@,1o
+    (elif@3
+     (infix@5 >= over~5 0@3)
+     (stmts@B
+      (discard
+       (call@F takeRow~7
+        (at@6 heads~5 over@1)at@E false@I)))))))
+ (proc@,bx askLanguages@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@B and langListed~B
+      (infix@O !=
+       (infix~E mod ticks~6 PollEvery@4)0@3))
+     (stmts@f
+      (ret .))))
+   (asgn@B,1 langListed~B true@2)
+   (asgn@A,2 languages~A
+    (call@9 linesOf~7
+     (call@C callService~B GuiService@1 "languages"@D)))
+   (if@,3
+    (elif@3
+     (infix@E ==
+      (dot~5 languages~9 len@1)0@3)
+     (stmts~1,1
+      (asgn@A languages~A
+       (prefix@2 \40
+        (bracket@1)))
+      (if@,1
+       (elif@3
+        (infix@D >
+         (dot~5 language~8 len@1)0@2)
+        (stmts@I
+         (cmd@9
+          (dot languages~9 add@1)language@5))))
+      (if@,2
+       (elif@3
+        (infix@9 != language~9 FallbackLanguage@3)
+        (stmts@U
+         (cmd@9
+          (dot languages~9 add@1)FallbackLanguage@5)))))))
+   (call@4,7 tell~4 "languages"@1
+    (prefix@E $
+     (dot@A languages~9 len@1)))))
+ (proc@,c7 chooseLanguage@5 . . .
+  (params@J
+   (param@1 code . . string@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@H or
+      (infix~C == code~5 language@3)
+      (infix@M and
+       (infix~E == code~5 langWanted@3)
+       (prefix@4 not askedLang@4)))
+     (stmts@w
+      (ret .))))
+   (asgn@B,3 langWanted~B code@2)
+   (asgn@A,4 askedLang~A false@2)
+   (asgn@C,5 langReading~C false@2)
+   (asgn@9,6 langBody~9 ""@2)
+   (asgn@7,7 langAt~7 0@2)))
+ (proc@,cH drawLanguageScreen@5 . . .
+  (params@N). . .
+  (stmts@2,1
+   (call@C askLanguages~C)
+   (let@4,1 at . . .
+    (call@F pointerGui~A))
+   (call@9,2 drawTitle~9
+    (call@9 titleKey~8 LanguagePage@1)LangTitleTop@P)
+   (let@4,3 band . . .
+    (call@E listBox~7 LangListTop@1
+     (infix@J \2D guiH~5 LangListBottom@2)
+     (infix~5,1 \2D
+      (infix~6 div guiW~5 2@4)GridLeft@2)WideWidth@7,1 LangRowHeight@I,1
+     (dot@g,1 languages~9 len@1)))
+   (asgn@B,5 langScroll~B
+    (call@D clampScroll~B band@1
+     (infix@I \2B langScroll~B
+      (infix@C *
+       (call~3 notches~7)
+       (prefix@2 \2D LangRowHeight@1)))))
+   (call@D,6 drawListFrame~D band@1 langScroll@7)
+   (var@4,7 over . . . -1@7)
+   (var@4,8 i . . . 0@4)
+   (while@,9
+    (infix@8 < i~2
+     (dot@B languages~9 len@1))
+    (stmts@2,1
+     (let@4 slot . . .
+      (call@E rowSlot~7 band@1 i@7 langScroll@A))
+     (cmd@,1 inc i@4)
+     (if@,2
+      (elif@3
+       (infix@V or
+        (infix~J <=
+         (dot~8 slot~4 bottom@1)
+         (call@8 float~5
+          (dot@5 band~4 top@1)))
+        (infix@A >=
+         (dot~3 slot~4 y@1)
+         (call@8 float~5
+          (dot@5 band~4 bottom@1))))
+       (stmts@12
+        (continue .))))
+     (let@4,3 on . . .
+      (infix@u and
+       (infix~S and
+        (call~D
+         (dot~6 slot~4 holds@1)
+         (dot@3 at~2 x@1)
+         (dot@9 at~2 y@1))
+        (infix@9 >=
+         (dot~3 at~2 y@1)
+         (call@8 float~5
+          (dot@5 band~4 top@1))))
+       (infix~r,1 <
+        (dot~3 at~2 y@1)
+        (call@7 float~5
+         (dot@5 band~4 bottom@1)))))
+     (if@,5
+      (elif@3 on
+       (stmts@4
+        (asgn@5 over~5
+         (infix@4 \2D i~2 1@2)))))
+     (call@C,6 drawRowFrame~C slot@1
+      (infix@O ==
+       (at~8 languages~9
+        (infix@3 \2D i~2 1@2))language@3))
+     (call@A,7 setCentred~A
+      (at@A languages~9
+       (infix@3 \2D i~2 1@2))
+      (infix@V *
+       (call~7 float~5 guiW@1)0.5@2)
+      (call@p labelBaseline~D slot@1)1.0~8,1 1.0~3,1 1.0@2,1)
+     (call@8,9 announce~8
+      (at@A languages~9
+       (infix@3 \2D i~2 1@2))
+      (at@S languages~9
+       (infix@3 \2D i~2 1@2))slot@b)))
+   (call@A,K setCentred~A
+    (call@3 tr~2 KeyLanguageWarning@1)
+    (infix@b *
+     (call~7 float~5 guiW@1)0.5@2)
+    (call~3,1 float~5
+     (infix@6 \2D guiH~5 LangWarning@2))0.5@J,1 0.5@O,1 0.5@T,1)
+   (call@8,T announce~8
+    (call@3 tr~2 KeyLanguageWarning@1)KeyLanguageWarning@P
+    (call~1,1 mrect~5 0.0@1
+     (call@B float~5
+      (infix@6 \2D guiH~5 LangWarning@2))
+     (call@c float~5 guiW@1)
+     (call@p float~5 LineHeight@1)))
+   (let@4,V unicode . . .
+    (call@P langUnicodeRect~F guiW@1 guiH@7))
+   (let@4,W done . . .
+    (call@J langDoneRect~C guiW@1 guiH@7))
+   (call@A,X drawWidget~A unicode@1 KeyForceUnicode@A
+    (call~5,1 trf~3 KeyGenericValue@1
+     (prefix@I \40
+      (bracket@1
+       (call@3 tr~2 KeyForceUnicode@1)
+       (call@O tr~2 KeyOff@1))))false@o,1
+    (call@5,2
+     (dot~6 unicode~7 holds@1)
+     (dot@3 at~2 x@1)
+     (dot@9 at~2 y@1)))
+   (if@,a
+    (elif@3
+     (call@D
+      (dot~6 unicode~7 holds@1)
+      (dot@3 at~2 x@1)
+      (dot@9 at~2 y@1))
+     (stmts~1,1
+      (call@A setCentred~A
+       (call@5 ours~4 UnicodeReason@1)
+       (infix@Y *
+        (call~7 float~5 guiW@1)0.5@2)
+       (call~3,1 float~5
+        (infix@6 \2D guiH~5 ReasonBaseline@2))0.66@M,1 0.66@S,1 0.66@Y,1))))
+   (call@8,d announce~8
+    (call@5 ours~4 UnicodeReason@1)
+    (infix@c & KeyForceUnicode~G ".why"@2)unicode@m)
+   (call@A,e drawWidget~A done@1 KeyDone@7
+    (call@I tr~2 KeyDone@1)true@T
+    (call@j
+     (dot~6 done~4 holds@1)
+     (dot@3 at~2 x@1)
+     (dot@9 at~2 y@1)))
+   (if@,f
+    (elif@3
+     (call@7 pressed~7 Escape@1)
+     (stmts~1,1
+      (call@A
+       (dot~5 stack~5 back@1))
+      (ret@,1 .))))
+   (if@,i
+    (elif@3
+     (prefix not
+      (call@B clicked~7 "left"@1))
+     (stmts@L
+      (ret .))))
+   (if@,j
+    (elif@3
+     (call@A
+      (dot~6 done~4 holds@1)
+      (dot@3 at~2 x@1)
+      (dot@9 at~2 y@1))
+     (stmts~1,1
+      (call@A
+       (dot~5 stack~5 back@1))
+      (ret@,1 .))))
+   (if@,m
+    (elif@3
+     (infix@5 >= over~5 0@3)
+     (stmts@B
+      (call@E chooseLanguage~E
+       (at@A languages~9 over@1)))))))
+ (comment@,d6)
+ (proc@,dA drawSettings@5 . . .
+  (params@H
+   (param@1 page . . Page@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 == page~5 ControlsPage@3)
+     (stmts@M
+      (call@I drawControlsScreen~I)))
+    (elif@5,1
+     (infix@5 == page~5 LanguagePage@3)
+     (stmts@M
+      (call@I drawLanguageScreen~I)))
+    (elif@5,2
+     (call@D isOptionsPage~D page@1)
+     (stmts@L
+      (call@H drawOptionsScreen~H page@1))))))
+ (comment@,dF)
+ (proc@,dN applyStored@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (call@B loadOptions~B)
+   (let@4,1 rows . . .
+    (call@E allRows~7))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@6 rows~4 len@1))
+    (stmts@2,1
+     (let@4 one . . .
+      (at@A rows~4 i@1))
+     (cmd@,1 inc i@4)
+     (if@,2
+      (elif@3
+       (infix@F >
+        (dot~5
+         (dot~7 one~3 reason@1)len@1)0@2)
+       (stmts@K
+        (continue .))))
+     (if@,3
+      (elif@3
+       (infix@Q >
+        (dot~5
+         (call~C worldName~9
+          (dot@4 one~3 effect@1))len@1)0@2)
+       (stmts@V
+        (continue .))))
+     (if@,4
+      (elif@3
+       (infix@K >
+        (dot~5
+         (call~5 hereReason~A one@1)len@1)0@2)
+       (stmts@P
+        (continue .))))
+     (if@,5
+      (elif@3
+       (infix@8 ==
+        (dot~5 one~3 key@1)KeyFullscreen@3)
+       (stmts@Q
+        (continue .))))
+     (call@9,6 applyHere~9 one@1
+      (call@D valueOf~7 one@1))))))
+ (const@6,do Us . . . "aoughwl.mcui"@5)
+ (var@2,dt handoffSeen . . . 0@E)
+ (var@2,du othersHaveIt . . . false@F)
+ (proc@,eA readPointer@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (for@4
+    (call@D handed~6 handoffSeen@1)
+    (unpackflat
+     (let one . . ..))
+    (stmts~2,1
+     (if
+      (elif@3
+       (infix@M and
+        (infix~D ==
+         (dot~6 one~3 verb@1)"pointer"@3)
+        (infix@E !=
+         (dot~7 one~3 from0@1)Us@3))
+       (stmts~1,1
+        (asgn@D othersHaveIt~D
+         (infix@E ==
+          (dot~9 one~3 subject@1)"free"@3)))))))))
+ (proc@,eF resumeWorld@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (call@8 handOver~8 "pointer"@1 "held"@C)
+   (call@B,1 lockPointer~B)
+   (call@3,2 say~3 "back to the world"@1)))
+ (proc@,eK toMainMenu@5 . . .
+  (params@F). . .
+  (stmts@2,3
+   (asgn@8 playing~8 false@2)
+   (call@A,1 leaveWorld~A)
+   (call@8,2 handOver~8 "world"@1 "menu"@A)
+   (call@8,3 handOver~8 "pointer"@1 "free"@C)
+   (cmd@5,4
+    (dot stack~5 resetTo@1)TitlePage@9)
+   (call@3,5 say~3 "left the world"@1)))
+ (proc@,eU shareToLan@5 . . .
+  (params@F). . .
+  (stmts@2,5
+   (if
+    (elif@3
+     (call@8 hostGame~8)
+     (stmts@C
+      (call@3 say~3 "open to lan"@1)))
+    (else@,1
+     (stmts@6
+      (call@3 say~3
+       (infix@R & "could not open to lan\3A "~Q
+        (call@G networkProblem~E))))))))
+ (proc@,ec takePause@5 . . .
+  (params@E
+   (param@1 index . . int@7 .)
+   (param@D buttons . .
+    (at@C seq~3 MenuButton@1).)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (dot@I
+       (at~7 buttons~7 index@1)enabled@1))
+     (stmts@S
+      (ret .))))
+   (let@4,1 key . . .
+    (dot@K
+     (at~7 buttons~7 index@1)key@1))
+   (if@,2
+    (elif@3
+     (infix@4 == key~4 KeyReturnToGame@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@J ==
+         (call~8 togglePause~B stack@1)ClosePause@3)
+        (stmts@Y
+         (call@B resumeWorld~B))))))
+    (elif@5,2
+     (infix@4 == key~4 KeyOptions@3)
+     (stmts~3,1
+      (cmd@5
+       (dot stack~5 go@1)OptionsPage@4)))
+    (elif@5,4
+     (infix@4 == key~4 KeyShareToLan@3)
+     (stmts~3,1
+      (call@A shareToLan~A)))
+    (elif@5,6
+     (infix@4 == key~4 KeyReturnToMenu@3)
+     (stmts~3,1
+      (call@A toMainMenu~A))))))
+ (comment@,eo)
+ (proc@,f1 drawDim@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (let@4 bands . . .
+    (call@G dimBands~8
+     (call@C screenWidth~B)
+     (call@S screenHeight~C)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@7 bands~5 len@1))
+    (stmts@2,1
+     (let@4 one . . .
+      (at@B bands~5 i@1))
+     (cmd@,1 inc i@4)
+     (call@4,2 fill~4
+      (dot@9
+       (dot~5 one~3 rect@1)x@1)
+      (dot@L
+       (dot~5 one~3 rect@1)y@1)
+      (dot@X
+       (dot~5 one~3 rect@1)w@1)
+      (dot@j
+       (dot~5 one~3 rect@1)h@1)
+      (call@6,1 dimLevel~8 DimRed@1)
+      (call@O,1 dimLevel~8 DimGreen@1)
+      (call@i,1 dimLevel~8 DimBlue@1)
+      (dot@w,1 one~3 alpha@1))))))
+ (proc@,fA drawPauseScreen@5 . . .
+  (params@K). . .
+  (stmts@2,1
+   (let@4 buttons . . .
+    (call@M pauseButtons~C guiW@1 guiH@7
+     (call@M shareable~9
+      (call@9 isServer~8)
+      (call@L isClient~8))))
+   (let@4,1 at . . .
+    (call@F pointerGui~A))
+   (let@4,2 over . . .
+    (call@I buttonUnder~B buttons@1
+     (dot@C at~2 x@1)
+     (dot@I at~2 y@1)))
+   (call@9,3 drawTitle~9
+    (call@E pauseTitleKey~D)PauseTitleTop@I)
+   (var@4,4 i . . . 0@4)
+   (while@,5
+    (infix@8 < i~2
+     (dot@9 buttons~7 len@1))
+    (stmts@2,1
+     (call@A drawButton~A
+      (at@8 buttons~7 i@1)
+      (call@F tr~2
+       (dot@B
+        (at~3 buttons~7 i@1)key@1))
+      (infix@Z == i~2 over@3))
+     (cmd@,1 inc i@4)))
+   (if@,8
+    (elif@3
+     (infix@A and
+      (infix~5 >= over~5 0@3)
+      (call@B clicked~7 "left"@1))
+     (stmts@V
+      (call@9 takePause~9 over@1 buttons@7))))))
+ (comment@,fL)
+ (proc@,fR pauseUpdate@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (call@B readPointer~B)
+   (if@,1
+    (elif@3
+     (infix@G and
+      (call~9 pressed~7 Escape@1)
+      (prefix@4 not othersHaveIt@4))
+     (stmts~1,1
+      (let@4 move . . .
+       (call@I togglePause~B stack@1))
+      (if@,1
+       (elif@3
+        (infix@5 == move~5 OpenPause@3)
+        (stmts~1,1
+         (call@8 handOver~8 "pointer"@1 "free"@C)
+         (call@3,1 say~3 "paused"@1)))
+       (elif@5,3
+        (infix@5 == move~5 ClosePause@3)
+        (stmts~3,1
+         (call@B resumeWorld~B)))))))
+   (if@,8
+    (elif@3
+     (prefix not
+      (call@A menuUp~6 stack@1))
+     (stmts@J
+      (ret .))))
+   (call@4,9 poll~4)
+   (call@B,A grantUpdate~B)
+   (asgn@6,B clock~6
+    (infix@8 \2B clock~6
+     (call@B deltaTime~9)))
+   (cmd@,C inc caretTicks@4)
+   (call@B,D freePointer~B)))
+ (proc@,fk start@5 . . .
+  (params@A). . .
+  (stmts@2,1
+   (call@E publishPicture~E StudioLogo@1 "aoughwlstudios.png"@D)
+   (asgn@A,1 hasStudio~A true@2)
+   (call@E,2 publishPicture~E EditionLogo@1 "aoughwledition.png"@E)
+   (asgn@B,3 hasEdition~B true@2)
+   (call@B,4 loadOptions~B)
+   (call@9,5 loadBinds~9)
+   (call@B,6 applyStored~B)
+   (call@4,7 tell~4 "skin"@1 "none"@9)
+   (call@3,8 say~3
+    (infix@R &
+     (infix~B & "waiting for "~F Provider@2)" to publish an interface"@2))))
+ (proc@,fv update@5 . . .
+  (params@B). . .
+  (stmts@2,3
+   (call@8 paceRows~8
+    (call@4 int~3
+     (infix@D *
+      (call~3 deltaTime~9)1000.0@2)))
+   (if@,3
+    (elif@3
+     (prefix not askedFont@4)
+     (stmts@F
+      (call@7 askFont~7))))
+   (if@,8
+    (elif@3
+     (infix@F and
+      (prefix~F not worldAsked@4)
+      (call@A serves~6 WorldSettings@1))
+     (stmts@g
+      (call@9 pushWorld~9))))
+   (if@,9
+    (elif@3 playing
+     (stmts~1,2
+      (call@B pauseUpdate~B)
+      (ret@,1 .))))
+   (call@4,D poll~4)
+   (asgn@6,E clock~6
+    (infix@8 \2B clock~6
+     (call@B deltaTime~9)))
+   (cmd@,F inc caretTicks@4)
+   (if@,G
+    (elif@3
+     (prefix not handedOver@4)
+     (stmts~1,5
+      (asgn@B handedOver~B true@2)
+      (call@8,7 handOver~8 "world"@1 "menu"@A)
+      (call@8,8 handOver~8 "pointer"@1 "free"@C))))
+   (call@B,U freePointer~B)))
+ (proc@,gU drawGui@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (let@4 w . . .
+    (call@7 int~3
+     (call@C screenWidth~B)))
+   (let@4,1 h . . .
+    (call@7 int~3
+     (call@D screenHeight~C)))
+   (if@,2
+    (elif@3
+     (infix@7 or
+      (infix~5 <= w~2 0@3)
+      (infix@5 <= h~2 0@3))
+     (stmts@I
+      (ret .))))
+   (asgn@9,3 scaleNow~9
+    (call@A guiScale~8 w@1 h@4 scaleSetting@7))
+   (asgn@5,4 guiW~5
+    (call@A guiWidth~8 w@1 scaleNow@4))
+   (asgn@5,5 guiH~5
+    (call@B guiHeight~9 h@1 scaleNow@4))
+   (call@4,6 tell~4 "scale"@1
+    (prefix@A $ scaleNow@1))
+   (let@4,7 loading . . .
+    (call@I settling~8 stack@1 heardImporter@8))
+   (if@,8
+    (elif@3 loading
+     (stmts~1,1
+      (if
+       (elif@3
+        (prefix not loadingCap@4)
+        (stmts~1,1
+         (call@9 frameRate~9 30@1)
+         (asgn@B,1 loadingCap~B true@2))))))
+    (elif@5,4 loadingCap
+     (stmts~3,1
+      (call@9 frameRate~9 frameCap@1)
+      (asgn@B,1 loadingCap~B false@2))))
+   (if@,F
+    (elif@3 loading
+     (stmts@9
+      (call@4 tell~4 "screen"@1 "loading"@B)))
+    (else@,1
+     (stmts@6
+      (call@4 tell~4 "screen"@1
+       (call@L screenWord~A
+        (call@5 here~4 stack@1))))))
+   (if@,J
+    (elif@3
+     (infix@8 or loading~8
+      (infix@F ==
+       (call~8 here~4 stack@1)LoadingPage@3))
+     (stmts~1,1
+      (call@B drawLoading~B)
+      (ret@,1 .))))
+   (if@,Q
+    (elif@3 playing
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@C ==
+         (call~8 here~4 stack@1)WorldPage@3)
+        (stmts@Q
+         (ret .))))
+      (call@7,1 drawDim~7)
+      (if@,2
+       (elif@3
+        (infix@C ==
+         (call~8 here~4 stack@1)PausePage@3)
+        (stmts@Q
+         (call@F drawPauseScreen~F)))
+       (elif@5,1
+        (infix@C ==
+         (call~8 here~4 stack@1)PacksPage@3)
+        (stmts@Q
+         (call@9 drawPacks~9)))
+       (else@,2
+        (stmts@6
+         (call@C drawSettings~C
+          (call@5 here~4 stack@1)))))
+      (ret@,5 .))))
+   (let@4,X where . . .
+    (call@C here~4 stack@1))
+   (if@,Y
+    (elif@3
+     (infix@D ==
+      (dot~7 notice~6 state@1)NoGrant@3)
+     (stmts~1,1
+      (call@F drawGrantScreen~F)
+      (ret@,1 .))))
+   (call@C,b drawBackdrop~C
+    (infix@7 == where~6 TitlePage@3))
+   (if@,c
+    (elif@3
+     (infix@6 == where~6 TitlePage@3)
+     (stmts@K
+      (call@F drawTitleScreen~F)))
+    (elif@5,1
+     (infix@6 == where~6 WorldsPage@3)
+     (stmts@L
+      (call@A drawWorlds~A)))
+    (elif@5,2
+     (infix@6 == where~6 CreatePage@3)
+     (stmts@L
+      (call@A drawCreate~A)))
+    (elif@5,3
+     (infix@6 == where~6 ServersPage@3)
+     (stmts@M
+      (call@B drawServers~B)))
+    (elif@5,4
+     (infix@6 == where~6 AddServerPage@3)
+     (stmts@O
+      (call@D drawAddServer~D)))
+    (elif@5,5
+     (infix@6 == where~6 PacksPage@3)
+     (stmts@K
+      (call@9 drawPacks~9)))
+    (else@,6
+     (stmts@6
+      (call@C drawSettings~C where@1))))))
+ (proc@,hF stop@5 . . .
+  (params@9). . .
+  (stmts@E
+   (discard .))))

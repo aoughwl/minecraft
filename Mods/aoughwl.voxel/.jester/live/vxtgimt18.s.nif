@@ -1,0 +1,244 @@
+(.nif27)
+(.indexat 5808             )
+(stmts@,1,vxtune.nim
+ (import
+  (kv sysvq0asl "../../../../../../nimony/lib/std/system.nim"))
+ (const@9,F :McChunk.0.~7 x .
+  (i@7,S 64)
+  (suf@4 16 "i64"))
+ (const@C,I :TuneRegion.0.~A x .
+  (i@4,P 64)
+  (suf@4 48 "i64"))
+ (const@B,L :MinRender.0.~9 x .
+  (i@5,M 64)
+  (suf@4 2 "i64"))
+ (const@B,M :MaxRender.0.~9 x .
+  (i@5,L 64)
+  (suf@4 32 "i64"))
+ (const@8,O :MinFov.0.~6 x .
+  (i@8,J 64)
+  (suf@4 30 "i64"))
+ (const@8,P :MaxFov.0.~6 x .
+  (i@8,I 64)
+  (suf@4 110 "i64"))
+ (const@G,Q :MaxSensitivity.0.~E x .
+  (i@,H 64)
+  (suf@4 200 "i64"))
+ (proc@,Y :isWhole.0.@5 x . .
+  (params@D
+   (param@1 :text.0 . . string.0.sysvq0asl@6 .))
+  (bool@G). .
+  (stmts@2,1
+   (result :result.0 . .
+    (bool@E,~1).)
+   (if
+    (elif@3
+     (eq@9
+      (i 64)
+      (call~5 len.4.sysvq0asl@1 text.0~4)0@3)
+     (stmts@F
+      (ret
+       (false@7)))))
+   (var@4,1 :i.0 . .
+    (i 64)0@4)
+   (while@,2
+    (lt@8
+     (i 64)i.0~2
+     (call@6 len.4.sysvq0asl@1 text.0~4))
+    (stmts@2,1
+     (if
+      (elif@3
+       (or@E
+        (lt~6
+         (c 8)
+         (call~8 \5B\5D.9.sysvq0asl text.0 i.0@5)'0'@2)
+        (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+         (lt@2,1
+          (c 8)'9'@Y,d,vxtune.nim
+          (call@O,d,vxtune.nim \5B\5D.9.sysvq0asl text.0 i.0@5))))
+       (stmts@W
+        (ret
+         (false@7)))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.0))))
+   (asgn@,5 result.0
+    (true))
+   (ret~2,~1 result.0)))
+ (proc@,h :wholeOf.0.@5 x . .
+  (params@D
+   (param@1 :text.1 . . string.0.sysvq0asl@6 .))
+  (i@G 64). .
+  (stmts@2,1
+   (result@4 :result.1 . .
+    (i@A,~1 64).)
+   (var@4 :value.1 . .
+    (i 64)0@8)
+   (var@4,1 :i.1 . .
+    (i 64)0@4)
+   (while@,2
+    (lt@8
+     (i 64)i.1~2
+     (call@6 len.4.sysvq0asl@1 text.1~4))
+    (stmts@2,1
+     (asgn@6 value.1~6
+      (add@D
+       (i 64)
+       (mul~5
+        (i 64)value.1~6 10@2)
+       (sub@G
+        (i 64)
+        (conv~A
+         (i~3 64)
+         (call@1 \5B\5D.9.sysvq0asl text.1 i.1@5))
+        (conv@5
+         (i~I 64)'0'@1))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.1))))
+   (asgn@,5 result.1 value.1)
+   (ret~2,~1 result.1)))
+ (proc@,p :clampWhole.0.@5 x . .
+  (params@G
+   (param@1 :value.0 . .
+    (i@F 64).)
+   (param@8 :lo.0 . .
+    (i@8 64).)
+   (param@C :hi.0 . .
+    (i@4 64).))
+  (i@M 64). .
+  (stmts@2,1
+   (result :result.2 . .
+    (i@E,~9 64).)
+   (if
+    (elif@3
+     (lt@6
+      (i 64)value.0~6 lo.0@2)
+     (stmts@C
+      (ret lo.0@7))))
+   (if@,1
+    (elif@3
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)hi.0@D,s,vxtune.nim value.0@5,s,vxtune.nim))
+     (stmts@C
+      (ret hi.0@7))))
+   (asgn@,2 result.2 value.0)
+   (ret~2,~1 result.2)))
+ (proc@,x :isFlag.0.@5 x . .
+  (params@C
+   (param@1 :text.2 . . string.0.sysvq0asl@6 .))
+  (bool@G). .
+  (stmts@Z
+   (result@C :result.3 . .
+    (bool~V,~P).)
+   (asgn@C result.3
+    (or
+     (infix~7 ==.20.sysvq0asl text.2~5 "0"@3)
+     (infix@8 ==.20.sysvq0asl text.2~5 "1"@3)))
+   (ret~Z result.3)))
+ (proc@,1B :lodRadiusFor.0.@5 x . .
+  (params@I
+   (param@1 :chunks.0 . .
+    (i@8 64).))
+  (i@F 64). .
+  (stmts@2,1
+   (result@4 :result.4 . .
+    (i@A,~V 64).)
+   (let@4 :blocks.0 . .
+    (i@A,~V 64)
+    (mul@o
+     (i 64)
+     (call~V clampWhole.0.~A chunks.0@1 MinRender.0.@9 MaxRender.0.@K)McChunk.0.@2))
+   (asgn@7,1 result.4~7
+    (div@S
+     (i 64)
+     (sub~5
+      (i 64)
+      (add~D
+       (i 64)blocks.0~7 TuneRegion.0.@2)1@2)TuneRegion.0.@4))
+   (if@,2
+    (elif@3
+     (lt@7
+      (i 64)result.4~7 1@2)
+     (stmts@C
+      (asgn@7 result.4~7 1@2))))
+   (ret~2,~1 result.4)))
+ (proc@,1J :renderChunksFor.0.@5 x . .
+  (params@L
+   (param@1 :radius.0 . .
+    (i@8 64).))
+  (i@F 64). .
+  (stmts@g
+   (result@K :result.5 . .
+    (i~k,~c 64).)
+   (asgn@K result.5
+    (div
+     (i 64)
+     (mul~D
+      (i 64)radius.0~7 TuneRegion.0.@2)McChunk.0.@4))
+   (ret~g result.5)))
+ (proc@,1P :lookSpeedFor.0.@5 x . .
+  (params@I
+   (param@1 :base.0 . .
+    (f@6 64).)
+   (param@E :percent.0 . .
+    (i@9 64).))
+  (f@T 64). .
+  (stmts@2,1
+   (result@r :result.6 . .
+    (f~U,~1 64).)
+   (asgn@r result.6
+    (div
+     (f 64)
+     (mul~m
+      (f 64)base.0~5
+      (conv@7
+       (f~5 64)
+       (call@B clampWhole.0.~A percent.0@1 0@A MaxSensitivity.0.@D)))100.0@2))
+   (ret~2,~1 result.6)))
+ (proc@,1T :fovFor.0.@5 x . .
+  (params@C
+   (param@1 :degrees.0 . .
+    (i@9 64).))
+  (f@G 64). .
+  (stmts@2,1
+   (result@5 :result.7 . .
+    (f@I,~5 64).)
+   (asgn@5 result.7
+    (conv
+     (f@2,~4 64)
+     (call@B clampWhole.0.~A degrees.0@1 MinFov.0.@A MaxFov.0.@I)))
+   (ret~2,~1 result.7)))
+ (comment@G,Y bool.0.sysvq0asl int.0.sysvq0asl@,9 int.0.sysvq0asl@G,H int.0.sysvq0asl@G,H int.0.sysvq0asl@G,H int.0.sysvq0asl@6,H bool.0.sysvq0asl@,P int.0.sysvq0asl@B,d int.0.sysvq0asl~1,d int.0.sysvq0asl@E,l int.0.sysvq0asl~1,l float.0.sysvq0asl@9,r int.0.sysvq0asl@P,r float.0.sysvq0asl@D,r int.0.sysvq0asl@6,v float.0.sysvq0asl@,v false.0.sysvq0asl@B,1 >.0.sysvq0asl@G,4 false.0.sysvq0asl@U,4 true.0.sysvq0asl~E,6 int.0.sysvq0asl@A,D int.0.sysvq0asl@P,D >.0.sysvq0asl~5,J float.0.sysvq0asl~7,s float.0.sysvq0asl~E,w)
+ (func@4,d :inc.1.Irn1g7r1. . .@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (at inc.1.sysvq0asl
+   (i 64))
+  (params@L,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (param@1 :x.1 . .
+    (mut@3
+     (i 64)).)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (pragmas@W,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (inline@2)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (stmts@2,F,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (asgn@2,1
+    (hderef~2 x.1)
+    (add@6
+     (i 64)
+     (hderef@1 x.1)
+     (conv@U,~F
+      (i 64)1@1))))))(.index@,1,vxtune.nim
+ (x McChunk.0. 131)
+ (x TuneRegion.0. 63)
+ (x MinRender.0. 66)
+ (x MaxRender.0. 64)
+ (x MinFov.0. 65)
+ (x MaxFov.0. 62)
+ (x MaxSensitivity.0. 63)
+ (x isWhole.0. 70)
+ (x wholeOf.0. 905)
+ (x clampWhole.0. 692)
+ (x isFlag.0. 583)
+ (x lodRadiusFor.0. 304)
+ (x renderChunksFor.0. 590)
+ (x lookSpeedFor.0. 292)
+ (x fovFor.0. 410)
+ (h inc.1.Irn1g7r1. 818))

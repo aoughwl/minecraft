@@ -1,0 +1,401 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/deps/aoughwl_mcnet/netinv.nim
+ (comment)
+ (import@,Q netwire@7)
+ (import@,R netnbt@7)
+ (import@,S netslot@7)
+ (const@E,V WindowPlayer~C x . . 0@4)
+ (const@E,X WindowCursor~C x . . -1@4)
+ (const@K,a SlotCraftingResult~I x . . 0@4)
+ (const@J,b SlotCraftingFirst~H x . . 1@4)
+ (const@G,c SlotArmourHead~E x . . 5@4)
+ (const@H,d SlotArmourChest~F x . . 6@4)
+ (const@G,e SlotArmourLegs~E x . . 7@4)
+ (const@G,f SlotArmourFeet~E x . . 8@4)
+ (const@K,g SlotInventoryFirst~I x . . 9@4)
+ (const@H,h SlotHotbarFirst~F x . . 36@4)
+ (const@D,i SlotOffHand~B x . . 45@4)
+ (const@H,j PlayerSlotCount~F x . . 46@4)
+ (const@D,n ClickPickup~B x . . 0@4)
+ (const@G,o ClickQuickMove~E x . . 1@4)
+ (const@B,p ClickSwap~9 x . . 2@4)
+ (const@C,q ClickClone~A x . . 3@4)
+ (const@C,r ClickThrow~A x . . 4@4)
+ (const@H,s ClickQuickCraft~F x . . 5@4)
+ (const@G,t ClickPickupAll~E x . . 6@4)
+ (const@J,v MaxContainerSlots~H x . . 256@4)
+ (type@H,10 SetSlotPacket~F x . .
+  (object@2 .
+   (fld~9,1 window~6 x . int@3 .)
+   (fld~8,2 stateId~7 x . int@3 .)
+   (fld~B,3 slot~4 x . int@3 .)
+   (fld~B,4 item~4 x . SlotItem@3 .)))
+ (type@K,16 SetContentPacket~I x . .
+  (object@2 .
+   (fld~C,1 window~6 x . int@3 .)
+   (fld~B,2 stateId~7 x . int@3 .)
+   (fld~D,3 items~5 x .
+    (at@6 seq~3 SlotItem@1).)
+   (fld~B,4 carried~7 x . SlotItem@3 .)))
+ (type@N,1C ContainerDataPacket~L x . .
+  (object@2 .
+   (fld~F,3 window~6 x . int@3 .)
+   (fld~D,4 property~8 x . int@3 .)
+   (fld~G,5 value~5 x . int@3 .)))
+ (type@K,1J OpenScreenPacket~I x . .
+  (object@2 .
+   (fld~C,1 window~6 x . int@3 .)
+   (fld~E,2 kind~4 x . int@3 .)
+   (fld~D,3 title~5 x . Nbt@3 .)))
+ (type@I,1O HeldSlotPacket~G x . .
+  (object@2 .
+   (fld~C,1 slot~4 x . int@3 .)))
+ (type@T,1R PlayerInventorySlotPacket~R x . .
+  (object@2 .
+   (fld~N,3 slot~4 x . int@3 .)
+   (fld~N,4 item~4 x . SlotItem@3 .)))
+ (type@E,1X Containers~C x . .
+  (object@2 .
+   (fld~2,2 openWindow~A x . int@3 .)
+   (fld~4,3 openKind~8 x . int@3 .)
+   (fld~1,4 lastStateId~B x .
+    (at@6 seq~3 int@1).)
+   (fld~5,5 problem~7 x . string@3 .)))
+ (proc@,1e containers@5 x . .
+  (params@G)Containers@4 . .
+  (stmts@2,1
+   (oconstr@A Containers~A
+    (kv@B openWindow~A -1@2)
+    (kv@P openKind~8 -1@2)
+    (kv@g lastStateId~B
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@u problem~7 ""@2))))
+ (proc@,1h noteState@5 x . .
+  (params@F
+   (param@1 c . .
+    (mut@3 Containers@4).)
+   (param@K window . . int@H .)
+   (param@S stateId . . int@9 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@B or
+      (infix~4 < window~7 0@2)
+      (infix@A > window~7 255@2))
+     (stmts@S
+      (ret .))))
+   (while@,1
+    (infix@O <=
+     (dot~5
+      (dot~C c~1 lastStateId@1)len@1)window@3)
+    (stmts@Z
+     (cmd@D
+      (dot
+       (dot~C c~1 lastStateId@1)add@1)0@5)))
+   (asgn@M,2
+    (at~9
+     (dot~C c~1 lastStateId@1)window@1)stateId@2)))
+ (proc@,1m stateOf@5 x . .
+  (params@D
+   (param@1 c . . Containers@3 .)
+   (param@G window . . int@8 .))int@U . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@B or
+      (infix~4 < window~7 0@2)
+      (infix@A >= window~7
+       (dot@G
+        (dot~C c~1 lastStateId@1)len@1)))
+     (stmts@h 0))
+    (else@m
+     (stmts@6
+      (at@D
+       (dot~C c~1 lastStateId@1)window@1))))))
+ (proc@,1s readSetSlotPacket@5 x . .
+  (params@N
+   (param@1 r . .
+    (mut@3 Reader@4).)
+   (param@G t . . ComponentTable@3 .))SetSlotPacket@a . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@F SetSlotPacket~D
+     (kv@7 window~6 0@2)
+     (kv@J stateId~7 0@2)
+     (kv@S slot~4 0@2)
+     (kv@b item~4
+      (call@B emptySlot~9))))
+   (asgn@E,1
+    (dot~8 result~6 window@1)
+    (call@C readVarInt~A r@1))
+   (asgn@F,2
+    (dot~9 result~6 stateId@1)
+    (call@C readVarInt~A r@1))
+   (asgn@C,3
+    (dot~6 result~6 slot@1)
+    (call@B readShort~9 r@1))
+   (asgn@C,4
+    (dot~6 result~6 item@1)
+    (call@A readSlot~8 r@1 t@4))))
+ (proc@,1z readSetContentPacket@5 x . .
+  (params@Q
+   (param@1 r . .
+    (mut@3 Reader@4).)
+   (param@G t . . ComponentTable@3 .))SetContentPacket@a . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@I SetContentPacket~G
+     (kv@7 window~6 0@2)
+     (kv@J stateId~7 0@2)
+     (kv@T items~5
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@8,1 carried~7
+      (call@B emptySlot~9))))
+   (asgn@E,2
+    (dot~8 result~6 window@1)
+    (call@C readVarInt~A r@1))
+   (asgn@F,3
+    (dot~9 result~6 stateId@1)
+    (call@C readVarInt~A r@1))
+   (let@4,4 n . . .
+    (call@E readVarInt~A r@1))
+   (if@,5
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (if@,6
+    (elif@3
+     (infix@6 or
+      (infix~4 < n~2 0@2)
+      (infix@5 > n~2 MaxContainerSlots@2))
+     (stmts~1,1
+      (call@4 fail~4 r@1 "a container claims more slots than any container has"@4)
+      (ret@,1 .))))
+   (var@4,9 i . . . 0@4)
+   (while@,A
+    (infix@8 < i~2 n@2)
+    (stmts@2,1
+     (cmd@C
+      (dot
+       (dot~6 result~6 items@1)add@1)
+      (call@D readSlot~8 r@1 t@4))
+     (if@,1
+      (elif@3
+       (prefix not
+        (call@6 ok~2 r@1))
+       (stmts@B
+        (ret .))))
+     (cmd@,2 inc i@4)))
+   (asgn@F,H
+    (dot~9 result~6 carried@1)
+    (call@A readSlot~8 r@1 t@4))))
+ (proc@,2J readContainerDataPacket@5 x . .
+  (params@T
+   (param@1 r . .
+    (mut@3 Reader@4).))ContainerDataPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@L ContainerDataPacket~J
+     (kv@7 window~6 0@2)
+     (kv@K property~8 0@2)
+     (kv@U value~5 0@2)))
+   (asgn@E,1
+    (dot~8 result~6 window@1)
+    (call@C readVarInt~A r@1))
+   (asgn@G,2
+    (dot~A result~6 property@1)
+    (call@B readShort~9 r@1))
+   (asgn@D,3
+    (dot~7 result~6 value@1)
+    (call@B readShort~9 r@1))))
+ (proc@,2P readOpenScreenPacket@5 x . .
+  (params@Q
+   (param@1 r . .
+    (mut@3 Reader@4).))OpenScreenPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@I OpenScreenPacket~G
+     (kv@7 window~6 0@2)
+     (kv@G kind~4 0@2)
+     (kv@Q title~5
+      (call@A emptyNbt~8))))
+   (asgn@E,1
+    (dot~8 result~6 window@1)
+    (call@C readVarInt~A r@1))
+   (asgn@C,2
+    (dot~6 result~6 kind@1)
+    (call@C readVarInt~A r@1))
+   (asgn@D,3
+    (dot~7 result~6 title@1)
+    (call@9 readNbt~7 r@1))
+   (if@,4
+    (elif@3
+     (infix@P >
+      (dot~5
+       (dot~8
+        (dot~6 result~6 title@1)problem@1)len@1)0@2)
+     (stmts@U
+      (call@4 fail~4 r@1
+       (dot@G
+        (dot~6 result~6 title@1)problem@1)))))))
+ (proc@,2W readHeldSlotPacket@5 x . .
+  (params@O
+   (param@1 r . .
+    (mut@3 Reader@4).))HeldSlotPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@G HeldSlotPacket~E
+     (kv@5 slot~4 0@2)))
+   (asgn@C,1
+    (dot~6 result~6 slot@1)
+    (call@C readVarInt~A r@1))))
+ (proc@,2a readPlayerInventorySlotPacket@5 x . .
+  (params@Z
+   (param@1 r . .
+    (mut@3 Reader@4).)
+   (param@1,1 t . . ComponentTable@3 .))PlayerInventorySlotPacket@L,1 . .
+  (stmts@2,2
+   (asgn@7 result~7
+    (oconstr@R PlayerInventorySlotPacket~P
+     (kv@5 slot~4 0@2)
+     (kv@E item~4
+      (call@B emptySlot~9))))
+   (asgn@C,1
+    (dot~6 result~6 slot@1)
+    (call@C readVarInt~A r@1))
+   (asgn@C,2
+    (dot~6 result~6 item@1)
+    (call@A readSlot~8 r@1 t@4))))
+ (proc@,2g onContainerPacket@5 x . .
+  (params@N
+   (param@1 c . .
+    (mut@3 Containers@4).)
+   (param@K opened . . bool@8 .)
+   (param@Y window . . int@E .)
+   (param@g kind . . int@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3 opened
+     (stmts~1,1
+      (asgn@D
+       (dot~C c~1 openWindow@1)window@2)
+      (asgn@B,1
+       (dot~A c~1 openKind@1)kind@2)))
+    (else@,3
+     (stmts@2,1
+      (asgn@D
+       (dot~C c~1 openWindow@1)-1@2)
+      (asgn@B,1
+       (dot~A c~1 openKind@1)-1@2))))))
+ (proc@,2y putHashedSlot@5 x . .
+  (params@J
+   (param@1 w . .
+    (mut@3 Writer@4).)
+   (param@G present . . bool@9 .)
+   (param@V itemId . . int@F .)
+   (param@d count . . int@7 .)). . .
+  (stmts@2,1
+   (call@7 putBool~7 w@1 present@4)
+   (if@,1
+    (elif@3
+     (prefix not present@4)
+     (stmts@D
+      (ret .))))
+   (call@9,2 putVarInt~9 w@1 itemId@4)
+   (call@9,3 putVarInt~9 w@1 count@4)
+   (call@9,4 putVarInt~9 w@1 0@4)
+   (call@9,5 putVarInt~9 w@1 0@4)))
+ (proc@,36 bodyContainerClick@5 x . .
+  (params@O
+   (param@1 window . . int@b .)
+   (param@9 stateId . . int@T .)
+   (param@I slot . . int@K .)
+   (param@O button . . int@E .)
+   (param@W mode . . int@6 .)
+   (param@1,1 changedSlots . .
+    (at@H seq~3 int@1).)
+   (param@P,1 changedIds . .
+    (at@F seq~3 int@1).)
+   (param@1,2 changedCounts . .
+    (at@I seq~3 int@1).)
+   (param@1,3 cursorPresent . . bool@F .)
+   (param@M,3 cursorId . . int@N .)
+   (param@W,3 cursorCount . . int@D .))
+  (at@s,3 seq~3 int@1). .
+  (stmts@2,4
+   (comment)
+   (var@4,3 w . . .
+    (call@A writer~6))
+   (call@9,4 putVarInt~9 w@1 window@4)
+   (call@9,5 putVarInt~9 w@1 stateId@4)
+   (call@8,6 putShort~8 w@1 slot@4)
+   (call@7,7 putByte~7 w@1 button@4)
+   (call@9,8 putVarInt~9 w@1 mode@4)
+   (var@4,9 n . . .
+    (dot@G changedSlots~C len@1))
+   (if@,A
+    (elif@3
+     (infix@F <
+      (dot~5 changedIds~A len@1)n@2)
+     (stmts@K
+      (asgn@2 n~2
+       (dot@C changedIds~A len@1)))))
+   (if@,B
+    (elif@3
+     (infix@I <
+      (dot~5 changedCounts~D len@1)n@2)
+     (stmts@N
+      (asgn@2 n~2
+       (dot@F changedCounts~D len@1)))))
+   (call@9,C putVarInt~9 w@1 n@4)
+   (var@4,D i . . . 0@4)
+   (while@,E
+    (infix@8 < i~2 n@2)
+    (stmts@2,1
+     (call@8 putShort~8 w@1
+      (at@G changedSlots~C i@1))
+     (call@D,1 putHashedSlot~D w@1
+      (infix@I >=
+       (at~4 changedIds~A i@1)0@3)
+      (at@Y changedIds~A i@1)
+      (at@q changedCounts~D i@1))
+     (cmd@,2 inc i@4)))
+   (call@D,I putHashedSlot~D w@1 cursorPresent@4 cursorId@J cursorCount@T)
+   (dot@1,J w~1 data@1)))
+ (proc@,3V bodyContainerClose@5 x . .
+  (params@O
+   (param@1 window . . int@8 .))
+  (at@I seq~3 int@1). .
+  (stmts@2,1
+   (var@4 w . . .
+    (call@A writer~6))
+   (call@9,1 putVarInt~9 w@1 window@4)
+   (dot@1,2 w~1 data@1)))
+ (proc@,3a bodySetCreativeModeSlot@5 x . .
+  (params@T
+   (param@1 slot . . int@L .)
+   (param@7 itemId . . int@F .)
+   (param@F count . . int@7 .))
+  (at@V seq~3 int@1). .
+  (stmts@2,1
+   (comment)
+   (var@4,2 w . . .
+    (call@A writer~6))
+   (call@8,3 putShort~8 w@1 slot@4)
+   (if@,4
+    (elif@3
+     (infix@B or
+      (infix~4 < itemId~7 0@2)
+      (infix@9 <= count~6 0@3))
+     (stmts~1,1
+      (call@C putSlotEmpty~C w@1)))
+    (else@,2
+     (stmts@2,1
+      (call@D putSlotSimple~D w@1 itemId@4 count@C))))
+   (dot@1,8 w~1 data@1))))

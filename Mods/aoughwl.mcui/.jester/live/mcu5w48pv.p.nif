@@ -1,0 +1,521 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,mcuipacks.nim
+ (comment)
+ (import@,f mcuicore@7)
+ (import@,g mcuilist@7)
+ (const@B,j PackTitle~9 x . . "resourcePack.title"@4)
+ (const@F,k PackAvailable~D x . . "resourcePack.available.title"@4)
+ (const@E,l PackSelected~C x . . "resourcePack.selected.title"@4)
+ (const@G,m PackFolderInfo~E x . . "resourcePack.folderInfo"@4)
+ (const@I,n PackIncompatible~G x . . "resourcePack.incompatible"@4)
+ (const@C,o PackTooOld~A x . . "resourcePack.incompatible.old"@4)
+ (const@C,p PackTooNew~A x . . "resourcePack.incompatible.new"@4)
+ (const@A,q PackDone~8 x . . "gui.done"@4)
+ (const@D,s ColumnWidth~B x . . 200@4)
+ (const@B,t ColumnGap~9 x . . 4@4)
+ (const@B,w ColumnTop~9 x . . 32@4)
+ (const@J,x ColumnBottomInset~H x . . 51@4)
+ (const@E,z PackTitleTop~C x . . 16@4)
+ (const@D,12 FooterInset~B x . . 48@4)
+ (const@J,14 FooterButtonWidth~H x . . 150@4)
+ (const@A,15 IconSize~8 x . . 32@4)
+ (const@9,17 IconGap~7 x . . 2@4)
+ (const@I,18 DescriptionLines~G x . . 2@4)
+ (type@B,1B Fitness~9 x . .
+  (enum@2 .
+   (efld~9,1 PackFits . . . .)
+   (efld~9,2 PackOld . . . .)
+   (efld~9,3 PackNew . . . .)))
+ (type@D,1G PackEntry~B x . .
+  (object@2 .
+   (fld~7,3 name~4 x . string@3 .)
+   (fld@,4 description~B x . string@3 .)
+   (fld~5,5 lowest~6 x . int@3 .)
+   (fld~4,6 highest~7 x . int@3 .)
+   (fld~7,7 icon~4 x . bool@3 .)))
+ (type@E,1P PackChoice~C x . .
+  (object@2 .
+   (fld~7,3 packs~5 x .
+    (at@6 seq~3 PackEntry@1).)
+   (fld~4,4 selected~8 x .
+    (at@6 seq~3 int@1).)
+   (fld~3,5 available~9 x .
+    (at@6 seq~3 int@1).)
+   (fld~2,6 leftScroll~A x . int@3 .)
+   (fld~1,7 rightScroll~B x . int@3 .)
+   (fld~4,8 leftPick~8 x . int@3 .)
+   (fld~3,9 rightPick~9 x . int@3 .)))
+ (proc@,1a noChoice@5 x . .
+  (params@E)PackChoice@4 . .
+  (stmts@2,1
+   (oconstr@A PackChoice~A
+    (kv@6 packs~5
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@L selected~8
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@b available~9
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@s leftScroll~A 0@2)
+    (kv@C,1 rightScroll~B 0@2)
+    (kv@P,1 leftPick~8 -1@2)
+    (kv@e,1 rightPick~9 -1@2))))
+ (comment@,1e)
+ (proc@,1i fitness@5 x . .
+  (params@D
+   (param@1 e . . PackEntry@3 .)
+   (param@F format . . int@8 .))Fitness@T . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@C or
+      (infix~5 <= format~7 0@3)
+      (infix@D <=
+       (dot~9 e~1 highest@1)0@3))
+     (stmts@V
+      (ret PackFits@7))))
+   (if@,1
+    (elif@3
+     (infix@7 > format~7
+      (dot@3 e~1 highest@1))
+     (stmts@K
+      (ret PackOld@7))))
+   (if@,2
+    (elif@3
+     (infix@D and
+      (infix~4 >
+       (dot~8 e~1 lowest@1)0@2)
+      (infix@B < format~7
+       (dot@3 e~1 lowest@1)))
+     (stmts@a
+      (ret PackNew@7))))PackFits@,3))
+ (comment@,1o)
+ (proc@,1r fitnessKey@5 x . .
+  (params@G
+   (param@1 f . . Fitness@3 .))string@E . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@2 == f~2 PackOld@3)
+     (stmts@E PackTooOld))
+    (elif@5,1
+     (infix@2 == f~2 PackNew@3)
+     (stmts@E PackTooNew))
+    (else@,2
+     (stmts@6 "")))))
+ (comment@,1w)
+ (proc@,20 chooseFrom@5 x . .
+  (params@G
+   (param@1 packs . .
+    (at@A seq~3 PackEntry@1).)
+   (param@O on . .
+    (at@7 seq~3 string@1).))PackChoice@g . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@A noChoice~8))
+   (asgn@D,1
+    (dot~7 result~6 packs@1)packs@2)
+   (var@4,2 taken . .
+    (at@A seq~3 bool@1)
+    (prefix@J \40
+     (bracket@1)))
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@7 packs~5 len@1))
+    (stmts@2,1
+     (cmd@5
+      (dot taken~5 add@1)false@5)
+     (cmd@,1 inc i@4)))
+   (asgn@2,7 i~2 0@2)
+   (while@,8
+    (infix@8 < i~2
+     (dot@4 on~2 len@1))
+    (stmts@2,1
+     (var@4 k . . . 0@4)
+     (while@,1
+      (infix@8 < k~2
+       (dot@7 packs~5 len@1))
+      (stmts@2,1
+       (if
+        (elif@3
+         (infix@N and
+          (infix~9 ==
+           (dot~6
+            (at~3 packs~5 k@1)name@1)
+           (at@5 on~2 i@1))
+          (prefix@4 not
+           (at@9 taken~5 k@1)))
+         (stmts~1,1
+          (asgn@9
+           (at~4 taken~5 k@1)true@2)
+          (cmd@F,1
+           (dot
+            (dot~9 result~6 selected@1)add@1)k@5)
+          (asgn@2,2 k~2
+           (dot@7 packs~5 len@1))))
+        (else@,4
+         (stmts@2,1
+          (cmd inc k@4))))))
+     (cmd@,8 inc i@4)))
+   (asgn@2,I i~2 0@2)
+   (while@,J
+    (infix@8 < i~2
+     (dot@7 packs~5 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (prefix not
+        (at@9 taken~5 i@1))
+       (stmts@E
+        (cmd@G
+         (dot
+          (dot~A result~6 available@1)add@1)i@5))))
+     (cmd@,1 inc i@4)))))
+ (comment@,2O)
+ (proc@,2Q optionsOrder@5 x . .
+  (params@I
+   (param@1 c . . PackChoice@3 .))
+  (at@K seq~3 string@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 i . . .
+    (infix@J \2D
+     (dot~5
+      (dot~9 c~1 selected@1)len@1)1@2))
+   (while@,2
+    (infix@8 >= i~2 0@3)
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (dot@R
+       (at~F
+        (dot~6 c~1 packs@1)
+        (at@B
+         (dot~9 c~1 selected@1)i@1))name@1))
+     (cmd@,1 dec i@4)))))
+ (comment@,2X)
+ (proc@,2b priorityOrder@5 x . .
+  (params@J
+   (param@1 c . . PackChoice@3 .))
+  (at@K seq~3 string@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@C
+      (dot~9 c~1 selected@1)len@1))
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (dot@R
+       (at~F
+        (dot~6 c~1 packs@1)
+        (at@B
+         (dot~9 c~1 selected@1)i@1))name@1))
+     (cmd@,1 inc i@4)))))
+ (proc@,2i removeAt@5 . . .
+  (params@D
+   (param@1 list . .
+    (mut@6
+     (at@7 seq~3 int@1)).)
+   (param@L at . . int@4 .)). . .
+  (stmts@2,1
+   (var@4 kept . .
+    (at@9 seq~3 int@1)
+    (prefix@H \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 list~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 != i~2 at@3)
+       (stmts@9
+        (cmd@4
+         (dot kept~4 add@1)
+         (at@9 list~4 i@1)))))
+     (cmd@,1 inc i@4)))
+   (asgn@5,5 list~5 kept@2)))
+ (proc@,2q insertAt@5 . . .
+  (params@D
+   (param@1 list . .
+    (mut@6
+     (at@7 seq~3 int@1)).)
+   (param@L at . . int@B .)
+   (param@P value . . int@7 .)). . .
+  (stmts@2,1
+   (var@4 kept . .
+    (at@9 seq~3 int@1)
+    (prefix@H \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 list~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 == i~2 at@3)
+       (stmts@9
+        (cmd@4
+         (dot kept~4 add@1)value@5))))
+     (cmd@4,1
+      (dot kept~4 add@1)
+      (at@9 list~4 i@1))
+     (cmd@,2 inc i@4)))
+   (if@,6
+    (elif@3
+     (infix@3 >= at~3
+      (dot@7 list~4 len@1))
+     (stmts@G
+      (cmd@4
+       (dot kept~4 add@1)value@5))))
+   (asgn@5,7 list~5 kept@2)))
+ (comment@,30)
+ (proc@,33 enable@5 x . .
+  (params@C
+   (param@1 c . .
+    (mut@3 PackChoice@4).)
+   (param@K row . . int@5 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 or
+      (infix~4 < row~4 0@2)
+      (infix@7 >= row~4
+       (dot@E
+        (dot~A c~1 available@1)len@1)))
+     (stmts@Z
+      (ret .))))
+   (let@4,1 which . . .
+    (at@J
+     (dot~A c~1 available@1)row@1))
+   (call@8,2 removeAt~8
+    (dot@2 c~1 available@1)row@E)
+   (call@8,3 insertAt~8
+    (dot@2 c~1 selected@1)0@D which@G)
+   (asgn@B,4
+    (dot~A c~1 leftPick@1)-1@2)
+   (asgn@C,5
+    (dot~B c~1 rightPick@1)0@2)))
+ (comment@,3B)
+ (proc@,3E disable@5 x . .
+  (params@D
+   (param@1 c . .
+    (mut@3 PackChoice@4).)
+   (param@K row . . int@5 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 or
+      (infix~4 < row~4 0@2)
+      (infix@7 >= row~4
+       (dot@D
+        (dot~9 c~1 selected@1)len@1)))
+     (stmts@Y
+      (ret .))))
+   (let@4,1 which . . .
+    (at@I
+     (dot~9 c~1 selected@1)row@1))
+   (call@8,2 removeAt~8
+    (dot@2 c~1 selected@1)row@D)
+   (cmd@B,3
+    (dot
+     (dot~A c~1 available@1)add@1)which@5)
+   (asgn@C,4
+    (dot~B c~1 rightPick@1)-1@2)))
+ (comment@,3L)
+ (proc@,3M raisePack@5 x . .
+  (params@F
+   (param@1 c . .
+    (mut@3 PackChoice@4).)
+   (param@K row . . int@5 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 or
+      (infix~5 <= row~4 0@3)
+      (infix@7 >= row~4
+       (dot@D
+        (dot~9 c~1 selected@1)len@1)))
+     (stmts@Z
+      (ret .))))
+   (let@4,1 which . . .
+    (at@I
+     (dot~9 c~1 selected@1)row@1))
+   (call@8,2 removeAt~8
+    (dot@2 c~1 selected@1)row@D)
+   (call@8,3 insertAt~8
+    (dot@2 c~1 selected@1)
+    (infix@H \2D row~4 1@2)which@M)
+   (asgn@C,4
+    (dot~B c~1 rightPick@1)
+    (infix@6 \2D row~4 1@2))))
+ (proc@,3T lowerPack@5 x . .
+  (params@F
+   (param@1 c . .
+    (mut@3 PackChoice@4).)
+   (param@K row . . int@5 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 or
+      (infix~4 < row~4 0@2)
+      (infix@B >=
+       (infix~4 \2B row~4 1@2)
+       (dot@D
+        (dot~9 c~1 selected@1)len@1)))
+     (stmts@c
+      (ret .))))
+   (let@4,1 which . . .
+    (at@I
+     (dot~9 c~1 selected@1)row@1))
+   (call@8,2 removeAt~8
+    (dot@2 c~1 selected@1)row@D)
+   (call@8,3 insertAt~8
+    (dot@2 c~1 selected@1)
+    (infix@H \2B row~4 1@2)which@M)
+   (asgn@C,4
+    (dot~B c~1 rightPick@1)
+    (infix@6 \2B row~4 1@2))))
+ (comment@,3a)
+ (proc@,3e changedFrom@5 x . .
+  (params@H
+   (param@1 c . . PackChoice@3 .)
+   (param@G was . .
+    (at@8 seq~3 string@1).))bool@Z . .
+  (stmts@2,1
+   (let@4 now . . .
+    (call@J priorityOrder~D c@1))
+   (if@,1
+    (elif@3
+     (infix@8 !=
+      (dot~5 now~3 len@1)
+      (dot@6 was~3 len@1))
+     (stmts@K
+      (ret true@7))))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@5 now~3 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@7 !=
+        (at~4 now~3 i@1)
+        (at@6 was~3 i@1))
+       (stmts@I
+        (ret true@7))))
+     (cmd@,1 inc i@4)))false@,6))
+ (comment@,3q)
+ (proc@,3r availableBox@5 x . .
+  (params@I
+   (param@1 guiW . . int@I .)
+   (param@7 guiH . . int@C .)
+   (param@D rows . . int@6 .))ListBox@P . .
+  (stmts@2,1
+   (call@7 listBox~7 ColumnTop@1
+    (infix@H \2D guiH~5 ColumnBottomInset@2)
+    (infix@O,1 \2D
+     (infix~C \2D
+      (infix~6 div guiW~5 2@4)ColumnGap@2)ColumnWidth@2)ColumnWidth@d,1 PackRowHeight@1,2 rows@G,2)))
+ (comment@,3w)
+ (proc@,3x selectedBox@5 x . .
+  (params@H
+   (param@1 guiW . . int@I .)
+   (param@7 guiH . . int@C .)
+   (param@D rows . . int@6 .))ListBox@P . .
+  (stmts@2,1
+   (call@7 listBox~7 ColumnTop@1
+    (infix@H \2D guiH~5 ColumnBottomInset@2)
+    (infix@n \2B
+     (infix~6 div guiW~5 2@4)ColumnGap@2)ColumnWidth@1,1 PackRowHeight@E,1 rows@T,1)))
+ (comment@,41)
+ (proc@,42 availableTitleAt@5 x . .
+  (params@M
+   (param@1 guiW . . int@6 .))MRect@D . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@O \2D
+      (infix~C \2D
+       (infix~6 div guiW~5 2@4)ColumnGap@2)
+      (infix@E div ColumnWidth~C 2@4)))
+    (call@6,1 float~5 PackTitleTop@1)0.0@M,1 0.0@R,1)))
+ (proc@,45 selectedTitleAt@5 x . .
+  (params@L
+   (param@1 guiW . . int@6 .))MRect@D . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@O \2B
+      (infix~C \2B
+       (infix~6 div guiW~5 2@4)ColumnGap@2)
+      (infix@E div ColumnWidth~C 2@4)))
+    (call@6,1 float~5 PackTitleTop@1)0.0@M,1 0.0@R,1)))
+ (comment@,49)
+ (proc@,4A iconRect@5 x . .
+  (params@E
+   (param@1 row . . MRect@5 .))MRect@E . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (dot@4 row~3 x@1)
+    (dot@B row~3 y@1)
+    (call@K float~5 IconSize@1)
+    (call@b float~5 IconSize@1))))
+ (proc@,4C textLeft@5 x . .
+  (params@E
+   (param@1 row . . MRect@5 .))float@E . .
+  (stmts@2,1
+   (infix@6 \2B
+    (dot~3 row~3 x@1)
+    (call@7 float~5
+     (infix@A \2B IconSize~9
+      (infix@A * IconGap~8 2@2))))))
+ (comment@,4F)
+ (proc@,4J arrowRect@5 x . .
+  (params@F
+   (param@1 row . . MRect@5 .))MRect@E . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (dot@4 row~3 x@1)
+    (dot@B row~3 y@1)
+    (call@K float~5 IconSize@1)
+    (call@b float~5 IconSize@1))))
+ (comment@,4M)
+ (proc@,4P packDoneRect@5 x . .
+  (params@I
+   (param@1 guiW . . int@C .)
+   (param@7 guiH . . int@6 .))MRect@J . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@C \2D
+      (infix~6 div guiW~5 2@4)154@2))
+    (call@V float~5
+     (infix@6 \2D guiH~5 FooterInset@2))
+    (call@6,1 float~5 FooterButtonWidth@1)20.0@R,1)))
+ (proc@,4S packFolderRect@5 x . .
+  (params@K
+   (param@1 guiW . . int@C .)
+   (param@7 guiH . . int@6 .))MRect@J . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@C \2B
+      (infix~6 div guiW~5 2@4)4@2))
+    (call@T float~5
+     (infix@6 \2D guiH~5 FooterInset@2))
+    (call@6,1 float~5 FooterButtonWidth@1)20.0@R,1))))

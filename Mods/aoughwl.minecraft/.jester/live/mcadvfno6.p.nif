@@ -1,0 +1,680 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,mcatlas.nim
+ (comment)
+ (import@,U mcpng@7)
+ (import@,V mcmodel@7)
+ (const@A,Y MaxTiles~8 x . . 32@4)
+ (const@F,c MaxSheetTiles~D x . . 48@4)
+ (const@5,m Pad~3 x . . 1@4)
+ (type@9,p Atlas~7 x . .
+  (object@2 .
+   (fld~2,1 image~5 x . Image@3 .)
+   (fld~3,2 tile~4 x . int@3 .)
+   (fld@,3 columns~7 x . int@3 .)
+   (fld@,4 problem~7 x . string@3 .)))
+ (proc@,v emptyAtlas@5 x . .
+  (params@G)Atlas@4 . .
+  (stmts@2,1
+   (oconstr@5 Atlas~5
+    (kv@6 image~5
+     (call@C emptyImage~A))
+    (kv@Q tile~4 0@2)
+    (kv@c columns~7 0@2)
+    (kv@o problem~7 ""@2))))
+ (proc@,y pitch@5 x . .
+  (params@B
+   (param@1 a . . Atlas@3 .))int@C . .
+  (stmts@T
+   (infix@7 \2B
+    (dot~6 a~1 tile@1)
+    (infix@4 * 2~2 Pad@2))))
+ (comment@,10)
+ (proc@,19 frameOf@5 x . .
+  (params@D
+   (param@1 img . . Image@5 .)
+   (param@D index . . int@7 .))Image@Q . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@C emptyImage~A))
+   (if@,1
+    (elif@3
+     (infix@F or
+      (infix~5 <=
+       (dot~7 img~3 width@1)0@3)
+      (infix@E <=
+       (dot~8 img~3 height@1)0@3))
+     (stmts~1,1
+      (asgn@F
+       (dot~9 result~6 problem@1)"this picture has no size"@2)
+      (ret@,1 result@7))))
+   (if@,4
+    (elif@3
+     (infix@B <=
+      (dot~8 img~3 height@1)
+      (dot@6 img~3 width@1))
+     (stmts@P
+      (ret img@7))))
+   (if@,5
+    (elif@3
+     (infix@P !=
+      (infix~E mod
+       (dot~8 img~3 height@1)
+       (dot@7 img~3 width@1))0@3)
+     (stmts~1,2
+      (ret img@7))))
+   (let@4,8 frames . . .
+    (infix@K div
+     (dot~8 img~3 height@1)
+     (dot@7 img~3 width@1)))
+   (var@4,9 at . . . index@5)
+   (if@,A
+    (elif@3
+     (infix@7 or
+      (infix~4 < at~3 0@2)
+      (infix@6 >= at~3 frames@3))
+     (stmts@O
+      (asgn@3 at~3 0@2))))
+   (asgn@D,B
+    (dot~7 result~6 width@1)
+    (dot@5 img~3 width@1))
+   (asgn@E,C
+    (dot~8 result~6 height@1)
+    (dot@5 img~3 width@1))
+   (let@4,D want . . .
+    (infix@T *
+     (infix~C *
+      (dot~7 img~3 width@1)
+      (dot@5 img~3 width@1))4@2))
+   (var@4,E i . . . 0@4)
+   (let@4,F from0 . . .
+    (infix@B * at~3 want@2))
+   (while@,G
+    (infix@8 < i~2 want@2)
+    (stmts@2,1
+     (cmd@B
+      (dot
+       (dot~5 result~6 rgba@1)add@1)
+      (at@D
+       (dot~5 img~3 rgba@1)
+       (infix@7 \2B from0~6 i@2)))
+     (cmd@,1 inc i@4)))))
+ (comment@,1U)
+ (proc@,1V firstFrame@5 x . .
+  (params@G
+   (param@1 img . . Image@5 .))Image@E . .
+  (stmts@c
+   (call@7 frameOf~7 img@1 0@6)))
+ (comment@,1X)
+ (proc@,1Y frameCount@5 x . .
+  (params@G
+   (param@1 img . . Image@5 .))int@E . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@F or
+      (infix~5 <=
+       (dot~7 img~3 width@1)0@3)
+      (infix@E <=
+       (dot~8 img~3 height@1)0@3))
+     (stmts@Z
+      (ret 0@7))))
+   (if@,1
+    (elif@3
+     (infix@B <=
+      (dot~8 img~3 height@1)
+      (dot@6 img~3 width@1))
+     (stmts@P
+      (ret 1@7))))
+   (if@,2
+    (elif@3
+     (infix@P !=
+      (infix~E mod
+       (dot~8 img~3 height@1)
+       (dot@7 img~3 width@1))0@3)
+     (stmts@V
+      (ret 1@7))))
+   (infix@B,3 div
+    (dot~8 img~3 height@1)
+    (dot@7 img~3 width@1))))
+ (comment@,1e)
+ (proc@,1i solidTile@5 x . .
+  (params@F)Image@4 . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@C emptyImage~A))
+   (asgn@D,1
+    (dot~7 result~6 width@1)16@2)
+   (asgn@E,2
+    (dot~8 result~6 height@1)16@2)
+   (var@4,3 y . . . 0@4)
+   (while@,4
+    (infix@8 < y~2 16@2)
+    (stmts@2,1
+     (var@4 x . . . 0@4)
+     (while@,1
+      (infix@8 < x~2 16@2)
+      (stmts@2,1
+       (let@4 lit . . .
+        (infix@a ==
+         (infix~6 mod
+          (par~O
+           (infix@B \2B
+            (par~A
+             (infix@3 div x~2 4@4))
+            (par@2
+             (infix@3 div y~2 4@4))))2@4)0@3))
+       (cmd@B,1
+        (dot
+         (dot~5 result~6 rgba@1)add@1)
+        (expr
+         (stmts@5)
+         (if@1
+          (elif@3 lit 255@5)
+          (else@C 0@6))))
+       (cmd@B,2
+        (dot
+         (dot~5 result~6 rgba@1)add@1)0@5)
+       (cmd@B,3
+        (dot
+         (dot~5 result~6 rgba@1)add@1)
+        (expr
+         (stmts@5)
+         (if@1
+          (elif@3 lit 255@5)
+          (else@C 0@6))))
+       (cmd@B,4
+        (dot
+         (dot~5 result~6 rgba@1)add@1)255@5)
+       (cmd@,5 inc x@4)))
+     (cmd@,8 inc y@4)))))
+ (proc@,1y sample@5 . . .
+  (params@B
+   (param@1 img . . Image@5 .)
+   (param@D x . . int@6 .)
+   (param@G y . . int@3 .)
+   (param@O r . .
+    (mut@C int@4).)
+   (param@R g . .
+    (mut@9 int@4).)
+   (param@U b . .
+    (mut@6 int@4).)
+   (param@X a . .
+    (mut@3 int@4).)). . .
+  (stmts@2,1
+   (var@4 sx . . . x@5)
+   (var@4,1 sy . . . y@5)
+   (if@,2
+    (elif@3
+     (infix@3 < sx~3 0@2)
+     (stmts@8
+      (asgn@3 sx~3 0@2))))
+   (if@,3
+    (elif@3
+     (infix@3 >= sx~3
+      (dot@6 img~3 width@1))
+     (stmts@H
+      (asgn@3 sx~3
+       (infix@C \2D
+        (dot~7 img~3 width@1)1@2)))))
+   (if@,4
+    (elif@3
+     (infix@3 < sy~3 0@2)
+     (stmts@8
+      (asgn@3 sy~3 0@2))))
+   (if@,5
+    (elif@3
+     (infix@3 >= sy~3
+      (dot@6 img~3 height@1))
+     (stmts@I
+      (asgn@3 sy~3
+       (infix@D \2D
+        (dot~8 img~3 height@1)1@2)))))
+   (let@4,6 at . . .
+    (infix@R *
+     (par~M
+      (infix@G \2B
+       (infix~C * sy~3
+        (dot@5 img~3 width@1))sx@2))4@2))
+   (asgn@2,7 r~2
+    (at@A
+     (dot~5 img~3 rgba@1)at@1))
+   (asgn@2,8 g~2
+    (at@A
+     (dot~5 img~3 rgba@1)
+     (infix@4 \2B at~3 1@2)))
+   (asgn@2,9 b~2
+    (at@A
+     (dot~5 img~3 rgba@1)
+     (infix@4 \2B at~3 2@2)))
+   (asgn@2,A a~2
+    (at@A
+     (dot~5 img~3 rgba@1)
+     (infix@4 \2B at~3 3@2)))))
+ (proc@,2B put@5 . . .
+  (params@8
+   (param@1 img . .
+    (mut@5 Image@4).)
+   (param@H x . . int@I .)
+   (param@K y . . int@F .)
+   (param@N r . . int@C .)
+   (param@Q g . . int@9 .)
+   (param@T b . . int@6 .)
+   (param@W a . . int@3 .)). . .
+  (stmts@2,1
+   (let@4 at . . .
+    (infix@P *
+     (par~K
+      (infix@F \2B
+       (infix~C * y~2
+        (dot@5 img~3 width@1))x@2))4@2))
+   (asgn@D,1
+    (at~5
+     (dot~5 img~3 rgba@1)at@1)r@2)
+   (asgn@H,2
+    (at~9
+     (dot~5 img~3 rgba@1)
+     (infix@4 \2B at~3 1@2))g@2)
+   (asgn@H,3
+    (at~9
+     (dot~5 img~3 rgba@1)
+     (infix@4 \2B at~3 2@2))b@2)
+   (asgn@H,4
+    (at~9
+     (dot~5 img~3 rgba@1)
+     (infix@4 \2B at~3 3@2))a@2)))
+ (comment@,2I)
+ (proc@,2M buildAtlasAt@5 x . .
+  (params@I
+   (param@1 tiles . .
+    (at@A seq~3 Image@1).)
+   (param@K pick . .
+    (at@9 seq~3 int@1).)
+   (param@a limit . . . MaxTiles@8))Atlas@t . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@C emptyAtlas~A))
+   (if@,1
+    (elif@3
+     (infix@A ==
+      (dot~5 tiles~5 len@1)0@3)
+     (stmts~1,1
+      (asgn@F
+       (dot~9 result~6 problem@1)"there are no pictures to put in a sheet"@2)
+      (ret@,1 result@7))))
+   (if@,4
+    (elif@3
+     (infix@A >
+      (dot~5 tiles~5 len@1)limit@2)
+     (stmts~1,1
+      (asgn@F
+       (dot~9 result~6 problem@1)
+       (infix@X,1 &
+        (infix@2,~1 &
+         (infix~D & "this model wants "~K
+          (prefix@2 $
+           (dot@6 tiles~5 len@1)))" textures on one mesh, and the sheet holds "~m,1)
+        (prefix@2 $ limit@1)))
+      (ret@,2 result@7))))
+   (var@4,8 side . . . 0@7)
+   (var@4,9 i . . . 0@4)
+   (while@,A
+    (infix@8 < i~2
+     (dot@7 tiles~5 len@1))
+    (stmts@2,1
+     (let@4 frame . . .
+      (call@F frameOf~7
+       (at@6 tiles~5 i@1)
+       (expr
+        (stmts@B)
+        (if@1
+         (elif@3
+          (infix@2 < i~2
+           (dot@6 pick~4 len@1))
+          (at@I pick~4 i@1))
+         (else@P 0@6)))))
+     (if@,1
+      (elif@3
+       (infix@C <=
+        (dot~7 frame~5 width@1)0@3)
+       (stmts~1,1
+        (asgn@F
+         (dot~9 result~6 problem@1)"one of the pictures has no size"@2)
+        (ret@,1 result@7))))
+     (if@,4
+      (elif@3
+       (infix@C >
+        (dot~7 frame~5 width@1)side@2)
+       (stmts@K
+        (asgn@5 side~5
+         (dot@7 frame~5 width@1)))))
+     (cmd@,5 inc i@4)))
+   (if@,H
+    (elif@3
+     (infix@5 <= side~5 0@3)
+     (stmts~1,1
+      (asgn@F
+       (dot~9 result~6 problem@1)"every picture is empty"@2)
+      (ret@,1 result@7))))
+   (asgn@C,K
+    (dot~6 result~6 tile@1)side@2)
+   (asgn@F,L
+    (dot~9 result~6 columns@1)
+    (dot@7 tiles~5 len@1))
+   (let@4,M p . . .
+    (infix@9 \2B side~5
+     (infix@4 * 2~2 Pad@2)))
+   (asgn@J,N
+    (dot~7
+     (dot~6 result~6 image@1)width@1)
+    (infix@4 * p~2
+     (dot@7 tiles~5 len@1)))
+   (asgn@K,O
+    (dot~8
+     (dot~6 result~6 image@1)height@1)p@2)
+   (var@4,P n . . . 0@4)
+   (let@4,Q total . . .
+    (infix@n *
+     (infix~M *
+      (dot~7
+       (dot~6 result~6 image@1)width@1)
+      (dot@E
+       (dot~6 result~6 image@1)height@1))4@2))
+   (while@,R
+    (infix@8 < n~2 total@2)
+    (stmts@2,1
+     (cmd@H
+      (dot
+       (dot~5
+        (dot~6 result~6 image@1)rgba@1)add@1)0@5)
+     (cmd@,1 inc n@4)))
+   (asgn@2,U i~2 0@2)
+   (while@,V
+    (infix@8 < i~2
+     (dot@7 tiles~5 len@1))
+    (stmts@2,1
+     (let@4 frame . . .
+      (call@F frameOf~7
+       (at@6 tiles~5 i@1)
+       (expr
+        (stmts@B)
+        (if@1
+         (elif@3
+          (infix@2 < i~2
+           (dot@6 pick~4 len@1))
+          (at@I pick~4 i@1))
+         (else@P 0@6)))))
+     (let@4,1 left . . .
+      (infix@9 * i~2 p@2))
+     (var@4,2 y . . . 0@4)
+     (while@,3
+      (infix@8 < y~2 p@2)
+      (stmts@2,1
+       (var@4 x . . . 0@4)
+       (while@,1
+        (infix@8 < x~2 p@2)
+        (stmts@2,3
+         (var@4 sx . . .
+          (infix@V div
+           (par~Q
+            (infix@B *
+             (par~A
+              (infix@3 \2D x~2 Pad@2))
+             (dot@7 frame~5 width@1)))side@4))
+         (var@4,1 sy . . .
+          (infix@W div
+           (par~R
+            (infix@B *
+             (par~A
+              (infix@3 \2D y~2 Pad@2))
+             (dot@7 frame~5 height@1)))side@4))
+         (if@,2
+          (elif@3
+           (infix@2 < x~2 Pad@2)
+           (stmts@9
+            (asgn@3 sx~3 0@2))))
+         (if@,3
+          (elif@3
+           (infix@2 < y~2 Pad@2)
+           (stmts@9
+            (asgn@3 sy~3 0@2))))
+         (if@,4
+          (elif@3
+           (infix@2 >= x~2
+            (infix@7 \2B Pad~4 side@2))
+           (stmts@H
+            (asgn@3 sx~3
+             (infix@E \2D
+              (dot~7 frame~5 width@1)1@2)))))
+         (if@,5
+          (elif@3
+           (infix@2 >= y~2
+            (infix@7 \2B Pad~4 side@2))
+           (stmts@H
+            (asgn@3 sy~3
+             (infix@F \2D
+              (dot~8 frame~5 height@1)1@2)))))
+         (var@4,6 r . . . 0@4)
+         (var@4,7 g . . . 0@4)
+         (var@4,8 b . . . 0@4)
+         (var@4,9 a . . . 0@4)
+         (call@6,A sample~6 frame@1 sx@8 sy@C r@G g@J b@M a@P)
+         (call@3,B put~3
+          (dot@7 result~6 image@1)
+          (infix@K \2B left~5 x@2)y@P r@S g@V b@Y a@b)
+         (cmd@,C inc x@4)))
+       (cmd@,H inc y@4)))
+     (cmd@,M inc i@4)))))
+ (comment@,3H)
+ (proc@,3J buildAtlas@5 x . .
+  (params@G
+   (param@1 tiles . .
+    (at@A seq~3 Image@1).))Atlas@L . .
+  (stmts@2,1
+   (var@4 pick . .
+    (at@9 seq~3 int@1)
+    (prefix@H \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@7 tiles~5 len@1))
+    (stmts@2,1
+     (cmd@4
+      (dot pick~4 add@1)0@5)
+     (cmd@,1 inc i@4)))
+   (call@C,5 buildAtlasAt~C tiles@1 pick@8)))
+ (comment@,3R)
+ (proc@,3a remap@5 x . .
+  (params@B
+   (param@1 a . . Atlas@3 .)
+   (param@B tile . . int@6 .)
+   (param@M u . . float@6 .)
+   (param@P v . . float@3 .)
+   (param@Z ou . .
+    (mut@8 float@4).)
+   (param@d ov . .
+    (mut@4 float@4).)). . .
+  (stmts@2,1
+   (asgn@3 ou~3 u@2)
+   (asgn@3,1 ov~3 v@2)
+   (if@,2
+    (elif@3
+     (infix@R or
+      (infix~C or
+       (infix~5 <=
+        (dot~9 a~1 columns@1)0@3)
+       (infix@8 < tile~5 0@2))
+      (infix@8 >= tile~5
+       (dot@4 a~1 columns@1)))
+     (stmts@n
+      (ret .))))
+   (var@4,3 cu . . . u@5)
+   (if@,4
+    (elif@3
+     (infix@3 < cu~3 0.0@2)
+     (stmts@A
+      (asgn@3 cu~3 0.0@2))))
+   (if@,5
+    (elif@3
+     (infix@3 > cu~3 1.0@2)
+     (stmts@A
+      (asgn@3 cu~3 1.0@2))))
+   (var@4,6 cv . . . v@5)
+   (if@,7
+    (elif@3
+     (infix@3 < cv~3 0.0@2)
+     (stmts@A
+      (asgn@3 cv~3 0.0@2))))
+   (if@,8
+    (elif@3
+     (infix@3 > cv~3 1.0@2)
+     (stmts@A
+      (asgn@3 cv~3 1.0@2))))
+   (let@4,9 p . . .
+    (call@9 float~5
+     (infix@8 \2B
+      (dot~6 a~1 tile@1)
+      (infix@4 * 2~2 Pad@2))))
+   (let@4,A side . . .
+    (call@C float~5
+     (dot@2 a~1 tile@1)))
+   (let@4,B pad . . .
+    (call@B float~5 Pad@1))
+   (asgn@3,C ou~3
+    (infix@c /
+     (par~a
+      (infix@N \2B
+       (infix~6 \2B
+        (infix~4 *
+         (call~7 float~5 tile@1)p@2)pad@2)
+       (infix@5 * cu~3 side@2)))
+     (call@7 float~5
+      (dot@8
+       (dot~6 a~1 image@1)width@1))))
+   (asgn@3,F ov~3
+    (infix@K /
+     (par~I
+      (infix@5 \2B pad~4
+       (infix@5 * cv~3 side@2)))
+     (call@7 float~5
+      (dot@8
+       (dot~6 a~1 image@1)height@1))))))
+ (const@G,4K WorldFaces~A x .
+  (at@8 array~5 6@1 int@4)
+  (bracket@J FaceWest~X,1 FaceEast~X,2 FaceUp~X,3 FaceDown~X,4 FaceSouth~X,5 FaceNorth~X,6))
+ (comment@,4S)
+ (proc@,4V worldFace@5 x . .
+  (params@F
+   (param@1 b . . Bake@3 .)
+   (param@A which . . int@7 .))int@N . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A or
+      (infix~4 < which~6 0@2)
+      (infix@9 > which~6 5@2))
+     (stmts@O
+      (ret -1@7))))
+   (let@4,1 want . . .
+    (at@H WorldFaces~A which@1))
+   (var@4,2 f . . . 0@4)
+   (while@,3
+    (infix@8 < f~2
+     (dot@3 b~1 count@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@A ==
+        (at~4
+         (dot~5 b~1 face@1)f@1)want@3)
+       (stmts@J
+        (ret f@7))))
+     (cmd@,1 inc f@4)))-1@,6))
+ (comment@,4e)
+ (proc@,4g tilesRow@5 x . .
+  (params@E
+   (param@1 columns . . int@F .)
+   (param@A side . . int@6 .)
+   (param@L tile . .
+    (at@B array~5 6@1 int@4).))string@h . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (infix@P &
+     (infix~8 &
+      (infix~6 &
+       (prefix~9 $ columns@1)"x"@2)
+      (prefix@2 $ side@1))"|"@2))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2 6@2)
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 > i~2 0@2)
+       (stmts@7
+        (cmd@6
+         (dot result~6 add@1)","@5))))
+     (var@4,1 at . . .
+      (at@9 tile~4 i@1))
+     (if@,2
+      (elif@3
+       (infix@7 or
+        (infix~4 < at~3 0@2)
+        (infix@6 >= at~3 columns@3))
+       (stmts@P
+        (asgn@3 at~3 0@2))))
+     (cmd@6,3
+      (dot result~6 add@1)
+      (prefix@5 $ at@1))
+     (cmd@,4 inc i@4)))))
+ (comment@,4q)
+ (proc@,5A facesRow@5 x . .
+  (params@E
+   (param@1 uri . .
+    (at@A array~5 6@1 string@4).))string@P . .
+  (stmts@2,1
+   (var@4 last . . . 5@7)
+   (while@,1
+    (infix@F and
+     (infix~4 > last~5 0@2)
+     (infix@E ==
+      (at~7 uri~3 last@1)
+      (at@6 uri~3
+       (infix@6 \2D last~5 1@2))))
+    (stmts@l
+     (cmd dec last@4)))
+   (asgn@7,2 result~7 ""@2)
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 <= i~2 last@3)
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 > i~2 0@2)
+       (stmts@7
+        (cmd@6
+         (dot result~6 add@1)"|"@5))))
+     (cmd@6,1
+      (dot result~6 add@1)
+      (at@8 uri~3 i@1))
+     (cmd@,2 inc i@4)))))
+ (comment@,5K)
+ (proc@,5N facesWhole@5 x . .
+  (params@G
+   (param@1 uri . .
+    (at@A array~5 6@1 string@4).))bool@P . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2 6@2)
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@B ==
+        (dot~5
+         (at~3 uri~3 i@1)len@1)0@3)
+       (stmts@H
+        (ret false@7))))
+     (cmd@,1 inc i@4)))true@,4)))

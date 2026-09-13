@@ -1,0 +1,732 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,mcuiservers.nim
+ (comment)
+ (import@,i mcuicore@7)
+ (import@,j mcuilist@7)
+ (import@,k mcuitext@7)
+ (const@A,n SrvTitle~8 x . . "multiplayer.title"@4)
+ (const@9,o SrvJoin~7 x . . "selectServer.select"@4)
+ (const@B,p SrvDirect~9 x . . "selectServer.direct"@4)
+ (const@8,q SrvAdd~6 x . . "selectServer.add"@4)
+ (const@9,r SrvEdit~7 x . . "selectServer.edit"@4)
+ (const@B,s SrvDelete~9 x . . "selectServer.delete"@4)
+ (const@B,t SrvCancel~9 x . . "gui.cancel"@4)
+ (const@9,u SrvDone~7 x . . "gui.done"@4)
+ (const@G,v SrvDefaultName~E x . . "selectServer.defaultName"@4)
+ (const@D,w SrvAddTitle~B x . . "addServer.title"@4)
+ (const@E,x SrvEnterName~C x . . "addServer.enterName"@4)
+ (const@C,y SrvEnterIp~A x . . "addServer.enterIp"@4)
+ (const@E,z SrvAddButton~C x . . "addServer.add"@4)
+ (const@G,10 SrvDirectTitle~E x . . "selectServer.direct"@4)
+ (const@I,11 SrvUnknownStatus~G x . . "multiplayer.status.unknown"@4)
+ (const@F,12 SrvConnecting~D x . . "connect.connecting"@4)
+ (const@B,13 SrvFailed~9 x . . "connect.failed"@4)
+ (const@D,15 DefaultPort~B x . . 27015@4)
+ (const@C,1A SrvNameTop~A x . . 66@4)
+ (const@H,1B SrvNameLabelTop~F x . . 53@4)
+ (const@F,1C SrvAddressTop~D x . . 106@4)
+ (const@K,1D SrvAddressLabelTop~I x . . 93@4)
+ (type@A,1G Server~8 x . .
+  (object@2 .
+   (fld~4,1 name~4 x . string@3 .)
+   (fld~1,2 address~7 x . string@3 .)
+   (fld~4,3 port~4 x . int@3 .)))
+ (type@G,1L ServerChoice~E x . .
+  (object@2 .
+   (fld~7,1 servers~7 x .
+    (at@6 seq~3 Server@1).)
+   (fld~A,2 pick~4 x . int@3 .)
+   (fld~8,3 scroll~6 x . int@3 .)))
+ (proc@,1Q noServers@5 x . .
+  (params@F)ServerChoice@4 . .
+  (stmts@2,1
+   (oconstr@C ServerChoice~C
+    (kv@8 servers~7
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@J pick~4 -1@2)
+    (kv@V scroll~6 0@2))))
+ (proc@,1W digitsOf@5 . . .
+  (params@D
+   (param@1 text . . string@6 .))int@G . .
+  (stmts@2,1
+   (var@4 value . . . 0@8)
+   (var@4,1 digits . . . 0@9)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@c and
+     (infix~J and
+      (infix~B < i~2
+       (dot@6 text~4 len@1))
+      (infix@C >=
+       (at~4 text~4 i@1)'0'@3))
+     (infix@C <=
+      (at~4 text~4 i@1)'9'@3))
+    (stmts@2,1
+     (asgn@6 value~6
+      (infix@D \2B
+       (infix~5 * value~6 10@2)
+       (par@2
+        (infix@E \2D
+         (call~A int~3
+          (at@5 text~4 i@1))
+         (call@5 int~3 '0'@1)))))
+     (cmd@,1 inc digits@4)
+     (cmd@,2 inc i@4)))
+   (if@,7
+    (elif@3
+     (infix@C or
+      (infix~5 == digits~7 0@3)
+      (infix@5 < i~2
+       (dot@6 text~4 len@1)))
+     (stmts@T -1))
+    (else@Z
+     (stmts@6 value)))))
+ (comment@,1g)
+ (proc@,1l splitAddress@5 x . .
+  (params@I
+   (param@1 typed . . string@7 .)
+   (param@G fallbackPort . . . DefaultPort@F))
+  (at@m seq~3 string@1). .
+  (stmts@2,1
+   (let@4 text . . .
+    (call@E trimmed~7 typed@1))
+   (var@4,1 cut . . . -1@6)
+   (var@4,2 colons . . . 0@9)
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@6 text~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@8 ==
+        (at~4 text~4 i@1)'\3A'@3)
+       (stmts~1,1
+        (asgn@4 cut~4 i@2)
+        (cmd@,1 inc colons@4))))
+     (cmd@,3 inc i@4)))
+   (if@,C
+    (elif@3
+     (infix@8 or
+      (infix~4 < cut~4 0@2)
+      (infix@A != colons~7 1@3))
+     (stmts@O
+      (ret
+       (prefix@7 \40
+        (bracket@1 text@1
+         (prefix@7 $ fallbackPort@1)))))))
+   (var@4,D host . . . ""@7)
+   (asgn@2,E i~2 0@2)
+   (while@,F
+    (infix@8 < i~2 cut@2)
+    (stmts@2,1
+     (cmd@4
+      (dot host~4 add@1)
+      (at@9 text~4 i@1))
+     (cmd@,1 inc i@4)))
+   (var@4,I tail . . . ""@7)
+   (asgn@2,J i~2
+    (infix@6 \2B cut~4 1@2))
+   (while@,K
+    (infix@8 < i~2
+     (dot@6 text~4 len@1))
+    (stmts@2,1
+     (cmd@4
+      (dot tail~4 add@1)
+      (at@9 text~4 i@1))
+     (cmd@,1 inc i@4)))
+   (let@4,N port . . .
+    (call@F digitsOf~8 tail@1))
+   (if@,O
+    (elif@3
+     (infix@9 or
+      (infix~4 < port~5 1@2)
+      (infix@8 > port~5 65535@2))
+     (stmts@Q
+      (ret
+       (prefix@7 \40
+        (bracket@1 text@1
+         (prefix@7 $ fallbackPort@1)))))))
+   (prefix@,P \40
+    (bracket@1 host@1
+     (prefix@7 $ port@1)))))
+ (proc@,2D hostOf@5 x . .
+  (params@C
+   (param@1 typed . . string@7 .))string@H . .
+  (stmts@c
+   (at@J
+    (call~7 splitAddress~C typed@1)0@1)))
+ (proc@,2E portOf@5 x . .
+  (params@C
+   (param@1 typed . . string@7 .))int@H . .
+  (stmts@2,1
+   (let@4 said . . .
+    (at@Q
+     (call~7 splitAddress~C typed@1)1@1))
+   (var@4,1 value . . . 0@8)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@6 said~4 len@1))
+    (stmts@2,1
+     (asgn@6 value~6
+      (infix@D \2B
+       (infix~5 * value~6 10@2)
+       (par@2
+        (infix@E \2D
+         (call~A int~3
+          (at@5 said~4 i@1))
+         (call@5 int~3 '0'@1)))))
+     (cmd@,1 inc i@4)))value@,6))
+ (comment@,2N)
+ (proc@,2R connectable@5 x . .
+  (params@H
+   (param@1 typed . . string@7 .))bool@H . .
+  (stmts@f
+   (infix@I >
+    (dot~5
+     (call~7 hostOf~6 typed@1)len@1)0@2)))
+ (proc@,2W escapeField@5 . . .
+  (params@G
+   (param@1 text . . string@6 .))string@G . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 text~4 len@1))
+    (stmts@2,1
+     (let@4 c . . .
+      (at@8 text~4 i@1))
+     (if@,1
+      (elif@3
+       (infix@2 == c~2 '\5C'@3)
+       (stmts@B
+        (cmd@6
+         (dot result~6 add@1)"\5C\5C"@5)))
+      (elif@5,1
+       (infix@2 == c~2 '\0A'@3)
+       (stmts@B
+        (cmd@6
+         (dot result~6 add@1)"\5Cn"@5)))
+      (elif@5,2
+       (infix@2 == c~2 '\09'@3)
+       (stmts@B
+        (cmd@6
+         (dot result~6 add@1)"\5Ct"@5)))
+      (else@,3
+       (stmts@6
+        (cmd@6
+         (dot result~6 add@1)c@5))))
+     (cmd@,5 inc i@4)))))
+ (proc@,2h unescapeField@5 . . .
+  (params@I
+   (param@1 text . . string@6 .))string@G . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 text~4 len@1))
+    (stmts@2,1
+     (let@4 c . . .
+      (at@8 text~4 i@1))
+     (if@,1
+      (elif@3
+       (infix@A and
+        (infix~8 == c~2 '\5C'@3)
+        (infix@A <
+         (infix~4 \2B i~2 1@2)
+         (dot@6 text~4 len@1)))
+       (stmts~1,1
+        (let@4 n . . .
+         (at@8 text~4
+          (infix@3 \2B i~2 1@2)))
+        (asgn@2,1 i~2
+         (infix@4 \2B i~2 2@2))
+        (if@,2
+         (elif@3
+          (infix@2 == n~2 'n'@3)
+          (stmts@A
+           (cmd@6
+            (dot result~6 add@1)'\0A'@5)))
+         (elif@5,1
+          (infix@2 == n~2 't'@3)
+          (stmts@A
+           (cmd@6
+            (dot result~6 add@1)'\09'@5)))
+         (elif@5,2
+          (infix@2 == n~2 '\5C'@3)
+          (stmts@B
+           (cmd@6
+            (dot result~6 add@1)'\5C'@5)))
+         (else@,3
+          (stmts@2,1
+           (cmd@6
+            (dot result~6 add@1)c@5)
+           (cmd@6,1
+            (dot result~6 add@1)n@5))))))
+      (else@,9
+       (stmts@2,1
+        (cmd@6
+         (dot result~6 add@1)c@5)
+        (cmd@,1 inc i@4))))))))
+ (proc@,2z writeServers@5 x . .
+  (params@I
+   (param@1 servers . .
+    (at@C seq~3 Server@1).))string@O . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@9 servers~7 len@1))
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (infix@S,1 &
+       (infix@D,~1 &
+        (infix~7 &
+         (call~I escapeField~B
+          (dot@B
+           (at~3 servers~7 i@1)name@1))"\09"@2)
+        (call~Y,1 escapeField~B
+         (dot@B
+          (at~3 servers~7 i@1)address@1)))"\0A"@2))
+     (cmd@,2 inc i@4)))))
+ (proc@,37 readServers@5 x . .
+  (params@H
+   (param@1 body . . string@6 .))
+  (at@J seq~3 Server@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 line . . . ""@7)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 <= i~2
+     (dot@7 body~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@E or
+        (infix~C == i~2
+         (dot@7 body~4 len@1))
+        (infix@B ==
+         (at~4 body~4 i@1)'\0A'@3))
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@9 >
+           (dot~5 line~4 len@1)0@2)
+          (stmts~1,1
+           (var@4 name . . . ""@7)
+           (var@4,1 k . . . 0@4)
+           (while@,2
+            (infix@J and
+             (infix~B < k~2
+              (dot@6 line~4 len@1))
+             (infix@C !=
+              (at~4 line~4 k@1)'\09'@3))
+            (stmts@2,1
+             (cmd@4
+              (dot name~4 add@1)
+              (at@9 line~4 k@1))
+             (cmd@,1 inc k@4)))
+           (if@,5
+            (elif@3
+             (infix@2 < k~2
+              (dot@6 line~4 len@1))
+             (stmts~1,1
+              (var@4 address . . . ""@A)
+              (var@4,1 m . . .
+               (infix@6 \2B k~2 1@2))
+              (while@,2
+               (infix@8 < m~2
+                (dot@6 line~4 len@1))
+               (stmts@2,1
+                (if
+                 (elif@3
+                  (infix@8 !=
+                   (at~4 line~4 m@1)'\0D'@3)
+                  (stmts@H
+                   (cmd@7
+                    (dot address~7 add@1)
+                    (at@9 line~4 m@1)))))
+                (cmd@,1 inc m@4)))
+              (if@,5
+               (elif@3
+                (infix@C >
+                 (dot~5 address~7 len@1)0@2)
+                (stmts~1,1
+                 (cmd@6
+                  (dot result~6 add@1)
+                  (oconstr@B Server~6
+                   (kv@5 name~4
+                    (call@F unescapeField~D name@1))
+                   (kv~8,1 address~7
+                    (call@F unescapeField~D address@1))
+                   (kv@M,1 port~4
+                    (call@8 portOf~6 address@1)))))))))))))
+        (asgn@5,F line~5 ""@2)))
+      (else@,H
+       (stmts@2,1
+        (cmd@4
+         (dot line~4 add@1)
+         (at@9 body~4 i@1)))))
+     (cmd@,J inc i@4)))))
+ (proc@,3X withServer@5 x . .
+  (params@G
+   (param@1 servers . .
+    (at@C seq~3 Server@1).)
+   (param@N one . . Server@5 .))
+  (at@e seq~3 Server@1). .
+  (stmts@2,1
+   (asgn@7 result~7 servers@2)
+   (cmd@6,1
+    (dot result~6 add@1)one@5)))
+ (proc@,3b withoutAt@5 x . .
+  (params@F
+   (param@1 servers . .
+    (at@C seq~3 Server@1).)
+   (param@N at . . int@4 .))
+  (at@a seq~3 Server@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@9 servers~7 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 != i~2 at@3)
+       (stmts@9
+        (cmd@6
+         (dot result~6 add@1)
+         (at@C servers~7 i@1)))))
+     (cmd@,1 inc i@4)))))
+ (proc@,3i replacingAt@5 x . .
+  (params@H
+   (param@1 servers . .
+    (at@C seq~3 Server@1).)
+   (param@N at . . int@4 .)
+   (param@W one . . Server@5 .))
+  (at@n seq~3 Server@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@9 servers~7 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 == i~2 at@3)
+       (stmts@9
+        (cmd@6
+         (dot result~6 add@1)one@5)))
+      (else@,1
+       (stmts@6
+        (cmd@6
+         (dot result~6 add@1)
+         (at@C servers~7 i@1)))))
+     (cmd@,2 inc i@4)))))
+ (proc@,3t serverBox@5 x . .
+  (params@F
+   (param@1 guiW . . int@I .)
+   (param@7 guiH . . int@C .)
+   (param@D rows . . int@6 .))ListBox@P . .
+  (stmts@2,1
+   (call@7 listBox~7 ListTop@1
+    (infix@F \2D guiH~5 ListBottomTwoRows@2)
+    (infix@C,1 \2D
+     (infix~6 div guiW~5 2@4)
+     (infix@C div ListWidth~A 2@4))ListWidth@V,1 WorldRowHeight@g,1 rows@w,1)))
+ (type@G,3y ServerAction~E x . .
+  (enum@2 .
+   (efld~E,1 NoServerAction . . . .)
+   (efld@2,1 JoinServer . . . .)
+   (efld@E,1 DirectConnect . . . .)
+   (efld@T,1 AddServer . . . .)
+   (efld@e,1 EditServer . . . .)
+   (efld~E,2 DeleteServer . . . .)
+   (efld@,2 LeaveServers . . . .)))
+ (type@G,42 ServerButton~E x . .
+  (object@2 .
+   (fld~8,1 action~6 x . ServerAction@3 .)
+   (fld~B,2 key~3 x . string@3 .)
+   (fld~A,3 rect~4 x . MRect@3 .)
+   (fld~7,4 enabled~7 x . bool@3 .)))
+ (comment@,48)
+ (proc@,4B serverFooter@5 x . .
+  (params@I
+   (param@1 guiW . . int@C .)
+   (param@7 guiH . . int@6 .)
+   (param@I picked . . bool@8 .))
+  (at@a seq~3 ServerButton@1). .
+  (stmts@2,1
+   (let@4 mid . . .
+    (infix@B div guiW~5 2@4))
+   (let@4,1 up . . .
+    (call@E footerRow~9 guiH@1 0@7))
+   (let@4,2 down . . .
+    (call@G footerRow~9 guiH@1 1@7))
+   (asgn@7,3 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (cmd@6,4
+    (dot result~6 add@1)
+    (oconstr@H ServerButton~C
+     (kv@7 action~6 JoinServer@2)
+     (kv@O key~3 SrvJoin@2)
+     (kv~H,1 rect~4
+      (call@7 mrect~5
+       (call@6 float~5
+        (infix@5 \2D mid~4 154@2))
+       (call@O float~5 up@1)100.0@U 20.0@b))
+     (kv@f,1 enabled~7 picked@2)))
+   (cmd@6,6
+    (dot result~6 add@1)
+    (oconstr@H ServerButton~C
+     (kv@7 action~6 DirectConnect@2)
+     (kv@R key~3 SrvDirect@2)
+     (kv~H,1 rect~4
+      (call@7 mrect~5
+       (call@6 float~5
+        (infix@5 \2D mid~4 50@2))
+       (call@N float~5 up@1)100.0@T 20.0@a))
+     (kv@e,1 enabled~7 true@2)))
+   (cmd@6,8
+    (dot result~6 add@1)
+    (oconstr@H ServerButton~C
+     (kv@7 action~6 AddServer@2)
+     (kv@N key~3 SrvAdd@2)
+     (kv~H,1 rect~4
+      (call@7 mrect~5
+       (call@6 float~5
+        (infix@5 \2B mid~4 54@2))
+       (call@N float~5 up@1)100.0@T 20.0@a))
+     (kv@e,1 enabled~7 true@2)))
+   (cmd@6,A
+    (dot result~6 add@1)
+    (oconstr@H ServerButton~C
+     (kv@7 action~6 EditServer@2)
+     (kv@O key~3 SrvEdit@2)
+     (kv~H,1 rect~4
+      (call@7 mrect~5
+       (call@6 float~5
+        (infix@5 \2D mid~4 154@2))
+       (call@O float~5 down@1)70.0@W 20.0@c))
+     (kv@g,1 enabled~7 picked@2)))
+   (cmd@6,C
+    (dot result~6 add@1)
+    (oconstr@H ServerButton~C
+     (kv@7 action~6 DeleteServer@2)
+     (kv@Q key~3 SrvDelete@2)
+     (kv~H,1 rect~4
+      (call@7 mrect~5
+       (call@6 float~5
+        (infix@5 \2D mid~4 74@2))
+       (call@N float~5 down@1)70.0@V 20.0@b))
+     (kv@f,1 enabled~7 picked@2)))
+   (cmd@6,E
+    (dot result~6 add@1)
+    (oconstr@H ServerButton~C
+     (kv@7 action~6 LeaveServers@2)
+     (kv@Q key~3 SrvCancel@2)
+     (kv~H,1 rect~4
+      (call@7 mrect~5
+       (call@6 float~5
+        (infix@5 \2B mid~4 80@2))
+       (call@N float~5 down@1)75.0@V 20.0@b))
+     (kv@f,1 enabled~7 true@2)))))
+ (proc@,4T buttonUnder@5 x . .
+  (params@H
+   (param@1 buttons . .
+    (at@C seq~3 ServerButton@1).)
+   (param@T x . . float@6 .)
+   (param@W y . . float@3 .))int@h . .
+  (stmts@2,1
+   (asgn@7 result~7 -1@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@9 buttons~7 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (call@L
+        (dot~6
+         (dot~5
+          (at~3 buttons~7 i@1)rect@1)holds@1)x@1 y@4)
+       (stmts@T
+        (ret i@7))))
+     (cmd@,1 inc i@4)))))
+ (type@B,4i AddForm~9 x . .
+  (object@2 .
+   (fld~5,1 name~4 x . Field@3 .)
+   (fld~2,2 address~7 x . Field@3 .)
+   (fld@,3 onAddress~9 x . bool@3 .)
+   (fld~2,4 keeping~7 x . bool@3 .)))
+ (proc@,4o addForm@5 x . .
+  (params@D
+   (param@1 name . . . ""@7)
+   (param@C address . . . ""@A)
+   (param@Q keeping . . . true@A))AddForm@h . .
+  (stmts@2,1
+   (var@4 f . . .
+    (oconstr@B AddForm~7
+     (kv@5 name~4
+      (call@7 field~5 name@1))
+     (kv@R address~7
+      (call@7 field~5 address@1 MaxAddressLength@A))
+     (kv@A,1 onAddress~9
+      (prefix@2 not keeping@4))
+     (kv@W,1 keeping~7 keeping@2)))
+   (if@,2
+    (elif@3 keeping
+     (stmts~1,1
+      (asgn@F
+       (dot~9
+        (dot~5 f~1 name@1)focused@1)true@2)))
+    (else@,2
+     (stmts@2,1
+      (asgn@I
+       (dot~9
+        (dot~8 f~1 address@1)focused@1)true@2))))f@,6))
+ (proc@,4x nextField@5 x . .
+  (params@F
+   (param@1 f . .
+    (mut@3 AddForm@4).)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (dot@5 f~1 keeping@1))
+     (stmts@F
+      (ret .))))
+   (asgn@C,1
+    (dot~B f~1 onAddress@1)
+    (prefix@2 not
+     (dot@5 f~1 onAddress@1)))
+   (asgn@F,2
+    (dot~9
+     (dot~5 f~1 name@1)focused@1)
+    (prefix@2 not
+     (dot@5 f~1 onAddress@1)))
+   (asgn@I,3
+    (dot~9
+     (dot~8 f~1 address@1)focused@1)
+    (dot@3 f~1 onAddress@1))))
+ (proc@,53 serverNameRect@5 x . .
+  (params@K
+   (param@1 guiW . . int@6 .))MRect@D . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@C \2D
+      (infix~6 div guiW~5 2@4)
+      (infix@D div FieldWidth~B 2@4)))
+    (call@i float~5 SrvNameTop@1)
+    (call@6,1 float~5 FieldWidth@1)
+    (call@P,1 float~5 FieldHeight@1))))
+ (comment@,57)
+ (proc@,5A addressRect@5 x . .
+  (params@H
+   (param@1 guiW . . int@6 .)
+   (param@C keeping . . bool@9 .))MRect@S . .
+  (stmts@2,1
+   (let@4 top . . .
+    (if@6
+     (elif@3 keeping
+      (stmts@9 SrvAddressTop))
+     (else@Q
+      (stmts@6 SrvNameTop))))
+   (call@5,1 mrect~5
+    (call@6 float~5
+     (infix@C \2D
+      (infix~6 div guiW~5 2@4)
+      (infix@D div FieldWidth~B 2@4)))
+    (call@i float~5 top@1)
+    (call@u float~5 FieldWidth@1)
+    (call@6,1 float~5 FieldHeight@1))))
+ (proc@,5F srvAddressLabelTop@5 x . .
+  (params@O
+   (param@1 keeping . . bool@9 .))int@H . .
+  (stmts@2,1
+   (if
+    (elif@3 keeping
+     (stmts@9 SrvAddressLabelTop))
+    (else@V
+     (stmts@6 SrvNameLabelTop)))))
+ (proc@,5I acceptRect@5 x . .
+  (params@G
+   (param@1 guiW . . int@C .)
+   (param@7 guiH . . int@6 .))MRect@J . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@C \2D
+      (infix~6 div guiW~5 2@4)100@2))
+    (call@V float~5
+     (infix@C \2B
+      (infix~6 div guiH~5 4@4)96@2))200.0@o 20.0@v)))
+ (proc@,5K backRect@5 x . .
+  (params@E
+   (param@1 guiW . . int@C .)
+   (param@7 guiH . . int@6 .))MRect@J . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@C \2D
+      (infix~6 div guiW~5 2@4)100@2))
+    (call@V float~5
+     (infix@C \2B
+      (infix~6 div guiH~5 4@4)120@2))200.0@p 20.0@w)))
+ (proc@,5N formFieldUnder@5 x . .
+  (params@K
+   (param@1 guiW . . int@6 .)
+   (param@C keeping . . bool@9 .)
+   (param@R x . . float@6 .)
+   (param@U y . . float@3 .))int@f . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 and keeping~8
+      (call@U
+       (dot~6
+        (call~6 serverNameRect~E guiW@1)holds@1)x@1 y@4))
+     (stmts@k
+      (ret 0@7))))
+   (if@,1
+    (elif@3
+     (call@W
+      (dot~6
+       (call~F addressRect~B guiW@1 keeping@7)holds@1)x@1 y@4)
+     (stmts@e
+      (ret 1@7))))-1@,2))
+ (comment@,5S)
+ (proc@,5V nameOrKey@5 x . .
+  (params@F
+   (param@1 f . . AddForm@3 .))string@E . .
+  (stmts@2,1
+   (let@4 t . . .
+    (call@B trimmed~7
+     (dot@7
+      (dot~5 f~1 name@1)text@1)))
+   (if@,1
+    (elif@3
+     (infix@6 >
+      (dot~5 t~1 len@1)0@2)
+     (stmts@B t))
+    (else@G
+     (stmts@6 SrvDefaultName))))))

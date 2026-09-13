@@ -1,0 +1,513 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,mcuiload.nim
+ (comment)
+ (import@,s mcuicore@7)
+ (const@A,v BrandRed~8 x . . 239@4)
+ (const@C,w BrandGreen~A x . . 50@4)
+ (const@B,x BrandBlue~9 x . . 61@4)
+ (const@C,12 LogoAspect~A x . . 4.0@4)
+ (const@E,14 LogoFraction~C x . . 0.25@4)
+ (const@D,16 WidthWeight~B x . . 0.75@4)
+ (const@J,1B BarCentreFraction~H x . . 0.72@4)
+ (const@G,1D FrameThickness~E x . . 1.0@4)
+ (const@B,1E FillInset~9 x . . 2.0@4)
+ (const@F,1F BarHalfHeight~D x . . 5.0@4)
+ (const@D,1Y MojangSheet~B x . . 120.0@4)
+ (const@H,1c MojangBandWidth~F x . . 120.0@4)
+ (const@I,1d MojangBandHeight~G x . . 60.0@4)
+ (const@I,1k MojangSecondBand~G x . . 60.0@4)
+ (const@9,1m StepGap~7 x . . 4@4)
+ (type@C,1q LoadPlan~A x . .
+  (object@2 .
+   (fld~6,2 logo~4 x . MRect@3 .)
+   (fld~7,3 bar~3 x . MRect@3 .)
+   (fld~4,4 centre~6 x . float@3 .)))
+ (comment@,1w)
+ (proc@,1y ceilf@5 x . .
+  (params@B
+   (param@1 x . . float@3 .))float@C . .
+  (stmts@2,1
+   (let@4 whole . . .
+    (call@E floorf~6 x@1))
+   (if@,1
+    (elif@3
+     (infix@6 == whole~6 x@3)
+     (stmts@C whole))
+    (else@L
+     (stmts@6
+      (infix@6 \2B whole~6 1.0@2))))))
+ (comment@,22)
+ (proc@,24 loadPlan@5 x . .
+  (params@E
+   (param@1 guiW . . int@C .)
+   (param@7 guiH . . int@6 .))LoadPlan@J . .
+  (stmts@2,1
+   (var@4 smaller . . .
+    (infix@M *
+     (call~7 float~5 guiW@1)WidthWeight@2))
+   (if@,1
+    (elif@3
+     (infix@C <
+      (call~7 float~5 guiH@1)smaller@2)
+     (stmts@N
+      (asgn@8 smaller~8
+       (call@7 float~5 guiH@1)))))
+   (let@4,2 d . . .
+    (infix@C * smaller~8 LogoFraction@2))
+   (let@4,3 halfHigh . . .
+    (call@H floorf~6
+     (infix@3 * d~2 0.5@2)))
+   (let@4,4 halfWide . . .
+    (call@H floorf~6
+     (infix@G *
+      (infix~D * d~2 LogoAspect@2)0.5@2)))
+   (let@4,5 midX . . .
+    (call@D floorf~6
+     (infix@D *
+      (call~7 float~5 guiW@1)0.5@2)))
+   (let@4,6 midY . . .
+    (call@D floorf~6
+     (infix@D *
+      (call~7 float~5 guiH@1)0.5@2)))
+   (let@4,7 barY . . .
+    (call@D floorf~6
+     (infix@D *
+      (call~7 float~5 guiH@1)BarCentreFraction@2)))
+   (oconstr@8,8 LoadPlan~8
+    (kv~2,1 logo~4
+     (call@7 mrect~5
+      (infix@6 \2D midX~5 halfWide@2)
+      (infix@N \2D midY~5 halfHigh@2)
+      (infix@i * halfWide~9 2.0@2)
+      (infix@A,1 * halfHigh~9 2.0@2)))
+    (kv~3,3 bar~3
+     (call@7 mrect~5
+      (infix@6 \2D midX~5 halfWide@2)
+      (infix@N \2D barY~5 BarHalfHeight@2)
+      (infix@n * halfWide~9 2.0@2)
+      (infix@F,1 * BarHalfHeight~E 2.0@2)))
+    (kv@,5 centre~6 midX@2))))
+ (comment@,2K)
+ (proc@,2R barQuads@5 x . .
+  (params@E
+   (param@1 bar . . MRect@5 .)
+   (param@D progress . . float@A .))
+  (at@Y seq~3 MRect@1). .
+  (stmts@2,1
+   (var@4 p . . . progress@4)
+   (if@,1
+    (elif@3
+     (infix@2 < p~2 0.0@2)
+     (stmts@9
+      (asgn@2 p~2 0.0@2))))
+   (if@,2
+    (elif@3
+     (infix@2 > p~2 1.0@2)
+     (stmts@9
+      (asgn@2 p~2 1.0@2))))
+   (let@4,3 minX . . .
+    (dot@A bar~3 x@1))
+   (let@4,4 minY . . .
+    (dot@A bar~3 y@1))
+   (let@4,5 maxX . . .
+    (dot@A bar~3 right@1))
+   (let@4,6 maxY . . .
+    (dot@A bar~3 bottom@1))
+   (let@4,7 run . . .
+    (call@B ceilf~5
+     (infix@X *
+      (par~W
+       (infix@D \2D
+        (infix~7 \2D maxX~5 minX@2)
+        (infix@C * FillInset~A 2.0@2)))p@2)))
+   (asgn@7,8 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (if@,9
+    (elif@3
+     (infix@4 > run~4 0.0@2)
+     (stmts~1,1
+      (cmd@6
+       (dot result~6 add@1)
+       (call@A mrect~5
+        (infix@6 \2B minX~5 FillInset@2)
+        (infix@O \2B minY~5 FillInset@2)run@b
+        (infix@I,1 \2D
+         (infix~C \2D maxY~5 FillInset@2)
+         (par@2
+          (infix@6 \2B minY~5 FillInset@2))))))))
+   (cmd@6,C
+    (dot result~6 add@1)
+    (call@A mrect~5
+     (infix@6 \2B minX~5 FrameThickness@2)minY@O
+     (infix@N,1 \2D
+      (infix~H \2D maxX~5 FrameThickness@2)
+      (par@2
+       (infix@6 \2B minX~5 FrameThickness@2)))FrameThickness@1,2))
+   (cmd@6,F
+    (dot result~6 add@1)
+    (call@A mrect~5
+     (infix@6 \2B minX~5 FrameThickness@2)
+     (infix@T \2D maxY~5 FrameThickness@2)
+     (infix@N,1 \2D
+      (infix~H \2D maxX~5 FrameThickness@2)
+      (par@2
+       (infix@6 \2B minX~5 FrameThickness@2)))FrameThickness@1,2))
+   (cmd@6,I
+    (dot result~6 add@1)
+    (call@A mrect~5 minX@1 minY@7 FrameThickness@D
+     (infix@Y \2D maxY~5 minY@2)))
+   (cmd@6,J
+    (dot result~6 add@1)
+    (call@A mrect~5
+     (infix@6 \2D maxX~5 FrameThickness@2)minY@O FrameThickness@U
+     (infix@p \2D maxY~5 minY@2)))))
+ (comment@,2n)
+ (proc@,2t loadFraction@5 x . .
+  (params@I
+   (param@1 progress . . string@A .))float@K . .
+  (stmts@2,1
+   (var@4 digits . . . 0@9)
+   (var@4,1 value . . . 0@8)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@N and
+     (infix~F < i~2
+      (dot@A progress~8 len@1))
+     (infix@G ==
+      (at~4 progress~8 i@1)' '@3))
+    (stmts@l
+     (cmd inc i@4)))
+   (while@,4
+    (infix@k and
+     (infix~N and
+      (infix~F < i~2
+       (dot@A progress~8 len@1))
+      (infix@G >=
+       (at~4 progress~8 i@1)'0'@3))
+     (infix@G <=
+      (at~4 progress~8 i@1)'9'@3))
+    (stmts@2,1
+     (asgn@6 value~6
+      (infix@D \2B
+       (infix~5 * value~6 10@2)
+       (par@2
+        (infix@I \2D
+         (call~E int~3
+          (at@9 progress~8 i@1))
+         (call@5 int~3 '0'@1)))))
+     (cmd@,1 inc digits@4)
+     (cmd@,2 inc i@4)))
+   (if@,8
+    (elif@3
+     (infix@7 == digits~7 0@3)
+     (stmts@D
+      (ret -1.0@7))))
+   (if@,9
+    (elif@3
+     (infix@I or
+      (infix~G >= i~2
+       (dot@B progress~8 len@1))
+      (infix@F !=
+       (at~4 progress~8 i@1)'%'@3))
+     (stmts@f
+      (ret -1.0@7))))
+   (if@,A
+    (elif@3
+     (infix@6 > value~6 100@2)
+     (stmts@D
+      (asgn@6 value~6 100@2))))
+   (infix@D,B /
+    (call~8 float~5 value@1)100.0@2)))
+ (comment@,37)
+ (proc@,3A loadNote@5 x . .
+  (params@E
+   (param@1 progress . . string@A .))string@K . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@N <
+      (call~B loadFraction~C progress@1)0.0@2)
+     (stmts@U
+      (ret progress@7))))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@N and
+     (infix~F < i~2
+      (dot@A progress~8 len@1))
+     (infix@G !=
+      (at~4 progress~8 i@1)'%'@3))
+    (stmts@l
+     (cmd inc i@4)))
+   (cmd@,3 inc i@4)
+   (while@,4
+    (infix@N and
+     (infix~F < i~2
+      (dot@A progress~8 len@1))
+     (infix@G ==
+      (at~4 progress~8 i@1)' '@3))
+    (stmts@l
+     (cmd inc i@4)))
+   (while@,5
+    (infix@N and
+     (infix~F < i~2
+      (dot@A progress~8 len@1))
+     (infix@G ==
+      (at~4 progress~8 i@1)' '@3))
+    (stmts@l
+     (cmd inc i@4)))
+   (while@,7
+    (infix@N and
+     (infix~F < i~2
+      (dot@A progress~8 len@1))
+     (infix@G !=
+      (at~4 progress~8 i@1)' '@3))
+    (stmts@l
+     (cmd inc i@4)))
+   (while@,8
+    (infix@N and
+     (infix~F < i~2
+      (dot@A progress~8 len@1))
+     (infix@G ==
+      (at~4 progress~8 i@1)' '@3))
+    (stmts@l
+     (cmd inc i@4)))
+   (asgn@7,9 result~7
+    (at@A progress~8
+     (infix@3 \2E\2E i~2
+      (prefix@3 ^ 1@1))))))
+ (proc@,3M loadStep@5 x . .
+  (params@E
+   (param@1 progress . . string@A .))string@K . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (if@,1
+    (elif@3
+     (infix@N <
+      (call~B loadFraction~C progress@1)0.0@2)
+     (stmts@U
+      (ret ""@7))))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@N and
+     (infix~F < i~2
+      (dot@A progress~8 len@1))
+     (infix@G !=
+      (at~4 progress~8 i@1)'%'@3))
+    (stmts@l
+     (cmd inc i@4)))
+   (cmd@,4 inc i@4)
+   (while@,5
+    (infix@N and
+     (infix~F < i~2
+      (dot@A progress~8 len@1))
+     (infix@G ==
+      (at~4 progress~8 i@1)' '@3))
+    (stmts@l
+     (cmd inc i@4)))
+   (let@4,6 start . . . i@8)
+   (while@,7
+    (infix@N and
+     (infix~F < i~2
+      (dot@A progress~8 len@1))
+     (infix@G !=
+      (at~4 progress~8 i@1)' '@3))
+    (stmts@l
+     (cmd inc i@4)))
+   (if@,8
+    (elif@3
+     (infix@2 > i~2 start@2)
+     (stmts@B
+      (asgn@7 result~7
+       (at@A progress~8
+        (infix@7 \2E\2E< start~6 i@4))))))))
+ (comment@,3X)
+ (proc@,3d pacerSpan@5 x . .
+  (params@F
+   (param@1 seconds . . float@9 .)
+   (param@H period . . . 2.0@9))
+  (at@Z seq~3 float@1). .
+  (stmts@2,1
+   (let@4 width . . .
+    (infix@C / 1.0~4 3.0@2))
+   (var@4,1 t . . .
+    (infix@N \2D
+     (par~J
+      (infix@9 / seconds~8 period@2))
+     (call@8 floorf~6
+      (infix@9 / seconds~8 period@2))))
+   (if@,3
+    (elif@3
+     (infix@2 > t~2 0.5@2)
+     (stmts@9
+      (asgn@2 t~2
+       (infix@6 \2D 1.0~4 t@2)))))
+   (prefix@,4 \40
+    (bracket@1
+     (infix@9 *
+      (infix~6 * t~2 2.0@2)
+      (par@2
+       (infix@5 \2D 1.0~4 width@2)))width@Q))))
+ (type@E,3u LoadReason~C x . .
+  (enum@2 .
+   (efld~C,1 FirstRead . . . .)
+   (efld~C,2 PackChange . . . .)))
+ (comment@,3y)
+ (proc@,43 reasonMark@5 x . .
+  (params@G
+   (param@1 r . . LoadReason@3 .))string@H . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@2 == r~2 PackChange@3)
+     (stmts@H "resource"))
+    (else@V
+     (stmts@6 "first")))))
+ (comment@,46)
+ (proc@,4A stepLines@5 x . .
+  (params@F
+   (param@1 notice . .
+    (at@B seq~3 string@1).)
+   (param@M progress . . string@A .)
+   (param@e room . . int@6 .))
+  (at@t seq~3 string@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@L and
+     (infix~D < i~2
+      (dot@8 notice~6 len@1))
+     (infix@F <
+      (dot~5 result~6 len@1)room@2))
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (at@B notice~6 i@1))
+     (cmd@,1 inc i@4)))
+   (let@4,5 note . . .
+    (call@F loadNote~8 progress@1))
+   (if@,6
+    (elif@3
+     (infix@D and
+      (infix~4 >
+       (dot~5 note~4 len@1)0@2)
+      (infix@F <
+       (dot~5 result~6 len@1)room@2))
+     (stmts~1,4
+      (var@4 already . . . false@A)
+      (var@4,1 k . . . 0@4)
+      (while@,2
+       (infix@8 < k~2
+        (dot@8 result~6 len@1))
+       (stmts@2,1
+        (let@4 line . . .
+         (at@D result~6 k@1))
+        (cmd@,1 inc k@4)
+        (var@4,2 at . . . 0@5)
+        (while@,3
+         (infix@K <=
+          (infix~B \2B at~3
+           (dot@6 note~4 len@1))
+          (dot@7 line~4 len@1))
+         (stmts@2,1
+          (var@4 c . . . 0@4)
+          (while@,1
+           (infix@J and
+            (infix~B < c~2
+             (dot@6 note~4 len@1))
+            (infix@H ==
+             (at~9 line~4
+              (infix@4 \2B at~3 c@2))
+             (at@7 note~4 c@1)))
+           (stmts@2,1
+            (cmd inc c@4)))
+          (if@,3
+           (elif@3
+            (infix@2 == c~2
+             (dot@7 note~4 len@1))
+            (stmts~1,1
+             (asgn@8 already~8 true@2)
+             (asgn@3,1 at~3
+              (infix@B \2B
+               (dot~5 line~4 len@1)1@2))))
+           (else@,3
+            (stmts@2,1
+             (cmd inc at@4))))))))
+      (if@,F
+       (elif@3
+        (prefix not already@4)
+        (stmts@D
+         (cmd@6
+          (dot result~6 add@1)note@5)))))))result@,Q))
+ (comment@,4p)
+ (proc@,4q logoHalves@5 x . .
+  (params@G
+   (param@1 logo . . MRect@6 .))
+  (at@I seq~3 MRect@1). .
+  (stmts@2,1
+   (let@4 half . . .
+    (call@D floorf~6
+     (infix@8 *
+      (dot~3 logo~4 w@1)0.5@2)))
+   (prefix@,1 \40
+    (bracket@1
+     (call@6 mrect~5
+      (dot@5 logo~4 x@1)
+      (dot@D logo~4 y@1)half@H
+      (dot@R logo~4 h@1))
+     (call@6,1 mrect~5
+      (infix@8 \2B
+       (dot~3 logo~4 x@1)half@2)
+      (dot@K logo~4 y@1)
+      (infix@V \2D
+       (dot~3 logo~4 w@1)half@2)
+      (dot@h logo~4 h@1))))))
+ (comment@,4v)
+ (proc@,4x logoBand@5 x . .
+  (params@E
+   (param@1 index . . int@7 .))MRect@E . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 == index~6 0@3)
+     (stmts~1,1
+      (ret
+       (call@C mrect~5 0.0@1 0.0@6 MojangBandWidth@B MojangBandHeight@S)))))
+   (call@5,2 mrect~5 0.0@1 MojangSecondBand@6 MojangBandWidth@O MojangBandHeight@f)))
+ (comment@,52)
+ (proc@,56 stepRoom@5 x . .
+  (params@E
+   (param@1 plan . . LoadPlan@6 .)
+   (param@H guiH . . int@I .)
+   (param@N lineHeight . . int@C .))float@f . .
+  (stmts@2,1
+   (infix@C \2D
+    (call~7 float~5 guiH@1)
+    (par@2
+     (infix@H \2B
+      (dot~8
+       (dot~4 plan~4 bar@1)bottom@1)
+      (call@7 float~5 StepGap@1))))))
+ (comment@,59)
+ (proc@,5B stepBox@5 x . .
+  (params@D
+   (param@1 plan . . LoadPlan@6 .)
+   (param@H guiH . . int@P .)
+   (param@N lineHeight . . int@J .)
+   (param@Z lines . . int@7 .))MRect@m . .
+  (stmts@2,1
+   (let@4 top . . .
+    (infix@M \2B
+     (dot~8
+      (dot~4 plan~4 bar@1)bottom@1)
+     (call@7 float~5 StepGap@1)))
+   (call@5,1 mrect~5 0.0@1 top@6
+    (call@G float~5
+     (infix@C * lineHeight~B 4@2))
+    (call@d float~5
+     (infix@7 * lines~6 lineHeight@2))))))

@@ -1,0 +1,364 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,mcuifont.nim
+ (comment)
+ (import@,e mcuicore@7)
+ (const@7,h Cells~5 x . . 16@4)
+ (const@8,k Glyphs~6 x . .
+  (infix@A * Cells~6 Cells@2))
+ (const@D,l NominalCell~B x . . 8.0@4)
+ (const@E,p SpaceAdvance~C x . . 4@4)
+ (const@C,q LineHeight~A x . . 9@4)
+ (const@H,t FallbackAdvance~F x . . 6@4)
+ (type@9,10 Glyph~7 x . .
+  (object@2 .
+   (fld~3,1 code~4 x . int@3 .)
+   (fld~3,2 dest~4 x . MRect@3 .)
+   (fld~4,3 src~3 x . MRect@3 .)))
+ (comment@,15)
+ (proc@,1B glyphAdvance@5 x . .
+  (params@I
+   (param@1 rightmost . . int@M .)
+   (param@C cellWidth . . int@B .))int@T . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A <= cellWidth~A 0@3)
+     (stmts@G
+      (ret 1@7))))
+   (let@4,1 filled . . .
+    (infix@J \2B rightmost~A 1@2))
+   (infix@w,2 \2B
+    (call~t int~3
+     (infix@5 \2B 0.5~4
+      (infix@U /
+       (infix~E *
+        (call~9 float~5 filled@1)NominalCell@2)
+       (call@7 float~5 cellWidth@1))))1@2)))
+ (comment@,1G)
+ (proc@,1R rightmostColumns@5 x . .
+  (params@M
+   (param@1 alpha . .
+    (at@A seq~3 int@1).)
+   (param@I width . . int@F .)
+   (param@P height . . int@8 .))
+  (at@g seq~3 int@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (if@,1
+    (elif@3
+     (infix@Q or
+      (infix~F or
+       (infix~5 <= width~6 0@3)
+       (infix@A <= height~7 0@3))
+      (infix@D <
+       (dot~5 alpha~5 len@1)
+       (infix@8 * width~6 height@2)))
+     (stmts~1,1
+      (ret result@7))))
+   (let@4,3 cellW . . .
+    (infix@E div width~6 Cells@4))
+   (let@4,4 cellH . . .
+    (infix@F div height~7 Cells@4))
+   (if@,5
+    (elif@3
+     (infix@B or
+      (infix~5 <= cellW~6 0@3)
+      (infix@9 <= cellH~6 0@3))
+     (stmts@Q
+      (ret result@7))))
+   (var@4,6 i . . . 0@4)
+   (while@,7
+    (infix@8 < i~2 Glyphs@2)
+    (stmts@2,1
+     (let@4 col . . .
+      (infix@8 mod i~2 Cells@4))
+     (let@4,1 row . . .
+      (infix@8 div i~2 Cells@4))
+     (var@4,2 rightmost . . . -1@C)
+     (var@4,3 l . . .
+      (infix@A \2D cellW~6 1@2))
+     (while@,4
+      (infix@8 >= l~2 0@3)
+      (stmts@2,1
+       (var@4 opaque . . . false@9)
+       (var@4,1 y . . . 0@4)
+       (while@,2
+        (infix@8 < y~2 cellH@2)
+        (stmts@2,1
+         (if
+          (elif@3
+           (infix@p !=
+            (at~k alpha~5
+             (infix@f \2B
+              (infix~E \2B
+               (infix~8 *
+                (par~I
+                 (infix@D \2B
+                  (infix~8 * row~4 cellH@2)y@2))width@2)
+               (infix@6 * col~4 cellW@2))l@2))0@3)
+           (stmts~1,1
+            (asgn@7 opaque~7 true@2)
+            (asgn@2,1 y~2 cellH@2)))
+          (else@,3
+           (stmts@2,1
+            (cmd inc y@4))))))
+       (if@,8
+        (elif@3 opaque
+         (stmts~1,1
+          (asgn@A rightmost~A l@2)
+          (asgn@2,1 l~2 -1@2)))
+        (else@,3
+         (stmts@2,1
+          (cmd dec l@4))))))
+     (cmd@6,I
+      (dot result~6 add@1)rightmost@5)
+     (cmd@,J inc i@4)))))
+ (comment@,1v)
+ (proc@,1w advancesFromColumns@5 x . .
+  (params@P
+   (param@1 rightmost . .
+    (at@E seq~3 int@1).)
+   (param@M cellWidth . . int@B .))
+  (at@g seq~3 int@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@B rightmost~9 len@1))
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (call@H glyphAdvance~C
+       (at@A rightmost~9 i@1)cellWidth@F))
+     (cmd@,1 inc i@4)))
+   (if@,7
+    (elif@3
+     (infix@B >
+      (dot~5 result~6 len@1)32@2)
+     (stmts@H
+      (asgn@B
+       (at~5 result~6 32@1)SpaceAdvance@2))))))
+ (comment@,26)
+ (proc@,29 advancesFromAlpha@5 x . .
+  (params@N
+   (param@1 alpha . .
+    (at@A seq~3 int@1).)
+   (param@I width . . int@F .)
+   (param@P height . . int@8 .))
+  (at@g seq~3 int@1). .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 <= width~6 0@3)
+     (stmts@C
+      (ret
+       (prefix@7 \40
+        (bracket@1))))))
+   (call@J,1 advancesFromColumns~J
+    (call@H rightmostColumns~G alpha@1 width@8 height@F)
+    (infix@l div width~6 Cells@4))))
+ (comment@,2D)
+ (proc@,2E advanceOf@5 x . .
+  (params@F
+   (param@1 advances . .
+    (at@D seq~3 int@1).)
+   (param@L code . . int@6 .))int@X . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 == code~5 32@3)
+     (stmts@C
+      (ret SpaceAdvance@7))))
+   (if@,1
+    (elif@3
+     (infix@9 or
+      (infix~4 < code~5 0@2)
+      (infix@8 >= code~5
+       (dot@B advances~8 len@1)))
+     (stmts@Y
+      (ret FallbackAdvance@7))))
+   (at@8,2 advances~8 code@1)))
+ (comment@,2J)
+ (proc@,2S settable@5 x . .
+  (params@E
+   (param@1 text . . string@6 .))bool@G . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@6 text~4 len@1))
+    (stmts@2,1
+     (let@4 c . . .
+      (call@7 int~3
+       (at@5 text~4 i@1)))
+     (if@,1
+      (elif@3
+       (infix@7 or
+        (infix~5 < c~2 32@2)
+        (infix@5 > c~2 126@2))
+       (stmts@J
+        (ret false@7))))
+     (cmd@,2 inc i@4)))true@,5))
+ (comment@,2a)
+ (proc@,2b measure@5 x . .
+  (params@D
+   (param@1 text . . string@6 .)
+   (param@F advances . .
+    (at@D seq~3 int@1).))int@a . .
+  (stmts@2,1
+   (asgn@7 result~7 0@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 text~4 len@1))
+    (stmts@2,1
+     (asgn@7 result~7
+      (infix@9 \2B result~7
+       (call@B advanceOf~9 advances@1
+        (call@E int~3
+         (at@5 text~4 i@1)))))
+     (cmd@,1 inc i@4)))))
+ (comment@,2i)
+ (proc@,2m layout@5 x . .
+  (params@C
+   (param@1 text . . string@6 .)
+   (param@F advances . .
+    (at@D seq~3 int@1).)
+   (param@Z x . . float@6 .)
+   (param@c y . . float@3 .)
+   (param@1,1 cellPx . . . NominalCell@9))
+  (at@R,1 seq~3 Glyph@1). .
+  (stmts@2,2
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (let@4,1 factor . . .
+    (infix@G / cellPx~7 NominalCell@2))
+   (var@4,2 pen . . . x@6)
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@6 text~4 len@1))
+    (stmts@2,1
+     (let@4 code . . .
+      (call@A int~3
+       (at@5 text~4 i@1)))
+     (cmd@,1 inc i@4)
+     (let@4,2 adv . . .
+      (call@F advanceOf~9 advances@1 code@B))
+     (if@,3
+      (elif@3
+       (infix@5 != code~5 32@3)
+       (stmts~1,3
+        (let@4 wide . . .
+         (infix@I \2D
+          (call~6 float~5 adv@1)1.0@2))
+        (if@,1
+         (elif@3
+          (infix@5 > wide~5 0.0@2)
+          (stmts~1,1
+           (let@4 col . . .
+            (call@B float~5
+             (infix@6 mod code~5 Cells@4)))
+           (let@4,1 row . . .
+            (call@B float~5
+             (infix@6 div code~5 Cells@4)))
+           (cmd@6,2
+            (dot result~6 add@1)
+            (oconstr@A Glyph~5
+             (kv@5 code~4 code@2)
+             (kv~A,1 dest~4
+              (call@7 mrect~5 pen@1 y@6 wide@9 NominalCell@F))
+             (kv~B,2 src~3
+              (call@7 mrect~5
+               (infix@5 * col~4 cellPx@2)
+               (infix@J * row~4 cellPx@2)
+               (infix@Y * wide~5 factor@2)
+               (infix@D,1 * NominalCell~C factor@2)))))))))))
+     (asgn@4,E pen~4
+      (infix@6 \2B pen~4
+       (call@7 float~5 adv@1)))))))
+ (comment@,39)
+ (proc@,3B shadowed@5 x . .
+  (params@E
+   (param@1 glyphs . .
+    (at@B seq~3 Glyph@1).))
+  (at@P seq~3 Glyph@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@8 glyphs~6 len@1))
+    (stmts@2,1
+     (let@4 g . . .
+      (at@A glyphs~6 i@1))
+     (cmd@6,1
+      (dot result~6 add@1)
+      (oconstr@A Glyph~5
+       (kv@5 code~4
+        (dot@3 g~1 code@1))
+       (kv~A,1 dest~4
+        (call@7 mrect~5
+         (infix@A \2B
+          (dot~3
+           (dot~5 g~1 dest@1)x@1)1.0@2)
+         (infix@Q \2B
+          (dot~3
+           (dot~5 g~1 dest@1)y@1)1.0@2)
+         (dot@d
+          (dot~5 g~1 dest@1)w@1)
+         (dot@n
+          (dot~5 g~1 dest@1)h@1)))
+       (kv~B,2 src~3
+        (dot@3 g~1 src@1))))
+     (cmd@,4 inc i@4)))))
+ (comment@,3L)
+ (proc@,3O shadowChannel@5 x . .
+  (params@J
+   (param@1 c . . int@3 .))int@A . .
+  (stmts@Z
+   (infix@D shr
+    (par~D
+     (infix@3 and c~2 252@4))2@4)))
+ (comment@,3Q)
+ (proc@,3R shadowLevel@5 x . .
+  (params@H
+   (param@1 c . . float@3 .))float@C . .
+  (stmts@2,1
+   (var@4 v . . .
+    (call@7 int~3
+     (infix@B \2B
+      (infix~8 * c~2 255.0@2)0.5@2)))
+   (if@,1
+    (elif@3
+     (infix@2 < v~2 0@2)
+     (stmts@7
+      (asgn@2 v~2 0@2))))
+   (if@,2
+    (elif@3
+     (infix@2 > v~2 255@2)
+     (stmts@9
+      (asgn@2 v~2 255@2))))
+   (infix@O,3 /
+    (call~J float~5
+     (call@E shadowChannel~D v@1))255.0@2)))
+ (comment@,3X)
+ (proc@,3Z centredStart@5 x . .
+  (params@I
+   (param@1 at . . float@4 .)
+   (param@C width . . int@7 .))float@P . .
+  (stmts@2,1
+   (call@6 floorf~6
+    (infix@4 \2D at~3
+     (infix@F *
+      (call~8 float~5 width@1)0.5@2))))))

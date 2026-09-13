@@ -1,0 +1,232 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,../../../../Packages/com.aoughwl.jester/ModSdk/catalogs.nim
+ (comment)
+ (import@,d jester@7)
+ (type@E,f Catalog~9 x . .
+  (distinct@2 string@9))
+ (proc@,i name@5 x . .
+  (params@A
+   (param@1 c . . Catalog@3 .))string@E . .
+  (stmts@X
+   (call@6 string~6 c@1)))
+ (comment@,l)
+ (proc@,m catalog@5 x . .
+  (params@D
+   (param@1 id . . string@A .)
+   (param@5 kind . . string@6 .)
+   (param@J description . . . ""@E))Catalog@c . .
+  (stmts@2,1
+   (call@D createCatalog~D id@1 kind@5 description@B)
+   (call@7,1 Catalog~7 id@1)))
+ (comment@,q)
+ (proc@,r put@5 x . .
+  (params@9
+   (param@1 c . . Catalog@3 .)
+   (param@D id . . string@4 .)
+   (param@P value . . string@7 .))Catalog@f . .
+  (stmts@2,1
+   (call@C addToCatalog~C
+    (call@7 string~6 c@1)id@C value@G)c@,1))
+ (proc@,u put@5 x . .
+  (params@9
+   (param@1 c . . Catalog@3 .)
+   (param@D id . . string@4 .)
+   (param@P value . . float64@7 .))Catalog@g . .
+  (stmts@2,1
+   (call@C addToCatalog~C
+    (call@7 string~6 c@1)id@C value@G)c@,1))
+ (proc@,x put@5 x . .
+  (params@9
+   (param@1 c . . Catalog@3 .)
+   (param@D id . . string@4 .)
+   (param@P value . . int64@7 .))Catalog@e . .
+  (stmts@2,1
+   (call@C addToCatalog~C
+    (call@7 string~6 c@1)id@C value@G)c@,1))
+ (proc@,10 put@5 x . .
+  (params@9
+   (param@1 c . . Catalog@3 .)
+   (param@D id . . string@4 .)
+   (param@P value . . bool@7 .))Catalog@d . .
+  (stmts@2,1
+   (call@C addToCatalog~C
+    (call@7 string~6 c@1)id@C value@G)c@,1))
+ (comment@,14)
+ (const@D,1B BindingKind~B x . . "aoughwl.binding"@4)
+ (const@D,1C SettingKind~B x . . "aoughwl.setting"@4)
+ (proc@,1E bindings@5 x . .
+  (params@E
+   (param@1 id . . string@4 .)
+   (param@D description . . . ""@E))Catalog@W . .
+  (stmts@2,1
+   (comment)
+   (call@H,1 defineCatalogKind~H BindingKind@1 "text"@E "A named action and the key that performs it."~F,1)
+   (call@7,3 catalog~7 id@1 BindingKind@5 description@I)))
+ (proc@,1K settings@5 x . .
+  (params@E
+   (param@1 id . . string@4 .)
+   (param@D description . . . ""@E))Catalog@W . .
+  (stmts@2,1
+   (comment)
+   (call@H,1 defineCatalogKind~H SettingKind@1 "number"@E "A named number that tunes how something behaves."~F,1)
+   (call@7,3 catalog~7 id@1 SettingKind@5 description@I)))
+ (comment@,1Q)
+ (comment@,1Y)
+ (proc@,1a named@5 x . .
+  (params@B
+   (param@1 id . . string@4 .))Catalog@E . .
+  (stmts@Z
+   (call@7 Catalog~7 id@1)))
+ (type@I,1c CatalogItem~D x . .
+  (object@2 .
+   (fld~G,5 id~2 x . string@3 .)
+   (fld~A,6 provider~8 x . string@3 .)
+   (fld~B,7 catalog~7 x . Catalog@3 .)
+   (fld~D,8 index~5 x . int@3 .)))
+ (proc@,1m text@5 x . .
+  (params@A
+   (param@1 item . . CatalogItem@6 .))string@L . .
+  (stmts@e
+   (call@B catalogText~B
+    (call@7 string~6
+     (dot@5 item~4 catalog@1))
+    (dot@R item~4 index@1))))
+ (proc@,1n number@5 x . .
+  (params@C
+   (param@1 item . . CatalogItem@6 .))float64@L . .
+  (stmts@h
+   (call@D catalogNumber~D
+    (call@7 string~6
+     (dot@5 item~4 catalog@1))
+    (dot@R item~4 index@1))))
+ (proc@,1o integer@5 x . .
+  (params@D
+   (param@1 item . . CatalogItem@6 .))int64@L . .
+  (stmts@g
+   (call@E catalogInteger~E
+    (call@7 string~6
+     (dot@5 item~4 catalog@1))
+    (dot@R item~4 index@1))))
+ (proc@,1p boolean@5 x . .
+  (params@D
+   (param@1 item . . CatalogItem@6 .))bool@L . .
+  (stmts@f
+   (call@E catalogBoolean~E
+    (call@7 string~6
+     (dot@5 item~4 catalog@1))
+    (dot@R item~4 index@1))))
+ (comment@,1q)
+ (proc@,1r exists@5 x . .
+  (params@C
+   (param@1 item . . CatalogItem@6 .))bool@L . .
+  (stmts@e
+   (infix@B >=
+    (dot~7 item~4 index@1)0@3)))
+ (proc@,1t count@5 x . .
+  (params@B
+   (param@1 c . . Catalog@3 .))int@E . .
+  (stmts@V
+   (call@C catalogCount~C
+    (call@7 string~6 c@1))))
+ (comment@,1v)
+ (iterator@,24 entries@9 x . .
+  (params@H
+   (param@1 c . . Catalog@3 .))CatalogItem@E
+  (pragmas@h sideEffect@2).
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (call@E catalogCount~C
+      (call@7 string~6 c@1)))
+    (stmts@2,1
+     (yld
+      (oconstr@H CatalogItem~B
+       (kv@3 id~2
+        (call@F catalogItemId~D
+         (call@7 string~6 c@1)i@C))
+       (kv~7,1 provider~8
+        (call@L catalogItemProvider~J
+         (call@7 string~6 c@1)i@C))
+       (kv@b,1 catalog~7 c@2)
+       (kv@l,1 index~5 i@2)))
+     (cmd@,2 inc i@4)))))
+ (comment@,2B)
+ (proc@,2D find@5 x . .
+  (params@A
+   (param@1 c . . Catalog@3 .)
+   (param@D id . . string@4 .))CatalogItem@Q . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@D CatalogItem~B
+     (kv@3 id~2 id@2)
+     (kv@H provider~8 ""@2)
+     (kv@U catalog~7 c@2)
+     (kv@e index~5 -1@2)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (call@E catalogCount~C
+      (call@7 string~6 c@1)))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@S ==
+        (call~F catalogItemId~D
+         (call@7 string~6 c@1)i@C)id@3)
+       (stmts~1,1
+        (asgn@7 result~7
+         (oconstr@D CatalogItem~B
+          (kv@3 id~2 id@2)
+          (kv@H provider~8
+           (call@L catalogItemProvider~J
+            (call@7 string~6 c@1)i@C))
+          (kv~B,1 catalog~7 c@2)
+          (kv~1,1 index~5 i@2))))))
+     (cmd@,3 inc i@4)))))
+ (comment@,2a)
+ (iterator@,2d catalogsHere@9 x . .
+  (params@M)Catalog@4
+  (pragmas@Y sideEffect@2).
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (call@F catalogsCount~D))
+    (stmts@2,1
+     (yld
+      (call@D Catalog~7
+       (call@A catalogAt~9 i@1)))
+     (cmd@,1 inc i@4)))))
+ (comment@,2j)
+ (proc@,2n kind@5 x . .
+  (params@A
+   (param@1 c . . Catalog@3 .))string@E . .
+  (stmts@X
+   (call@B catalogKind~B
+    (call@7 string~6 c@1))))
+ (comment@,2p)
+ (proc@,2r note@5 x . .
+  (params@A
+   (param@1 c . . Catalog@3 .))string@E . .
+  (stmts@X
+   (call@B catalogNote~B
+    (call@7 string~6 c@1))))
+ (comment@,2t)
+ (iterator@,2y providers@9 x . .
+  (params@J
+   (param@1 c . . Catalog@3 .))string@E
+  (pragmas@e sideEffect@2).
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (call@M catalogProviderCount~K
+      (call@7 string~6 c@1)))
+    (stmts@2,1
+     (yld
+      (call@N catalogProviderAt~H
+       (call@7 string~6 c@1)i@C))
+     (cmd@,1 inc i@4))))))

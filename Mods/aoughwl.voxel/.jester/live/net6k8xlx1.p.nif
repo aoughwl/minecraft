@@ -1,0 +1,433 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/deps/aoughwl_mcnet/netproto.nim
+ (comment)
+ (import@,a netwire@7)
+ (const@G,d StateHandshake~E x . . 0@4)
+ (const@D,e StateStatus~B x . . 1@4)
+ (const@C,f StateLogin~A x . . 2@4)
+ (const@K,g StateConfiguration~I x . . 3@4)
+ (const@B,h StatePlay~9 x . . 4@4)
+ (const@D,i StateClosed~B x . . 5@4)
+ (const@A,k ToServer~8 x . . 0@4)
+ (const@A,l ToClient~8 x . . 1@4)
+ (const@E,n IntentStatus~C x . . 1@4)
+ (const@D,o IntentLogin~B x . . 2@4)
+ (const@G,p IntentTransfer~E x . . 3@4)
+ (const@H,r ProtocolVersion~F x . . 774@4)
+ (const@D,w IdIntention~B x . . 0@4)
+ (const@H,z IdStatusRequest~F x . . 0@4)
+ (const@F,10 IdPingRequest~D x . . 1@4)
+ (const@I,11 IdStatusResponse~G x . . 0@4)
+ (const@G,12 IdPongResponse~E x . . 1@4)
+ (const@9,15 IdHello~7 x . . 0@4)
+ (const@M,16 IdEncryptionResponse~K x . . 1@4)
+ (const@N,17 IdLoginPluginResponse~L x . . 2@4)
+ (const@L,18 IdLoginAcknowledged~J x . . 3@4)
+ (const@N,19 IdLoginCookieResponse~L x . . 4@4)
+ (const@J,1C IdLoginDisconnect~H x . . 0@4)
+ (const@L,1D IdEncryptionRequest~J x . . 1@4)
+ (const@G,1E IdLoginSuccess~E x . . 2@4)
+ (const@I,1F IdSetCompression~G x . . 3@4)
+ (const@M,1G IdLoginPluginRequest~K x . . 4@4)
+ (const@M,1H IdLoginCookieRequest~K x . . 5@4)
+ (const@L,1K IdClientInformation~J x . . 0@4)
+ (const@O,1L IdConfigCookieResponse~M x . . 1@4)
+ (const@N,1M IdConfigPluginMessage~L x . . 2@4)
+ (const@N,1N IdFinishConfiguration~L x . . 3@4)
+ (const@J,1O IdConfigKeepAlive~H x . . 4@4)
+ (const@8,1P IdPong~6 x . . 5@4)
+ (const@O,1Q IdResourcePackResponse~M x . . 6@4)
+ (const@E,1R IdKnownPacks~C x . . 7@4)
+ (const@N,1U IdConfigCookieRequest~L x . . 0@4)
+ (const@Q,1V IdConfigPluginMessageOut~O x . . 1@4)
+ (const@K,1W IdConfigDisconnect~I x . . 2@4)
+ (const@Q,1X IdFinishConfigurationOut~O x . . 3@4)
+ (const@M,1Y IdConfigKeepAliveOut~K x . . 4@4)
+ (const@8,1Z IdPing~6 x . . 5@4)
+ (const@D,1a IdResetChat~B x . . 6@4)
+ (const@G,1b IdRegistryData~E x . . 7@4)
+ (const@M,1c IdRemoveResourcePack~K x . . 8@4)
+ (const@J,1d IdAddResourcePack~H x . . 9@4)
+ (const@F,1e IdStoreCookie~D x . . 10@4)
+ (const@C,1f IdTransfer~A x . . 11@4)
+ (const@G,1g IdFeatureFlags~E x . . 12@4)
+ (const@E,1h IdUpdateTags~C x . . 13@4)
+ (const@H,1i IdKnownPacksOut~F x . . 14@4)
+ (type@9,1l Entry~7 x . .
+  (object@2 .
+   (fld~2,1 state~5 x . int@E .)
+   (fld@4,1 dir~3 x . int@8 .)
+   (fld@9,1 id~2 x . int@3 .)
+   (fld~3,2 name~4 x . string@3 .)))
+ (type@9,1p Table~7 x . .
+  (object@2 .
+   (fld@,1 entries~7 x .
+    (at@6 seq~3 Entry@1).)))
+ (type@E,1s Connection~C x . .
+  (object@2 .
+   (fld~7,1 state~5 x . int@3 .)
+   (fld~3,2 threshold~9 x . int@3 .)
+   (fld@2,4 loginSucceeded~E x . bool@3 .)
+   (fld~4,5 finished~8 x . bool@3 .)
+   (fld~5,6 problem~7 x . string@3 .)))
+ (proc@,20 stateName@5 x . .
+  (params@F
+   (param@1 state . . int@7 .))string@E . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 == state~6 StateHandshake@3)
+     (stmts@P "handshake"))
+    (elif@5,1
+     (infix@6 == state~6 StateStatus@3)
+     (stmts@M "status"))
+    (elif@5,2
+     (infix@6 == state~6 StateLogin@3)
+     (stmts@L "login"))
+    (elif@5,3
+     (infix@6 == state~6 StateConfiguration@3)
+     (stmts@T "configuration"))
+    (elif@5,4
+     (infix@6 == state~6 StatePlay@3)
+     (stmts@K "play"))
+    (else@,5
+     (stmts@6 "closed")))))
+ (proc@,28 emptyTable@5 x . .
+  (params@G)Table@4 . .
+  (stmts@2,1
+   (oconstr@5 Table~5
+    (kv@8 entries~7
+     (prefix@2 \40
+      (bracket@1))))))
+ (proc@,2B declare@5 x . .
+  (params@D
+   (param@1 t . .
+    (mut@3 Table@4).)
+   (param@F state . . int@G .)
+   (param@M dir . . int@9 .)
+   (param@R id . . int@4 .)
+   (param@a name . . string@6 .)). . .
+  (stmts@2,1
+   (comment)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@B
+      (dot~8 t~1 entries@1)len@1))
+    (stmts@2,1
+     (let@4 e . . .
+      (at@D
+       (dot~8 t~1 entries@1)i@1))
+     (if@,1
+      (elif@3
+       (infix@Y and
+        (infix~H and
+         (infix~9 ==
+          (dot~7 e~1 state@1)state@3)
+         (infix@A ==
+          (dot~5 e~1 dir@1)dir@3))
+        (infix@9 ==
+         (dot~4 e~1 id@1)id@3))
+       (stmts~1,1
+        (asgn@D
+         (at~4
+          (dot~8 t~1 entries@1)i@1)
+         (oconstr@7 Entry~5
+          (kv@6 state~5 state@2)
+          (kv@I dir~3 dir@2)
+          (kv@R id~2 id@2)
+          (kv@b name~4 name@2)))
+        (ret@,1 .))))
+     (cmd@,4 inc i@4)))
+   (cmd@9,9
+    (dot
+     (dot~8 t~1 entries@1)add@1)
+    (oconstr@A Entry~5
+     (kv@6 state~5 state@2)
+     (kv@I dir~3 dir@2)
+     (kv@R id~2 id@2)
+     (kv@b name~4 name@2)))))
+ (proc@,2N nameOf@5 x . .
+  (params@C
+   (param@1 t . . Table@3 .)
+   (param@B state . . int@G .)
+   (param@I dir . . int@9 .)
+   (param@N id . . int@4 .))string@X . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@B
+      (dot~8 t~1 entries@1)len@1))
+    (stmts@2,1
+     (let@4 e . . .
+      (at@D
+       (dot~8 t~1 entries@1)i@1))
+     (if@,1
+      (elif@3
+       (infix@Y and
+        (infix~H and
+         (infix~9 ==
+          (dot~7 e~1 state@1)state@3)
+         (infix@A ==
+          (dot~5 e~1 dir@1)dir@3))
+        (infix@9 ==
+         (dot~4 e~1 id@1)id@3))
+       (stmts@o
+        (ret
+         (dot@8 e~1 name@1)))))
+     (cmd@,2 inc i@4)))
+   (asgn@7,5 result~7 "unknown"@2)))
+ (proc@,2V idOf@5 x . .
+  (params@A
+   (param@1 t . . Table@3 .)
+   (param@B state . . int@C .)
+   (param@I dir . . int@5 .)
+   (param@S name . . string@6 .))int@h . .
+  (stmts@2,1
+   (comment)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@B
+      (dot~8 t~1 entries@1)len@1))
+    (stmts@2,1
+     (let@4 e . . .
+      (at@D
+       (dot~8 t~1 entries@1)i@1))
+     (if@,1
+      (elif@3
+       (infix@Y and
+        (infix~H and
+         (infix~9 ==
+          (dot~7 e~1 state@1)state@3)
+         (infix@A ==
+          (dot~5 e~1 dir@1)dir@3))
+        (infix@B ==
+         (dot~6 e~1 name@1)name@3))
+       (stmts@s
+        (ret
+         (dot@8 e~1 id@1)))))
+     (cmd@,2 inc i@4)))
+   (asgn@7,7 result~7 -1@2)))
+ (proc@,2f knownTable@5 x . .
+  (params@G)Table@4 . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,8 result~7
+    (call@C emptyTable~A))
+   (call@7,9 declare~7 result@1 StateHandshake@9 ToServer@P IdIntention@Z "minecraft\3Aintention"@m)
+   (call@7,B declare~7 result@1 StateStatus@9 ToServer@M IdStatusRequest@W "minecraft\3Astatus_request"@n)
+   (call@7,C declare~7 result@1 StateStatus@9 ToServer@M IdPingRequest@W "minecraft\3Aping_request"@l)
+   (call@7,D declare~7 result@1 StateStatus@9 ToClient@M IdStatusResponse@W "minecraft\3Astatus_response"@o)
+   (call@7,E declare~7 result@1 StateStatus@9 ToClient@M IdPongResponse@W "minecraft\3Apong_response"@m)
+   (call@7,G declare~7 result@1 StateLogin@9 ToServer@L IdHello@V "minecraft\3Ahello"@e)
+   (call@7,H declare~7 result@1 StateLogin@9 ToServer@L IdEncryptionResponse@V "minecraft\3Akey"@r)
+   (call@7,I declare~7 result@1 StateLogin@9 ToServer@L IdLoginPluginResponse@V "minecraft\3Acustom_query_answer"@s)
+   (call@7,J declare~7 result@1 StateLogin@9 ToServer@L IdLoginAcknowledged@V "minecraft\3Alogin_acknowledged"@q)
+   (call@7,K declare~7 result@1 StateLogin@9 ToServer@L IdLoginCookieResponse@V "minecraft\3Acookie_response"@s)
+   (call@7,L declare~7 result@1 StateLogin@9 ToClient@L IdLoginDisconnect@V "minecraft\3Alogin_disconnect"@o)
+   (call@7,M declare~7 result@1 StateLogin@9 ToClient@L IdEncryptionRequest@V "minecraft\3Ahello"@q)
+   (call@7,N declare~7 result@1 StateLogin@9 ToClient@L IdLoginSuccess@V "minecraft\3Alogin_finished"@l)
+   (call@7,O declare~7 result@1 StateLogin@9 ToClient@L IdSetCompression@V "minecraft\3Alogin_compression"@n)
+   (call@7,P declare~7 result@1 StateLogin@9 ToClient@L IdLoginPluginRequest@V "minecraft\3Acustom_query"@r)
+   (call@7,Q declare~7 result@1 StateLogin@9 ToClient@L IdLoginCookieRequest@V "minecraft\3Acookie_request"@r)
+   (call@7,S declare~7 result@1 StateConfiguration@9 ToServer@T IdClientInformation@d "minecraft\3Aclient_information"@y)
+   (call@7,T declare~7 result@1 StateConfiguration@9 ToServer@T IdConfigCookieResponse@d "minecraft\3Acookie_response"@11)
+   (call@7,U declare~7 result@1 StateConfiguration@9 ToServer@T IdConfigPluginMessage@d "minecraft\3Acustom_payload"@10)
+   (call@7,V declare~7 result@1 StateConfiguration@9 ToServer@T IdFinishConfiguration@d "minecraft\3Afinish_configuration"@10)
+   (call@7,W declare~7 result@1 StateConfiguration@9 ToServer@T IdConfigKeepAlive@d "minecraft\3Akeep_alive"@w)
+   (call@7,X declare~7 result@1 StateConfiguration@9 ToServer@T IdPong@d "minecraft\3Apong"@l)
+   (call@7,Y declare~7 result@1 StateConfiguration@9 ToServer@T IdResourcePackResponse@d "minecraft\3Aresource_pack"@11)
+   (call@7,Z declare~7 result@1 StateConfiguration@9 ToServer@T IdKnownPacks@d "minecraft\3Aselect_known_packs"@r)
+   (call@7,a declare~7 result@1 StateConfiguration@9 ToClient@T IdConfigCookieRequest@d "minecraft\3Acookie_request"@10)
+   (call@7,b declare~7 result@1 StateConfiguration@9 ToClient@T IdConfigPluginMessageOut@d "minecraft\3Acustom_payload"@13)
+   (call@7,c declare~7 result@1 StateConfiguration@9 ToClient@T IdConfigDisconnect@d "minecraft\3Adisconnect"@x)
+   (call@7,d declare~7 result@1 StateConfiguration@9 ToClient@T IdFinishConfigurationOut@d "minecraft\3Afinish_configuration"@13)
+   (call@7,e declare~7 result@1 StateConfiguration@9 ToClient@T IdConfigKeepAliveOut@d "minecraft\3Akeep_alive"@z)
+   (call@7,f declare~7 result@1 StateConfiguration@9 ToClient@T IdPing@d "minecraft\3Aping"@l)
+   (call@7,g declare~7 result@1 StateConfiguration@9 ToClient@T IdResetChat@d "minecraft\3Areset_chat"@q)
+   (call@7,h declare~7 result@1 StateConfiguration@9 ToClient@T IdRegistryData@d "minecraft\3Aregistry_data"@t)
+   (call@7,i declare~7 result@1 StateConfiguration@9 ToClient@T IdRemoveResourcePack@d "minecraft\3Aresource_pack_pop"@z)
+   (call@7,j declare~7 result@1 StateConfiguration@9 ToClient@T IdAddResourcePack@d "minecraft\3Aresource_pack_push"@w)
+   (call@7,k declare~7 result@1 StateConfiguration@9 ToClient@T IdStoreCookie@d "minecraft\3Astore_cookie"@s)
+   (call@7,l declare~7 result@1 StateConfiguration@9 ToClient@T IdTransfer@d "minecraft\3Atransfer"@p)
+   (call@7,m declare~7 result@1 StateConfiguration@9 ToClient@T IdFeatureFlags@d "minecraft\3Aupdate_enabled_features"@t)
+   (call@7,n declare~7 result@1 StateConfiguration@9 ToClient@T IdUpdateTags@d "minecraft\3Aupdate_tags"@r)
+   (call@7,o declare~7 result@1 StateConfiguration@9 ToClient@T IdKnownPacksOut@d "minecraft\3Aselect_known_packs"@u)))
+ (proc@,3W connection@5 x . .
+  (params@G)Connection@4 . .
+  (stmts@2,1
+   (oconstr@A Connection~A
+    (kv@6 state~5 StateHandshake@2)
+    (kv@X threshold~9 -1@2)
+    (kv@r loginSucceeded~E false@2)
+    (kv@9,1 finished~8 false@2)
+    (kv@P,1 problem~7 ""@2))))
+ (proc@,3a note@5 x . .
+  (params@A
+   (param@1 c . .
+    (mut@3 Connection@4).)
+   (param@K why . . string@5 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@E ==
+      (dot~5
+       (dot~8 c~1 problem@1)len@1)0@3)
+     (stmts@K
+      (asgn@A
+       (dot~9 c~1 problem@1)why@2))))
+   (asgn@8,1
+    (dot~7 c~1 state@1)StateClosed@2)))
+ (proc@,3e onPacket@5 x . .
+  (params@E
+   (param@1 c . .
+    (mut@3 Connection@4).)
+   (param@K dir . . int@9 .)
+   (param@P id . . int@4 .)
+   (param@Y payload . .
+    (mut@9 Reader@4).)). . .
+  (stmts@2,1
+   (comment)
+   (if@,4
+    (elif@3
+     (infix@8 ==
+      (dot~7 c~1 state@1)StateClosed@3)
+     (stmts@O
+      (ret .))))
+   (if@,6
+    (elif@3
+     (infix@8 ==
+      (dot~7 c~1 state@1)StateHandshake@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@G or
+         (infix~C != dir~4 ToServer@3)
+         (infix@6 != id~3 IdIntention@3))
+        (stmts~1,1
+         (call@4 note~4 c@1 "the first packet was not an intention"@4)
+         (ret@,1 .))))
+      (discard@,3
+       (call@I readVarInt~A payload@1))
+      (discard@,4
+       (call@I readString~A payload@1))
+      (discard@,5
+       (call@I readUShort~A payload@1))
+      (let@4,6 intent . . .
+       (call@J readVarInt~A payload@1))
+      (if@,7
+       (elif@3
+        (prefix not
+         (call@6 ok~2 payload@1))
+        (stmts~1,1
+         (call@4 note~4 c@1 "a truncated intention"@4)
+         (ret@,1 .))))
+      (if@,A
+       (elif@3
+        (infix@7 == intent~7 IntentStatus@3)
+        (stmts@O
+         (asgn@8
+          (dot~7 c~1 state@1)StateStatus@2)))
+       (elif@5,1
+        (infix@M or
+         (infix~F == intent~7 IntentLogin@3)
+         (infix@A == intent~7 IntentTransfer@3))
+        (stmts@p
+         (asgn@8
+          (dot~7 c~1 state@1)StateLogin@2)))
+       (else@,2
+        (stmts@6
+         (call@4 note~4 c@1 "an intention this client does not know"@4))))
+      (ret@,D .))))
+   (if@,M
+    (elif@3
+     (infix@8 ==
+      (dot~7 c~1 state@1)StateStatus@3)
+     (stmts~1,1
+      (ret .))))
+   (if@,P
+    (elif@3
+     (infix@8 ==
+      (dot~7 c~1 state@1)StateLogin@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@G and
+         (infix~C == dir~4 ToClient@3)
+         (infix@7 == id~3 IdSetCompression@3))
+        (stmts~1,1
+         (let@4 threshold . . .
+          (call@M readVarInt~A payload@1))
+         (if@,1
+          (elif@3
+           (prefix not
+            (call@6 ok~2 payload@1))
+           (stmts~1,1
+            (call@4 note~4 c@1 "a truncated set compression"@4)
+            (ret@,1 .))))
+         (asgn@C,6
+          (dot~B c~1 threshold@1)threshold@2)
+         (ret@,7 .))))
+      (if@,9
+       (elif@3
+        (infix@G and
+         (infix~C == dir~4 ToClient@3)
+         (infix@7 == id~3 IdLoginSuccess@3))
+        (stmts~1,1
+         (asgn@H
+          (dot~G c~1 loginSucceeded@1)true@2)
+         (ret@,1 .))))
+      (if@,C
+       (elif@3
+        (infix@G and
+         (infix~C == dir~4 ToServer@3)
+         (infix@7 == id~3 IdLoginAcknowledged@3))
+        (stmts~1,1
+         (if
+          (elif@3
+           (prefix not
+            (dot@5 c~1 loginSucceeded@1))
+           (stmts~1,1
+            (call@4 note~4 c@1 "acknowledged a login that had not succeeded"@4)
+            (ret@,1 .))))
+         (asgn@8,3
+          (dot~7 c~1 state@1)StateConfiguration@2)
+         (ret@,4 .))))
+      (if@,I
+       (elif@3
+        (infix@G and
+         (infix~C == dir~4 ToClient@3)
+         (infix@7 == id~3 IdLoginDisconnect@3))
+        (stmts~1,1
+         (call@4 note~4 c@1 "the server refused the login"@4)
+         (ret@,1 .))))
+      (ret@,L .))))
+   (if@,n
+    (elif@3
+     (infix@8 ==
+      (dot~7 c~1 state@1)StateConfiguration@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@G and
+         (infix~C == dir~4 ToServer@3)
+         (infix@7 == id~3 IdFinishConfiguration@3))
+        (stmts~1,1
+         (asgn@B
+          (dot~A c~1 finished@1)true@2)
+         (asgn@8,1
+          (dot~7 c~1 state@1)StatePlay@2)
+         (ret@,2 .))))
+      (if@,4
+       (elif@3
+        (infix@G and
+         (infix~C == dir~4 ToClient@3)
+         (infix@7 == id~3 IdConfigDisconnect@3))
+        (stmts~1,1
+         (call@4 note~4 c@1 "the server disconnected during configuration"@4)
+         (ret@,1 .))))
+      (ret@,7 .)))))))

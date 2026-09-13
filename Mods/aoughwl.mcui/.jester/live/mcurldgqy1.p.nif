@@ -1,0 +1,383 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,mcuipause.nim
+ (comment)
+ (import@,1A mcuicore@7)
+ (import@,1B mcuimenu@7)
+ (import@,1C mcuistack@7)
+ (const@D,1F KeyGameMenu~B x . . "menu.game"@4)
+ (const@B,1I KeyPaused~9 x . . "menu.paused"@4)
+ (const@H,1M KeyReturnToGame~F x . . "menu.returnToGame"@4)
+ (const@H,1N KeyAdvancements~F x . . "gui.advancements"@4)
+ (const@A,1O KeyStats~8 x . . "gui.stats"@4)
+ (const@F,1P KeyShareToLan~D x . . "menu.shareToLan"@4)
+ (const@H,1Q KeyReturnToMenu~F x . . "menu.returnToMenu"@4)
+ (const@B,1S PauseLift~9 x . . -16@4)
+ (const@G,1U PauseResumeRow~E x . . 24@4)
+ (const@H,1V PauseRecordsRow~F x . . 48@4)
+ (const@I,1X PauseSettingsRow~G x . . 96@4)
+ (const@F,1a PauseLeaveRow~D x . . 120@4)
+ (const@F,1b PauseTitleTop~D x . . 40@4)
+ (const@A,1d PauseGap~8 x . . 4@4)
+ (const@G,1i PausesTheWorld~E x . . false@4)
+ (const@D,1x DimTopAlpha~B x . . 192@4)
+ (const@G,1z DimBottomAlpha~E x . . 208@4)
+ (const@8,21 DimRed~6 x . . 16@4)
+ (const@A,22 DimGreen~8 x . . 16@4)
+ (const@9,23 DimBlue~7 x . . 16@4)
+ (const@E,25 DimBandCount~C x . .
+  (infix@J \2D DimBottomAlpha~F DimTopAlpha@2))
+ (type@B,2F DimBand~9 x . .
+  (object@2 .
+   (fld~5,4 rect~4 x . MRect@3 .)
+   (fld~4,5 alpha~5 x . float@3 .)
+   (fld~3,6 alpha8~6 x . int@3 .)))
+ (type@D,2N PauseMove~B x . .
+  (enum@2 .
+   (efld~B,2 NoMove . . . .)
+   (efld~B,3 OpenPause . . . .)
+   (efld~B,4 ClosePause . . . .)))
+ (comment@,2T)
+ (proc@,2X trueDim@5 x . .
+  (params@D
+   (param@1 y . . float@B .)
+   (param@4 height . . float@8 .))float@K . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 <= height~7 0.0@3)
+     (stmts@F
+      (ret
+       (call@C float~5 DimTopAlpha@1)))))
+   (infix@J,1 \2B
+    (call~E float~5 DimTopAlpha@1)
+    (infix@g /
+     (infix~4 *
+      (call~V float~5
+       (infix@G \2D DimBottomAlpha~F DimTopAlpha@2))y@2)height@2))))
+ (comment@,2b)
+ (proc@,2n dimBands@5 x . .
+  (params@E
+   (param@1 width . . float@F .)
+   (param@8 height . . float@8 .))
+  (at@R seq~3 DimBand@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (if@,1
+    (elif@3
+     (infix@D or
+      (infix~7 <= width~6 0.0@3)
+      (infix@A <= height~7 0.0@3))
+     (stmts@V
+      (ret result@7))))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2 DimBandCount@2)
+    (stmts@2,1
+     (let@4 top . . .
+      (infix@O /
+       (infix~B * height~7
+        (call@7 float~5 i@1))
+       (call@7 float~5 DimBandCount@1)))
+     (let@4,1 bottom . . .
+      (infix@V /
+       (infix~F * height~7
+        (call@7 float~5
+         (infix@3 \2B i~2 1@2)))
+       (call@7 float~5 DimBandCount@1)))
+     (let@4,2 eight . . .
+      (infix@K \2B DimTopAlpha~C i@2))
+     (cmd@6,3
+      (dot result~6 add@1)
+      (oconstr@C DimBand~7
+       (kv@5 rect~4
+        (call@7 mrect~5 0.0@1 top@6 width@B
+         (infix@P \2D bottom~7 top@2)))
+       (kv@6,1 alpha~5
+        (infix@F /
+         (call~8 float~5 eight@1)255.0@2))
+       (kv@a,1 alpha8~6 eight@2)))
+     (cmd@,5 inc i@4)))))
+ (comment@,2z)
+ (proc@,33 dimAt@5 x . .
+  (params@B
+   (param@1 bands . .
+    (at@A seq~3 DimBand@1).)
+   (param@M y . . float@3 .))int@X . .
+  (stmts@2,1
+   (asgn@7 result~7 -1@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@7 bands~5 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@L and
+        (infix~J >= y~2
+         (dot@G
+          (dot~5
+           (at~3 bands~5 i@1)rect@1)y@1))
+        (infix@6 < y~2
+         (infix@I \2B
+          (dot~3
+           (dot~5
+            (at~3 bands~5 i@1)rect@1)y@1)
+          (dot@F
+           (dot~5
+            (at~3 bands~5 i@1)rect@1)h@1))))
+       (stmts~1,1
+        (asgn@7 result~7
+         (dot@A
+          (at~3 bands~5 i@1)alpha8@1)))))
+     (cmd@,2 inc i@4)))))
+ (comment@,3B)
+ (proc@,3C dimLevel@5 x . .
+  (params@E
+   (param@1 eight . . int@7 .))float@E . .
+  (stmts@a
+   (infix@D /
+    (call~8 float~5 eight@1)255.0@2)))
+ (comment@,3H)
+ (proc@,3I pauseTop@5 x . .
+  (params@E
+   (param@1 guiH . . int@6 .))int@D . .
+  (stmts@X
+   (infix@B \2B
+    (infix~6 div guiH~5 4@4)PauseLift@2)))
+ (comment@,3K)
+ (proc@,3R shareable@5 x . .
+  (params@F
+   (param@1 hosting . . bool@H .)
+   (param@A joined . . bool@8 .))bool@P . .
+  (stmts@2,1
+   (infix@E and
+    (par~E
+     (prefix@1 not hosting@4))
+    (par@4
+     (prefix@1 not joined@4)))))
+ (const@B,3V PauseKeys~9 x . .
+  (bracket@4 KeyReturnToGame@1 KeyAdvancements@I KeyStats@Z KeyOptions@j KeyShareToLan@1,1 KeyReturnToMenu@G,1))
+ (const@C,3a PauseWired~A x . .
+  (bracket@4 true@1 false@7 false@E true@L true@R true@X))
+ (const@E,3h PauseEffects~C x . .
+  (bracket@4 "resumeWorld\28\29"@1 ""@I ""@M "stack.go OptionsPage"@Q "hostGame\28"@1,1 "leaveWorld\28\29"@E,1))
+ (proc@,3r effectOfPause@5 x . .
+  (params@J
+   (param@1 key . . string@5 .))string@F . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@B PauseKeys~9 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@D ==
+        (at~4 PauseKeys~9 i@1)key@3)
+       (stmts@L
+        (ret
+         (at@J PauseEffects~C i@1)))))
+     (cmd@,1 inc i@4)))""@,4))
+ (comment@,3y)
+ (proc@,3z pauseButtons@5 x . .
+  (params@I
+   (param@1 guiW . . int@C .)
+   (param@7 guiH . . int@6 .)
+   (param@I canShare . . bool@A .))
+  (at@c seq~3 MenuButton@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (let@4,1 base . . .
+    (call@F pauseTop~8 guiH@1))
+   (let@4,2 left . . .
+    (call@C float~5
+     (infix@C \2D
+      (infix~6 div guiW~5 2@4)
+      (infix@E div ButtonWidth~C 2@4))))
+   (let@4,3 right . . .
+    (call@D float~5
+     (infix@C \2B
+      (infix~6 div guiW~5 2@4)
+      (infix@B div PauseGap~9 2@4))))
+   (let@4,4 full . . .
+    (call@C float~5 ButtonWidth@1))
+   (let@4,5 half . . .
+    (call@C float~5 HalfButtonWidth@1))
+   (let@4,6 tall . . .
+    (call@C float~5 ButtonHeight@1))
+   (cmd@6,7
+    (dot result~6 add@1)
+    (oconstr@F MenuButton~A
+     (kv@4 key~3 KeyReturnToGame@2)
+     (kv~F,1 rect~4
+      (call@7 mrect~5 left@1
+       (call@C float~5
+        (infix@6 \2B base~5 PauseResumeRow@2))full@b tall@h))
+     (kv@n,1 enabled~7 true@2)))
+   (cmd@6,9
+    (dot result~6 add@1)
+    (oconstr@F MenuButton~A
+     (kv@4 key~3 KeyAdvancements@2)
+     (kv~F,1 rect~4
+      (call@7 mrect~5 left@1
+       (call@C float~5
+        (infix@6 \2B base~5 PauseRecordsRow@2))half@c tall@i))
+     (kv~C,2 enabled~7 false@2)))
+   (cmd@6,C
+    (dot result~6 add@1)
+    (oconstr@F MenuButton~A
+     (kv@4 key~3 KeyStats@2)
+     (kv~F,1 rect~4
+      (call@7 mrect~5 right@1
+       (call@D float~5
+        (infix@6 \2B base~5 PauseRecordsRow@2))half@d tall@j))
+     (kv~C,2 enabled~7 false@2)))
+   (cmd@6,F
+    (dot result~6 add@1)
+    (oconstr@F MenuButton~A
+     (kv@4 key~3 KeyOptions@2)
+     (kv~F,1 rect~4
+      (call@7 mrect~5 left@1
+       (call@C float~5
+        (infix@6 \2B base~5 PauseSettingsRow@2))half@d tall@j))
+     (kv~C,2 enabled~7 true@2)))
+   (cmd@6,I
+    (dot result~6 add@1)
+    (oconstr@F MenuButton~A
+     (kv@4 key~3 KeyShareToLan@2)
+     (kv~F,1 rect~4
+      (call@7 mrect~5 right@1
+       (call@D float~5
+        (infix@6 \2B base~5 PauseSettingsRow@2))half@e tall@k))
+     (kv~C,2 enabled~7 canShare@2)))
+   (cmd@6,L
+    (dot result~6 add@1)
+    (oconstr@F MenuButton~A
+     (kv@4 key~3 KeyReturnToMenu@2)
+     (kv~F,1 rect~4
+      (call@7 mrect~5 left@1
+       (call@C float~5
+        (infix@6 \2B base~5 PauseLeaveRow@2))full@a tall@g))
+     (kv@m,1 enabled~7 true@2)))))
+ (comment@,4O)
+ (proc@,4P pauseTitleAt@5 x . .
+  (params@I
+   (param@1 guiW . . int@6 .))MRect@D . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (infix@D *
+     (call~7 float~5 guiW@1)0.5@2)
+    (call@P float~5 PauseTitleTop@1)0.0@g 0.0@l)))
+ (comment@,4S)
+ (proc@,4U pauseTitleKey@5 x . .
+  (params@J)string@4 . .
+  (stmts@2,1
+   (if
+    (elif@3 PausesTheWorld
+     (stmts@G KeyPaused))
+    (else@T
+     (stmts@6 KeyGameMenu)))))
+ (comment@,4a)
+ (proc@,4e escapeMove@5 x . .
+  (params@G
+   (param@1 s . . Stack@3 .))PauseMove@C . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 ==
+      (call~4 here~4 s@1)WorldPage@3)
+     (stmts@M OpenPause))
+    (elif@5,1
+     (infix@8 ==
+      (call~4 here~4 s@1)PausePage@3)
+     (stmts@M ClosePause))
+    (else@,2
+     (stmts@6 NoMove)))))
+ (comment@,4j)
+ (proc@,4m togglePause@5 x . .
+  (params@H
+   (param@1 s . .
+    (mut@3 Stack@4).))PauseMove@G . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@C escapeMove~A s@1))
+   (if@,1
+    (elif@3
+     (infix@7 == result~7 OpenPause@3)
+     (stmts@L
+      (cmd@1
+       (dot s~1 go@1)PausePage@4)))
+    (elif@5,1
+     (infix@7 == result~7 ClosePause@3)
+     (stmts@M
+      (call@6
+       (dot~5 s~1 back@1)))))))
+ (comment@,4r)
+ (proc@,4y handoffsFor@5 x . .
+  (params@H
+   (param@1 move . . PauseMove@6 .))
+  (at@M seq~3 string@1). .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 == move~5 OpenPause@3)
+     (stmts@J
+      (prefix \40
+       (bracket@1 "pointer free"@1))))
+    (elif@5,1
+     (infix@5 == move~5 ClosePause@3)
+     (stmts@K
+      (prefix \40
+       (bracket@1 "pointer held"@1))))
+    (else@,2
+     (stmts@6
+      (prefix \40
+       (bracket@1)))))))
+ (comment@,53)
+ (proc@,54 verbOf@5 x . .
+  (params@C
+   (param@1 row . . string@5 .))string@F . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@I and
+     (infix~A < i~2
+      (dot@5 row~3 len@1))
+     (infix@B !=
+      (at~4 row~3 i@1)' '@3))
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (at@8 row~3 i@1))
+     (cmd@,1 inc i@4)))))
+ (comment@,5B)
+ (proc@,5C subjectOf@5 x . .
+  (params@F
+   (param@1 row . . string@5 .))string@F . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@I and
+     (infix~A < i~2
+      (dot@5 row~3 len@1))
+     (infix@B !=
+      (at~4 row~3 i@1)' '@3))
+    (stmts@b
+     (cmd inc i@4)))
+   (cmd@,3 inc i@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@5 row~3 len@1))
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (at@8 row~3 i@1))
+     (cmd@,1 inc i@4))))))

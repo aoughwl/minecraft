@@ -1,0 +1,1014 @@
+(.nif27)
+(.indexat 21200            )
+(stmts@,1,vxanim.nim
+ (const@C,p :WalkStride.0.~A .
+  (f@B,r 64)1.4@F,s,vxview.nim)
+ (const@B,u :DeathTime.0.~9 .
+  (f@C,m 64)1.0@4)
+ (const@B,x :DeathTurn.0.~9 .
+  (f@C,j 64)90.0@4)
+ (const@A,z :HurtTime.0.~8 .
+  (f@D,h 64)0.5@4)
+ (const@A,11 :HurtLean.0.~8 .
+  (f@D,f 64)14.0@4)
+ (const@A,13 :HurtGlow.0.~8 .
+  (f@D,d 64)0.6@4)
+ (const@A,15 :FuseTime.0.~8 .
+  (f@D,b 64)1.5@4)
+ (const@B,17 :SwellMost.0.~9 .
+  (f@C,Z 64)0.3@4)
+ (const@B,19 :FlashRate.0.~9 .
+  (f@C,X 64)9.0@4)
+ (const@A,1E :IdleLean.0.~8 .
+  (f@D,S 64)1.6@4)
+ (const@C,1I :IdlePeriod.0.~A .
+  (f@B,O 64)3.7@4)
+ (const@C,1M :FlapPeriod.0.~A .
+  (f@B,K 64)0.22@4)
+ (const@D,1O :CrawlSpread.0.~B .
+  (f@A,I 64)26.0@4)
+ (const@B,1R :CrawlLift.0.~9 .
+  (f@C,F 64)22.0@4)
+ (const@G,1T :HeadPitchLimit.0.~E .
+  (f@7,D 64)70.0@4)
+ (proc@,1g :strideAt.0.@5
+  (params@E
+   (param@1 :walked.0 .
+    (f@8 64))
+   (param@G :stride.0 .
+    (f~7 64)))
+  (f@c 64)
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads writes escapes)
+    (param 1 0 reads writes escapes)result 0))
+  (stmts@2,1
+   (var@8 :result.0 .
+    (f@D,~1 64).)
+   (var@8 :`x.1 .
+    (f@b,4Z,vxview.nim 64)
+    (call bobPhase.0.vxvb07eqp1~8 walked.0@1 stride.0@9))
+   (asgn@8 result.0 `x.1)
+   (ret~2,~1 result.0)))
+ (proc@,1l :paceOf.0.@5
+  (params@C
+   (param@1 :speed.0 .
+    (f@C 64))
+   (param@8 :top.0 .
+    (f@5 64)))
+  (f@L 64)
+  (pragmas
+   (smry
+    (param 0 0 reads)
+    (param 1 1 reads)))
+  (stmts@2,1
+   (var :result.1 .
+    (f@L,~6 64).)
+   (if
+    (elif@3
+     (le@4 top.0~4 0.0@3)
+     (stmts@C
+      (ret 0.0@7))))
+   (var@4,1 :pace.6 .
+    (f@H,~7 64)
+    (div@D
+     (f 64)speed.0~6 top.0@2))
+   (if@,2
+    (elif@3
+     (lt@5 pace.6~5 0.0@2)
+     (stmts@C
+      (asgn@5 pace.6~5
+       (neg@2
+        (f 64)pace.6@1)))))
+   (if@,3
+    (elif@3
+     (lt@4,1u,../../../../../../nimony/lib/std/system/comparisons.nim 1.0@C,1q,vxanim.nim pace.6@5,1q,vxanim.nim)
+     (stmts@C
+      (asgn@5 pace.6~5 1.0@2))))
+   (asgn@,4 result.1 pace.6)
+   (ret~2,~1 result.1)))
+ (proc@,20 :swingSign.0.@5
+  (params@F
+   (param@1 :role.0 . BoxRole.0.vxm8yagd@6))
+  (f@H 64)
+  (pragmas
+   (smry
+    (param 0 0 reads)))
+  (stmts@2,1
+   (var :result.2 .
+    (f@L,~L 64).)
+   (var :`x.0 .
+    (f 64).)
+   (case role.0@5
+    (of@,1
+     (ranges@3 4@4,1R,vxmodel.nim)
+     (stmts@,~1
+      (asgn@H,1 `x.0 1.0)))
+    (of@,2
+     (ranges@3 3@4,1Q,vxmodel.nim)
+     (stmts@,~2
+      (asgn@G,2 `x.0 1.0)))
+    (of@,3
+     (ranges@3 5@4,1S,vxmodel.nim)
+     (stmts@,~3
+      (asgn@G,3 `x.0 -1.0)))
+    (of@,4
+     (ranges@3 2@4,1P,vxmodel.nim)
+     (stmts@,~4
+      (asgn@H,4 `x.0 -1.0)))
+    (of@,5
+     (ranges@3 9@4,1b,vxmodel.nim)
+     (stmts@,~5
+      (asgn@D,5 `x.0 1.0)))
+    (else@,6
+     (stmts@,~6
+      (asgn@6,6 `x.0 0.0))))
+   (asgn result.2 `x.0)
+   (ret~2,~1 result.2)))
+ (proc@,2F :limbPitch.0.@5
+  (params@F
+   (param@1 :b.0 .
+    (ptr@3 Box.0.vxm8yagd))
+   (param@9 :phase.0 .
+    (f@D 64))
+   (param@G :pace.0 .
+    (f@6 64)))
+  (f@U 64)
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads)
+    (param 1 1 reads writes escapes)
+    (param 2 2 reads)result 0))
+  (stmts@2,1
+   (var@4 :result.3 .
+    (f@H,~a 64).)
+   (var@4 :sign.0 .
+    (f@H,~a 64)
+    (call@G swingSign.0.~9
+     (dot@2
+      (deref~1 b.0)role.0 0)))
+   (if@,1
+    (elif@3
+     (eq@5 sign.0~5 0.0@3)
+     (stmts@D
+      (stmts
+       (asgn result.3
+        (dot@8
+         (deref~1 b.0)hold.0 0))
+       (ret result.3)))))
+   (var@d,2 :`x.2 .
+    (f@C,4O,vxview.nim 64)
+    (call bobLike.0.vxvb07eqp1~7 phase.0@1))
+   (asgn@7,2 result.3
+    (add
+     (f 64)
+     (dot~6
+      (deref~1 b.0)hold.0 0)
+     (mul@N
+      (f 64)
+      (mul~7
+       (f 64)
+       (mul~7
+        (f 64)
+        (dot~6
+         (deref~1 b.0)turn.0 0)pace.0@2)sign.0@2)`x.2@9)))
+   (ret~2,~1 result.3)))
+ (proc@,2M :tailYaw.0.@5
+  (params@D
+   (param@1 :b.1 .
+    (ptr@3 Box.0.vxm8yagd))
+   (param@9 :phase.1 .
+    (f@D 64))
+   (param@G :pace.1 .
+    (f@6 64)))
+  (f@U 64)
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads)
+    (param 1 1 reads writes escapes)
+    (param 2 2 reads)))
+  (stmts@2,1
+   (var :result.4 .
+    (f@L,~h 64).)
+   (if
+    (elif@3
+     (not@2,1m,../../../../../../nimony/lib/std/system/comparisons.nim
+      (eq@7
+       (dot@6,2O,vxanim.nim
+        (deref~1 b.1)role.0 0)9@4,1b,vxmodel.nim))
+     (stmts@K
+      (ret 0.0@7))))
+   (var@N,1 :`x.3 .
+    (f@C,4O,vxview.nim 64)
+    (call bobLike.0.vxvb07eqp1~7 phase.1@1))
+   (asgn@E,1 result.4
+    (mul
+     (f 64)
+     (mul~7
+      (f 64)
+      (dot~6
+       (deref~1 b.1)turn.0 0)pace.1@2)`x.3@9))
+   (ret~2,~1 result.4)))
+ (proc@,2a :headYawOf.0.@5
+  (params@F
+   (param@1 :bodyYaw.0 .
+    (f@I 64))
+   (param@A :lookYaw.0 .
+    (f@9 64)))
+  (f@R 64)
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads writes escapes)
+    (param 1 1 reads writes escapes)))
+  (stmts@2,1
+   (var@4 :result.5 .
+    (f@H,~v 64).)
+   (var@4 :turned.0 .
+    (f@H,~v 64)
+    (call@H headTurn.0.vxvb07eqp1~8 bodyYaw.0@1 lookYaw.0@A))
+   (if@,1
+    (elif@3
+     (lt@4,1u,../../../../../../nimony/lib/std/system/comparisons.nim 50.0@J,m,vxview.nim turned.0@5,2d,vxanim.nim)
+     (stmts@O
+      (asgn@7 turned.0~7 50.0@J,m,vxview.nim))))
+   (if@,2
+    (elif@3
+     (lt@7 turned.0~7
+      (neg@2
+       (f 64)50.0@J,m,vxview.nim))
+     (stmts@P
+      (asgn@7 turned.0~7
+       (neg@2
+        (f 64)50.0@J,m,vxview.nim)))))
+   (asgn@,3 result.5 turned.0)
+   (ret~2,~1 result.5)))
+ (proc@,2g :headPitchOf.0.@5
+  (params@H
+   (param@1 :pitch.0 .
+    (f@7 64)))
+  (f@G 64)
+  (pragmas
+   (smry
+    (param 0 0 reads)result 0))
+  (stmts@2,1
+   (var :result.6 .
+    (f@L,~11 64).)
+   (if
+    (elif@3
+     (lt@4,1u,../../../../../../nimony/lib/std/system/comparisons.nim 70.0@K,1U,vxanim.nim pitch.0@5,2i,vxanim.nim)
+     (stmts@O
+      (ret 70.0~9,~1E))))
+   (if@,1
+    (elif@3
+     (lt@6 pitch.0~6
+      (neg@2
+       (f 64)70.0@7,~1F))
+     (stmts@P
+      (stmts
+       (asgn result.6
+        (neg@7
+         (f 64)70.0~H,~1F))
+       (ret result.6)))))
+   (asgn@,2 result.6 pitch.0)
+   (ret~2,~1 result.6)))
+ (proc@,2x :idleLean.0.@5
+  (params@E
+   (param@1 :seconds.0 .
+    (f@N 64))
+   (param@A :offset.0 .
+    (f@E 64))
+   (param@I :pace.2 .
+    (f@6 64)))
+  (f@W 64)
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads writes escapes)
+    (param 1 1 reads)
+    (param 2 2 reads)))
+  (stmts@2,1
+   (var@4 :result.7 .
+    (f@H,~1I 64).)
+   (var@4 :rest.0 .
+    (f@H,~1I 64)
+    (sub@B
+     (f 64)1.0~4 pace.2@2))
+   (if@,1
+    (elif@3
+     (lt@5 rest.0~5 0.0@2)
+     (stmts@C
+      (asgn@5 rest.0~5 0.0@2))))
+   (var@Y,2 :`x.4 .
+    (f@b,4Z,vxview.nim 64)
+    (call bobPhase.0.vxvb07eqp1~8 seconds.0@1 3.7~K,~1i))
+   (var@P,2 :`x.5 .
+    (f@C,4O,vxview.nim 64)
+    (call bobLike.0.vxvb07eqp1~7
+     (add@V
+      (f 64)`x.4~M offset.0@2)))
+   (asgn@G,2 result.7
+    (mul
+     (f 64)
+     (mul~7
+      (f 64)1.6@3,~1m rest.0@2)`x.5@9))
+   (ret~2,~1 result.7)))
+ (proc@,34 :wingFlap.0.@5
+  (params@E
+   (param@1 :b.2 .
+    (ptr@3 Box.0.vxm8yagd))
+   (param@9 :seconds.1 .
+    (f@9 64))
+   (param@P :falling.0 .
+    (bool@9)))
+  (f@f 64)
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads)
+    (param 1 1 reads writes escapes)
+    (param 2 2 reads)))
+  (stmts@2,1
+   (var :result.8 .
+    (f@L,~1P 64).)
+   (var@R :`x.6 .
+    (bool).)
+   (if@R
+    (elif
+     (not@2,1m,../../../../../../nimony/lib/std/system/comparisons.nim
+      (eq@7
+       (dot@6,36,vxanim.nim
+        (deref~1 b.2)role.0 0)6@4,1V,vxmodel.nim))
+     (stmts
+      (asgn@2,1m,../../../../../../nimony/lib/std/system/comparisons.nim `x.6
+       (not
+        (eq@7
+         (dot@Y,36,vxanim.nim
+          (deref~1 b.2)role.0 0)7@4,1W,vxmodel.nim)))))
+    (else
+     (stmts
+      (asgn `x.6
+       (false)))))
+   (if
+    (elif@3 `x.6@O
+     (stmts@q
+      (ret 0.0@7))))
+   (var@4,1 :amount.0 .
+    (f 64)0.18@9)
+   (if@,2
+    (elif@3 falling.0
+     (stmts@9
+      (asgn@7 amount.0~7 1.0@2))))
+   (var@4,3 :sign.1 .
+    (f 64)1.0@7)
+   (if@,4
+    (elif@3
+     (eq@7
+      (dot~6
+       (deref~1 b.2)role.0 0)7@4,1W,vxmodel.nim)
+     (stmts@O
+      (asgn@5 sign.1~5 -1.0@2))))
+   (var@o,5 :`x.7 .
+    (f@b,4Z,vxview.nim 64)
+    (call bobPhase.0.vxvb07eqp1~8 seconds.1@1 0.22~a,~1o))
+   (var@f,5 :`x.8 .
+    (f@C,4O,vxview.nim 64)
+    (call bobLike.0.vxvb07eqp1~7 `x.7@9))
+   (asgn@7,5 result.8
+    (add
+     (f 64)
+     (dot~6
+      (deref~1 b.2)hold.0 0)
+     (mul@P
+      (f 64)
+      (mul~9
+       (f 64)
+       (mul~9
+        (f 64)sign.1~5
+        (dot@3
+         (deref~1 b.2)turn.0 0))amount.0@2)`x.8@9)))
+   (ret~2,~1 result.8)))
+ (proc@,3P :crawlBase.0.@5
+  (params@F
+   (param@1 :ring.0 .
+    (i@6 64)))
+  (f@D 64)
+  (pragmas
+   (smry
+    (param 0 0 reads)))
+  (stmts@2,1
+   (var@4 :result.9 .
+    (f@H,~1k 64).)
+   (var@4 :side.0 .
+    (i@G,~1 64)
+    (div@C
+     (i 64)ring.0~5 4@4))
+   (var@4,1 :along.0 .
+    (f@H,~1l 64)
+    (sub@Q
+     (f 64)
+     (conv~D
+      (f~5 64)
+      (mod@6
+       (i 64)ring.0~5 4@4))1.5@2))
+   (var@4,2 :yaw.0 .
+    (f@H,~1m 64)
+    (mul@C
+     (f 64)along.0~6 26.0~1,~24))
+   (if@,3
+    (elif@3
+     (eq@5 side.0~5 1@3)
+     (stmts@B
+      (asgn@4 yaw.0~4
+       (neg@2
+        (f 64)yaw.0@1)))))
+   (asgn@,4 result.9 yaw.0)
+   (ret~2,~1 result.9)))
+ (proc@,3b :crawlYaw.0.@5
+  (params@E
+   (param@1 :ring.1 .
+    (i@6 64))
+   (param@C :phase.2 .
+    (f@D 64))
+   (param@J :pace.3 .
+    (f@6 64)))
+  (f@X 64)
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads)
+    (param 1 1 reads)
+    (param 2 2 reads)))
+  (stmts@2,1
+   (var@4 :result.10 .
+    (f@H,~1w 64).)
+   (var@4 :shift.0 .
+    (f@H,~1w 64)
+    (mul@f
+     (f 64)
+     (conv~S
+      (f~5,~B 64)
+      (mod@L
+       (i 64)
+       (add~E
+        (i 64)ring.1~5
+        (div@7
+         (i 64)ring.1~5 4@4))2@4))0.5@2))
+   (var@9,1 :`x.9 .
+    (f@2,~E 64)
+    (call crawlBase.0.~9 ring.1@1))
+   (var@q,1 :`x.10 .
+    (f@C,4O,vxview.nim 64)
+    (call bobLike.0.vxvb07eqp1~7
+     (add@7
+      (f 64)phase.2~6 shift.0@2)))
+   (asgn@G,1 result.10
+    (add
+     (f 64)`x.9~7
+     (mul@R
+      (f 64)
+      (mul~7
+       (f 64)
+       (mul~6
+        (f 64)26.0~F,~2F 0.5@2)pace.3@2)`x.10@9)))
+   (ret~2,~1 result.10)))
+ (proc@,3h :crawlLift.0.@5
+  (params@F
+   (param@1 :ring.2 .
+    (i@6 64))
+   (param@C :phase.3 .
+    (f@D 64))
+   (param@J :pace.4 .
+    (f@6 64)))
+  (f@X 64)
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads)
+    (param 1 1 reads)
+    (param 2 2 reads)))
+  (stmts@2,1
+   (var@4 :result.11 .
+    (f@H,~22 64).)
+   (var@4 :shift.1 .
+    (f@H,~22 64)
+    (mul@f
+     (f 64)
+     (conv~S
+      (f~5,~H 64)
+      (mod@L
+       (i 64)
+       (add~E
+        (i 64)ring.2~5
+        (div@7
+         (i 64)ring.2~5 4@4))2@4))0.5@2))
+   (var@4,1 :sign.2 .
+    (f 64)1.0@7)
+   (if@,2
+    (elif@3
+     (eq@B
+      (div~6
+       (i 64)ring.2~5 4@4)1@3)
+     (stmts@H
+      (asgn@5 sign.2~5 -1.0@2))))
+   (var@X,3 :`x.11 .
+    (f@C,4O,vxview.nim 64)
+    (call bobLike.0.vxvb07eqp1~7
+     (add@F
+      (f 64)
+      (add~8
+       (f 64)phase.3~6 shift.1@2)0.25@2)))
+   (asgn@O,3 result.11
+    (mul
+     (f 64)
+     (mul~7
+      (f 64)
+      (mul~C
+       (f 64)sign.2~5 22.0@8,~2K)pace.4@2)`x.11@9))
+   (ret~2,~1 result.11)))
+ (proc@,3y :deathRoll.0.@5
+  (params@F
+   (param@1 :since.0 .
+    (f@7 64)))
+  (f@G 64)
+  (pragmas
+   (smry writeGlobal readGlobal
+    (param 0 0 reads)))
+  (stmts@2,1
+   (var :result.12 .
+    (f@L,~2J 64).)
+   (if
+    (elif@3
+     (le@6 since.0~6 0.0@3)
+     (stmts@E
+      (ret 0.0@7))))
+   (var@4,1 :t.0 .
+    (f@H,~2K 64)
+    (div@A
+     (f 64)since.0~6 1.0~1,~36))
+   (if@,2
+    (elif@3
+     (lt@4,1u,../../../../../../nimony/lib/std/system/comparisons.nim 1.0@9,42,vxanim.nim t.0@5,42,vxanim.nim)
+     (stmts@9
+      (asgn@2 t.0~2 1.0@2))))
+   (if@,5
+    (elif@3
+     (le@2 t.0~2 0.0@3)
+     (stmts@A
+      (ret 0.0@7))))
+   (var@4,6 :guess.0 .
+    (f@H,~2P 64)
+    (mul@C
+     (f 64)0.5~4
+     (add@5
+      (f 64)t.0~2 1.0@2)))
+   (var@4,7 :step.0 .
+    (i 64)0@7)
+   (scope@,8
+    (stmts
+     (while
+      (lt@B step.0~5 6@2)
+      (stmts@2,1
+       (asgn@6 guess.0~6
+        (mul@6
+         (f 64)0.5~4
+         (add@9
+          (f 64)guess.0~6
+          (div@4
+           (f 64)t.0~2 guess.0@2))))
+       (call@,1 inc.1.Irn1g7r1.
+        (addr@4 step.0))))))
+   (lab@,8 :whileStmtLabel.0)
+   (asgn@A,B result.12
+    (mul
+     (f 64)90.0@3,~3D guess.0@2))
+   (ret~2,~1 result.12)))
+ (proc@,4E :dying.0.@5
+  (params@B
+   (param@1 :since.1 .
+    (f@7 64)))
+  (bool@G)
+  (pragmas
+   (smry
+    (param 0 0 reads)))
+  (stmts@Y
+   (var@D :result.13 .
+    (bool@1,~1A).)
+   (var@D :`x.12 .
+    (bool).)
+   (if@D
+    (elif
+     (le@4,1q,../../../../../../nimony/lib/std/system/comparisons.nim 0.0@h,4F,vxanim.nim since.1@Y,4F,vxanim.nim)
+     (stmts
+      (asgn@A `x.12
+       (lt since.1~6 1.0~g,~3K))))
+    (else
+     (stmts
+      (asgn `x.12
+       (false)))))
+   (asgn@D result.13 `x.12)
+   (ret~Y result.13)))
+ (proc@,4I :hurtLean.0.@5
+  (params@E
+   (param@1 :since.2 .
+    (f@7 64)))
+  (f@G 64)
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads)))
+  (stmts@2,1
+   (var :result.14 .
+    (f@L,~2d 64).)
+   (var@F :`x.13 .
+    (bool).)
+   (if@F
+    (elif
+     (lt~6 since.2~6 0.0@2)
+     (stmts
+      (asgn `x.13
+       (true))))
+    (else
+     (stmts
+      (asgn@4,1q,../../../../../../nimony/lib/std/system/comparisons.nim `x.13
+       (le 0.5@E,10,vxanim.nim since.2@K,4K,vxanim.nim)))))
+   (if
+    (elif@3 `x.13@C
+     (stmts@Y
+      (ret 0.0@7))))
+   (var@4,1 :t.1 .
+    (f@H,~2e 64)
+    (div@A
+     (f 64)since.2~6 0.5~2,~3L))
+   (var@U,2 :`x.14 .
+    (f@C,4O,vxview.nim 64)
+    (call bobLike.0.vxvb07eqp1~7
+     (mul@3
+      (f 64)t.1~2 0.5@2)))
+   (asgn@L,2 result.14
+    (mul
+     (f 64)
+     (mul~C
+      (f 64)14.0@3,~3K
+      (sub@7
+       (f 64)1.0~4 t.1@2))`x.14@9))
+   (ret~2,~1 result.14)))
+ (proc@,4O :hurtGlow.0.@5
+  (params@E
+   (param@1 :since.3 .
+    (f@7 64)))
+  (f@G 64)
+  (pragmas
+   (smry
+    (param 0 0 reads)))
+  (stmts@2,1
+   (var :result.15 .
+    (f@L,~2j 64).)
+   (var@F :`x.15 .
+    (bool).)
+   (if@F
+    (elif
+     (lt~6 since.3~6 0.0@2)
+     (stmts
+      (asgn `x.15
+       (true))))
+    (else
+     (stmts
+      (asgn@4,1q,../../../../../../nimony/lib/std/system/comparisons.nim `x.15
+       (le 0.5@E,10,vxanim.nim since.3@K,4Q,vxanim.nim)))))
+   (if
+    (elif@3 `x.15@C
+     (stmts@Y
+      (ret 0.0@7))))
+   (var@4,1 :t.2 .
+    (f@H,~2k 64)
+    (div@A
+     (f 64)since.3~6 0.5~2,~3R))
+   (asgn@9,2 result.15
+    (mul
+     (f 64)0.6@3,~3O
+     (sub@7
+      (f 64)1.0~4 t.2@2)))
+   (ret~2,~1 result.15)))
+ (proc@,4c :creeperSwell.0.@5
+  (params@I
+   (param@1 :fuse.0 .
+    (f@6 64)))
+  (f@F 64)
+  (pragmas
+   (smry
+    (param 0 0 reads)))
+  (stmts@2,1
+   (var :result.16 .
+    (f@L,~2x 64).)
+   (if
+    (elif@3
+     (le@5 fuse.0~5 0.0@3)
+     (stmts@D
+      (ret 1.0@7))))
+   (var@4,1 :t.3 .
+    (f@H,~2y 64)
+    (div@9
+     (f 64)fuse.0~5 1.5~1,~3Z))
+   (if@,2
+    (elif@3
+     (lt@4,1u,../../../../../../nimony/lib/std/system/comparisons.nim 1.0@9,4g,vxanim.nim t.3@5,4g,vxanim.nim)
+     (stmts@9
+      (asgn@2 t.3~2 1.0@2))))
+   (asgn@4,3 result.16
+    (add
+     (f 64)1.0~4
+     (mul@G
+      (f 64)
+      (mul~4
+       (f 64)0.3~3,~3Z t.3@2)t.3@2)))
+   (ret~2,~1 result.16)))
+ (proc@,4n :creeperFlash.0.@5
+  (params@I
+   (param@1 :fuse.1 .
+    (f@6 64)))
+  (bool@F)
+  (pragmas
+   (smry
+    (param 0 0 reads)))
+  (stmts@2,1
+   (var :result.17 .
+    (bool@k,~1k).)
+   (if
+    (elif@3
+     (le@5 fuse.1~5 0.0@3)
+     (stmts@D
+      (ret
+       (false@7)))))
+   (var@4,1 :ticks.0 .
+    (i@8 64)
+    (conv@B
+     (i~3 64)
+     (mul@D
+      (f 64)
+      (mul~7
+       (f 64)fuse.1~5 fuse.1@2)9.0~F,~3g)))
+   (asgn@E,2 result.17
+    (eq
+     (mod~7
+      (i 64)ticks.0~6 2@4)1@3))
+   (ret~2,~1 result.17)))
+ (proc@,4u :creeperGlow.0.@5
+  (params@H
+   (param@1 :fuse.2 .
+    (f@6 64)))
+  (f@F 64)
+  (pragmas
+   (smry
+    (param 0 0 reads)))
+  (stmts@2,1
+   (var :result.18 .
+    (f@L,~3F 64).)
+   (var@J :`x.16 .
+    (bool~6,~8)
+    (call creeperFlash.0.~C fuse.2@1))
+   (if
+    (elif@3
+     (not `x.16@G)
+     (stmts@O
+      (ret 0.0@7))))
+   (var@4,1 :t.4 .
+    (f@H,~3G 64)
+    (div@9
+     (f 64)fuse.2~5 1.5~1,~3r))
+   (if@,2
+    (elif@3
+     (lt@4,1u,../../../../../../nimony/lib/std/system/comparisons.nim 1.0@9,4y,vxanim.nim t.4@5,4y,vxanim.nim)
+     (stmts@9
+      (asgn@2 t.4~2 1.0@2))))
+   (asgn@5,3 result.18
+    (add
+     (f 64)0.35~5
+     (mul@7
+      (f 64)0.65~5 t.4@2)))
+   (ret~2,~1 result.18)))
+ (type@B,56 :Pose.0.~6 .
+  (object@2 .
+   (fld~6,5 :pitch.0~5 .
+    (f@G 64))
+   (fld@,5 :yaw.0~3 .
+    (f@A 64))
+   (fld@7,5 :roll.0~4 .
+    (f@3 64))))
+ (proc@,5K :poseOf.0.@5
+  (params@C
+   (param@1 :b.3 .
+    (ptr@3 Box.0.vxm8yagd))
+   (param@9 :bodyYaw.1 .
+    (f@T 64))
+   (param@I :lookYaw.1 .
+    (f@K 64))
+   (param@R :lookPitch.0 .
+    (f@B 64))
+   (param@1,1 :phase.4 .
+    (f@U 64))
+   (param@8,1 :pace.5 .
+    (f@N 64))
+   (param@E,1 :seconds.2 .
+    (f@H 64))
+   (param@N,1 :offset.1 .
+    (f@8 64))
+   (param@1,2 :falling.1 .
+    (bool@Z,~2I)))Pose.0.@J,2
+  (pragmas
+   (smry writeGlobal callsUnknown
+    (param 0 0 reads escapes)
+    (param 1 1 reads writes escapes)
+    (param 2 2 reads writes escapes)
+    (param 3 3 reads)
+    (param 4 4 reads writes escapes)
+    (param 5 5 reads)
+    (param 6 6 reads writes escapes)
+    (param 7 7 reads)
+    (param 8 8 reads)))
+  (stmts@2,3
+   (var@7 :result.19 . Pose.0.@A,~1 .)
+   (asgn@7 result.19~7
+    (oconstr@6 Pose.0.@4,~1
+     (kv@6 pitch.0~5 0.0@2)
+     (kv@G yaw.0~3 bodyYaw.1@2)
+     (kv@V roll.0~4 0.0@2)))
+   (case@,1
+    (dot@6
+     (deref~1 b.3)role.0 0)
+    (of@,1
+     (ranges@3 1@4,1N,vxmodel.nim)
+     (stmts@2,1
+      (var@W :`x.17 .
+       (f~9,~2q 64)
+       (call headYawOf.0.~9 bodyYaw.1@1 lookYaw.1@A))
+      (asgn@B
+       (dot~5 result.19~6 yaw.0 0)
+       (add@A
+        (f 64)bodyYaw.1~8 `x.17@B))
+      (var@Q,1 :`x.18 .
+       (f~E,~2l 64)
+       (call headPitchOf.0.~B lookPitch.0@1))
+      (asgn@D,1
+       (dot~7 result.19~6 pitch.0 0)`x.18@D)))
+    (of@,4
+     (ranges@3 2@4,1P,vxmodel.nim 3@4,1Q,vxmodel.nim 4@4,1R,vxmodel.nim 5@4,1S,vxmodel.nim)
+     (stmts@2,1
+      (var@O :`x.19 .
+       (f@2,~3E 64)
+       (call limbPitch.0.~9
+        (addr@1
+         (deref b.3))phase.4@4 pace.5@B))
+      (var@p :`x.20 .
+       (f~N,~2W 64)
+       (call idleLean.0.~8 seconds.2@1 offset.1@A pace.5@I))
+      (asgn@D
+       (dot~7 result.19~6 pitch.0 0)
+       (add@S
+        (f 64)`x.19~H `x.20@A))))
+    (of@,6
+     (ranges@3 6@4,1V,vxmodel.nim 7@4,1W,vxmodel.nim)
+     (stmts@2,1
+      (var@M :`x.21 .
+       (f@F,~2R 64)
+       (call wingFlap.0.~8
+        (addr@1
+         (deref b.3))seconds.2@4 falling.1@D))
+      (asgn@C
+       (dot~6 result.19~6 roll.0 0)`x.21@A)))
+    (of@,8
+     (ranges@3 8@4,1Y,vxmodel.nim)
+     (stmts@2,1
+      (var@4 :ring.3 .
+       (i@6,~i 64)
+       (conv@A
+        (i~4,~i 64)
+        (dot@2
+         (deref~1 b.3)turn.0 0)))
+      (var@V,1 :`x.22 .
+       (f~2,~1x 64)
+       (call crawlYaw.0.~8 ring.3@1 phase.4@7 pace.5@E))
+      (asgn@B,1
+       (dot~5 result.19~6 yaw.0 0)
+       (add@A
+        (f 64)bodyYaw.1~8 `x.22@A))
+      (var@N,2 :`x.23 .
+       (f@6,~1s 64)
+       (call crawlLift.0.~9 ring.3@1 phase.4@7 pace.5@E))
+      (asgn@C,2
+       (dot~6 result.19~6 roll.0 0)`x.23@B)))
+    (of@,C
+     (ranges@3 9@4,1b,vxmodel.nim)
+     (stmts@2,1
+      (var@U :`x.24 .
+       (f~4,~3F 64)
+       (call tailYaw.0.~7
+        (addr@1
+         (deref b.3))phase.4@4 pace.5@B))
+      (asgn@B
+       (dot~5 result.19~6 yaw.0 0)
+       (add@A
+        (f 64)bodyYaw.1~8 `x.24@9))))
+    (of@,E
+     (ranges@3 0@4,1L,vxmodel.nim)
+     (stmts@2,1
+      (asgn@D
+       (dot~7 result.19~6 pitch.0 0)
+       (dot@3
+        (deref~1 b.3)hold.0 0)))))
+   (asgn@,H result.19 result.19)
+   (ret~2,~3 result.19)))
+ (proc@,5j :bodyPose.0.@5
+  (params@E
+   (param@1 :bodyYaw.2 .
+    (f@R 64))
+   (param@A :deadFor.0 .
+    (f@I 64))
+   (param@J :hurtFor.0 .
+    (f@9 64)))Pose.0.@a
+  (pragmas
+   (smry writeGlobal readGlobal callsUnknown
+    (param 0 0 reads)
+    (param 1 1 reads)
+    (param 2 2 reads)))
+  (stmts@2,1
+   (var@4 :result.20 . Pose.0.@D,~O .)
+   (var@K :`x.25 .
+    (f~6,~1S 64)
+    (call hurtLean.0.~8 hurtFor.0@1))
+   (var@y :`x.26 .
+    (f~k,~1m 64)
+    (call deathRoll.0.~9 deadFor.0@1))
+   (asgn@4 result.20
+    (oconstr Pose.0.@D,~O
+     (kv@6 pitch.0~5 `x.25@A)
+     (kv@U yaw.0~3 bodyYaw.2@2)
+     (kv@j roll.0~4 `x.26@B)))
+   (ret~2,~1 result.20)))
+ (proc@4,49 :inc.1.Irn1g7r1.
+  (params@L,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (param@1 :x.1 .
+    (ptr@3
+     (i 64)))).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (pragmas@W,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (inline 0 20)
+   (smry@4,4A,vxanim.nim
+    (param 0 0 reads writes)))
+  (stmts@2,F,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (asgn@2,1
+    (deref~2 x.1)
+    (add@6
+     (i 64)
+     (deref@1 x.1)
+     (conv@U,~F
+      (i 64)1@1)))))
+ (gvar :`iniGuard.0. .
+  (bool).)
+ (proc :`ini.0.
+  (params).
+  (pragmas
+   (smry callsUnknown))
+  (stmts
+   (if
+    (elif `iniGuard.0.
+     (stmts
+      (ret .))))
+   (asgn `iniGuard.0.
+    (true))
+   (call `ini.0.sysvq0asl)
+   (call `ini.0.vxvb07eqp1)
+   (call `ini.0.vxm8yagd))))(.index@,1,vxanim.nim
+ (h WalkStride.0. 58)
+ (h DeathTime.0. 63)
+ (h DeathTurn.0. 49)
+ (h HurtTime.0. 50)
+ (h HurtLean.0. 48)
+ (h HurtGlow.0. 50)
+ (h FuseTime.0. 49)
+ (h SwellMost.0. 49)
+ (h FlashRate.0. 50)
+ (h IdleLean.0. 50)
+ (h IdlePeriod.0. 49)
+ (h FlapPeriod.0. 51)
+ (h CrawlSpread.0. 52)
+ (h CrawlLift.0. 53)
+ (h HeadPitchLimit.0. 51)
+ (x strideAt.0. 56)
+ (x paceOf.0. 450)
+ (x swingSign.0. 762)
+ (x limbPitch.0. 796)
+ (x tailYaw.0. 982)
+ (x headYawOf.0. 797)
+ (x headPitchOf.0. 832)
+ (x idleLean.0. 624)
+ (x wingFlap.0. 855)
+ (x crawlBase.0. 1642)
+ (x crawlYaw.0. 657)
+ (x crawlLift.0. 921)
+ (x deathRoll.0. 1015)
+ (x dying.0. 1191)
+ (x hurtLean.0. 524)
+ (x hurtGlow.0. 900)
+ (x creeperSwell.0. 731)
+ (x creeperFlash.0. 675)
+ (x creeperGlow.0. 524)
+ (h Pose.0. 705)
+ (x poseOf.0. 154)
+ (x bodyPose.0. 3169)
+ (x inc.1.Irn1g7r1. 656)
+ (h `iniGuard.0. 527)
+ (x `ini.0. 34))

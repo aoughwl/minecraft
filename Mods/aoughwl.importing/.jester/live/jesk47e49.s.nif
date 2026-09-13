@@ -1,0 +1,230 @@
+(.nif27)
+(.indexat 7447             )
+(stmts@,1,.jester/source/jester_mod_48a51b3f57aa71e2.nim
+ (import
+  (kv sysvq0asl "../../../../../../nimony/lib/std/system.nim")
+  (kv jesaqohvh1 "../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim")
+  (kv impku7yjx "../../../../Packages/com.aoughwl.jester/ModSdk/importing.nim")
+  (kv imphqo2ay1 "importpanel.nim"))
+ (gvar@2,L :ask.0. . . Ask.0.imphqo2ay1@4,M,importpanel.nim AskNothing.0.imphqo2ay1@6)
+ (gvar@2,M :open.0. . .
+  (bool@C,h,../../../../../../nimony/lib/std/system/basic_types.nim)
+  (false@7))
+ (gvar@2,N :said.0. . .
+  (bool@C,h,../../../../../../nimony/lib/std/system/basic_types.nim)
+  (false@7))
+ (proc@,P :start.0.@5 . . .
+  (params@A). . .
+  (stmts@2,4
+   (call@C importLedger.0.impku7yjx~C)
+   (if@,1
+    (elif@3
+     (not
+      (call@J importAvailable.0.impku7yjx~F))
+     (stmts~1,1
+      (call@3 log.0.jesaqohvh1~3 "This host does not let mods import anything."@1)))
+    (else@,2
+     (stmts@2,1
+      (call@3 log.0.jesaqohvh1~3
+       (infix@f,1 &.0.sysvq0asl
+        (infix~L &.0.sysvq0asl
+         (infix@q,~1 &.0.sysvq0asl
+          (infix~L &.0.sysvq0asl "Importing ready. Granted folders are listed in "~o
+           (call@I importPolicyFile.0.impku7yjx~G))"; this host opens "~1B,1)
+         (call@I importContainers.0.impku7yjx~G))"."@2)))))))
+ (proc@,d :showing.0.@5 . . .
+  (params@C)
+  (bool@4). .
+  (stmts@2,1
+   (result@4 :result.0 . .
+    (bool~2,~1).)
+   (let@4 :sources.0 . .
+    (i@4,1p,../../../../Packages/com.aoughwl.jester/ModSdk/importing.nim 64)
+    (if@A
+     (elif@3
+      (call@F importAvailable.0.impku7yjx~F)
+      (expr@J
+       (call@H importSourceCount.0.impku7yjx~H)))
+     (else@g
+      (expr@6 0))))
+   (asgn@6,1 result.0
+    (call wanted.0.imphqo2ay1~6 sources.0@1
+     (call@N importedCount.0.impku7yjx~D)
+     (not@R
+      (call@J importAvailable.0.impku7yjx~F))ask.0.@o))
+   (ret~2,~1 result.0)))
+ (proc@,h :update.0.@5 . . .
+  (params@B). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@7 pressed.0.jesaqohvh1~7 "I"@1)
+     (stmts@E
+      (asgn@4 ask.0.~4
+       (call@9 toggled.0.imphqo2ay1~7
+        (call@8 showing.0.~7))))))
+   (asgn@5,1 open.0.~5
+    (call@9 showing.0.~7))
+   (if@,2
+    (elif@3
+     (and@V
+      (and~M
+       (not~9 said.0.@4)
+       (call@J importAvailable.0.impku7yjx~F))
+      (eq@O
+       (i 64)
+       (call~3 importSourceCount.0.impku7yjx~H)0@3))
+     (stmts~1,1
+      (asgn@5 said.0.~5
+       (true@2))
+      (call@3,1 log.0.jesaqohvh1~3
+       (infix@1A,2 &.0.sysvq0asl
+        (infix@,~1 &.0.sysvq0asl
+         (infix~H &.0.sysvq0asl
+          (infix~P &.0.sysvq0asl
+           (infix@b,~1 &.0.sysvq0asl
+            (infix~L &.0.sysvq0asl "No folder is granted yet. Add one line to "~j
+             (call@I importPolicyFile.0.impku7yjx~G))" - for example  minecraft = "~16,1)
+           (call@D importKnown.0.impku7yjx~B "appdata"@1))"\5C.minecraft"@2)". I shows the importing screen; it stays hidden while there is nothing"~1B,1)" on it."~1B,1)))))))
+ (proc@,r :drawGui.0.@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (not open.0.@4)
+     (stmts@A
+      (ret .))))
+   (let@4,1 :sources.1 . .
+    (i@4,1p,../../../../Packages/com.aoughwl.jester/ModSdk/importing.nim 64)
+    (if@A
+     (elif@3
+      (call@F importAvailable.0.impku7yjx~F)
+      (expr@J
+       (call@H importSourceCount.0.impku7yjx~H)))
+     (else@g
+      (expr@6 0))))
+   (let@4,2 :receipts.0 . .
+    (i@4,1p,../../../../Packages/com.aoughwl.jester/ModSdk/importing.nim 64)
+    (call@O importedCount.0.impku7yjx~D))
+   (let@4,8 :advice.0 . .
+    (i 64)
+    (if@9
+     (elif@3
+      (eq@8
+       (i 64)sources.1~8 0@3)
+      (expr@E 2))
+     (else@J
+      (expr@6 0))))
+   (call@A,9 beginPanel.0.jesaqohvh1~A 20.0@1 20.0@7 720.0@D
+    (add~2,1
+     (f 64)170.0~6
+     (mul@7
+      (f 64)24.0~5
+      (conv@9
+       (f~7 64)
+       (add@K
+        (i 64)
+        (add~B
+         (i 64)sources.1~8 receipts.0@2)advice.0@2))))
+    (true@w,9P,../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim))
+   (call@7,B heading.0.jesaqohvh1~7 "Importing"@1 19.0@Z,9u,../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim)
+   (if@,C
+    (elif@3
+     (not
+      (call@J importAvailable.0.impku7yjx~F))
+     (stmts~1,1
+      (call@5 label.0.jesaqohvh1~5 "This host does not let mods read anything outside themselves."@1)
+      (call@8,1 endPanel.0.jesaqohvh1~8)
+      (ret@,2 .))))
+   (call@5,G label.0.jesaqohvh1~5
+    (infix@12 &.0.sysvq0asl
+     (infix~W &.0.sysvq0asl
+      (infix~B &.0.sysvq0asl "Granted folders \28"~K
+       (prefix@2 $.1.sysvq0asl sources.1@1))"\29 - the player decides, in "@2)
+     (call~p,1 importPolicyFile.0.impku7yjx~G)))
+   (if@,I
+    (elif@3
+     (eq@8
+      (i 64)sources.1~8 0@3)
+     (stmts~1,1
+      (call@5 label.0.jesaqohvh1~5 "  none yet. One line per folder\3A  label = C\3A\5Cpath\5Cto\5Ca\5Cgame"@1)
+      (call@5,1 label.0.jesaqohvh1~5
+       (infix@j &.0.sysvq0asl "  this machine keeps application data in "~i
+        (call@D importKnown.0.impku7yjx~B "appdata"@1))))))
+   (var@4,L :i.0 . .
+    (i 64)0@4)
+   (while@,M
+    (lt@8
+     (i 64)i.0~2 sources.1@2)
+    (stmts@2,1
+     (call@5 label.0.jesaqohvh1~5
+      (infix@e &.0.sysvq0asl
+       (infix~B &.0.sysvq0asl
+        (infix~N &.0.sysvq0asl "  "~5
+         (call@J importSourceLabel.0.impku7yjx~H i.0@1))"  ->  "@2)
+       (call@I importSourcePath.0.impku7yjx~G i.0@1)))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.0))))
+   (call@5,P space.0.jesaqohvh1~5 8.0@1)
+   (call@5,Q label.0.jesaqohvh1~5
+    (infix@Q &.0.sysvq0asl
+     (infix~C &.0.sysvq0asl "Imported \28"~D
+      (prefix@2 $.1.sysvq0asl receipts.0@1))"\29"@2))
+   (var@4,R :j.0 . .
+    (i 64)0@4)
+   (while@,S
+    (lt@8
+     (i 64)j.0~2 receipts.0@2)
+    (stmts@2,1
+     (call@5 label.0.jesaqohvh1~5
+      (infix@t &.0.sysvq0asl
+       (infix~7 &.0.sysvq0asl
+        (infix~G &.0.sysvq0asl
+         (infix~A &.0.sysvq0asl
+          (infix~G &.0.sysvq0asl "  "~5
+           (call@C importedId.0.impku7yjx~A j.0@1))"  by "@2)
+         (call@C importedBy.0.impku7yjx~A j.0@1))"  "@2)
+       (call~h,1 importedSummary.0.impku7yjx~F j.0@1)))
+     (cmd@,2 inc.1.Irn1g7r1.
+      (haddr@4 j.0))))
+   (call@5,W space.0.jesaqohvh1~5 8.0@1)
+   (call@5,X label.0.jesaqohvh1~5
+    (infix@r &.0.sysvq0asl
+     (infix~L &.0.sysvq0asl "Containers this host opens\3A "~V
+      (call@I importContainers.0.impku7yjx~G))"   -   I hides this"@2))
+   (if@,Y
+    (elif@3
+     (and@D
+      (eq~5
+       (i 64)sources.1~8 0@3)
+      (eq@D
+       (i 64)receipts.0~9 0@3))
+     (stmts~1,1
+      (call@5 label.0.jesaqohvh1~5 "Nothing is granted and nothing is imported, so this stays hidden."@1))))
+   (call@8,a endPanel.0.jesaqohvh1~8)))
+ (comment@4,d bool.0.sysvq0asl false.0.sysvq0asl@5,~H false.0.sysvq0asl@5,~G true.0.sysvq0asl@7,8 float64.0.sysvq0asl@F,P)
+ (func@4,1G :inc.1.Irn1g7r1. . .@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (at inc.1.sysvq0asl
+   (i 64))
+  (params@L,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (param@1 :x.1 . .
+    (mut@3
+     (i 64)).)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (pragmas@W,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (inline@2)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (stmts@2,F,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (asgn@2,1
+    (hderef~2 x.1)
+    (add@6
+     (i 64)
+     (hderef@1 x.1)
+     (conv@U,~F
+      (i 64)1@1))))))(.index@,1,.jester/source/jester_mod_48a51b3f57aa71e2.nim
+ (h ask.0. 361)
+ (h open.0. 87)
+ (h said.0. 106)
+ (h start.0. 106)
+ (h showing.0. 662)
+ (h update.0. 583)
+ (h drawGui.0. 1088)
+ (h inc.1.Irn1g7r1. 3823))

@@ -1,0 +1,617 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,../../../../Packages/com.aoughwl.jester/ModSdk/sound.nim
+ (comment)
+ (import@,U jester@7)
+ (import@,V vec@7)
+ (type@9,Y Sound~7 x . .
+  (distinct@2 int64@9))
+ (type@B,a Speaker~9 x . .
+  (distinct@2 int64@9))
+ (proc@,d hostAudioAvailable@5 . . .
+  (params@N)bool@4
+  (pragmas@W
+   (kv@9 importc~7 "jester_audio_available"@2)). .)
+ (proc@,e hostAudioProblem@5 . . .
+  (params@L)string@4
+  (pragmas@W
+   (kv@9 importc~7 "jester_audio_problem"@2)). .)
+ (proc@,f hostAudioPermit@5 . . .
+  (params@K)bool@4
+  (pragmas@T
+   (kv@9 importc~7 "jester_audio_permit"@2)). .)
+ (proc@,g hostAudioReadable@5 . . .
+  (params@M
+   (param@1 uri . . string@5 .)
+   (param@E offset . . int64@G .)
+   (param@M length . . int64@8 .))bool@c
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_readable"@2)). .)
+ (proc@,i hostAudioClipFile@5 . . .
+  (params@M
+   (param@1 uri . . string@5 .)
+   (param@E offset . . int64@G .)
+   (param@M length . . int64@8 .))int64@c
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_clip_file"@2)). .)
+ (proc@,k hostAudioClipLength@5 . . .
+  (params@O
+   (param@1 clip . . int64@6 .))float64@F
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_clip_length"@2)). .)
+ (proc@,m hostAudioClipMemory@5 . . .
+  (params@O
+   (param@1 clip . . int64@6 .))int64@F
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_clip_memory"@2)). .)
+ (proc@,o hostAudioClipRelease@5 . . .
+  (params@P
+   (param@1 clip . . int64@6 .)).
+  (pragmas@d
+   (kv@9 importc~7 "jester_audio_clip_release"@2)). .)
+ (proc@,p hostAudioPcmBegin@5 . . .
+  (params@M
+   (param@1 channels . . int64@G .)
+   (param@B rate . . int64@6 .)).
+  (pragmas@k
+   (kv@9 importc~7 "jester_audio_pcm_begin"@2)). .)
+ (proc@,q hostAudioPcmAdd@5 . . .
+  (params@K
+   (param@1 sample . . float64@8 .)).
+  (pragmas@c
+   (kv@9 importc~7 "jester_audio_pcm_add"@2)). .)
+ (proc@,r hostAudioPcmFinish@5 . . .
+  (params@N
+   (param@1 label . . string@7 .))int64@H
+  (pragmas@k
+   (kv@9 importc~7 "jester_audio_pcm_finish"@2)). .)
+ (proc@,s hostAudioSourceCreate@5 . . .
+  (params@Q
+   (param@1 clip . . int64@6 .))int64@F
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_source_create"@2)). .)
+ (proc@,u hostAudioSourceAttach@5 . . .
+  (params@Q
+   (param@1 entity . . int64@E .)
+   (param@9 clip . . int64@6 .))int64@N
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_source_attach"@2)). .)
+ (proc@,w hostAudioSourcePlay@5 . . .
+  (params@O
+   (param@1 source . . int64@8 .)).
+  (pragmas@e
+   (kv@9 importc~7 "jester_audio_source_play"@2)). .)
+ (proc@,x hostAudioSourceStop@5 . . .
+  (params@O
+   (param@1 source . . int64@8 .)).
+  (pragmas@e
+   (kv@9 importc~7 "jester_audio_source_stop"@2)). .)
+ (proc@,y hostAudioSourcePause@5 . . .
+  (params@P
+   (param@1 source . . int64@8 .)).
+  (pragmas@f
+   (kv@9 importc~7 "jester_audio_source_pause"@2)). .)
+ (proc@,z hostAudioSourceResume@5 . . .
+  (params@Q
+   (param@1 source . . int64@8 .)).
+  (pragmas@g
+   (kv@9 importc~7 "jester_audio_source_resume"@2)). .)
+ (proc@,10 hostAudioSourcePlaying@5 . . .
+  (params@R
+   (param@1 source . . int64@8 .))bool@H
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_source_playing"@2)). .)
+ (proc@,12 hostAudioSourceLoop@5 . . .
+  (params@O
+   (param@1 source . . int64@8 .)
+   (param@G on . . bool@4 .)).
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_source_loop"@2)). .)
+ (proc@,14 hostAudioSourceVolume@5 . . .
+  (params@Q
+   (param@1 source . . int64@8 .)
+   (param@G level . . float64@7 .)).
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_source_volume"@2)). .)
+ (proc@,16 hostAudioSourcePitch@5 . . .
+  (params@P
+   (param@1 source . . int64@8 .)
+   (param@G rate . . float64@6 .)).
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_source_pitch"@2)). .)
+ (proc@,18 hostAudioSourceAt@5 . . .
+  (params@M
+   (param@1 source . . int64@8 .)
+   (param@G x . . float64@9 .)
+   (param@J y . . float64@6 .)
+   (param@M z . . float64@3 .)).
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_source_at"@2)). .)
+ (proc@,1A hostAudioSourceSpatial@5 . . .
+  (params@R
+   (param@1 source . . int64@8 .)
+   (param@G blend . . float64@7 .)).
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_source_spatial"@2)). .)
+ (proc@,1C hostAudioSourceRange@5 . . .
+  (params@P
+   (param@1 source . . int64@8 .)
+   (param@G near . . float64@B .)
+   (param@M far . . float64@5 .)).
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_source_range"@2)). .)
+ (proc@,1E hostAudioSourceRolloff@5 . . .
+  (params@R
+   (param@1 source . . int64@8 .)
+   (param@G mode . . string@6 .)).
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_source_rolloff"@2)). .)
+ (proc@,1G hostAudioSourceBus@5 . . .
+  (params@N
+   (param@1 source . . int64@8 .)
+   (param@G bus . . string@5 .)).
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_source_bus"@2)). .)
+ (proc@,1I hostAudioSourceTime@5 . . .
+  (params@O
+   (param@1 source . . int64@8 .))float64@H
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_source_time"@2)). .)
+ (proc@,1K hostAudioSourceSeek@5 . . .
+  (params@O
+   (param@1 source . . int64@8 .)
+   (param@G seconds . . float64@9 .)).
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_source_seek"@2)). .)
+ (proc@,1M hostAudioSourceGain@5 . . .
+  (params@O
+   (param@1 source . . int64@8 .))float64@H
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_source_gain"@2)). .)
+ (proc@,1O hostAudioSourceDestroy@5 . . .
+  (params@R
+   (param@1 source . . int64@8 .)).
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_source_destroy"@2)). .)
+ (proc@,1Q hostAudioSourceRms@5 . . .
+  (params@N
+   (param@1 source . . int64@8 .))float64@H
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_source_rms"@2)). .)
+ (proc@,1S hostAudioSourceMatch@5 . . .
+  (params@P
+   (param@1 source . . int64@8 .))float64@H
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_source_match"@2)). .)
+ (proc@,1U hostAudioMixRms@5 . . .
+  (params@K)float64@4
+  (pragmas@W
+   (kv@9 importc~7 "jester_audio_mix_rms"@2)). .)
+ (proc@,1V hostAudioSilent@5 . . .
+  (params@K
+   (param@1 on . . bool@4 .)).
+  (pragmas@V
+   (kv@9 importc~7 "jester_audio_silent"@2)). .)
+ (proc@,1W hostAudioSilenced@5 . . .
+  (params@M)bool@4
+  (pragmas@V
+   (kv@9 importc~7 "jester_audio_silenced"@2)). .)
+ (proc@,1X hostAudioOnce@5 . . .
+  (params@I
+   (param@1 clip . . int64@6 .)
+   (param@E bus . . string@5 .)
+   (param@R x . . float64@G .)
+   (param@U y . . float64@D .)
+   (param@X z . . float64@A .)
+   (param@a level . . float64@7 .))int64@r
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_once"@2)). .)
+ (proc@,1Z hostAudioSounding@5 . . .
+  (params@M)int64@4
+  (pragmas@W
+   (kv@9 importc~7 "jester_audio_sounding"@2)). .)
+ (proc@,1a hostAudioListenerAttach@5 . . .
+  (params@S
+   (param@1 entity . . int64@8 .)).
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_audio_listener_attach"@2)). .)
+ (proc@,1c hostAudioBusSet@5 . . .
+  (params@K
+   (param@1 bus . . string@5 .)
+   (param@E level . . float64@7 .)).
+  (pragmas@o
+   (kv@9 importc~7 "jester_audio_bus_set"@2)). .)
+ (proc@,1d hostAudioBusGet@5 . . .
+  (params@K
+   (param@1 bus . . string@5 .))float64@F
+  (pragmas@h
+   (kv@9 importc~7 "jester_audio_bus_get"@2)). .)
+ (proc@,1e hostAudioBusMute@5 . . .
+  (params@L
+   (param@1 bus . . string@5 .)
+   (param@E off . . bool@5 .)).
+  (pragmas@k
+   (kv@9 importc~7 "jester_audio_bus_mute"@2)). .)
+ (proc@,1f hostAudioBusMuted@5 . . .
+  (params@M
+   (param@1 bus . . string@5 .))bool@F
+  (pragmas@g
+   (kv@9 importc~7 "jester_audio_bus_muted"@2)). .)
+ (proc@,1g hostAudioBusCount@5 . . .
+  (params@M)int64@4
+  (pragmas@W
+   (kv@9 importc~7 "jester_audio_bus_count"@2)). .)
+ (proc@,1h hostAudioBusName@5 . . .
+  (params@L
+   (param@1 index . . int64@7 .))string@G
+  (pragmas@i
+   (kv@9 importc~7 "jester_audio_bus_name"@2)). .)
+ (const@8,1k Master~6 x . . "master"@4)
+ (const@5,1m Sfx~3 x . . "sfx"@4)
+ (const@7,1o Music~5 x . . "music"@4)
+ (const@8,1p Speech~6 x . . "voice"@4)
+ (comment@,1r)
+ (proc@,1y soundAvailable@5 x . .
+  (params@K)bool@4 . .
+  (stmts@V
+   (call@I hostAudioAvailable~I)))
+ (comment@,20)
+ (proc@,21 soundProblem@5 x . .
+  (params@I)string@4 . .
+  (stmts@V
+   (call@G hostAudioProblem~G)))
+ (comment@,23)
+ (proc@,27 permitSound@5 x . .
+  (params@H)bool@4 . .
+  (stmts@S
+   (call@F hostAudioPermit~F)))
+ (comment@,29)
+ (proc@,2E canRead@5 x . .
+  (params@D
+   (param@1 file . . string@6 .))bool@G . .
+  (stmts@a
+   (call@H hostAudioReadable~H file@1 0@7 0@A)))
+ (proc@,2F canRead@5 x . .
+  (params@D
+   (param@1 file . . string@6 .)
+   (param@F offset . . int@G .)
+   (param@N length . . int@8 .))bool@b . .
+  (stmts@2,1
+   (call@H hostAudioReadable~H file@1
+    (call@C int64~5 offset@1)
+    (call@R int64~5 length@1))))
+ (comment@,2K)
+ (proc@,2M loadSound@5 x . .
+  (params@F
+   (param@1 file . . string@6 .))Sound@G . .
+  (stmts@d
+   (call@5 Sound~5
+    (call@I hostAudioClipFile~H file@1 0@7 0@A))))
+ (comment@,2O)
+ (proc@,2S loadSound@5 x . .
+  (params@F
+   (param@1 file . . string@6 .)
+   (param@F offset . . int@G .)
+   (param@N length . . int@8 .))Sound@b . .
+  (stmts@2,1
+   (call@5 Sound~5
+    (call@I hostAudioClipFile~H file@1
+     (call@C int64~5 offset@1)
+     (call@R int64~5 length@1)))))
+ (comment@,2V)
+ (proc@,2X beginSound@5 x . .
+  (params@G
+   (param@1 channels . . . 1@B)
+   (param@F rate . . . 48000@7)). . .
+  (stmts@2,1
+   (call@H hostAudioPcmBegin~H
+    (call@6 int64~5 channels@1)
+    (call@N int64~5 rate@1))))
+ (comment@,2a)
+ (proc@,2b addSample@5 x . .
+  (params@F
+   (param@1 value . . float64@7 .)). . .
+  (stmts@Y
+   (call@F hostAudioPcmAdd~F value@1)))
+ (comment@,2d)
+ (proc@,2e finishSound@5 x . .
+  (params@H
+   (param@1 label . . . "built"@8))Sound@J . .
+  (stmts@i
+   (call@5 Sound~5
+    (call@J hostAudioPcmFinish~I label@1))))
+ (comment@,2g)
+ (proc@,2h duration@5 x . .
+  (params@E
+   (param@1 clip . . Sound@6 .))float64@F . .
+  (stmts@d
+   (call@J hostAudioClipLength~J
+    (call@6 int64~5 clip@1))))
+ (comment@,2j)
+ (proc@,2l memory@5 x . .
+  (params@C
+   (param@1 clip . . Sound@6 .))int@F . .
+  (stmts@X
+   (call@3 int~3
+    (call@K hostAudioClipMemory~J
+     (call@6 int64~5 clip@1)))))
+ (comment@,2n)
+ (proc@,2p release@5 x . .
+  (params@D
+   (param@1 clip . . Sound@6 .)). . .
+  (stmts@T
+   (call@K hostAudioClipRelease~K
+    (call@6 int64~5 clip@1))))
+ (comment@,2t)
+ (proc@,2u speaker@5 x . .
+  (params@D
+   (param@1 clip . . Sound@6 .))Speaker@F . .
+  (stmts@c
+   (call@7 Speaker~7
+    (call@M hostAudioSourceCreate~L
+     (call@6 int64~5 clip@1)))))
+ (comment@,2w)
+ (proc@,2y speaker@5 x . .
+  (params@D
+   (param@1 thing . . Entity@7 .)
+   (param@G clip . . Sound@6 .))Speaker@U . .
+  (stmts@2,1
+   (call@7 Speaker~7
+    (call@M hostAudioSourceAttach~L
+     (call@6 int64~5 thing@1)
+     (call@K int64~5 clip@1)))))
+ (proc@,31 play@5 x . .
+  (params@A
+   (param@1 source . . Speaker@8 .)). . .
+  (stmts@U
+   (call@J hostAudioSourcePlay~J
+    (call@6 int64~5 source@1))))
+ (proc@,32 stop@5 x . .
+  (params@A
+   (param@1 source . . Speaker@8 .)). . .
+  (stmts@U
+   (call@J hostAudioSourceStop~J
+    (call@6 int64~5 source@1))))
+ (proc@,33 pause@5 x . .
+  (params@B
+   (param@1 source . . Speaker@8 .)). . .
+  (stmts@V
+   (call@K hostAudioSourcePause~K
+    (call@6 int64~5 source@1))))
+ (proc@,34 resume@5 x . .
+  (params@C
+   (param@1 source . . Speaker@8 .)). . .
+  (stmts@W
+   (call@L hostAudioSourceResume~L
+    (call@6 int64~5 source@1))))
+ (comment@,36)
+ (proc@,37 playing@5 x . .
+  (params@D
+   (param@1 source . . Speaker@8 .))bool@J . .
+  (stmts@d
+   (call@M hostAudioSourcePlaying~M
+    (call@6 int64~5 source@1))))
+ (comment@,39)
+ (proc@,3A loop@5 x . .
+  (params@A
+   (param@1 source . . Speaker@8 .)
+   (param@I on . . . true@5)). . .
+  (stmts@f
+   (call@J hostAudioSourceLoop~J
+    (call@6 int64~5 source@1)on@G)))
+ (comment@,3C)
+ (proc@,3D volume@5 x . .
+  (params@C
+   (param@1 source . . Speaker@8 .)
+   (param@I level . . float64@7 .)). . .
+  (stmts@2,1
+   (call@L hostAudioSourceVolume~L
+    (call@6 int64~5 source@1)level@G)))
+ (comment@,3G)
+ (proc@,3H pitch@5 x . .
+  (params@B
+   (param@1 source . . Speaker@8 .)
+   (param@I rate . . float64@6 .)). . .
+  (stmts@k
+   (call@K hostAudioSourcePitch~K
+    (call@6 int64~5 source@1)rate@G)))
+ (comment@,3J)
+ (proc@,3K moveTo@5 x . .
+  (params@C
+   (param@1 source . . Speaker@8 .)
+   (param@I x . . float64@9 .)
+   (param@L y . . float64@6 .)
+   (param@O z . . float64@3 .)). . .
+  (stmts@2,1
+   (call@H hostAudioSourceAt~H
+    (call@6 int64~5 source@1)x@G y@J z@M)))
+ (proc@,3M moveTo@5 x . .
+  (params@C
+   (param@1 source . . Speaker@8 .)
+   (param@I at . . Vec3@4 .)). . .
+  (stmts@2,1
+   (call@H hostAudioSourceAt~H
+    (call@6 int64~5 source@1)
+    (dot@I at~2 x@1)
+    (dot@O at~2 y@1)
+    (dot@U at~2 z@1))))
+ (comment@,3P)
+ (proc@,3S spatial@5 x . .
+  (params@D
+   (param@1 source . . Speaker@8 .)
+   (param@I blend . . float64@7 .)). . .
+  (stmts@2,1
+   (call@M hostAudioSourceSpatial~M
+    (call@6 int64~5 source@1)blend@G)))
+ (comment@,3V)
+ (proc@,3W hearing@5 x . .
+  (params@D
+   (param@1 source . . Speaker@8 .)
+   (param@I near . . float64@B .)
+   (param@O far . . float64@5 .)). . .
+  (stmts@2,1
+   (call@K hostAudioSourceRange~K
+    (call@6 int64~5 source@1)near@G far@M)))
+ (comment@,3Z)
+ (proc@,3c fade@5 x . .
+  (params@A
+   (param@1 source . . Speaker@8 .)
+   (param@I mode . . string@6 .)). . .
+  (stmts@2,1
+   (call@M hostAudioSourceRolloff~M
+    (call@6 int64~5 source@1)mode@G)))
+ (comment@,3f)
+ (proc@,3g bus@5 x . .
+  (params@9
+   (param@1 source . . Speaker@8 .)
+   (param@I name . . string@6 .)). . .
+  (stmts@h
+   (call@I hostAudioSourceBus~I
+    (call@6 int64~5 source@1)name@G)))
+ (comment@,3i)
+ (proc@,3j playhead@5 x . .
+  (params@E
+   (param@1 source . . Speaker@8 .))float64@J . .
+  (stmts@h
+   (call@J hostAudioSourceTime~J
+    (call@6 int64~5 source@1))))
+ (proc@,3k seekTo@5 x . .
+  (params@C
+   (param@1 source . . Speaker@8 .)
+   (param@I seconds . . float64@9 .)). . .
+  (stmts@2,1
+   (call@J hostAudioSourceSeek~J
+    (call@6 int64~5 source@1)seconds@G)))
+ (comment@,3n)
+ (proc@,3s loudness@5 x . .
+  (params@E
+   (param@1 source . . Speaker@8 .))float64@J . .
+  (stmts@h
+   (call@J hostAudioSourceGain~J
+    (call@6 int64~5 source@1))))
+ (comment@,3u)
+ (proc@,3v removeSpeaker@5 x . .
+  (params@J
+   (param@1 source . . Speaker@8 .)). . .
+  (stmts@d
+   (call@M hostAudioSourceDestroy~M
+    (call@6 int64~5 source@1))))
+ (comment@,3z)
+ (proc@,42 level@5 x . .
+  (params@B
+   (param@1 source . . Speaker@8 .))float64@J . .
+  (stmts@e
+   (call@I hostAudioSourceRms~I
+    (call@6 int64~5 source@1))))
+ (comment@,44)
+ (proc@,47 mixLevel@5 x . .
+  (params@E)float64@4 . .
+  (stmts@S
+   (call@F hostAudioMixRms~F)))
+ (comment@,49)
+ (proc@,4C rightSound@5 x . .
+  (params@G
+   (param@1 source . . Speaker@8 .))float64@J . .
+  (stmts@j
+   (call@K hostAudioSourceMatch~K
+    (call@6 int64~5 source@1))))
+ (comment@,4E)
+ (proc@,4H keepSilent@5 x . .
+  (params@G
+   (param@1 on . . . true@5)). . .
+  (stmts@U
+   (call@F hostAudioSilent~F on@1)))
+ (proc@,4I silenced@5 x . .
+  (params@E)bool@4 . .
+  (stmts@P
+   (call@H hostAudioSilenced~H)))
+ (comment@,4K)
+ (proc@,4O playOnce@5 x . .
+  (params@E
+   (param@1 clip . . Sound@6 .)
+   (param@E x . . float64@9 .)
+   (param@H y . . float64@6 .)
+   (param@K z . . float64@3 .)
+   (param@W level . . . 1.0@8)
+   (param@j on . . . Sfx@5))Speaker@u . .
+  (stmts@2,1
+   (call@7 Speaker~7
+    (call@E hostAudioOnce~D
+     (call@6 int64~5 clip@1)on@E x@I y@L z@O level@R))))
+ (proc@,4Q playOnce@5 x . .
+  (params@E
+   (param@1 clip . . Sound@6 .)
+   (param@E at . . Vec3@4 .)
+   (param@O level . . . 1.0@8)
+   (param@b on . . . Sfx@5))Speaker@m . .
+  (stmts@2,1
+   (call@7 Speaker~7
+    (call@E hostAudioOnce~D
+     (call@6 int64~5 clip@1)on@E
+     (dot@K at~2 x@1)
+     (dot@Q at~2 y@1)
+     (dot@W at~2 z@1)level@a))))
+ (comment@,4T)
+ (proc@,4U playOnce@5 x . .
+  (params@E
+   (param@1 clip . . Sound@6 .)
+   (param@E level . . . 1.0@8)
+   (param@R on . . . Sfx@5))Speaker@c . .
+  (stmts@2,1
+   (let@4 source . . .
+    (call@G Speaker~7
+     (call@E hostAudioOnce~D
+      (call@6 int64~5 clip@1)on@E 0.0@I 0.0@N 0.0@S level@X)))
+   (call@E,1
+    (dot~8 source~6 spatial@1)0.0@1)
+   (asgn@7,2 result~7 source@2)))
+ (comment@,4Z)
+ (proc@,4b sounding@5 x . .
+  (params@E)int@4 . .
+  (stmts@O
+   (call@3 int~3
+    (call@I hostAudioSounding~H))))
+ (comment@,4d)
+ (proc@,4g listenFrom@5 x . .
+  (params@G
+   (param@1 thing . . Entity@7 .)). . .
+  (stmts@Y
+   (call@N hostAudioListenerAttach~N
+    (call@6 int64~5 thing@1))))
+ (comment@,4k)
+ (proc@,4n busVolume@5 x . .
+  (params@F
+   (param@1 name . . string@6 .)
+   (param@F level . . float64@7 .)). . .
+  (stmts@m
+   (call@F hostAudioBusSet~F name@1 level@7)))
+ (proc@,4o busVolume@5 x . .
+  (params@F
+   (param@1 name . . string@6 .))float64@G . .
+  (stmts@f
+   (call@F hostAudioBusGet~F name@1)))
+ (comment@,4q)
+ (proc@,4r busMuted@5 x . .
+  (params@E
+   (param@1 name . . string@6 .)
+   (param@F off . . bool@5 .)). . .
+  (stmts@g
+   (call@G hostAudioBusMute~G name@1 off@7)))
+ (proc@,4s busMuted@5 x . .
+  (params@E
+   (param@1 name . . string@6 .))bool@G . .
+  (stmts@b
+   (call@H hostAudioBusMuted~H name@1)))
+ (comment@,4u)
+ (proc@,4w busCount@5 x . .
+  (params@E)int@4 . .
+  (stmts@O
+   (call@3 int~3
+    (call@I hostAudioBusCount~H))))
+ (proc@,4x busName@5 x . .
+  (params@D
+   (param@1 index . . int@7 .))string@E . .
+  (stmts@a
+   (call@G hostAudioBusName~G
+    (call@6 int64~5 index@1)))))

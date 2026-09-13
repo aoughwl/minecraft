@@ -1,0 +1,6150 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/source/jester_mod_1849d803a478773d.nim
+ (comment)
+ (import@,n jester@7)
+ (import@,o character@7)
+ (import@,p catalogs@7)
+ (import@,q services@7)
+ (import@,r
+  (infix@O / aoughwl_inventory~H inventory@1))
+ (import@,s
+  (infix@M / aoughwl_handoff~F handoff@1))
+ (import@,t
+  (infix@J / aoughwl_grid~C gridspace@1))
+ (import@,u vec@7)
+ (import@,v color@7)
+ (import@,w input@7)
+ (import@,x entities@7)
+ (import@,y draw@7)
+ (import@,z textures@7)
+ (import@,10 vxdefaults@7)
+ (import@,11 vxblocks@7)
+ (import@,12 vxnoise@7)
+ (import@,13 vxray@7)
+ (import@,14 vxatlas@7)
+ (import@,15 vxworld@7)
+ (import@,16 vxlod@7)
+ (import@,17 vxfeel@7)
+ (import@,18 vxstream@7)
+ (import@,19 vxview@7)
+ (import@,1A vxskin@7)
+ (import@,1B vxmcmap@7)
+ (import@,1C vxmcplay@7)
+ (import@,1D vxtune@7)
+ (import@,1E importing@7)
+ (import@,1K vxmodel@7)
+ (import@,1L vxanim@7)
+ (import@,1M vxbeing@7)
+ (import@,1N vxturn@7)
+ (import@,1O vxherd@7)
+ (const@2,1R BlockKind . . . "aoughwl.block"@C)
+ (const@2,1S Blocks . . . "voxel.blocks"@9)
+ (const@2,1T Chunks . . . "voxel.chunks"@9)
+ (const@2,1U Drops . . . "voxel.drops"@8)
+ (comment@2,1V)
+ (const@2,1a Cracks . . . "voxel.cracks"@9)
+ (const@2,1b Chips . . . "voxel.chips"@8)
+ (comment@2,1c)
+ (const@2,1h Bodies . . . "voxel.player"@9)
+ (const@2,1i Items . . . "voxel.items"@8)
+ (const@2,1j Scheme . . . "voxel"@9)
+ (comment@2,1k)
+ (const@2,1q Skins . . . "voxel.player.skin"@8)
+ (const@2,1r SkinKind . . . "aoughwl.entity.skin"@B)
+ (comment@2,1s)
+ (const@2,1u HandSize . . . 0.14@B)
+ (comment@2,1v)
+ (const@2,1y AtlasKind . . . "aoughwl.block.atlas"@C)
+ (const@2,1z TilesKind . . . "aoughwl.block.tiles"@C)
+ (const@2,20 AtlasFacet . . . ".atlas"@D)
+ (const@2,21 TilesFacet . . . ".tiles"@D)
+ (comment@2,22)
+ (const@2,2D WearKind . . . "aoughwl.block.wear"@B)
+ (const@2,2E WearFacet . . . ".wear"@C)
+ (comment@2,2F)
+ (comment@2,2I)
+ (const@2,2Y SpanX . . . 3@8)
+ (const@2,2Z SpanY . . . 6@8)
+ (const@2,2a SpanZ . . . 3@8)
+ (const@2,2b SeaLevel . . . 44@B)
+ (comment@2,2c)
+ (const@2,2n Caves . . . false@8)
+ (const@2,2o Reach . . . 5.0@8)
+ (const@2,2p PlaceDelay . . . 0.18@D)
+ (const@2,2q DropReach . . . 2.0@C)
+ (const@2,2r DropLife . . . 180.0@B)
+ (comment@2,2s)
+ (const@2,2x FaceBudget . . . 900@D)
+ (comment@2,2y)
+ (const@2,34 ChunkCost . . . 500@C)
+ (const@2,35 BandCost . . . 400@B)
+ (comment@2,36)
+ (const@2,3A BootStages . . . 13@D)
+ (comment@2,3B)
+ (const@2,3F BootSlowMs . . . 33@D)
+ (const@2,3G BootFastMs . . . 12@D)
+ (comment@2,3H)
+ (const@2,3L BootRowsPerFrame . . . 48@J)
+ (comment@2,3M)
+ (const@2,3P BootPatience . . . 12@F)
+ (const@2,3Q BootImpatientStages . . . 4@M)
+ (comment@2,3R)
+ (const@2,3V BootMaxStages . . . 3@G)
+ (const@2,3W MaxKinds . . . 12@B)
+ (comment@2,3X)
+ (const@2,3a CrackSpan . . . 1.004@C)
+ (comment@2,3c)
+ (const@2,3p LodRadius . . . 6@C)
+ (comment@2,3q)
+ (const@2,3y LodSamples . . . 16@D)
+ (comment@2,3z)
+ (const@2,48 LodNearLevel . . . 1@F)
+ (const@2,4A Ink . . .
+  (oconstr@B Color~5
+   (kv@2 r~1 0.04@2)
+   (kv@B g~1 0.05@2)
+   (kv@K b~1 0.07@2)
+   (kv@T a~1 0.76@2)))
+ (const@2,4B Paper . . .
+  (oconstr@D Color~5
+   (kv@2 r~1 0.88@2)
+   (kv@B g~1 0.91@2)
+   (kv@K b~1 0.96@2)
+   (kv@T a~1 1.0@2)))
+ (const@2,4C Quiet . . .
+  (oconstr@D Color~5
+   (kv@2 r~1 0.62@2)
+   (kv@B g~1 0.68@2)
+   (kv@K b~1 0.78@2)
+   (kv@T a~1 1.0@2)))
+ (const@2,4D Accent . . .
+  (oconstr@E Color~5
+   (kv@2 r~1 0.42@2)
+   (kv@B g~1 0.9@2)
+   (kv@K b~1 0.52@2)
+   (kv@T a~1 1.0@2)))
+ (const@2,4E Warm . . .
+  (oconstr@C Color~5
+   (kv@2 r~1 0.98@2)
+   (kv@B g~1 0.82@2)
+   (kv@K b~1 0.38@2)
+   (kv@T a~1 1.0@2)))
+ (const@2,4F Crosshair . . .
+  (oconstr@H Color~5
+   (kv@2 r~1 0.95@2)
+   (kv@B g~1 0.97@2)
+   (kv@K b~1 1.0@2)
+   (kv@S a~1 0.85@2)))
+ (var@2,4I registry . . .
+  (call@M newRegistry~B))
+ (var@2,4J world . . World@7 .)
+ (var@2,4K player . . .
+  (call@L newCharacter~C))
+ (var@2,4L eye . . Entity@5 .)
+ (var@2,4M started . . . false@A)
+ (comment@2,4O)
+ (var@2,4S bootStage . . . 0@C)
+ (var@2,4T bootSaid . . . -1@B)
+ (var@2,4U rowSaid . . . 0@A)
+ (var@2,4V bootPerFrame . . . 1@F)
+ (var@2,4W bootFrames . . . 0@D)
+ (var@2,4X bootStanding . . . 0.0@F)
+ (comment@2,4Y)
+ (var@2,4a spawnFeet . . . -1@C)
+ (var@2,4b spawnHead . . . -1@C)
+ (var@2,4c spawnSlice . . . 0@D)
+ (var@2,4d spawnMidX . . . 0@C)
+ (var@2,4e spawnMidZ . . . 0@C)
+ (comment@2,4g)
+ (var@2,4j readingBlocks . . . false@G)
+ (var@2,4k blockRows . . . 0@C)
+ (var@2,4l blockRow . . . 0@B)
+ (var@2,4m skinRow . . . 0@A)
+ (var@2,4n sheetText . .
+  (at@E seq~3 string@1)
+  (prefix@P \40
+   (bracket@1)))
+ (var@2,4o tilesText . .
+  (at@E seq~3 string@1)
+  (prefix@P \40
+   (bracket@1)))
+ (var@2,4p dressedWith . .
+  (at@G seq~3 bool@1)
+  (prefix@P \40
+   (bracket@1)))
+ (var@2,4r catalogSeen . . . -1@E)
+ (comment@2,4s)
+ (var@2,4v itemsPublished . . . 1@H)
+ (var@2,4w seed . . . 0@7)
+ (comment@2,4y)
+ (var@2,51 meshChunk . .
+  (at@E seq~3 int@1).)
+ (var@2,52 meshSlice . .
+  (at@E seq~3 int@1).)
+ (var@2,53 meshThing . .
+  (at@E seq~3 Entity@1).)
+ (comment@2,55)
+ (var@2,57 skins . .
+  (at@A seq~3 Skin@1).)
+ (comment@2,58)
+ (var@2,5A materialKeys . .
+  (at@H seq~3 string@1).)
+ (comment@2,5C)
+ (var@2,5E pendingFaces . . .
+  (call@P emptyFaces~A))
+ (var@2,5F pendingMaterial . . . ""@I)
+ (var@2,5G pendingAtlas . . . ""@F)
+ (comment@2,5H)
+ (var@2,5b pendingOrder . .
+  (at@H seq~3 int@1)
+  (prefix@P \40
+   (bracket@1)))
+ (var@2,5c pendingStart . .
+  (at@H seq~3 int@1)
+  (prefix@P \40
+   (bracket@1)))
+ (var@2,5d pendingAt . . . -1@C)
+ (comment@2,5f)
+ (var@2,5h pouch . .
+  (at@A seq~3 int@1).)
+ (var@2,5i hotbar . .
+  (at@B seq~3 int@1).)
+ (var@2,5j holding . . . 0@A)
+ (comment@2,5l)
+ (var@2,5m aimed . . .
+  (call@E noPick~6))
+ (var@2,5n digging . . . false@A)
+ (var@2,5o digX . . . 0@7)
+ (var@2,5p digY . . . 0@7)
+ (var@2,5q digZ . . . 0@7)
+ (var@2,5r digProgress . . . 0.0@E)
+ (var@2,5s digNeeded . . . 1.0@C)
+ (var@2,5t sincePlace . . . 0.0@D)
+ (var@2,5u highlight . . .
+  (call@J nothing~7))
+ (comment@2,5w)
+ (var@2,62 crackThing . . .
+  (call@K nothing~7))
+ (var@2,63 crackShown . . . -2@D)
+ (var@2,6B crackWorn . . . -1@C)
+ (var@2,6G crackTop . . . -1@B)
+ (var@2,6K crackWearing . . . ""@F)
+ (var@2,6L crackPics . .
+  (at@E seq~3 string@1)
+  (prefix@P \40
+   (bracket@1)))
+ (var@2,6M crackRow . . . ""@B)
+ (comment@2,6O)
+ (var@2,6S chips . . .
+  (call@G newMotes~8))
+ (var@2,6T chipThing . . .
+  (call@J nothing~7))
+ (var@2,6U chipPicture . . . ""@E)
+ (var@2,6V sinceChip . . . 0.0@C)
+ (var@2,6W chipsSaid . . . -1@C)
+ (comment@2,6Y)
+ (var@2,6b sinceBreak . . . 99.0@D)
+ (var@2,6c sinceSwing . . . 99.0@D)
+ (var@2,6d swings . . . 0@9)
+ (var@2,6e puffs . . . 0@8)
+ (comment@2,6j)
+ (var@2,6m chipRight . . .
+  (call@G vec3~4 1.0@1 0.0@6 0.0@B))
+ (var@2,6n chipUp . . .
+  (call@D vec3~4 0.0@1 1.0@6 0.0@B))
+ (var@2,6o chipAhead . . .
+  (call@G vec3~4 0.0@1 0.0@6 1.0@B))
+ (comment@2,6q)
+ (var@2,6r dropThing . .
+  (at@E seq~3 Entity@1).)
+ (var@2,6s dropBlock . .
+  (at@E seq~3 int@1).)
+ (var@2,6t dropAge . .
+  (at@C seq~3 float@1).)
+ (comment@2,6v)
+ (var@2,6y lodScene . . .
+  (call@M newLodScene~B 0@1))
+ (var@2,6z lodThing . .
+  (at@D seq~3 Entity@1).)
+ (var@2,70 lodRegionX . .
+  (at@F seq~3 int@1).)
+ (var@2,71 lodRegionZ . .
+  (at@F seq~3 int@1).)
+ (var@2,77 lodDone . .
+  (at@C seq~3 int@1).)
+ (var@2,78 lodFill . . . 0@A)
+ (var@2,79 lodMeshCursor . . . 0@G)
+ (var@2,7A lodQuads . . . 0@B)
+ (var@2,7B lodMeshTurn . . . false@E)
+ (var@2,7G nearDone . . . false@B)
+ (comment@2,7H)
+ (var@2,7J slides . . . 0@9)
+ (var@2,7K recentres . . . 0@C)
+ (comment@2,7M)
+ (var@2,7N hostHit . . . false@A)
+ (var@2,7O hostDistance . . . 0.0@F)
+ (var@2,7P hostPoint . . .
+  (call@G vec3~4 0.0@1 0.0@6 0.0@B))
+ (var@2,7R showNumbers . . . false@E)
+ (var@2,7S note . . . ""@7)
+ (var@2,7T built . . . 0@8)
+ (var@2,7U generated . . . 0@C)
+ (comment@2,7W)
+ (var@2,7e handsOff . . . false@B)
+ (var@2,7f heldItem . . . ""@B)
+ (var@2,7g heldCount . . . 0@C)
+ (var@2,7h handoffSeen . . . 0@E)
+ (comment@2,7j)
+ (var@2,7r captured . . . false@B)
+ (var@2,7s worldInMenu . . . false@E)
+ (var@2,7t someoneElseHasIt . . . false@J)
+ (comment@2,7v)
+ (var@2,7y wasGrounded . . . true@E)
+ (var@2,7z fellFrom . . . 0.0@B)
+ (var@2,80 walkedSince . . . 0.0@E)
+ (var@2,81 lastAt . . .
+  (call@D vec3~4 0.0@1 0.0@6 0.0@B))
+ (comment@2,83)
+ (var@2,8B view . . . Inside@7)
+ (var@2,8C headAt . . .
+  (call@D vec3~4 0.0@1 0.0@6 0.0@B))
+ (var@2,8D headAhead . . .
+  (call@G vec3~4 0.0@1 0.0@6 1.0@B))
+ (var@2,8E pullDistance . . . 0.0@F)
+ (var@2,8F saidView . . . ""@B)
+ (comment@2,8G)
+ (var@2,8J headThing . . .
+  (call@J nothing~7))
+ (var@2,8K trunkThing . . .
+  (call@K nothing~7))
+ (var@2,8L handThing . . .
+  (call@J nothing~7))
+ (var@2,8M bodyYaw . . . 0.0@A)
+ (var@2,8N skinPicture . . . ""@E)
+ (comment@2,8O)
+ (var@2,8R pendingLimb . . . -1@E)
+ (comment@2,8S)
+ (var@2,8V bobWalked . . . 0.0@C)
+ (var@2,8W bobAt . . .
+  (call@C vec3~4 0.0@1 0.0@6 0.0@B))
+ (comment@2,8X)
+ (var@2,8a neckHeight . . . 0.0@D)
+ (comment@2,8c)
+ (var@2,8d brokeCount . . . 0@D)
+ (var@2,8e placedCount . . . 0@E)
+ (var@2,8f givenCount . . . 0@D)
+ (var@2,8g saidAim . . . ""@A)
+ (var@2,8h saidHead . . . ""@B)
+ (const@2,8k StateIndexFile . . . "Imported/blockstates.txt"@H)
+ (const@2,8l PlayPacketsFile . . . "Imported/playpackets.txt"@I)
+ (const@2,8m ItemsFile . . . "Imported/items.txt"@C)
+ (const@2,8n ComponentsFile . . . "Imported/components.txt"@H)
+ (const@2,8o EntityTypesFile . . . "Imported/entitytypes.txt"@I)
+ (const@2,8s DefaultMcPort . . . 25565@G)
+ (const@2,8t McBudget . . . 12000@B)
+ (comment@,9E)
+ (var@4,9H client . . .
+  (call@I newClient~9))
+ (var@4,9I serverMode . . . false@D)
+ (var@4,9J serverWanted . . . ""@F)
+ (var@4,9K serverPlaced . . . false@F)
+ (var@4,9L placedTeleport . . . -1@H)
+ (var@4,9M serverDigging . . . false@G)
+ (var@4,9Q serverHotbar . . . 0@F)
+ (var@4,9U toldVitals . . . ""@D)
+ (var@4,9V serverDigFace . . . 1@G)
+ (var@4,9W serverFinished . . . false@H)
+ (comment@,9g)
+ (var@2,9t lodRadius . . . LodRadius@C)
+ (var@2,9u renderChunks . . .
+  (call@U renderChunksFor~F LodRadius@1))
+ (var@2,9x fovWanted . . . 0@C)
+ (var@2,A0 sensitivity . . . 100@E)
+ (var@2,A1 baseLookSpeed . . . 0.0@G)
+ (var@2,A5 invertMouse . . . false@E)
+ (var@2,A6 viewBobbing . . . true@E)
+ (var@2,A7 autoJump . . . false@B)
+ (var@2,A8 bindForward . . . ""@E)
+ (var@2,A9 bindBack . . . ""@B)
+ (var@2,AA bindLeft . . . ""@B)
+ (var@2,AB bindRight . . . ""@C)
+ (var@2,AC bindJump . . . ""@B)
+ (var@2,AD bindSprint . . . ""@D)
+ (proc@,AG say@5 . . .
+  (params@8
+   (param@1 message . . string@9 .)). . .
+  (stmts@2,1
+   (asgn@5 note~5 message@2)
+   (call@3,1 log~3
+    (infix@C & "\5Bvoxel\5D "~B message@2))))
+ (comment@,AK)
+ (proc@,AN tell@5 . . .
+  (params@9
+   (param@1 name . . string@D .)
+   (param@7 value . . string@7 .)). . .
+  (stmts@2,1
+   (call@3 log~3
+    (infix@Q &
+     (infix~6 &
+      (infix~7 & "\5Bassert\5D "~C name@2)"="@2)value@2))))
+ (comment@,AQ)
+ (proc@,AU cell@5 . . .
+  (params@9
+   (param@1 value . . string@7 .))string@H . .
+  (stmts@Z
+   (infix@D &
+    (infix~8 & "\22"~5 value@2)"\22"@2)))
+ (comment@,AW)
+ (proc@,AZ mine@5 . . .
+  (params@9)bool@4 . .
+  (stmts@K
+   (infix@9 and captured~9
+    (prefix@4 not someoneElseHasIt@4))))
+ (proc@,Ab takeMouse@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (asgn@9 captured~9 true@2)
+   (call@B,1 lockPointer~B)))
+ (proc@,Af dropMouse@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (asgn@9 captured~9 false@2)
+   (call@B,1 freePointer~B)))
+ (proc@,Aj squareRoot@5 . . .
+  (params@F
+   (param@1 value . . float64@7 .))float64@I . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 <= value~6 0.0@3)
+     (stmts@E
+      (ret 0.0@7))))
+   (var@4,1 guess . . . value@8)
+   (var@4,2 step . . . 0@7)
+   (while@,3
+    (infix@B < step~5 16@2)
+    (stmts@2,1
+     (asgn@6 guess~6
+      (infix@6 * 0.5~4
+       (par@2
+        (infix@7 \2B guess~6
+         (infix@8 / value~6 guess@2)))))
+     (cmd@,1 inc step@4)))guess@,6))
+ (comment@,Av)
+ (proc@,Ay publishBlocks@5 . . .
+  (params@I). . .
+  (stmts@2,1
+   (call@H defineCatalogKind~H BlockKind@1 "text"@C
+    (infix@x,1 & "A kind of block\3A what it is called, how hard it is, what colour it is, "~1C "and what breaking it gives you."~1C,1))
+   (let@4,8 names . . .
+    (call@K defaultNames~C))
+   (let@4,9 specs . . .
+    (call@K defaultSpecs~C))
+   (let@4,A rows . . .
+    (call@E catalog~7 Blocks@1 BlockKind@9 "The blocks this world is made of"@K))
+   (var@4,B i . . . 0@4)
+   (while@,C
+    (infix@K and
+     (infix~C < i~2
+      (dot@7 names~5 len@1))
+     (infix@6 < i~2
+      (dot@7 specs~5 len@1)))
+    (stmts@2,1
+     (discard
+      (call@G
+       (dot~4 rows~4 put@1)
+       (at@6 names~5 i@1)
+       (at@G specs~5 i@1)))
+     (cmd@,1 inc i@4)))))
+ (comment@,BF)
+ (proc@,BZ publishSkins@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (call@H defineCatalogKind~H AtlasKind@1 "text"@C
+    (infix@u,1 & "The sheet a block wears\3A a data\3A URI, or a file inside the mod that "~19 "contributed the row."~19,1))
+   (call@H,3 defineCatalogKind~H TilesKind@1 "text"@C
+    (infix@p,1 & "Which tile of that sheet each of a block\27s six faces reads, as "~14 "<columns>x<side>|+X,-X,+Y,-Y,+Z,-Z."~14,1))
+   (let@4,6 sheets . . .
+    (call@G catalog~7
+     (infix@8 & Blocks~7 AtlasFacet@2)AtlasKind@M
+     (infix@l & "Sheets for "~E Blocks@2)))
+   (discard@,7
+    (call@F catalog~7
+     (infix@8 & Blocks~7 TilesFacet@2)TilesKind@M
+     (infix@p & "Face tiles for "~I Blocks@2)))
+   (call@H,8 defineCatalogKind~H WearKind@1 "text"@B "The pictures a block wears as it is broken, in order, | separated."~F,1)
+   (discard@,A
+    (call@F catalog~7
+     (infix@8 & Blocks~7 WearFacet@2)WearKind@L
+     (infix@p & "Break stages for "~K Blocks@2)))
+   (let@4,N names . . .
+    (call@K defaultNames~C))
+   (let@4,O rows . . .
+    (call@M defaultPictures~F))
+   (var@4,P i . . . 0@4)
+   (while@,Q
+    (infix@K and
+     (infix~C < i~2
+      (dot@7 names~5 len@1))
+     (infix@6 < i~2
+      (dot@6 rows~4 len@1)))
+    (stmts@2,1
+     (discard
+      (call@I
+       (dot~4 sheets~6 put@1)
+       (at@6 names~5 i@1)
+       (at@F rows~4 i@1)))
+     (cmd@,1 inc i@4)))))
+ (comment@,C4)
+ (proc@,CE publishItem@5 . . .
+  (params@G
+   (param@1 id . . int@4 .)). . .
+  (stmts@2,1
+   (let@4 d . . .
+    (call@I
+     (dot~6 registry~8 defOf@1)id@1))
+   (if@,1
+    (elif@3
+     (prefix not
+      (dot@5 d~1 solid@1))
+     (stmts@D
+      (ret .))))
+   (call@A,2 defineItem~A
+    (call@6 named~5 Items@1)
+    (dot@G d~1 name@1)
+    (dot@O d~1 label@1)
+    (vv@c stack~6 64@2)
+    (vv@n tags~5 "block"@2))))
+ (comment@,CJ)
+ (proc@,Cb readBlocks@5 . . .
+  (params@F
+   (param@1 budget . . int@8 .))bool@F . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not readingBlocks@4)
+     (stmts~1,1
+      (let@4 rows . . .
+       (call@J catalogCount~C Blocks@1))
+      (let@4,4 dressed . . .
+       (infix@W,1 \2B
+        (infix@C,~1 \2B
+         (call~M catalogCount~C
+          (infix@8 & Blocks~7 AtlasFacet@2))
+         (call~Y,1 catalogCount~C
+          (infix@8 & Blocks~7 TilesFacet@2)))
+        (call~M,1 catalogCount~C
+         (infix@8 & Blocks~7 WearFacet@2))))
+      (if@,7
+       (elif@3
+        (infix@F ==
+         (infix~A \2B rows~5 dressed@2)catalogSeen@3)
+        (stmts@V
+         (ret true@7))))
+      (asgn@C,8 catalogSeen~C
+       (infix@7 \2B rows~5 dressed@2))
+      (asgn@A,D blockRows~A rows@2)
+      (asgn@9,E blockRow~9 0@2)
+      (asgn@8,F skinRow~8 0@2)
+      (asgn@E,G readingBlocks~E true@2))))
+   (let@4,I unlimited . . .
+    (infix@J <= budget~7 0@3))
+   (var@4,J left . . . budget@7)
+   (while@,K
+    (infix@R and
+     (infix~C < blockRow~9 blockRows@2)
+     (par@4
+      (infix@B or unlimited~A
+       (infix@8 > left~5 0@2))))
+    (stmts@2,1
+     (let@4 id . . .
+      (call@Q
+       (dot~D registry~8 registerSpec@1)
+       (call@E catalogItemId~D Blocks@1 blockRow@9)
+       (call~H,1 catalogText~B Blocks@1 blockRow@9)
+       (call@M,1 catalogItemProvider~J Blocks@1 blockRow@9)))
+     (if@,2
+      (elif@3
+       (infix@3 >= id~3 itemsPublished@3)
+       (stmts~1,1
+        (call@B publishItem~B id@1)
+        (asgn@F,1 itemsPublished~F
+         (infix@5 \2B id~3 1@2)))))
+     (cmd@,5 inc blockRow@4)
+     (cmd@,6 dec left@4)))
+   (if@,S
+    (elif@3
+     (infix@9 < blockRow~9 blockRows@2)
+     (stmts@M
+      (ret false@7))))
+   (while@,T
+    (infix@G <
+     (dot~5 pouch~5 len@1)
+     (call@L
+      (dot~B registry~8 blockCount@1)))
+    (stmts@f
+     (cmd@5
+      (dot pouch~5 add@1)0@5)))
+   (if@,f
+    (elif@3
+     (infix@8 == skinRow~8 0@3)
+     (stmts~1,3
+      (let@4 sheetCat . . .
+       (infix@I & Blocks~7 AtlasFacet@2))
+      (let@4,1 tilesCat . . .
+       (infix@I & Blocks~7 TilesFacet@2))
+      (asgn@A,2 sheetText~A
+       (prefix@2 \40
+        (bracket@1)))
+      (asgn@A,3 tilesText~A
+       (prefix@2 \40
+        (bracket@1)))
+      (asgn@C,4 dressedWith~C
+       (prefix@2 \40
+        (bracket@1)))
+      (var@4,5 slot . . . 0@7)
+      (while@,6
+       (infix@B < slot~5
+        (call@L
+         (dot~B registry~8 blockCount@1)))
+       (stmts@2,1
+        (cmd@9
+         (dot sheetText~9 add@1)""@5)
+        (cmd@9,1
+         (dot tilesText~9 add@1)""@5)
+        (cmd@B,2
+         (dot dressedWith~B add@1)false@5)
+        (cmd@,3 inc slot@4)))
+      (var@4,B row . . . 0@6)
+      (let@4,C sheetRows . . .
+       (call@O catalogCount~C sheetCat@1))
+      (while@,D
+       (infix@A < row~4 sheetRows@2)
+       (stmts@2,5
+        (let@4 at . . .
+         (call@I
+          (dot~5 registry~8 idOf@1)
+          (call@E catalogItemId~D sheetCat@1 row@B)))
+        (if@,1
+         (elif@3
+          (infix@3 >= at~3 0@3)
+          (stmts~1,1
+           (asgn@E
+            (at~5 sheetText~9 at@1)
+            (call@D catalogText~B sheetCat@1 row@B))
+           (asgn@G,1
+            (at~5 dressedWith~B at@1)true@2))))
+        (cmd@,4 inc row@4)))
+      (asgn@4,N row~4 0@2)
+      (let@4,O tilesRows . . .
+       (call@O catalogCount~C tilesCat@1))
+      (while@,P
+       (infix@A < row~4 tilesRows@2)
+       (stmts@2,1
+        (let@4 at . . .
+         (call@I
+          (dot~5 registry~8 idOf@1)
+          (call@E catalogItemId~D tilesCat@1 row@B)))
+        (if@,1
+         (elif@3
+          (infix@3 >= at~3 0@3)
+          (stmts@9
+           (asgn@E
+            (at~5 tilesText~9 at@1)
+            (call@D catalogText~B tilesCat@1 row@B)))))
+        (cmd@,2 inc row@4)))
+      (asgn@6,T skins~6
+       (prefix@2 \40
+        (bracket@1))))))
+   (while@,1F
+    (infix@W and
+     (infix~I < skinRow~8
+      (dot@D dressedWith~B len@1))
+     (par@4
+      (infix@B or unlimited~A
+       (infix@8 > left~5 0@2))))
+    (stmts@2,1
+     (if
+      (elif@3
+       (at@B dressedWith~B skinRow@1)
+       (stmts~1,1
+        (let@4 skin . . .
+         (call@G parseSkin~9
+          (at@A sheetText~9 skinRow@1)
+          (at@U tilesText~9 skinRow@1)))
+        (if@,1
+         (elif@3
+          (infix@H >
+           (dot~5
+            (dot~8 skin~4 problem@1)len@1)0@2)
+          (stmts~1,1
+           (call@3 log~3
+            (infix@o &
+             (infix~7 &
+              (infix~V & "\5Bvoxel\5D "~B
+               (dot@P
+                (call~9
+                 (dot~6 registry~8 defOf@1)skinRow@1)name@1))"\3A "@2)
+             (dot@6 skin~4 problem@1))))))
+        (cmd@5,3
+         (dot skins~5 add@1)skin@5)))
+      (else@,5
+       (stmts@2,1
+        (cmd@5
+         (dot skins~5 add@1)
+         (call@E plainSkin~9)))))
+     (cmd@,7 inc skinRow@4)
+     (cmd@,8 dec left@4)))
+   (if@,1P
+    (elif@3
+     (infix@8 < skinRow~8
+      (dot@D dressedWith~B len@1))
+     (stmts@R
+      (ret false@7))))
+   (asgn@D,1Q materialKeys~D
+    (call@J faceMaterialTable~H registry@1 skins@B))
+   (let@4,1U worn . . .
+    (call@J catalogCount~C
+     (infix@8 & Blocks~7 WearFacet@2)))
+   (if@,1V
+    (elif@3
+     (infix@5 > worn~5 0@2)
+     (stmts~1,1
+      (let@4 firstRow . . .
+       (call@M catalogText~B
+        (infix@8 & Blocks~7 WearFacet@2)0@L))
+      (asgn@9,1 crackRow~9 firstRow@2)
+      (asgn@A,2 crackPics~A
+       (call@D splitStages~B firstRow@1))))
+    (else@,4
+     (stmts@2,1
+      (asgn@9 crackRow~9 ""@2)
+      (asgn@A,1 crackPics~A
+       (prefix@2 \40
+        (bracket@1))))))
+   (asgn@7,1e hotbar~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1f id . . . 1@5)
+   (while@,1g
+    (infix@9 < id~3
+     (call@L
+      (dot~B registry~8 blockCount@1)))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@m and
+        (infix~R and
+         (call~5
+          (dot~8 registry~8 isSolid@1)id@1)
+         (call@M
+          (dot~A registry~8 breakable@1)id@1))
+        (infix@F <
+         (dot~5 hotbar~6 len@1)9@2))
+       (stmts~1,1
+        (cmd@6
+         (dot hotbar~6 add@1)id@5))))
+     (cmd@,2 inc id@4)))
+   (if@,1k
+    (elif@3
+     (infix@8 >= holding~8
+      (dot@9 hotbar~6 len@1))
+     (stmts@N
+      (asgn@8 holding~8 0@2))))
+   (call@4,1t tell~4 "voxel.blocks"@1
+    (prefix@H $
+     (call@K
+      (dot~B registry~8 blockCount@1))))
+   (asgn@E,1u readingBlocks~E false@2)true@,1v))
+ (proc@,EZ palletteOf@5 . . .
+  (params@F)Palette@4 . .
+  (stmts@2,1
+   (oconstr@7 Palette~7
+    (kv@,1 stone~5
+     (call@F
+      (dot~5 registry~8 idOf@1)"stone"@1))
+    (kv@U,1 dirt~4
+     (call@F
+      (dot~5 registry~8 idOf@1)"dirt"@1))
+    (kv@,2 grass~5
+     (call@F
+      (dot~5 registry~8 idOf@1)"grass"@1))
+    (kv@U,2 sand~4
+     (call@F
+      (dot~5 registry~8 idOf@1)"sand"@1))
+    (kv@,3 water~5
+     (call@F
+      (dot~5 registry~8 idOf@1)"water"@1))
+    (kv@X,3 bedrock~7
+     (call@F
+      (dot~5 registry~8 idOf@1)"bedrock"@1))
+    (kv~1,4 wood~4
+     (call@F
+      (dot~5 registry~8 idOf@1)"wood"@1))
+    (kv@U,4 leaves~6
+     (call@F
+      (dot~5 registry~8 idOf@1)"leaves"@1)))))
+ (comment@,Ej)
+ (proc@,Eq faceIndexOf@5 . . .
+  (params@G
+   (param@1 at . . int@4 .))int@B . .
+  (stmts@2,1
+   (let@4 nx . . .
+    (at@M
+     (dot~5 pendingFaces~C norm@1)
+     (infix@4 * at~3 3@2)))
+   (if@,1
+    (elif@3
+     (infix@3 > nx~3 0.5@2)
+     (stmts@A
+      (ret 0@7))))
+   (if@,2
+    (elif@3
+     (infix@3 < nx~3 -0.5@2)
+     (stmts@B
+      (ret 1@7))))
+   (let@4,3 ny . . .
+    (at@M
+     (dot~5 pendingFaces~C norm@1)
+     (infix@8 \2B
+      (infix~4 * at~3 3@2)1@2)))
+   (if@,4
+    (elif@3
+     (infix@3 > ny~3 0.5@2)
+     (stmts@A
+      (ret 2@7))))
+   (if@,5
+    (elif@3
+     (infix@3 < ny~3 -0.5@2)
+     (stmts@B
+      (ret 3@7))))
+   (if@,6
+    (elif@3
+     (infix@U >
+      (at~D
+       (dot~5 pendingFaces~C norm@1)
+       (infix@8 \2B
+        (infix~4 * at~3 3@2)2@2))0.5@2)
+     (stmts@b
+      (ret 4@7))))5@,7))
+ (comment@,F0)
+ (proc@,FB groupPendingFaces@5 . . .
+  (params@M)
+  (at@7 seq~3 string@1). .
+  (stmts@2,1
+   (asgn@A pendingAt~A -1@2)
+   (call@C,1 faceGroupsIn~C pendingFaces@1 materialKeys@F pendingOrder@T pendingStart@h)))
+ (comment@,FF)
+ (proc@,FZ resolveCrack@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (call@9 beginMesh~9)
+   (var@4,1 f . . . 0@4)
+   (while@,2
+    (infix@8 < f~2 6@2)
+    (stmts@2,1
+     (var@4 corner . .
+      (at@D array~5 4@1 int@4)
+      (bracket@O 0@1 0@4 0@7 0@A))
+     (var@4,1 c . . . 0@4)
+     (while@,2
+      (infix@8 < c~2 4@2)
+      (stmts@2,1
+       (asgn@A
+        (at~4 corner~6 c@1)
+        (call@B addVertex~9
+         (infix@H,1 *
+          (par~a
+           (infix@T \2D
+            (call~N float~5
+             (at@E
+              (at~3 FaceCorner~A f@1)
+              (infix@3 * c~2 3@2)))0.5@2))CrackSpan@2)
+         (infix@L,2 *
+          (par~e
+           (infix@X \2D
+            (call~R float~5
+             (at@E
+              (at~3 FaceCorner~A f@1)
+              (infix@7 \2B
+               (infix~4 * c~2 3@2)1@2)))0.5@2))CrackSpan@2)
+         (infix@L,3 *
+          (par~e
+           (infix@X \2D
+            (call~R float~5
+             (at@E
+              (at~3 FaceCorner~A f@1)
+              (infix@7 \2B
+               (infix~4 * c~2 3@2)2@2)))0.5@2))CrackSpan@2)
+         (call~E,4 float~5
+          (at@E
+           (at~3 FaceNormal~A f@1)0@1))
+         (call@B,4 float~5
+          (at@E
+           (at~3 FaceNormal~A f@1)1@1))
+         (call~E,5 float~5
+          (at@E
+           (at~3 FaceNormal~A f@1)2@1))
+         (at~A,6
+          (at~3 FaceUv~6 f@1)
+          (infix@3 * c~2 2@2))
+         (at@8,6
+          (at~3 FaceUv~6 f@1)
+          (infix@7 \2B
+           (infix~4 * c~2 2@2)1@2))))
+       (cmd@,7 inc c@4)))
+     (call@7,B addQuad~7
+      (at@7 corner~6 0@1)
+      (at@I corner~6 1@1)
+      (at@T corner~6 2@1)
+      (at@e corner~6 3@1))
+     (cmd@,C inc f@4)))
+   (call@A,G finishMesh~A)
+   (if@,H
+    (elif@3
+     (infix@H >
+      (dot~5 crackWearing~C len@1)0@2)
+     (stmts@M
+      (call@A useTexture~A crackWearing@1))))))
+ (comment@,Ft)
+ (proc@,GA resolveChips@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (call@9 beginMesh~9)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (call@B moteCount~9 chips@1))
+    (stmts@2,1
+     (let@4 s . . .
+      (at@E
+       (dot~5 chips~5 size@1)i@1))
+     (let@4,1 rx . . .
+      (infix@H *
+       (dot~3 chipRight~9 x@1)s@2))
+     (let@4,2 ry . . .
+      (infix@H *
+       (dot~3 chipRight~9 y@1)s@2))
+     (let@4,3 rz . . .
+      (infix@H *
+       (dot~3 chipRight~9 z@1)s@2))
+     (let@4,4 ux . . .
+      (infix@E *
+       (dot~3 chipUp~6 x@1)s@2))
+     (let@4,5 uy . . .
+      (infix@E *
+       (dot~3 chipUp~6 y@1)s@2))
+     (let@4,6 uz . . .
+      (infix@E *
+       (dot~3 chipUp~6 z@1)s@2))
+     (let@4,B u0 . . .
+      (infix@Q *
+       (call~G float~5
+        (at@B
+         (dot~5 chips~5 face@1)i@1))0.16@2))
+     (let@4,C v0 . . .
+      (infix@W *
+       (call~M float~5
+        (infix@F mod
+         (at~4
+          (dot~5 chips~5 face@1)i@1)3@4))0.16@2))
+     (let@4,D a . . .
+      (call@D addVertex~9
+       (infix@H \2D
+        (infix~5 \2D
+         (at~4
+          (dot~2 chips~5 x@1)i@1)rx@2)ux@2)
+       (infix@d \2D
+        (infix~5 \2D
+         (at~4
+          (dot~2 chips~5 y@1)i@1)ry@2)uy@2)
+       (infix@1,1 \2D
+        (infix~5 \2D
+         (at~4
+          (dot~2 chips~5 z@1)i@1)rz@2)uz@2)
+       (prefix@7,1 \2D
+        (dot@A chipAhead~9 x@1))
+       (prefix@L,1 \2D
+        (dot@A chipAhead~9 y@1))
+       (prefix@Z,1 \2D
+        (dot@A chipAhead~9 z@1))u0~F,2 v0~B,2))
+     (let@4,G b . . .
+      (call@D addVertex~9
+       (infix@H \2D
+        (infix~5 \2B
+         (at~4
+          (dot~2 chips~5 x@1)i@1)rx@2)ux@2)
+       (infix@d \2D
+        (infix~5 \2B
+         (at~4
+          (dot~2 chips~5 y@1)i@1)ry@2)uy@2)
+       (infix@1,1 \2D
+        (infix~5 \2B
+         (at~4
+          (dot~2 chips~5 z@1)i@1)rz@2)uz@2)
+       (prefix@7,1 \2D
+        (dot@A chipAhead~9 x@1))
+       (prefix@L,1 \2D
+        (dot@A chipAhead~9 y@1))
+       (prefix@Z,1 \2D
+        (dot@A chipAhead~9 z@1))
+       (infix~C,2 \2B u0~3 0.16@2)v0~4,2))
+     (let@4,J c . . .
+      (call@D addVertex~9
+       (infix@H \2B
+        (infix~5 \2B
+         (at~4
+          (dot~2 chips~5 x@1)i@1)rx@2)ux@2)
+       (infix@d \2B
+        (infix~5 \2B
+         (at~4
+          (dot~2 chips~5 y@1)i@1)ry@2)uy@2)
+       (infix@1,1 \2B
+        (infix~5 \2B
+         (at~4
+          (dot~2 chips~5 z@1)i@1)rz@2)uz@2)
+       (prefix@7,1 \2D
+        (dot@A chipAhead~9 x@1))
+       (prefix@L,1 \2D
+        (dot@A chipAhead~9 y@1))
+       (prefix@Z,1 \2D
+        (dot@A chipAhead~9 z@1))
+       (infix~C,2 \2B u0~3 0.16@2)
+       (infix~1,2 \2B v0~3 0.16@2)))
+     (let@4,M d . . .
+      (call@D addVertex~9
+       (infix@H \2B
+        (infix~5 \2D
+         (at~4
+          (dot~2 chips~5 x@1)i@1)rx@2)ux@2)
+       (infix@d \2B
+        (infix~5 \2D
+         (at~4
+          (dot~2 chips~5 y@1)i@1)ry@2)uy@2)
+       (infix@1,1 \2B
+        (infix~5 \2D
+         (at~4
+          (dot~2 chips~5 z@1)i@1)rz@2)uz@2)
+       (prefix@7,1 \2D
+        (dot@A chipAhead~9 x@1))
+       (prefix@L,1 \2D
+        (dot@A chipAhead~9 y@1))
+       (prefix@Z,1 \2D
+        (dot@A chipAhead~9 z@1))u0~F,2
+       (infix~8,2 \2B v0~3 0.16@2)))
+     (call@7,P addQuad~7 a@1 b@4 c@7 d@A)
+     (cmd@,Q inc i@4)))
+   (call@A,U finishMesh~A)
+   (if@,V
+    (elif@3
+     (infix@G >
+      (dot~5 chipPicture~B len@1)0@2)
+     (stmts@L
+      (call@A useTexture~A chipPicture@1))))))
+ (comment@,Gi)
+ (proc@,Gy resolvePlayer@5 . . .
+  (params@I). . .
+  (stmts@2,1
+   (let@4 parts . . .
+    (call@D limbs~5))
+   (let@4,1 dressed . . .
+    (infix@Q >
+     (dot~5 skinPicture~B len@1)0@2))
+   (call@9,2 beginMesh~9)
+   (var@4,3 limb . . . 0@7)
+   (while@,4
+    (infix@B < limb~5
+     (dot@7 parts~5 len@1))
+    (stmts@2,1
+     (let@4 isHead . . .
+      (infix@E == limb~5 HeadLimb@3))
+     (if@,1
+      (elif@3
+       (infix@7 != isHead~7
+        (par@3
+         (infix@D == pendingLimb~C HeadLimb@3)))
+       (stmts~1,1
+        (cmd inc limb@4)
+        (continue@,1 .))))
+     (var@4,4 ox . . . 0.0@5)
+     (var@4,5 oy . . . 0.0@5)
+     (var@4,6 oz . . . 0.0@5)
+     (if@,7
+      (elif@3
+       (prefix not isHead@4)
+       (stmts~1,1
+        (asgn@3 ox~3
+         (call@A pivotXOf~8
+          (at@6 parts~5 limb@1)))
+        (asgn@3,1 oy~3
+         (call@A pivotYOf~8
+          (at@6 parts~5 limb@1)))
+        (asgn@3,2 oz~3
+         (call@A pivotZOf~8
+          (at@6 parts~5 limb@1))))))
+     (var@4,B face . . . 0@7)
+     (while@,C
+      (infix@B < face~5 6@2)
+      (stmts@2,1
+       (let@4 q . . .
+        (call@C limbQuad~8
+         (at@6 parts~5 limb@1)face@E dressed@K))
+       (var@4,1 corner . .
+        (at@D array~5 4@1 int@4)
+        (bracket@O 0@1 0@4 0@7 0@A))
+       (var@4,2 c . . . 0@4)
+       (while@,3
+        (infix@8 < c~2 4@2)
+        (stmts@2,4
+         (asgn@A
+          (at~4 corner~6 c@1)
+          (call@B addVertex~9
+           (infix~6,1 \2B
+            (at~8
+             (dot~4 q~1 pos@1)
+             (infix@3 * c~2 3@2))ox@2)
+           (infix@H,1 \2B
+            (at~C
+             (dot~4 q~1 pos@1)
+             (infix@7 \2B
+              (infix~4 * c~2 3@2)1@2))oy@2)
+           (infix@e,1 \2B
+            (at~C
+             (dot~4 q~1 pos@1)
+             (infix@7 \2B
+              (infix~4 * c~2 3@2)2@2))oz@2)
+           (dot~I,2 q~1 nx@1)
+           (dot~C,2 q~1 ny@1)
+           (dot~6,2 q~1 nz@1)
+           (at@3,2
+            (dot~3 q~1 uv@1)
+            (infix@3 * c~2 2@2))
+           (at@G,2
+            (dot~3 q~1 uv@1)
+            (infix@7 \2B
+             (infix~4 * c~2 2@2)1@2))
+           (dot~8,3
+            (at~6 parts~5 limb@1)red@1)
+           (dot@9,3
+            (at~6 parts~5 limb@1)green@1)
+           (dot@S,3
+            (at~6 parts~5 limb@1)blue@1)1.0@Z,3))
+         (cmd@,4 inc c@4)))
+       (call@7,C addQuad~7
+        (at@7 corner~6 0@1)
+        (at@I corner~6 1@1)
+        (at@T corner~6 2@1)
+        (at@e corner~6 3@1))
+       (cmd@,D inc face@4)))
+     (cmd@,R inc limb@4)))
+   (call@A,X finishMesh~A)
+   (if@,Y
+    (elif@3 dressed
+     (stmts@9
+      (call@A useTexture~A skinPicture@1))))))
+ (proc@,HZ resolvePart@5 . . .
+  (params@G). . .
+  (stmts@2,4
+   (let@4 asked . . .
+    (call@J partLocator~B))
+   (if@,1
+    (elif@3
+     (infix@6 == asked~6 "crack"@3)
+     (stmts~1,1
+      (call@C resolveCrack~C)
+      (ret@,1 .))))
+   (if@,4
+    (elif@3
+     (infix@6 == asked~6 "chips"@3)
+     (stmts~1,1
+      (call@C resolveChips~C)
+      (ret@,1 .))))
+   (if@,7
+    (elif@3
+     (infix@6 == asked~6 "player"@3)
+     (stmts~1,1
+      (call@D resolvePlayer~D)
+      (ret@,1 .))))
+   (if@,D
+    (elif@3
+     (call@B resolveHerd~B asked@1)
+     (stmts@K
+      (ret .))))
+   (call@9,E beginMesh~9)
+   (var@4,F slot . . .
+    (infix@O \2D
+     (dot~5 pendingStart~C len@1)1@2))
+   (if@,G
+    (elif@3
+     (infix@F and
+      (infix~5 >= pendingAt~A 0@3)
+      (infix@E < pendingAt~A slot@2))
+     (stmts@b
+      (asgn@5 slot~5 pendingAt@2)))
+    (else@v
+     (stmts@6
+      (asgn@5 slot~5 -1@2))))
+   (var@4,H cursor . . . 0@9)
+   (var@4,I stop . . . 0@7)
+   (if@,J
+    (elif@3
+     (infix@5 >= slot~5 0@3)
+     (stmts~1,1
+      (asgn@7 cursor~7
+       (at@E pendingStart~C slot@1))
+      (asgn@5,1 stop~5
+       (at@E pendingStart~C
+        (infix@6 \2B slot~5 1@2))))))
+   (while@,M
+    (infix@D < cursor~7 stop@2)
+    (stmts@2,1
+     (let@4 f . . .
+      (at@G pendingOrder~C cursor@1))
+     (cmd@,1 inc cursor@4)
+     (let@4,2 nx . . .
+      (at@M
+       (dot~5 pendingFaces~C norm@1)
+       (infix@3 * f~2 3@2)))
+     (let@4,3 ny . . .
+      (at@M
+       (dot~5 pendingFaces~C norm@1)
+       (infix@7 \2B
+        (infix~4 * f~2 3@2)1@2)))
+     (let@4,4 nz . . .
+      (at@M
+       (dot~5 pendingFaces~C norm@1)
+       (infix@7 \2B
+        (infix~4 * f~2 3@2)2@2)))
+     (var@4,5 corner . .
+      (at@D array~5 4@1 int@4)
+      (bracket@O 0@1 0@4 0@7 0@A))
+     (var@4,6 c . . . 0@4)
+     (while@,7
+      (infix@8 < c~2 4@2)
+      (stmts@2,6
+       (let@4 shade . . .
+        (at@N
+         (dot~3 pendingFaces~C ao@1)
+         (infix@7 \2B
+          (infix~4 * f~2 4@2)c@2)))
+       (asgn@A,1
+        (at~4 corner~6 c@1)
+        (call@B addVertex~9
+         (at~3,1
+          (dot~4 pendingFaces~C pos@1)
+          (infix@8 \2B
+           (infix~5 * f~2 12@2)
+           (infix@4 * c~2 3@2)))
+         (at~3,2
+          (dot~4 pendingFaces~C pos@1)
+          (infix@G \2B
+           (infix~8 \2B
+            (infix~5 * f~2 12@2)
+            (infix@4 * c~2 3@2))1@2))
+         (at~3,3
+          (dot~4 pendingFaces~C pos@1)
+          (infix@G \2B
+           (infix~8 \2B
+            (infix~5 * f~2 12@2)
+            (infix@4 * c~2 3@2))2@2))nx~J,4 ny~F,4 nz~B,4
+         (at~4,5
+          (dot~3 pendingFaces~C uv@1)
+          (infix@7 \2B
+           (infix~4 * f~2 8@2)
+           (infix@4 * c~2 2@2)))
+         (at@S,5
+          (dot~3 pendingFaces~C uv@1)
+          (infix@F \2B
+           (infix~8 \2B
+            (infix~4 * f~2 8@2)
+            (infix@4 * c~2 2@2))1@2))shade~J,6 shade~C,6 shade~5,6 1.0@2,6))
+       (cmd@,8 inc c@4)))
+     (if@,T
+      (elif@3
+       (call@B quadFlipped~B pendingFaces@1 f@F)
+       (stmts~1,1
+        (call@7 addQuad~7
+         (at@7 corner~6 1@1)
+         (at@I corner~6 2@1)
+         (at@T corner~6 3@1)
+         (at@e corner~6 0@1))))
+      (else@,2
+       (stmts@2,1
+        (call@7 addQuad~7
+         (at@7 corner~6 0@1)
+         (at@I corner~6 1@1)
+         (at@T corner~6 2@1)
+         (at@e corner~6 3@1)))))))
+   (call@A,u finishMesh~A)
+   (if@,x
+    (elif@3
+     (infix@H >
+      (dot~5 pendingAtlas~C len@1)0@2)
+     (stmts@M
+      (call@A useTexture~A pendingAtlas@1))))))
+ (comment@,Ic)
+ (proc@,Ie dropMeshes@5 . . .
+  (params@F
+   (param@1 index . . int@E .)
+   (param@8 slice . . int@7 .)). . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@B meshChunk~9 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@M and
+        (infix~9 ==
+         (at~4 meshChunk~9 i@1)index@3)
+        (par@4
+         (infix@B or
+          (infix~4 < slice~6 0@2)
+          (infix@G ==
+           (at~4 meshSlice~9 i@1)slice@3))))
+       (stmts~1,1
+        (call@K
+         (dot~8
+          (at~3 meshThing~9 i@1)destroy@1))
+        (var@4,1 j . . . i@4)
+        (while@,2
+         (infix@C <
+          (infix~4 \2B j~2 1@2)
+          (dot@B meshChunk~9 len@1))
+         (stmts@2,1
+          (let@4 nextChunk . . .
+           (at@L meshChunk~9
+            (infix@3 \2B j~2 1@2)))
+          (let@4,1 nextSlice . . .
+           (at@L meshSlice~9
+            (infix@3 \2B j~2 1@2)))
+          (let@4,2 nextThing . . .
+           (at@L meshThing~9
+            (infix@3 \2B j~2 1@2)))
+          (asgn@D,3
+           (at~4 meshChunk~9 j@1)nextChunk@2)
+          (asgn@D,4
+           (at~4 meshSlice~9 j@1)nextSlice@2)
+          (asgn@D,5
+           (at~4 meshThing~9 j@1)nextThing@2)
+          (cmd@,6 inc j@4)))
+        (call@G,A
+         (dot~7 meshChunk~9 setLen@1)
+         (infix@F \2D
+          (dot~5 meshChunk~9 len@1)1@2))
+        (call@G,B
+         (dot~7 meshSlice~9 setLen@1)
+         (infix@F \2D
+          (dot~5 meshSlice~9 len@1)1@2))
+        (call@G,C
+         (dot~7 meshThing~9 setLen@1)
+         (infix@F \2D
+          (dot~5 meshThing~9 len@1)1@2))))
+      (else@,E
+       (stmts@2,1
+        (cmd inc i@4))))))))
+ (comment@,Iy)
+ (proc@,J6 rebuildSlice@5 . . .
+  (params@H
+   (param@1 index . . int@E .)
+   (param@8 slice . . int@7 .))int@L . .
+  (stmts@2,1
+   (asgn@7 result~7 0@2)
+   (call@A,1 dropMeshes~A index@1 slice@8)
+   (asgn@U,2
+    (dot~B
+     (at~7
+      (dot~7 world~5 chunks@1)index@1)dirtyMask@1)
+    (infix@2,1 and
+     (dot~B
+      (at~7
+       (dot~7 world~5 chunks@1)index@1)dirtyMask@1)
+     (par@4
+      (prefix@1 not
+       (call@C sliceBit~8 slice@1)))))
+   (if@,4
+    (elif@3
+     (infix@R ==
+      (dot~8
+       (at~7
+        (dot~7 world~5 chunks@1)index@1)filled@1)0@3)
+     (stmts@X
+      (ret result@7))))
+   (let@4,5 atX . . .
+    (call@B float~5
+     (infix@O *
+      (dot~4
+       (at~7
+        (dot~7 world~5 chunks@1)index@1)cx@1)ChunkSize@2)))
+   (let@4,6 atY . . .
+    (call@B float~5
+     (infix@O *
+      (dot~4
+       (at~7
+        (dot~7 world~5 chunks@1)index@1)cy@1)ChunkSize@2)))
+   (let@4,7 atZ . . .
+    (call@B float~5
+     (infix@O *
+      (dot~4
+       (at~7
+        (dot~7 world~5 chunks@1)index@1)cz@1)ChunkSize@2)))
+   (asgn@D,8 pendingFaces~D
+    (call@I buildChunkMerged~G world@1 registry@8 skins@I index@P
+     (infix~N,1 * slice~6 SliceHeight@2)
+     (infix@Q,1 \2D
+      (infix~E \2B
+       (infix~E * slice~6 SliceHeight@2)SliceHeight@2)1@2)))
+   (let@4,A wanted . . .
+    (call@Q groupPendingFaces~H))
+   (var@4,B k . . . 0@4)
+   (while@,C
+    (infix@L and
+     (infix~D < k~2
+      (dot@8 wanted~6 len@1))
+     (infix@6 < k~2 MaxKinds@2))
+    (stmts@2,1
+     (asgn@A pendingAt~A k@2)
+     (asgn@G,1 pendingMaterial~G
+      (at@8 wanted~6 k@1))
+     (asgn@D,4 pendingAtlas~D ""@2)
+     (let@4,6 painted . . .
+      (at@R
+       (dot~5 pendingFaces~C kind@1)
+       (at@D pendingOrder~C
+        (at@D pendingStart~C k@1))))
+     (let@4,7 paintedFace . . .
+      (call@P faceIndexOf~B
+       (at@D pendingOrder~C
+        (at@D pendingStart~C k@1))))
+     (if@,A
+      (elif@3
+       (infix@b and
+        (infix~O and
+         (infix~5 >= painted~8 0@3)
+         (infix@C < painted~8
+          (dot@7 skins~5 len@1)))
+        (call@R
+         (dot~9
+          (at~9 skins~5 painted@1)textured@1)))
+       (stmts~1,1
+        (asgn@D pendingAtlas~D
+         (call@S
+          (dot~C
+           (at~9 skins~5 painted@1)facePicture@1)paintedFace@1)))))
+     (let@4,C thing . . .
+      (call@H spawnPart~9 Chunks@1 "chunk"@9 atX@I atY@N atZ@S))
+     (if@,D
+      (elif@3
+       (infix@H ==
+        (dot~5 pendingAtlas~C len@1)0@3)
+       (stmts~1,1
+        (let@4 d . . .
+         (call@I
+          (dot~6 registry~8 defOf@1)painted@1))
+        (call@B,1
+         (dot~6 thing~5 color@1)
+         (oconstr@6 Color~5
+          (kv@2 r~1
+           (dot@3 d~1 red@1))
+          (kv@C g~1
+           (dot@3 d~1 green@1))
+          (kv@O b~1
+           (dot@3 d~1 blue@1))
+          (kv@Z a~1 1.0@2))))))
+     (call@D,G
+      (dot~8 thing~5 surface@1)
+      (oconstr@8 Surface~7
+       (kv@6 metal~5 0.0@2)
+       (kv@I gloss~5 0.12@2)))
+     (cmd@9,H
+      (dot meshChunk~9 add@1)index@5)
+     (cmd@9,I
+      (dot meshSlice~9 add@1)slice@5)
+     (cmd@9,J
+      (dot meshThing~9 add@1)thing@5)
+     (cmd@,K inc k@4)))
+   (asgn@7,Y result~7
+    (dot@E pendingFaces~C count@1))
+   (asgn@D,Z pendingFaces~D
+    (call@C emptyFaces~A))
+   (asgn@G,a pendingMaterial~G ""@2)
+   (asgn@D,b pendingAtlas~D ""@2)
+   (asgn@D,c pendingOrder~D
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@D,d pendingStart~D
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@A,e pendingAt~A -1@2)
+   (cmd@,f inc built@4)))
+ (comment@,Jo)
+ (proc@,Js nextChunk@5 . . .
+  (params@E)int@4 . .
+  (stmts@2,1
+   (let@4 here . . .
+    (call@M
+     (dot~9 player~6 position@1)))
+   (var@4,1 best . . . -1@7)
+   (var@4,2 bestScore . . . 0.0@C)
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@E
+      (dot~7 world~5 chunks@1)len@1))
+    (stmts@2,1
+     (let@4 wants . . .
+      (infix@x or
+       (par~p
+        (infix@G and
+         (prefix~F not serverMode@4)
+         (prefix@4 not
+          (dot@J
+           (at~3
+            (dot~7 world~5 chunks@1)i@1)generated@1))))
+       (par~z,1
+        (infix@T and
+         (call~3
+          (dot~A
+           (at~3
+            (dot~7 world~5 chunks@1)i@1)needsMesh@1))
+         (call@D meshReady~9 world@1 i@8)))))
+     (if@,2
+      (elif@3 wants
+       (stmts~1,1
+        (let@4 dx . . .
+         (infix@l \2D
+          (call~b float~5
+           (infix@W \2B
+            (infix~C *
+             (dot~4
+              (at~3
+               (dot~7 world~5 chunks@1)i@1)cx@1)ChunkSize@2)8@2))
+          (dot@6 here~4 x@1)))
+        (let@4,1 dy . . .
+         (infix@l \2D
+          (call~b float~5
+           (infix@W \2B
+            (infix~C *
+             (dot~4
+              (at~3
+               (dot~7 world~5 chunks@1)i@1)cy@1)ChunkSize@2)8@2))
+          (dot@6 here~4 y@1)))
+        (let@4,2 dz . . .
+         (infix@l \2D
+          (call~b float~5
+           (infix@W \2B
+            (infix~C *
+             (dot~4
+              (at~3
+               (dot~7 world~5 chunks@1)i@1)cz@1)ChunkSize@2)8@2))
+          (dot@6 here~4 z@1)))
+        (var@4,3 score . . .
+         (infix@W \2B
+          (infix~G \2B
+           (infix~5 * dx~3 dx@2)
+           (infix@A *
+            (infix~5 * dy~3 dy@2)4.0@2))
+          (infix@5 * dz~3 dz@2)))
+        (if@,6
+         (elif@3
+          (dot@F
+           (at~3
+            (dot~7 world~5 chunks@1)i@1)generated@1)
+          (stmts@R
+           (asgn@6 score~6
+            (infix@8 \2D score~6 100000.0@2)))))
+        (if@,7
+         (elif@3
+          (infix@9 or
+           (infix~4 < best~5 0@2)
+           (infix@9 < score~6 bestScore@2))
+          (stmts~1,1
+           (asgn@5 best~5 i@2)
+           (asgn@A,1 bestScore~A score@2)))))))
+     (cmd@,D inc i@4)))best@,J))
+ (comment@,KE)
+ (proc@,Ke workChunks@5 . . .
+  (params@F
+   (param@1 budget . . int@8 .)). . .
+  (stmts@2,1
+   (var@4 spent . . . 0@8)
+   (while@,1
+    (infix@C < spent~6 budget@2)
+    (stmts@2,1
+     (let@4 index . . .
+      (call@H nextChunk~9))
+     (if@,1
+      (elif@3
+       (infix@6 < index~6 0@2)
+       (stmts~1,1
+        (asgn@9 nearDone~9 true@2)
+        (ret@,1 .))))
+     (if@,4
+      (elif@3
+       (infix@F and
+        (prefix~F not serverMode@4)
+        (prefix@4 not
+         (dot@N
+          (at~7
+           (dot~7 world~5 chunks@1)index@1)generated@1)))
+       (stmts~1,1
+        (call@J
+         (dot~E world~5 generateChunk@1)registry@1 index@B)
+        (cmd@,1 inc generated@4)
+        (asgn@6,2 spent~6
+         (infix@8 \2B spent~6 ChunkCost@2))
+        (call@3,3 log~3
+         (infix@Q & "\5Bassert\5D voxel.chunks="~P
+          (prefix@2 $ generated@1))))))
+     (if@,9
+      (elif@3
+       (infix@W and
+        (call~3
+         (dot~A
+          (at~7
+           (dot~7 world~5 chunks@1)index@1)needsMesh@1))
+        (call@D meshReady~9 world@1 index@8))
+       (stmts~1,1
+        (let@4 slice . . .
+         (call@N firstDirtySlice~F
+          (at@D
+           (dot~7 world~5 chunks@1)index@1)))
+        (if@,1
+         (elif@3
+          (infix@6 >= slice~6 0@3)
+          (stmts~1,1
+           (asgn@6 spent~6
+            (infix@J \2B
+             (infix~B \2B spent~6 BandCost@2)
+             (call@E rebuildSlice~C index@1 slice@8)))))))))
+     (asgn@6,D spent~6
+      (infix@8 \2B spent~6 40@2))))))
+ (comment@,Kw)
+ (proc@,L0 spawnLodBand@5 . . .
+  (params@H
+   (param@1 index . . int@D .)
+   (param@8 band . . int@6 .)). . .
+  (stmts@2,1
+   (let@4 atX . . .
+    (call@B float~5
+     (infix@R *
+      (dot~4
+       (at~7
+        (dot~7 lodScene~8 fields@1)index@1)rx@1)LodRegion@2)))
+   (let@4,1 atZ . . .
+    (call@B float~5
+     (infix@R *
+      (dot~4
+       (at~7
+        (dot~7 lodScene~8 fields@1)index@1)rz@1)LodRegion@2)))
+   (let@4,2 rows . . .
+    (call@I lodBandRows~B lodScene@1 index@B))
+   (asgn@D,3 pendingFaces~D
+    (call@F buildLodFaces~D lodScene@1 world@B skins@I index@P
+     (infix~L,1 * band~5 rows@2)
+     (infix@6,1 \2D
+      (infix~7 \2B
+       (infix~7 * band~5 rows@2)rows@2)1@2)))
+   (asgn@9,5 lodQuads~9
+    (infix@B \2B lodQuads~9
+     (dot@E pendingFaces~C count@1)))
+   (let@4,6 wanted . . .
+    (call@Q groupPendingFaces~H))
+   (var@4,7 k . . . 0@4)
+   (while@,8
+    (infix@L and
+     (infix~D < k~2
+      (dot@8 wanted~6 len@1))
+     (infix@6 < k~2 MaxKinds@2))
+    (stmts@2,1
+     (asgn@A pendingAt~A k@2)
+     (asgn@G,1 pendingMaterial~G
+      (at@8 wanted~6 k@1))
+     (asgn@D,2 pendingAtlas~D ""@2)
+     (let@4,3 painted . . .
+      (at@R
+       (dot~5 pendingFaces~C kind@1)
+       (at@D pendingOrder~C
+        (at@D pendingStart~C k@1))))
+     (let@4,4 paintedFace . . .
+      (call@P faceIndexOf~B
+       (at@D pendingOrder~C
+        (at@D pendingStart~C k@1))))
+     (if@,7
+      (elif@3
+       (infix@b and
+        (infix~O and
+         (infix~5 >= painted~8 0@3)
+         (infix@C < painted~8
+          (dot@7 skins~5 len@1)))
+        (call@R
+         (dot~9
+          (at~9 skins~5 painted@1)textured@1)))
+       (stmts~1,1
+        (asgn@D pendingAtlas~D
+         (call@S
+          (dot~C
+           (at~9 skins~5 painted@1)facePicture@1)paintedFace@1)))))
+     (let@4,9 thing . . .
+      (call@H spawnPart~9 Chunks@1 "chunk"@9 atX@I 0.0@N atZ@S))
+     (if@,A
+      (elif@3
+       (infix@H ==
+        (dot~5 pendingAtlas~C len@1)0@3)
+       (stmts~1,1
+        (let@4 d . . .
+         (call@I
+          (dot~6 registry~8 defOf@1)painted@1))
+        (call@B,1
+         (dot~6 thing~5 color@1)
+         (oconstr@6 Color~5
+          (kv@2 r~1
+           (dot@3 d~1 red@1))
+          (kv@C g~1
+           (dot@3 d~1 green@1))
+          (kv@O b~1
+           (dot@3 d~1 blue@1))
+          (kv@Z a~1 1.0@2))))))
+     (call@D,D
+      (dot~8 thing~5 surface@1)
+      (oconstr@8 Surface~7
+       (kv@6 metal~5 0.0@2)
+       (kv@I gloss~5 0.12@2)))
+     (cmd@8,E
+      (dot lodThing~8 add@1)thing@5)
+     (cmd@A,F
+      (dot lodRegionX~A add@1)
+      (dot@R
+       (at~7
+        (dot~7 lodScene~8 fields@1)index@1)rx@1))
+     (cmd@A,G
+      (dot lodRegionZ~A add@1)
+      (dot@R
+       (at~7
+        (dot~7 lodScene~8 fields@1)index@1)rz@1))
+     (cmd@,H inc k@4)))
+   (asgn@D,R pendingFaces~D
+    (call@C emptyFaces~A))
+   (asgn@G,S pendingMaterial~G ""@2)
+   (asgn@D,T pendingAtlas~D ""@2)
+   (asgn@D,U pendingOrder~D
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@D,V pendingStart~D
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@A,W pendingAt~A -1@2)))
+ (comment@,LZ)
+ (proc@,Lh dropLodRegion@5 . . .
+  (params@I
+   (param@1 rx . . int@8 .)
+   (param@5 rz . . int@4 .)). . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@A lodThing~8 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@K and
+        (infix~6 ==
+         (at~4 lodRegionX~A i@1)rx@3)
+        (infix@I ==
+         (at~4 lodRegionZ~A i@1)rz@3))
+       (stmts~1,1
+        (call@J
+         (dot~8
+          (at~3 lodThing~8 i@1)destroy@1))
+        (var@4,1 j . . . i@4)
+        (while@,2
+         (infix@C <
+          (infix~4 \2B j~2 1@2)
+          (dot@A lodThing~8 len@1))
+         (stmts@2,1
+          (let@4 nextThing . . .
+           (at@K lodThing~8
+            (infix@3 \2B j~2 1@2)))
+          (let@4,1 nextX . . .
+           (at@I lodRegionX~A
+            (infix@3 \2B j~2 1@2)))
+          (let@4,2 nextZ . . .
+           (at@I lodRegionZ~A
+            (infix@3 \2B j~2 1@2)))
+          (asgn@C,3
+           (at~4 lodThing~8 j@1)nextThing@2)
+          (asgn@E,4
+           (at~4 lodRegionX~A j@1)nextX@2)
+          (asgn@E,5
+           (at~4 lodRegionZ~A j@1)nextZ@2)
+          (cmd@,6 inc j@4)))
+        (call@F,A
+         (dot~7 lodThing~8 setLen@1)
+         (infix@E \2D
+          (dot~5 lodThing~8 len@1)1@2))
+        (call@H,B
+         (dot~7 lodRegionX~A setLen@1)
+         (infix@G \2D
+          (dot~5 lodRegionX~A len@1)1@2))
+        (call@H,C
+         (dot~7 lodRegionZ~A setLen@1)
+         (infix@G \2D
+          (dot~5 lodRegionZ~A len@1)1@2))))
+      (else@,E
+       (stmts@2,1
+        (cmd inc i@4))))))
+   (let@4,I slot . . .
+    (call@M
+     (dot~7 lodScene~8 slotAt@1)rx@1 rz@5))
+   (if@,J
+    (elif@3
+     (infix@A and
+      (infix~5 >= slot~5 0@3)
+      (infix@9 < slot~5
+       (dot@9 lodDone~7 len@1)))
+     (stmts@Y
+      (asgn@E
+       (at~7 lodDone~7 slot@1)0@2))))))
+ (comment@,M3)
+ (proc@,MM workLod@5 . . .
+  (params@C
+   (param@1 budget . . int@8 .)). . .
+  (stmts@2,1
+   (var@4 spent . . . 0@8)
+   (asgn@C,1 lodMeshTurn~C
+    (prefix@2 not lodMeshTurn@4))
+   (if@,2
+    (elif@3
+     (prefix not lodMeshTurn@4)
+     (stmts~1,1
+      (while
+       (infix@Z and
+        (infix~L < lodFill~8
+         (dot@G
+          (dot~6 lodScene~8 order@1)len@1))
+        (infix@A < spent~6 budget@2))
+       (stmts@2,1
+        (let@4 index . . .
+         (at@M
+          (dot~6 lodScene~8 order@1)lodFill@1))
+        (let@4,1 span . . .
+         (dot@T
+          (at~7
+           (dot~7 lodScene~8 fields@1)index@1)span@1))
+        (let@4,2 row . . .
+         (dot@S
+          (at~7
+           (dot~7 lodScene~8 fields@1)index@1)rows@1))
+        (if@,3
+         (elif@3
+          (infix@4 >= row~4 span@3)
+          (stmts~1,1
+           (cmd inc lodFill@4)
+           (continue@,1 .))))
+        (asgn@6,6 spent~6
+         (infix@8 \2B spent~6
+          (call@C sampleRows~A world@1
+           (at@N
+            (dot~7 lodScene~8 fields@1)index@1)row@W row@b))))))))
+   (if@,E
+    (elif@3
+     (infix@B and
+      (infix~5 == spent~6 0@3)
+      (infix@I < lodMeshCursor~E
+       (dot@G
+        (dot~6 lodScene~8 order@1)len@1)))
+     (stmts~1,1
+      (let@4 index . . .
+       (at@M
+        (dot~6 lodScene~8 order@1)lodMeshCursor@1))
+      (if@,1
+       (elif@3
+        (call@8 lodReady~8 lodScene@1 index@B)
+        (stmts~1,1
+         (let@4 band . . .
+          (at@E lodDone~7 index@1))
+         (if@,1
+          (elif@3
+           (infix@5 < band~5
+            (call@A lodBands~8 lodScene@1 index@B))
+           (stmts~1,1
+            (call@C spawnLodBand~C index@1 band@8)
+            (asgn@F,1
+             (at~8 lodDone~7 index@1)
+             (infix@7 \2B band~5 1@2)))))
+         (if@,4
+          (elif@3
+           (infix@F >=
+            (at~8 lodDone~7 index@1)
+            (call@B lodBands~8 lodScene@1 index@B))
+           (stmts~1,1
+            (cmd inc lodMeshCursor@4)
+            (if@,1
+             (elif@3
+              (infix@E >= lodMeshCursor~E
+               (dot@H
+                (dot~6 lodScene~8 order@1)len@1))
+              (stmts~1,1
+               (call@4 tell~4 "voxel.lod.regions"@1
+                (prefix@M $
+                 (dot@F
+                  (dot~6 lodScene~8 order@1)len@1)))
+               (call@4,1 tell~4 "voxel.lod.cells"@1
+                (prefix@K $
+                 (call@9 lodCells~8 lodScene@1)))
+               (call@4,2 tell~4 "voxel.lod.quads"@1
+                (prefix@K $ lodQuads@1))
+               (call@4,3 tell~4 "voxel.lod.parts"@1
+                (prefix@K $
+                 (dot@9 lodThing~8 len@1)))
+               (call@4,4 tell~4 "voxel.lod.blocks"@1
+                (prefix@L $
+                 (call@E lodBlocksWide~D lodScene@1)))))))))))))))))
+ (comment@,Mr)
+ (proc@,Mw forgetLod@5 . . .
+  (params@E
+   (param@1 cRx . . . 0@6)
+   (param@A cRz . . . 0@6)). . .
+  (stmts@2,1
+   (while
+    (infix@J >
+     (dot~5 lodThing~8 len@1)0@2)
+    (stmts@2,1
+     (call@Y
+      (dot~8
+       (at~I lodThing~8
+        (infix@E \2D
+         (dot~5 lodThing~8 len@1)1@2))destroy@1))
+     (call@F,1
+      (dot~7 lodThing~8 setLen@1)
+      (infix@E \2D
+       (dot~5 lodThing~8 len@1)1@2))))
+   (asgn@B,3 lodRegionX~B
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@B,4 lodRegionZ~B
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@9,5 lodScene~9
+    (call@D newLodScene~B lodRadius@1 cRx@C cRz@H LodNearLevel@M))
+   (asgn@8,6 lodDone~8
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,7 i . . . 0@4)
+   (while@,8
+    (infix@8 < i~2
+     (dot@H
+      (dot~7 lodScene~8 fields@1)len@1))
+    (stmts@2,1
+     (cmd@7
+      (dot lodDone~7 add@1)0@5)
+     (cmd@,1 inc i@4)))
+   (asgn@8,B lodFill~8 0@2)
+   (asgn@E,C lodMeshCursor~E 0@2)
+   (asgn@9,D lodQuads~9 0@2)
+   (asgn@C,E lodMeshTurn~C false@2)
+   (asgn@9,F nearDone~9 false@2)))
+ (proc@,NE forgetWorld@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (call@9 forgetLod~9)
+   (while@,1
+    (infix@K >
+     (dot~5 meshChunk~9 len@1)0@2)
+    (stmts@2,1
+     (call@a
+      (dot~8
+       (at~J meshThing~9
+        (infix@F \2D
+         (dot~5 meshChunk~9 len@1)1@2))destroy@1))
+     (call@G,1
+      (dot~7 meshChunk~9 setLen@1)
+      (infix@F \2D
+       (dot~5 meshChunk~9 len@1)1@2))
+     (call@G,2
+      (dot~7 meshSlice~9 setLen@1)
+      (infix@F \2D
+       (dot~5 meshSlice~9 len@1)1@2))
+     (call@G,3
+      (dot~7 meshThing~9 setLen@1)
+      (infix@F \2D
+       (dot~5 meshThing~9 len@1)1@2))))
+   (while@,6
+    (infix@K >
+     (dot~5 dropThing~9 len@1)0@2)
+    (stmts@2,1
+     (call@a
+      (dot~8
+       (at~J dropThing~9
+        (infix@F \2D
+         (dot~5 dropThing~9 len@1)1@2))destroy@1))
+     (call@G,1
+      (dot~7 dropThing~9 setLen@1)
+      (infix@F \2D
+       (dot~5 dropThing~9 len@1)1@2))
+     (call@G,2
+      (dot~7 dropBlock~9 setLen@1)
+      (infix@F \2D
+       (dot~5 dropBlock~9 len@1)1@2))
+     (call@E,3
+      (dot~7 dropAge~7 setLen@1)
+      (infix@D \2D
+       (dot~5 dropAge~7 len@1)1@2))))))
+ (comment@,NR)
+ (proc@,Nj streamWorld@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (let@4 here . . .
+    (call@M
+     (dot~9 player~6 position@1)))
+   (let@4,1 px . . .
+    (call@D floorInt~8
+     (dot@5 here~4 x@1)))
+   (let@4,2 pz . . .
+    (call@D floorInt~8
+     (dot@5 here~4 z@1)))
+   (let@4,5 toCx . . .
+    (call@I nextOriginX~B world@1 px@8))
+   (let@4,6 toCz . . .
+    (call@I nextOriginZ~B world@1 pz@8))
+   (if@,7
+    (elif@3
+     (infix@N or
+      (infix~I != toCx~5
+       (dot@8 world~5 originCx@1))
+      (infix@8 != toCz~5
+       (dot@8 world~5 originCz@1)))
+     (stmts~1,1
+      (let@4 wasX0 . . .
+       (call@L
+        (dot~8 world~5 worldX0@1)))
+      (let@4,1 wasZ0 . . .
+       (call@L
+        (dot~8 world~5 worldZ0@1)))
+      (let@4,2 retired . . .
+       (call@K slideWorld~A world@1 toCx@8 toCz@E))
+      (var@4,3 i . . . 0@4)
+      (while@,4
+       (infix@8 < i~2
+        (dot@9 retired~7 len@1))
+       (stmts@2,1
+        (call@A dropMeshes~A
+         (at@8 retired~7 i@1)-1@D)
+        (cmd@,1 inc i@4)))
+      (cmd@,7 inc slides@4)
+      (call@4,8 tell~4 "voxel.stream.slides"@1
+       (prefix@O $ slides@1))
+      (call@4,9 tell~4 "voxel.stream.origin"@1
+       (infix@k &
+        (infix~6 &
+         (prefix~G $
+          (dot@6 world~5 originCx@1))","@2)
+        (prefix@2 $
+         (dot@6 world~5 originCz@1))))
+      (call@4,A tell~4 "voxel.stream.chunks"@1
+       (prefix@O $
+        (dot@D
+         (dot~7 world~5 chunks@1)len@1)))
+      (var@4,H lowX . . . wasX0@7)
+      (if@,I
+       (elif@3
+        (infix@G <
+         (call~3
+          (dot~8 world~5 worldX0@1))lowX@2)
+        (stmts@O
+         (asgn@5 lowX~5
+          (call@F
+           (dot~8 world~5 worldX0@1))))))
+      (var@4,J lowZ . . . wasZ0@7)
+      (if@,K
+       (elif@3
+        (infix@G <
+         (call~3
+          (dot~8 world~5 worldZ0@1))lowZ@2)
+        (stmts@O
+         (asgn@5 lowZ~5
+          (call@F
+           (dot~8 world~5 worldZ0@1))))))
+      (var@4,L highX . . .
+       (infix@E \2B wasX0~6
+        (call@I
+         (dot~B world~5 blocksWide@1))))
+      (if@,M
+       (elif@3
+        (infix@b >
+         (infix~L \2B
+          (call~3
+           (dot~8 world~5 worldX0@1))
+          (call@I
+           (dot~B world~5 blocksWide@1)))highX@2)
+        (stmts~1,1
+         (asgn@6 highX~6
+          (infix@I \2B
+           (call~3
+            (dot~8 world~5 worldX0@1))
+           (call@I
+            (dot~B world~5 blocksWide@1)))))))
+      (var@4,O highZ . . .
+       (infix@E \2B wasZ0~6
+        (call@I
+         (dot~B world~5 blocksDeep@1))))
+      (if@,P
+       (elif@3
+        (infix@b >
+         (infix~L \2B
+          (call~3
+           (dot~8 world~5 worldZ0@1))
+          (call@I
+           (dot~B world~5 blocksDeep@1)))highZ@2)
+        (stmts~1,1
+         (asgn@6 highZ~6
+          (infix@I \2B
+           (call~3
+            (dot~8 world~5 worldZ0@1))
+           (call@I
+            (dot~B world~5 blocksDeep@1)))))))
+      (let@4,R touched . . .
+       (call@Q lodTouchedByNear~G lodScene@1
+        (infix@G \2D lowX~5 1@2)
+        (infix@Q \2D lowZ~5 1@2)
+        (infix~M,1 \2B highX~6 1@2)
+        (infix~B,1 \2B highZ~6 1@2)))
+      (var@4,T k . . . 0@4)
+      (while@,U
+       (infix@8 < k~2
+        (dot@9 touched~7 len@1))
+       (stmts@2,1
+        (call@D dropLodRegion~D
+         (dot@B
+          (at~3 touched~7 k@1)rx@1)
+         (dot@Q
+          (at~3 touched~7 k@1)rz@1))
+        (cmd@,1 inc k@4)))
+      (asgn@E,a lodMeshCursor~E 0@2))))
+   (let@4,l cRx . . .
+    (call@G nextCentre~A
+     (dot@9 lodScene~8 centreRx@1)px@K))
+   (let@4,m cRz . . .
+    (call@G nextCentre~A
+     (dot@9 lodScene~8 centreRz@1)pz@K))
+   (if@,n
+    (elif@3
+     (infix@P or
+      (infix~L != cRx~4
+       (dot@B lodScene~8 centreRx@1))
+      (infix@7 != cRz~4
+       (dot@B lodScene~8 centreRz@1)))
+     (stmts~1,1
+      (let@4 stale . . .
+       (call@J retargetLod~B lodScene@1 lodDone@B cRx@K cRz@P LodNearLevel@U))
+      (var@4,1 k . . . 0@4)
+      (while@,2
+       (infix@8 < k~2
+        (dot@7 stale~5 len@1))
+       (stmts@2,1
+        (call@D dropLodRegion~D
+         (dot@9
+          (at~3 stale~5 k@1)rx@1)
+         (dot@M
+          (at~3 stale~5 k@1)rz@1))
+        (cmd@,1 inc k@4)))
+      (asgn@8,5 lodFill~8 0@2)
+      (asgn@E,6 lodMeshCursor~E 0@2)
+      (cmd@,7 inc recentres@4)
+      (call@4,8 tell~4 "voxel.stream.recentres"@1
+       (prefix@R $ recentres@1))
+      (call@4,9 tell~4 "voxel.stream.centre"@1
+       (infix@n &
+        (infix~6 &
+         (prefix~J $
+          (dot@9 lodScene~8 centreRx@1))","@2)
+        (prefix@2 $
+         (dot@9 lodScene~8 centreRz@1))))
+      (call@4,A tell~4 "voxel.stream.restitched"@1
+       (prefix@S $
+        (dot@6 stale~5 len@1))))))))
+ (proc@,On emitDrop@5 . . .
+  (params@D
+   (param@1 id . . int@4 .)
+   (param@A x . . int@9 .)
+   (param@D y . . int@6 .)
+   (param@G z . . int@3 .)). . .
+  (stmts@2,1
+   (let@4 what . . .
+    (call@M
+     (dot~7 registry~8 dropOf@1)id@1))
+   (if@,1
+    (elif@3
+     (infix@5 == what~5 AirId@3)
+     (stmts@F
+      (ret .))))
+   (let@4,2 thing . . .
+    (call@H spawnPart~9 Drops@1 "nugget"@8
+     (infix@R \2B
+      (call~4 float~5 x@1)0.5@2)
+     (infix@h \2B
+      (call~4 float~5 y@1)0.5@2)
+     (infix~A,1 \2B
+      (call~4 float~5 z@1)0.5@2)))
+   (call@B,4
+    (dot~6 thing~5 scale@1)0.28@1)
+   (let@4,5 d . . .
+    (call@I
+     (dot~6 registry~8 defOf@1)what@1))
+   (call@B,6
+    (dot~6 thing~5 color@1)
+    (oconstr@6 Color~5
+     (kv@2 r~1
+      (dot@3 d~1 red@1))
+     (kv@C g~1
+      (dot@3 d~1 green@1))
+     (kv@O b~1
+      (dot@3 d~1 blue@1))
+     (kv@Z a~1 1.0@2)))
+   (call@D,7
+    (dot~8 thing~5 physics@1)0.4@1)
+   (call@A,8
+    (dot~5 thing~5 push@1)
+    (call@5 vec3~4 0.0@1 2.2@6 0.0@B))
+   (cmd@9,9
+    (dot dropThing~9 add@1)thing@5)
+   (cmd@9,A
+    (dot dropBlock~9 add@1)what@5)
+   (cmd@7,B
+    (dot dropAge~7 add@1)0.0@5)))
+ (proc@,P1 takeDrop@5 . . .
+  (params@D
+   (param@1 at . . int@4 .)). . .
+  (stmts@2,1
+   (call@L
+    (dot~8
+     (at~4 dropThing~9 at@1)destroy@1))
+   (var@4,1 j . . . at@4)
+   (while@,2
+    (infix@C <
+     (infix~4 \2B j~2 1@2)
+     (dot@B dropThing~9 len@1))
+    (stmts@2,1
+     (let@4 nextThing . . .
+      (at@L dropThing~9
+       (infix@3 \2B j~2 1@2)))
+     (let@4,1 nextBlock . . .
+      (at@L dropBlock~9
+       (infix@3 \2B j~2 1@2)))
+     (let@4,2 nextAge . . .
+      (at@H dropAge~7
+       (infix@3 \2B j~2 1@2)))
+     (asgn@D,3
+      (at~4 dropThing~9 j@1)nextThing@2)
+     (asgn@D,4
+      (at~4 dropBlock~9 j@1)nextBlock@2)
+     (asgn@B,5
+      (at~4 dropAge~7 j@1)nextAge@2)
+     (cmd@,6 inc j@4)))
+   (call@G,A
+    (dot~7 dropThing~9 setLen@1)
+    (infix@F \2D
+     (dot~5 dropThing~9 len@1)1@2))
+   (call@G,B
+    (dot~7 dropBlock~9 setLen@1)
+    (infix@F \2D
+     (dot~5 dropBlock~9 len@1)1@2))
+   (call@E,C
+    (dot~7 dropAge~7 setLen@1)
+    (infix@D \2D
+     (dot~5 dropAge~7 len@1)1@2))))
+ (proc@,PG gatherDrops@5 . . .
+  (params@G
+   (param@1 seconds . . float64@9 .)). . .
+  (stmts@2,1
+   (let@4 here . . .
+    (call@M
+     (dot~9 player~6 position@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@B dropThing~9 len@1))
+    (stmts@2,1
+     (asgn@B
+      (at~4 dropAge~7 i@1)
+      (infix@D \2B
+       (at~4 dropAge~7 i@1)seconds@2))
+     (let@4,1 at . . .
+      (call@Q
+       (dot~9
+        (at~3 dropThing~9 i@1)position@1)))
+     (let@4,2 dx . . .
+      (infix@A \2D
+       (dot~3 at~2 x@1)
+       (dot@6 here~4 x@1)))
+     (let@4,3 dy . . .
+      (infix@A \2D
+       (dot~3 at~2 y@1)
+       (par@2
+        (infix@8 \2B
+         (dot~3 here~4 y@1)0.9@2))))
+     (let@4,4 dz . . .
+      (infix@A \2D
+       (dot~3 at~2 z@1)
+       (dot@6 here~4 z@1)))
+     (if@,5
+      (elif@3
+       (infix@S <
+        (infix~A \2B
+         (infix~A \2B
+          (infix~5 * dx~3 dx@2)
+          (infix@5 * dy~3 dy@2))
+         (infix@5 * dz~3 dz@2))
+        (infix@C * DropReach~A DropReach@2))
+       (stmts~1,1
+        (let@4 what . . .
+         (at@G dropBlock~9 i@1))
+        (call@8,4 handOver~8 "give"@1
+         (dot@T
+          (call~6
+           (dot~6 registry~8 defOf@1)what@1)name@1)1@a)
+        (asgn@B,5 givenCount~B
+         (infix@D \2B givenCount~B 1@2))
+        (call@4,6 tell~4 "voxel.gave"@1
+         (dot@Z
+          (call~6
+           (dot~6 registry~8 defOf@1)what@1)name@1))
+        (call@4,7 tell~4 "voxel.given"@1
+         (prefix@G $ givenCount@1))
+        (if@,8
+         (elif@3 handsOff
+          (stmts~1,1
+           (call@3 say~3
+            (infix@E & "picked up "~D
+             (dot@M
+              (call~6
+               (dot~6 registry~8 defOf@1)what@1)label@1)))))
+         (else@,2
+          (stmts@2,1
+           (asgn@C
+            (at~7 pouch~5 what@1)
+            (infix@E \2B
+             (at~7 pouch~5 what@1)1@2))
+           (call@3,1 say~3
+            (infix@13 &
+             (infix~F &
+              (infix~7 &
+               (infix~T & "picked up "~D
+                (dot@M
+                 (call~6
+                  (dot~6 registry~8 defOf@1)what@1)label@1))" \28"@2)
+              (prefix@2 $
+               (at@6 pouch~5 what@1)))"\29"@2)))))
+        (call@8,D takeDrop~8 i@1)))
+      (elif@5,F
+       (infix@B >
+        (at~4 dropAge~7 i@1)DropLife@2)
+       (stmts~3,1
+        (call@8 takeDrop~8 i@1)))
+      (else@,H
+       (stmts@2,1
+        (cmd inc i@4))))))))
+ (comment@,Pj)
+ (proc@,Pm pictureOfFace@5 . . .
+  (params@I
+   (param@1 id . . int@A .)
+   (param@5 face . . int@6 .))string@H . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 or
+      (infix~4 < id~3 0@2)
+      (infix@6 >= id~3
+       (dot@8 skins~5 len@1)))
+     (stmts@R
+      (ret ""@7))))
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@M
+       (dot~9
+        (at~4 skins~5 id@1)textured@1)))
+     (stmts@Q
+      (ret ""@7))))
+   (call@L,2
+    (dot~C
+     (at~4 skins~5 id@1)facePicture@1)face@1)))
+ (proc@,Pr stopDigging@5 . . .
+  (params@G). . .
+  (stmts@2,6
+   (if
+    (elif@3
+     (infix@B and serverMode~B serverDigging@4)
+     (stmts~1,1
+      (asgn@E serverDigging~E false@2)
+      (call@B,1 digCancelAt~B client@1))))
+   (asgn@8,3 digging~8 false@2)
+   (asgn@C,4 digProgress~C 0.0@2)))
+ (comment@,Q3)
+ (proc@,Q8 mcFaceOf@5 . . .
+  (params@D
+   (param@1 nx . . int@C .)
+   (param@5 ny . . int@8 .)
+   (param@9 nz . . int@4 .))int@J . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@3 < ny~3 0@2)
+     (stmts@8
+      (ret FaceDown@7))))
+   (if@,1
+    (elif@3
+     (infix@3 > ny~3 0@2)
+     (stmts@8
+      (ret FaceUp@7))))
+   (if@,2
+    (elif@3
+     (infix@3 < nz~3 0@2)
+     (stmts@8
+      (ret FaceNorth@7))))
+   (if@,3
+    (elif@3
+     (infix@3 > nz~3 0@2)
+     (stmts@8
+      (ret FaceSouth@7))))
+   (if@,4
+    (elif@3
+     (infix@3 < nx~3 0@2)
+     (stmts@8
+      (ret FaceWest@7))))
+   (if@,5
+    (elif@3
+     (infix@3 > nx~3 0@2)
+     (stmts@8
+      (ret FaceEast@7))))FaceUp@,6))
+ (proc@,QH breakBlock@5 . . .
+  (params@F
+   (param@1 x . . int@9 .)
+   (param@4 y . . int@6 .)
+   (param@7 z . . int@3 .)). . .
+  (stmts@2,1
+   (let@4 id . . .
+    (call@I
+     (dot~8 world~5 blockAt@1)x@1 y@4 z@7))
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@M
+       (dot~A registry~8 breakable@1)id@1))
+     (stmts@S
+      (ret .))))
+   (if@,6
+    (elif@3 serverMode
+     (stmts~1,1
+      (asgn@E serverDigging~E false@2)
+      (call@B,1 digFinishAt~B client@1 x@9 y@C z@F serverDigFace@I)
+      (asgn@C,2 chipPicture~C
+       (call@F pictureOfFace~D id@1 2@5))
+      (call@A,3 burstMotes~A chips@1
+       (infix@H \2B
+        (call~4 float~5 x@1)0.5@2)
+       (infix@X \2B
+        (call~4 float~5 y@1)0.5@2)
+       (infix@n \2B
+        (call~4 float~5 z@1)0.5@2)id@u BurstMotes~8,1)
+      (call@4,5 tell~4 "voxel.chipped"@1
+       (prefix@I $
+        (dot@6 chips~5 made@1)))
+      (ret@,D .))))
+   (asgn@C,P chipPicture~C
+    (call@F pictureOfFace~D id@1 2@5))
+   (call@A,Q burstMotes~A chips@1
+    (infix@H \2B
+     (call~4 float~5 x@1)0.5@2)
+    (infix@X \2B
+     (call~4 float~5 y@1)0.5@2)
+    (infix@n \2B
+     (call~4 float~5 z@1)0.5@2)id@u BurstMotes~8,1)
+   (call@4,W tell~4 "voxel.chipped"@1
+    (prefix@I $
+     (dot@6 chips~5 made@1)))
+   (discard@,X
+    (call@O
+     (dot~B world~5 setBlockAt@1)x@1 y@4 z@7 AirId@A))
+   (call@8,Y emitDrop~8 id@1 x@5 y@8 z@B)
+   (asgn@B,Z brokeCount~B
+    (infix@D \2B brokeCount~B 1@2))
+   (call@3,a say~3
+    (infix@A & "broke "~9
+     (dot@K
+      (call~4
+       (dot~6 registry~8 defOf@1)id@1)label@1)))
+   (call@4,b tell~4 "voxel.broke"@1
+    (prefix@G $ brokeCount@1))
+   (asgn@B,f sinceBreak~B 0.0@2)
+   (call@B,g stopDigging~B)))
+ (comment@,R0)
+ (proc@,R3 wouldTrapPlayer@5 . . .
+  (params@K
+   (param@1 x . . int@9 .)
+   (param@4 y . . int@6 .)
+   (param@7 z . . int@3 .))bool@G . .
+  (stmts@2,1
+   (let@4 here . . .
+    (call@M
+     (dot~9 player~6 position@1)))
+   (let@4,1 minX . . .
+    (call@F floorInt~8
+     (infix@8 \2D
+      (dot~3 here~4 x@1)
+      (dot@8 player~6 radius@1))))
+   (let@4,2 maxX . . .
+    (call@F floorInt~8
+     (infix@8 \2B
+      (dot~3 here~4 x@1)
+      (dot@8 player~6 radius@1))))
+   (let@4,3 minZ . . .
+    (call@F floorInt~8
+     (infix@8 \2D
+      (dot~3 here~4 z@1)
+      (dot@8 player~6 radius@1))))
+   (let@4,4 maxZ . . .
+    (call@F floorInt~8
+     (infix@8 \2B
+      (dot~3 here~4 z@1)
+      (dot@8 player~6 radius@1))))
+   (let@4,5 minY . . .
+    (call@F floorInt~8
+     (dot@5 here~4 y@1)))
+   (let@4,6 maxY . . .
+    (call@F floorInt~8
+     (infix@O \2D
+      (infix~G \2B
+       (dot~3 here~4 y@1)
+       (dot@8 player~6 height@1))0.01@2)))
+   (infix@14,7 and
+    (infix~E and
+     (infix~E and
+      (infix~E and
+       (infix~E and
+        (infix~8 >= x~2 minX@3)
+        (infix@6 <= x~2 maxX@3))
+       (infix@6 >= y~2 minY@3))
+      (infix@6 <= y~2 maxY@3))
+     (infix@6 >= z~2 minZ@3))
+    (infix@6 <= z~2 maxZ@3))))
+ (comment@,RD)
+ (proc@,RI putBlock@5 . . .
+  (params@D). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (dot@9 aimed~5 found@1))
+     (stmts@H
+      (ret .))))
+   (if@,7
+    (elif@3 serverMode
+     (stmts~1,1
+      (call@7 placeAt~7 client@1
+       (dot@E aimed~5 x@1)
+       (dot@N aimed~5 y@1)
+       (dot@W aimed~5 z@1)
+       (call@9,1 mcFaceOf~8
+        (dot@6 aimed~5 nx@1)
+        (dot@G aimed~5 ny@1)
+        (dot@Q aimed~5 nz@1)))
+      (asgn@B,2 sincePlace~B 0.0@2)
+      (let@4,3 what0 . . .
+       (call@G heldName~8 client@1))
+      (call@3,4 say~3
+       (if@1
+        (elif@3
+         (infix@A >
+          (dot~5 what0~5 len@1)0@2)
+         (stmts@F
+          (infix@B & "placing "~B what0@2)))
+        (else@b
+         (stmts@6 "nothing in hand"))))
+      (ret@,5 .))))
+   (var@4,E what . . . AirId@7)
+   (if@,F
+    (elif@3 handsOff
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@A <= heldCount~A 0@3)
+        (stmts~1,1
+         (call@3 say~3 "nothing in hand"@1)
+         (ret@,1 .))))
+      (asgn@5,3 what~5
+       (call@F
+        (dot~5 registry~8 idOf@1)heldItem@1))
+      (if@,4
+       (elif@3
+        (infix@E or
+         (infix~9 == what~5 AirId@3)
+         (prefix@3 not
+          (call@K
+           (dot~8 registry~8 isSolid@1)what@1)))
+        (stmts~1,1
+         (call@3 say~3
+          (infix@Q & "you cannot build with "~P heldItem@2))
+         (ret@,1 .))))))
+    (else@,8
+     (stmts@2,1
+      (if
+       (elif@3
+        (infix@B ==
+         (dot~5 hotbar~6 len@1)0@3)
+        (stmts@H
+         (ret .))))
+      (asgn@5,1 what~5
+       (at@8 hotbar~6 holding@1))
+      (if@,2
+       (elif@3
+        (infix@C <=
+         (at~7 pouch~5 what@1)0@3)
+        (stmts~1,1
+         (call@3 say~3
+          (infix@a &
+           (infix~T & "no "~6
+            (dot@M
+             (call~6
+              (dot~6 registry~8 defOf@1)what@1)label@1))" left"@2))
+         (ret@,1 .)))))))
+   (if@,T
+    (elif@3
+     (prefix not
+      (call@H
+       (dot~8 world~5 inWorld@1)
+       (dot@6 aimed~5 placeX@1)
+       (dot@K aimed~5 placeY@1)
+       (dot@Y aimed~5 placeZ@1)))
+     (stmts~1,1
+      (call@3 say~3 "that is the edge of the world"@1)
+      (ret@,1 .))))
+   (let@4,W there . . .
+    (call@L
+     (dot~8 world~5 blockAt@1)
+     (dot@6 aimed~5 placeX@1)
+     (dot@K aimed~5 placeY@1)
+     (dot@Y aimed~5 placeZ@1)))
+   (if@,X
+    (elif@3
+     (call@G
+      (dot~8 registry~8 isSolid@1)there@1)
+     (stmts~1,1
+      (ret .))))
+   (if@,Z
+    (elif@3
+     (call@F wouldTrapPlayer~F
+      (dot@6 aimed~5 placeX@1)
+      (dot@K aimed~5 placeY@1)
+      (dot@Y aimed~5 placeZ@1))
+     (stmts~1,1
+      (call@3 say~3 "you are standing there"@1)
+      (ret@,1 .))))
+   (if@,c
+    (elif@3
+     (call@G
+      (dot~B world~5 setBlockAt@1)
+      (dot@6 aimed~5 placeX@1)
+      (dot@K aimed~5 placeY@1)
+      (dot@Y aimed~5 placeZ@1)what@h)
+     (stmts~1,1
+      (if
+       (elif@3 handsOff
+        (stmts~1,1
+         (asgn@A heldCount~A
+          (infix@C \2D heldCount~A 1@2))
+         (call@8,1 handOver~8 "spend"@1 heldItem@A 1@K)))
+       (else@,3
+        (stmts@2,1
+         (asgn@C
+          (at~7 pouch~5 what@1)
+          (infix@E \2D
+           (at~7 pouch~5 what@1)1@2)))))
+      (asgn@C,5 placedCount~C
+       (infix@E \2B placedCount~C 1@2))
+      (call@3,6 say~3
+       (infix@B & "placed "~A
+        (dot@M
+         (call~6
+          (dot~6 registry~8 defOf@1)what@1)label@1)))
+      (call@4,7 tell~4 "voxel.placed"@1
+       (prefix@H $ placedCount@1))
+      (asgn@C,8 chipPicture~C
+       (call@F pictureOfFace~D what@1 2@7))
+      (call@9,9 puffMotes~9 chips@1
+       (infix@S \2B
+        (call~F float~5
+         (dot@6 aimed~5 placeX@1))0.5@2)
+       (infix@t \2B
+        (call~F float~5
+         (dot@6 aimed~5 placeY@1))0.5@2)
+       (infix@D,1 \2B
+        (call~F float~5
+         (dot@6 aimed~5 placeZ@1))0.5@2)what@K,1 PuffMotes@Q,1)
+      (asgn@6,B puffs~6
+       (infix@8 \2B puffs~6 1@2))
+      (call@4,C tell~4 "voxel.puffed"@1
+       (prefix@H $ puffs@1))
+      (call@4,D tell~4 "voxel.chipped"@1
+       (prefix@I $
+        (dot@6 chips~5 made@1)))
+      (asgn@B,E sincePlace~B 0.0@2))))))
+ (comment@,SF)
+ (comment@,SU)
+ (proc@,SY unblock@5 . . .
+  (params@C
+   (param@1 thing . . Entity@7 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@F
+      (dot~A thing~5 isNothing@1))
+     (stmts@J
+      (ret .))))
+   (let@4,1 hull . . .
+    (call@M
+     (dot~A thing~5 component@1)"UnityEngine.MeshCollider, UnityEngine.PhysicsModule"@1))
+   (if@,2
+    (elif@3
+     (prefix not
+      (call@I
+       (dot~A hull~4 isNothing@1)))
+     (stmts@M
+      (call@8
+       (dot~4 hull~4 set@1)"enabled"@1 false@C))))))
+ (comment@,Sd)
+ (proc@,Sh readSkin@5 . . .
+  (params@D)bool@4 . .
+  (stmts@2,1
+   (var@4 picture . . . ""@A)
+   (if@,1
+    (elif@3
+     (infix@K >
+      (call~8 catalogCount~C Skins@1)0@2)
+     (stmts@P
+      (asgn@8 picture~8
+       (call@D catalogText~B Skins@1 0@8)))))
+   (if@,2
+    (elif@3
+     (infix@8 == picture~8 skinPicture@3)
+     (stmts@O
+      (ret false@7))))
+   (asgn@C,3 skinPicture~C picture@2)true@,4))
+ (proc@,So dropPlayerModel@5 . . .
+  (params@K). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@N
+       (dot~A headThing~9 isNothing@1)))
+     (stmts~1,1
+      (call@H
+       (dot~8 headThing~9 destroy@1))
+      (asgn@A,1 headThing~A
+       (call@9 nothing~7)))))
+   (if@,3
+    (elif@3
+     (prefix not
+      (call@O
+       (dot~A trunkThing~A isNothing@1)))
+     (stmts~1,1
+      (call@I
+       (dot~8 trunkThing~A destroy@1))
+      (asgn@B,1 trunkThing~B
+       (call@9 nothing~7)))))))
+ (proc@,Sw buildPlayerModel@5 . . .
+  (params@L). . .
+  (stmts@2,1
+   (call@F dropPlayerModel~F)
+   (let@4,1 here . . .
+    (call@M
+     (dot~9 player~6 position@1)))
+   (asgn@C,2 pendingLimb~C -1@2)
+   (asgn@B,3 trunkThing~B
+    (call@B spawnPart~9 Bodies@1 "body"@9
+     (dot@L here~4 x@1)
+     (dot@T here~4 y@1)
+     (dot@b here~4 z@1)))
+   (asgn@C,4 pendingLimb~C HeadLimb@2)
+   (asgn@A,5 headThing~A
+    (call@B spawnPart~9 Bodies@1 "head"@9
+     (dot@L here~4 x@1)
+     (dot@T here~4 y@1)
+     (dot@b here~4 z@1)))
+   (asgn@C,6 pendingLimb~C -1@2)
+   (call@7,7 unblock~7 trunkThing@1)
+   (call@7,8 unblock~7 headThing@1)
+   (call@H,B
+    (dot~7 trunkThing~A active@1)false@1)
+   (call@G,C
+    (dot~7 headThing~9 active@1)false@1)))
+ (proc@,TB buildHand@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (asgn@A handThing~A
+    (call@7 shape~5 Cube@1 "Hand"@7))
+   (call@F,1
+    (dot~6 handThing~9 scale@1)HandSize@1)
+   (let@4,2 box . . .
+    (call@P
+     (dot~A handThing~9 component@1)"UnityEngine.BoxCollider, UnityEngine.PhysicsModule"@1))
+   (if@,3
+    (elif@3
+     (prefix not
+      (call@H
+       (dot~A box~3 isNothing@1)))
+     (stmts@L
+      (call@7
+       (dot~4 box~3 set@1)"enabled"@1 false@C))))
+   (call@G,4
+    (dot~7 handThing~9 active@1)false@1)))
+ (comment@,TI)
+ (proc@,TZ driveCamera@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (asgn@7 headAt~7
+    (call@E
+     (dot~9 eye~3 position@1)))
+   (asgn@A,1 headAhead~A
+    (call@K
+     (dot~5
+      (call~2
+       (dot~8 eye~3 forward@1))norm@1)))
+   (asgn@D,2 pullDistance~D
+    (call@A pullBack~8 world@1 registry@8
+     (dot@O headAt~6 x@1)
+     (dot@Y headAt~6 y@1)
+     (dot@i headAt~6 z@1)
+     (dot~C,1 headAhead~9 x@1)
+     (dot@1,1 headAhead~9 y@1)
+     (dot@E,1 headAhead~9 z@1)view@I,1))
+   (let@4,4 seat . . .
+    (call@M cameraPlacement~F view@1
+     (dot@D headAt~6 x@1)
+     (dot@N headAt~6 y@1)
+     (dot@X headAt~6 z@1)
+     (dot~F,1 headAhead~9 x@1)
+     (dot~2,1 headAhead~9 y@1)
+     (dot@B,1 headAhead~9 z@1)
+     (dot@L,1 player~6 pitch@1)
+     (dot@Z,1 player~6 yaw@1)pullDistance~O,2))
+   (call@C,7
+    (dot~9 eye~3 position@1)
+    (call@5 vec3~4
+     (dot@5 seat~4 x@1)
+     (dot@D seat~4 y@1)
+     (dot@L seat~4 z@1)))
+   (call@C,8
+    (dot~9 eye~3 rotation@1)
+    (dot@5 seat~4 pitch@1)
+    (dot@H seat~4 yaw@1)0.0@N)))
+ (comment@,Tk)
+ (proc@,Tp showPlayer@5 . . .
+  (params@F
+   (param@1 seconds . . float64@9 .)). . .
+  (stmts@2,1
+   (let@4 here . . .
+    (call@M
+     (dot~9 player~6 position@1)))
+   (let@4,1 speed . . .
+    (call@K
+     (dot~6 player~6 speed@1)))
+   (let@4,2 flat . . .
+    (call@H squareRoot~A
+     (infix@J \2B
+      (infix~A *
+       (dot~3 speed~5 x@1)
+       (dot@7 speed~5 x@1))
+      (infix@A *
+       (dot~3 speed~5 z@1)
+       (dot@7 speed~5 z@1)))))
+   (var@4,3 pace . . . 0.0@7)
+   (if@,4
+    (elif@3
+     (infix@H >
+      (dot~B player~6 walkSpeed@1)0.0@2)
+     (stmts@O
+      (asgn@5 pace~5
+       (infix@7 / flat~5
+        (dot@8 player~6 walkSpeed@1))))))
+   (if@,5
+    (elif@3
+     (infix@5 > pace~5 1.0@2)
+     (stmts@C
+      (asgn@5 pace~5 1.0@2))))
+   (let@4,9 stepX . . .
+    (infix@F \2D
+     (dot~3 here~4 x@1)
+     (dot@7 bobAt~5 x@1)))
+   (let@4,A stepZ . . .
+    (infix@F \2D
+     (dot~3 here~4 z@1)
+     (dot@7 bobAt~5 z@1)))
+   (asgn@A,B bobWalked~A
+    (infix@C \2B bobWalked~A
+     (call@C squareRoot~A
+      (infix@F \2B
+       (infix~8 * stepX~6 stepX@2)
+       (infix@8 * stepZ~6 stepZ@2)))))
+   (asgn@6,C bobAt~6 here@2)
+   (var@4,H moving . . . false@9)
+   (var@4,I moveYaw . . . bodyYaw@A)
+   (if@,J
+    (elif@3
+     (infix@5 > flat~5 0.35@2)
+     (stmts~1,1
+      (asgn@7 moving~7 true@2)
+      (let@4,5 facingX . . .
+       (call@U
+        (dot~9
+         (dot~5 player~6 body@1)forwardX@1)))
+      (let@4,6 facingZ . . .
+       (call@U
+        (dot~9
+         (dot~5 player~6 body@1)forwardZ@1)))
+      (let@4,7 along . . .
+       (infix@Q \2B
+        (infix~A *
+         (dot~3 speed~5 x@1)facingX@2)
+        (infix@A *
+         (dot~3 speed~5 z@1)facingZ@2)))
+      (let@4,8 across . . .
+       (infix@R \2D
+        (infix~A *
+         (dot~3 speed~5 x@1)facingZ@2)
+        (infix@A *
+         (dot~3 speed~5 z@1)facingX@2)))
+      (asgn@8,9 moveYaw~8
+       (call@B wrapAngle~9
+        (infix@C \2B
+         (dot~5 player~6 yaw@1)
+         (call@C walkYawFor~A along@1 across@8)))))))
+   (asgn@8,U bodyYaw~8
+    (call@C bodyYawFor~A bodyYaw@1
+     (dot@G player~6 yaw@1)moveYaw@M moving@V
+     (infix~A,1 * seconds~8 BodyTurnRate@2)))
+   (let@4,X seen . . .
+    (call@I drawsPlayer~B view@1))
+   (if@,Y
+    (elif@3
+     (prefix not
+      (call@O
+       (dot~A trunkThing~A isNothing@1)))
+     (stmts~1,1
+      (call@H
+       (dot~7 trunkThing~A active@1)seen@1)
+      (if@,1
+       (elif@3 seen
+        (stmts~1,1
+         (call@J
+          (dot~9 trunkThing~A position@1)here@1)
+         (call@J,1
+          (dot~9 trunkThing~A rotation@1)0.0@1 bodyYaw@6 0.0@F)))))))
+   (if@,d
+    (elif@3
+     (prefix not
+      (call@N
+       (dot~A headThing~9 isNothing@1)))
+     (stmts~1,1
+      (call@G
+       (dot~7 headThing~9 active@1)seen@1)
+      (if@,1
+       (elif@3 seen
+        (stmts~1,3
+         (call@I
+          (dot~9 headThing~9 position@1)
+          (call@5 vec3~4
+           (dot@5 here~4 x@1)
+           (infix@G \2B
+            (dot~3 here~4 y@1)neckHeight@2)
+           (dot@Y here~4 z@1)))
+         (call@I,1
+          (dot~9 headThing~9 rotation@1)
+          (dot@7 player~6 pitch@1)
+          (dot@L player~6 yaw@1)0.0@R)))))))
+   (if@,l
+    (elif@3
+     (call@J
+      (dot~A handThing~9 isNothing@1))
+     (stmts@N
+      (ret .))))
+   (let@4,m holds . . .
+    (call@H drawsHand~9 view@1))
+   (call@G,n
+    (dot~7 handThing~9 active@1)holds@1)
+   (if@,o
+    (elif@3
+     (prefix not holds@4)
+     (stmts@B
+      (ret .))))
+   (var@4,s bobPace . . . pace@A)
+   (if@,t
+    (elif@3
+     (prefix not viewBobbing@4)
+     (stmts@H
+      (asgn@8 bobPace~8 0.0@2))))
+   (let@4,u hand . . .
+    (call@D handAt~6 view@1 bobWalked@7 bobPace@I))
+   (let@4,y seat . . .
+    (call@J
+     (dot~9 eye~3 position@1)))
+   (let@4,z ahead . . .
+    (call@Q
+     (dot~5
+      (call~2
+       (dot~8 eye~3 forward@1))norm@1)))
+   (var@4,10 side . . .
+    (call@C cross~5
+     (call@5 vec3~4 0.0@1 1.0@6 0.0@B)ahead@M))
+   (if@,11
+    (elif@3
+     (infix@q <
+      (infix~I \2B
+       (infix~I \2B
+        (infix~9 *
+         (dot~3 side~4 x@1)
+         (dot@6 side~4 x@1))
+        (infix@9 *
+         (dot~3 side~4 y@1)
+         (dot@6 side~4 y@1)))
+       (infix@9 *
+        (dot~3 side~4 z@1)
+        (dot@6 side~4 z@1)))0.0001@2)
+     (stmts~1,1
+      (asgn@5 side~5
+       (call@6 vec3~4 1.0@1 0.0@6 0.0@B)))))
+   (let@4,13 right . . .
+    (call@H
+     (dot~5 side~4 norm@1)))
+   (let@4,14 up . . .
+    (call@T
+     (dot~5
+      (call~E cross~5 ahead@1 right@8)norm@1)))
+   (call@I,15
+    (dot~9 handThing~9 position@1)
+    (infix@g \2B
+     (infix~F \2B
+      (infix~L \2B seat~5
+       (infix@8 * right~6
+        (dot@6 hand~4 right@1)))
+      (infix@5 * up~3
+       (dot@6 hand~4 up@1)))
+     (infix~q,1 * ahead~6
+      (dot@6 hand~4 ahead@1))))
+   (call@I,17
+    (dot~9 handThing~9 rotation@1)
+    (dot@7 player~6 pitch@1)
+    (dot@L player~6 yaw@1)
+    (dot@V hand~4 roll@1))
+   (var@4,18 tint . . .
+    (oconstr@C Color~5
+     (kv@2 r~1 0.7@2)
+     (kv@A g~1 0.7@2)
+     (kv@I b~1 0.7@2)
+     (kv@Q a~1 1.0@2)))
+   (if@,19
+    (elif@3
+     (infix@W and
+      (infix~H and
+       (infix~4 >
+        (dot~5 hotbar~6 len@1)0@2)
+       (infix@C >= holding~8 0@3))
+      (infix@C < holding~8
+       (dot@8 hotbar~6 len@1)))
+     (stmts~1,1
+      (let@4 d . . .
+       (call@I
+        (dot~6 registry~8 defOf@1)
+        (at@7 hotbar~6 holding@1)))
+      (asgn@5,1 tint~5
+       (oconstr@7 Color~5
+        (kv@2 r~1
+         (dot@3 d~1 red@1))
+        (kv@C g~1
+         (dot@3 d~1 green@1))
+        (kv@O b~1
+         (dot@3 d~1 blue@1))
+        (kv@Z a~1 1.0@2))))))
+   (call@F,1C
+    (dot~6 handThing~9 color@1)tint@1)))
+ (comment@,V4)
+ (proc@,V7 tellView@5 . . .
+  (params@D). . .
+  (stmts@2,1
+   (let@4 said . . .
+    (infix@Z &
+     (infix~6 &
+      (call~7 perspectiveName~F view@1)"/"@2)
+     (prefix@2 $
+      (call@4 int~3
+       (infix@E * pullDistance~D 10.0@2)))))
+   (if@,1
+    (elif@3
+     (infix@5 == said~5 saidView@3)
+     (stmts@I
+      (ret .))))
+   (asgn@9,2 saidView~9 said@2)
+   (call@4,3 tell~4 "voxel.view"@1
+    (call@U perspectiveName~F view@1))
+   (call@4,4 tell~4 "voxel.viewback"@1
+    (prefix@J $
+     (call@4 int~3
+      (infix@E * pullDistance~D 10.0@2))))))
+ (proc@,VE takeAim@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (let@4 from0 . . . headAt@8)
+   (let@4,1 ahead . . . headAhead@8)
+   (asgn@6,2 aimed~6
+    (call@C traceWorld~A world@1 registry@8
+     (dot@N from0~5 x@1)
+     (dot@W from0~5 y@1)
+     (dot@f from0~5 z@1)
+     (dot~B,1 ahead~5 x@1)
+     (dot~2,1 ahead~5 y@1)
+     (dot@7,1 ahead~5 z@1)Reach@B,1))
+   (asgn@8,9 hostHit~8 false@2)
+   (if@,A
+    (elif@3
+     (infix@5 == view~5 Inside@3)
+     (stmts@G
+      (asgn@8 hostHit~8
+       (call@9
+        (dot~4 eye~3 aim@1)Reach@1)))))
+   (asgn@D,B hostDistance~D 0.0@2)
+   (if@,C
+    (elif@3 hostHit
+     (stmts~1,1
+      (asgn@D hostDistance~D
+       (call@D aimDistance~B))
+      (asgn@A,1 hostPoint~A
+       (call@6 vec3~4
+        (call@5 aimX~4)
+        (call@D aimY~4)
+        (call@L aimZ~4)))
+      (if@,4
+       (elif@3
+        (infix@C and
+         (dot~7 aimed~5 found@1)
+         (infix@H < hostDistance~D
+          (infix@H \2D
+           (dot~A aimed~5 distance@1)0.05@2)))
+        (stmts~1,1
+         (let@4 target . . .
+          (call@I aimTarget~9))
+         (var@4,1 isChunk . . . false@A)
+         (var@4,2 i . . . 0@4)
+         (while@,3
+          (infix@8 < i~2
+           (dot@B meshThing~9 len@1))
+          (stmts@2,1
+           (if
+            (elif@3
+             (call@J
+              (dot~7
+               (at~3 meshThing~9 i@1)isSame@1)target@1)
+             (stmts@T
+              (asgn@8 isChunk~8 true@2))))
+           (cmd@,1 inc i@4)))
+         (if@,6
+          (elif@3
+           (infix@C and
+            (prefix~C not isChunk@4)
+            (prefix@4 not
+             (call@K
+              (dot~A target~6 isNothing@1))))
+           (stmts@e
+            (asgn@6 aimed~6
+             (call@8 noPick~6)))))))))))))
+ (proc@,Vf showHighlight@5 . . .
+  (params@I). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@J
+      (dot~A highlight~9 isNothing@1))
+     (stmts@N
+      (ret .))))
+   (if@,1
+    (elif@3
+     (prefix not
+      (dot@9 aimed~5 found@1))
+     (stmts~1,1
+      (call@G
+       (dot~7 highlight~9 active@1)false@1)
+      (ret@,1 .))))
+   (call@G,4
+    (dot~7 highlight~9 active@1)true@1)
+   (call@I,5
+    (dot~9 highlight~9 position@1)
+    (call@5 vec3~4
+     (infix@G \2B
+      (call~A float~5
+       (dot@6 aimed~5 x@1))0.5@2)
+     (infix@c \2B
+      (call~A float~5
+       (dot@6 aimed~5 y@1))0.5@2)
+     (infix~6,1 \2B
+      (call~A float~5
+       (dot@6 aimed~5 z@1))0.5@2)))
+   (var@4,7 glow . . . 0.0@7)
+   (if@,8
+    (elif@3
+     (infix@8 and digging~8
+      (infix@E > digNeeded~A 0.0@2))
+     (stmts@T
+      (asgn@5 glow~5
+       (infix@E / digProgress~C digNeeded@2)))))
+   (if@,9
+    (elif@3
+     (infix@5 > glow~5 1.0@2)
+     (stmts@C
+      (asgn@5 glow~5 1.0@2))))
+   (call@F,A
+    (dot~6 highlight~9 color@1)
+    (oconstr@6 Color~5
+     (kv@2 r~1 glow@2)
+     (kv@B g~1
+      (infix@7 * glow~5 0.9@2))
+     (kv@Q b~1
+      (infix@7 * glow~5 0.6@2))
+     (kv~I,1 a~1
+      (infix@7 \2B 0.22~5
+       (infix@7 * glow~5 0.4@2)))))))
+ (comment@,Vt)
+ (proc@,W0 showCrack@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (var@4 stage . . . -1@8)
+   (if@,1
+    (elif@3
+     (infix@12 and
+      (infix~K and
+       (infix~K and
+        (infix~G and digging~8
+         (dot@9 aimed~5 found@1))
+        (infix@9 == digX~5
+         (dot@8 aimed~5 x@1)))
+       (infix@9 == digY~5
+        (dot@8 aimed~5 y@1)))
+      (infix~w,1 == digZ~5
+       (dot@8 aimed~5 z@1)))
+     (stmts~1,2
+      (asgn@6 stage~6
+       (call@C crackStage~A digProgress@1 digNeeded@E)))))
+   (if@,B
+    (elif@3
+     (infix@6 != stage~6 crackShown@3)
+     (stmts~1,1
+      (asgn@B crackShown~B stage@2)
+      (if@,1
+       (elif@3
+        (infix@6 < stage~6 0@2)
+        (stmts@B
+         (call@4 tell~4 "voxel.crack"@1 "none"@G)))
+       (else@,1
+        (stmts@6
+         (call@4 tell~4 "voxel.crack"@1
+          (prefix@G $ stage@1)))))
+      (if@,3
+       (elif@3
+        (infix@6 > stage~6 crackTop@2)
+        (stmts~1,1
+         (asgn@9 crackTop~9 stage@2)
+         (call@4,1 tell~4 "voxel.cracked"@1
+          (prefix@I $ crackTop@1))))))))
+   (var@4,M wanted . . . stage@9)
+   (if@,N
+    (elif@3
+     (infix@E ==
+      (dot~5 crackPics~9 len@1)0@3)
+     (stmts@K
+      (asgn@7 wanted~7 -1@2))))
+   (if@,O
+    (elif@3
+     (infix@7 == wanted~7 crackWorn@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@C and
+         (infix~5 >= wanted~7 0@3)
+         (prefix@4 not
+          (call@O
+           (dot~A crackThing~A isNothing@1))))
+        (stmts~1,1
+         (call@J
+          (dot~9 crackThing~A position@1)
+          (call@5 vec3~4
+           (infix@D \2B
+            (call~7 float~5 digX@1)0.5@2)
+           (infix@W \2B
+            (call~7 float~5 digY@1)0.5@2)
+           (infix~A,1 \2B
+            (call~7 float~5 digZ@1)0.5@2))))))
+      (ret@,3 .))))
+   (asgn@A,T crackWorn~A wanted@2)
+   (if@,U
+    (elif@3
+     (prefix not
+      (call@O
+       (dot~A crackThing~A isNothing@1)))
+     (stmts~1,1
+      (call@I
+       (dot~8 crackThing~A destroy@1))
+      (asgn@B,1 crackThing~B
+       (call@9 nothing~7)))))
+   (if@,X
+    (elif@3
+     (infix@7 < wanted~7 0@2)
+     (stmts@C
+      (ret .))))
+   (asgn@D,Y crackWearing~D
+    (call@E crackPicture~C crackPics@1 wanted@C))
+   (asgn@B,Z crackThing~B
+    (call@B spawnPart~9 Cracks@1 "crack"@9
+     (infix@U \2B
+      (call~7 float~5 digX@1)0.5@2)
+     (infix~8,1 \2B
+      (call~7 float~5 digY@1)0.5@2)
+     (infix@B,1 \2B
+      (call~7 float~5 digZ@1)0.5@2)))
+   (call@G,f
+    (dot~6 crackThing~A color@1)
+    (oconstr@6 Color~5
+     (kv@2 r~1 1.0@2)
+     (kv@A g~1 1.0@2)
+     (kv@I b~1 1.0@2)
+     (kv@Q a~1 0.999@2)))))
+ (comment@,Wi)
+ (proc@,Wp showChips@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@H ==
+      (call~8 moteCount~9 chips@1)0@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (prefix not
+         (call@N
+          (dot~A chipThing~9 isNothing@1)))
+        (stmts~1,1
+         (call@H
+          (dot~8 chipThing~9 destroy@1))
+         (asgn@A,1 chipThing~A
+          (call@9 nothing~7))
+         (asgn@A,2 chipsSaid~A 0@2)
+         (call@4,3 tell~4 "voxel.chips"@1 "0"@G))))
+      (ret@,5 .))))
+   (let@4,A ahead . . .
+    (call@Q
+     (dot~5
+      (call~2
+       (dot~8 eye~3 forward@1))norm@1)))
+   (asgn@A,B chipAhead~A ahead@2)
+   (var@4,C side . . .
+    (call@C cross~5 ahead@1
+     (call@C vec3~4 0.0@1 1.0@6 0.0@B)))
+   (if@,D
+    (elif@3
+     (infix@q <
+      (infix~I \2B
+       (infix~I \2B
+        (infix~9 *
+         (dot~3 side~4 x@1)
+         (dot@6 side~4 x@1))
+        (infix@9 *
+         (dot~3 side~4 y@1)
+         (dot@6 side~4 y@1)))
+       (infix@9 *
+        (dot~3 side~4 z@1)
+        (dot@6 side~4 z@1)))0.0001@2)
+     (stmts~1,1
+      (asgn@5 side~5
+       (call@6 vec3~4 1.0@1 0.0@6 0.0@B)))))
+   (let@4,F sideways . . .
+    (call@K
+     (dot~5 side~4 norm@1)))
+   (asgn@A,G chipRight~A sideways@2)
+   (asgn@7,H chipUp~7
+    (call@T
+     (dot~5
+      (call~H cross~5 sideways@1 ahead@B)norm@1)))
+   (if@,I
+    (elif@3
+     (prefix not
+      (call@N
+       (dot~A chipThing~9 isNothing@1)))
+     (stmts@R
+      (call@H
+       (dot~8 chipThing~9 destroy@1)))))
+   (asgn@A,J chipThing~A
+    (call@B spawnPart~9 Chips@1 "chips"@8 0.0@H 0.0@M 0.0@R))
+   (call@H,K
+    (dot~8 chipThing~9 surface@1)
+    (oconstr@8 Surface~7
+     (kv@6 metal~5 0.0@2)
+     (kv@I gloss~5 0.0@2)))
+   (if@,L
+    (elif@3
+     (infix@H !=
+      (call~8 moteCount~9 chips@1)chipsSaid@3)
+     (stmts~1,1
+      (asgn@A chipsSaid~A
+       (call@B moteCount~9 chips@1))
+      (call@4,1 tell~4 "voxel.chips"@1
+       (prefix@G $ chipsSaid@1)))))))
+ (comment@,XF)
+ (proc@,XH tellAim@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (var@4 label . . . "none"@8)
+   (if@,1
+    (elif@3
+     (dot@5 aimed~5 found@1)
+     (stmts@D
+      (asgn@6 label~6
+       (dot@w
+        (call~g
+         (dot~6 registry~8 defOf@1)
+         (call@E
+          (dot~8 world~5 blockAt@1)
+          (dot@6 aimed~5 x@1)
+          (dot@F aimed~5 y@1)
+          (dot@O aimed~5 z@1)))label@1)))))
+   (if@,2
+    (elif@3
+     (infix@6 != label~6 saidAim@3)
+     (stmts~1,1
+      (asgn@8 saidAim~8 label@2)
+      (call@4,1 tell~4 "voxel.aim"@1 label@E))))
+   (let@4,8 head . . .
+    (infix@m &
+     (infix~6 &
+      (infix~L &
+       (infix~6 &
+        (prefix~8 $
+         (call@5 mine~4))"/"@2)
+       (prefix@2 $
+        (call@4 int~3
+         (dot@7 player~6 pitch@1))))"/"@2)
+     (prefix@2 $
+      (call@4 int~3
+       (dot@7 player~6 yaw@1)))))
+   (if@,9
+    (elif@3
+     (infix@5 == head~5 saidHead@3)
+     (stmts@I
+      (ret .))))
+   (asgn@9,A saidHead~9 head@2)
+   (call@4,B tell~4 "voxel.locked"@1
+    (prefix@H $
+     (call@5 mine~4)))
+   (call@4,C tell~4 "voxel.pitch"@1
+    (prefix@G $
+     (call@4 int~3
+      (dot@7 player~6 pitch@1))))
+   (call@4,D tell~4 "voxel.yaw"@1
+    (prefix@E $
+     (call@4 int~3
+      (dot@7 player~6 yaw@1))))))
+ (comment@,XX)
+ (proc@,Xd reportBody@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not handsOff@4)
+     (stmts@E
+      (ret .))))
+   (let@4,1 here . . .
+    (call@M
+     (dot~9 player~6 position@1)))
+   (let@4,2 onGround . . .
+    (call@V
+     (dot~9
+      (dot~5 player~6 body@1)grounded@1)))
+   (if@,3
+    (elif@3 onGround
+     (stmts~1,1
+      (if
+       (elif@3
+        (prefix not wasGrounded@4)
+        (stmts~1,1
+         (let@4 drop . . .
+          (infix@G \2D fellFrom~9
+           (dot@6 here~4 y@1)))
+         (if@,1
+          (elif@3
+           (infix@5 > drop~5 0.5@2)
+           (stmts@C
+            (call@8 handOver~8 "fell"@1 ""@9
+             (call@G int~3
+              (infix@6 * drop~5 10.0@2)))))))))
+      (asgn@9,3 fellFrom~9
+       (dot@6 here~4 y@1))))
+    (elif@5,5 wasGrounded
+     (stmts~3,1
+      (asgn@9 fellFrom~9
+       (dot@6 here~4 y@1))))
+    (elif@5,7
+     (infix@7 >
+      (dot~3 here~4 y@1)fellFrom@2)
+     (stmts~3,1
+      (asgn@9 fellFrom~9
+       (dot@6 here~4 y@1)))))
+   (asgn@C,C wasGrounded~C onGround@2)
+   (let@4,D dx . . .
+    (infix@C \2D
+     (dot~3 here~4 x@1)
+     (dot@8 lastAt~6 x@1)))
+   (let@4,E dz . . .
+    (infix@C \2D
+     (dot~3 here~4 z@1)
+     (dot@8 lastAt~6 z@1)))
+   (asgn@7,F lastAt~7 here@2)
+   (asgn@C,G walkedSince~C
+    (infix@E \2B walkedSince~C
+     (call@C squareRoot~A
+      (infix@9 \2B
+       (infix~5 * dx~3 dx@2)
+       (infix@5 * dz~3 dz@2)))))
+   (if@,H
+    (elif@3
+     (infix@C >= walkedSince~C 4.0@3)
+     (stmts~1,1
+      (let@4 whole . . .
+       (call@B int~3 walkedSince@1))
+      (call@8,1 handOver~8 "walked"@1 ""@B whole@F)
+      (asgn@C,2 walkedSince~C
+       (infix@E \2D walkedSince~C
+        (call@9 float64~7 whole@1))))))))
+ (comment@,Y0)
+ (var@4,Y4 wantedSeed . . . 0@D)
+ (var@4,Y5 seedWanted . . . false@D)
+ (var@4,YQ dressedAt . . . 0@C)
+ (comment@,YS)
+ (proc@,Yc dressBlocks@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@K ==
+      (dot~5
+       (dot~6
+        (dot~3 client~6 ix@1)names@1)len@1)0@3)
+     (stmts@Q
+      (ret .))))
+   (if@,1
+    (elif@3
+     (infix@M ==
+      (call~3
+       (dot~B registry~8 blockCount@1))dressedAt@3)
+     (stmts@a
+      (ret .))))
+   (asgn@A,2 dressedAt~A
+    (call@L
+     (dot~B registry~8 blockCount@1)))
+   (let@4,3 names . . .
+    (call@J wantedNames~B client@1))
+   (var@4,4 resolved . .
+    (at@D seq~3 int@1)
+    (prefix@L \40
+     (bracket@1)))
+   (var@4,5 i . . . 0@4)
+   (while@,6
+    (infix@8 < i~2
+     (dot@7 names~5 len@1))
+    (stmts@2,1
+     (cmd@8
+      (dot resolved~8 add@1)
+      (call@I
+       (dot~5 registry~8 idOf@1)
+       (at@6 names~5 i@1)))
+     (cmd@,1 inc i@4)))
+   (call@9,F useBlocks~9 client@1 resolved@9)
+   (call@3,G log~3
+    (infix@s,3 &
+     (infix~G &
+      (infix~P &
+       (infix@I,~1 &
+        (infix~N &
+         (infix@R,~1 &
+          (infix~M &
+           (infix@d,~1 &
+            (infix~K & "\5Bassert\5D voxel.server.known="~V
+             (prefix@2 $
+              (dot@B
+               (dot~4 client~6 map@1)known@1)))" unknown="~p,1)
+           (prefix@2 $
+            (dot@B
+             (dot~4 client~6 map@1)unknown@1)))" of "~Y,1)
+         (prefix@2 $
+          (dot@G
+           (dot~6
+            (dot~3 client~6 ix@1)names@1)len@1)))" against "~U,1)
+       (prefix@2 $
+        (call@K
+         (dot~B registry~8 blockCount@1))))" blocks in "@2)Blocks@2))))
+ (comment@,Yy)
+ (proc@,Z2 joinServer@5 . . .
+  (params@F
+   (param@1 address . . string@9 .)). . .
+  (stmts@2,1
+   (var@4 host . . . ""@7)
+   (var@4,1 port . . . 0@7)
+   (if@,2
+    (elif@3
+     (prefix not
+      (call@H splitHostPort~D address@1 DefaultMcPort@A host@P port@V))
+     (stmts~1,1
+      (call@3 log~3
+       (infix@N &
+        (infix~A & "\5Bvoxel\5D \27"~C address@2)"\27 is not a host and a port"@2))
+      (ret@,1 .))))
+   (let@4,5 indexText . . .
+    (call@M importRead~A StateIndexFile@1))
+   (if@,6
+    (elif@3
+     (infix@E ==
+      (dot~5 indexText~9 len@1)0@3)
+     (stmts~1,1
+      (call@3 log~3
+       (infix@W &
+        (infix~H & "\5Bvoxel\5D no "~E StateIndexFile@2)" - run tools/mcindex.ps1 against your own copy of the game"~V,1))
+      (ret@,2 .))))
+   (let@4,A packetsText . . .
+    (call@O importRead~A PlayPacketsFile@1))
+   (if@,B
+    (elif@3
+     (infix@G ==
+      (dot~5 packetsText~B len@1)0@3)
+     (stmts~1,1
+      (call@3 log~3
+       (infix@X &
+        (infix~I & "\5Bvoxel\5D no "~E PlayPacketsFile@2)" - run tools/mcindex.ps1"@2))
+      (ret@,1 .))))
+   (asgn@7,E client~7
+    (call@B newClient~9))
+   (call@A,F loadTables~A client@1 indexText@9 packetsText@K)
+   (if@,G
+    (elif@3
+     (infix@J >
+      (dot~5
+       (dot~8 client~6 problem@1)len@1)0@2)
+     (stmts~1,1
+      (call@3 log~3
+       (infix@C & "\5Bvoxel\5D "~B
+        (dot@8 client~6 problem@1)))
+      (ret@,1 .))))
+   (call@B,P dressBlocks~B)
+   (call@E,U loadItemTables~E client@1
+    (call@J importRead~A ItemsFile@1)
+    (call@g importRead~A ComponentsFile@1))
+   (if@,V
+    (elif@3
+     (infix@M >
+      (dot~5
+       (dot~B client~6 invProblem@1)len@1)0@2)
+     (stmts~1,1
+      (call@3 log~3
+       (infix@b & "\5Bvoxel\5D the bag will stay empty\3A "~a
+        (dot@8 client~6 invProblem@1))))))
+   (call@F,a loadEntityTable~F client@1
+    (call@J importRead~A EntityTypesFile@1))
+   (if@,b
+    (elif@3
+     (infix@N >
+      (dot~5
+       (dot~C client~6 kindProblem@1)len@1)0@2)
+     (stmts~1,1
+      (call@3 log~3
+       (infix@Y & "\5Bvoxel\5D nobody will be drawn\3A "~X
+        (dot@8 client~6 kindProblem@1))))))
+   (call@7,d connect~7 client@1 host@9 port@F)
+   (if@,e
+    (elif@3
+     (infix@J >
+      (dot~5
+       (dot~8 client~6 problem@1)len@1)0@2)
+     (stmts~1,1
+      (call@3 log~3
+       (infix@C & "\5Bvoxel\5D "~B
+        (dot@8 client~6 problem@1)))
+      (ret@,1 .))))
+   (asgn@B,h serverMode~B true@2)
+   (call@3,i log~3
+    (infix@J,2 &
+     (infix@Z,~1 &
+      (infix~W &
+       (infix@Q,~1 &
+        (infix~7 &
+         (infix~8 &
+          (infix~6 &
+           (infix~7 & "\5Bvoxel\5D joining "~J host@2)"\3A"@2)
+          (prefix@2 $ port@1))", "@2)
+        (prefix~l,1 $
+         (dot@G
+          (dot~6
+           (dot~3 client~6 ix@1)names@1)len@1)))" block names off the wire, "@2)
+      (prefix~r,1 $
+       (dot@B
+        (dot~4 client~6 map@1)known@1)))" of them in this world"@2))))
+ (comment@,Zp)
+ (proc@,Zt tellServer@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (call@4 tell~4 "voxel.server.phase"@1
+    (dot@T client~6 phase@1))
+   (call@4,4 tell~4 "voxel.generated"@1
+    (prefix@K $ generated@1))
+   (call@4,5 tell~4 "voxel.server.columns"@1
+    (prefix@P $
+     (dot@7 client~6 columns@1)))
+   (call@4,6 tell~4 "voxel.server.blocks"@1
+    (prefix@O $
+     (dot@7 client~6 serverBlocks@1)))
+   (call@4,7 tell~4 "voxel.server.edits"@1
+    (prefix@N $
+     (dot@7 client~6 edits@1)))
+   (call@4,D tell~4 "voxel.server.known"@1
+    (prefix@N $
+     (dot@B
+      (dot~4 client~6 map@1)known@1)))
+   (call@4,E tell~4 "voxel.server.unknown"@1
+    (prefix@P $
+     (dot@B
+      (dot~4 client~6 map@1)unknown@1)))
+   (call@4,F tell~4 "voxel.server.holes"@1
+    (prefix@N $
+     (dot@7 client~6 holes@1)))
+   (call@4,G tell~4 "voxel.server.outside"@1
+    (prefix@P $
+     (dot@7 client~6 outside@1)))
+   (call@4,H tell~4 "voxel.server.refused"@1
+    (prefix@P $
+     (dot@7 client~6 refused@1)))
+   (call@4,I tell~4 "voxel.server.floor"@1
+    (prefix@N $
+     (dot@7 client~6 floorY@1)))
+   (if@,J
+    (elif@3
+     (dot@6 client~6 groundKnown@1)
+     (stmts~1,1
+      (call@4 tell~4 "voxel.server.ground"@1
+       (call@Y groundName~A client@1))
+      (call@4,1 tell~4 "voxel.server.groundstate"@1
+       (prefix@T $
+        (call@D groundState0~C client@1)))
+      (call@4,2 tell~4 "voxel.server.groundat"@1
+       (call@U cell~4
+        (call@C groundWhere~B client@1))))))
+   (if@,N
+    (elif@3
+     (infix@J >
+      (dot~5
+       (dot~8 client~6 problem@1)len@1)0@2)
+     (stmts@O
+      (call@4 tell~4 "voxel.server.problem"@1
+       (dot@V client~6 problem@1)))))
+   (call@4,S tell~4 "voxel.server.moved"@1
+    (prefix@N $
+     (dot@7 client~6 moved@1)))
+   (call@4,W tell~4 "voxel.server.drift"@1
+    (prefix@N $
+     (dot@7 client~6 driftMax@1)))
+   (call@4,X tell~4 "voxel.server.acked"@1
+    (prefix@N $
+     (dot@7 client~6 acked@1)))
+   (call@4,Y tell~4 "voxel.server.digs"@1
+    (prefix@M $
+     (dot@7 client~6 digsFinished@1)))
+   (call@4,Z tell~4 "voxel.server.broke"@1
+    (prefix@N $
+     (dot@7 client~6 breaksAgreed@1)))
+   (call@4,a tell~4 "voxel.server.placesent"@1
+    (prefix@R $
+     (dot@7 client~6 placesSent@1)))
+   (call@4,b tell~4 "voxel.server.placed"@1
+    (prefix@O $
+     (dot@7 client~6 placesAgreed@1)))
+   (if@,j
+    (elif@3
+     (infix@K >
+      (dot~E client~6 breaksAgreed@1)0@2)
+     (stmts@P
+      (call@4 tell~4 "voxel.server.brokeat"@1
+       (call@T cell~4
+        (call@B brokeWhere~A client@1))))))
+   (if@,k
+    (elif@3
+     (infix@K >
+      (dot~E client~6 placesAgreed@1)0@2)
+     (stmts~1,1
+      (call@4 tell~4 "voxel.server.placedat"@1
+       (call@U cell~4
+        (call@9 putWhere~8 client@1)))
+      (call@4,1 tell~4 "voxel.server.placedwhat"@1
+       (call@Z putName~7 client@1)))))
+   (call@4,p tell~4 "voxel.server.at"@1
+    (call@O cell~4
+     (infix@,1 &
+      (infix~6 &
+       (infix@X,~1 &
+        (infix~6 &
+         (prefix~K $
+          (call@4 int~3
+           (dot@C
+            (dot~5 client~6 play@1)x@1)))" "@2)
+        (prefix~r,1 $
+         (call@4 int~3
+          (dot@C
+           (dot~5 client~6 play@1)y@1))))" "@2)
+      (prefix@2 $
+       (call@4 int~3
+        (dot@C
+         (dot~5 client~6 play@1)z@1))))))
+   (call@4,s tell~4 "voxel.server.slots"@1
+    (prefix@N $
+     (call@B stacksHeld~A client@1)))
+   (call@4,t tell~4 "voxel.server.slotwrites"@1
+    (prefix@S $
+     (dot@7 client~6 slotWrites@1)))
+   (call@4,u tell~4 "voxel.server.contentwrites"@1
+    (prefix@V $
+     (dot@7 client~6 contentWrites@1)))
+   (call@4,v tell~4 "voxel.server.held"@1
+    (prefix@M $
+     (dot@7 client~6 heldSlot@1)))
+   (call@4,w tell~4 "voxel.server.helditem"@1
+    (expr
+     (stmts@Q)
+     (if@1
+      (elif@3
+       (infix@L >
+        (dot~5
+         (call~8 heldName~8 client@1)len@1)0@2)
+       (call@Y heldName~8 client@1))
+      (else@,1 "nothing"@6))))
+   (call@4,y tell~4 "voxel.server.helditems"@1
+    (prefix@R $
+     (call@B heldCount0~A client@1)))
+   (call@4,z tell~4 "voxel.server.health"@1
+    (prefix@O $
+     (call@4 int~3
+      (call@D serverHealth~C client@1))))
+   (call@4,10 tell~4 "voxel.server.deaths"@1
+    (prefix@O $
+     (call@D serverDeaths~C client@1)))
+   (call@4,11 tell~4 "voxel.server.food"@1
+    (prefix@M $
+     (call@B serverFood~A client@1)))
+   (call@4,12 tell~4 "voxel.server.xp"@1
+    (prefix@K $
+     (call@H serverExperience~G client@1)))
+   (call@4,13 tell~4 "voxel.server.gamemode"@1
+    (prefix@Q $
+     (call@F serverGamemode~E client@1)))
+   (if@,14
+    (elif@3
+     (infix@M >
+      (dot~5
+       (dot~B client~6 invProblem@1)len@1)0@2)
+     (stmts@R
+      (call@4 tell~4 "voxel.server.invproblem"@1
+       (dot@Y client~6 invProblem@1)))))
+   (call@4,18 tell~4 "voxel.server.entities"@1
+    (prefix@Q $
+     (call@B herdCount0~A client@1)))
+   (call@4,19 tell~4 "voxel.server.spawns"@1
+    (prefix@O $
+     (call@B herdSpawns~A client@1)))
+   (call@4,1A tell~4 "voxel.server.despawns"@1
+    (prefix@Q $
+     (call@C herdRemoves~B client@1)))
+   (call@4,1B tell~4 "voxel.server.entitymoves"@1
+    (prefix@T $
+     (call@A herdMoves~9 client@1)))
+   (call@4,1C tell~4 "voxel.server.orphans"@1
+    (prefix@P $
+     (call@C herdOrphans~B client@1)))
+   (call@4,1D tell~4 "voxel.server.entityhurts"@1
+    (prefix@T $
+     (call@A herdHurts~9 client@1)))
+   (call@4,1E tell~4 "voxel.server.entitydeaths"@1
+    (prefix@U $
+     (call@B herdDeaths~A client@1)))
+   (call@4,1F tell~4 "voxel.server.unnamedkinds"@1
+    (prefix@U $
+     (dot@7 client~6 unnamed@1)))
+   (call@4,1G tell~4 "voxel.server.feedlines"@1
+    (prefix@R $
+     (dot@7 client~6 fedLines@1)))
+   (if@,1H
+    (elif@3
+     (infix@N >
+      (dot~5
+       (dot~C client~6 kindProblem@1)len@1)0@2)
+     (stmts@S
+      (call@4 tell~4 "voxel.server.kindproblem"@1
+       (dot@Z client~6 kindProblem@1)))))
+   (let@4,1L near . . .
+    (call@M herdNearestKind~F client@1))
+   (if@,1M
+    (elif@3
+     (infix@9 >
+      (dot~5 near~4 len@1)0@2)
+     (stmts~1,1
+      (call@4 tell~4 "voxel.herd.kind"@1 near@K)
+      (call@4,7 tell~4 "voxel.herd.where"@1
+       (call@P cell~4
+        (call@A herdWhere~9 client@1 3@9))))))
+   (let@4,1Y fresh0 . . .
+    (call@K herdNewKind~B client@1))
+   (if@,1Z
+    (elif@3
+     (infix@B >
+      (dot~5 fresh0~6 len@1)0@2)
+     (stmts~1,1
+      (call@4 tell~4 "voxel.herd.newkind"@1 fresh0@N)
+      (call@4,1 tell~4 "voxel.herd.newat"@1
+       (call@P cell~4
+        (call@D herdNewWhere~C client@1 3@9))))))
+   (var@4,1l kindAt . . . 0@9)
+   (let@4,1m kinds0 . . .
+    (call@M herdKindCount~D client@1))
+   (while@,1n
+    (infix@D < kindAt~7 kinds0@2)
+    (stmts@2,1
+     (let@4 what . . .
+      (call@H herdKindAt~A client@1 kindAt@9))
+     (if@,1
+      (elif@3
+       (infix@9 >
+        (dot~5 what~4 len@1)0@2)
+       (stmts~1,1
+        (call@4 tell~4
+         (infix@I & "voxel.herd.at."~H what@2)
+         (call@U cell~4
+          (call@E herdWhereKind~D client@1 what@9 3@F)))
+        (call@4,1 tell~4
+         (infix@L & "voxel.herd.count."~K what@2)
+         (prefix@T $
+          (call@A herdKinds~9 client@1 what@9))))))
+     (cmd@,4 inc kindAt@4)))
+   (let@4,1w here . . .
+    (call@M
+     (dot~9 player~6 position@1)))
+   (let@4,1x under . . .
+    (call@L
+     (dot~8 world~5 blockAt@1)
+     (call@4 int~3
+      (dot@5 here~4 x@1))
+     (infix@Q \2D
+      (call~9 int~3
+       (dot@5 here~4 y@1))1@2)
+     (call@Y int~3
+      (dot@5 here~4 z@1))))
+   (call@4,1y tell~4 "voxel.server.under"@1
+    (dot@i
+     (call~7
+      (dot~6 registry~8 defOf@1)under@1)name@1))))
+ (comment@,bu)
+ (proc@,c9 pushMovement@5 . . .
+  (params@H
+   (param@1 seconds . . float64@9 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@D placedYet~9 client@1))
+     (stmts@N
+      (ret .))))
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@F movementDue~B client@1 seconds@9))
+     (stmts@Y
+      (ret .))))
+   (let@4,2 here . . .
+    (call@M
+     (dot~9 player~6 position@1)))
+   (call@C,3 sendMovement~C client@1
+    (dot@D here~4 x@1)
+    (dot@L here~4 y@1)
+    (dot@T here~4 z@1)
+    (prefix~A,1 \2D
+     (dot@7 player~6 yaw@1))
+    (dot@9,1 player~6 pitch@1)
+    (call@P,1 grounded~8
+     (dot@7 player~6 body@1)))))
+ (comment@,cG)
+ (proc@,cN tellVitals@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (let@4 line . . .
+    (infix@16 &
+     (infix~6 &
+      (infix~M &
+       (infix~6 &
+        (prefix~R $
+         (call@4 int~3
+          (call@D serverHealth~C client@1)))"|"@2)
+       (prefix@2 $
+        (call@B serverFood~A client@1)))"|"@2)
+     (prefix~18,1 $
+      (call@H serverExperience~G client@1))))
+   (if@,2
+    (elif@3
+     (infix@5 == line~5 toldVitals@3)
+     (stmts@K
+      (ret .))))
+   (asgn@B,3 toldVitals~B line@2)
+   (call@8,4 handOver~8 "vitals"@1 line@B
+    (call@K int~3
+     (call@D serverHealth~C client@1)))))
+ (proc@,cU readHandoffs@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (for@4
+    (call@D handed~6 handoffSeen@1)
+    (unpackflat
+     (let one . . ..))
+    (stmts~2,1
+     (if
+      (elif@3
+       (infix@9 ==
+        (dot~6 one~3 verb@1)"world"@3)
+       (stmts~1,1
+        (asgn@C worldInMenu~C
+         (infix@E ==
+          (dot~9 one~3 subject@1)"menu"@3))))
+      (elif@5,2
+       (infix@9 ==
+        (dot~6 one~3 verb@1)"server"@3)
+       (stmts~3,5
+        (asgn@D serverWanted~D
+         (dot@5 one~3 subject@1))))
+      (elif@5,8
+       (infix@9 ==
+        (dot~6 one~3 verb@1)"hold"@3)
+       (stmts~3,1
+        (asgn@9 handsOff~9 true@2)
+        (asgn@9,1 heldItem~9
+         (dot@5 one~3 subject@1))
+        (asgn@A,2 heldCount~A
+         (dot@5 one~3 amount@1))))
+      (elif@5,C
+       (infix@9 ==
+        (dot~6 one~3 verb@1)"seed"@3)
+       (stmts~3,1
+        (asgn@B wantedSeed~B
+         (dot@5 one~3 amount@1))
+        (asgn@B,1 seedWanted~B true@2)))
+      (elif@5,F
+       (infix@9 ==
+        (dot~6 one~3 verb@1)"pointer"@3)
+       (stmts~3,3
+        (asgn@H someoneElseHasIt~H
+         (infix@E ==
+          (dot~9 one~3 subject@1)"free"@3)))))))))
+ (proc@,cq dig@5 . . .
+  (params@8
+   (param@1 seconds . . float64@9 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (dot@9 aimed~5 found@1))
+     (stmts~1,1
+      (call@B stopDigging~B)
+      (ret@,1 .))))
+   (let@4,3 id . . .
+    (call@I
+     (dot~8 world~5 blockAt@1)
+     (dot@6 aimed~5 x@1)
+     (dot@F aimed~5 y@1)
+     (dot@O aimed~5 z@1)))
+   (if@,4
+    (elif@3
+     (prefix not
+      (call@M
+       (dot~A registry~8 breakable@1)id@1))
+     (stmts~1,1
+      (call@B stopDigging~B)
+      (ret@,1 .))))
+   (if@,7
+    (elif@3
+     (infix@q or
+      (infix~J or
+       (infix~J or
+        (par~E
+         (prefix@1 not digging@4))
+        (infix@8 != digX~5
+         (dot@8 aimed~5 x@1)))
+       (infix@8 != digY~5
+        (dot@8 aimed~5 y@1)))
+      (infix@8 != digZ~5
+       (dot@8 aimed~5 z@1)))
+     (stmts~1,1
+      (asgn@8 digging~8 true@2)
+      (asgn@5,1 digX~5
+       (dot@7 aimed~5 x@1))
+      (asgn@5,2 digY~5
+       (dot@7 aimed~5 y@1))
+      (asgn@5,3 digZ~5
+       (dot@7 aimed~5 z@1))
+      (asgn@C,4 digProgress~C 0.0@2)
+      (asgn@A,5 digNeeded~A
+       (call@L
+        (dot~B registry~8 hardnessOf@1)id@1))
+      (if@,6
+       (elif@3
+        (infix@A < digNeeded~A 0.02@2)
+        (stmts@I
+         (asgn@A digNeeded~A 0.02@2))))
+      (if@,B
+       (elif@3 serverMode
+        (stmts~1,1
+         (asgn@E serverDigFace~E
+          (call@A mcFaceOf~8
+           (dot@6 aimed~5 nx@1)
+           (dot@G aimed~5 ny@1)
+           (dot@Q aimed~5 nz@1)))
+         (asgn@E,1 serverDigging~E true@2)
+         (asgn@F,2 serverFinished~F false@2)
+         (call@A,3 digStartAt~A client@1 digX@9 digY@F digZ@L serverDigFace@R)))))))
+   (asgn@C,O digProgress~C
+    (infix@E \2B digProgress~C seconds@2))
+   (if@,T
+    (elif@3
+     (prefix not
+      (call@C swinging~8 sinceSwing@1))
+     (stmts~1,1
+      (asgn@B sinceSwing~B 0.0@2)
+      (asgn@7,1 swings~7
+       (infix@9 \2B swings~7 1@2))
+      (call@8,2 handOver~8 "swing"@1 "mine"@A swings@I)
+      (call@4,3 tell~4 "voxel.swings"@1
+       (prefix@H $ swings@1)))))
+   (asgn@A,b sinceChip~A
+    (infix@C \2B sinceChip~A seconds@2))
+   (if@,c
+    (elif@3
+     (call@7 chipDue~7 sinceChip@1)
+     (stmts~1,1
+      (asgn@A sinceChip~A 0.0@2)
+      (let@4,1 hitFace . . .
+       (call@M faceOfOffset~C
+        (call@6 float~5
+         (dot@6 aimed~5 nx@1))
+        (call@N float~5
+         (dot@6 aimed~5 ny@1))
+        (call~J,1 float~5
+         (dot@6 aimed~5 nz@1))))
+      (asgn@C,3 chipPicture~C
+       (call@F pictureOfFace~D id@1 hitFace@5))
+      (call@8,4 chipMote~8 chips@1
+       (infix@K \2B
+        (call~7 float~5 digX@1)0.5@2)
+       (infix@d \2B
+        (call~7 float~5 digY@1)0.5@2)
+       (infix@w \2B
+        (call~7 float~5 digZ@1)0.5@2)
+       (call~1,1 float~5
+        (dot@6 aimed~5 nx@1))
+       (call@G,1 float~5
+        (dot@6 aimed~5 ny@1))
+       (call@X,1 float~5
+        (dot@6 aimed~5 nz@1))id@j,1 hitFace@n,1))))
+   (if@,j
+    (elif@3
+     (infix@C < digProgress~C digNeeded@2)
+     (stmts@P
+      (ret .))))
+   (if@,k
+    (elif@3
+     (prefix not serverMode@4)
+     (stmts~1,1
+      (call@A breakBlock~A digX@1 digY@7 digZ@D)
+      (ret@,1 .))))
+   (if@,w
+    (elif@3 serverFinished
+     (stmts@G
+      (ret .))))
+   (asgn@F,x serverFinished~F true@2)
+   (call@A,y breakBlock~A digX@1 digY@7 digZ@D)))
+ (proc@,du makeWorld@5 . . .
+  (params@E
+   (param@1 withSeed . . int@A .)). . .
+  (stmts@2,1
+   (call@B forgetWorld~B)
+   (asgn@5,1 seed~5 withSeed@2)
+   (asgn@6,6 world~6
+    (call@A newWorld~8 seed@1 SpanX@7 SpanY@E SpanZ@L
+     (call@c palletteOf~A)SeaLevel@g Caves@q true~E,1))
+   (asgn@6,8 built~6 0@2)
+   (asgn@A,9 generated~A 0@2)))
+ (comment@,e6)
+ (proc@,eS planSpawn@5 . . .
+  (params@E). . .
+  (stmts@2,6
+   (asgn@A spawnFeet~A -1@2)
+   (asgn@A,1 spawnHead~A -1@2)
+   (asgn@B,2 spawnSlice~B 0@2)
+   (asgn@A,3 spawnMidX~A
+    (infix@I \2B
+     (call~3
+      (dot~8 world~5 worldX0@1))
+     (infix@L div
+      (call~3
+       (dot~B world~5 blocksWide@1))2@4)))
+   (asgn@A,4 spawnMidZ~A
+    (infix@I \2B
+     (call~3
+      (dot~8 world~5 worldZ0@1))
+     (infix@L div
+      (call~3
+       (dot~B world~5 blocksDeep@1))2@4)))
+   (if@,5
+    (elif@3 serverMode
+     (stmts~1,1
+      (asgn@D bootStanding~D
+       (infix@U /
+        (call~L float64~7
+         (call@H
+          (dot~B world~5 blocksHigh@1)))2.0@2))
+      (ret@,1 .))))
+   (var@4,8 top . . .
+    (call@K
+     (dot~9 world~5 groundAt@1)spawnMidX@1 spawnMidZ@C))
+   (if@,9
+    (elif@3
+     (infix@H >
+      (dot~C world~5 waterLevel@1)top@2)
+     (stmts@O
+      (asgn@4 top~4
+       (dot@7 world~5 waterLevel@1)))))
+   (let@4,A cx . . .
+    (call@D floorDiv~8 spawnMidX@1 ChunkSize@C))
+   (let@4,B cz . . .
+    (call@D floorDiv~8 spawnMidZ@1 ChunkSize@C))
+   (var@4,C cy . . .
+    (infix@9 div top~4 ChunkSize@4))
+   (if@,D
+    (elif@3
+     (infix@3 > cy~3
+      (infix@8 \2D SpanY~6 1@2))
+     (stmts@G
+      (asgn@3 cy~3
+       (infix@8 \2D SpanY~6 1@2)))))
+   (asgn@A,G spawnFeet~A
+    (call@I
+     (dot~B world~5 chunkIndex@1)cx@1 cy@5 cz@9))
+   (asgn@A,H spawnHead~A
+    (call@I
+     (dot~B world~5 chunkIndex@1)cx@1
+     (infix@8 \2B cy~3 1@2)cz@D))
+   (asgn@B,K spawnSlice~B
+    (call@9 sliceOf~7
+     (call@9 floorMod~8 top@1 ChunkSize@6)))))
+ (comment@,f5)
+ (proc@,f9 applyFov@5 . . .
+  (params@D). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@F or
+      (infix~5 == fovWanted~A 0@3)
+      (call@G
+       (dot~A eye~3 isNothing@1)))
+     (stmts@Z
+      (ret .))))
+   (call@7,1
+    (dot~4 eye~3 set@1)"fieldOfView"@1
+    (call@M fovFor~6 fovWanted@1))))
+ (comment@,fD)
+ (proc@,fG applySensitivity@5 . . .
+  (params@L). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@E <= baseLookSpeed~E 0.0@3)
+     (stmts@M
+      (ret .))))
+   (call@B,1
+    (dot~5 player~6 tune@1)"lookSpeed"@1
+    (call@Q lookSpeedFor~C baseLookSpeed@1 sensitivity@G))))
+ (comment@,fK)
+ (proc@,fN applyBinds@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@G >
+      (dot~5 bindForward~B len@1)0@2)
+     (stmts@L
+      (call@E
+       (dot~8 player~6 bindKey@1)"forward"@1 bindForward@C))))
+   (if@,1
+    (elif@3
+     (infix@D >
+      (dot~5 bindBack~8 len@1)0@2)
+     (stmts@I
+      (call@E
+       (dot~8 player~6 bindKey@1)"back"@1 bindBack@9))))
+   (if@,2
+    (elif@3
+     (infix@D >
+      (dot~5 bindLeft~8 len@1)0@2)
+     (stmts@I
+      (call@E
+       (dot~8 player~6 bindKey@1)"left"@1 bindLeft@9))))
+   (if@,3
+    (elif@3
+     (infix@E >
+      (dot~5 bindRight~9 len@1)0@2)
+     (stmts@J
+      (call@E
+       (dot~8 player~6 bindKey@1)"right"@1 bindRight@A))))
+   (if@,4
+    (elif@3
+     (infix@D >
+      (dot~5 bindJump~8 len@1)0@2)
+     (stmts@I
+      (call@E
+       (dot~8 player~6 bindKey@1)"jump"@1 bindJump@9))))
+   (if@,5
+    (elif@3
+     (infix@F >
+      (dot~5 bindSprint~A len@1)0@2)
+     (stmts@K
+      (call@E
+       (dot~8 player~6 bindKey@1)"run"@1 bindSprint@8))))))
+ (comment@,fV)
+ (proc@,fd resizeLod@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (call@9 forgetLod~9
+    (dot@9 lodScene~8 centreRx@1)
+    (dot@S lodScene~8 centreRz@1))
+   (call@4,1 tell~4 "voxel.lod.blocks"@1
+    (prefix@L $
+     (call@E lodBlocksWide~D lodScene@1)))))
+ (proc@,fh flagText@5 . . .
+  (params@D
+   (param@1 on . . bool@4 .))string@C . .
+  (stmts@2,1
+   (if
+    (elif@3 on
+     (stmts@4
+      (ret "1"@7))))"0"@,1))
+ (comment@,fl)
+ (proc@,fp tellSettings@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (call@4 tell~4 "voxel.renderdistance"@1
+    (prefix@P $ renderChunks@1))
+   (call@4,4 tell~4 "voxel.lod.blocks"@1
+    (prefix@L $
+     (call@E lodBlocksWide~D lodScene@1)))
+   (if@,5
+    (elif@3
+     (infix@A > fovWanted~A 0@2)
+     (stmts@F
+      (call@4 tell~4 "voxel.fov"@1
+       (prefix@E $
+        (call@4 int~3
+         (call@7 fovFor~6 fovWanted@1)))))))
+   (call@4,6 tell~4 "voxel.sensitivity"@1
+    (prefix@M $ sensitivity@1))
+   (call@4,7 tell~4 "voxel.invertmouse"@1
+    (call@U flagText~8 invertMouse@1))
+   (call@4,8 tell~4 "voxel.viewbobbing"@1
+    (call@U flagText~8 viewBobbing@1))
+   (call@4,9 tell~4 "voxel.autojump"@1
+    (call@R flagText~8 autoJump@1))
+   (call@4,A tell~4 "voxel.bind.forward"@1
+    (dot@T player~6 forwardKey@1))
+   (call@4,B tell~4 "voxel.bind.back"@1
+    (dot@Q player~6 backKey@1))
+   (call@4,C tell~4 "voxel.bind.left"@1
+    (dot@Q player~6 leftKey@1))
+   (call@4,D tell~4 "voxel.bind.right"@1
+    (dot@R player~6 rightKey@1))
+   (call@4,E tell~4 "voxel.bind.jump"@1
+    (dot@Q player~6 jumpKey@1))
+   (call@4,F tell~4 "voxel.bind.sprint"@1
+    (dot@S player~6 runKey@1))))
+ (comment@,g7)
+ (proc@,gB applySettings@5 . . .
+  (params@I). . .
+  (stmts@2,1
+   (asgn@E baseLookSpeed~E
+    (dot@8 player~6 lookSpeed@1))
+   (call@G,1 applySensitivity~G)
+   (call@A,2 applyBinds~A)
+   (call@8,3 applyFov~8)
+   (call@C,4 tellSettings~C)))
+ (comment@,gI)
+ (proc@,gP lookInverted@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (asgn@B
+    (dot~5 player~6 yaw@1)
+    (infix@D \2B
+     (dot~5 player~6 yaw@1)
+     (infix@A *
+      (call~3 lookX~5)
+      (dot@8 player~6 lookSpeed@1))))
+   (asgn@D,1
+    (dot~7 player~6 pitch@1)
+    (infix@F \2B
+     (dot~7 player~6 pitch@1)
+     (infix@A *
+      (call~3 lookY~5)
+      (dot@8 player~6 lookSpeed@1))))
+   (if@,2
+    (elif@3
+     (infix@I >
+      (dot~C player~6 pitchLimit@1)0.0@2)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@D >
+         (dot~7 player~6 pitch@1)
+         (dot@8 player~6 pitchLimit@1))
+        (stmts@Y
+         (asgn@D
+          (dot~7 player~6 pitch@1)
+          (dot@8 player~6 pitchLimit@1)))))
+      (if@,1
+       (elif@3
+        (infix@D <
+         (dot~7 player~6 pitch@1)
+         (prefix@2 \2D
+          (dot@7 player~6 pitchLimit@1)))
+        (stmts@Z
+         (asgn@D
+          (dot~7 player~6 pitch@1)
+          (prefix@2 \2D
+           (dot@7 player~6 pitchLimit@1)))))))))
+   (call@K,5
+    (dot~9
+     (dot~5 player~6 body@1)rotation@1)0.0@1
+    (dot@C player~6 yaw@1)0.0@I)))
+ (comment@,gX)
+ (proc@,gg autoJumpLedge@5 . . .
+  (params@I). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not autoJump@4)
+     (stmts@E
+      (ret .))))
+   (if@,1
+    (elif@3
+     (infix@O or
+      (call~3
+       (dot~A
+        (dot~5 player~6 body@1)isNothing@1))
+      (prefix@3 not
+       (call@O
+        (dot~9
+         (dot~5 player~6 body@1)grounded@1))))
+     (stmts@t
+      (ret .))))
+   (let@4,2 going . . .
+    (call@K
+     (dot~6 player~6 speed@1)))
+   (let@4,3 flat . . .
+    (call@H squareRoot~A
+     (infix@J \2B
+      (infix~A *
+       (dot~3 going~5 x@1)
+       (dot@7 going~5 x@1))
+      (infix@A *
+       (dot~3 going~5 z@1)
+       (dot@7 going~5 z@1)))))
+   (if@,4
+    (elif@3
+     (infix@5 < flat~5 0.4@2)
+     (stmts@C
+      (ret .))))
+   (let@4,5 here . . .
+    (call@M
+     (dot~9 player~6 position@1)))
+   (let@4,8 reach . . .
+    (infix@M \2B
+     (dot~8 player~6 radius@1)0.2@2))
+   (let@4,9 atX . . .
+    (infix@D \2B
+     (dot~3 here~4 x@1)
+     (infix@H *
+      (infix~7 /
+       (dot~3 going~5 x@1)flat@2)reach@2)))
+   (let@4,A atZ . . .
+    (infix@D \2B
+     (dot~3 here~4 z@1)
+     (infix@H *
+      (infix~7 /
+       (dot~3 going~5 z@1)flat@2)reach@2)))
+   (if@,B
+    (elif@3
+     (prefix not
+      (call@E boxBlocked~A world@1 registry@8 atX@I
+       (dot@R here~4 y@1)atZ@V
+       (dot~9,1 player~6 radius@1)
+       (dot@6,1 player~6 height@1)))
+     (stmts@U,1
+      (ret .))))
+   (if@,D
+    (elif@3
+     (call@A boxBlocked~A world@1 registry@8 atX@I
+      (infix@U \2B
+       (dot~3 here~4 y@1)1.0@2)atZ@b
+      (dot~5,1 player~6 radius@1)
+      (dot@A,1 player~6 height@1))
+     (stmts@U,1
+      (ret .))))
+   (asgn@E,F
+    (dot~8 player~6 speedY@1)
+    (call@C squareRoot~A
+     (infix@N *
+      (infix~I * 2.0~4
+       (prefix@2 \2D
+        (dot@7 player~6 gravity@1)))
+      (dot@8 player~6 jumpHeight@1))))))
+ (comment@,gz)
+ (proc@,hM beginStage@5 . . .
+  (params@F)bool@4 . .
+  (stmts@2,1
+   (case bootStage@5
+    (of@,1
+     (ranges 0@3)
+     (stmts@2,6
+      (if
+       (elif@3
+        (prefix not
+         (call@E readBlocks~A
+          (if@1
+           (elif@3
+            (infix@D > bootPerFrame~D BootMaxStages@2)
+            (stmts@U 0))
+           (else@Z
+            (stmts@6 BootRowsPerFrame)))))
+        (stmts~1,1
+         (ret false@7))))))
+    (of@,9
+     (ranges 1@3)
+     (stmts@2,1
+      (call@9 makeWorld~9 seed@1)))
+    (of@,B
+     (ranges 2@3)
+     (stmts@2,1
+      (call@9 planSpawn~9)))
+    (of@,D
+     (ranges 3@3)
+     (stmts@2,1
+      (if
+       (elif@3
+        (infix@A >= spawnFeet~A 0@3)
+        (stmts@G
+         (call@J
+          (dot~E world~5 generateChunk@1)registry@1 spawnFeet@B))))))
+    (of@,F
+     (ranges 4@3)
+     (stmts@2,1
+      (if
+       (elif@3
+        (infix@A >= spawnHead~A 0@3)
+        (stmts@G
+         (call@J
+          (dot~E world~5 generateChunk@1)registry@1 spawnHead@B))))))
+    (of@,H
+     (ranges 5@3)
+     (stmts@2,1
+      (if
+       (elif@3
+        (infix@A >= spawnFeet~A 0@3)
+        (stmts@G
+         (discard
+          (call@K rebuildSlice~C spawnFeet@1 spawnSlice@C)))))))
+    (of@,J
+     (ranges 6@3)
+     (stmts@2,1
+      (if
+       (elif@3
+        (infix@F and
+         (infix~5 >= spawnFeet~A 0@3)
+         (infix@F > spawnSlice~B 0@2))
+        (stmts~1,1
+         (discard
+          (call@K rebuildSlice~C spawnFeet@1
+           (infix@N \2D spawnSlice~B 1@2))))))))
+    (of@,M
+     (ranges 7@3)
+     (stmts@2,1
+      (if
+       (elif@3
+        (prefix not serverMode@4)
+        (stmts~1,1
+         (asgn@D bootStanding~D
+          (call@9 float64~7
+           (call~6,1 standingHeight~E world@1 registry@8 spawnMidX@I spawnMidZ@T 2@e))))))
+      (call@G,3
+       (dot~A player~6 configure@1)"character.controls"@1 "character.movement"@N)
+      (call@C,4
+       (dot~6 player~6 place@1)"Digger"@1
+       (infix@9,1 \2B
+        (call~C float64~7 spawnMidX@1)0.5@2)
+       (infix@T,1 \2B bootStanding~D 0.2@2)
+       (infix@t,1 \2B
+        (call~C float64~7 spawnMidZ@1)0.5@2))
+      (asgn@4,6 eye~4
+       (dot@8 player~6 eye@1))))
+    (of@,U
+     (ranges 8@3)
+     (stmts@2,5
+      (call@D applySettings~D)))
+    (of@,a
+     (ranges 9@3)
+     (stmts@2,1
+      (asgn@A highlight~A
+       (call@7 shape~5 Cube@1 "Highlight"@7))
+      (call@F,1
+       (dot~6 highlight~9 scale@1)1.006@1)
+      (call@F,2
+       (dot~6 highlight~9 color@1)
+       (oconstr@6 Color~5
+        (kv@2 r~1 0.0@2)
+        (kv@A g~1 0.0@2)
+        (kv@I b~1 0.0@2)
+        (kv@Q a~1 0.28@2)))
+      (let@4,6 box . . .
+       (call@P
+        (dot~A highlight~9 component@1)"UnityEngine.BoxCollider, UnityEngine.PhysicsModule"~R,1))
+      (if@,8
+       (elif@3
+        (prefix not
+         (call@H
+          (dot~A box~3 isNothing@1)))
+        (stmts@L
+         (call@7
+          (dot~4 box~3 set@1)"enabled"@1 false@C))))
+      (call@G,9
+       (dot~7 highlight~9 active@1)false@1)))
+    (of@,l
+     (ranges 10@3)
+     (stmts@2,5
+      (asgn@9 handsOff~9
+       (call@D anybodySaid~B "keeps"@1))
+      (asgn@7,1 lastAt~7
+       (call@H
+        (dot~9 player~6 position@1)))
+      (asgn@9,2 fellFrom~9
+       (dot@8 lastAt~6 y@1))
+      (if@,3
+       (elif@3
+        (prefix not handsOff@4)
+        (stmts~1,3
+         (var@4 i . . . 0@4)
+         (while@,1
+          (infix@8 < i~2
+           (dot@8 hotbar~6 len@1))
+          (stmts@2,1
+           (asgn@H
+            (at~C pouch~5
+             (at@7 hotbar~6 i@1))
+            (infix@J \2B
+             (at~C pouch~5
+              (at@7 hotbar~6 i@1))16@2))
+           (cmd@,1 inc i@4))))))))
+    (of@,10
+     (ranges 11@3)
+     (stmts@2,5
+      (asgn@6 bobAt~6
+       (call@H
+        (dot~9 player~6 position@1)))
+      (asgn@B,1 neckHeight~B
+       (call@A pivotYOf~8
+        (at@8
+         (call~2 limbs~5)HeadLimb@1)))
+      (discard@,2
+       (call@G readSkin~8))
+      (call@G,3 buildPlayerModel~G)))
+    (of@,19
+     (ranges 12@3)
+     (stmts@2,1
+      (call@9 buildHand~9)))
+    (of@,1B
+     (ranges 13@3)
+     (stmts@2,1
+      (call@B driveCamera~B)
+      (call@9,1 takeMouse~9)
+      (asgn@8,2 started~8 true@2)
+      (call@8,3 tellView~8)
+      (call@4,4 tell~4 "voxel.handsoff"@1
+       (prefix@J $ handsOff@1))
+      (call@4,5 tell~4 "voxel.blocks"@1
+       (prefix@H $
+        (call@K
+         (dot~B registry~8 blockCount@1))))
+      (call@3,A log~3
+       (infix@U & "\5Bassert\5D voxel.bootframes="~T
+        (prefix@2 $ bootFrames@1)))
+      (if@,B
+       (elif@3 handsOff
+        (stmts~1,1
+         (call@3 say~3 "dig with the left button, build with the right - the bag is next door"@1)))
+       (else@,2
+        (stmts@2,1
+         (call@3 say~3 "dig with the left button, build with the right, 1-9 to pick"@1))))))
+    (else@,1R
+     (stmts@2,1
+      (discard .))))
+   (cmd@,1T inc bootStage@4)
+   (infix@A,1U > bootStage~A BootStages@2)))
+ (comment@,it)
+ (proc@,jU paceBegin@5 . . .
+  (params@E
+   (param@1 frameMs . . int@9 .)). . .
+  (stmts@2,1
+   (cmd inc bootFrames@4)
+   (if@,1
+    (elif@3
+     (infix@8 > frameMs~8 BootSlowMs@2)
+     (stmts~1,1
+      (asgn@D bootPerFrame~D 1@2)))
+    (elif@5,2
+     (infix@b and
+      (infix~P and
+       (infix~4 > frameMs~8 0@2)
+       (infix@C < frameMs~8 BootFastMs@2))
+      (infix@H < bootPerFrame~D BootMaxStages@2))
+     (stmts~3,1
+      (cmd inc bootPerFrame@4))))
+   (let@4,5 over . . .
+    (infix@I div bootFrames~B BootPatience@4))
+   (if@,6
+    (elif@3
+     (infix@5 >= over~5 2@3)
+     (stmts~1,1
+      (asgn@D bootPerFrame~D
+       (infix@D \2B BootStages~B 1@2))))
+    (elif@5,2
+     (infix@A and
+      (infix~5 == over~5 1@3)
+      (infix@H < bootPerFrame~D BootImpatientStages@2))
+     (stmts~3,1
+      (asgn@D bootPerFrame~D BootImpatientStages@2))))))
+ (comment@,jg)
+ (proc@,jm paintBuilding@5 . . .
+  (params@I). . .
+  (stmts@2,1
+   (let@4 area . . .
+    (call@D screen~6))
+   (call@7,1 writeIn~7 "Building the world"@1
+    (call@R rect~4 0.0@1
+     (infix@O \2D
+      (infix~6 *
+       (dot~8 area~4 height@1)0.5@2)16.0@2)
+     (dot~S,1 area~4 width@1)32.0~K,1)20.0@E,1 AlignCentre@K,1 Crosshair@X,1)))
+ (proc@,jr workBegin@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (comment)
+   (call@9,2 paceBegin~9
+    (call@4 int~3
+     (infix@D *
+      (call~3 deltaTime~9)1000.0@2)))
+   (var@4,3 left . . . bootPerFrame@7)
+   (while@,4
+    (infix@B > left~5 0@2)
+    (stmts@2,1
+     (if
+      (elif@3
+       (call@A beginStage~A)
+       (stmts@E
+        (ret .))))
+     (cmd@,1 dec left@4)))))
+ (const@2,kG DebugKind . . . "aoughwl.debugline"@C)
+ (const@2,kH DebugCatalog . . . "aoughwl.debug.lines"@F)
+ (const@2,kI DebugService . . . "voxel.debug"@F)
+ (const@2,kJ SettingsService . . . "voxel.settings"@I)
+ (comment@,kO)
+ (proc@,kQ blockOf@5 . . .
+  (params@C
+   (param@1 value . . float64@7 .))int@I . .
+  (stmts@2,1
+   (let@4 t . . .
+    (call@7 int~3 value@1))
+   (if@,1
+    (elif@3
+     (infix@C and
+      (infix~6 < value~6 0.0@2)
+      (infix@F !=
+       (call~4 float64~7 t@1)value@3))
+     (stmts@b
+      (ret
+       (infix@9 \2D t~2 1@2)))))t@,2))
+ (comment@,kV)
+ (proc@,kY publishDebug@5 . . .
+  (params@H). . .
+  (stmts@2,7
+   (if
+    (elif@3
+     (infix@Z ==
+      (dot~5
+       (call~E catalogSignature~G DebugCatalog@1)len@1)0@3)
+     (stmts~1,1
+      (call@H defineCatalogKind~H DebugKind@1 "text"@C "One line on a debug screen\3A where it goes and who to ask for it."~F,1)
+      (call@D,2 createCatalog~D DebugCatalog@1 DebugKind@F "What every mod has to say about itself, a line at a time."~B,1))))
+   (call@C,8 addToCatalog~C DebugCatalog@1 "voxel.chunks"@F "order=60 key=debug.chunks service=voxel.debug arg=chunks every=20"~A,1)
+   (call@C,A addToCatalog~C DebugCatalog@1 "voxel.seed"@F "order=70 key=debug.seed service=voxel.debug arg=seed every=120"~A,1)
+   (call@C,C addToCatalog~C DebugCatalog@1 "voxel.block"@F "order=110 key=debug.block service=voxel.debug arg=block"~A,1)
+   (call@C,E addToCatalog~C DebugCatalog@1 "voxel.chunk"@F "order=120 key=debug.chunk service=voxel.debug arg=chunk"~A,1)
+   (call@C,G addToCatalog~C DebugCatalog@1 "voxel.facing"@F "order=130 key=debug.facing service=voxel.debug arg=facing every=2"~A,1)
+   (call@C,I addToCatalog~C DebugCatalog@1 "voxel.target"@F "order=200 key=debug.targeted_block service=voxel.debug arg=target"~A,1)
+   (call@E,K provideService~E DebugService@1)))
+ (comment@,l1)
+ (proc@,l2 publishSettings@5 . . .
+  (params@K). . .
+  (stmts@2,1
+   (call@E provideService~E SettingsService@1)))
+ (proc@,l5 debugAnswer@5 . . .
+  (params@G
+   (param@1 what . . string@6 .))string@G . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not started@4)
+     (stmts@D
+      (ret ""@7))))
+   (if@,1
+    (elif@3
+     (infix@5 == what~5 "chunks"@3)
+     (stmts@I
+      (ret
+       (infix@Q &
+        (infix~8 &
+         (prefix~B $ generated@1)" / "@2)
+        (prefix@2 $
+         (call@H
+          (dot~B world~5 chunkCount@1))))))))
+   (if@,2
+    (elif@3
+     (infix@5 == what~5 "seed"@3)
+     (stmts@G
+      (ret
+       (prefix@7 $ seed@1)))))
+   (if@,3
+    (elif@3
+     (infix@5 == what~5 "facing"@3)
+     (stmts~1,1
+      (ret
+       (infix@W &
+        (infix~8 &
+         (prefix~H $
+          (call@4 int~3
+           (dot@7 player~6 yaw@1)))" / "@2)
+        (prefix@2 $
+         (call@4 int~3
+          (dot@7 player~6 pitch@1))))))))
+   (if@,5
+    (elif@3
+     (infix@5 == what~5 "target"@3)
+     (stmts~1,4
+      (if
+       (elif@3
+        (prefix not
+         (dot@9 aimed~5 found@1))
+        (stmts@H
+         (ret ""@7))))
+      (ret@,1
+       (infix@e,1 &
+        (infix~6 &
+         (infix~B &
+          (infix~6 &
+           (infix~B &
+            (infix@12,~1 &
+             (dot~7
+              (call~g
+               (dot~6 registry~8 defOf@1)
+               (call@E
+                (dot~8 world~5 blockAt@1)
+                (dot@6 aimed~5 x@1)
+                (dot@F aimed~5 y@1)
+                (dot@O aimed~5 z@1)))label@1)" "~16,1)
+            (prefix@2 $
+             (dot@6 aimed~5 x@1)))" "@2)
+          (prefix@2 $
+           (dot@6 aimed~5 y@1)))" "@2)
+        (prefix@2 $
+         (dot@6 aimed~5 z@1)))))))
+   (let@4,C here . . .
+    (call@M
+     (dot~9 player~6 position@1)))
+   (let@4,D bx . . .
+    (call@C blockOf~7
+     (dot@5 here~4 x@1)))
+   (let@4,E by . . .
+    (call@C blockOf~7
+     (dot@5 here~4 y@1)))
+   (let@4,F bz . . .
+    (call@C blockOf~7
+     (dot@5 here~4 z@1)))
+   (if@,G
+    (elif@3
+     (infix@5 == what~5 "block"@3)
+     (stmts~1,1
+      (ret
+       (infix@R,2 &
+        (infix@d,~1 &
+         (infix~6 &
+          (infix~R &
+           (infix~6 &
+            (infix@F,~1 &
+             (infix~7 &
+              (infix~6 &
+               (infix~6 &
+                (infix~6 &
+                 (infix~6 &
+                  (prefix~4 $ bx@1)" "@2)
+                 (prefix@2 $ by@1))" "@2)
+               (prefix@2 $ bz@1))" \5B"@2)
+             (prefix~e,1 $
+              (call@9 floorMod~8 bx@1 ChunkSize@5)))" "@2)
+           (prefix@2 $
+            (call@9 floorMod~8 by@1 ChunkSize@5)))" "@2)
+         (prefix~12,1 $
+          (call@9 floorMod~8 bz@1 ChunkSize@5)))"\5D"@2)))))
+   (if@,K
+    (elif@3
+     (infix@5 == what~5 "chunk"@3)
+     (stmts~1,1
+      (ret
+       (infix@19 &
+        (infix~6 &
+         (infix~R &
+          (infix~6 &
+           (prefix~P $
+            (call@9 floorDiv~8 bx@1 ChunkSize@5))" "@2)
+          (prefix@2 $
+           (call@9 floorDiv~8 by@1 ChunkSize@5)))" "@2)
+        (prefix~17,1 $
+         (call@9 floorDiv~8 bz@1 ChunkSize@5)))))))""@,N))
+ (comment@,lV)
+ (proc@,lc bindAction@5 . . .
+  (params@F
+   (param@1 what . . string@6 .))string@G . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 == what~5 "bind.forward"@3)
+     (stmts@O
+      (ret "forward"@7))))
+   (if@,1
+    (elif@3
+     (infix@5 == what~5 "bind.back"@3)
+     (stmts@L
+      (ret "back"@7))))
+   (if@,2
+    (elif@3
+     (infix@5 == what~5 "bind.left"@3)
+     (stmts@L
+      (ret "left"@7))))
+   (if@,3
+    (elif@3
+     (infix@5 == what~5 "bind.right"@3)
+     (stmts@M
+      (ret "right"@7))))
+   (if@,4
+    (elif@3
+     (infix@5 == what~5 "bind.jump"@3)
+     (stmts@L
+      (ret "jump"@7))))
+   (if@,5
+    (elif@3
+     (infix@5 == what~5 "bind.sprint"@3)
+     (stmts@N
+      (ret "run"@7))))""@,6))
+ (comment@,ll)
+ (proc@,lu settingsAnswer@5 . . .
+  (params@J
+   (param@1 what . . string@D .)
+   (param@7 value . . string@7 .)
+   (param@M given . . bool@7 .))string@a . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 == what~5 "renderDistance"@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (prefix not given@4)
+        (stmts@B
+         (ret "ok"@7))))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@B isWhole~7 value@1))
+        (stmts~1,1
+         (ret "no a render distance is a whole number of chunks"@7))))
+      (asgn@D,3 renderChunks~D
+       (call@C clampWhole~A
+        (call@8 wholeOf~7 value@1)MinRender@H MaxRender@S))
+      (let@4,4 radius . . .
+       (call@L lodRadiusFor~C renderChunks@1))
+      (if@,5
+       (elif@3
+        (infix@7 != radius~7 lodRadius@3)
+        (stmts~1,1
+         (asgn@A lodRadius~A radius@2)
+         (if@,3
+          (elif@3 started
+           (stmts@9
+            (call@9 resizeLod~9)))))))
+      (call@4,A tell~4 "voxel.renderdistance"@1
+       (prefix@P $ renderChunks@1))
+      (ret@,B "ok"@7))))
+   (if@,D
+    (elif@3
+     (infix@5 == what~5 "fov"@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (prefix not given@4)
+        (stmts@B
+         (ret "ok"@7))))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@B isWhole~7 value@1))
+        (stmts~1,1
+         (ret "no a field of view is a whole number of degrees"@7))))
+      (asgn@A,3 fovWanted~A
+       (call@C clampWhole~A
+        (call@8 wholeOf~7 value@1)MinFov@H MaxFov@P))
+      (call@8,4 applyFov~8)
+      (call@4,5 tell~4 "voxel.fov"@1
+       (prefix@E $
+        (call@4 int~3
+         (call@7 fovFor~6 fovWanted@1))))
+      (ret@,6 "ok"@7))))
+   (if@,L
+    (elif@3
+     (infix@5 == what~5 "sensitivity"@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (prefix not given@4)
+        (stmts@B
+         (ret "ok"@7))))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@B isWhole~7 value@1))
+        (stmts~1,1
+         (ret "no a sensitivity is a whole percentage, a hundred for no change"@7))))
+      (asgn@C,3 sensitivity~C
+       (call@C clampWhole~A
+        (call@8 wholeOf~7 value@1)0@H MaxSensitivity@K))
+      (call@G,4 applySensitivity~G)
+      (call@4,5 tell~4 "voxel.sensitivity"@1
+       (prefix@M $ sensitivity@1))
+      (ret@,6 "ok"@7))))
+   (if@,T
+    (elif@3
+     (infix@5 == what~5 "invertMouse"@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (prefix not given@4)
+        (stmts@B
+         (ret "ok"@7))))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@A isFlag~6 value@1))
+        (stmts@J
+         (ret "no invertMouse is 0 or 1"@7))))
+      (asgn@C,2 invertMouse~C
+       (infix@8 == value~6 "1"@3))
+      (call@4,3 tell~4 "voxel.invertmouse"@1
+       (call@U flagText~8 invertMouse@1))
+      (ret@,4 "ok"@7))))
+   (if@,Z
+    (elif@3
+     (infix@5 == what~5 "viewBobbing"@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (prefix not given@4)
+        (stmts@B
+         (ret "ok"@7))))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@A isFlag~6 value@1))
+        (stmts@J
+         (ret "no viewBobbing is 0 or 1"@7))))
+      (asgn@C,2 viewBobbing~C
+       (infix@8 == value~6 "1"@3))
+      (call@4,3 tell~4 "voxel.viewbobbing"@1
+       (call@U flagText~8 viewBobbing@1))
+      (ret@,4 "ok"@7))))
+   (if@,f
+    (elif@3
+     (infix@5 == what~5 "autoJump"@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (prefix not given@4)
+        (stmts@B
+         (ret "ok"@7))))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@A isFlag~6 value@1))
+        (stmts@J
+         (ret "no autoJump is 0 or 1"@7))))
+      (asgn@9,2 autoJump~9
+       (infix@8 == value~6 "1"@3))
+      (call@4,3 tell~4 "voxel.autojump"@1
+       (call@R flagText~8 autoJump@1))
+      (ret@,4 "ok"@7))))
+   (if@,l
+    (elif@3
+     (infix@5 == what~5 "brightness"@3)
+     (stmts~1,3
+      (ret
+       (infix@17,1 &
+        (infix@5,~1 & "no RenderSettings.ambientLight is a static class and the escape "~15 "hatch binds instance members only, so no host call reaches it - "~1A,1)"docs/SKY.md specifies jester_sky_ambient, which would"~15,1)))))
+   (if@,r
+    (elif@3
+     (infix@5 == what~5 "difficulty"@3)
+     (stmts~1,1
+      (ret
+       (infix@1B & "no nothing in this world reads it\3A it spawns no mobs, deals no "~14 "damage and keeps no hunger, and the beings it draws are the server\27s"~19,1)))))
+   (let@4,u action . . .
+    (call@J bindAction~A what@1))
+   (if@,v
+    (elif@3
+     (infix@B >
+      (dot~5 action~6 len@1)0@2)
+     (stmts~1,1
+      (if
+       (elif@3
+        (prefix not given@4)
+        (stmts@B
+         (ret "ok"@7))))
+      (let@4,1 bound . . .
+       (call@B key~3 value@1))
+      (if@,2
+       (elif@3
+        (infix@6 == bound~6 NoKey@3)
+        (stmts~1,1
+         (ret
+          (infix@L &
+           (infix~8 & "no "~6 value@2)" is not a key the input system knows"@2)))))
+      (let@4,6 spelled . . .
+       (call@E name~4 bound@1))
+      (if@,7
+       (elif@3
+        (infix@5 == what~5 "bind.forward"@3)
+        (stmts@O
+         (asgn@C bindForward~C spelled@2))))
+      (if@,8
+       (elif@3
+        (infix@5 == what~5 "bind.back"@3)
+        (stmts@L
+         (asgn@9 bindBack~9 spelled@2))))
+      (if@,9
+       (elif@3
+        (infix@5 == what~5 "bind.left"@3)
+        (stmts@L
+         (asgn@9 bindLeft~9 spelled@2))))
+      (if@,A
+       (elif@3
+        (infix@5 == what~5 "bind.right"@3)
+        (stmts@M
+         (asgn@A bindRight~A spelled@2))))
+      (if@,B
+       (elif@3
+        (infix@5 == what~5 "bind.jump"@3)
+        (stmts@L
+         (asgn@9 bindJump~9 spelled@2))))
+      (if@,C
+       (elif@3
+        (infix@5 == what~5 "bind.sprint"@3)
+        (stmts@N
+         (asgn@B bindSprint~B spelled@2))))
+      (if@,F
+       (elif@3 started
+        (stmts@9
+         (call@E
+          (dot~8 player~6 bindKey@1)action@1 spelled@9))))
+      (call@4,G tell~4
+       (infix@A & "voxel."~9 what@2)spelled@I)
+      (ret@,H "ok"@7))))"no unknown setting"@,1E))
+ (comment@,nB)
+ (proc@,nE settingsReply@5 . . .
+  (params@I
+   (param@1 asked . . string@7 .))string@H . .
+  (stmts@2,1
+   (var@4 reply . . . ""@8)
+   (var@4,1 one . . . ""@6)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 <= i~2
+     (dot@8 asked~5 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@F or
+        (infix~D == i~2
+         (dot@8 asked~5 len@1))
+        (infix@C ==
+         (at~4 asked~5 i@1)'\0A'@3))
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@8 >
+           (dot~5 one~3 len@1)0@2)
+          (stmts~1,1
+           (var@4 what . . . ""@7)
+           (var@4,1 value . . . ""@8)
+           (var@4,2 given . . . false@8)
+           (var@4,3 j . . . 0@4)
+           (while@,4
+            (infix@8 < j~2
+             (dot@5 one~3 len@1))
+            (stmts@2,1
+             (if
+              (elif@3
+               (infix@A and
+                (prefix~A not given@4)
+                (infix@B ==
+                 (at~4 one~3 j@1)' '@3))
+               (stmts@T
+                (asgn@6 given~6 true@2)))
+              (elif@5,1 given
+               (stmts@7
+                (cmd@5
+                 (dot value~5 add@1)
+                 (at@8 one~3 j@1))))
+              (else@,2
+               (stmts@6
+                (cmd@4
+                 (dot what~4 add@1)
+                 (at@8 one~3 j@1)))))
+             (cmd@,3 inc j@4)))
+           (asgn@6,9 reply~6
+            (infix@x &
+             (infix~b &
+              (infix~7 &
+               (infix~7 & reply~6 what@2)"\09"@2)
+              (call@G settingsAnswer~E what@1 value@7 given@E))"\0A"@2)))))
+        (asgn@4,B one~4 ""@2)))
+      (elif@5,D
+       (infix@9 !=
+        (at~4 asked~5 i@1)'\0D'@3)
+       (stmts~3,1
+        (cmd@3
+         (dot one~3 add@1)
+         (at@A asked~5 i@1)))))
+     (cmd@,F inc i@4)))reply@,K))
+ (proc@,nb serveRequest@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (let@4 asking . . .
+    (call@K serviceName~B))
+   (if@,1
+    (elif@3
+     (infix@7 == asking~7 SettingsService@3)
+     (stmts~1,1
+      (call@D answerService~D
+       (call@E settingsReply~D
+        (call@G serviceArgument~F)))
+      (ret@,1 .))))
+   (if@,4
+    (elif@3
+     (infix@7 != asking~7 DebugService@3)
+     (stmts@O
+      (ret .))))
+   (var@4,5 reply . . . ""@8)
+   (var@4,6 one . . . ""@6)
+   (let@4,7 asked . . .
+    (call@N serviceArgument~F))
+   (var@4,8 i . . . 0@4)
+   (while@,9
+    (infix@8 <= i~2
+     (dot@8 asked~5 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@F or
+        (infix~D == i~2
+         (dot@8 asked~5 len@1))
+        (infix@C ==
+         (at~4 asked~5 i@1)'\0A'@3))
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@8 >
+           (dot~5 one~3 len@1)0@2)
+          (stmts@D
+           (asgn@6 reply~6
+            (infix@e &
+             (infix~J &
+              (infix~7 &
+               (infix~6 & reply~6 one@2)"\09"@2)
+              (call@D debugAnswer~B one@1))"\0A"@2)))))
+        (asgn@4,1 one~4 ""@2)))
+      (else@,3
+       (stmts@2,1
+        (cmd@3
+         (dot one~3 add@1)
+         (at@A asked~5 i@1)))))
+     (cmd@,5 inc i@4)))
+   (call@D,G answerService~D reply@1)))
+ (proc@,nu start@5 . . .
+  (params@A). . .
+  (stmts@2,1
+   (call@D publishBlocks~D)
+   (call@C,5 publishSkins~C)
+   (discard@,A
+    (call@J itemCatalog~B Items@1 "Blocks of the voxel world, as items"@8))
+   (call@C,B publishItems~C Items@1)
+   (call@D,C provideScheme~D Scheme@1)
+   (discard@,D
+    (call@6,1
+     (dot~4
+      (call@D,~1 catalog~7 Chunks@1 "aoughwl.part"@9 "One chunk of the voxel world"@P)put@1)"chunk"@1
+     (infix@H & Scheme~7 "\3A//chunk"@2)))
+   (discard@,F
+    (call@6,1
+     (dot~4
+      (call@D,~1 catalog~7 Drops@1 "aoughwl.part"@8 "What a broken block leaves behind"@O)put@1)"nugget"@1 "builtin\3A//cube"@B))
+   (discard@,J
+    (call@g,1
+     (dot~4
+      (call~N,~1 catalog~7 Cracks@1 "aoughwl.part"@9 "The crack on a block being broken"~D,1)put@1)"crack"@1
+     (infix@H & Scheme~7 "\3A//crack"@2)))
+   (discard@,L
+    (call@e,1
+     (dot~4
+      (call~L,~1 catalog~7 Chips@1 "aoughwl.part"@8 "The chips a broken block throws"~D,1)put@1)"chips"@1
+     (infix@H & Scheme~7 "\3A//chips"@2)))
+   (discard@,Q
+    (call@6,2
+     (dot~4
+      (call@4,~1
+       (dot~4
+        (call@D,~1 catalog~7 Bodies@1 "aoughwl.part"@9 "The player, as boxes"@P)put@1)"body"@1
+       (infix@G & Scheme~7 "\3A//player"@2))put@1)"head"@1
+     (infix@G & Scheme~7 "\3A//player"@2)))
+   (call@H,W defineCatalogKind~H SkinKind@1 "text"@B
+    (infix@v,1 & "The skin an entity wears\3A a data\3A URI, or a file inside the mod that "~1A "contributed the row. 64x64, laid out the way a Minecraft skin is."~1A,1))
+   (discard@,Z
+    (call@F catalog~7 Skins@1 SkinKind@8 "What the player wears"@I))
+   (call@9,d startHerd~9 Scheme@1 SkinKind@9)
+   (asgn@5,e seed~5
+    (call@5 int~3
+     (call@9 remember~8 "seed"@1
+      (suf@9 20260910 "i64"))))
+   (asgn@5,l view~5 Inside@2)
+   (call@8,p handOver~8 "owns"@1 "player"@9)
+   (call@C,r publishDebug~C)
+   (call@F,s publishSettings~F)
+   (call@3,t log~3
+    (infix@17 &
+     (infix~J &
+      (infix~9 &
+       (infix~6 &
+        (infix~9 &
+         (infix~6 &
+          (infix~9 & "voxel\3A "~A
+           (prefix@2 $ SpanX@1))"x"@2)
+         (prefix@2 $ SpanY@1))"x"@2)
+       (prefix@2 $ SpanZ@1))" chunks, seed "@2)
+     (prefix@2 $ seed@1)))))
+ (proc@,oq update@5 . . .
+  (params@B). . .
+  (stmts@2,1
+   (call@C readHandoffs~C)
+   (if@,1
+    (elif@3
+     (infix@O and
+      (infix~C and worldInMenu~C started@4)
+      (infix@L ==
+       (dot~5 serverWanted~C len@1)0@3))
+     (stmts@p
+      (ret .))))
+   (if@,5
+    (elif@3
+     (prefix not started@4)
+     (stmts~1,4
+      (call@C readHandoffs~C)
+      (if@,6
+       (elif@3
+        (infix@F and
+         (infix~5 == bootStage~A 0@3)
+         (infix@L >
+          (dot~5 serverWanted~C len@1)0@2))
+        (stmts~1,1
+         (call@A joinServer~A serverWanted@1)
+         (asgn@D,1 serverWanted~D ""@2))))
+      (call@9,9 workBegin~9)
+      (if@,I
+       (elif@3
+        (infix@M or
+         (infix~C != bootStage~A bootSaid@3)
+         (infix@C >= blockRow~9
+          (infix@B \2B rowSaid~8 480@2)))
+        (stmts~1,1
+         (asgn@9 bootSaid~9 bootStage@2)
+         (asgn@8,1 rowSaid~8 blockRow@2)
+         (call@3,2 log~3
+          (infix@u,1 &
+           (infix~C &
+            (infix~D &
+             (infix~9 &
+              (infix~C &
+               (infix@W,~1 &
+                (infix~D & "\5Bassert\5D voxel.bootstage="~S
+                 (prefix@2 $ bootStage@1))" rows="~f,1)
+               (prefix@2 $ blockRow@1))" of="@2)
+             (prefix@2 $ blockRows@1))" skins="@2)
+           (prefix@2 $ skinRow@1))))))
+      (call@D,S paintBuilding~D)
+      (ret@,T .))))
+   (if@,d
+    (elif@3
+     (prefix not
+      (call@E readBlocks~A BootRowsPerFrame@1))
+     (stmts@Y
+      (ret .))))
+   (call@C,e readHandoffs~C)
+   (if@,f
+    (elif@3
+     (infix@H >
+      (dot~5 serverWanted~C len@1)0@2)
+     (stmts~1,1
+      (call@A joinServer~A serverWanted@1)
+      (asgn@D,1 serverWanted~D ""@2))))
+   (if@,l
+    (elif@3
+     (call@8 readSkin~8)
+     (stmts@C
+      (call@G buildPlayerModel~G))))
+   (if@,m
+    (elif@3 seedWanted
+     (stmts~1,1
+      (asgn@B seedWanted~B false@2)
+      (if@,1
+       (elif@3
+        (infix@B != wantedSeed~B seed@3)
+        (stmts~1,1
+         (asgn@5 seed~5 wantedSeed@2)
+         (call@4,1 save~4 "seed"@1
+          (call@E int64~5 seed@1))
+         (call@3,2 log~3
+          (infix@V & "voxel\3A the menu chose seed "~U
+           (prefix@2 $ seed@1)))
+         (call@9,3 makeWorld~9 seed@1)
+         (ret@,4 .)))))))
+   (let@4,u seconds . . .
+    (call@J deltaTime~9))
+   (asgn@B,v sincePlace~B
+    (infix@D \2B sincePlace~B seconds@2))
+   (asgn@B,w sinceBreak~B
+    (infix@D \2B sinceBreak~B seconds@2))
+   (asgn@B,x sinceSwing~B
+    (infix@D \2B sinceSwing~B seconds@2))
+   (call@9,11 stepMotes~9 chips@1 seconds@8)
+   (if@,13
+    (elif@3
+     (call@7 pressed~7 Tab@1)
+     (stmts~1,1
+      (if
+       (elif@3 captured
+        (stmts@A
+         (call@9 dropMouse~9)))
+       (else@P
+        (stmts@6
+         (call@9 takeMouse~9)))))))
+   (if@,15
+    (elif@3
+     (call@7 pressed~7 G@1)
+     (stmts@C
+      (asgn@C showNumbers~C
+       (prefix@2 not showNumbers@4)))))
+   (if@,19
+    (elif@3
+     (call@7 pressed~7 F5@1)
+     (stmts~1,1
+      (asgn@5 view~5
+       (call@H nextPerspective~F view@1)))))
+   (if@,1B
+    (elif@3
+     (call@7 pressed~7 N@1)
+     (stmts~1,1
+      (call@4 save~4 "seed"@1
+       (call@E int64~5
+        (infix@6 \2B seed~5 1@2)))
+      (call@9,1 makeWorld~9
+       (infix@6 \2B seed~5 1@2))
+      (call@F,2
+       (dot~9 player~6 teleport@1)
+       (call@5 vec3~4
+        (infix@Y,1 \2B
+         (call~j float64~7
+          (infix@H \2B
+           (call~3
+            (dot~8 world~5 worldX0@1))
+           (infix@L div
+            (call~3
+             (dot~B world~5 blocksWide@1))2@4)))0.5@2)
+        (infix@A,2 \2D
+         (call~L float64~7
+          (call@H
+           (dot~B world~5 blocksHigh@1)))2.0@2)
+        (infix@Y,3 \2B
+         (call~j float64~7
+          (infix@H \2B
+           (call~3
+            (dot~8 world~5 worldZ0@1))
+           (infix@L div
+            (call~3
+             (dot~B world~5 blocksDeep@1))2@4)))0.5@2)))
+      (call@3,6 say~3
+       (infix@M & "a new world, seed "~L
+        (prefix@2 $ seed@1)))
+      (ret@,7 .))))
+   (let@4,1N turning . . .
+    (call@E mine~4))
+   (if@,1O
+    (elif@3
+     (infix@8 and turning~8 invertMouse@4)
+     (stmts@P
+      (call@C lookInverted~C))))
+   (call@B,1P
+    (dot~5 player~6 step@1)
+    (infix@9 and turning~8
+     (prefix@4 not invertMouse@4)))
+   (call@D,1Q autoJumpLedge~D)
+   (call@B,1U driveCamera~B)
+   (call@A,1V showPlayer~A seconds@1)
+   (call@8,1W tellView~8)
+   (call@B,1Z streamWorld~B)
+   (if@,1d
+    (elif@3 serverMode
+     (stmts~1,1
+      (call@B dressBlocks~B)
+      (discard@,1
+       (call@C step~4 client@1 world@9 registry@G McBudget@Q))
+      (call@7,2 paceFor~7 client@1 McBudget@9 seconds@J)
+      (if@,B
+       (elif@3
+        (infix@I and
+         (call~9 placedYet~9 client@1)
+         (par~I,1
+          (infix@I or
+           (prefix~H not serverPlaced@4)
+           (infix@U !=
+            (dot~G
+             (dot~5 client~6 play@1)lastTeleportId@1)placedTeleport@3))))
+        (stmts~1,2
+         (let@4 first . . .
+          (prefix@8 not serverPlaced@4))
+         (asgn@D,1 serverPlaced~D true@2)
+         (asgn@F,2 placedTeleport~F
+          (dot@D
+           (dot~5 client~6 play@1)lastTeleportId@1))
+         (call@F,3
+          (dot~9 player~6 teleport@1)
+          (call@5 vec3~4
+           (call@7 placeX~6 client@1)
+           (call@N placeY~6 client@1)
+           (call@d placeZ~6 client@1)))
+         (let@4,4 px . . .
+          (call@D floorInt~8
+           (call@7 placeX~6 client@1)))
+         (let@4,5 pz . . .
+          (call@D floorInt~8
+           (call@7 placeZ~6 client@1)))
+         (if@,C
+          (elif@3
+           (infix@6 or first~6
+            (prefix@3 not
+             (call@F holdsColumn~B world@1 px@8 pz@C)))
+           (stmts~1,1
+            (let@4 retired . . .
+             (call@N recentreWorld~D world@1
+              (call~C,1 centredOrigin~D
+               (dot@6 world~5 spanX@1)px@E)
+              (call@K,1 centredOrigin~D
+               (dot@6 world~5 spanZ@1)pz@E)))
+            (var@4,2 i . . . 0@4)
+            (while@,3
+             (infix@8 < i~2
+              (dot@9 retired~7 len@1))
+             (stmts@2,1
+              (call@A dropMeshes~A
+               (at@8 retired~7 i@1)-1@D)
+              (cmd@,1 inc i@4)))
+            (asgn@9,6 nearDone~9 false@2)
+            (call@3,7 log~3
+             (infix@N,2 &
+              (infix~6 &
+               (infix@n,~1 &
+                (infix~O &
+                 (infix~I &
+                  (infix~7 &
+                   (infix@f,~1 &
+                    (infix~7 &
+                     (infix~I & "\5Bvoxel\5D the server put us at "~W
+                      (prefix@2 $
+                       (call@7 placeX~6 client@1)))", "@2)
+                    (prefix~v,1 $
+                     (call@7 placeY~6 client@1)))", "@2)
+                  (prefix@2 $
+                   (call@7 placeZ~6 client@1)))"; the window is at "@2)
+                (prefix~13,1 $
+                 (dot@6 world~5 originCx@1)))","@2)
+              (prefix@2 $
+               (dot@6 world~5 originCz@1))))))))))
+      (call@C,e pushMovement~C seconds@1)
+      (call@A,f tellVitals~A)
+      (call@A,g tellServer~A))))
+   (call@A,2L workChunks~A FaceBudget@1)
+   (if@,2S
+    (elif@3
+     (infix@9 and nearDone~9
+      (prefix@4 not serverMode@4))
+     (stmts@T
+      (call@7 workLod~7 LodSamples@1))))
+   (call@7,2T takeAim~7)
+   (call@D,2U showHighlight~D)
+   (call@7,2V tellAim~7)
+   (call@B,2W gatherDrops~B seconds@1)
+   (call@A,2X reportBody~A)
+   (if@,2c
+    (elif@3 serverMode
+     (stmts~1,5
+      (var@4 cell . . . 0@7)
+      (while@,1
+       (infix@B < cell~5 HotbarSlots@2)
+       (stmts@2,1
+        (if
+         (elif@3
+          (call@7 pressed~7
+           (call@4 key~3
+            (infix@9 & "Digit"~8
+             (prefix@2 $
+              (par@1
+               (infix@6 \2B cell~5 1@2))))))
+          (stmts~1,1
+           (call@8 holdSlot~8 client@1 cell@9)
+           (asgn@D,1 serverHotbar~D cell@2))))
+        (cmd@,3 inc cell@4)))))
+    (elif@5,B
+     (prefix not handsOff@4)
+     (stmts~3,1
+      (var@4 slot . . . 0@7)
+      (while@,1
+       (infix@B < slot~5
+        (dot@8 hotbar~6 len@1))
+       (stmts@2,1
+        (if
+         (elif@3
+          (call@7 pressed~7
+           (call@4 key~3
+            (infix@9 & "Digit"~8
+             (prefix@2 $
+              (par@1
+               (infix@6 \2B slot~5 1@2))))))
+          (stmts@b
+           (asgn@8 holding~8 slot@2))))
+        (cmd@,1 inc slot@4))))))
+   (if@,2t
+    (elif@3
+     (call@4 mine~4)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@H and
+         (call~D held~4 LeftButton@1)
+         (call@H mayBreakAgain~D sinceBreak@1))
+        (stmts@m
+         (call@3 dig~3 seconds@1)))
+       (else@,1
+        (stmts@6
+         (call@B stopDigging~B))))
+      (if@,2
+       (elif@3
+        (infix@I and
+         (call~E held~4 RightButton@1)
+         (infix@F > sincePlace~B PlaceDelay@2))
+        (stmts@l
+         (call@8 putBlock~8))))))
+    (else@,4
+     (stmts@2,1
+      (call@B stopDigging~B))))
+   (call@9,33 showCrack~9)
+   (call@9,34 showChips~9)
+   (if@,3D
+    (elif@3 serverMode
+     (stmts@C
+      (call@8 feedHerd~8
+       (call@9 herdFeed~8 client@1
+        (call@H herdTick~8))))))
+   (call@8,3E stepHerd~8 seconds@1
+    (call@M
+     (dot~9 eye~3 position@1))
+    (call@i
+     (dot~5
+      (call~2
+       (dot~8 eye~3 forward@1))norm@1)))
+   (call@5,3N paint~5)
+   (call@A,3Q drawPlates~A)))
+ (proc@,sM drawCrosshair@5 . . .
+  (params@I
+   (param@1 middle . . Vec2@8 .)). . .
+  (stmts@2,1
+   (call@4 fill~4
+    (call@5 rect~4
+     (infix@A \2D
+      (dot~3 middle~6 x@1)9.0@2)
+     (infix@Q \2D
+      (dot~3 middle~6 y@1)1.0@2)18.0@X 2.0@d)Crosshair@o)
+   (call@4,1 fill~4
+    (call@5 rect~4
+     (infix@A \2D
+      (dot~3 middle~6 x@1)1.0@2)
+     (infix@Q \2D
+      (dot~3 middle~6 y@1)9.0@2)2.0@X 18.0@c)Crosshair@o)
+   (if@,2
+    (elif@3
+     (infix@8 and digging~8
+      (infix@E > digNeeded~A 0.0@2))
+     (stmts~1,1
+      (var@4 part . . .
+       (infix@J / digProgress~C digNeeded@2))
+      (if@,1
+       (elif@3
+        (infix@5 > part~5 1.0@2)
+        (stmts@C
+         (asgn@5 part~5 1.0@2))))
+      (let@4,2 bar . . .
+       (call@A rect~4
+        (infix@A \2D
+         (dot~3 middle~6 x@1)30.0@2)
+        (infix@R \2B
+         (dot~3 middle~6 y@1)18.0@2)60.0@Z 6.0@f))
+      (call@4,3 fill~4 bar@1 Ink@6)
+      (call@4,4 fill~4
+       (call@5 rect~4
+        (dot@4 bar~3 x@1)
+        (dot@B bar~3 y@1)
+        (infix@P *
+         (dot~7 bar~3 width@1)part@2)
+        (dot@a bar~3 height@1))Warm@p))))))
+ (proc@,sW drawHotbar@5 . . .
+  (params@F
+   (param@1 area . . Rect@6 .)). . .
+  (stmts@2,1
+   (let@4 slots . . .
+    (dot@E hotbar~6 len@1))
+   (if@,1
+    (elif@3
+     (infix@6 == slots~6 0@3)
+     (stmts@C
+      (ret .))))
+   (let@4,2 wide . . . 54.0@7)
+   (let@4,3 span . . .
+    (infix@C * wide~5
+     (call@9 float64~7 slots@1)))
+   (var@4,4 x . . .
+    (infix@B \2B
+     (dot~3 area~4 x@1)
+     (infix@M *
+      (par~K
+       (infix@C \2D
+        (dot~7 area~4 width@1)span@2))0.5@2)))
+   (let@4,5 y . . .
+    (infix@P \2D
+     (infix~E \2B
+      (dot~3 area~4 y@1)
+      (dot@6 area~4 height@1))74.0@2))
+   (var@4,6 i . . . 0@4)
+   (while@,7
+    (infix@8 < i~2 slots@2)
+    (stmts@2,1
+     (let@4 cell . . .
+      (call@B rect~4 x@1 y@4
+       (infix@C \2D wide~5 4.0@2)50.0@J))
+     (let@4,1 d . . .
+      (call@I
+       (dot~6 registry~8 defOf@1)
+       (at@7 hotbar~6 i@1)))
+     (call@4,2 fill~4 cell@1 Ink@7)
+     (call@4,3 fill~4
+      (call@5 rect~4
+       (infix@8 \2B
+        (dot~3 cell~4 x@1)6.0@2)
+       (infix@M \2B
+        (dot~3 cell~4 y@1)6.0@2)
+       (infix@e \2D
+        (dot~7 cell~4 width@1)12.0@2)26.0@m)
+      (oconstr@3,1 Color~5
+       (kv@2 r~1
+        (dot@3 d~1 red@1))
+       (kv@C g~1
+        (dot@3 d~1 green@1))
+       (kv@O b~1
+        (dot@3 d~1 blue@1))
+       (kv@Z a~1 1.0@2)))
+     (call@7,5 writeIn~7
+      (prefix@1 $
+       (at@6 pouch~5
+        (at@7 hotbar~6 i@1)))
+      (call@O rect~4
+       (dot@5 cell~4 x@1)
+       (infix@G \2B
+        (dot~3 cell~4 y@1)30.0@2)
+       (dot@S cell~4 width@1)18.0@a)13.0~5,1 AlignCentre@1,1 Paper@E,1)
+     (if@,7
+      (elif@3
+       (infix@2 == i~2 holding@3)
+       (stmts@E
+        (call@7 outline~7 cell@1 Accent@7 2.0@F))))
+     (asgn@2,8 x~2
+      (infix@4 \2B x~2 wide@2))
+     (cmd@,9 inc i@4)))
+   (call@7,I writeIn~7
+    (dot@W
+     (call~H
+      (dot~6 registry~8 defOf@1)
+      (at@7 hotbar~6 holding@1))label@1)
+    (call~1,1 rect~4
+     (dot@5 area~4 x@1)
+     (infix@B \2D y~2 24.0@2)
+     (dot@N area~4 width@1)20.0@V)15.0@b,1 AlignCentre@h,1 Paper@u,1)))
+ (comment@,ss)
+ (proc@,sw drawServerHotbar@5 . . .
+  (params@L
+   (param@1 area . . Rect@6 .)). . .
+  (stmts@2,1
+   (let@4 wide . . . 74.0@7)
+   (let@4,1 span . . .
+    (infix@C * wide~5
+     (call@9 float64~7 HotbarSlots@1)))
+   (var@4,2 x . . .
+    (infix@B \2B
+     (dot~3 area~4 x@1)
+     (infix@M *
+      (par~K
+       (infix@C \2D
+        (dot~7 area~4 width@1)span@2))0.5@2)))
+   (let@4,3 y . . .
+    (infix@P \2D
+     (infix~E \2B
+      (dot~3 area~4 y@1)
+      (dot@6 area~4 height@1))74.0@2))
+   (var@4,4 cell . . . 0@7)
+   (while@,5
+    (infix@B < cell~5 HotbarSlots@2)
+    (stmts@2,1
+     (let@4 box . . .
+      (call@A rect~4 x@1 y@4
+       (infix@C \2D wide~5 4.0@2)50.0@J))
+     (call@4,1 fill~4 box@1 Ink@6)
+     (let@4,2 name . . .
+      (call@H hotbarName~A client@1 cell@9))
+     (if@,3
+      (elif@3
+       (infix@9 >
+        (dot~5 name~4 len@1)0@2)
+       (stmts~1,1
+        (call@7 writeIn~7 name@1
+         (call@B rect~4
+          (infix@7 \2B
+           (dot~3 box~3 x@1)2.0@2)
+          (infix@K \2B
+           (dot~3 box~3 y@1)4.0@2)
+          (infix@b \2D
+           (dot~7 box~3 width@1)4.0@2)26.0@i)10.0~5,1 AlignCentre@1,1 Paper@E,1)
+        (call@7,2 writeIn~7
+         (prefix@1 $
+          (call@C hotbarCount~B client@1 cell@9))
+         (call~1,1 rect~4
+          (dot@4 box~3 x@1)
+          (infix@E \2B
+           (dot~3 box~3 y@1)30.0@2)
+          (dot@P box~3 width@1)18.0@X)13.0@d,1 AlignCentre@j,1 Quiet@w,1))))
+     (if@,8
+      (elif@3
+       (infix@5 == cell~5
+        (dot@9 client~6 heldSlot@1))
+       (stmts@P
+        (call@7 outline~7 box@1 Accent@6 2.0@E))))
+     (asgn@2,9 x~2
+      (infix@4 \2B x~2 wide@2))
+     (cmd@,A inc cell@4)))
+   (call@7,H writeIn~7
+    (infix@C,1 &
+     (infix@r,~1 &
+      (infix~M &
+       (infix~F &
+        (prefix~R $
+         (call@4 int~3
+          (call@D serverHealth~C client@1)))" health   "@2)
+       (prefix@2 $
+        (call@B serverFood~A client@1)))" food   level "~18,1)
+     (prefix@2 $
+      (call@H serverExperience~G client@1)))
+    (call~1,2 rect~4
+     (dot@5 area~4 x@1)
+     (infix@B \2D y~2 24.0@2)
+     (dot@N area~4 width@1)20.0@V)15.0@b,2 AlignCentre@h,2 Paper@u,2)))
+ (proc@,tI paint@5 . . .
+  (params@A). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not started@4)
+     (stmts@D
+      (ret .))))
+   (let@4,1 area . . .
+    (call@D screen~6))
+   (call@D,2 drawCrosshair~D
+    (call@7 centre~6 area@1))
+   (if@,5
+    (elif@3 serverMode
+     (stmts@C
+      (call@G drawServerHotbar~G area@1)))
+    (elif@5,1
+     (prefix not handsOff@4)
+     (stmts@E
+      (call@A drawHotbar~A area@1))))
+   (var@4,8 under . . . "nothing in reach"@8)
+   (if@,9
+    (elif@3
+     (dot@5 aimed~5 found@1)
+     (stmts~1,1
+      (asgn@6 under~6
+       (infix@c,1 &
+        (infix~6 &
+         (infix~B &
+          (infix~6 &
+           (infix~B &
+            (infix@z,~1 &
+             (dot~7
+              (call~g
+               (dot~6 registry~8 defOf@1)
+               (call@E
+                (dot~8 world~5 blockAt@1)
+                (dot@6 aimed~5 x@1)
+                (dot@F aimed~5 y@1)
+                (dot@O aimed~5 z@1)))label@1)"  at "~17,1)
+            (prefix@2 $
+             (dot@6 aimed~5 x@1)))","@2)
+          (prefix@2 $
+           (dot@6 aimed~5 y@1)))","@2)
+        (prefix@2 $
+         (dot@6 aimed~5 z@1)))))))
+   (let@4,C strip . . .
+    (call@C rect~4 0.0@1
+     (infix@I \2D
+      (dot~8 area~4 height@1)24.0@2)
+     (dot@U area~4 width@1)24.0@c))
+   (call@4,D fill~4 strip@1 Ink@8)
+   (call@7,E writeIn~7 under@1
+    (call@C rect~4 12.0@1
+     (dot@C strip~5 y@1)
+     (infix@R *
+      (dot~7 area~4 width@1)0.5@2)24.0@Y)13.0@r AlignLeft~5,1 Quiet@6,1)
+   (call@7,G writeIn~7 note@1
+    (call@B rect~4
+     (infix@C *
+      (dot~7 area~4 width@1)0.5@2)
+     (dot@O strip~5 y@1)
+     (infix@j \2D
+      (infix~6 *
+       (dot~7 area~4 width@1)0.5@2)12.0@2)24.0@r)13.0~5,1 AlignRight@1,1 Quiet@D,1)
+   (if@,J
+    (elif@3
+     (prefix not showNumbers@4)
+     (stmts@H
+      (ret .))))
+   (call@9,K openPanel~9
+    (call@5 rect~4 16.0@1 16.0@7 330.0@D 232.0@K))
+   (call@7,L heading~7 "Voxel"@1)
+   (call@5,M label~5
+    (infix@9 & "seed "~8
+     (prefix@2 $ seed@1)))
+   (call@5,N label~5
+    (infix@h &
+     (infix~M &
+      (infix~9 &
+       (prefix~B $ generated@1)" of "@2)
+      (prefix@2 $
+       (call@H
+        (dot~B world~5 chunkCount@1))))" chunks generated"@2))
+   (call@5,O label~5
+    (infix@j &
+     (infix~H &
+      (infix~K &
+       (prefix~7 $ built@1)" chunk builds, "@2)
+      (prefix@2 $
+       (dot@A meshThing~9 len@1)))" meshes"@2))
+   (call@5,P label~5
+    (infix@e &
+     (infix~G &
+      (prefix~N $
+       (call@K
+        (dot~B registry~8 blockCount@1)))" blocks in "@2)Blocks@2))
+   (if@,W
+    (elif@3 serverMode
+     (stmts~1,1
+      (call@5 label~5
+       (infix@Z,1 &
+        (infix~N &
+         (infix@g,~1 &
+          (infix~M &
+           (infix~D &
+            (prefix~I $
+             (dot@B
+              (dot~4 client~6 map@1)known@1))" named, "@2)
+           (prefix@2 $
+            (dot@B
+             (dot~4 client~6 map@1)unknown@1)))" unknown of "~v,1)
+         (prefix@2 $
+          (dot@G
+           (dot~6
+            (dot~3 client~6 ix@1)names@1)len@1)))" on the wire"@2))
+      (call@5,2 label~5
+       (infix@F &
+        (prefix~E $
+         (dot@7 client~6 holes@1))" blocks dropped for want of a name"@2)))))
+   (call@5,a label~5
+    (infix@G &
+     (prefix~F $
+      (dot@A dropThing~9 len@1))" dropped"@2))
+   (call@5,b label~5
+    (infix@14 &
+     (infix~E &
+      (infix~7 &
+       (infix~B &
+        (infix~F &
+         (prefix~I $
+          (call@A moteCount~9 chips@1))" chips of "@2)
+        (prefix@2 $ MoteCap@1))", "@2)
+      (prefix@2 $
+       (dot@6 chips~5 made@1)))" thrown"~17,1))
+   (call@5,d label~5
+    (infix@c,1 &
+     (infix~H &
+      (infix~7 &
+       (infix~A &
+        (infix@y,~1 &
+         (infix~m & "crack stage "~F
+          (expr
+           (stmts@2)
+           (if@1
+            (elif@3
+             (infix@B < crackShown~B 0@2)"none"@G)
+            (else@Q
+             (prefix@6 $ crackShown@1)))))" of "~15,1)
+        (prefix@2 $ Stages@1))", "@2)
+      (prefix@2 $
+       (dot@A crackPics~9 len@1)))" pictures"@2))
+   (let@4,f here . . .
+    (call@M
+     (dot~9 player~6 position@1)))
+   (call@5,g label~5
+    (infix@n &
+     (infix~6 &
+      (infix~F &
+       (infix~6 &
+        (infix~F & "at "~6
+         (prefix@2 $
+          (call@4 int~3
+           (dot@5 here~4 x@1))))","@2)
+       (prefix@2 $
+        (call@4 int~3
+         (dot@5 here~4 y@1))))","@2)
+     (prefix@2 $
+      (call@4 int~3
+       (dot@5 here~4 z@1)))))
+   (if@,h
+    (elif@3 hostHit
+     (stmts~1,1
+      (call@5 label~5
+       (infix@g &
+        (infix~B &
+         (infix~G & "host cast\3A "~E
+          (prefix@2 $ hostDistance@1))" at y "@2)
+        (prefix@2 $
+         (dot@A hostPoint~9 y@1))))))
+    (else@,2
+     (stmts@6
+      (call@5 label~5 "host cast\3A nothing"@1))))
+   (call@5,k label~5
+    (infix@N,1 &
+     (infix@O,~1 &
+      (infix~E &
+       (infix~O & "view "~8
+        (call@H perspectiveName~F view@1))", camera "@2)
+      (prefix~o,1 $
+       (call@4 int~3
+        (infix@E * pullDistance~D 10.0@2))))" tenths back"@2))
+   (call@4,m hint~4 "Tab pointer  G these numbers  N a new world  F5 the view"@1)
+   (call@9,n closeMenu~9)))
+ (proc@,u8 stop@5 . . .
+  (params@9). . .
+  (stmts@2,1
+   (call@B forgetWorld~B)
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@N
+       (dot~A highlight~9 isNothing@1)))
+     (stmts@R
+      (call@H
+       (dot~8 highlight~9 destroy@1)))))
+   (if@,2
+    (elif@3
+     (prefix not
+      (call@O
+       (dot~A crackThing~A isNothing@1)))
+     (stmts@S
+      (call@I
+       (dot~8 crackThing~A destroy@1)))))
+   (if@,3
+    (elif@3
+     (prefix not
+      (call@N
+       (dot~A chipThing~9 isNothing@1)))
+     (stmts@R
+      (call@H
+       (dot~8 chipThing~9 destroy@1)))))
+   (call@F,4 dropPlayerModel~F)
+   (if@,5
+    (elif@3
+     (prefix not
+      (call@N
+       (dot~A handThing~9 isNothing@1)))
+     (stmts~1,1
+      (call@H
+       (dot~8 handThing~9 destroy@1))
+      (asgn@A,1 handThing~A
+       (call@9 nothing~7))))))))

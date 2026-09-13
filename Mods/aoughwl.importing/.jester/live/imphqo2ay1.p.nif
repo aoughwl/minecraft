@@ -1,0 +1,42 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,importpanel.nim
+ (comment)
+ (type@7,H Ask~5 x . .
+  (enum@2 .
+   (efld~5,4 AskNothing . . . .)
+   (efld@7,4 AskOpen . . . .)
+   (efld@G,4 AskShut . . . .)))
+ (func@,N wanted@5 x . .
+  (params@C
+   (param@1 sources . . int@J .)
+   (param@A receipts . . int@A .)
+   (param@P refused . . bool@9 .)
+   (param@e ask . . . AskNothing@6))bool@x . .
+  (stmts@2,1
+   (comment)
+   (case@,5 ask@5
+    (of@,1
+     (ranges AskOpen@3)
+     (stmts@C true))
+    (of@,2
+     (ranges AskShut@3)
+     (stmts@C false))
+    (of@,3
+     (ranges AskNothing@3)
+     (stmts@F
+      (infix@N or
+       (infix~F or refused~8
+        (infix@B > sources~8 0@2))
+       (infix@C > receipts~9 0@2)))))))
+ (func@,Y toggled@5 x . .
+  (params@D
+   (param@1 showing . . bool@9 .))Ask@H . .
+  (stmts@2,1
+   (comment)
+   (if@,2
+    (elif@3 showing
+     (stmts@9 AskShut))
+    (else@K
+     (stmts@6 AskOpen))))))

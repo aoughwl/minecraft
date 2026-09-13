@@ -1,0 +1,295 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,mctint.nim
+ (comment)
+ (import@,l mcpng@7)
+ (import@,m mcmodel@7)
+ (comment@2,p)
+ (const@B,q GrassTint~9 x . . 9551193@4)
+ (comment@2,r)
+ (const@D,s FoliageTint~B x . . 7842607@4)
+ (comment@2,t)
+ (const@C,u SpruceTint~A x . . 6396257@4)
+ (const@B,v BirchTint~9 x . . 8431445@4)
+ (comment@2,w)
+ (const@B,x WaterTint~9 x . . 4159204@4)
+ (comment@2,y)
+ (const@D,z LilyPadTint~B x . . 2129968@4)
+ (const@E,10 RedstoneTint~C x . . 16711680@4)
+ (const@A,11 StemTint~8 x . . 65280@4)
+ (const@8,13 NoTint~6 x . . -1@4)
+ (comment@,15)
+ (const@2,19 NamedBlocks . . .
+  (bracket@E "spruce_leaves"~C,1 "birch_leaves"@5,1 "water"~C,2 "water_still"~3,2 "water_flow"@C,2 "flowing_water"@Q,2 "bubble_column"@h,2 "cauldron_water"~C,3 "lily_pad"@6,3 "redstone_dust_dot"@I,3 "redstone_dust_side"@d,3 "redstone_dust_side_alt"~C,4 "redstone_dust_up"@E,4 "redstone_dust_overlay"@Y,4 "melon_stem"~C,5 "pumpkin_stem"@2,5 "attached_melon_stem"@I,5 "attached_pumpkin_stem"@f,5))
+ (const@2,1F NamedTints . . .
+  (bracket@D SpruceTint~B,1 BirchTint@1,1 WaterTint~B,2 WaterTint@,2 WaterTint@B,2 WaterTint@M,2 WaterTint@X,2 WaterTint~B,3 LilyPadTint@,3 RedstoneTint@D,3 RedstoneTint@R,3 RedstoneTint~B,4 RedstoneTint@3,4 RedstoneTint@H,4 StemTint~B,5 StemTint~1,5 StemTint@9,5 StemTint@J,5))
+ (proc@,1M endsWith@5 . . .
+  (params@D
+   (param@1 name . . string@C .)
+   (param@7 tail . . string@6 .))bool@M . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 <
+      (dot~5 name~4 len@1)
+      (dot@6 tail~4 len@1))
+     (stmts@L
+      (ret false@7))))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 tail~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@U !=
+        (at~Q name~4
+         (infix@L \2B
+          (infix~B \2D
+           (dot~5 name~4 len@1)
+           (dot@6 tail~4 len@1))i@2))
+        (at@7 tail~4 i@1))
+       (stmts@g
+        (ret false@7))))
+     (cmd@,1 inc i@4)))true@,5))
+ (comment@,1U)
+ (proc@,1Z tintFor@5 x . .
+  (params@D
+   (param@1 model . . string@7 .)
+   (param@G tintIndex . . int@B .))int@X . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A < tintIndex~A 0@2)
+     (stmts@F
+      (ret NoTint@7))))
+   (let@4,1 name . . .
+    (call@B leaf~4 model@1))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@D NamedBlocks~B len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@F ==
+        (at~4 NamedBlocks~B i@1)name@3)
+       (stmts@O
+        (ret
+         (at@H NamedTints~A i@1)))))
+     (cmd@,1 inc i@4)))
+   (if@,6
+    (elif@3
+     (call@8 endsWith~8 name@1 "_leaves"@7)
+     (stmts@R
+      (ret FoliageTint@7))))
+   (if@,7
+    (elif@3
+     (call@8 endsWith~8 name@1 "_stem"@7)
+     (stmts@P
+      (ret StemTint@7))))GrassTint@,B))
+ (comment@,1n)
+ (proc@,1t tintOfTiles@5 x . .
+  (params@H
+   (param@1 b . . Bake@3 .)
+   (param@A names . .
+    (at@A seq~3 string@1).)
+   (param@U model . . string@7 .)
+   (param@1,1 problem . .
+    (mut@9 string@4).))
+  (at@Q,1 seq~3 int@1). .
+  (stmts@2,2
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 mixed . .
+    (at@A seq~3 bool@1)
+    (prefix@J \40
+     (bracket@1)))
+   (var@4,2 tinted . .
+    (at@B seq~3 bool@1)
+    (prefix@K \40
+     (bracket@1)))
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@7 names~5 len@1))
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)NoTint@5)
+     (cmd@5,1
+      (dot mixed~5 add@1)false@5)
+     (cmd@6,2
+      (dot tinted~6 add@1)false@5)
+     (cmd@,3 inc i@4)))
+   (var@4,9 bare . .
+    (at@9 seq~3 bool@1)
+    (prefix@I \40
+     (bracket@1)))
+   (asgn@2,A i~2 0@2)
+   (while@,B
+    (infix@8 < i~2
+     (dot@7 names~5 len@1))
+    (stmts@2,1
+     (cmd@4
+      (dot bare~4 add@1)false@5)
+     (cmd@,1 inc i@4)))
+   (var@4,E f . . . 0@4)
+   (while@,F
+    (infix@8 < f~2
+     (dot@3 b~1 count@1))
+    (stmts@2,1
+     (let@4 tile . . .
+      (call@D tileOf~6 b@1 f@4 names@7))
+     (if@,1
+      (elif@3
+       (infix@5 >= tile~5 0@3)
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@A <
+           (at~4
+            (dot~5 b~1 tint@1)f@1)0@2)
+          (stmts~1,1
+           (asgn@B
+            (at~7 bare~4 tile@1)true@2)))
+         (else@,2
+          (stmts@2,1
+           (let@4 colour . . .
+            (call@G tintFor~7 model@1
+             (at@E
+              (dot~5 b~1 tint@1)f@1)))
+           (if@,1
+            (elif@3
+             (infix@D and
+              (at~7 tinted~6 tile@1)
+              (infix@H !=
+               (at~7 result~6 tile@1)colour@3))
+             (stmts@f
+              (asgn@C
+               (at~7 mixed~5 tile@1)true@2))))
+           (asgn@D,2
+            (at~7 result~6 tile@1)colour@2)
+           (asgn@D,3
+            (at~7 tinted~6 tile@1)true@2)))))))
+     (cmd@,9 inc f@4)))
+   (asgn@2,S i~2 0@2)
+   (while@,T
+    (infix@8 < i~2
+     (dot@7 names~5 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@A and
+        (at~4 tinted~6 i@1)
+        (at@8 bare~4 i@1))
+       (stmts@N
+        (asgn@9
+         (at~4 mixed~5 i@1)true@2))))
+     (cmd@,1 inc i@4)))
+   (asgn@2,W i~2 0@2)
+   (while@,X
+    (infix@8 < i~2
+     (dot@7 names~5 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (at@5 mixed~5 i@1)
+       (stmts~1,1
+        (asgn@A
+         (at~4 result~6 i@1)NoTint@2)
+        (if@,1
+         (elif@3
+          (infix@C ==
+           (dot~5 problem~7 len@1)0@3)
+          (stmts~1,1
+           (asgn@8 problem~8
+            (infix@N &
+             (infix~H & "\27"~4
+              (call@6 leaf~4
+               (at@6 names~5 i@1)))"\27 is on both a tinted and an untinted face, so it is left untinted"~T,1))))))))
+     (cmd@,5 inc i@4)))))
+ (comment@,2a)
+ (proc@,2g applyTint@5 x . .
+  (params@F
+   (param@1 img . .
+    (mut@5 Image@4).)
+   (param@H rgb . . int@5 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@4 < rgb~4 0@2)
+     (stmts@9
+      (ret .))))
+   (let@4,1 r . . .
+    (infix@H and
+     (par~D
+      (infix@5 shr rgb~4 16@4))255@4))
+   (let@4,2 g . . .
+    (infix@G and
+     (par~C
+      (infix@5 shr rgb~4 8@4))255@4))
+   (let@4,3 b . . .
+    (infix@8 and rgb~4 255@4))
+   (var@4,4 i . . . 0@4)
+   (while@,5
+    (infix@C <
+     (infix~4 \2B i~2 3@2)
+     (dot@A
+      (dot~5 img~3 rgba@1)len@1))
+    (stmts@2,1
+     (asgn@C
+      (at~4
+       (dot~5 img~3 rgba@1)i@1)
+      (infix@K div
+       (par~I
+        (infix@D *
+         (at~4
+          (dot~5 img~3 rgba@1)i@1)r@2))255@4))
+     (asgn@G,1
+      (at~8
+       (dot~5 img~3 rgba@1)
+       (infix@3 \2B i~2 1@2))
+      (infix@O div
+       (par~M
+        (infix@H *
+         (at~8
+          (dot~5 img~3 rgba@1)
+          (infix@3 \2B i~2 1@2))g@2))255@4))
+     (asgn@G,2
+      (at~8
+       (dot~5 img~3 rgba@1)
+       (infix@3 \2B i~2 2@2))
+      (infix@O div
+       (par~M
+        (infix@H *
+         (at~8
+          (dot~5 img~3 rgba@1)
+          (infix@3 \2B i~2 2@2))b@2))255@4))
+     (asgn@2,3 i~2
+      (infix@4 \2B i~2 4@2))))))
+ (comment@,2s)
+ (proc@,2t tintText@5 x . .
+  (params@E
+   (param@1 rgb . . int@5 .))string@C . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@4 < rgb~4 0@2)
+     (stmts@9
+      (ret ""@7))))
+   (const@6,1 Digits . . . "0123456789abcdef"@9)
+   (asgn@7,2 result~7 "\23"@2)
+   (var@4,3 shift . . . 20@8)
+   (while@,4
+    (infix@C >= shift~6 0@3)
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (at@B Digits~6
+       (infix@H and
+        (par~G
+         (infix@5 shr rgb~4 shift@4))15@4)))
+     (asgn@6,1 shift~6
+      (infix@8 \2D shift~6 4@2)))))))

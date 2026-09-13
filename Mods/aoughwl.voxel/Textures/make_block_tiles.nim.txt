@@ -1,0 +1,353 @@
+## One-off: write aoughwl.voxel's shipped block sheet.
+##
+## Thirteen 16x16 tiles in a row, each padded by one pixel of its own replicated
+## edge, exactly the packing `mcatlas.nim` produces and `vxatlas.nim` reads:
+##
+##   0 stone  1 cobblestone  2 dirt  3 grass top  4 grass side  5 sand
+##   6 wood top  7 wood side  8 leaves  9 brick  10 glowstone  11 bedrock
+##   12 water
+##
+## The deflate stream is stored blocks - no compression - because this is a
+## 234x18 picture written once and the point is to be obviously correct.
+
+import std/syncio
+import toolkit
+
+const
+  Side = 16
+  Pad = 1
+  Tiles = 13
+  Pitch = Side + 2 * Pad
+  Wide = Pitch * Tiles
+  High = Pitch
+
+proc mix32(value: int): int =
+  var h = value and 0xFFFFFFFF
+  h = (h xor (h shr 16)) and 0xFFFFFFFF
+  h = (h * 0x7feb352d) and 0xFFFFFFFF
+  h = (h xor (h shr 15)) and 0xFFFFFFFF
+  h = (h * 0x846ca68b) and 0xFFFFFFFF
+  h = (h xor (h shr 16)) and 0xFFFFFFFF
+  h
+
+proc noiseAt(seed, x, y: int; spread: int): int =
+  let h = mix32(seed * 0x9e3779b1 + x * 0x27d4eb2d + y * 0x165667b1)
+  (h mod (2 * spread + 1)) - spread
+
+proc clamp8(v: int): int =
+  if v < 0: return 0
+  if v > 255: return 255
+  v
+
+# Every tile is 16*16*3 of r,g,b. Alpha is always opaque.
+var tile: seq[int] = @[]
+
+proc setPixel(t, x, y, r, g, b: int) =
+  let at = ((t * Side + y) * Side + x) * 3
+  tile[at] = clamp8(r)
+  tile[at + 1] = clamp8(g)
+  tile[at + 2] = clamp8(b)
+
+proc pixelR(t, x, y: int): int = tile[((t * Side + y) * Side + x) * 3]
+proc pixelG(t, x, y: int): int = tile[((t * Side + y) * Side + x) * 3 + 1]
+proc pixelB(t, x, y: int): int = tile[((t * Side + y) * Side + x) * 3 + 2]
+
+proc speckle(t, r, g, b, spread, seed: int) =
+  var y = 0
+  while y < Side:
+    var x = 0
+    while x < Side:
+      let n = noiseAt(seed, x, y, spread)
+      setPixel(t, x, y, r + n, g + n, b + n)
+      inc x
+    inc y
+
+proc build() =
+  var i = 0
+  while i < Tiles * Side * Side * 3:
+    tile.add 0
+    inc i
+
+  # 0 stone
+  speckle(0, 125, 125, 128, 9, 11)
+  # 1 cobblestone: stone with darker four-pixel cobbles picked out
+  speckle(1, 138, 138, 141, 7, 23)
+  var y = 0
+  while y < Side:
+    var x = 0
+    while x < Side:
+      let cell = mix32(31 + (x div 4) * 7 + (y div 4) * 13 + ((y div 4) mod 2) * 3)
+      if (cell mod 5) < 2:
+        setPixel(1, x, y, pixelR(1, x, y) - 26, pixelG(1, x, y) - 26,
+          pixelB(1, x, y) - 24)
+      if (x mod 4) == 0 or (y mod 4) == 0:
+        setPixel(1, x, y, pixelR(1, x, y) - 14, pixelG(1, x, y) - 14,
+          pixelB(1, x, y) - 13)
+      inc x
+    inc y
+  # 2 dirt
+  speckle(2, 139, 90, 43, 14, 37)
+  # 3 grass top
+  speckle(3, 93, 155, 66, 13, 41)
+  # 4 grass side: dirt, with a band of grass along the top and a ragged fringe.
+  # Row 0 is the top of the picture, and the top of the picture is v = 1, which
+  # is the top of the block: see vxatlas.nim.
+  y = 0
+  while y < Side:
+    var x = 0
+    while x < Side:
+      let fringe = 3 + (mix32(53 + x * 17) mod 3)
+      if y <= fringe:
+        let n = noiseAt(59, x, y, 13)
+        setPixel(4, x, y, 93 + n, 155 + n, 66 + n)
+      else:
+        let n = noiseAt(37, x, y, 14)
+        setPixel(4, x, y, 139 + n, 90 + n, 43 + n)
+      inc x
+    inc y
+  # 5 sand
+  speckle(5, 221, 208, 160, 8, 67)
+  # 6 wood top: rings
+  y = 0
+  while y < Side:
+    var x = 0
+    while x < Side:
+      let dx = x - 8
+      let dy = y - 8
+      let ring = (dx * dx + dy * dy) div 6
+      let n = noiseAt(71, x, y, 6)
+      if (ring mod 2) == 0: setPixel(6, x, y, 133 + n, 96 + n, 56 + n)
+      else: setPixel(6, x, y, 107 + n, 74 + n, 42 + n)
+      inc x
+    inc y
+  # 7 wood side: vertical streaks
+  y = 0
+  while y < Side:
+    var x = 0
+    while x < Side:
+      let streak = mix32(83 + x * 29) mod 3
+      let n = noiseAt(89, x, y, 7)
+      setPixel(7, x, y, 107 + n + streak * 9, 74 + n + streak * 6,
+        42 + n + streak * 4)
+      inc x
+    inc y
+  # 8 leaves: dark green with gaps
+  y = 0
+  while y < Side:
+    var x = 0
+    while x < Side:
+      let n = noiseAt(97, x, y, 18)
+      if (mix32(101 + x * 13 + y * 31) mod 7) == 0:
+        setPixel(8, x, y, 38, 66, 32)
+      else:
+        setPixel(8, x, y, 63 + n, 125 + n, 51 + n)
+      inc x
+    inc y
+  # 9 brick: courses with mortar, every other course offset by half a brick
+  y = 0
+  while y < Side:
+    var x = 0
+    while x < Side:
+      let course = y div 4
+      let shift = (course mod 2) * 4
+      let n = noiseAt(107, x, y, 10)
+      if (y mod 4) == 0 or ((x + shift) mod 8) == 0:
+        setPixel(9, x, y, 196, 186, 172)
+      else:
+        setPixel(9, x, y, 168 + n, 80 + n, 60 + n)
+      inc x
+    inc y
+  # 10 glowstone: warm, with bright grains
+  y = 0
+  while y < Side:
+    var x = 0
+    while x < Side:
+      let n = noiseAt(113, x, y, 14)
+      if (mix32(127 + x * 11 + y * 19) mod 6) == 0:
+        setPixel(10, x, y, 255, 244, 196)
+      else:
+        setPixel(10, x, y, 240 + n, 212 + n, 122 + n)
+      inc x
+    inc y
+  # 11 bedrock: near-black, mottled hard
+  y = 0
+  while y < Side:
+    var x = 0
+    while x < Side:
+      let n = noiseAt(131, x, y, 26)
+      setPixel(11, x, y, 47 + n, 47 + n, 51 + n)
+      inc x
+    inc y
+  # 12 water: banded blue
+  y = 0
+  while y < Side:
+    var x = 0
+    while x < Side:
+      let band = (mix32(137 + (y div 2) * 7) mod 11) - 5
+      let n = noiseAt(139, x, y, 5)
+      setPixel(12, x, y, 58 + n + band, 111 + n + band, 208 + n + band)
+      inc x
+    inc y
+
+# ---------------------------------------------------------------------------
+# The sheet, padded
+
+proc sheet(): seq[int] =
+  result = @[]
+  var i = 0
+  while i < Wide * High * 4:
+    result.add 0
+    inc i
+  var t = 0
+  while t < Tiles:
+    let left = t * Pitch
+    var y = 0
+    while y < Pitch:
+      var x = 0
+      while x < Pitch:
+        # Clamped sampling is what makes the padding a copy of the edge, which
+        # is what stops the filter reading the tile next door at distance.
+        var sx = x - Pad
+        var sy = y - Pad
+        if sx < 0: sx = 0
+        if sx >= Side: sx = Side - 1
+        if sy < 0: sy = 0
+        if sy >= Side: sy = Side - 1
+        let at = ((y * Wide) + left + x) * 4
+        result[at] = pixelR(t, sx, sy)
+        result[at + 1] = pixelG(t, sx, sy)
+        result[at + 2] = pixelB(t, sx, sy)
+        result[at + 3] = 255
+        inc x
+      inc y
+    inc t
+
+# ---------------------------------------------------------------------------
+# PNG
+
+var crcTable: seq[int] = @[]
+
+proc makeCrcTable() =
+  var n = 0
+  while n < 256:
+    var c = n
+    var k = 0
+    while k < 8:
+      if (c and 1) != 0: c = 0xedb88320 xor (c shr 1)
+      else: c = c shr 1
+      inc k
+    crcTable.add c
+    inc n
+
+proc crc32(data: string): int =
+  var c = 0xFFFFFFFF
+  var i = 0
+  while i < data.len:
+    c = crcTable[(c xor int(data[i])) and 0xFF] xor (c shr 8)
+    inc i
+  c xor 0xFFFFFFFF
+
+proc adler32(data: string): int =
+  var a = 1
+  var b = 0
+  var i = 0
+  while i < data.len:
+    a = (a + int(data[i])) mod 65521
+    b = (b + a) mod 65521
+    inc i
+  (b * 65536 + a) and 0xFFFFFFFF
+
+proc byteOf(v: int): char = char(v and 0xFF)
+
+proc be32(v: int): string =
+  result = ""
+  result.add byteOf(v shr 24)
+  result.add byteOf(v shr 16)
+  result.add byteOf(v shr 8)
+  result.add byteOf(v)
+
+proc chunk(kind, data: string): string =
+  result = be32(data.len)
+  result.add kind
+  result.add data
+  result.add be32(crc32(kind & data))
+
+proc storedDeflate(raw: string): string =
+  result = ""
+  result.add byteOf(0x78)
+  result.add byteOf(0x01)
+  var at = 0
+  while true:
+    var take = raw.len - at
+    if take > 65535: take = 65535
+    let final = if at + take >= raw.len: 1 else: 0
+    result.add byteOf(final)
+    result.add byteOf(take)
+    result.add byteOf(take shr 8)
+    result.add byteOf((not take))
+    result.add byteOf((not take) shr 8)
+    var i = 0
+    while i < take:
+      result.add raw[at + i]
+      inc i
+    at = at + take
+    if at >= raw.len: break
+  result.add be32(adler32(raw))
+
+proc tilePng(t: int): string =
+  ## One tile, 16x16, on its own and with no padding at all. The padding a
+  ## sheet needs is a consequence of packing several tiles into one picture; a
+  ## picture that IS the tile has nothing to bleed in from, and its edges are
+  ## its own - which is exactly what makes it safe to repeat.
+  var raw = ""
+  var y = 0
+  while y < Side:
+    raw.add byteOf(0)
+    var x = 0
+    while x < Side:
+      raw.add byteOf(pixelR(t, x, y))
+      raw.add byteOf(pixelG(t, x, y))
+      raw.add byteOf(pixelB(t, x, y))
+      raw.add byteOf(255)
+      inc x
+    inc y
+  result = ""
+  result.add byteOf(0x89)
+  result.add "PNG"
+  result.add byteOf(0x0D)
+  result.add byteOf(0x0A)
+  result.add byteOf(0x1A)
+  result.add byteOf(0x0A)
+  var ihdr = be32(Side) & be32(Side)
+  ihdr.add byteOf(8)
+  ihdr.add byteOf(6)
+  ihdr.add byteOf(0)
+  ihdr.add byteOf(0)
+  ihdr.add byteOf(0)
+  result.add chunk("IHDR", ihdr)
+  result.add chunk("IDAT", storedDeflate(raw))
+  result.add chunk("IEND", "")
+
+const TileNames = ["stone", "cobblestone", "dirt", "grass_top", "grass_side",
+  "sand", "wood_top", "wood_side", "leaves", "brick", "glowstone", "bedrock",
+  "water"]
+
+proc run(): int {.raises.} =
+  makeCrcTable()
+  build()
+  let into = "Assets/StreamingAssets/Mods/aoughwl.voxel/Textures/blocks"
+  mkdirp(into)
+  var t = 0
+  while t < Tiles:
+    let path = into & "/" & TileNames[t] & ".png"
+    let png = tilePng(t)
+    writeBin(path, png)
+    emit stdout, "wrote " & path & " " & $Side & "x" & $Side & " " & $png.len &
+      " bytes\n"
+    inc t
+  0
+
+var code = 1
+try: code = run()
+except: emit stderr, "the atlas generator failed"
+quit code

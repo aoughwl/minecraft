@@ -1,0 +1,1380 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,hudscreen.nim
+ (comment)
+ (import@,1A jester@7)
+ (import@,1B vec@7)
+ (import@,1C color@7)
+ (import@,1D input@7)
+ (import@,1E textures@7)
+ (import@,1F services@7)
+ (import@,1G
+  (infix@H / aoughwl_ui~A ui@1))
+ (import@,1H
+  (infix@J / aoughwl_mcui~C mcuicore@1))
+ (import@,1I
+  (infix@J / aoughwl_mcui~C mcuiscale@1))
+ (import@,1J
+  (infix@J / aoughwl_mcui~C mcuihud@1))
+ (import@,1K
+  (infix@J / aoughwl_mcui~C mcuigrant@1))
+ (import@,1L
+  (infix@J / aoughwl_mcui~C mcuilang@1))
+ (import@,1M hudcore@7)
+ (import@,1N hudrecipe@7)
+ (const@2,1Q StatusSheet . . . "hud.png"@E)
+ (const@2,1T ItemSheet . . . "items.png"@C)
+ (const@9,1U SlotTag~7 x . . "hud.slot"@4)
+ (const@2,1X HeartFull . . . 0@C)
+ (const@2,1Y HeartEmpty . . . 1@D)
+ (const@2,1Z HaunchFull . . . 2@D)
+ (const@2,1a HaunchEmpty . . . 3@E)
+ (const@2,1b ShieldFull . . . 4@D)
+ (const@2,1c ShieldEmpty . . . 5@E)
+ (const@2,1e Provider . . . "aoughwl.minecraft"@B)
+ (const@2,1g GuiService . . . "minecraft.gui"@D)
+ (const@2,1l HotbarSprite . . . "gui/sprites/hud/hotbar"@F)
+ (const@2,1m SelectSprite . . . "gui/sprites/hud/hotbar_selection"@F)
+ (const@2,1n BarBackSprite . . . "gui/sprites/hud/experience_bar_background"@G)
+ (const@2,1o BarFillSprite . . . "gui/sprites/hud/experience_bar_progress"@G)
+ (const@2,1p HeartFullSprite . . . "gui/sprites/hud/heart/full"@I)
+ (const@2,1q HeartHalfSprite . . . "gui/sprites/hud/heart/half"@I)
+ (const@2,1r HeartBackSprite . . . "gui/sprites/hud/heart/container"@I)
+ (const@2,1s FoodFullSprite . . . "gui/sprites/hud/food_full"@H)
+ (const@2,1t FoodHalfSprite . . . "gui/sprites/hud/food_half"@H)
+ (const@2,1u FoodBackSprite . . . "gui/sprites/hud/food_empty"@H)
+ (const@2,1v ArmourFullSprite . . . "gui/sprites/hud/armor_full"@J)
+ (const@2,1w ArmourHalfSprite . . . "gui/sprites/hud/armor_half"@J)
+ (const@2,1x ArmourBackSprite . . . "gui/sprites/hud/armor_empty"@J)
+ (const@2,1y SlotSprite . . . "gui/sprites/container/slot"@D)
+ (const@2,1z SlotHotSprite . . . "gui/sprites/container/slot_highlight_front"@G)
+ (const@2,20 InventorySheet . . . "gui/container/inventory"@H)
+ (const@2,21 BenchSheet . . . "gui/container/crafting_table"@D)
+ (const@2,26 KeyInventory . . . "container.inventory"@F)
+ (const@2,27 KeyCrafting . . . "container.crafting"@E)
+ (const@2,28 KeyHead . . . "container.inventory"@A)
+ (const@2,29 KeyDeath . . . "deathScreen.title"@B)
+ (const@2,2A KeyRespawn . . . "deathScreen.respawn"@D)
+ (var@2,2D dragFrom . . . -1@B)
+ (var@2,2H saidLast . . . ""@B)
+ (var@2,2J art . . .
+  (call@K placeholderArt~E))
+ (var@2,2M skinned . . . false@A)
+ (var@2,2S worded . . . false@9)
+ (var@2,2X langCode . . . "en_us"@B)
+ (var@2,2Y askAgainAt . . . 0.0@D)
+ (var@2,2f scale . . . 1@8)
+ (var@2,2g guiW . . . 0@7)
+ (var@2,2h guiH . . . 0@7)
+ (var@2,2i words . . .
+  (call@E noLang~6))
+ (var@2,2j notice . . .
+  (call@K parseNotice~B ""@1))
+ (comment@,2l)
+ (proc@,2m said@5 x . .
+  (params@A)string@4 . .
+  (stmts@N saidLast))
+ (proc@,2n say@5 x . .
+  (params@9
+   (param@1 words0 . . string@8 .)). . .
+  (stmts@S
+   (asgn@9 saidLast~9 words0@2)))
+ (comment@,2p)
+ (proc@,2q forgetSkin@5 x . .
+  (params@G). . .
+  (stmts@2,1
+   (asgn@8 skinned~8 false@2)
+   (asgn@7,1 worded~7 false@2)
+   (asgn@B,2 askAgainAt~B 0.0@2)))
+ (comment@,2z)
+ (proc@,32 worn@5 . . .
+  (params@9
+   (param@1 name . . string@6 .))bool@G . .
+  (stmts@W
+   (call@A hasPicture~A Provider@1 name@B)))
+ (comment@,34)
+ (proc@,3T warmSkin@5 x . .
+  (params@E). . .
+  (stmts@2,1
+   (if
+    (elif@3 skinned
+     (stmts@9
+      (ret .))))
+   (let@4,1 now . . .
+    (call@E gameTime~8))
+   (if@,2
+    (elif@3
+     (infix@4 < now~4 askAgainAt@2)
+     (stmts@I
+      (ret .))))
+   (asgn@B,3 askAgainAt~B
+    (infix@6 \2B now~4 1.0@2))
+   (if@,4
+    (elif@3
+     (prefix not
+      (call@A serves~6 GuiService@1))
+     (stmts@O
+      (ret .))))
+   (asgn@7,5 notice~7
+    (call@D parseNotice~B
+     (call@C callService~B GuiService@1 "notice"@D)))
+   (if@,6
+    (elif@3
+     (infix@R and
+      (infix~E !=
+       (dot~7 notice~6 state@1)GrantReady@3)
+      (infix@H !=
+       (dot~7 notice~6 state@1)PackMismatch@3))
+     (stmts~1,5
+      (ret .))))
+   (asgn@8,C skinned~8 true@2)
+   (asgn@4,D art~4
+    (call@9 artFrom~7
+     (call@C callService~B GuiService@1 "sizes"@D)))
+   (asgn@9,E langCode~9
+    (call@E languageFrom~C
+     (call@C callService~B GuiService@1 "language"@D)))))
+ (comment@,3k)
+ (proc@,42 warmWords@5 x . .
+  (params@F). . .
+  (stmts@2,1
+   (if
+    (elif@3 worded
+     (stmts@8
+      (ret .))))
+   (if@,1
+    (elif@3
+     (prefix not skinned@4)
+     (stmts@D
+      (ret .))))
+   (if@,2
+    (elif@3
+     (prefix not
+      (call@A serves~6 GuiService@1))
+     (stmts@O
+      (ret .))))
+   (asgn@7,3 worded~7 true@2)
+   (var@4,4 table . . .
+    (call@J callService~B GuiService@1
+     (infix@L & "lang "~8 langCode@2)))
+   (if@,5
+    (elif@3
+     (infix@A ==
+      (dot~5 table~5 len@1)0@3)
+     (stmts@G
+      (asgn@6 table~6
+       (call@D callService~B GuiService@1 "lang en_us"@D)))))
+   (asgn@6,6 words~6
+    (call@C parseTable~A table@1))))
+ (comment@,4B)
+ (proc@,4C skinWarm@5 x . .
+  (params@E)bool@4 . .
+  (stmts@P skinned))
+ (comment@,4E)
+ (proc@,4H reason@5 x . .
+  (params@C)string@4 . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@7 settled~7 notice@1)
+     (stmts@H
+      (ret ""@7))))
+   (let@4,1 lines . . .
+    (call@J noticeLines~B notice@1))
+   (if@,2
+    (elif@3
+     (infix@A ==
+      (dot~5 lines~5 len@1)0@3)
+     (stmts@G
+      (ret ""@7))))
+   (at@5,3 lines~5 0@1)))
+ (comment@,4N)
+ (proc@,4Q tr@5 . . .
+  (params@7
+   (param@1 key . . string@5 .))string@F . .
+  (stmts@V
+   (call@9 translate~9 words@1 key@8)))
+ (comment@,4S)
+ (proc@,4V measure@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (let@4 area . . .
+    (call@H screenArea~A))
+   (let@4,1 w . . .
+    (call@7 int~3
+     (dot@5 area~4 width@1)))
+   (let@4,2 h . . .
+    (call@7 int~3
+     (dot@5 area~4 height@1)))
+   (asgn@6,3 scale~6
+    (call@A guiScale~8 w@1 h@4))
+   (asgn@5,4 guiW~5
+    (call@A guiWidth~8 w@1 scale@4))
+   (asgn@5,5 guiH~5
+    (call@B guiHeight~9 h@1 scale@4))))
+ (comment@,4d)
+ (proc@,4f onScreen@5 . . .
+  (params@D
+   (param@1 r . . MRect@3 .))Rect@C . .
+  (stmts@2,1
+   (call@4 rect~4
+    (infix@5 *
+     (dot~3 r~1 x@1)
+     (call@9 float64~7 scale@1))
+    (infix@R *
+     (dot~3 r~1 y@1)
+     (call@9 float64~7 scale@1))
+    (infix@5,1 *
+     (dot~3 r~1 w@1)
+     (call@9 float64~7 scale@1))
+    (infix@R,1 *
+     (dot~3 r~1 h@1)
+     (call@9 float64~7 scale@1)))))
+ (comment@,4n)
+ (proc@,4q paintStatus@5 . . .
+  (params@G
+   (param@1 box . . Rect@5 .)
+   (param@C cell . . int@6 .)
+   (param@N portion . . . 1.0@A)
+   (param@c fromRight . . . false@C)). . .
+  (stmts@2,1
+   (let@4 w . . .
+    (call@E iconWindow~A cell@1))
+   (if@,1
+    (elif@3
+     (infix@8 >= portion~8 1.0@3)
+     (stmts~1,1
+      (call@A paintImage~A StatusSheet@1 box@E White@J
+       (dot@R w~1 u0@1)
+       (dot@X w~1 v0@1)
+       (dot@d w~1 u1@1)
+       (dot@j w~1 v1@1))
+      (ret@,1 .))))
+   (if@,4
+    (elif@3
+     (infix@8 <= portion~8 0.0@3)
+     (stmts@G
+      (ret .))))
+   (let@4,5 span . . .
+    (infix@C \2D
+     (dot~4 w~1 u1@1)
+     (dot@3 w~1 u0@1)))
+   (if@,6
+    (elif@3 fromRight
+     (stmts~1,1
+      (call@A paintImage~A StatusSheet@1
+       (call~4,1 rect~4
+        (infix@7 \2B
+         (dot~3 box~3 x@1)
+         (infix@C *
+          (dot~7 box~3 width@1)
+          (par@2
+           (infix@5 \2D 1.0~4 portion@2))))
+        (dot@f box~3 y@1)
+        (infix@8,1 *
+         (dot~7 box~3 width@1)portion@2)
+        (dot@M,1 box~3 height@1))White@S,2
+       (infix~3,3 \2D
+        (dot~4 w~1 u1@1)
+        (infix@7 * span~5 portion@2))
+       (dot@G,3 w~1 v0@1)
+       (dot@M,3 w~1 u1@1)
+       (dot@S,3 w~1 v1@1))))
+    (else@,5
+     (stmts@2,1
+      (call@A paintImage~A StatusSheet@1
+       (call~4,1 rect~4
+        (dot@4 box~3 x@1)
+        (dot@B box~3 y@1)
+        (infix@P *
+         (dot~7 box~3 width@1)portion@2)
+        (dot@d box~3 height@1))White@j,1
+       (dot~7,2 w~1 u0@1)
+       (dot~1,2 w~1 v0@1)
+       (infix@9,2 \2B
+        (dot~4 w~1 u0@1)
+        (infix@7 * span~5 portion@2))
+       (dot@S,2 w~1 v1@1)))))))
+ (comment@,57)
+ (proc@,5A paintSprite@5 . . .
+  (params@G
+   (param@1 name . . string@6 .)
+   (param@F at . . MRect@4 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@8 worn~4 name@1))
+     (stmts@G
+      (ret .))))
+   (call@A,1 paintImage~A
+    (call@B pictureUri~A Provider@1 name@B)
+    (call@b onScreen~8 at@1)White@h)))
+ (comment@,5E)
+ (proc@,5H paintSheet@5 . . .
+  (params@F
+   (param@1 name . . string@6 .)
+   (param@F at . . MRect@4 .)
+   (param@Q u . . float@C .)
+   (param@T v . . float@9 .)
+   (param@W w . . float@6 .)
+   (param@Z h . . float@3 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@8 worn~4 name@1))
+     (stmts@G
+      (ret .))))
+   (let@4,1 sw . . .
+    (call@A float~5
+     (dot@4 art~3 sheetW@1)))
+   (let@4,2 sh . . .
+    (call@A float~5
+     (dot@4 art~3 sheetH@1)))
+   (if@,3
+    (elif@3
+     (infix@A or
+      (infix~7 <= sw~3 0.0@3)
+      (infix@6 <= sh~3 0.0@3))
+     (stmts@O
+      (ret .))))
+   (call@A,4 paintImage~A
+    (call@B pictureUri~A Provider@1 name@B)
+    (call@b onScreen~8 at@1)White@h
+    (infix~6,1 / u~2 sw@2)
+    (infix@2,1 / v~2 sh@2)
+    (infix@G,1 /
+     (par~8
+      (infix@3 \2B u~2 w@2))sw@2)
+    (infix@U,1 /
+     (par~8
+      (infix@3 \2B v~2 h@2))sh@2))))
+ (comment@,5P)
+ (proc@,5Z publishedUri@5 . . .
+  (params@H
+   (param@1 icon . . string@6 .))bool@G . .
+  (stmts@2,1
+   (const@6 Head . . . "published\3A"@7)
+   (if@,1
+    (elif@3
+     (infix@9 <=
+      (dot~5 icon~4 len@1)
+      (dot@7 Head~4 len@1))
+     (stmts@M
+      (ret false@7))))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@6 Head~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@8 !=
+        (at~4 icon~4 i@1)
+        (at@7 Head~4 i@1))
+       (stmts@K
+        (ret false@7))))
+     (cmd@,1 inc i@4)))true@,6))
+ (proc@,5i paintItem@5 x . .
+  (params@F
+   (param@1 box . . Rect@5 .)
+   (param@C reg . . Registry@5 .)
+   (param@R item . . string@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 ==
+      (dot~5 item~4 len@1)0@3)
+     (stmts@F
+      (ret .))))
+   (let@4,1 d . . .
+    (call@G definitionOf~C reg@1 item@6))
+   (if@,2
+    (elif@3
+     (call@C publishedUri~C
+      (dot@2 d~1 icon@1))
+     (stmts~1,1
+      (call@A paintImage~A
+       (dot@2 d~1 icon@1)box@9 White@E)
+      (ret@,1 .))))
+   (let@4,5 cell . . .
+    (call@F iconCell~8
+     (dot@2 d~1 icon@1)))
+   (if@,6
+    (elif@3
+     (infix@5 >= cell~5 0@3)
+     (stmts~1,1
+      (let@4 w . . .
+       (call@E iconWindow~A cell@1))
+      (call@A,1 paintImage~A ItemSheet@1 box@C White@H
+       (dot@P w~1 u0@1)
+       (dot@V w~1 v0@1)
+       (dot@b w~1 u1@1)
+       (dot@h w~1 v1@1))
+      (ret@,2 .))))
+   (let@4,A c . . .
+    (call@E iconColour~A item@1
+     (dot@8 d~1 icon@1)))
+   (let@4,B face . . .
+    (call@A rgb~3
+     (dot@2 c~1 r@1)
+     (dot@7 c~1 g@1)
+     (dot@C c~1 b@1)1.0@G))
+   (call@5,C paint~5
+    (call@A
+     (dot~6 box~3 inset@1)1.0@1)face@H)
+   (call@5,D paint~5
+    (call@5 rect~4
+     (infix@7 \2B
+      (dot~3 box~3 x@1)1.0@2)
+     (infix@K \2B
+      (dot~3 box~3 y@1)1.0@2)
+     (infix@b \2D
+      (dot~7 box~3 width@1)2.0@2)
+     (infix@t *
+      (dot~8 box~3 height@1)0.2@2))
+    (call@O,1
+     (dot~A
+      (call~6
+       (dot~7 face~4 dimmed@1)1.35@1)withAlpha@1)1.0@1))
+   (call@6,F border~6
+    (call@A
+     (dot~6 box~3 inset@1)1.0@1)1.0@H
+    (call@b
+     (dot~A Black~5 withAlpha@1)0.5@1))))
+ (comment@,60)
+ (proc@,66 paintStack@5 x . .
+  (params@G
+   (param@1 box . . Rect@5 .)
+   (param@C reg . . Registry@5 .)
+   (param@R s . . ItemStack@3 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@7 isEmpty~7 s@1)
+     (stmts@C
+      (ret .))))
+   (call@9,1 paintItem~9 box@1 reg@6
+    (dot@C s~1 item@1))
+   (if@,2
+    (elif@3
+     (infix@8 <=
+      (dot~7 s~1 count@1)1@3)
+     (stmts@E
+      (ret .))))
+   (let@4,3 size . . .
+    (infix@I *
+     (dot~8 box~3 height@1)0.42@2))
+   (let@4,4 at . . .
+    (call@9 rect~4
+     (dot@4 box~3 x@1)
+     (infix@Y \2D
+      (infix~7 \2D
+       (infix~D \2B
+        (dot~3 box~3 y@1)
+        (dot@5 box~3 height@1))size@2)1.0@2)
+     (infix@p \2D
+      (dot~7 box~3 width@1)1.0@2)size@w))
+   (call@5,7 paint~5
+    (prefix@1 $
+     (dot@2 s~1 count@1))
+    (call@F rect~4
+     (infix@6 \2B
+      (dot~3 at~2 x@1)
+      (call@9 float64~7 scale@1))
+     (infix@T \2B
+      (dot~3 at~2 y@1)
+      (call@9 float64~7 scale@1))
+     (dot@n at~2 width@1)
+     (dot~G,1 at~2 height@1))size@9,1 AlignRight@F,1
+    (call@g,1
+     (dot~A Black~5 withAlpha@1)0.85@1))
+   (call@5,9 paint~5
+    (prefix@1 $
+     (dot@2 s~1 count@1))at@B size@F AlignRight@L White@X)))
+ (comment@,6M)
+ (proc@,6Q paintRow@5 . . .
+  (params@D
+   (param@1 boxes . .
+    (at@A seq~3 MRect@1).)
+   (param@K points . . int@8 .)
+   (param@X full . . string@I .)
+   (param@d half . . string@C .)
+   (param@j back . . string@6 .)
+   (param~9,1 ourFull . . int@J .)
+   (param@,1 ourEmpty . . int@A .)
+   (param@F,1 fromRight . . bool@B .)). . .
+  (stmts@2,2
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@7 boxes~5 len@1))
+    (stmts@2,1
+     (let@4 box . . .
+      (call@E onScreen~8
+       (at@6 boxes~5 i@1)))
+     (let@4,1 left . . .
+      (infix@E \2D points~7
+       (infix@4 * i~2 2@2)))
+     (if@,2
+      (elif@3
+       (call@4 worn~4 back@1)
+       (stmts~1,1
+        (call@B paintSprite~B back@1
+         (at@C boxes~5 i@1))
+        (if@,1
+         (elif@3
+          (infix@5 >= left~5 2@3)
+          (stmts@B
+           (call@B paintSprite~B full@1
+            (at@C boxes~5 i@1))))
+         (elif@5,1
+          (infix@5 == left~5 1@3)
+          (stmts~3,1
+           (if
+            (elif@3
+             (call@4 worn~4 half@1)
+             (stmts@C
+              (call@B paintSprite~B half@1
+               (at@C boxes~5 i@1))))
+            (else@,1
+             (stmts@6
+              (call@B paintSprite~B full@1
+               (at@C boxes~5 i@1))))))))))
+      (else@,6
+       (stmts@2,1
+        (call@B paintStatus~B box@1 ourEmpty@6)
+        (if@,1
+         (elif@3
+          (infix@5 >= left~5 2@3)
+          (stmts@B
+           (call@B paintStatus~B box@1 ourFull@6 1.0@F fromRight@K)))
+         (elif@5,1
+          (infix@5 == left~5 1@3)
+          (stmts@B
+           (call@B paintStatus~B box@1 ourFull@6 0.5@F fromRight@K)))))))
+     (asgn@2,C i~2
+      (infix@4 \2B i~2 1@2))))))
+ (comment@,6i)
+ (proc@,6l drawHud@5 x . .
+  (params@D
+   (param@1 h . .
+    (mut@3 Hud@4).)
+   (param@D reg . . Registry@5 .)). . .
+  (stmts@2,1
+   (call@7 measure~7)
+   (let@4,1 hotbar . . .
+    (call@J hotbarRect~A art@1 guiW@6 guiH@C))
+   (let@4,4 bar . . .
+    (call@D barRect~7 art@1 hotbar@6))
+   (let@4,5 filled . . .
+    (call@M levelProgress~D
+     (dot@7
+      (dot~5 h~1 life@1)experience@1)))
+   (if@,6
+    (elif@3
+     (call@4 worn~4 BarBackSprite@1)
+     (stmts~1,1
+      (call@B paintSprite~B BarBackSprite@1 bar@G)
+      (if@,1
+       (elif@3
+        (infix@7 > filled~7 0.0@2)
+        (stmts~1,4
+         (let@4 run . . .
+          (call@B float~5
+           (call@4 int~3
+            (infix@H *
+             (call~B float~5
+              (dot@4 art~3 barW@1))filled@2))))
+         (if@,1
+          (elif@3
+           (infix@A and
+            (infix~6 > run~4 0.0@2)
+            (call@8 worn~4 BarFillSprite@1))
+           (stmts~1,1
+            (call@A paintImage~A
+             (call@B pictureUri~A Provider@1 BarFillSprite@B)
+             (call@,1 onScreen~8
+              (call@6 mrect~5
+               (dot@4 bar~3 x@1)
+               (dot@B bar~3 y@1)run@F
+               (dot@N bar~3 h@1)))White@Z,1 0.0~8,2 0.0~3,2
+             (infix@6,2 / run~4
+              (call@7 float~5
+               (dot@4 art~3 barW@1)))1.0@P,2)))))))))
+    (else@,B
+     (stmts@2,1
+      (call@5 paint~5
+       (call@9 onScreen~8 bar@1)
+       (call@J rgb~3 0.05@1 0.06@7 0.08@D 0.85@J))
+      (if@,1
+       (elif@3
+        (infix@7 > filled~7 0.0@2)
+        (stmts~1,1
+         (call@5 paint~5
+          (call@9 onScreen~8
+           (call@6 mrect~5
+            (dot@4 bar~3 x@1)
+            (dot@B bar~3 y@1)
+            (infix@L *
+             (dot~3 bar~3 w@1)filled@2)
+            (dot@Y bar~3 h@1)))
+          (call@,1 rgb~3 0.44@1 0.85@7 0.26@D 1.0@J)))))
+      (call@6,4 border~6
+       (call@9 onScreen~8 bar@1)1.0@G
+       (call@O rgb~3 0.0@1 0.0@6 0.0@B 0.6@G)))))
+   (let@4,O level . . .
+    (call@F levelOf~7
+     (dot@7
+      (dot~5 h~1 life@1)experience@1)))
+   (if@,P
+    (elif@3
+     (infix@6 > level~6 0@2)
+     (stmts~1,1
+      (let@4 size . . .
+       (call@E float64~7
+        (infix@B *
+         (dot~7 art~3 iconH@1)scale@2)))
+      (let@4,1 over . . .
+       (call@F onScreen~8
+        (call@6 mrect~5
+         (dot@4 bar~3 x@1)
+         (infix@E \2D
+          (dot~3 bar~3 y@1)
+          (call@7 float~5
+           (dot@4 art~3 iconH@1)))
+         (dot@b bar~3 w@1)size@f)))
+      (call@5,2 paint~5
+       (prefix@1 $ level@1)
+       (call@D rect~4
+        (infix@8 \2B
+         (dot~3 over~4 x@1)
+         (call@9 float64~7 scale@1))
+        (infix@X \2B
+         (dot~3 over~4 y@1)
+         (call@9 float64~7 scale@1))
+        (dot~C,1 over~4 width@1)
+        (dot@,1 over~4 height@1))size@N,1 AlignCentre@T,1
+       (call@v,1
+        (dot~A Black~5 withAlpha@1)0.85@1))
+      (call@5,4 paint~5
+       (prefix@1 $ level@1)over@9 size@F AlignCentre@L
+       (call@b rgb~3 0.52@1 0.95@7 0.32@D 1.0@J)))))
+   (call@8,Z paintRow~8
+    (call@A heartsRow~9 art@1 hotbar@6)
+    (dot@V
+     (dot~5 h~1 life@1)health@1)HeartFullSprite@e HeartHalfSprite~6,1 HeartBackSprite@B,1 HeartFull@S,1 HeartEmpty@d,1 false@p,1)
+   (call@8,b paintRow~8
+    (call@A hungerRow~9 art@1 hotbar@6)
+    (dot@V
+     (dot~5 h~1 life@1)hunger@1)FoodFullSprite@e FoodHalfSprite~6,1 FoodBackSprite@A,1 HaunchFull@Q,1 HaunchEmpty@c,1 true@p,1)
+   (if@,d
+    (elif@3
+     (infix@E >
+      (dot~8
+       (dot~5 h~1 life@1)armour@1)0@2)
+     (stmts~1,1
+      (call@8 paintRow~8
+       (call@A armourRow~9 art@1 hotbar@6)
+       (dot@V
+        (dot~5 h~1 life@1)armour@1)ArmourFullSprite@e ArmourHalfSprite~6,1 ArmourBackSprite@C,1 ShieldFull@U,1 ShieldEmpty@g,1 false@t,1))))
+   (if@,j
+    (elif@3
+     (call@4 worn~4 HotbarSprite@1)
+     (stmts~1,1
+      (call@B paintSprite~B HotbarSprite@1 hotbar@F)))
+    (else@,2
+     (stmts@2,1
+      (call@5 paint~5
+       (call@9 onScreen~8 hotbar@1)
+       (call@M rgb~3 0.08@1 0.09@7 0.12@D 0.72@J))
+      (call@6,1 border~6
+       (call@9 onScreen~8 hotbar@1)1.0@J
+       (call@R rgb~3 1.0@1 1.0@6 1.0@B 0.22@G)))))
+   (var@4,o i . . . 0@4)
+   (while@,p
+    (infix@8 < i~2 HotbarSlots@2)
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 == i~2
+        (dot@4 h~1 selected@1))
+       (stmts~1,1
+        (let@4 sel . . .
+         (call@J selectionRect~D art@1 hotbar@6 i@E))
+        (if@,1
+         (elif@3
+          (call@4 worn~4 SelectSprite@1)
+          (stmts@K
+           (call@B paintSprite~B SelectSprite@1 sel@F)))
+         (else@,1
+          (stmts@6
+           (call@6 border~6
+            (call@9 onScreen~8 sel@1)
+            (call@N float64~7 scale@1)
+            (call@l
+             (dot~A White~5 withAlpha@1)0.92@1))))))))
+     (call@A,4 paintStack~A
+      (call@9 onScreen~8
+       (call@F hotbarItemRect~E art@1 hotbar@6 i@E))reg@h
+      (call@u
+       (dot~3
+        (dot~4 h~1 inv@1)at@1)i@1))
+     (asgn@2,5 i~2
+      (infix@4 \2B i~2 1@2))))
+   (let@4,y holding . . .
+    (call@E held~4 h@1))
+   (let@4,z lineH . . .
+    (call@F float64~7
+     (infix@B *
+      (dot~7 art~3 iconH@1)scale@2)))
+   (if@,10
+    (elif@3
+     (prefix not
+      (call@B isEmpty~7 holding@1))
+     (stmts~1,1
+      (let@4 d . . .
+       (call@G definitionOf~C reg@1
+        (dot@D holding~7 item@1)))
+      (let@4,1 over . . .
+       (call@F onScreen~8
+        (call@6 mrect~5
+         (dot@7 hotbar~6 x@1)
+         (call@L statusRowY~A art@1 hotbar@6 2@E)
+         (dot@j hotbar~6 w@1)
+         (call~I,1 float~5
+          (dot@4 art~3 iconH@1)))))
+      (call@5,3 paint~5
+       (dot@2 d~1 display@1)over@C lineH@I AlignCentre@P
+       (call@r
+        (dot~A White~5 withAlpha@1)0.75@1)))))
+   (if@,16
+    (elif@3
+     (infix@D >
+      (dot~5 saidLast~8 len@1)0@2)
+     (stmts~1,1
+      (let@4 over . . .
+       (call@F onScreen~8
+        (call@6 mrect~5
+         (dot@7 hotbar~6 x@1)
+         (call@L statusRowY~A art@1 hotbar@6 3@E)
+         (dot@j hotbar~6 w@1)
+         (call~I,1 float~5
+          (dot@4 art~3 iconH@1)))))
+      (call@5,2 paint~5 saidLast@1 over@B lineH@H AlignCentre@O
+       (call@e rgb~3 1.0@1 0.82@6 0.35@C 0.95@I)))))
+   (if@,1B
+    (elif@3
+     (dot@6
+      (dot~5 h~1 life@1)dead@1)
+     (stmts~1,1
+      (let@4 area . . .
+       (call@H screenArea~A))
+      (call@5,1 paint~5 area@1
+       (call@A rgb~3 0.45@1 0.03@7 0.03@D 0.45@J))
+      (call@5,2 paint~5
+       (call@3 tr~2 KeyDeath@1)
+       (call@J rect~4
+        (dot@5 area~4 x@1)
+        (infix@L *
+         (dot~8 area~4 height@1)0.34@2)
+        (dot@X area~4 width@1)40.0@f)38.0~3,1 AlignCentre@3,1 White@G,1)
+      (call@5,4 paint~5
+       (call@3 tr~2 KeyRespawn@1)
+       (call@1,1 rect~4
+        (dot@5 area~4 x@1)
+        (infix@S \2B
+         (infix~7 *
+          (dot~8 area~4 height@1)0.34@2)46.0@2)
+        (dot@e area~4 width@1)22.0@m)18.0@u,1 AlignCentre~3,2
+       (call@P,2
+        (dot~A White~5 withAlpha@1)0.85@1)))))))
+ (proc@,8A countIn@5 . . .
+  (params@C
+   (param@1 h . . Hud@3 .)
+   (param@9 slot . . int@6 .))int64@L . .
+  (stmts@2,1
+   (call@5 int64~5
+    (dot@L
+     (call~9 stackAtWide~B h@1 slot@4)count@1))))
+ (comment@,8D)
+ (proc@,8L slotWidget@5 . . .
+  (params@F
+   (param@1 name . . string@6 .)
+   (param@F at . . MRect@4 .)
+   (param@Q slot . . int@6 .)
+   (param@b h . .
+    (mut@3 Hud@4).)
+   (param~B,1 reg . . Registry@5 .)
+   (param@4,1 recipes . .
+    (at@C seq~3 Recipe@1).)). . .
+  (stmts@2,2
+   (let@4 box . . .
+    (call@E onScreen~8 at@1))
+   (if@,3
+    (elif@3
+     (prefix not
+      (call@8 worn~4 InventorySheet@1))
+     (stmts~1,1
+      (if
+       (elif@3
+        (call@4 worn~4 SlotSprite@1)
+        (stmts@I
+         (call@B paintSprite~B SlotSprite@1 at@D)))
+       (else@,1
+        (stmts@2,1
+         (call@5 paint~5 box@1
+          (call@9 rgb~3 0.55@1 0.55@7 0.58@D 0.3@J))
+         (call@6,1 border~6 box@1 1.0@6
+          (call@E rgb~3 1.0@1 1.0@6 1.0@B 0.18@G))))))))
+   (let@4,9 here . . .
+    (call@I stackAtWide~B h@1 slot@4))
+   (let@4,A inner . . .
+    (call@G onScreen~8
+     (call@6 mrect~5
+      (infix@6 \2B
+       (dot~3 at~2 x@1)
+       (call@7 float~5 SlotBorder@1))
+      (infix@W \2B
+       (dot~3 at~2 y@1)
+       (call@7 float~5 SlotBorder@1))
+      (call~J,1 float~5
+       (call@9 itemSize~8 art@1))
+      (call@3,1 float~5
+       (call@9 itemSize~8 art@1)))))
+   (let@4,D zone . . .
+    (call@F dropZone~8 name@1 box@7 SlotTag@C))
+   (if@,E
+    (elif@3
+     (infix@A or
+      (dot~6 zone~4 over@1)
+      (call@7 over~4 box@1))
+     (stmts~1,2
+      (if
+       (elif@3
+        (call@4 worn~4 SlotHotSprite@1)
+        (stmts@L
+         (call@B paintSprite~B SlotHotSprite@1 at@G)))
+       (else@,1
+        (stmts@6
+         (call@5 paint~5 box@1
+          (call@L
+           (dot~A White~5 withAlpha@1)0.35@1))))))))
+   (if@,J
+    (elif@3
+     (call@7 isEmpty~7
+      (dot@2 h~1 carried@1))
+     (stmts~1,1
+      (let@4 load . . .
+       (call@C carry~5 SlotTag@1
+        (prefix@A $ slot@1)
+        (call@O countIn~7 h@1 slot@4)))
+      (let@4,1 d . . .
+       (call@8 drag~4 name@1 box@7 load@C))
+      (if@,2
+       (elif@3
+        (infix@W and
+         (infix~L and
+          (dot~A d~1 dragging@1)
+          (infix@D != dragFrom~9 slot@3))
+         (prefix@4 not
+          (call@B isEmpty~7 here@1)))
+        (stmts@t
+         (asgn@9 dragFrom~9 slot@2))))
+      (if@,3
+       (elif@3
+        (dot@1 d~1 clicked@1)
+        (stmts~1,1
+         (if
+          (elif@3
+           (infix@5 >= slot~5 FirstBenchSlot@3)
+           (stmts@O
+            (call@A clickBench~A h@1 reg@4
+             (infix@E \2D slot~5 FirstBenchSlot@2)recipes@W)))
+          (else@,1
+           (stmts@6
+            (call@7 clickAt~7 h@1 reg@4 slot@9)))))))))
+    (else@,7
+     (stmts@2,1
+      (let@4 t . . .
+       (call@9 touch~5 name@1 box@7))
+      (if@,1
+       (elif@3
+        (dot@1 t~1 clicked@1)
+        (stmts~1,1
+         (if
+          (elif@3
+           (infix@5 >= slot~5 FirstBenchSlot@3)
+           (stmts@O
+            (call@A clickBench~A h@1 reg@4
+             (infix@E \2D slot~5 FirstBenchSlot@2)recipes@W)))
+          (else@,1
+           (stmts@6
+            (call@7 clickAt~7 h@1 reg@4 slot@9))))))))))
+   (if@,Y
+    (elif@3
+     (infix@A and
+      (call~6 over~4 box@1)
+      (call@B clicked~7 RightButton@1))
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@5 >= slot~5 FirstBenchSlot@3)
+        (stmts~1,1
+         (call@A clickBench~A h@1 reg@4
+          (infix@E \2D slot~5 FirstBenchSlot@2)recipes@W true@f)))
+       (else@,2
+        (stmts@2,1
+         (call@7 clickAt~7 h@1 reg@4 slot@9 true@F)))))))
+   (if@,e
+    (elif@3
+     (prefix not
+      (par@4
+       (infix@f and
+        (infix~L and
+         (call~C isEmpty~7
+          (dot@2 h~1 carried@1))
+         (infix@D == dragFrom~9 slot@3))
+        (call@C carrying~8 SlotTag@1))))
+     (stmts~1,1
+      (call@A paintStack~A inner@1 reg@8
+       (call@O stackAtWide~B h@1 slot@4)))))
+   (if@,h
+    (elif@3
+     (infix@V and
+      (infix~I and
+       (dot~9 zone~4 dropped@1)
+       (infix@D >= dragFrom~9 0@3))
+      (infix@D != dragFrom~9 slot@3))
+     (stmts~1,1
+      (if
+       (elif@3
+        (prefix not
+         (call@C dragSlot~8 h@1 reg@4 dragFrom@9 slot@J recipes@P))
+        (stmts~1,1
+         (call@3 say~3 "that does not go there"@1)))
+       (else@,2
+        (stmts@2,1
+         (call@3 say~3 ""@1)))))))))
+ (comment@,9A)
+ (proc@,9C resultWidget@5 . . .
+  (params@H
+   (param@1 at . . MRect@4 .)
+   (param@C h . .
+    (mut@3 Hud@4).)
+   (param@O reg . . Registry@5 .)
+   (param@d recipes . .
+    (at@C seq~3 Recipe@1).)). . .
+  (stmts@2,1
+   (let@4 box . . .
+    (call@E onScreen~8 at@1))
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@8 worn~4 InventorySheet@1))
+     (stmts~1,1
+      (if
+       (elif@3
+        (call@4 worn~4 SlotSprite@1)
+        (stmts@I
+         (call@B paintSprite~B SlotSprite@1 at@D)))
+       (else@,1
+        (stmts@2,1
+         (call@5 paint~5 box@1
+          (call@9 rgb~3 0.55@1 0.55@7 0.58@D 0.3@J))
+         (call@6,1 border~6 box@1 1.0@6
+          (call@E rgb~3 1.0@1 1.0@6 1.0@B 0.18@G))))))))
+   (call@A,6 paintStack~A
+    (call@9 onScreen~8
+     (call@6 mrect~5
+      (infix@6 \2B
+       (dot~3 at~2 x@1)
+       (call@7 float~5 SlotBorder@1))
+      (infix@W \2B
+       (dot~3 at~2 y@1)
+       (call@7 float~5 SlotBorder@1))
+      (call~I,1 float~5
+       (call@9 itemSize~8 art@1))
+      (call@4,1 float~5
+       (call@9 itemSize~8 art@1))))reg@c,1
+    (dot@o,1
+     (dot~6 h~1 bench@1)made@1))
+   (let@4,8 t . . .
+    (call@9 touch~5 "result"@1 box@B))
+   (if@,9
+    (elif@3
+     (infix@6 and
+      (dot~5 t~1 hot@1)
+      (prefix@4 not
+       (call@B isEmpty~7
+        (dot@8
+         (dot~6 h~1 bench@1)made@1))))
+     (stmts~1,1
+      (if
+       (elif@3
+        (call@4 worn~4 SlotHotSprite@1)
+        (stmts@L
+         (call@B paintSprite~B SlotHotSprite@1 at@G)))
+       (else@,1
+        (stmts@6
+         (call@5 paint~5 box@1
+          (call@L
+           (dot~A White~5 withAlpha@1)0.35@1))))))))
+   (if@,C
+    (elif@3
+     (infix@A and
+      (dot~9 t~1 clicked@1)
+      (prefix@4 not
+       (call@B isEmpty~7
+        (dot@8
+         (dot~6 h~1 bench@1)made@1))))
+     (stmts~1,1
+      (let@4 name0 . . .
+       (dot@i
+        (call~O definitionOf~C reg@1
+         (dot@I
+          (dot~5
+           (dot~6 h~1 bench@1)made@1)item@1))display@1))
+      (if@,1
+       (elif@3
+        (call@8 takeMade~8 h@1 reg@4 recipes@9)
+        (stmts@R
+         (call@3 say~3
+          (infix@9 & "made "~8 name0@2))))
+       (else@,1
+        (stmts@6
+         (call@3 say~3
+          (infix@G & "no room for "~F name0@2))))))))))
+ (proc@,9U runOfSlots@5 . . .
+  (params@F
+   (param@1 name . . string@6 .)
+   (param@F boxes . .
+    (at@A seq~3 MRect@1).)
+   (param@Y first . . int@7 .)
+   (param@k h . .
+    (mut@3 Hud@4).)
+   (param~B,1 reg . . Registry@5 .)
+   (param@4,1 recipes . .
+    (at@C seq~3 Recipe@1).)). . .
+  (stmts@2,2
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@7 boxes~5 len@1))
+    (stmts@2,1
+     (call@A slotWidget~A
+      (infix@6 & name~5
+       (prefix@2 $ i@1))
+      (at@H boxes~5 i@1)
+      (infix@S \2B first~6 i@2)h@X reg@a recipes@f)
+     (asgn@2,1 i~2
+      (infix@4 \2B i~2 1@2))))))
+ (comment@,9b)
+ (proc@,9e drawInventory@5 x . .
+  (params@J
+   (param@1 h . .
+    (mut@3 Hud@4).)
+   (param@D reg . . Registry@5 .)
+   (param@S recipes . .
+    (at@C seq~3 Recipe@1).)). . .
+  (stmts@2,1
+   (call@7 measure~7)
+   (let@4,1 s . . .
+    (call@E screenArea~A))
+   (call@5,2 paint~5 s@1
+    (call@7 rgb~3 0.0@1 0.0@6 0.0@B 0.55@G))
+   (let@4,4 bench . . .
+    (infix@Q or
+     (infix~5 >=
+      (dot~6
+       (dot~6 h~1 bench@1)wide@1)3@3)
+     (infix@G >=
+      (dot~6
+       (dot~6 h~1 bench@1)tall@1)3@3)))
+   (let@4,5 panel . . .
+    (call@H panelRect~9 art@1 guiW@6 guiH@C))
+   (let@4,6 sheet . . .
+    (if@8
+     (elif@3 bench
+      (stmts@7 BenchSheet))
+     (else@L
+      (stmts@6 InventorySheet))))
+   (if@,7
+    (elif@3
+     (call@4 worn~4 sheet@1)
+     (stmts~1,1
+      (call@A paintSheet~A sheet@1 panel@8 0.0@F 0.0@K
+       (call@U float~5
+        (dot@4 art~3 panelW@1))
+       (call@n float~5
+        (dot@4 art~3 panelH@1)))))
+    (else@,2
+     (stmts@2,1
+      (call@5 panel~5
+       (call@9 onScreen~8 panel@1)))))
+   (call@6,B pushId~6 "hudinv"@1)
+   (let@4,E title . . .
+    (if@8
+     (elif@3 bench
+      (stmts@7
+       (call@2 tr~2 KeyCrafting@1)))
+     (else@Q
+      (stmts@6
+       (call@2 tr~2 KeyInventory@1)))))
+   (let@4,F head . . .
+    (call@F onScreen~8
+     (call@6 mrect~5
+      (infix@9 \2B
+       (dot~3 panel~5 x@1)
+       (call@7 float~5 MainOriginX@1))
+      (infix@R,1 \2B
+       (infix~J \2D
+        (infix~N \2B
+         (dot~3 panel~5 y@1)
+         (call@7 float~5 ArmourOriginY@1))
+        (call@7 float~5
+         (dot@4 art~3 iconH@1)))3.0@2)
+      (dot~I,2 panel~5 w@1)
+      (call~9,2 float~5
+       (dot@4 art~3 iconH@1)))))
+   (call@5,I paint~5 title@1 head@8
+    (call@L float64~7
+     (infix@B *
+      (dot~7 art~3 iconH@1)scale@2))AlignLeft@g
+    (call@,1 rgb~3 0.25@1 0.25@7 0.25@D 1.0@J))
+   (call@A,L runOfSlots~A "armour"@1
+    (call@N armourColumn~C art@1 panel@6)FirstArmour@b h@o reg@r recipes@w)
+   (call@A,M runOfSlots~A "bench"@1
+    (call@J craftGrid~9 art@1 panel@6
+     (dot@K
+      (dot~6 h~1 bench@1)wide@1)
+     (dot@Y
+      (dot~6 h~1 bench@1)tall@1))FirstBenchSlot~8,1 h@8,1 reg@B,1 recipes@G,1)
+   (call@C,O resultWidget~C
+    (call@C craftResult~B art@1 panel@6
+     (dot@K
+      (dot~6 h~1 bench@1)wide@1)
+     (dot@Y
+      (dot~6 h~1 bench@1)tall@1))h@s reg@v recipes~A,1)
+   (call@A,Q runOfSlots~A "main"@1
+    (call@H mainGrid~8 art@1 panel@6)FirstMain@V h@g reg@j recipes@o)
+   (call@A,R runOfSlots~A "hot"@1
+    (call@G quickRow~8 art@1 panel@6)0@U h@X reg@a recipes@f)
+   (var@4,W footer . . . saidLast@9)
+   (if@,X
+    (elif@3
+     (infix@B ==
+      (dot~5 footer~6 len@1)0@3)
+     (stmts@H
+      (asgn@7 footer~7
+       (call@8 reason~6)))))
+   (if@,Y
+    (elif@3
+     (infix@B >
+      (dot~5 footer~6 len@1)0@2)
+     (stmts~1,1
+      (call@4 hint~4
+       (call@9 onScreen~8
+        (call@6 mrect~5
+         (dot@6 panel~5 x@1)
+         (infix@N \2B
+          (dot~8 panel~5 bottom@1)2.0@2)
+         (dot@Z panel~5 w@1)
+         (call~C,1 float~5
+          (dot@4 art~3 iconH@1))))footer@I,1))))
+   (call@5,c popId~5)))
+ (comment@,AJ)
+ (proc@,AL drawHand@5 x . .
+  (params@E
+   (param@1 h . . Hud@3 .)
+   (param@9 reg . . Registry@5 .)). . .
+  (stmts@2,1
+   (let@4 side . . .
+    (call@E float64~7
+     (infix@F *
+      (call~6 itemSize~8 art@1)scale@2)))
+   (if@,1
+    (elif@3
+     (call@8 carrying~8 SlotTag@1)
+     (stmts~1,1
+      (call@A paintStack~A
+       (call@A ghostRect~9)reg@E
+       (call@U stackAtWide~B h@1 dragFrom@4))
+      (ret@,1 .))))
+   (if@,4
+    (elif@3
+     (call@7 isEmpty~7
+      (dot@2 h~1 carried@1))
+     (stmts@K
+      (ret .))))
+   (let@4,5 at . . .
+    (call@E pointerAt~9))
+   (call@A,6 paintStack~A
+    (call@5 rect~4
+     (infix@6 \2D
+      (dot~3 at~2 x@1)
+      (infix@7 * side~5 0.5@2))
+     (infix@P \2D
+      (dot~3 at~2 y@1)
+      (infix@7 * side~5 0.5@2))side@d side@j)reg@v
+    (dot~7,1 h~1 carried@1))))
+ (comment@,AV)
+ (proc@,AX settleHudDrag@5 x . .
+  (params@J). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (dot@9
+      (call~2 landing~7)happened@1)
+     (stmts@K
+      (asgn@9 dragFrom~9 -1@2))))))
+ (comment@,Ae)
+ (proc@,Ao proveLayout@5 x . .
+  (params@H). . .
+  (stmts@2,1
+   (call@7 measure~7)
+   (let@4,1 hotbar . . .
+    (call@J hotbarRect~A art@1 guiW@6 guiH@C))
+   (let@4,2 hearts . . .
+    (call@I rowExtent~9
+     (call@A heartsRow~9 art@1 hotbar@6)))
+   (let@4,3 hunger . . .
+    (call@I rowExtent~9
+     (call@A hungerRow~9 art@1 hotbar@6)))
+   (let@4,4 panel . . .
+    (call@H panelRect~9 art@1 guiW@6 guiH@C))
+   (let@4,5 main . . .
+    (call@F mainGrid~8 art@1 panel@6))
+   (var@4,6 ok . . . true@5)
+   (if@,9
+    (elif@3
+     (call@8 overlaps~8 hearts@1 hunger@9)
+     (stmts@Q
+      (asgn@3 ok~3 false@2))))
+   (if@,A
+    (elif@3
+     (infix@9 !=
+      (dot~3 hearts~6 x@1)
+      (dot@9 hotbar~6 x@1))
+     (stmts@M
+      (asgn@3 ok~3 false@2))))
+   (if@,B
+    (elif@3
+     (infix@D !=
+      (dot~7 hunger~6 right@1)
+      (dot@9 hotbar~6 right@1))
+     (stmts@U
+      (asgn@3 ok~3 false@2))))
+   (if@,C
+    (elif@3
+     (infix@9 <=
+      (dot~3 hunger~6 x@1)
+      (dot@9 hearts~6 right@1))
+     (stmts@Q
+      (asgn@3 ok~3 false@2))))
+   (if@,F
+    (elif@3
+     (prefix not
+      (call@A within~6 main@1 panel@7))
+     (stmts@P
+      (asgn@3 ok~3 false@2))))
+   (if@,G
+    (elif@3
+     (infix@9 !=
+      (dot~5 main~4 len@1)MainSlots@3)
+     (stmts@N
+      (asgn@3 ok~3 false@2))))
+   (if@,H
+    (elif@3
+     (infix@9 >
+      (dot~5 main~4 len@1)0@2)
+     (stmts~1,1
+      (let@4 b . . .
+       (at@8 main~4 0@1))
+      (if@,1
+       (elif@3
+        (infix@l !=
+         (call~f slotAt~6 main@1
+          (infix@B \2B
+           (dot~3 b~1 x@1)
+           (infix@6 *
+            (dot~3 b~1 w@1)0.5@2))
+          (infix@S \2B
+           (dot~3 b~1 y@1)
+           (infix@6 *
+            (dot~3 b~1 h@1)0.5@2)))0@3)
+        (stmts@r
+         (asgn@3 ok~3 false@2))))
+      (if@,2
+       (elif@3
+        (infix@o !=
+         (call~i slotAt~6 main@1
+          (dot@P
+           (at~E main~4
+            (infix@A \2D
+             (dot~5 main~4 len@1)1@2))right@1)
+          (dot@e
+           (at~3 main~4 0@1)y@1))-1@3)
+        (stmts@v
+         (asgn@3 ok~3 false@2)))))))
+   (call@3,L log~3
+    (infix@N & "\5Bassert\5D hud.scale="~M
+     (prefix@2 $ scale@1)))
+   (call@3,M log~3
+    (infix@Q & "\5Bassert\5D hud.guiwidth="~P
+     (prefix@2 $ guiW@1)))
+   (call@3,N log~3
+    (infix@R & "\5Bassert\5D hud.guiheight="~Q
+     (prefix@2 $ guiH@1)))
+   (call@3,O log~3
+    (infix@T & "\5Bassert\5D hud.hotbarwidth="~S
+     (prefix@2 $
+      (dot@4 art~3 hotbarW@1))))
+   (call@3,P log~3
+    (infix@R & "\5Bassert\5D hud.barsclear="~Q
+     (prefix@2 $
+      (call@4 int~3
+       (infix@A \2D
+        (dot~3 hunger~6 x@1)
+        (dot@8 hearts~6 right@1))))))
+   (call@3,Q log~3
+    (infix@O & "\5Bassert\5D hud.slot0x="~N
+     (prefix@2 $
+      (call@4 int~3
+       (infix@B \2D
+        (dot~3
+         (at~3 main~4 0@1)x@1)
+        (dot@7 panel~5 x@1))))))
+   (call@3,R log~3
+    (infix@O & "\5Bassert\5D hud.slot0y="~N
+     (prefix@2 $
+      (call@4 int~3
+       (infix@B \2D
+        (dot~3
+         (at~3 main~4 0@1)y@1)
+        (dot@7 panel~5 y@1))))))
+   (call@3,S log~3
+    (infix@R & "\5Bassert\5D hud.slotpitch="~Q
+     (prefix@2 $
+      (call@A slotPitch~9 art@1))))
+   (call@3,T log~3
+    (infix@N & "\5Bassert\5D hud.slots="~M
+     (prefix@2 $
+      (dot@5 main~4 len@1))))
+   (call@3,U log~3
+    (infix@M & "\5Bassert\5D hud.skin="~L
+     (expr
+      (stmts@2)
+      (if@1
+       (elif@3
+        (dot@3 art~3 granted@1)"minecraft"@D)
+       (else@S "ours"@6)))))
+   (call@3,V log~3
+    (infix@O & "\5Bassert\5D hud.layout="~N
+     (expr
+      (stmts@2)
+      (if@1
+       (elif@3 ok "ok"@4)
+       (else@C "wrong"@6))))))))

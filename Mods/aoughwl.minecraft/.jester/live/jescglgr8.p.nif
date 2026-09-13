@@ -1,0 +1,4505 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/source/jester_mod_8e0d908f2ec77703.nim
+ (comment)
+ (import@,16 jester@7)
+ (import@,17 importing@7)
+ (import@,18 textures@7)
+ (import@,19 mcjson@7)
+ (import@,1A mclangassets@7)
+ (import@,1B mcmodel@7)
+ (import@,1C mcstate@7)
+ (import@,1D mcitem@7)
+ (import@,1E mcplan@7)
+ (import@,1F mcpack@7)
+ (import@,1G mcanim@7)
+ (import@,1H mctint@7)
+ (import@,1I mcrecipe@7)
+ (import@,1J mcpng@7)
+ (import@,1K mcatlas@7)
+ (import@,1L mcgui@7)
+ (import@,1M mcpanel@7)
+ (import@,1N services@7)
+ (const@2,1Q Fingerprint . . . "versions"@E)
+ (const@2,1R Extracted . . . "Imported"@C)
+ (const@2,1S Scheme . . . "minecraft"@9)
+ (const@2,1U TargetVersion . . . "1.21.11"@G)
+ (const@2,1t ModelsIn . . . "assets/minecraft/models/block/*.json"@B)
+ (const@2,1u TexturesIn . . . "assets/minecraft/textures/block/*.png"@D)
+ (const@2,1v StatesIn . . . "assets/minecraft/blockstates/*.json"@B)
+ (const@2,1w ItemModelsIn . . . "assets/minecraft/models/item/*.json"@F)
+ (const@2,24 ItemDefsIn . . . "assets/minecraft/items/*.json"@D)
+ (const@2,25 ItemTexturesIn . . . "assets/minecraft/textures/item/*.png"@H)
+ (const@2,26 MetaIn . . . "assets/minecraft/textures/*.mcmeta"@9)
+ (const@2,27 RecipesIn . . . "data/minecraft/recipe*.json"@C)
+ (const@2,28 OptionsIn . . . "options.txt"@C)
+ (const@2,29 PackIn . . . "assets/*"@9)
+ (const@2,2E GuiIn . . . "assets/minecraft/textures/gui/*"@8)
+ (const@2,2F FontIn . . . "assets/minecraft/textures/font/*"@9)
+ (const@2,2G LangIn . . . "assets/minecraft/lang/*"@9)
+ (const@2,2H TextsIn . . . "assets/minecraft/texts/*"@A)
+ (const@2,2I EnvironmentIn . . . "assets/minecraft/textures/environment/*"@G)
+ (const@2,2N OptionsFile . . . "Imported/options.txt"@E)
+ (const@2,2O LangCache . . . "Imported/lang.cache"@C)
+ (const@2,2P BlockIndex . . . "Imported/blocks.txt"@D)
+ (const@2,2Q StateIndex . . . "Imported/blockstates.txt"@D)
+ (const@2,2R ItemIndex . . . "Imported/items.txt"@C)
+ (const@2,2S RecipeIndex . . . "Imported/recipes.txt"@E)
+ (const@2,2T IconFile . . . "pack.png"@B)
+ (const@2,2U StudioFile . . . "Imported/aoughwlstudios.png"@D)
+ (const@2,2X MetaIndex . . . "Imported/animated.txt"@C)
+ (const@2,2Y PackIndex . . . "Imported/packs.txt"@C)
+ (const@2,2Z Newline . . .
+  (call@E char~4 10@1))
+ (const@2,2e PlanReceipt . . . "Imported/plan.txt"@E)
+ (const@2,2y Blocks . . . "minecraft.blocks"@9)
+ (const@2,2z Items . . . "minecraft.items"@8)
+ (const@2,30 Recipes . . . "minecraft.recipes"@A)
+ (const@2,31 Animations . . . "minecraft.animations"@D)
+ (const@2,32 PartKind . . . "aoughwl.part"@B)
+ (const@2,3H VoxelBlocks . . . "voxel.blocks"@E)
+ (const@2,3I AtlasFacet . . . ".atlas"@D)
+ (comment@2,3J)
+ (const@2,3N WearFacet . . . ".wear"@C)
+ (const@2,3O CrackReference . . . "block/destroy_stage_"@H)
+ (const@2,3P CrackStages . . . 10@E)
+ (const@2,3T TilesFacet . . . ".tiles"@D)
+ (const@2,3V HudRecipeSources . . . "aoughwl.hud.recipes"@J)
+ (const@2,3W HudRecipeKind . . . "aoughwl.hud.recipe"@G)
+ (const@2,3X HudIconKind . . . "aoughwl.hud.icon"@E)
+ (const@2,3Y HudFoodKind . . . "aoughwl.hud.food"@E)
+ (const@2,3Z HudSaturationKind . . . "aoughwl.hud.saturation"@K)
+ (const@2,3a HudArmourKind . . . "aoughwl.hud.armour"@G)
+ (const@2,3b HudArmourPartKind . . . "aoughwl.hud.armourpart"@K)
+ (const@2,3c IconFacet . . . ".icon"@C)
+ (const@2,3d FoodFacet . . . ".food"@C)
+ (const@2,3e SaturationFacet . . . ".saturation"@I)
+ (const@2,3f ArmourFacet . . . ".armour"@E)
+ (const@2,3g ArmourPartFacet . . . ".armourpart"@I)
+ (const@2,3i ItemKind . . . "aoughwl.item"@B)
+ (const@2,3j ItemStackKind . . . "aoughwl.item.stack"@G)
+ (const@2,3k ItemBulkKind . . . "aoughwl.item.bulk"@F)
+ (const@2,3l ItemWeightKind . . . "aoughwl.item.weight"@H)
+ (const@2,3m ItemShapeKind . . . "aoughwl.item.shape"@G)
+ (const@2,3n ItemTagKind . . . "aoughwl.item.tags"@E)
+ (const@2,3o StackFacet . . . ".stack"@D)
+ (const@2,3p BulkFacet . . . ".bulk"@C)
+ (const@2,3q WeightFacet . . . ".weight"@E)
+ (const@2,3r ShapeFacet . . . ".shape"@D)
+ (const@2,3s TagFacet . . . ".tags"@B)
+ (const@2,3u InventorySources . . . "aoughwl.inventory.sources"@J)
+ (const@2,3y AnimationKind . . . "aoughwl.animation"@G)
+ (const@2,40 Inventory . . . "minecraft.inventory"@C)
+ (const@2,46 RecipeBudget . . . 6@F)
+ (const@2,49 StateBudget . . . 1@E)
+ (const@2,4A HudRowsBudget . . . 32@G)
+ (const@2,4B PublishRowsBudget . . . 32@K)
+ (const@2,4C MetaBudget . . . 8@D)
+ (const@2,4D IconBudget . . . 4@D)
+ (const@2,4K PackRowsPerPump . . . 8@I)
+ (const@2,4O MinPackRowsPerPump . . . 1@L)
+ (const@2,4P SlowPackFrameMs . . . 20@I)
+ (const@2,4Q FastPackFrameMs . . . 10@I)
+ (const@2,4X GuiService . . . "minecraft.gui"@D)
+ (var@2,4e root . . . ""@7)
+ (var@2,4f jarPath . . . ""@A)
+ (var@2,4g ask . . . AskNothing@6)
+ (var@2,4h saidAt . . . -1000.0@9)
+ (var@2,4i lines . .
+  (at@A seq~3 string@1).)
+ (var@2,4j names . .
+  (at@A seq~3 string@1).)
+ (var@2,4k stateNames . .
+  (at@F seq~3 string@1).)
+ (var@2,4l itemNames . .
+  (at@E seq~3 string@1).)
+ (var@2,4m recipeNames . .
+  (at@G seq~3 string@1).)
+ (var@2,4n metaNames . .
+  (at@E seq~3 string@1).)
+ (var@2,4o packNames . .
+  (at@E seq~3 string@1).)
+ (var@2,4p layers . . .
+  (call@H noLayers~8))
+ (var@2,4q published . . . false@C)
+ (var@2,4r publishInitialized . . . false@L)
+ (var@2,4s publishBlockAt . . . 0@H)
+ (var@2,4t publishItemAt . . . 0@G)
+ (var@2,4u ledgerNoted . . . false@E)
+ (var@2,4v running . . . false@A)
+ (var@2,4w recipeAt . . . 0@B)
+ (var@2,4x stateAt . . . 0@A)
+ (var@2,4y metaAt . . . 0@9)
+ (var@2,4z iconAt . . . 0@9)
+ (var@2,50 iconCount . . . 0@C)
+ (var@2,51 hudFilled . . . false@C)
+ (var@2,52 hudStarted . . . false@D)
+ (var@2,53 hudAt . . . 0@8)
+ (var@2,54 animatedSeen . .
+  (at@H seq~3 string@1).)
+ (var@2,5A pictureCount . . . 0@F)
+ (var@2,5B dressedCount . . . 0@F)
+ (var@2,5E cracksDressed . . . false@G)
+ (var@2,5J guiPublished . . . false@F)
+ (var@2,5K guiCount . . . 0@B)
+ (var@2,5L guiSizes . . . ""@B)
+ (var@2,5Q fontRowReady . . . false@F)
+ (var@2,5R fontMeasured . . . ""@F)
+ (var@2,5U jarEntries . .
+  (at@F seq~3 string@1)
+  (prefix@Q \40
+   (bracket@1)))
+ (var@2,5V jarVersion . . . ""@D)
+ (var@2,5W jarFormat . . . 0@C)
+ (var@2,5X jarSearched . . . false@E)
+ (var@2,5Y fitLine . . . ""@A)
+ (var@2,5Z fitChecked . . . false@D)
+ (var@2,5a finding . . . 0@A)
+ (proc@,5g note@5 . . .
+  (params@9
+   (param@1 text . . string@6 .)). . .
+  (stmts@2,1
+   (cmd@5
+    (dot lines~5 add@1)text@5)
+   (call@3,1 log~3
+    (infix@G & "\5Bminecraft\5D "~F text@2))
+   (asgn@7,5 saidAt~7
+    (call@A gameTime~8))
+   (asgn@4,6 ask~4 AskNothing@2)
+   (if@,7
+    (elif@3
+     (infix@A >
+      (dot~5 lines~5 len@1)12@2)
+     (stmts~1,1
+      (var@4 i . . . 0@4)
+      (while@,1
+       (infix@C <
+        (infix~4 \2B i~2 1@2)
+        (dot@7 lines~5 len@1))
+       (stmts@2,1
+        (let@4 next . . .
+         (at@C lines~5
+          (infix@3 \2B i~2 1@2)))
+        (asgn@9,1
+         (at~4 lines~5 i@1)next@2)
+        (cmd@,2 inc i@4)))
+      (call@C,5
+       (dot~7 lines~5 setLen@1)
+       (infix@B \2D
+        (dot~5 lines~5 len@1)1@2)))))))
+ (proc@,65 rebuildLayers@5 . . .
+  (params@I). . .
+  (stmts@2,1
+   (asgn@7 layers~7
+    (call@A noLayers~8))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@B packNames~9 len@1))
+    (stmts@2,1
+     (discard
+      (call@G addLayer~8 layers@1
+       (call@J packFolder~A Extracted@1
+        (at@L packNames~9 i@1))
+       (at@t packNames~9 i@1)))
+     (cmd@,1 inc i@4)))
+   (discard@,5
+    (call@G addLayer~8 layers@1 Extracted@9 "the jar"@K))))
+ (comment@,6D)
+ (proc@,6E find@5 . . .
+  (params@9
+   (param@1 namespace . . string@H .)
+   (param@C path . . string@6 .))string@R . .
+  (stmts@2,1
+   (let@4 where . . .
+    (call@I candidates~A layers@1 namespace@9 path@K))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@7 where~5 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (call@9 importHas~9
+        (at@6 where~5 i@1))
+       (stmts@L
+        (ret
+         (at@C where~5 i@1)))))
+     (cmd@,1 inc i@4)))""@,5))
+ (proc@,6M modelFile@5 . . .
+  (params@E
+   (param@1 reference . . string@B .))string@L . .
+  (stmts@2,1
+   (call@4 find~4
+    (call@C namespaceOf~B reference@1)
+    (infix@z &
+     (infix~Q & "models/"~A
+      (call@E resourcePath~C reference@1))".json"@2))))
+ (proc@,6P textureFile@5 . . .
+  (params@G
+   (param@1 reference . . string@B .))string@L . .
+  (stmts@2,1
+   (call@4 find~4
+    (call@C namespaceOf~B reference@1)
+    (infix@11 &
+     (infix~Q & "textures/"~C
+      (call@E resourcePath~C reference@1))".png"@2))))
+ (proc@,6S stateFile@5 . . .
+  (params@E
+   (param@1 name . . string@6 .))string@G . .
+  (stmts@2,1
+   (call@4 find~4
+    (call@C namespaceOf~B name@1)
+    (infix@u &
+     (infix~L & "blockstates/"~F
+      (call@E resourcePath~C name@1))".json"@2))))
+ (proc@,6V itemDefFile@5 . . .
+  (params@G
+   (param@1 name . . string@6 .))string@G . .
+  (stmts@2,1
+   (call@4 find~4
+    (call@C namespaceOf~B name@1)
+    (call@c itemDefinitionPath~I name@1))))
+ (comment@,6b)
+ (proc@,6r bytesOf@5 . . .
+  (params@C
+   (param@1 path . . string@6 .)
+   (param@F problem . .
+    (mut@9 string@4).))
+  (at@e seq~3 int@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (if@,1
+    (elif@3
+     (infix@E or
+      (infix~5 ==
+       (dot~5 path~4 len@1)0@3)
+      (prefix@3 not
+       (call@D importHas~9 path@1)))
+     (stmts~1,1
+      (asgn@8 problem~8
+       (infix@D &
+        (infix~7 & "\27"~4 path@2)"\27 was not imported"@2))
+      (ret@,1 result@7))))
+   (let@4,4 handle . . .
+    (call@I readBytes~9 path@1))
+   (if@,5
+    (elif@3
+     (infix@7 == handle~7 0@3)
+     (stmts~1,1
+      (asgn@8 problem~8
+       (infix@a &
+        (infix~N &
+         (infix~7 & "\27"~4 path@2)"\27 would not read\3A "@2)
+        (call@F importProblem~D)))
+      (ret@,1 result@7))))
+   (let@4,8 count . . .
+    (call@H byteCount~9 handle@1))
+   (if@,9
+    (elif@3
+     (infix@6 <= count~6 0@3)
+     (stmts~1,1
+      (asgn@8 problem~8
+       (infix@D &
+        (infix~7 & "\27"~4 path@2)"\27 is empty"@2))
+      (call@A,1 closeBytes~A handle@1)
+      (ret@,2 result@7))))
+   (var@4,D i . . . 0@4)
+   (let@4,E whole . . .
+    (infix@E \2D count~6
+     (par@2
+      (infix@7 mod count~6 4@4))))
+   (while@,F
+    (infix@8 < i~2 whole@2)
+    (stmts@2,1
+     (let@4 word . . .
+      (call@F uint32At~8 handle@1 i@9))
+     (cmd@6,1
+      (dot result~6 add@1)
+      (infix@A mod word~5 256@4))
+     (cmd@6,2
+      (dot result~6 add@1)
+      (infix@K mod
+       (par~F
+        (infix@6 div word~5 256@4))256@4))
+     (cmd@6,3
+      (dot result~6 add@1)
+      (infix@M mod
+       (par~H
+        (infix@6 div word~5 65536@4))256@4))
+     (cmd@6,4
+      (dot result~6 add@1)
+      (infix@P mod
+       (par~K
+        (infix@6 div word~5 16777216@4))256@4))
+     (asgn@2,5 i~2
+      (infix@4 \2B i~2 4@2))))
+   (while@,M
+    (infix@8 < i~2 count@2)
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (call@B byteAt~6 handle@1 i@9))
+     (cmd@,1 inc i@4)))
+   (call@A,P closeBytes~A handle@1)))
+ (comment@,7J)
+ (proc@,7L readJson@5 . . .
+  (params@D
+   (param@1 path . . string@6 .)
+   (param@F problem . .
+    (mut@9 string@4).))Json@b . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@B parseJson~9 ""@1))
+   (if@,1
+    (elif@3
+     (infix@9 ==
+      (dot~5 path~4 len@1)0@3)
+     (stmts@F
+      (ret result@7))))
+   (let@4,2 body . . .
+    (call@H importRead~A path@1))
+   (if@,3
+    (elif@3
+     (infix@9 ==
+      (dot~5 body~4 len@1)0@3)
+     (stmts~1,1
+      (asgn@8 problem~8
+       (infix@a &
+        (infix~N &
+         (infix~7 & "\27"~4 path@2)"\27 would not read\3A "@2)
+        (call@F importProblem~D)))
+      (ret@,1 result@7))))
+   (asgn@7,6 result~7
+    (call@B parseJson~9 body@1))
+   (if@,7
+    (elif@3
+     (infix@J >
+      (dot~5
+       (dot~8 result~6 problem@1)len@1)0@2)
+     (stmts~1,1
+      (asgn@8 problem~8
+       (infix@K &
+        (infix~7 &
+         (call~7 leaf~4 path@1)"\3A "@2)
+        (dot@8 result~6 problem@1))))))))
+ (comment@,7W)
+ (proc@,7a chainOf@5 . . .
+  (params@C
+   (param@1 path . . string@6 .)
+   (param@F problem . .
+    (mut@9 string@4).))
+  (at@e seq~3 Json@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 want . . . path@7)
+   (var@4,2 depth . . . 0@8)
+   (while@,3
+    (infix@C < depth~6 MaxChain@2)
+    (stmts@2,1
+     (let@4 file . . .
+      (call@G modelFile~9 want@1))
+     (if@,1
+      (elif@3
+       (infix@9 ==
+        (dot~5 file~4 len@1)0@3)
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@6 == depth~6 0@3)
+          (stmts~1,1
+           (asgn@8 problem~8
+            (infix@D &
+             (infix~7 & "\27"~4 want@2)"\27 is not among the models that were imported"@2)))))
+        (ret@,2 result@7))))
+     (var@4,5 why . . . ""@6)
+     (let@4,6 doc . . .
+      (call@E readJson~8 file@1 why@7))
+     (if@,7
+      (elif@3
+       (infix@8 >
+        (dot~5 why~3 len@1)0@2)
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@6 == depth~6 0@3)
+          (stmts@C
+           (asgn@8 problem~8 why@2))))
+        (ret@,1 result@7))))
+     (cmd@6,A
+      (dot result~6 add@1)doc@5)
+     (let@4,B parent . . .
+      (call@H parentOf~8 doc@1))
+     (if@,C
+      (elif@3
+       (infix@G or
+        (infix~5 ==
+         (dot~5 parent~6 len@1)0@3)
+        (call@C isBuiltin~9 parent@1))
+       (stmts@c
+        (ret result@7))))
+     (let@4,D next . . .
+      (call@J resourcePath~C parent@1))
+     (if@,E
+      (elif@3
+       (infix@5 == next~5 want@3)
+       (stmts@E
+        (ret result@7))))
+     (asgn@5,F want~5 next@2)
+     (cmd@,G inc depth@4)))
+   (asgn@8,L problem~8
+    (infix@z &
+     (infix~C &
+      (infix~a &
+       (infix~7 & "\27"~4 path@2)"\27 has a parent chain more than "@2)
+      (prefix@2 $ MaxChain@1))" deep"@2))))
+ (comment@,7y)
+ (proc@,7z paletteOf@5 . . .
+  (params@E
+   (param@1 docs . .
+    (at@9 seq~3 Json@1).))Textures@J . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@A Textures~8
+     (kv@5 keys~4
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@G vals~4
+      (prefix@2 \40
+       (bracket@1)))))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 docs~4 len@1))
+    (stmts@2,1
+     (call@6 absorb~6 result@1
+      (at@D docs~4 i@1))
+     (cmd@,1 inc i@4)))))
+ (comment@,86)
+ (proc@,87 bakeModel@5 . . .
+  (params@E
+   (param@1 path . . string@6 .)
+   (param@F problem . .
+    (mut@9 string@4).))Bake@b . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@B emptyBake~9))
+   (let@4,1 docs . . .
+    (call@E chainOf~7 path@1 problem@7))
+   (if@,2
+    (elif@3
+     (infix@G or
+      (infix~4 >
+       (dot~5 problem~7 len@1)0@2)
+      (infix@C ==
+       (dot~5 docs~4 len@1)0@3))
+     (stmts@Y
+      (ret result@7))))
+   (let@4,3 t . . .
+    (call@D paletteOf~9 docs@1))
+   (let@4,4 layer . . .
+    (call@L geometryLayer~D docs@1))
+   (if@,5
+    (elif@3
+     (infix@6 < layer~6 0@2)
+     (stmts~1,2
+      (let@4 kind . . .
+       (call@J classifyItem~C docs@1))
+      (if@,1
+       (elif@3
+        (infix@5 == kind~5 ItemGenerated@3)
+        (stmts~1,1
+         (ret
+          (call@K bakeGenerated~D
+           (call@9 layersOf~8 t@1))))))
+      (if@,3
+       (elif@3
+        (infix@5 == kind~5 ItemEntity@3)
+        (stmts~1,1
+         (asgn@8 problem~8 "Minecraft draws this one itself; there is no model to read"@2)
+         (ret@,1 result@7))))
+      (asgn@8,6 problem~8 "no model in its chain has any elements"@2)
+      (ret@,7 result@7))))
+   (call@C,F bakeElements~C
+    (at@5 docs~4 layer@1)
+    (call@K member~6
+     (at@5 docs~4 layer@1)
+     (dot@P
+      (at~7 docs~4 layer@1)root@1)"elements"@W)t@13)))
+ (comment@,8Z)
+ (proc@,8a splitRef@5 . . .
+  (params@D
+   (param@1 want . . string@6 .)
+   (param@F kind . .
+    (mut@J string@4).)
+   (param@L name . .
+    (mut@D string@4).)
+   (param@R state . .
+    (mut@7 string@4).)). . .
+  (stmts@2,1
+   (asgn@5 kind~5 ""@2)
+   (asgn@5,1 name~5 ""@2)
+   (asgn@6,2 state~6 ""@2)
+   (var@4,3 at . . . 0@5)
+   (while@,4
+    (infix@K and
+     (infix~B < at~3
+      (dot@6 want~4 len@1))
+     (infix@D !=
+      (at~5 want~4 at@1)'/'@3))
+    (stmts@2,1
+     (cmd@4
+      (dot kind~4 add@1)
+      (at@9 want~4 at@1))
+     (cmd@,1 inc at@4)))
+   (cmd@,7 inc at@4)
+   (var@4,8 inState . . . false@A)
+   (while@,9
+    (infix@9 < at~3
+     (dot@6 want~4 len@1))
+    (stmts@2,1
+     (let@4 c . . .
+      (at@8 want~4 at@1))
+     (cmd@,1 inc at@4)
+     (if@,2
+      (elif@3
+       (infix@2 == c~2 '\5B'@3)
+       (stmts~1,1
+        (asgn@8 inState~8 true@2)
+        (continue@,1 .))))
+     (if@,5
+      (elif@3
+       (infix@2 == c~2 '\5D'@3)
+       (stmts@A
+        (continue .))))
+     (if@,6
+      (elif@3 inState
+       (stmts@9
+        (cmd@5
+         (dot state~5 add@1)c@5)))
+      (else@,1
+       (stmts@6
+        (cmd@4
+         (dot name~4 add@1)c@5))))))))
+ (comment@,8u)
+ (proc@,8y noteAnimation@5 . . .
+  (params@I
+   (param@1 reference . . string@H .)
+   (param@C file . . string@6 .)
+   (param@Q strip . . int@7 .)). . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@E animatedSeen~C len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@G ==
+        (at~4 animatedSeen~C i@1)reference@3)
+       (stmts@U
+        (ret .))))
+     (cmd@,1 inc i@4)))
+   (cmd@C,4
+    (dot animatedSeen~C add@1)reference@5)
+   (var@4,5 why . . . ""@6)
+   (let@4,6 doc . . .
+    (call@E readJson~8
+     (call@B metaPathOf~A file@1)why@J))
+   (let@4,7 a . . .
+    (call@H readAnimation~D doc@1 strip@6))
+   (call@C,8 addToCatalog~C Animations@1
+    (call@P resourcePath~C reference@1)
+    (infix@6,3 &
+     (infix@f,~1 &
+      (infix~G &
+       (infix~C &
+        (infix~F &
+         (infix@X,~1 &
+          (infix~G &
+           (infix~C &
+            (infix~9 & "frames="~A
+             (prefix@2 $ strip@1))";steps="@2)
+           (prefix@2 $
+            (call@A stepCount~9 a@1)))";frametime="~l,1)
+         (prefix@2 $
+          (dot@2 a~1 frametime@1)))";ticks="@2)
+       (prefix@2 $
+        (call@A loopTicks~9 a@1)))";interpolate="~v,1)
+     (expr
+      (stmts@2)
+      (if@1
+       (elif@3
+        (dot@1 a~1 interpolate@1)"true"@F)
+       (else@P "false"@6)))))))
+ (comment@,9C)
+ (proc@,9F dress@5 . . .
+  (params@A
+   (param@1 b . . Bake@3 .)
+   (param@A model . . string@7 .)). . .
+  (stmts@2,1
+   (let@4 wanted . . .
+    (call@G palette~7 b@1))
+   (var@4,1 tiles . .
+    (at@A seq~3 Image@1)
+    (prefix@K \40
+     (bracket@1)))
+   (var@4,2 missing . . . 0@A)
+   (var@4,3 frames . . . 0@9)
+   (var@4,4 i . . . 0@4)
+   (while@,5
+    (infix@8 < i~2
+     (dot@8 wanted~6 len@1))
+    (stmts@2,1
+     (let@4 file . . .
+      (call@I textureFile~B
+       (at@7 wanted~6 i@1)))
+     (var@4,1 why . . . ""@6)
+     (let@4,2 bytes . . .
+      (call@F bytesOf~7 file@1 why@7))
+     (if@,3
+      (elif@3
+       (infix@8 >
+        (dot~5 why~3 len@1)0@2)
+       (stmts~1,1
+        (call@4 note~4
+         (infix@E &
+          (infix~7 & model~6 "\3A "@2)why@2))
+        (cmd@,1 inc missing@4)
+        (cmd@5,2
+         (dot tiles~5 add@1)
+         (call@E solidTile~9))))
+      (else@,4
+       (stmts@2,1
+        (var@4 img . . .
+         (call@F decodePng~9 bytes@1))
+        (if@,1
+         (elif@3
+          (infix@G >
+           (dot~5
+            (dot~8 img~3 problem@1)len@1)0@2)
+          (stmts~1,1
+           (call@4 note~4
+            (infix@h &
+             (infix~B &
+              (infix~I &
+               (infix~7 & model~6 "\3A "@2)
+               (call@6 leaf~4
+                (at@7 wanted~6 i@1)))".png\3A "@2)
+             (dot@5 img~3 problem@1)))
+           (cmd@,1 inc missing@4)
+           (cmd@5,2
+            (dot tiles~5 add@1)
+            (call@E solidTile~9))))
+         (else@,4
+          (stmts@2,1
+           (let@4 n . . .
+            (call@E frameCount~A img@1))
+           (if@,1
+            (elif@3
+             (infix@2 > n~2 1@2)
+             (stmts~1,1
+              (asgn@7 frames~7
+               (infix@9 \2B frames~7 1@2))
+              (call@D,1 noteAnimation~D
+               (at@7 wanted~6 i@1)file@C n@I))))
+           (cmd@5,4
+            (dot tiles~5 add@1)img@5)))))))
+     (cmd@,J inc i@4)))
+   (var@4,T clash . . . ""@8)
+   (let@4,U tints . . .
+    (call@J tintOfTiles~B b@1 wanted@4 model@C clash@J))
+   (if@,V
+    (elif@3
+     (infix@A >
+      (dot~5 clash~5 len@1)0@2)
+     (stmts@F
+      (call@4 note~4
+       (infix@E &
+        (infix~7 & model~6 "\3A "@2)clash@2)))))
+   (asgn@2,W i~2 0@2)
+   (while@,X
+    (infix@K and
+     (infix~C < i~2
+      (dot@7 tiles~5 len@1))
+     (infix@6 < i~2
+      (dot@7 tints~5 len@1)))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@9 !=
+        (at~4 tints~5 i@1)NoTint@3)
+       (stmts@K
+        (call@9 applyTint~9
+         (at@6 tiles~5 i@1)
+         (at@G tints~5 i@1)))))
+     (cmd@,1 inc i@4)))
+   (if@,b
+    (elif@3
+     (infix@7 > frames~7 0@2)
+     (stmts~1,1
+      (call@4 note~4
+       (infix@O &
+        (infix~A &
+         (infix~7 & model~6 "\3A "@2)
+         (prefix@2 $ frames@1))" of its textures are animated; frame 0 is used"@2)))))
+   (var@4,e sheet . . .
+    (call@I emptyAtlas~A))
+   (if@,f
+    (elif@3
+     (infix@A >
+      (dot~5 tiles~5 len@1)0@2)
+     (stmts~1,1
+      (asgn@6 sheet~6
+       (call@C buildAtlas~A tiles@1))
+      (if@,1
+       (elif@3
+        (infix@I >
+         (dot~5
+          (dot~8 sheet~5 problem@1)len@1)0@2)
+        (stmts@N
+         (call@4 note~4
+          (infix@E &
+           (infix~7 & model~6 "\3A "@2)
+           (dot@7 sheet~5 problem@1)))))))))
+   (call@9,j beginMesh~9)
+   (var@4,k f . . . 0@4)
+   (while@,l
+    (infix@8 < f~2
+     (dot@3 b~1 count@1))
+    (stmts@2,1
+     (let@4 tile . . .
+      (call@D tileOf~6 b@1 f@4 wanted@7))
+     (var@4,1 index . .
+      (at@C array~5 4@1 int@4)
+      (bracket@N 0@1 0@4 0@7 0@A))
+     (var@4,2 c . . . 0@4)
+     (while@,3
+      (infix@8 < c~2 4@2)
+      (stmts@2,1
+       (var@4 u . . .
+        (at@8
+         (dot~3 b~1 uv@1)
+         (infix@7 \2B
+          (infix~4 * f~2 8@2)
+          (infix@4 * c~2 2@2))))
+       (var@4,1 v . . .
+        (at@8
+         (dot~3 b~1 uv@1)
+         (infix@F \2B
+          (infix~8 \2B
+           (infix~4 * f~2 8@2)
+           (infix@4 * c~2 2@2))1@2)))
+       (if@,2
+        (elif@3
+         (infix@E >
+          (dot~9 sheet~5 columns@1)0@2)
+         (stmts~1,1
+          (var@4 ou . . . 0.0@5)
+          (var@4,1 ov . . . 0.0@5)
+          (call@5,2 remap~5 sheet@1 tile@8 u@E v@H ou@K ov@O)
+          (asgn@2,3 u~2 ou@2)
+          (asgn@2,4 v~2 ov@2))))
+       (asgn@9,8
+        (at~4 index~5 c@1)
+        (call@B addVertex~9
+         (at~D,1
+          (dot~4 b~1 pos@1)
+          (infix@8 \2B
+           (infix~5 * f~2 12@2)
+           (infix@4 * c~2 3@2)))
+         (at@A,1
+          (dot~4 b~1 pos@1)
+          (infix@G \2B
+           (infix~8 \2B
+            (infix~5 * f~2 12@2)
+            (infix@4 * c~2 3@2))1@2))
+         (at@b,1
+          (dot~4 b~1 pos@1)
+          (infix@G \2B
+           (infix~8 \2B
+            (infix~5 * f~2 12@2)
+            (infix@4 * c~2 3@2))2@2))
+         (at~C,2
+          (dot~5 b~1 norm@1)
+          (infix@3 * f~2 3@2))
+         (at@3,2
+          (dot~5 b~1 norm@1)
+          (infix@7 \2B
+           (infix~4 * f~2 3@2)1@2))
+         (at@M,2
+          (dot~5 b~1 norm@1)
+          (infix@7 \2B
+           (infix~4 * f~2 3@2)2@2))u@Z,2 v@c,2))
+       (cmd@,B inc c@4)))
+     (call@7,G addQuad~7
+      (at@6 index~5 0@1)
+      (at@G index~5 1@1)
+      (at@Q index~5 2@1)
+      (at@a index~5 3@1))
+     (cmd@,H inc f@4)))
+   (call@A,14 finishMesh~A)
+   (if@,16
+    (elif@3
+     (infix@I and
+      (infix~4 >
+       (dot~9 sheet~5 columns@1)0@2)
+      (infix@C < missing~8
+       (dot@8 wanted~6 len@1)))
+     (stmts~1,1
+      (call@A useTexture~A
+       (call@8 dataUri~7
+        (call@A encodePng~9
+         (dot@6 sheet~5 image@1)))))))))
+ (comment@,AP)
+ (proc@,AR bakeState@5 . . .
+  (params@E
+   (param@1 name . . string@D .)
+   (param@7 state . . string@7 .)
+   (param@M problem . .
+    (mut@9 string@4).))Bake@i . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@B emptyBake~9))
+   (let@4,1 file . . .
+    (call@G stateFile~9 name@1))
+   (if@,2
+    (elif@3
+     (infix@9 ==
+      (dot~5 file~4 len@1)0@3)
+     (stmts~1,1
+      (asgn@8 problem~8
+       (infix@D &
+        (infix~7 & "\27"~4 name@2)"\27 has no blockstate among what was imported"@2))
+      (ret@,1 result@7))))
+   (var@4,5 why . . . ""@6)
+   (let@4,6 doc . . .
+    (call@E readJson~8 file@1 why@7))
+   (if@,7
+    (elif@3
+     (infix@8 >
+      (dot~5 why~3 len@1)0@2)
+     (stmts~1,1
+      (asgn@8 problem~8 why@2)
+      (ret@,1 result@7))))
+   (let@4,A bs . . .
+    (call@K parseBlockState~F doc@1))
+   (if@,B
+    (elif@3
+     (infix@F >
+      (dot~5
+       (dot~8 bs~2 problem@1)len@1)0@2)
+     (stmts~1,1
+      (asgn@8 problem~8
+       (infix@K &
+        (infix~7 &
+         (call~7 leaf~4 name@1)"\3A "@2)
+        (dot@4 bs~2 problem@1)))
+      (ret@,1 result@7))))
+   (var@4,E want . . . state@7)
+   (if@,F
+    (elif@3
+     (infix@9 ==
+      (dot~5 want~4 len@1)0@3)
+     (stmts@F
+      (asgn@5 want~5
+       (call@E defaultState~C bs@1)))))
+   (let@4,G picks . . .
+    (call@L placementsFor~D bs@1 want@5))
+   (if@,H
+    (elif@3
+     (infix@A ==
+      (dot~5 picks~5 len@1)0@3)
+     (stmts~1,1
+      (asgn@8 problem~8
+       (infix@l &
+        (infix~7 &
+         (infix~R &
+          (infix~7 & "\27"~4 name@2)"\27 has no variant for \5B"@2)want@2)"\5D"@2))
+      (ret@,1 result@7))))
+   (var@4,K i . . . 0@4)
+   (while@,L
+    (infix@8 < i~2
+     (dot@7 picks~5 len@1))
+    (stmts@2,1
+     (let@4 pick . . .
+      (at@C picks~5 i@1))
+     (cmd@,1 inc i@4)
+     (let@4,5 p . . .
+      (at@C
+       (dot~6 bs~2 place@1)pick@1))
+     (var@4,6 piece . . .
+      (call@H bakeModel~9
+       (dot@2 p~1 model@1)problem@A))
+     (if@,7
+      (elif@3
+       (infix@C >
+        (dot~7 piece~5 count@1)0@2)
+       (stmts~1,1
+        (call@E applyPlacement~E piece@1 p@8)
+        (call@5,1 merge~5 result@1 piece@9))))))
+   (if@,W
+    (elif@3
+     (infix@I and
+      (infix~5 ==
+       (dot~7 result~6 count@1)0@3)
+      (infix@N ==
+       (dot~5
+        (dot~8 result~6 problem@1)len@1)0@3))
+     (stmts~1,1
+      (asgn@F
+       (dot~9 result~6 problem@1)"every part of this block failed to bake"@2))))))
+ (const@6,Ba ModId . . . "aoughwl.minecraft"@8)
+ (comment@,Be)
+ (proc@,Bu publishFace@5 . . .
+  (params@G
+   (param@1 reference . . string@H .)
+   (param@C file . . string@6 .))string@R . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 ==
+      (dot~5 file~4 len@1)0@3)
+     (stmts@F
+      (ret ""@7))))
+   (let@4,1 public . . .
+    (call@L resourcePath~C reference@1))
+   (call@E,2 publishPicture~E public@1 file@9)
+   (cmd@,3 inc pictureCount@4)
+   (call@A,4 pictureUri~A ModId@1 public@8)))
+ (comment@,C1)
+ (proc@,CA animatedFace@5 . . .
+  (params@H
+   (param@1 file . . string@6 .))bool@G . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 ==
+      (dot~5 file~4 len@1)0@3)
+     (stmts@F
+      (ret false@7))))
+   (call@9,1 importHas~9
+    (call@B metaPathOf~A file@1))))
+ (comment@,CE)
+ (proc@,CK dressBlock@5 . . .
+  (params@F
+   (param@1 name . . string@6 .)
+   (param@F b . . Bake@3 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 ==
+      (dot~7 b~1 count@1)0@3)
+     (stmts@E
+      (ret .))))
+   (if@,1
+    (elif@3
+     (infix@l ==
+      (dot~5
+       (call~Q catalogSignature~G
+        (infix@D & VoxelBlocks~C AtlasFacet@2))len@1)0@3)
+     (stmts@r
+      (ret .))))
+   (var@4,2 uri . .
+    (at@A array~5 6@1 string@4)
+    (bracket@O ""@1 ""@5 ""@9 ""@D ""@H ""@L))
+   (var@4,3 w . . . 0@4)
+   (while@,4
+    (infix@8 < w~2 6@2)
+    (stmts@2,1
+     (let@4 f . . .
+      (call@D worldFace~9 b@1 w@4))
+     (if@,1
+      (elif@3
+       (infix@6 or
+        (infix~4 < f~2 0@2)
+        (infix@K ==
+         (dot~5
+          (at~3
+           (dot~8 b~1 texture@1)f@1)len@1)0@3))
+       (stmts~1,3
+        (if
+         (elif@3
+          (infix@2 > w~2 0@2)
+          (stmts@7
+           (asgn@7
+            (at~4 uri~3 w@1)
+            (at@5 uri~3
+             (infix@3 \2D w~2 1@2))))))))
+      (else@,4
+       (stmts@2,3
+        (let@4 file . . .
+         (call@I textureFile~B
+          (at@A
+           (dot~8 b~1 texture@1)f@1)))
+        (if@,1
+         (elif@3
+          (infix@9 ==
+           (dot~5 file~4 len@1)0@3)
+          (stmts@F
+           (ret .))))
+        (if@,2
+         (elif@3
+          (call@C animatedFace~C file@1)
+          (stmts@K
+           (ret .))))
+        (asgn@7,3
+         (at~4 uri~3 w@1)
+         (call@D publishFace~B
+          (at@A
+           (dot~8 b~1 texture@1)f@1)file@F))
+        (if@,4
+         (elif@3
+          (infix@B ==
+           (dot~5
+            (at~3 uri~3 w@1)len@1)0@3)
+          (stmts@H
+           (ret .)))))))
+     (cmd@,D inc w@4)))
+   (var@4,L first . . . ""@8)
+   (asgn@2,M w~2 0@2)
+   (while@,N
+    (infix@8 < w~2 6@2)
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@B >
+        (dot~5
+         (at~3 uri~3 w@1)len@1)0@2)
+       (stmts~1,1
+        (asgn@6 first~6
+         (at@5 uri~3 w@1))
+        (break@,1 .))))
+     (cmd@,3 inc w@4)))
+   (if@,S
+    (elif@3
+     (infix@A ==
+      (dot~5 first~5 len@1)0@3)
+     (stmts@G
+      (ret .))))
+   (asgn@2,T w~2 0@2)
+   (while@,U
+    (infix@8 < w~2 6@2)
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@B ==
+        (dot~5
+         (at~3 uri~3 w@1)len@1)0@3)
+       (stmts@H
+        (asgn@7
+         (at~4 uri~3 w@1)first@2))))
+     (cmd@,1 inc w@4)))
+   (if@,X
+    (elif@3
+     (prefix not
+      (call@E facesWhole~A uri@1))
+     (stmts@L
+      (ret .))))
+   (call@C,Y addToCatalog~C
+    (infix@D & VoxelBlocks~C AtlasFacet@2)name@R
+    (call@f facesRow~8 uri@1))
+   (cmd@,Z inc dressedCount@4)))
+ (const@2,DW GuiNames . . .
+  (bracket@B "gui/widgets"@1 "gui/options_background"@G "gui/icons"@g "gui/title/minecraft"@1,1 "gui/title/edition"@O,1 "font/ascii"@j,1 "block/dirt"@1,2 "gui/sprites/widget/button"@1,3 "gui/sprites/widget/button_highlighted"@1,4 "gui/sprites/widget/button_disabled"@1,5 "gui/title/panorama_overlay"@1,6 "gui/title/mojangstudios"@1,C "gui/container/inventory"@1,J "gui/container/crafting_table"@1,K "gui/sprites/container/slot"@1,N "gui/sprites/container/slot_highlight_back"@1,O "gui/sprites/container/slot_highlight_front"@1,P "gui/sprites/hud/hotbar"@1,U "gui/sprites/hud/hotbar_selection"@1,V "gui/sprites/hud/experience_bar_background"@1,W "gui/sprites/hud/experience_bar_progress"@1,X "gui/sprites/hud/heart/full"@1,Y "gui/sprites/hud/heart/half"@1,Z "gui/sprites/hud/heart/container"@1,a "gui/sprites/hud/food_full"@1,b "gui/sprites/hud/food_half"@1,c "gui/sprites/hud/food_empty"@1,d "gui/sprites/hud/armor_full"@1,e "gui/sprites/hud/armor_half"@1,f "gui/sprites/hud/armor_empty"@1,g "gui/sprites/hud/air"@1,h "gui/sprites/hud/air_empty"@1,i "gui/sprites/hud/crosshair"@1,j))
+ (const@2,EG GuiFiles . . .
+  (bracket@B "textures/gui/widgets.png"@1 "textures/gui/options_background.png"@1,1 "textures/gui/icons.png"@1,2 "textures/gui/title/minecraft.png"@1,3 "textures/gui/title/edition.png"@1,4 "textures/font/ascii.png"@1,5 "textures/block/dirt.png"@1,6 "textures/gui/sprites/widget/button.png"@1,7 "textures/gui/sprites/widget/button_highlighted.png"@1,8 "textures/gui/sprites/widget/button_disabled.png"@1,9 "textures/gui/title/background/panorama_overlay.png"@1,A "textures/gui/title/mojangstudios.png"@1,B "textures/gui/container/inventory.png"@1,C "textures/gui/container/crafting_table.png"@1,D "textures/gui/sprites/container/slot.png"@1,E "textures/gui/sprites/container/slot_highlight_back.png"@1,F "textures/gui/sprites/container/slot_highlight_front.png"@1,G "textures/gui/sprites/hud/hotbar.png"@1,H "textures/gui/sprites/hud/hotbar_selection.png"@1,I "textures/gui/sprites/hud/experience_bar_background.png"@1,J "textures/gui/sprites/hud/experience_bar_progress.png"@1,K "textures/gui/sprites/hud/heart/full.png"@1,L "textures/gui/sprites/hud/heart/half.png"@1,M "textures/gui/sprites/hud/heart/container.png"@1,N "textures/gui/sprites/hud/food_full.png"@1,O "textures/gui/sprites/hud/food_half.png"@1,P "textures/gui/sprites/hud/food_empty.png"@1,Q "textures/gui/sprites/hud/armor_full.png"@1,R "textures/gui/sprites/hud/armor_half.png"@1,S "textures/gui/sprites/hud/armor_empty.png"@1,T "textures/gui/sprites/hud/air.png"@1,U "textures/gui/sprites/hud/air_empty.png"@1,V "textures/gui/sprites/hud/crosshair.png"@1,W))
+ (const@2,En Panoramas . . . 6@C)
+ (const@2,Eq ModernMark . . . "textures/gui/sprites/widget/button.png"@D)
+ (const@2,Er ClassicMark . . . "textures/gui/widgets.png"@E)
+ (const@2,Es HudModernMark . . . "textures/gui/sprites/hud/hotbar.png"@G)
+ (const@2,Et HudClassicMark . . . "textures/gui/icons.png"@H)
+ (const@2,F9 SizeNames . . .
+  (bracket@C "gui/sprites/hud/hotbar"@1 "gui/sprites/hud/hotbar_selection"@1,1 "gui/sprites/hud/experience_bar_background"@1,2 "gui/sprites/hud/heart/full"@1,3 "gui/sprites/hud/food_full"@1,4 "gui/sprites/hud/armor_full"@1,5 "gui/sprites/container/slot"@1,6 "gui/sprites/container/slot_highlight_front"@1,7 "gui/container/inventory"@1,8 "gui/container/crafting_table"@1,9 "gui/icons"@1,A "gui/widgets"@1,B))
+ (const@2,FL SizeFiles . . .
+  (bracket@C "textures/gui/sprites/hud/hotbar.png"@1 "textures/gui/sprites/hud/hotbar_selection.png"@1,1 "textures/gui/sprites/hud/experience_bar_background.png"@1,2 "textures/gui/sprites/hud/heart/full.png"@1,3 "textures/gui/sprites/hud/food_full.png"@1,4 "textures/gui/sprites/hud/armor_full.png"@1,5 "textures/gui/sprites/container/slot.png"@1,6 "textures/gui/sprites/container/slot_highlight_front.png"@1,7 "textures/gui/container/inventory.png"@1,8 "textures/gui/container/crafting_table.png"@1,9 "textures/gui/icons.png"@1,A "textures/gui/widgets.png"@1,B))
+ (comment@,FY)
+ (proc@,Fc guiLayout@5 . . .
+  (params@E)string@4 . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@Y >
+      (dot~5
+       (call~P find~4 "minecraft"@1 ModernMark@E)len@1)0@2)
+     (stmts@d
+      (ret "modern"@7))))
+   (if@,1
+    (elif@3
+     (infix@Z >
+      (dot~5
+       (call~Q find~4 "minecraft"@1 ClassicMark@E)len@1)0@2)
+     (stmts@e
+      (ret "classic"@7))))""@,2))
+ (comment@,Fh)
+ (proc@,Fn packPicture@5 . . .
+  (params@G)string@4 . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@B packNames~9 len@1))
+    (stmts@2,1
+     (let@4 where . . .
+      (infix@o &
+       (infix~6 &
+        (call~Q packFolder~A Extracted@1
+         (at@L packNames~9 i@1))"/"@2)IconFile@2))
+     (if@,1
+      (elif@3
+       (call@9 importHas~9 where@1)
+       (stmts@I
+        (ret where@7))))
+     (cmd@,2 inc i@4)))
+   (let@4,5 jar . . .
+    (infix@M &
+     (infix~6 & Extracted~A "/"@2)IconFile@2))
+   (if@,6
+    (elif@3
+     (call@9 importHas~9 jar@1)
+     (stmts@G
+      (ret jar@7))))""@,7))
+ (comment@,Fx)
+ (proc@,G5 publishOwnIcon@5 . . .
+  (params@J). . .
+  (stmts@2,1
+   (let@4 emblem . . .
+    (call@K packPicture~B))
+   (if@,1
+    (elif@3
+     (infix@B ==
+      (dot~5 emblem~6 len@1)0@3)
+     (stmts~1,1
+      (call@3 log~3 "\5Bassert\5D minecraft.icon=none"@1)
+      (ret@,1 .))))
+   (call@B,4 publishIcon~B emblem@1)
+   (call@4,5 note~4
+    (infix@Y &
+     (infix~B & "this install\27s own "~M IconFile@2)" is offered as this mod\27s icon"@2))
+   (call@3,6 log~3
+    (infix@S & "\5Bassert\5D minecraft.icon="~R emblem@2))))
+ (comment@,GE)
+ (proc@,GH hudLayout@5 . . .
+  (params@E)string@4 . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@b >
+      (dot~5
+       (call~S find~4 "minecraft"@1 HudModernMark@E)len@1)0@2)
+     (stmts@g
+      (ret "sprites"@7))))
+   (if@,1
+    (elif@3
+     (infix@c >
+      (dot~5
+       (call~T find~4 "minecraft"@1 HudClassicMark@E)len@1)0@2)
+     (stmts@h
+      (ret "sheet"@7))))""@,2))
+ (comment@,GM)
+ (proc@,GQ measureGui@5 . . .
+  (params@F
+   (param@1 name . . string@C .)
+   (param@7 path . . string@6 .))string@M . .
+  (stmts@2,1
+   (let@4 where . . .
+    (infix@f &
+     (infix~N & Extracted~A "/assets/minecraft/"@2)path@2))
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@D importHas~9 where@1))
+     (stmts@M
+      (ret ""@7))))
+   (var@4,2 why . . . ""@6)
+   (let@4,3 bytes . . .
+    (call@F bytesOf~7 where@1 why@8))
+   (if@,4
+    (elif@3
+     (infix@8 >
+      (dot~5 why~3 len@1)0@2)
+     (stmts@D
+      (ret ""@7))))
+   (let@4,5 size . . .
+    (call@E pngSize~7 bytes@1))
+   (if@,6
+    (elif@3
+     (infix@9 <
+      (dot~5 size~4 len@1)2@2)
+     (stmts@E
+      (ret ""@7))))
+   (call@8,7 sizeLine~8 name@1
+    (at@B size~4 0@1)
+    (at@K size~4 1@1))))
+ (proc@,Ga measureGuiSizes@5 . . .
+  (params@K). . .
+  (stmts@2,1
+   (asgn@9 guiSizes~9 ""@2)
+   (var@4,1 i . . . 0@4)
+   (var@4,2 measured . . . 0@B)
+   (while@,3
+    (infix@8 < i~2
+     (dot@B SizeNames~9 len@1))
+    (stmts@2,1
+     (let@4 line . . .
+      (call@H measureGui~A
+       (at@A SizeNames~9 i@1)
+       (at@O SizeFiles~9 i@1)))
+     (if@,1
+      (elif@3
+       (infix@9 >
+        (dot~5 line~4 len@1)0@2)
+       (stmts~1,1
+        (cmd@8
+         (dot guiSizes~8 add@1)line@5)
+        (cmd@,1 inc measured@4))))
+     (cmd@,4 inc i@4)))
+   (call@3,9 log~3
+    (infix@X & "\5Bassert\5D minecraft.gui.sizes="~W
+     (prefix@2 $ measured@1)))))
+ (comment@,Gm)
+ (const@2,Gr SkyNames . . .
+  (bracket@B "environment/sun"@1 "environment/moon_phases"@K "environment/clouds"@1,1 "environment/rain"@N,1 "environment/snow"@h,1))
+ (const@2,Gt SkyFiles . . .
+  (bracket@B "textures/environment/sun.png"@1 "textures/environment/moon_phases.png"@1,1 "textures/environment/clouds.png"@1,2 "textures/environment/rain.png"@1,3 "textures/environment/snow.png"@1,4))
+ (var@2,H0 skyPublished . . . false@F)
+ (var@2,H1 skyCount . . . 0@B)
+ (comment@,H3)
+ (proc@,H7 publishSky@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@D and skyPublished~D
+      (infix@D > skyCount~9 0@2))
+     (stmts@V
+      (ret .))))
+   (asgn@D,1 skyPublished~D true@2)
+   (asgn@9,2 skyCount~9 0@2)
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@A SkyNames~8 len@1))
+    (stmts@2,1
+     (let@4 where . . .
+      (call@C find~4 "minecraft"@1
+       (at@M SkyFiles~8 i@1)))
+     (if@,1
+      (elif@3
+       (infix@A >
+        (dot~5 where~5 len@1)0@2)
+       (stmts~1,1
+        (call@E publishPicture~E
+         (at@9 SkyNames~8 i@1)where@E)
+        (cmd@,1 inc skyCount@4))))
+     (cmd@,4 inc i@4)))
+   (if@,A
+    (elif@3
+     (infix@9 == skyCount~9 0@3)
+     (stmts~1,1
+      (call@4 note~4 "no sky pictures in this import; the sky will be a plain colour"@1)))
+    (else@,2
+     (stmts@2,1
+      (call@4 note~4
+       (infix@h &
+        (infix~W &
+         (prefix~A $ skyCount@1)" sky pictures published as "@2)"published\3Aaoughwl.minecraft/environment/<name>"~j,1)))))
+   (call@3,F log~3
+    (infix@a & "\5Bassert\5D minecraft.sky.pictures="~Z
+     (prefix@2 $ skyCount@1)))))
+ (proc@,HP publishGui@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@D and guiPublished~D
+      (infix@D > guiCount~9 0@2))
+     (stmts@V
+      (ret .))))
+   (asgn@D,1 guiPublished~D true@2)
+   (asgn@9,2 guiCount~9 0@2)
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@A GuiNames~8 len@1))
+    (stmts@2,1
+     (let@4 where . . .
+      (call@C find~4 "minecraft"@1
+       (at@M GuiFiles~8 i@1)))
+     (if@,1
+      (elif@3
+       (infix@A >
+        (dot~5 where~5 len@1)0@2)
+       (stmts~1,1
+        (call@E publishPicture~E
+         (at@9 GuiNames~8 i@1)where@E)
+        (cmd@,1 inc guiCount@4))))
+     (cmd@,4 inc i@4)))
+   (asgn@2,A i~2 0@2)
+   (while@,B
+    (infix@8 < i~2 Panoramas@2)
+    (stmts@2,1
+     (let@4 where . . .
+      (call@C find~4 "minecraft"@1
+       (infix@X,1 &
+        (infix~5 & "textures/gui/title/background/panorama_"~g
+         (prefix@2 $ i@1))".png"@2)))
+     (if@,2
+      (elif@3
+       (infix@A >
+        (dot~5 where~5 len@1)0@2)
+       (stmts~1,1
+        (call@E publishPicture~E
+         (infix@N & "gui/title/panorama_"~M
+          (prefix@2 $ i@1))where@T)
+        (cmd@,1 inc guiCount@4))))
+     (cmd@,5 inc i@4)))
+   (if@,K
+    (elif@3
+     (call@9 importHas~9 StudioFile@1)
+     (stmts~1,1
+      (call@E publishPicture~E "gui/title/aoughwlstudios"@1 StudioFile@T)
+      (cmd@,1 inc guiCount@4))))
+   (if@,N
+    (elif@3
+     (infix@9 == guiCount~9 0@3)
+     (stmts~1,1
+      (call@4 note~4 "no interface pictures in this import; nothing published"@1)))
+    (else@,2
+     (stmts@2,1
+      (call@4 note~4
+       (infix@n &
+        (infix~c &
+         (prefix~A $ guiCount@1)" interface pictures published as "@2)"published\3Aaoughwl.minecraft/<name>"~p,1))
+      (let@4,2 layout . . .
+       (call@I guiLayout~9))
+      (call@4,3 note~4
+       (infix@X & "the interface layout here is "~W
+        (expr
+         (stmts~Z,1)
+         (if@1
+          (elif@3
+           (infix@B >
+            (dot~5 layout~6 len@1)0@2)layout@G)
+          (else@Q "neither sheet nor sprites"@6)))))
+      (call@3,5 log~3
+       (infix@Y & "\5Bassert\5D minecraft.gui.layout="~X
+        (expr
+         (stmts~Z,1)
+         (if@1
+          (elif@3
+           (infix@B >
+            (dot~5 layout~6 len@1)0@2)layout@G)
+          (else@Q "none"@6)))))
+      (let@4,7 hud . . .
+       (call@F hudLayout~9))
+      (call@4,8 note~4
+       (infix@d & "the hearts and the hotbar here are "~c
+        (expr
+         (stmts~f,1)
+         (if@1
+          (elif@3
+           (infix@8 >
+            (dot~5 hud~3 len@1)0@2)hud@D)
+          (else@K "neither a sheet nor sprites"@6)))))
+      (call@3,A log~3
+       (infix@V & "\5Bassert\5D minecraft.gui.hud="~U
+        (expr
+         (stmts@2)
+         (if@1
+          (elif@3
+           (infix@8 >
+            (dot~5 hud~3 len@1)0@2)hud@D)
+          (else@K "none"@6)))))
+      (call@F,B measureGuiSizes~F))))
+   (call@3,c log~3
+    (infix@a & "\5Bassert\5D minecraft.gui.pictures="~Z
+     (prefix@2 $ guiCount@1)))))
+ (comment@,I4)
+ (proc@,IB spriteScaling@5 . . .
+  (params@I
+   (param@1 name . . string@6 .))string@G . .
+  (stmts@2,1
+   (let@4 where . . .
+    (call@C find~4 "minecraft"@1
+     (infix@j &
+      (infix~7 & "textures/gui/sprites/"~O name@2)".png.mcmeta"@2)))
+   (if@,1
+    (elif@3
+     (infix@A ==
+      (dot~5 where~5 len@1)0@3)
+     (stmts@G
+      (ret ""@7))))
+   (var@4,2 why . . . ""@6)
+   (let@4,3 doc . . .
+    (call@E readJson~8 where@1 why@8))
+   (if@,4
+    (elif@3
+     (infix@8 >
+      (dot~5 why~3 len@1)0@2)
+     (stmts@D
+      (ret ""@7))))
+   (call@B,5 scalingLine~B doc@1)))
+ (comment@,IJ)
+ (proc@,IL versionFolder@5 . . .
+  (params@I
+   (param@1 version . . string@9 .))string@J . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (infix@C & Extracted~A "/versions/"@2))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@9 version~7 len@1))
+    (stmts@2,1
+     (let@4 c . . .
+      (at@B version~7 i@1))
+     (if@,1
+      (elif@3
+       (infix@Y or
+        (infix~C or
+         (infix~D or
+          (infix~7 == c~2 '/'@3)
+          (infix@5 == c~2 '\5C'@3))
+         (infix@5 == c~2 '\3A'@3))
+        (infix@5 == c~2 '.'@3))
+       (stmts@l
+        (cmd@6
+         (dot result~6 add@1)"_"@5)))
+      (else@,1
+       (stmts@6
+        (cmd@6
+         (dot result~6 add@1)c@5))))
+     (cmd@,3 inc i@4)))))
+ (comment@,IU)
+ (proc@,IV formatOfVersion@5 . . .
+  (params@K
+   (param@1 version . . string@9 .))int@J . .
+  (stmts@2,1
+   (var@4 why . . . ""@6)
+   (let@4,1 doc . . .
+    (call@E readJson~8
+     (infix@O &
+      (call~A versionFolder~D version@1)"/version.json"@2)why@h))
+   (if@,2
+    (elif@3
+     (infix@C or
+      (infix~4 >
+       (dot~5 why~3 len@1)0@2)
+      (infix@C <
+       (dot~6 doc~3 root@1)0@2))
+     (stmts@T
+      (ret 0@7))))
+   (call@D,3 jarPackFormat~D doc@1)))
+ (comment@,Ib)
+ (proc@,Ij checkFit@5 . . .
+  (params@D). . .
+  (stmts@2,1
+   (if
+    (elif@3 fitChecked
+     (stmts@C
+      (ret .))))
+   (asgn@B,1 fitChecked~B true@2)
+   (asgn@8,2 fitLine~8 ""@2)
+   (if@,3
+    (elif@3
+     (infix@F ==
+      (dot~5 jarVersion~A len@1)0@3)
+     (stmts@L
+      (ret .))))
+   (asgn@A,4 jarFormat~A
+    (call@H formatOfVersion~F jarVersion@1))
+   (call@3,5 log~3
+    (infix@Y & "\5Bassert\5D minecraft.gui.format="~X
+     (prefix@2 $ jarFormat@1)))
+   (if@,6
+    (elif@3
+     (infix@F or
+      (infix~5 <= jarFormat~A 0@3)
+      (infix@H ==
+       (dot~5 packNames~9 len@1)0@3))
+     (stmts@c
+      (ret .))))
+   (var@4,7 i . . . 0@4)
+   (while@,8
+    (infix@8 < i~2
+     (dot@B packNames~9 len@1))
+    (stmts@2,1
+     (let@4 name . . .
+      (at@G packNames~9 i@1))
+     (cmd@,1 inc i@4)
+     (var@4,2 why . . . ""@6)
+     (let@4,3 doc . . .
+      (call@E readJson~8
+       (infix@T &
+        (call~I packFolder~A Extracted@1 name@C)"/pack.mcmeta"@2)why@l))
+     (if@,4
+      (elif@3
+       (infix@C or
+        (infix~4 >
+         (dot~5 why~3 len@1)0@2)
+        (infix@C <
+         (dot~6 doc~3 root@1)0@2))
+       (stmts@T
+        (continue .))))
+     (let@4,5 info . . .
+      (call@J readPackMeta~C doc@1))
+     (if@,6
+      (elif@3
+       (call@8 fitsPack~8 jarFormat@1
+        (dot@G info~4 lowest@1)
+        (dot@T info~4 format@1))
+       (stmts@l
+        (continue .))))
+     (var@4,8 better . . . ""@9)
+     (var@4,9 v . . . 0@4)
+     (while@,A
+      (infix@8 < v~2
+       (dot@C jarEntries~A len@1))
+      (stmts@2,1
+       (let@4 other . . .
+        (call@H versionOf~9
+         (at@B jarEntries~A v@1)))
+       (cmd@,1 inc v@4)
+       (if@,2
+        (elif@3
+         (infix@6 == other~6 jarVersion@3)
+         (stmts@L
+          (continue .))))
+       (let@4,3 f . . .
+        (call@J formatOfVersion~F other@1))
+       (if@,4
+        (elif@3
+         (infix@6 and
+          (infix~4 > f~2 0@2)
+          (call@C fitsPack~8 f@1
+           (dot@8 info~4 lowest@1)
+           (dot@L info~4 format@1)))
+         (stmts@n
+          (asgn@7 better~7 other@2))))))
+     (asgn@8,G fitLine~8
+      (infix@U,1 &
+       (infix~6 &
+        (infix~D &
+         (infix~6 &
+          (infix@o,~1 &
+           (infix~6 &
+            (infix~F &
+             (infix~6 &
+              (infix~F &
+               (infix~6 & name~5 "|"@2)
+               (prefix@2 $
+                (dot@5 info~4 lowest@1)))"|"@2)
+             (prefix@2 $
+              (dot@5 info~4 format@1)))"|"@2)
+           (prefix~z,1 $ jarFormat@1))"|"@2)jarVersion@2)"|"@2)better@2))
+     (call@4,I note~4
+      (infix@i,1 &
+       (infix~D &
+        (infix~D &
+         (infix~7 &
+          (infix@p,~1 &
+           (infix~9 &
+            (infix~F &
+             (infix~W & name~5 " was made for pack formats "@2)
+             (prefix@2 $
+              (dot@5 info~4 lowest@1)))" to "@2)
+           (prefix~12,1 $
+            (dot@5 info~4 format@1)))"; "@2)jarVersion@2)" speaks "@2)
+       (prefix@2 $ jarFormat@1)))
+     (if@,K
+      (elif@3
+       (infix@B >
+        (dot~5 better~6 len@1)0@2)
+       (stmts~1,1
+        (call@4 note~4
+         (infix@Q &
+          (infix~9 & "it would fit "~G better@2)", which is also installed"@2)))))
+     (call@3,M log~3 "\5Bassert\5D minecraft.gui.fit=no"@1)
+     (ret@,N .)))
+   (call@3,X log~3 "\5Bassert\5D minecraft.gui.fit=yes"@1)))
+ (comment@,JJ)
+ (proc@,JY measureFont@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@H >
+      (dot~5 fontMeasured~C len@1)0@2)
+     (stmts@M
+      (ret .))))
+   (let@4,1 where . . .
+    (call@C find~4 "minecraft"@1 "textures/font/ascii.png"@E))
+   (if@,2
+    (elif@3
+     (infix@A ==
+      (dot~5 where~5 len@1)0@3)
+     (stmts~1,1
+      (asgn@D fontMeasured~D "-"@2)
+      (call@4,1 save~4 "font"@1 fontMeasured@9)
+      (call@4,2 note~4 "no font/ascii.png in this import"@1)
+      (ret@,3 .))))
+   (asgn@D,7 fontMeasured~D
+    (call@P imageGridAlphaRightmost~N where@1 FontCells@8 FontCells@J))
+   (if@,8
+    (elif@3
+     (infix@H ==
+      (dot~5 fontMeasured~C len@1)0@3)
+     (stmts~1,1
+      (asgn@D fontMeasured~D "-"@2)
+      (call@4,1 save~4 "font"@1 fontMeasured@9)
+      (call@4,2 note~4 "the font sheet could not be measured"@1)
+      (ret@,3 .))))
+   (call@4,D save~4 "font"@1 fontMeasured@9)
+   (call@4,E note~4 "the font sheet\27s 256 glyph columns were measured"@1)
+   (var@4,F cell . . . ""@7)
+   (var@4,G i . . . 0@4)
+   (while@,H
+    (infix@R and
+     (infix~J < i~2
+      (dot@E fontMeasured~C len@1))
+     (infix@K !=
+      (at~4 fontMeasured~C i@1)' '@3))
+    (stmts@2,1
+     (cmd@4
+      (dot cell~4 add@1)
+      (at@H fontMeasured~C i@1))
+     (cmd@,1 inc i@4)))
+   (call@3,K log~3
+    (infix@W & "\5Bassert\5D minecraft.gui.font="~V cell@2))))
+ (comment@,Jv)
+ (proc@,K5 stepFont@5 . . .
+  (params@D). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@L or
+      (infix~4 >
+       (dot~5 fontMeasured~C len@1)0@2)
+      (prefix@3 not fontRowReady@4))
+     (stmts@g
+      (ret .))))
+   (call@B,1 measureFont~B)))
+ (comment@,K9)
+ (proc@,KA countryUpper@5 . . .
+  (params@H
+   (param@1 code . . string@6 .))string@G . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 seen . . . false@7)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@6 code~4 len@1))
+    (stmts@2,1
+     (var@4 c . . .
+      (at@8 code~4 i@1))
+     (if@,1
+      (elif@3
+       (infix@2 == c~2 '_'@3)
+       (stmts@A
+        (asgn@5 seen~5 true@2)))
+      (elif@5,1
+       (infix@I and
+        (infix~D and seen~5
+         (infix@6 >= c~2 'a'@3))
+        (infix@6 <= c~2 'z'@3))
+       (stmts@W
+        (asgn@2 c~2
+         (call@6 char~4
+          (infix@8 \2D
+           (call~4 int~3 c@1)32@2))))))
+     (cmd@6,3
+      (dot result~6 add@1)c@5)
+     (cmd@,4 inc i@4)))))
+ (comment@,KL)
+ (proc@,KO jsonLangFile@5 . . .
+  (params@H
+   (param@1 where . . string@7 .))bool@H . .
+  (stmts@2,1
+   (asgn@7 result~7 false@2)
+   (if@,1
+    (elif@3
+     (infix@A >
+      (dot~5 where~5 len@1)5@2)
+     (stmts~1,1
+      (let@4 i . . .
+       (infix@E \2D
+        (dot~5 where~5 len@1)5@2))
+      (if@,1
+       (elif@3
+        (infix@K,1 and
+         (infix@i,~1 and
+          (infix~O and
+           (infix~O and
+            (infix~7 ==
+             (at~4 where~5 i@1)'.'@3)
+            (infix@H ==
+             (at~8 where~5
+              (infix@3 \2B i~2 1@2))'j'@3))
+           (infix@H ==
+            (at~8 where~5
+             (infix@3 \2B i~2 2@2))'s'@3))
+          (infix~p,1 ==
+           (at~8 where~5
+            (infix@3 \2B i~2 3@2))'o'@3))
+         (infix@H ==
+          (at~8 where~5
+           (infix@3 \2B i~2 4@2))'n'@3))
+        (stmts@j,1
+         (asgn@7 result~7 true@2)))))))))
+ (proc@,KV langFileAt@5 . . .
+  (params@F
+   (param@1 where . . string@7 .))string@H . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@F or
+      (infix~5 ==
+       (dot~5 where~5 len@1)0@3)
+      (prefix@3 not
+       (call@D importHas~9 where@1)))
+     (stmts@e
+      (ret ""@7))))
+   (if@,1
+    (elif@3
+     (call@C jsonLangFile~C where@1)
+     (stmts~1,1
+      (var@4 why . . . ""@6)
+      (let@4,1 doc . . .
+       (call@E readJson~8 where@1 why@8))
+      (if@,2
+       (elif@3
+        (infix@C or
+         (infix~4 >
+          (dot~5 why~3 len@1)0@2)
+         (infix@C <
+          (dot~6 doc~3 root@1)0@2))
+        (stmts@T
+         (ret ""@7))))
+      (ret@,3
+       (call@I flattenLang~B doc@1)))))
+   (let@4,6 body . . .
+    (call@H importRead~A where@1))
+   (if@,7
+    (elif@3
+     (infix@9 ==
+      (dot~5 body~4 len@1)0@3)
+     (stmts@F
+      (ret ""@7))))
+   (call@H,8 flattenLegacyLang~H body@1)))
+ (comment@,Kg)
+ (proc@,Kq langFilesFor@5 . . .
+  (params@H
+   (param@1 code . . string@6 .))
+  (at@J seq~3 string@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (let@4,1 asset . . .
+    (call@L languageAsset~D code@1))
+   (if@,2
+    (elif@3
+     (infix@A >
+      (dot~5 asset~5 len@1)0@2)
+     (stmts@F
+      (cmd@6
+       (dot result~6 add@1)asset@5))))
+   (var@4,3 spellings . .
+    (at@E seq~3 string@1)
+    (prefix@P \40
+     (bracket@1)))
+   (cmd@9,4
+    (dot spellings~9 add@1)
+    (infix@K &
+     (infix~7 & "lang/"~8 code@2)".json"@2))
+   (cmd@9,5
+    (dot spellings~9 add@1)
+    (infix@K &
+     (infix~7 & "lang/"~8 code@2)".lang"@2))
+   (cmd@9,6
+    (dot spellings~9 add@1)
+    (infix@Y &
+     (infix~L & "lang/"~8
+      (call@E countryUpper~C code@1))".lang"@2))
+   (var@4,7 s . . . 0@4)
+   (while@,8
+    (infix@8 < s~2
+     (dot@B spellings~9 len@1))
+    (stmts@2,1
+     (let@4 where . . .
+      (call@I candidates~A layers@1 "minecraft"@9
+       (at@V spellings~9 s@1)false@a))
+     (cmd@,1 inc s@4)
+     (var@4,4 i . . .
+      (infix@E \2D
+       (dot~5 where~5 len@1)1@2))
+     (while@,5
+      (infix@8 >= i~2 0@3)
+      (stmts@2,1
+       (if
+        (elif@3
+         (call@9 importHas~9
+          (at@6 where~5 i@1))
+         (stmts@L
+          (cmd@6
+           (dot result~6 add@1)
+           (at@A where~5 i@1)))))
+       (cmd@,1 dec i@4)))))))
+ (const@2,LT LangRowsPerPump . . . 24@I)
+ (const@2,LV LangRowsMost . . . 96@F)
+ (const@2,LY LangRowsLeast . . . 6@G)
+ (const@2,Ld LangMostFrames . . . 8@H)
+ (const@2,M0 SlowFrameMs . . . 20@E)
+ (const@2,M2 FastFrameMs . . . 10@E)
+ (var@2,M6 langCode . . . ""@B)
+ (var@2,M8 langReady . . . false@C)
+ (var@2,M9 langTable . . . ""@C)
+ (var@2,MA langFiles . .
+  (at@E seq~3 string@1)
+  (prefix@P \40
+   (bracket@1)))
+ (var@2,MB langFileAt0 . . . 0@E)
+ (var@2,MC langOpen . . . false@B)
+ (var@2,MD langDoc . . Json@9 .)
+ (var@2,ME langRow . . . 0@A)
+ (var@2,MF langRowsIn . . . 0@D)
+ (var@2,MG langPerPump . . . LangRowsPerPump@E)
+ (var@2,MH langPumpsLeft . . . LangMostFrames@G)
+ (comment@,MP)
+ (proc@,MR langBudget@5 . . .
+  (params@F)int@4 . .
+  (stmts@2,1
+   (asgn@7 result~7 langPerPump@2)
+   (if@,6
+    (elif@3
+     (infix@E > langPumpsLeft~E 1@2)
+     (stmts@J
+      (asgn@E langPumpsLeft~E
+       (infix@G \2D langPumpsLeft~E 1@2)))))))
+ (proc@,Ma paceLang@5 . . .
+  (params@D
+   (param@1 frameMs . . int@9 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 > frameMs~8 SlowFrameMs@2)
+     (stmts~1,1
+      (asgn@C langPerPump~C
+       (infix@E div langPerPump~C 2@4))
+      (if@,1
+       (elif@3
+        (infix@C < langPerPump~C LangRowsLeast@2)
+        (stmts@T
+         (asgn@C langPerPump~C LangRowsLeast@2))))))
+    (elif@5,3
+     (infix@8 < frameMs~8 FastFrameMs@2)
+     (stmts~3,1
+      (asgn@C langPerPump~C
+       (infix@E \2B langPerPump~C 8@2))
+      (if@,1
+       (elif@3
+        (infix@C > langPerPump~C LangRowsMost@2)
+        (stmts@S
+         (asgn@C langPerPump~C LangRowsMost@2)))))))))
+ (proc@,Mi beginLang@5 . . .
+  (params@E
+   (param@1 code . . string@6 .)). . .
+  (stmts@2,1
+   (asgn@9 langCode~9 code@2)
+   (asgn@A,1 langReady~A false@2)
+   (asgn@A,2 langTable~A ""@2)
+   (asgn@A,3 langFiles~A
+    (call@E langFilesFor~C code@1))
+   (asgn@C,4 langFileAt0~C 0@2)
+   (asgn@9,5 langOpen~9 false@2)
+   (asgn@8,6 langRow~8 0@2)
+   (asgn@B,7 langRowsIn~B 0@2)
+   (if@,B
+    (elif@3
+     (call@9 importHas~9 LangCache@1)
+     (stmts~1,1
+      (let@4 cached . . .
+       (call@J importRead~A LangCache@1))
+      (var@4,1 split . . . -1@8)
+      (var@4,2 i . . . 0@4)
+      (while@,3
+       (infix@8 < i~2
+        (dot@8 cached~6 len@1))
+       (stmts@2,1
+        (if
+         (elif@3
+          (infix@A ==
+           (at~4 cached~6 i@1)'\0A'@3)
+          (stmts@J
+           (asgn@6 split~6 i@2)
+           (break@B .))))
+        (cmd@,1 inc i@4)))
+      (if@,6
+       (elif@3
+        (infix@A and
+         (infix~4 > split~6 0@2)
+         (infix@O ==
+          (at~E cached~6
+           (infix@3 \2E\2E< 0~2 split@4))code@3))
+        (stmts~1,1
+         (asgn@A langTable~A
+          (at@8 cached~6
+           (infix@D \2E\2E
+            (par~C
+             (infix@7 \2B split~6 1@2))
+            (prefix@3 ^ 1@1))))
+         (asgn@A,1 langReady~A true@2)))))))))
+ (comment@,N5)
+ (proc@,N7 stepLang@5 . . .
+  (params@D). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A or langReady~A
+      (infix@G ==
+       (dot~5 langCode~8 len@1)0@3))
+     (stmts@W
+      (ret .))))
+   (var@4,1 left . . .
+    (call@H langBudget~A))
+   (while@,2
+    (infix@B > left~5 0@2)
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@C >= langFileAt0~C
+        (dot@C langFiles~9 len@1))
+       (stmts~1,1
+        (asgn@A langReady~A true@2)
+        (discard@,1
+         (call@J importWrite~B LangCache@1
+          (infix@S &
+           (infix~7 & langCode~9 "\0A"@2)langTable@2)))
+        (call@3,2 log~3
+         (infix@X & "\5Bassert\5D minecraft.langbytes="~W
+          (prefix@2 $
+           (dot@A langTable~9 len@1))))
+        (ret@,3 .))))
+     (let@4,5 where . . .
+      (at@H langFiles~9 langFileAt0@1))
+     (if@,6
+      (elif@3
+       (prefix not langOpen@4)
+       (stmts~1,1
+        (asgn@9 langOpen~9 true@2)
+        (asgn@8,1 langRow~8 0@2)
+        (asgn@B,2 langRowsIn~B 0@2)
+        (asgn@E,6 langPumpsLeft~E LangMostFrames@2)
+        (if@,7
+         (elif@3
+          (call@C jsonLangFile~C where@1)
+          (stmts~1,1
+           (var@4 why . . . ""@6)
+           (asgn@8,1 langDoc~8
+            (call@A readJson~8 where@1 why@8))
+           (if@,2
+            (elif@3
+             (infix@D and
+              (infix~5 ==
+               (dot~5 why~3 len@1)0@3)
+              (infix@H >=
+               (dot~6 langDoc~7 root@1)0@3))
+             (stmts~1,1
+              (asgn@B langRowsIn~B
+               (call@E langKeyCount~C langDoc@1)))))))
+         (else@,5
+          (stmts@2,4
+           (let@4 body . . .
+            (call@H importRead~A where@1))
+           (if@,1
+            (elif@3
+             (infix@9 >
+              (dot~5 body~4 len@1)0@2)
+             (stmts@E
+              (cmd@9
+               (dot langTable~9 add@1)
+               (call@M flattenLegacyLang~H body@1)))))
+           (asgn@5,2 left~5 0@2)))))))
+     (if@,Q
+      (elif@3
+       (infix@8 < langRow~8 langRowsIn@2)
+       (stmts~1,1
+        (var@4 take . . .
+         (infix@I \2D langRowsIn~B langRow@2))
+        (if@,1
+         (elif@3
+          (infix@5 > take~5 left@2)
+          (stmts@D
+           (asgn@5 take~5 left@2))))
+        (cmd@9,2
+         (dot langTable~9 add@1)
+         (call@K flattenLangRows~F langDoc@1 langRow@A take@J))
+        (asgn@8,3 langRow~8
+         (infix@A \2B langRow~8 take@2))
+        (asgn@5,4 left~5
+         (infix@7 \2D left~5 take@2)))))
+     (if@,W
+      (elif@3
+       (infix@8 >= langRow~8 langRowsIn@3)
+       (stmts~1,1
+        (asgn@9 langOpen~9 false@2)
+        (asgn@8,1 langDoc~8
+         (call@B parseJson~9 ""@1))
+        (cmd@,2 inc langFileAt0@4))))))))
+ (comment@,Nm)
+ (proc@,O3 langAnswer@5 . . .
+  (params@F
+   (param@1 code . . string@6 .))string@G . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 != langCode~9 code@3)
+     (stmts~1,3
+      (if
+       (elif@3
+        (infix@H and
+         (infix~4 >
+          (dot~5 langCode~8 len@1)0@2)
+         (prefix@4 not langReady@4))
+        (stmts@a
+         (ret ""@7))))
+      (if@,1
+       (elif@3
+        (infix@N ==
+         (dot~5
+          (call~6 langFilesFor~C code@1)len@1)0@3)
+        (stmts@T
+         (ret ""@7))))
+      (call@9,2 beginLang~9 code@1)
+      (ret@,3 ""@7))))
+   (if@,7
+    (elif@3
+     (prefix not langReady@4)
+     (stmts@F
+      (ret ""@7))))langTable@,8))
+ (comment@,OE)
+ (proc@,OI langPresent@5 . . .
+  (params@G
+   (param@1 code . . string@6 .))bool@G . .
+  (stmts@d
+   (infix@N >
+    (dot~5
+     (call~6 langFilesFor~C code@1)len@1)0@2)))
+ (comment@,OK)
+ (proc@,OQ stateWord@5 . . .
+  (params@E)string@4 . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 ==
+      (dot~5 root~4 len@1)0@3)
+     (stmts@F
+      (ret "nogrant"@7))))
+   (if@,1
+    (elif@3
+     (infix@D or
+      (infix~5 != finding~8 0@3)running@3)
+     (stmts@P
+      (ret "importing"@7))))
+   (if@,2
+    (elif@3
+     (infix@C and jarSearched~C
+      (infix@G ==
+       (dot~5 jarPath~7 len@1)0@3))
+     (stmts@Y
+      (ret "nojar"@7))))
+   (if@,3
+    (elif@3
+     (infix@C ==
+      (dot~5 jarPath~7 len@1)0@3)
+     (stmts@I
+      (ret "importing"@7))))
+   (if@,4
+    (elif@3
+     (infix@9 == guiCount~9 0@3)
+     (stmts@F
+      (ret "notimported"@7))))
+   (if@,5
+    (elif@3
+     (infix@C >
+      (dot~5 fitLine~7 len@1)0@2)
+     (stmts@H
+      (ret "mismatch"@7))))"ready"@,6))
+ (comment@,OZ)
+ (var@4,Ou packsScan . . . 0@C)
+ (var@4,Ov packsListed . . . false@E)
+ (var@4,Ow packsWanted . . . false@E)
+ (var@4,Ox packsFound . .
+  (at@F seq~3 string@1)
+  (prefix@Q \40
+   (bracket@1)))
+ (var@4,Oy packsAt . . . 0@A)
+ (var@4,Oz packsTotal . . . -1@D)
+ (var@4,P0 packRowsThisPump . . . PackRowsPerPump@J)
+ (var@4,P1 chosenPacks . .
+  (at@G seq~3 string@1)
+  (prefix@R \40
+   (bracket@1)))
+ (var@4,P2 chosenSaid . . . false@D)
+ (var@4,P3 packChangeWanted . . . false@J)
+ (comment@,P5)
+ (proc@,P8 pacePacks@5 . . .
+  (params@E
+   (param@1 frameMs . . int@9 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 > frameMs~8 SlowPackFrameMs@2)
+     (stmts~1,1
+      (asgn@H packRowsThisPump~H
+       (infix@J div packRowsThisPump~H 2@4))
+      (if@,1
+       (elif@3
+        (infix@H < packRowsThisPump~H MinPackRowsPerPump@2)
+        (stmts~1,1
+         (asgn@H packRowsThisPump~H MinPackRowsPerPump@2))))))
+    (elif@5,4
+     (infix@8 < frameMs~8 FastPackFrameMs@2)
+     (stmts~3,1
+      (asgn@H packRowsThisPump~H
+       (infix@J \2B packRowsThisPump~H 8@2))
+      (if@,1
+       (elif@3
+        (infix@H > packRowsThisPump~H PackRowsPerPump@2)
+        (stmts~1,1
+         (asgn@H packRowsThisPump~H PackRowsPerPump@2)))))))))
+ (proc@,PI listPacks@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@V or
+      (infix~F or
+       (prefix~G not packsWanted@4)packsListed@3)
+      (infix@C ==
+       (dot~5 root~4 len@1)0@3))
+     (stmts@n
+      (ret .))))
+   (if@,1
+    (elif@3
+     (infix@A == packsScan~A 0@3)
+     (stmts~1,1
+      (asgn@A packsScan~A
+       (call@C importScan~A root@1 "resourcepacks"@7 "*"@O))
+      (if@,1
+       (elif@3
+        (infix@A == packsScan~A 0@3)
+        (stmts@G
+         (asgn@C packsListed~C true@2))))
+      (ret@,2 .))))
+   (if@,5
+    (elif@3
+     (prefix not
+      (call@E importDone~A packsScan@1))
+     (stmts@R
+      (ret .))))
+   (if@,6
+    (elif@3
+     (infix@B < packsTotal~B 0@2)
+     (stmts~1,1
+      (asgn@B packsFound~B
+       (prefix@2 \40
+        (bracket@1)))
+      (asgn@8,1 packsAt~8 0@2)
+      (asgn@B,2 packsTotal~B
+       (call@D importCount~B packsScan@1)))))
+   (var@4,A budget . . . packRowsThisPump@9)
+   (while@,B
+    (infix@H and
+     (infix~4 > budget~7 0@2)
+     (infix@C < packsAt~8 packsTotal@2))
+    (stmts@2,1
+     (let@4 name . . .
+      (call@H importName~A packsScan@1 packsAt@C))
+     (cmd@,1 inc packsAt@4)
+     (cmd@,2 dec budget@4)
+     (var@4,5 deep . . . false@7)
+     (var@4,6 k . . . 0@4)
+     (while@,7
+      (infix@8 < k~2
+       (dot@6 name~4 len@1))
+      (stmts@2,1
+       (if
+        (elif@3
+         (infix@F or
+          (infix~7 ==
+           (at~4 name~4 k@1)'/'@3)
+          (infix@B ==
+           (at~4 name~4 k@1)'\5C'@3))
+         (stmts@Z
+          (asgn@5 deep~5 true@2))))
+       (cmd@,1 inc k@4)))
+     (if@,A
+      (elif@3
+       (infix@9 and
+        (prefix~9 not deep@4)
+        (infix@D >
+         (dot~5 name~4 len@1)0@2))
+       (stmts@R
+        (cmd@A
+         (dot packsFound~A add@1)name@5))))))
+   (if@,N
+    (elif@3
+     (infix@8 < packsAt~8 packsTotal@2)
+     (stmts@M
+      (ret .))))
+   (call@D,O importRelease~D packsScan@1)
+   (asgn@A,P packsScan~A 0@2)
+   (asgn@8,Q packsAt~8 0@2)
+   (asgn@B,R packsTotal~B -1@2)
+   (asgn@C,S packsListed~C true@2)
+   (call@4,T note~4
+    (infix@H &
+     (prefix~G $
+      (dot@B packsFound~A len@1))" resource pack\28s\29 on disk"@2))))
+ (comment@,Po)
+ (proc@,Ps packMetaOf@5 . . .
+  (params@F
+   (param@1 name . . string@6 .))string@G . .
+  (stmts@2,1
+   (var@4 why . . . ""@6)
+   (let@4,1 doc . . .
+    (call@E readJson~8
+     (infix@T &
+      (call~I packFolder~A Extracted@1 name@C)"/pack.mcmeta"@2)why@l))
+   (if@,2
+    (elif@3
+     (infix@C or
+      (infix~4 >
+       (dot~5 why~3 len@1)0@2)
+      (infix@C <
+       (dot~6 doc~3 root@1)0@2))
+     (stmts@T
+      (ret "0\090\09"@7))))
+   (let@4,3 info . . .
+    (call@J readPackMeta~C doc@1))
+   (infix@g,4 &
+    (infix~7 &
+     (infix~F &
+      (infix~7 &
+       (prefix~D $
+        (dot@5 info~4 lowest@1))"\09"@2)
+      (prefix@2 $
+       (dot@5 info~4 format@1)))"\09"@2)
+    (call@H escapeLangValue~F
+     (dot@5 info~4 description@1)))))
+ (comment@,Pz)
+ (proc@,Q3 packsRecord@5 . . .
+  (params@G)string@4 . .
+  (stmts@2,4
+   (asgn@C packsWanted~C true@2)
+   (asgn@7,1 result~7 ""@2)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@C packsFound~A len@1))
+    (stmts@2,1
+     (let@4 name . . .
+      (at@H packsFound~A i@1))
+     (cmd@,1 inc i@4)
+     (var@4,2 place . . . 0@8)
+     (var@4,3 k . . . 0@4)
+     (while@,4
+      (infix@8 < k~2
+       (dot@B packNames~9 len@1))
+      (stmts@2,1
+       (if
+        (elif@3
+         (infix@D ==
+          (at~4 packNames~9 k@1)name@3)
+         (stmts@M
+          (asgn@6 place~6
+           (infix@4 \2B k~2 1@2)))))
+       (cmd@,1 inc k@4)))
+     (cmd@6,7
+      (dot result~6 add@1)
+      (infix@q &
+       (infix~J &
+        (infix~7 &
+         (infix~9 &
+          (infix~7 & name~5 "\09"@2)
+          (prefix@2 $ place@1))"\09"@2)
+        (call@C packMetaOf~A name@1))"\0A"@2))))))
+ (comment@,QK)
+ (proc@,QM choosePacks@5 . . .
+  (params@G
+   (param@1 argument . . string@A .))string@K . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 ==
+      (dot~5 root~4 len@1)0@3)
+     (stmts@F
+      (ret "nogrant"@7))))
+   (asgn@C,1 chosenPacks~C
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,2 piece . . . ""@8)
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 <= i~2
+     (dot@B argument~8 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@I or
+        (infix~G == i~2
+         (dot@B argument~8 len@1))
+        (infix@F ==
+         (at~4 argument~8 i@1)'|'@3))
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@A >
+           (dot~5 piece~5 len@1)0@2)
+          (stmts@F
+           (cmd@B
+            (dot chosenPacks~B add@1)piece@5))))
+        (asgn@6,1 piece~6 ""@2)))
+      (elif@5,3
+       (prefix not
+        (par@4
+         (infix@G and
+          (infix~5 ==
+           (dot~5 piece~5 len@1)0@3)
+          (infix@G ==
+           (at~4 argument~8 i@1)' '@3))))
+       (stmts~3,1
+        (cmd@5
+         (dot piece~5 add@1)
+         (at@D argument~8 i@1)))))
+     (cmd@,5 inc i@4)))
+   (asgn@B,B chosenSaid~B true@2)
+   (asgn@H,C packChangeWanted~H true@2)"ok"@,D))
+ (proc@,Qc noticeRecord@5 . . .
+  (params@H)string@4 . .
+  (stmts@2,1
+   (var@4 progress . . . ""@B)
+   (if@,1
+    (elif@3 running
+     (stmts@9
+      (asgn@9 progress~9
+       (infix@1,1 &
+        (infix~6 &
+         (infix@o,~1 &
+          (infix~6 &
+           (infix~F &
+            (infix~7 &
+             (prefix~F $
+              (call@C planPercent~B))"% "@2)
+            (prefix@2 $
+             (call@A planIndex~9)))"/"@2)
+          (prefix~12,1 $
+           (call@B planLength~A)))" "@2)
+        (call@A planNote~8)))))
+    (elif@5,2
+     (infix@8 != finding~8 0@3)
+     (stmts@E
+      (asgn@9 progress~9 "0% 0/0 locating Minecraft"@2)))
+    (elif@5,3
+     (infix@9 ==
+      (dot~5 root~4 len@1)0@3)
+     (stmts@F
+      (asgn@9 progress~9 "0% 0/0 waiting for Minecraft folder"@2)))
+    (elif@5,4
+     (infix@C ==
+      (dot~5 jarPath~7 len@1)0@3)
+     (stmts@I
+      (asgn@9 progress~9 "0% 0/0 preparing Minecraft data"@2))))
+   (infix@I,8 &
+    (infix~7 &
+     (infix@y,~1 &
+      (infix~7 &
+       (infix~D &
+        (infix~7 &
+         (infix@H,~1 &
+          (infix~7 &
+           (infix~L &
+            (infix~7 &
+             (infix~7 &
+              (infix~7 &
+               (call~3 stateWord~9)"\09"@2)root@2)"\09"@2)
+            (call@I importPolicyFile~G))"\09"@2)
+          (par~x,1
+           (infix@O &
+            (call~C importKnown~B "appdata"@1)"\5C.minecraft"@2)))"\09"@2)jarVersion@2)"\09"@2)progress~17,1)"\09"@2)fitLine@2)))
+ (proc@,Qn asks@5 . . .
+  (params@9
+   (param@1 argument . . string@G .)
+   (param@B verb . . string@6 .))bool@Q . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@D <
+      (dot~5 argument~8 len@1)
+      (dot@6 verb~4 len@1))
+     (stmts@P
+      (ret false@7))))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 verb~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@C !=
+        (at~4 argument~8 i@1)
+        (at@7 verb~4 i@1))
+       (stmts@O
+        (ret false@7))))
+     (cmd@,1 inc i@4)))true@,5))
+ (proc@,Qv after@5 . . .
+  (params@A
+   (param@1 argument . . string@A .)
+   (param@J skip . . int@6 .))string@V . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 i . . . skip@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@A argument~8 len@1))
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (at@D argument~8 i@1))
+     (cmd@,1 inc i@4)))))
+ (comment@,R2)
+ (proc@,R4 serveRequest@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@E !=
+      (call~3 serviceName~B)GuiService@3)
+     (stmts~1,1
+      (call@D answerService~D ""@1)
+      (ret@,1 .))))
+   (let@4,3 ask . . .
+    (call@L serviceArgument~F))
+   (if@,4
+    (elif@3
+     (infix@4 == ask~4 "notice"@3)
+     (stmts~1,1
+      (call@D answerService~D
+       (call@D noticeRecord~C))))
+    (elif@5,2
+     (infix@4 == ask~4 "state"@3)
+     (stmts~3,1
+      (call@D answerService~D
+       (call@A stateWord~9))))
+    (elif@5,4
+     (infix@4 == ask~4 "ready"@3)
+     (stmts~3,1
+      (call@D answerService~D
+       (if@1
+        (elif@3
+         (infix@9 > guiCount~9 0@2)
+         (stmts@E "yes"))
+        (else@N
+         (stmts@6 "no"))))))
+    (elif@5,6
+     (infix@4 == ask~4 "pictures"@3)
+     (stmts~3,1
+      (call@D answerService~D
+       (prefix@1 $ guiCount@1))))
+    (elif@5,8
+     (infix@4 == ask~4 "layout"@3)
+     (stmts~3,1
+      (call@D answerService~D
+       (call@A guiLayout~9))))
+    (elif@5,A
+     (infix@4 == ask~4 "font"@3)
+     (stmts~3,1
+      (call@D answerService~D
+       (if@1
+        (elif@3
+         (infix@D == fontMeasured~D "-"@3)
+         (stmts@L ""))
+        (else@R
+         (stmts@6 fontMeasured))))))
+    (elif@5,C
+     (infix@4 == ask~4 "sizes"@3)
+     (stmts~3,1
+      (call@D answerService~D guiSizes@1)))
+    (elif@5,E
+     (infix@4 == ask~4 "hudlayout"@3)
+     (stmts~3,1
+      (call@D answerService~D
+       (call@A hudLayout~9))))
+    (elif@5,G
+     (infix@4 == ask~4 "splashes"@3)
+     (stmts~3,1
+      (let@4 where . . .
+       (call@C find~4 "minecraft"@1 "texts/splashes.txt"@E))
+      (call@D,1 answerService~D
+       (if@1
+        (elif@3
+         (infix@A >
+          (dot~5 where~5 len@1)0@2)
+         (stmts@F
+          (call@A importRead~A where@1)))
+        (else@a
+         (stmts@6 ""))))))
+    (elif@5,J
+     (infix@4 == ask~4 "language"@3)
+     (stmts~3,1
+      (call@D answerService~D
+       (call@B optionLine~A
+        (call@B importRead~A OptionsFile@1)"lang"@Q))))
+    (elif@5,L
+     (infix@4 == ask~4 "languages"@3)
+     (stmts~3,1
+      (call@D answerService~D
+       (call@F assetLanguages~E))))
+    (elif@5,N
+     (infix@4 == ask~4 "version"@3)
+     (stmts~3,1
+      (call@D answerService~D jarVersion@1)))
+    (elif@5,P
+     (infix@4 == ask~4 "pack"@3)
+     (stmts~3,1
+      (call@D answerService~D
+       (if@1
+        (elif@3
+         (infix@E >
+          (dot~5 packNames~9 len@1)0@2)
+         (stmts@J
+          (at@9 packNames~9 0@1)))
+        (else@Z
+         (stmts@6 ""))))))
+    (elif@5,R
+     (infix@4 == ask~4 "format"@3)
+     (stmts~3,5
+      (call@D answerService~D
+       (prefix@1 $ jarFormat@1))))
+    (elif@5,X
+     (infix@4 == ask~4 "packs"@3)
+     (stmts~3,1
+      (call@D answerService~D
+       (call@C packsRecord~B))))
+    (elif@5,Z
+     (call@4 asks~4 ask@1 "choose"@6)
+     (stmts~3,1
+      (call@D answerService~D
+       (call@C choosePacks~B
+        (call@6 after~5 ask@1 6@6)))))
+    (elif@5,b
+     (call@4 asks~4 ask@1 "sprite "@6)
+     (stmts~3,1
+      (call@D answerService~D
+       (call@E spriteScaling~D
+        (call@6 after~5 ask@1 7@6)))))
+    (elif@5,d
+     (call@4 asks~4 ask@1 "lang "@6)
+     (stmts~3,1
+      (call@D answerService~D
+       (call@B langAnswer~A
+        (call@6 after~5 ask@1 5@6)))))
+    (elif@5,f
+     (call@4 asks~4 ask@1 "haslang "@6)
+     (stmts~3,1
+      (call@D answerService~D
+       (if@1
+        (elif@3
+         (call@B langPresent~B
+          (call@6 after~5 ask@1 8@6))
+         (stmts@S "yes"))
+        (else@b
+         (stmts@6 "no"))))))
+    (else@,h
+     (stmts@2,1
+      (call@D answerService~D ""@1))))))
+ (comment@,Rt)
+ (proc@,Ry resolvePart@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (let@4 want . . .
+    (call@J resourcePath~C
+     (call@C partLocator~B)))
+   (var@4,1 kind . . . ""@7)
+   (var@4,2 name . . . ""@7)
+   (var@4,3 state . . . ""@8)
+   (call@8,4 splitRef~8 want@1 kind@7 name@D state@J)
+   (var@4,5 problem . . . ""@A)
+   (var@4,6 baked . . .
+    (call@H emptyBake~9))
+   (var@4,7 label . . . want@8)
+   (if@,9
+    (elif@3
+     (infix@5 == kind~5 "blockstate"@3)
+     (stmts~1,1
+      (asgn@6 baked~6
+       (call@B bakeState~9 name@1 state@7 problem@E))
+      (asgn@6,1 label~6 name@2)))
+    (elif@5,3
+     (infix@5 == kind~5 "item"@3)
+     (stmts~3,6
+      (var@4 path . . .
+       (infix@F & "item/"~8 name@2))
+      (let@4,1 defFile . . .
+       (call@L itemDefFile~B name@1))
+      (if@,2
+       (elif@3
+        (infix@C >
+         (dot~5 defFile~7 len@1)0@2)
+        (stmts~1,1
+         (var@4 why . . . ""@6)
+         (let@4,1 doc . . .
+          (call@E readJson~8 defFile@1 why@A))
+         (if@,2
+          (elif@3
+           (infix@8 >
+            (dot~5 why~3 len@1)0@2)
+           (stmts~1,1
+            (call@4 note~4
+             (infix@M &
+              (infix~7 &
+               (call~A leaf~4 defFile@1)"\3A "@2)why@2))))
+          (else@,2
+           (stmts@2,1
+            (let@4 named . . .
+             (call@N definitionModel~F doc@1))
+            (if@,1
+             (elif@3
+              (infix@A >
+               (dot~5 named~5 len@1)0@2)
+              (stmts~1,1
+               (asgn@5 path~5 named@2)
+               (let@4,1 several . . .
+                (call@P definitionCases~F doc@1))
+               (if@,2
+                (elif@3
+                 (infix@8 > several~8 0@2)
+                 (stmts~1,1
+                  (call@4 note~4
+                   (infix@f &
+                    (infix~B &
+                     (infix~E &
+                      (infix~7 & "item/"~8 name@2)"\3A one of "@2)
+                     (prefix@2 $ several@1))" appearances; showing the resting one"~e,1)))))))
+             (else@,6
+              (stmts@2,1
+               (call@4 note~4
+                (infix@G &
+                 (infix~7 & "item/"~8 name@2)"\3A its definition names no model"@2)))))))))))
+      (asgn@6,H baked~6
+       (call@B bakeModel~9 path@1 problem@7))
+      (asgn@6,I label~6
+       (infix@A & "item/"~8 name@2))))
+    (elif@5,S
+     (infix@5 == kind~5 "block"@3)
+     (stmts~3,1
+      (asgn@6 baked~6
+       (call@B bakeModel~9
+        (infix@A & "block/"~9 name@2)problem@I))
+      (asgn@6,1 label~6
+       (infix@B & "block/"~9 name@2))))
+    (else@,V
+     (stmts@2,2
+      (asgn@6 baked~6
+       (call@B bakeModel~9 want@1 problem@7)))))
+   (if@,i
+    (elif@3
+     (infix@C >
+      (dot~5 problem~7 len@1)0@2)
+     (stmts~1,1
+      (call@4 note~4
+       (infix@E &
+        (infix~7 & label~6 "\3A "@2)problem@2))
+      (ret@,1 .))))
+   (if@,l
+    (elif@3
+     (infix@C ==
+      (dot~7 baked~5 count@1)0@3)
+     (stmts~1,1
+      (call@4 note~4
+       (infix@E &
+        (infix~7 & label~6 "\3A "@2)
+        (expr
+         (stmts@2)
+         (if@1
+          (elif@3
+           (infix@I >
+            (dot~5
+             (dot~8 baked~5 problem@1)len@1)0@2)
+           (dot@S baked~5 problem@1))
+          (else@e "nothing to draw"@6)))))
+      (ret@,1 .))))
+   (if@,o
+    (elif@3
+     (infix@I >
+      (dot~5
+       (dot~8 baked~5 problem@1)len@1)0@2)
+     (stmts~1,2
+      (call@4 note~4
+       (infix@E &
+        (infix~7 & label~6 "\3A "@2)
+        (dot@7 baked~5 problem@1))))))
+   (call@5,r dress~5 baked@1 label@8)))
+ (comment@,Sv)
+ (proc@,T6 lookForJar@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 ==
+      (dot~5 root~4 len@1)0@3)
+     (stmts~1,1
+      (call@4 note~4 "no granted folder holds a Minecraft install yet."@1)
+      (asgn@C,1 jarSearched~C true@2)
+      (ret@,2 .))))
+   (asgn@8,4 finding~8
+    (call@C importScan~A root@1 "versions"@7 "*.jar"@J))
+   (if@,5
+    (elif@3
+     (infix@8 <= finding~8 0@3)
+     (stmts~1,1
+      (call@4 note~4
+       (infix@X & "could not look in versions/\3A "~W
+        (call@F importProblem~D)))
+      (ret@,1 .))))
+   (call@4,8 note~4 "looking for a version jar"@1)))
+ (proc@,TH queue@5 . . .
+  (params@A). . .
+  (stmts@2,1
+   (call@9 planClear~9)
+   (call@8,1 planScan~8 "listing the jar"@1 root@K jarPath@Q ModelsIn@Z)
+   (call@B,2 planExtract~B "block models"@1 root@H jarPath@N ModelsIn@W Extracted@g)
+   (call@B,3 planExtract~B "block textures"@1 root@J jarPath@P TexturesIn@Y Extracted@k)
+   (call@B,4 planExtract~B "blockstates"@1 root@G jarPath@M StatesIn@V Extracted@f)
+   (call@B,5 planExtract~B "item models"@1 root@G jarPath@M ItemModelsIn@V Extracted@j)
+   (call@B,6 planExtract~B "item textures"@1 root@I jarPath@O ItemTexturesIn@X Extracted@n)
+   (call@B,7 planExtract~B "texture metadata"@1 root@L jarPath@R MetaIn@a Extracted@i)
+   (call@B,8 planExtract~B "recipes"@1 root@C jarPath@I RecipesIn@R Extracted@c)
+   (call@B,C planExtract~B "item definitions"@1 root@L jarPath@R ItemDefsIn@a Extracted@m)
+   (call@B,G planExtract~B "the player\27s settings"@1 root@Q ""@W OptionsIn@a Extracted@l)
+   (call@B,J planExtract~B "the interface"@1 root@I jarPath@O GuiIn@X Extracted@e)
+   (call@B,K planExtract~B "the font"@1 root@D jarPath@J FontIn@S Extracted@a)
+   (call@B,L planExtract~B "the language files"@1 root@N jarPath@T LangIn@c Extracted@k)
+   (call@B,M planExtract~B "the splashes"@1 root@H jarPath@N TextsIn@W Extracted@f)
+   (call@B,S planExtract~B "the pack picture"@1 root@L jarPath@R IconFile@a Extracted@k)
+   (call@B,W planExtract~B "the sky"@1 root@C jarPath@I EnvironmentIn@R Extracted@g)
+   (var@4,b v . . . 0@4)
+   (while@,c
+    (infix@8 < v~2
+     (dot@C jarEntries~A len@1))
+    (stmts@2,1
+     (let@4 one . . .
+      (at@G jarEntries~A v@1))
+     (cmd@,1 inc v@4)
+     (call@B,2 planExtract~B
+      (infix@C & "version "~B
+       (call@B versionOf~9 one@1))root@U
+      (infix@m & "versions/"~C one@2)"version.json"~9,1
+      (call@K,1 versionFolder~D
+       (call@A versionOf~9 one@1)))))))
+ (comment@,U0)
+ (comment@,U5)
+ (proc@,U9 writeReceipt@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (var@4 body . . . jarPath@7)
+   (cmd@4,1
+    (dot body~4 add@1)Newline@5)
+   (cmd@4,2
+    (dot body~4 add@1)
+    (prefix@5 $
+     (call@A planIndex~9)))
+   (cmd@4,3
+    (dot body~4 add@1)Newline@5)
+   (if@,4
+    (elif@3
+     (prefix not
+      (call@F importWrite~B PlanReceipt@1 body@E))
+     (stmts~1,1
+      (call@4 note~4
+       (infix@f &
+        (infix~7 &
+         (infix~E & "could not write "~J PlanReceipt@2)"\3A "@2)
+        (call@F importProblem~D))))))))
+ (comment@,UH)
+ (proc@,UL receiptAgrees@5 . . .
+  (params@I
+   (param@1 at . . int@4 .))bool@B . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@D importHas~9 PlanReceipt@1))
+     (stmts@S
+      (ret false@7))))
+   (let@4,1 body . . .
+    (call@H importRead~A PlanReceipt@1))
+   (var@4,2 said . . . ""@7)
+   (var@4,3 cursor . . . ""@9)
+   (var@4,4 line . . . 0@7)
+   (var@4,5 i . . . 0@4)
+   (while@,6
+    (infix@8 < i~2
+     (dot@6 body~4 len@1))
+    (stmts@2,1
+     (let@4 c . . .
+      (at@8 body~4 i@1))
+     (cmd@,1 inc i@4)
+     (if@,2
+      (elif@3
+       (infix@2 == c~2 Newline@3)
+       (stmts~1,1
+        (cmd inc line@4)))
+      (elif@5,2
+       (infix@2 == c~2
+        (call@7 char~4 13@1))
+       (stmts~3,1
+        (discard .)))
+      (elif@5,4
+       (infix@5 == line~5 0@3)
+       (stmts@B
+        (cmd@4
+         (dot said~4 add@1)c@5)))
+      (elif@5,5
+       (infix@5 == line~5 1@3)
+       (stmts@B
+        (cmd@6
+         (dot cursor~6 add@1)c@5))))))
+   (infix@G,F and
+    (infix~B == said~5 jarPath@3)
+    (infix@B == cursor~7
+     (prefix@3 $ at@1)))))
+ (proc@,Ud settleFinding@5 . . .
+  (params@I
+   (param@1 again . . bool@7 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@D or
+      (infix~5 == finding~8 0@3)
+      (prefix@3 not
+       (call@E importDone~A finding@1)))
+     (stmts@f
+      (ret .))))
+   (let@4,1 why . . .
+    (call@H importError~B finding@1))
+   (asgn@B,2 jarEntries~B
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,3 sizes . .
+    (at@A seq~3 int@1)
+    (prefix@I \40
+     (bracket@1)))
+   (if@,4
+    (elif@3
+     (infix@8 ==
+      (dot~5 why~3 len@1)0@3)
+     (stmts~1,1
+      (var@4 i . . . 0@4)
+      (while@,1
+       (infix@8 < i~2
+        (call@D importCount~B finding@1))
+       (stmts@2,1
+        (cmd@A
+         (dot jarEntries~A add@1)
+         (call@F importName~A finding@1 i@A))
+        (cmd@5,1
+         (dot sizes~5 add@1)
+         (call@F importSize~A finding@1 i@A))
+        (cmd@,2 inc i@4))))))
+   (call@D,A importRelease~D finding@1)
+   (asgn@8,B finding~8 0@2)
+   (asgn@C,C jarSearched~C true@2)
+   (if@,D
+    (elif@3
+     (infix@8 >
+      (dot~5 why~3 len@1)0@2)
+     (stmts~1,1
+      (call@4 note~4
+       (infix@F & "versions/\3A "~E why@2))
+      (ret@,1 .))))
+   (if@,G
+    (elif@3
+     (infix@F ==
+      (dot~5 jarEntries~A len@1)0@3)
+     (stmts~1,5
+      (call@4 note~4
+       (infix@P &
+        (infix~7 & "no .jar under "~H root@2)"/versions/"@2))
+      (call@4,1 note~4 "that folder lists versions the launcher knows; none is downloaded"@1)
+      (ret@,2 .))))
+   (let@4,S want . . .
+    (call@F remember~8 "target"@1 TargetVersion@B))
+   (let@4,T asked . . .
+    (call@G jarNamed~8 jarEntries@1 want@D))
+   (let@4,U pick . . .
+    (call@G chooseJar~9 jarEntries@1 want@D))
+   (if@,V
+    (elif@3
+     (infix@5 < pick~5 0@2)
+     (stmts@A
+      (ret .))))
+   (asgn@8,W jarPath~8
+    (infix@E & "versions/"~C
+     (at@C jarEntries~A pick@1)))
+   (asgn@B,X jarVersion~B
+    (call@B versionOf~9
+     (at@B jarEntries~A pick@1)))
+   (var@4,Y others . . . ""@9)
+   (var@4,Z i . . . 0@4)
+   (while@,a
+    (infix@8 < i~2
+     (dot@C jarEntries~A len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 != i~2 pick@3)
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@B >
+           (dot~5 others~6 len@1)0@2)
+          (stmts@G
+           (cmd@6
+            (dot others~6 add@1)", "@5))))
+        (cmd@6,1
+         (dot others~6 add@1)
+         (call@E versionOf~9
+          (at@B jarEntries~A i@1))))))
+     (cmd@,3 inc i@4)))
+   (let@4,i size . . .
+    (infix@Y &
+     (prefix~R $
+      (par@1
+       (infix@D div
+        (at~7 sizes~5 pick@1)1048576@4)))" MB"@2))
+   (if@,j
+    (elif@3
+     (infix@6 >= asked~6 0@3)
+     (stmts~1,1
+      (call@4 note~4
+       (infix@l &
+        (infix~7 &
+         (infix~7 &
+          (infix~D & "using Minecraft "~J jarVersion@2)", "@2)size@2)" - the version this game\27s protocol client targets"~n,1))))
+    (else@,3
+     (stmts@2,1
+      (call@4 note~4
+       (infix@l &
+        (infix~7 &
+         (infix~7 &
+          (infix~D & "using Minecraft "~J jarVersion@2)", "@2)size@2)" - the newest version with a jar in it"~n,1))
+      (if@,2
+       (elif@3
+        (infix@9 >
+         (dot~5 want~4 len@1)0@2)
+        (stmts~1,1
+         (call@4 note~4
+          (infix@6 & want~5 " is what this game targets, and it is not installed"@2))))))))
+   (call@3,r log~3
+    (infix@V & "\5Bassert\5D minecraft.version="~U jarVersion@2))
+   (call@3,s log~3
+    (infix@U & "\5Bassert\5D minecraft.target="~T want@2))
+   (if@,t
+    (elif@3
+     (infix@B >
+      (dot~5 others~6 len@1)0@2)
+     (stmts@G
+      (call@4 note~4
+       (infix@K & "also installed\3A "~J others@2)))))
+   (call@5,u queue~5)
+   (call@9,y startPlan~9 "minecraft"@1)
+   (if@,z
+    (elif@3
+     (infix@6 or again~6
+      (prefix@3 not
+       (call@H receiptAgrees~D
+        (call@A planIndex~9))))
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@A and
+         (prefix~A not again@4)
+         (infix@G >
+          (call~3 planIndex~9)0@2))
+        (stmts~1,1
+         (call@4 note~4
+          (infix@11 &
+           (infix~F & "an interrupted import is remembered at step "~l
+            (prefix@2 $
+             (call@A planIndex~9)))" but this folder does not hold it; reading it all again"~13,1)))))
+      (call@B,3 restartPlan~B "minecraft"@1))))
+   (call@C,14 writeReceipt~C)
+   (asgn@8,15 running~8 true@2)))
+ (var@4,Vl startingOver . . . false@F)
+ (proc@,Vn beginImport@5 . . .
+  (params@G
+   (param@1 again . . bool@7 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 or running~8
+      (infix@B != finding~8 0@3))
+     (stmts@P
+      (ret .))))
+   (asgn@A,1 hudFilled~A false@2)
+   (asgn@B,2 hudStarted~B false@2)
+   (asgn@6,3 hudAt~6 0@2)
+   (asgn@D,8 fontMeasured~D ""@2)
+   (call@4,9 save~4 "font"@1 ""@9)
+   (asgn@D,A startingOver~D again@2)
+   (call@A,B lookForJar~A)))
+ (proc@,W7 writeIndex@5 . . .
+  (params@F
+   (param@1 path . . string@6 .)
+   (param@F list . .
+    (at@9 seq~3 string@1).)). . .
+  (stmts@2,1
+   (var@4 body . . . ""@7)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 list~4 len@1))
+    (stmts@2,1
+     (cmd@4
+      (dot body~4 add@1)
+      (at@9 list~4 i@1))
+     (cmd@4,1
+      (dot body~4 add@1)"\0A"@5)
+     (cmd@,2 inc i@4)))
+   (if@,6
+    (elif@3
+     (prefix not
+      (call@F importWrite~B path@1 body@7))
+     (stmts~1,1
+      (call@4 note~4
+       (infix@Y &
+        (infix~7 &
+         (infix~7 & "could not write "~J path@2)"\3A "@2)
+        (call@F importProblem~D))))))))
+ (proc@,WH readIndex@5 . . .
+  (params@E
+   (param@1 path . . string@6 .))
+  (at@J seq~3 string@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@D importHas~9 path@1))
+     (stmts@L
+      (ret result@7))))
+   (let@4,2 body . . .
+    (call@H importRead~A path@1))
+   (var@4,3 current . . . ""@A)
+   (var@4,4 i . . . 0@4)
+   (while@,5
+    (infix@8 < i~2
+     (dot@6 body~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@8 ==
+        (at~4 body~4 i@1)'\0A'@3)
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@C >
+           (dot~5 current~7 len@1)0@2)
+          (stmts@H
+           (cmd@6
+            (dot result~6 add@1)current@5))))
+        (asgn@8,1 current~8 ""@2)))
+      (else@,3
+       (stmts@2,1
+        (cmd@7
+         (dot current~7 add@1)
+         (at@9 body~4 i@1)))))
+     (cmd@,5 inc i@4)))
+   (if@,C
+    (elif@3
+     (infix@C >
+      (dot~5 current~7 len@1)0@2)
+     (stmts@H
+      (cmd@6
+       (dot result~6 add@1)current@5))))))
+ (proc@,WW collect@5 . . .
+  (params@C
+   (param@1 job . . int@5 .))
+  (at@F seq~3 string@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (call@D importCount~B job@1))
+    (stmts@2,1
+     (let@4 name . . .
+      (call@B leaf~4
+       (call@B importName~A job@1 i@6)))
+     (if@,1
+      (elif@3
+       (infix@9 >
+        (dot~5 name~4 len@1)0@2)
+       (stmts@E
+        (cmd@6
+         (dot result~6 add@1)name@5))))
+     (cmd@,2 inc i@4)))))
+ (comment@,We)
+ (proc@,Wh collectPaths@5 . . .
+  (params@H
+   (param@1 job . . int@5 .))
+  (at@F seq~3 string@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (call@D importCount~B job@1))
+    (stmts@2,1
+     (let@4 name . . .
+      (call@H importName~A job@1 i@6))
+     (if@,1
+      (elif@3
+       (infix@9 >
+        (dot~5 name~4 len@1)0@2)
+       (stmts@E
+        (cmd@6
+         (dot result~6 add@1)name@5))))
+     (cmd@,2 inc i@4)))))
+ (proc@,Ws titleOf@5 . . .
+  (params@C
+   (param@1 name . . string@6 .))string@G . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,2 result~7 ""@2)
+   (var@4,3 start . . . true@8)
+   (var@4,4 i . . . 0@4)
+   (while@,5
+    (infix@8 < i~2
+     (dot@6 name~4 len@1))
+    (stmts@2,1
+     (var@4 c . . .
+      (at@8 name~4 i@1))
+     (if@,1
+      (elif@3
+       (infix@2 == c~2 '_'@3)
+       (stmts~1,1
+        (cmd@6
+         (dot result~6 add@1)' '@5)
+        (asgn@6,1 start~6 false@2)))
+      (else@,3
+       (stmts@2,1
+        (if
+         (elif@3
+          (infix@J and
+           (infix~D and start~6
+            (infix@6 >= c~2 'a'@3))
+           (infix@6 <= c~2 'z'@3))
+          (stmts@X
+           (asgn@2 c~2
+            (call@6 char~4
+             (infix@8 \2D
+              (call~4 int~3 c@1)32@2))))))
+        (cmd@6,1
+         (dot result~6 add@1)c@5)
+        (asgn@6,2 start~6 false@2))))
+     (cmd@,8 inc i@4)))))
+ (proc@,X9 publish@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (if
+    (elif@3 published
+     (stmts@B
+      (ret .))))
+   (if@,1
+    (elif@3
+     (prefix not publishInitialized@4)
+     (stmts~1,1
+      (asgn@J publishInitialized~J true@2)
+      (call@D,1 createCatalog~D Blocks@1 PartKind@9 "Blocks from the Minecraft this player owns."@J)
+      (call@D,2 createCatalog~D Items@1 PartKind@8 "Items from the Minecraft this player owns."@I)
+      (call@A,3 publishGui~A)
+      (call@A,4 publishSky~A)
+      (call@E,5 publishOwnIcon~E)
+      (call@4,6 note~4 "publishing Minecraft content"@1)
+      (if@,F
+       (elif@3
+        (infix@H ==
+         (dot~5 fontMeasured~C len@1)0@3)
+        (stmts@N
+         (asgn@D fontMeasured~D
+          (call@A remember~8 "font"@1 ""@9)))))
+      (asgn@D,G fontRowReady~D true@2))))
+   (var@4,K done . . . 0@7)
+   (while@,L
+    (infix@V and
+     (infix~K < done~5 PublishRowsBudget@2)
+     (infix@J < publishBlockAt~F
+      (dot@C stateNames~A len@1)))
+    (stmts@2,1
+     (let@4 i . . . publishBlockAt@4)
+     (call@C,1 addToCatalog~C Blocks@1
+      (at@J stateNames~A i@1)
+      (infix@o &
+       (infix~J & Scheme~7 "\3A//blockstate/"@2)
+       (at@C stateNames~A i@1)))
+     (cmd@,2 inc publishBlockAt@4)
+     (cmd@,3 inc done@4)))
+   (while@,Q
+    (infix@V and
+     (infix~K < done~5 PublishRowsBudget@2)
+     (infix@I < publishItemAt~E
+      (dot@B itemNames~9 len@1)))
+    (stmts@2,1
+     (let@4 i . . . publishItemAt@4)
+     (call@C,1 addToCatalog~C Items@1
+      (at@H itemNames~9 i@1)
+      (infix@g &
+       (infix~D & Scheme~7 "\3A//item/"@2)
+       (at@B itemNames~9 i@1)))
+     (cmd@,2 inc publishItemAt@4)
+     (cmd@,3 inc done@4)))
+   (if@,V
+    (elif@3
+     (infix@W or
+      (infix~H < publishBlockAt~F
+       (dot@C stateNames~A len@1))
+      (infix@H < publishItemAt~E
+       (dot@B itemNames~9 len@1)))
+     (stmts@14
+      (ret .))))
+   (asgn@A,X published~A true@2)
+   (call@4,b note~4
+    (infix@l &
+     (infix~D &
+      (infix~H &
+       (prefix~G $
+        (dot@B stateNames~A len@1))" blocks and "@2)
+      (prefix@2 $
+       (dot@6 names~5 len@1)))" block models"@2))
+   (call@3,c log~3
+    (infix@Z & "\5Bassert\5D minecraft.blockstates="~Y
+     (prefix@2 $
+      (dot@B stateNames~A len@1))))
+   (call@3,d log~3
+    (infix@Z & "\5Bassert\5D minecraft.blockmodels="~Y
+     (prefix@2 $
+      (dot@6 names~5 len@1))))
+   (call@4,e note~4
+    (infix@V &
+     (infix~F &
+      (prefix~F $
+       (dot@A itemNames~9 len@1))" items in "@2)Items@2))
+   (call@H,g defineCatalogKind~H AnimationKind@1 "text"@G "How a texture animates\3A its frames, its frametime and its loop."~F,1)
+   (call@D,i createCatalog~D Animations@1 AnimationKind@D "Animated textures from this player\27s Minecraft."~B,1)
+   (if@,l
+    (elif@3
+     (prefix not ledgerNoted@4)
+     (stmts~1,1
+      (asgn@C ledgerNoted~C true@2)
+      (call@A,1 noteImport~A
+       (infix@E & "minecraft/"~D
+        (call@6 leaf~4 jarPath@1))
+       (infix@8,3 &
+        (infix@b,~1 &
+         (infix~I &
+          (infix~I &
+           (infix@o,~1 &
+            (infix~D &
+             (infix~H &
+              (infix~6 &
+               (infix~I &
+                (infix~6 & Blocks~7 "|"@2)
+                (prefix@2 $
+                 (dot@B stateNames~A len@1)))"|"@2)
+              (prefix@2 $
+               (dot@A itemNames~9 len@1)))" items, "@2)
+            (prefix~15,1 $
+             (dot@C recipeNames~B len@1)))" recipes and "@2)
+          (prefix@2 $
+           (dot@B stateNames~A len@1)))" blocks from "~r,1)jarPath@2)))))
+   (call@4,r note~4 "waiting for voxel.blocks and aoughwl.hud.recipes to appear"@1)))
+ (var@4,YA voxelFilled . . . false@E)
+ (comment@,YB)
+ (proc@,YS fillVoxel@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@C or voxelFilled~C
+      (infix@I ==
+       (dot~5 stateNames~A len@1)0@3))
+     (stmts@a
+      (ret .))))
+   (if@,1
+    (elif@3
+     (infix@Y ==
+      (dot~5
+       (call~D catalogSignature~G VoxelBlocks@1)len@1)0@3)
+     (stmts@e
+      (ret .))))
+   (asgn@C,2 voxelFilled~C true@2)
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@C stateNames~A len@1))
+    (stmts@2,1
+     (call@C addToCatalog~C VoxelBlocks@1
+      (at@O stateNames~A i@1)
+      (infix@U,2 &
+       (infix~J &
+        (infix~9 &
+         (infix@M,~1 &
+          (infix~P & "label="~9
+           (call@9 titleOf~7
+            (at@B stateNames~A i@1)))";texture="~Y,1)Scheme@2)"\3A//blockstate/"@2)
+       (at@C stateNames~A i@1)))
+     (cmd@,3 inc i@4)))
+   (asgn@8,9 stateAt~8 0@2)
+   (asgn@D,A dressedCount~D 0@2)
+   (call@4,B note~4
+    (infix@f &
+     (infix~O &
+      (prefix~G $
+       (dot@B stateNames~A len@1))" blocks offered to "@2)VoxelBlocks@2))
+   (call@3,C log~3
+    (infix@Z & "\5Bassert\5D minecraft.voxelblocks="~Y
+     (prefix@2 $
+      (dot@B stateNames~A len@1))))))
+ (comment@,Yh)
+ (proc@,Yv fillHud@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A or hudFilled~A
+      (infix@H ==
+       (dot~5 itemNames~9 len@1)0@3))
+     (stmts@X
+      (ret .))))
+   (if@,1
+    (elif@3
+     (infix@d ==
+      (dot~5
+       (call~I catalogSignature~G HudRecipeSources@1)len@1)0@3)
+     (stmts@j
+      (ret .))))
+   (if@,2
+    (elif@3
+     (prefix not hudStarted@4)
+     (stmts~1,1
+      (asgn@B hudStarted~B true@2)
+      (call@D,1 createCatalog~D Inventory@1 ItemKind@C "Items from this player\27s Minecraft."@M)
+      (call@D,2 createCatalog~D
+       (infix@B & Inventory~A StackFacet@2)ItemStackKind@P "Stack sizes"@e)
+      (call@D,3 createCatalog~D
+       (infix@B & Inventory~A BulkFacet@2)ItemBulkKind@O "Bulk"@c)
+      (call@D,4 createCatalog~D
+       (infix@B & Inventory~A WeightFacet@2)ItemWeightKind@Q "Weights"@g)
+      (call@D,5 createCatalog~D
+       (infix@B & Inventory~A ShapeFacet@2)ItemShapeKind@P "Shapes"@e)
+      (call@D,6 createCatalog~D
+       (infix@B & Inventory~A TagFacet@2)ItemTagKind@N "Tags"@a)
+      (call@D,7 createCatalog~D
+       (infix@B & Inventory~A IconFacet@2)HudIconKind@O "Icons"@b)
+      (call@D,8 createCatalog~D
+       (infix@B & Inventory~A FoodFacet@2)HudFoodKind@O "Food values"@b)
+      (call@D,9 createCatalog~D
+       (infix@B & Inventory~A SaturationFacet@2)HudSaturationKind@U "Saturation"@n)
+      (call@D,A createCatalog~D
+       (infix@B & Inventory~A ArmourFacet@2)HudArmourKind@Q "Armour points"@f)
+      (call@D,B createCatalog~D
+       (infix@B & Inventory~A ArmourPartFacet@2)HudArmourPartKind@U "Armour slots"@n)
+      (call@C,C addToCatalog~C InventorySources@1 Inventory@J "items"@U))))
+   (var@4,H done . . . 0@7)
+   (while@,I
+    (infix@R and
+     (infix~G < done~5 HudRowsBudget@2)
+     (infix@A < hudAt~6
+      (dot@B itemNames~9 len@1)))
+    (stmts@2,1
+     (let@4 id . . .
+      (at@E itemNames~9 hudAt@1))
+     (cmd@,1 inc hudAt@4)
+     (cmd@,2 inc done@4)
+     (let@4,3 part . . .
+      (infix@R &
+       (infix~D & Scheme~7 "\3A//item/"@2)id@2))
+     (call@C,4 addToCatalog~C Inventory@1 id@C
+      (call@N titleOf~7 id@1))
+     (call@C,5 addToCatalog~C
+      (infix@B & Inventory~A StackFacet@2)id@P
+      (call@Y int64~5 64@1))
+     (call@C,6 addToCatalog~C
+      (infix@B & Inventory~A BulkFacet@2)id@O 1.0@S)
+     (call@C,7 addToCatalog~C
+      (infix@B & Inventory~A WeightFacet@2)id@Q 0.0@U)
+     (call@C,8 addToCatalog~C
+      (infix@B & Inventory~A ShapeFacet@2)id@P part@T)
+     (call@C,9 addToCatalog~C
+      (infix@B & Inventory~A TagFacet@2)id@N "minecraft"@R)
+     (call@C,A addToCatalog~C
+      (infix@B & Inventory~A IconFacet@2)id@O part@S)
+     (call@C,B addToCatalog~C
+      (infix@B & Inventory~A FoodFacet@2)id@O
+      (call@X int64~5 0@1))
+     (call@C,C addToCatalog~C
+      (infix@B & Inventory~A SaturationFacet@2)id@U 0.0@Y)
+     (call@C,D addToCatalog~C
+      (infix@B & Inventory~A ArmourFacet@2)id@Q
+      (call@Z int64~5 0@1))
+     (call@C,E addToCatalog~C
+      (infix@B & Inventory~A ArmourPartFacet@2)id@U ""@Y)))
+   (if@,Y
+    (elif@3
+     (infix@6 < hudAt~6
+      (dot@B itemNames~9 len@1))
+     (stmts@N
+      (ret .))))
+   (asgn@A,Z hudFilled~A true@2)
+   (call@4,a note~4
+    (infix@j &
+     (infix~C &
+      (infix~H &
+       (prefix~F $
+        (dot@A itemNames~9 len@1))" items into "@2)Inventory@2)" and its ten facets"@2))
+   (call@D,d createCatalog~D Recipes@1 HudRecipeKind@A "Recipes from this player\27s Minecraft."@P)
+   (call@C,e addToCatalog~C HudRecipeSources@1 Recipes@J "recipes"@S)
+   (asgn@9,f recipeAt~9 0@2)
+   (asgn@7,j iconAt~7 0@2)
+   (asgn@A,k iconCount~A 0@2)))
+ (comment@,aU)
+ (proc@,aV itemIcon@5 . . .
+  (params@D
+   (param@1 name . . string@6 .))string@G . .
+  (stmts@2,5
+   (var@4 path . . .
+    (infix@F & "item/"~8 name@2))
+   (let@4,1 defFile . . .
+    (call@L itemDefFile~B name@1))
+   (if@,2
+    (elif@3
+     (infix@C >
+      (dot~5 defFile~7 len@1)0@2)
+     (stmts~1,1
+      (var@4 whyDef . . . ""@9)
+      (let@4,1 doc . . .
+       (call@E readJson~8 defFile@1 whyDef@A))
+      (if@,2
+       (elif@3
+        (infix@B ==
+         (dot~5 whyDef~6 len@1)0@3)
+        (stmts~1,1
+         (let@4 named . . .
+          (call@N definitionModel~F doc@1))
+         (if@,1
+          (elif@3
+           (infix@A >
+            (dot~5 named~5 len@1)0@2)
+           (stmts@F
+            (asgn@5 path~5 named@2))))))))))
+   (var@4,8 why . . . ""@6)
+   (let@4,9 docs . . .
+    (call@E chainOf~7 path@1 why@7))
+   (if@,A
+    (elif@3
+     (infix@C or
+      (infix~4 >
+       (dot~5 why~3 len@1)0@2)
+      (infix@C ==
+       (dot~5 docs~4 len@1)0@3))
+     (stmts@U
+      (ret ""@7))))
+   (let@4,B t . . .
+    (call@D paletteOf~9 docs@1))
+   (let@4,C kind . . .
+    (call@J classifyItem~C docs@1))
+   (if@,D
+    (elif@3
+     (infix@5 == kind~5 ItemGenerated@3)
+     (stmts~1,1
+      (let@4 layers . . .
+       (call@H layersOf~8 t@1))
+      (if@,1
+       (elif@3
+        (infix@B ==
+         (dot~5 layers~6 len@1)0@3)
+        (stmts@H
+         (ret ""@7))))
+      (let@4,2 file . . .
+       (call@I textureFile~B
+        (at@7 layers~6 0@1)))
+      (if@,6
+       (elif@3
+        (infix@E or
+         (infix~5 ==
+          (dot~5 file~4 len@1)0@3)
+         (call@F animatedFace~C file@1))
+        (stmts@b
+         (ret ""@7))))
+      (ret@,7
+       (call@I publishFace~B
+        (at@7 layers~6 0@1)file@C)))))
+   (let@4,M layer . . .
+    (call@L geometryLayer~D docs@1))
+   (if@,N
+    (elif@3
+     (infix@6 < layer~6 0@2)
+     (stmts@B
+      (ret ""@7))))
+   (var@4,O b . . .
+    (call@G bakeElements~C
+     (at@5 docs~4 layer@1)
+     (call~C,1 member~6
+      (at@5 docs~4 layer@1)
+      (dot@P
+       (at~7 docs~4 layer@1)root@1)"elements"@W)t@X,1))
+   (if@,Q
+    (elif@3
+     (infix@8 ==
+      (dot~7 b~1 count@1)0@3)
+     (stmts@E
+      (ret ""@7))))
+   (let@4,S f . . .
+    (call@D worldFace~9 b@1 2@4))
+   (if@,T
+    (elif@3
+     (infix@6 or
+      (infix~4 < f~2 0@2)
+      (infix@K ==
+       (dot~5
+        (at~3
+         (dot~8 b~1 texture@1)f@1)len@1)0@3))
+     (stmts@W
+      (ret ""@7))))
+   (let@4,U file . . .
+    (call@I textureFile~B
+     (at@A
+      (dot~8 b~1 texture@1)f@1)))
+   (if@,V
+    (elif@3
+     (infix@E or
+      (infix~5 ==
+       (dot~5 file~4 len@1)0@3)
+      (call@F animatedFace~C file@1))
+     (stmts@b
+      (ret ""@7))))
+   (call@B,W publishFace~B
+    (at@A
+     (dot~8 b~1 texture@1)f@1)file@F)))
+ (comment@,b8)
+ (proc@,bD stepIcons@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not hudFilled@4)
+     (stmts@F
+      (ret .))))
+   (var@4,1 done . . . 0@7)
+   (while@,2
+    (infix@O and
+     (infix~D < done~5 IconBudget@2)
+     (infix@B < iconAt~7
+      (dot@B itemNames~9 len@1)))
+    (stmts@2,1
+     (let@4 id . . .
+      (at@E itemNames~9 iconAt@1))
+     (cmd@,1 inc iconAt@4)
+     (cmd@,2 inc done@4)
+     (let@4,3 uri . . .
+      (call@E itemIcon~8 id@1))
+     (if@,4
+      (elif@3
+       (infix@8 ==
+        (dot~5 uri~3 len@1)0@3)
+       (stmts@E
+        (continue .))))
+     (call@C,5 addToCatalog~C
+      (infix@B & Inventory~A IconFacet@2)id@O uri@S)
+     (cmd@,6 inc iconCount@4)))
+   (if@,A
+    (elif@3
+     (infix@O and
+      (infix~H == iconAt~7
+       (dot@C itemNames~9 len@1))
+      (infix@I >
+       (dot~5 itemNames~9 len@1)0@2))
+     (stmts~1,1
+      (cmd inc iconAt@4)
+      (call@4,1 note~4
+       (infix@c &
+        (infix~H &
+         (infix~9 &
+          (prefix~B $ iconCount@1)" of "@2)
+         (prefix@2 $
+          (dot@A itemNames~9 len@1)))" items wear their own picture"@2))
+      (call@3,2 log~3
+       (infix@T & "\5Bassert\5D minecraft.icons="~S
+        (prefix@2 $ iconCount@1))))))))
+ (proc@,bT stepRecipes@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not hudFilled@4)
+     (stmts@F
+      (ret .))))
+   (var@4,1 done . . . 0@7)
+   (while@,2
+    (infix@Q and
+     (infix~F < done~5 RecipeBudget@2)
+     (infix@D < recipeAt~9
+      (dot@D recipeNames~B len@1)))
+    (stmts@2,1
+     (let@4 name . . .
+      (at@I recipeNames~B recipeAt@1))
+     (cmd@,1 inc recipeAt@4)
+     (cmd@,2 inc done@4)
+     (var@4,3 why . . . ""@6)
+     (var@4,4 path . . .
+      (infix@q &
+       (infix~7 &
+        (infix~S & Extracted~A "/data/minecraft/recipe/"@2)name@2)".json"@2))
+     (if@,5
+      (elif@3
+       (prefix not
+        (call@D importHas~9 path@1))
+       (stmts~1,1
+        (asgn@5 path~5
+         (infix@m &
+          (infix~7 &
+           (infix~T & Extracted~A "/data/minecraft/recipes/"@2)name@2)".json"@2)))))
+     (if@,7
+      (elif@3
+       (prefix not
+        (call@D importHas~9 path@1))
+       (stmts@L
+        (continue .))))
+     (let@4,8 doc . . .
+      (call@E readJson~8 path@1 why@7))
+     (if@,9
+      (elif@3
+       (infix@8 >
+        (dot~5 why~3 len@1)0@2)
+       (stmts@D
+        (continue .))))
+     (let@4,A r . . .
+      (call@E readRecipe~A doc@1))
+     (if@,B
+      (elif@3
+       (infix@B ==
+        (dot~5
+         (dot~5 r~1 made@1)len@1)0@3)
+       (stmts@H
+        (continue .))))
+     (let@4,G row . . .
+      (call@J hudRecipeText~D r@1))
+     (if@,H
+      (elif@3
+       (infix@8 ==
+        (dot~5 row~3 len@1)0@3)
+       (stmts@E
+        (continue .))))
+     (call@C,I addToCatalog~C Recipes@1 name@A row@G)))
+   (if@,M
+    (elif@3
+     (infix@S and
+      (infix~J == recipeAt~9
+       (dot@E recipeNames~B len@1))
+      (infix@K >
+       (dot~5 recipeNames~B len@1)0@2))
+     (stmts~1,1
+      (cmd inc recipeAt@4)
+      (call@4,1 note~4
+       (infix@g &
+        (infix~O &
+         (prefix~H $
+          (dot@C recipeNames~B len@1))" recipes read into "@2)Recipes@2)))))))
+ (comment@,bu)
+ (proc@,cD dressCracks@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (if
+    (elif@3 cracksDressed
+     (stmts@F
+      (ret .))))
+   (if@,1
+    (elif@3
+     (infix@k ==
+      (dot~5
+       (call~P catalogSignature~G
+        (infix@D & VoxelBlocks~C WearFacet@2))len@1)0@3)
+     (stmts@q
+      (ret .))))
+   (var@4,2 row . . . ""@6)
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2 CrackStages@2)
+    (stmts@2,1
+     (let@4 reference . . .
+      (infix@R & CrackReference~F
+       (prefix@2 $ i@1)))
+     (let@4,1 file . . .
+      (call@I textureFile~B reference@1))
+     (if@,2
+      (elif@3
+       (infix@9 ==
+        (dot~5 file~4 len@1)0@3)
+       (stmts@F
+        (ret .))))
+     (let@4,3 public . . .
+      (call@K publishFace~B reference@1 file@C))
+     (if@,4
+      (elif@3
+       (infix@B ==
+        (dot~5 public~6 len@1)0@3)
+       (stmts@H
+        (ret .))))
+     (if@,5
+      (elif@3
+       (infix@2 > i~2 0@2)
+       (stmts@7
+        (cmd@3
+         (dot row~3 add@1)"|"@5))))
+     (cmd@3,6
+      (dot row~3 add@1)public@5)
+     (cmd@,7 inc i@4)))
+   (asgn@E,D cracksDressed~E true@2)
+   (call@C,E addToCatalog~C
+    (infix@D & VoxelBlocks~C WearFacet@2)CrackReference@Q row@g)
+   (call@4,F note~4
+    (infix@l &
+     (infix~X &
+      (prefix~D $ CrackStages@1)" break stages published for "@2)VoxelBlocks@2))))
+ (proc@,cV stepStates@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not voxelFilled@4)
+     (stmts@H
+      (ret .))))
+   (call@B,4 dressCracks~B)
+   (var@4,5 done . . . 0@7)
+   (while@,6
+    (infix@P and
+     (infix~E < done~5 StateBudget@2)
+     (infix@C < stateAt~8
+      (dot@C stateNames~A len@1)))
+    (stmts@2,1
+     (let@4 name . . .
+      (at@H stateNames~A stateAt@1))
+     (cmd@,1 inc stateAt@4)
+     (cmd@,2 inc done@4)
+     (var@4,3 why . . . ""@6)
+     (let@4,4 doc . . .
+      (call@E readJson~8
+       (call@A stateFile~9 name@1)why@I))
+     (if@,5
+      (elif@3
+       (infix@8 >
+        (dot~5 why~3 len@1)0@2)
+       (stmts@D
+        (continue .))))
+     (let@4,6 bs . . .
+      (call@K parseBlockState~F doc@1))
+     (if@,7
+      (elif@3
+       (infix@F >
+        (dot~5
+         (dot~8 bs~2 problem@1)len@1)0@2)
+       (stmts@K
+        (continue .))))
+     (let@4,8 picks . . .
+      (call@L placementsFor~D bs@1
+       (call@H defaultState~C bs@1)))
+     (if@,9
+      (elif@3
+       (infix@A ==
+        (dot~5 picks~5 len@1)0@3)
+       (stmts@G
+        (continue .))))
+     (var@4,C solid . . . false@8)
+     (let@4,D docs . . .
+      (call@E chainOf~7
+       (dot@J
+        (at~A
+         (dot~6 bs~2 place@1)
+         (at@6 picks~5 0@1))model@1)why@R))
+     (let@4,E layer . . .
+      (call@L geometryLayer~D docs@1))
+     (if@,F
+      (elif@3
+       (infix@6 >= layer~6 0@3)
+       (stmts~1,1
+        (asgn@6 solid~6
+         (call@C isFullCube~A
+          (at@5 docs~4 layer@1)
+          (call~A,1 member~6
+           (at@5 docs~4 layer@1)
+           (dot@P
+            (at~7 docs~4 layer@1)root@1)"elements"@W)))
+        (if@,6
+         (elif@3 solid
+          (stmts~1,1
+           (let@4 t . . .
+            (call@D paletteOf~9 docs@1))
+           (var@4,1 b . . .
+            (call@G bakeElements~C
+             (at@5 docs~4 layer@1)
+             (call~C,1 member~6
+              (at@5 docs~4 layer@1)
+              (dot@P
+               (at~7 docs~4 layer@1)root@1)"elements"@W)t@X,1))
+           (if@,3
+            (elif@3
+             (infix@8 >
+              (dot~7 b~1 count@1)0@2)
+             (stmts~1,1
+              (call@E applyPlacement~E b@1
+               (at@C
+                (dot~6 bs~2 place@1)
+                (at@6 picks~5 0@1)))
+              (call@A,1 dressBlock~A name@1 b@7))))))))))
+     (call@C,T addToCatalog~C VoxelBlocks@1 name@E
+      (infix@U,4 &
+       (infix~J &
+        (infix~9 &
+         (infix@Y,~1 &
+          (infix~Z &
+           (infix@Y,~1 &
+            (infix~Z &
+             (infix@F,~1 &
+              (infix~G & "label="~9
+               (call@9 titleOf~7 name@1))";solid="~P,1)
+             (expr
+              (stmts@2)
+              (if@1
+               (elif@3 solid "true"@7)
+               (else@H "false"@6))))";opaque="~j,1)
+           (expr
+            (stmts@2)
+            (if@1
+             (elif@3 solid "true"@7)
+             (else@H "false"@6))))";texture="~k,1)Scheme@2)"\3A//blockstate/"@2)name@2))))
+   (if@,f
+    (elif@3
+     (infix@Q and
+      (infix~I == stateAt~8
+       (dot@D stateNames~A len@1))
+      (infix@J >
+       (dot~5 stateNames~A len@1)0@2))
+     (stmts~1,1
+      (cmd inc stateAt@4)
+      (call@4,1 note~4
+       (infix@l,1 &
+        (infix~G &
+         (infix~J &
+          (infix@q,~1 &
+           (infix~7 &
+            (infix~E &
+             (infix~Q &
+              (prefix~G $
+               (dot@B stateNames~A len@1))" blocks measured for "@2)VoxelBlocks@2)", "@2)
+           (prefix~14,1 $ dressedCount@1))" dressed with "@2)
+         (prefix@2 $ pictureCount@1))" pictures"@2)))))))
+ (proc@,dG stepMeta@5 . . .
+  (params@D). . .
+  (stmts@2,1
+   (var@4 done . . . 0@7)
+   (while@,1
+    (infix@O and
+     (infix~D < done~5 MetaBudget@2)
+     (infix@B < metaAt~7
+      (dot@B metaNames~9 len@1)))
+    (stmts@2,1
+     (let@4 path . . .
+      (at@G metaNames~9 metaAt@1))
+     (cmd@,1 inc metaAt@4)
+     (cmd@,2 inc done@4)
+     (var@4,3 why . . . ""@6)
+     (let@4,4 doc . . .
+      (call@E readJson~8
+       (infix@H &
+        (infix~6 & Extracted~A "/"@2)path@2)why@P))
+     (if@,5
+      (elif@3
+       (infix@8 >
+        (dot~5 why~3 len@1)0@2)
+       (stmts@D
+        (continue .))))
+     (let@4,9 a . . .
+      (call@H readAnimation~D doc@1 0@6))
+     (var@4,A name . . . ""@7)
+     (var@4,B i . . . 0@4)
+     (while@,C
+      (infix@8 < i~2
+       (dot@6 path~4 len@1))
+      (stmts@2,1
+       (cmd@4
+        (dot name~4 add@1)
+        (at@9 path~4 i@1))
+       (cmd@,1 inc i@4)))
+     (call@C,F addToCatalog~C Animations@1 name@D
+      (infix@6,2 &
+       (infix@n,~1 &
+        (infix~F &
+         (infix~G &
+          (infix~G & "frames=?;steps="~I
+           (prefix@2 $
+            (call@A stepCount~9 a@1)))";frametime="@2)
+         (prefix@2 $
+          (dot@2 a~1 frametime@1)))";interpolate="~13,1)
+       (expr
+        (stmts@2)
+        (if@1
+         (elif@3
+          (dot@1 a~1 interpolate@1)"true"@F)
+         (else@P "false"@6)))))))
+   (if@,K
+    (elif@3
+     (infix@O and
+      (infix~H == metaAt~7
+       (dot@C metaNames~9 len@1))
+      (infix@I >
+       (dot~5 metaNames~9 len@1)0@2))
+     (stmts~1,1
+      (cmd inc metaAt@4)
+      (call@4,1 note~4
+       (infix@r &
+        (infix~b &
+         (prefix~F $
+          (dot@A metaNames~9 len@1))" animated textures described in "@2)Animations@2)))))))
+ (var@4,dn packPlanRunning . . . false@I)
+ (proc@,dp queuePacks@5 . . .
+  (params@F)bool@4 . .
+  (stmts@2,1
+   (if
+    (elif@3 chosenSaid
+     (stmts~1,4
+      (asgn@A packNames~A chosenPacks@2)))
+    (elif@5,5
+     (prefix not
+      (call@D importHas~9 OptionsFile@1))
+     (stmts~3,1
+      (ret false@7)))
+    (else@,7
+     (stmts@2,1
+      (let@4 body . . .
+       (call@H importRead~A OptionsFile@1))
+      (if@,1
+       (elif@3
+        (infix@9 ==
+         (dot~5 body~4 len@1)0@3)
+        (stmts@F
+         (ret false@7))))
+      (asgn@A,2 packNames~A
+       (call@E enabledPacks~C body@1)))))
+   (if@,B
+    (elif@3
+     (infix@E ==
+      (dot~5 packNames~9 len@1)0@3)
+     (stmts~1,1
+      (call@4 note~4 "no resource pack is enabled; the jar is the whole of it"@1)
+      (ret@,1 false@7))))
+   (call@9,E planClear~9)
+   (var@4,F i . . . 0@4)
+   (while@,G
+    (infix@8 < i~2
+     (dot@B packNames~9 len@1))
+    (stmts@2,1
+     (let@4 name . . .
+      (at@G packNames~9 i@1))
+     (cmd@,1 inc i@4)
+     (call@B,2 planExtract~B name@1 root@7
+      (infix@U & "resourcepacks/"~H name@2)PackIn@c
+      (call@1,1 packFolder~A Extracted@1 name@C))
+     (call@B,7 planExtract~B
+      (infix@6 & name~5 " metadata"@2)root@L
+      (infix@i & "resourcepacks/"~H name@2)"pack.mcmeta"~9,1
+      (call@G,1 packFolder~A Extracted@1 name@C))
+     (call@B,C planExtract~B
+      (infix@6 & name~5 " picture"@2)root@K
+      (infix@h & "resourcepacks/"~H name@2)IconFile~9,1
+      (call@B,1 packFolder~A Extracted@1 name@C))))
+   (call@A,V writeIndex~A PackIndex@1 packNames@C)
+   (call@4,W note~4
+    (infix@r &
+     (infix~b &
+      (prefix~F $
+       (dot@A packNames~9 len@1))" resource pack\28s\29 over the jar\3A "@2)
+     (at@B packNames~9 0@1)))
+   (call@B,X restartPlan~B "minecraft.packs"@1)
+   (asgn@G,Y packPlanRunning~G true@2)true@,Z))
+ (comment@,eR)
+ (proc@,ea startPackChange@5 . . .
+  (params@K). . .
+  (stmts@2,1
+   (asgn@H packChangeWanted~H false@2)
+   (asgn@A,1 packNames~A chosenPacks@2)
+   (call@A,2 writeIndex~A PackIndex@1 packNames@C)
+   (asgn@D,5 fontMeasured~D ""@2)
+   (call@4,6 save~4 "font"@1 ""@9)
+   (if@,7
+    (elif@3
+     (infix@E ==
+      (dot~5 packNames~9 len@1)0@3)
+     (stmts~1,1
+      (call@D rebuildLayers~D)
+      (asgn@B,1 fitChecked~B false@2)
+      (asgn@D,2 guiPublished~D false@2)
+      (call@A,3 publishGui~A)
+      (call@A,4 publishSky~A)
+      (call@4,5 note~4 "every resource pack turned off; the jar is the whole of it"@1)
+      (ret@,6 .))))
+   (call@9,F planClear~9)
+   (var@4,G i . . . 0@4)
+   (while@,H
+    (infix@8 < i~2
+     (dot@B packNames~9 len@1))
+    (stmts@2,1
+     (let@4 name . . .
+      (at@G packNames~9 i@1))
+     (cmd@,1 inc i@4)
+     (call@B,2 planExtract~B name@1 root@7
+      (infix@U & "resourcepacks/"~H name@2)PackIn@c
+      (call@1,1 packFolder~A Extracted@1 name@C))
+     (call@B,4 planExtract~B
+      (infix@6 & name~5 " metadata"@2)root@L
+      (infix@i & "resourcepacks/"~H name@2)"pack.mcmeta"~9,1
+      (call@G,1 packFolder~A Extracted@1 name@C))
+     (call@B,9 planExtract~B
+      (infix@6 & name~5 " picture"@2)root@K
+      (infix@h & "resourcepacks/"~H name@2)IconFile~9,1
+      (call@B,1 packFolder~A Extracted@1 name@C))))
+   (call@4,T note~4
+    (infix@l &
+     (infix~V &
+      (prefix~F $
+       (dot@A packNames~9 len@1))" resource pack\28s\29 chosen\3A "@2)
+     (at@B packNames~9 0@1)))
+   (call@B,U restartPlan~B "minecraft.packs"@1)
+   (asgn@G,V packPlanRunning~G true@2)
+   (asgn@8,W running~8 true@2)))
+ (proc@,f9 start@5 . . .
+  (params@A). . .
+  (stmts@2,1
+   (call@D provideScheme~D Scheme@1)
+   (call@E,1 provideService~E GuiService@1)
+   (if@,2
+    (elif@3
+     (prefix not
+      (call@J importAvailable~F))
+     (stmts~1,1
+      (call@4 note~4 "this host does not let mods import anything"@1)
+      (ret@,1 .))))
+   (if@,5
+    (elif@3
+     (prefix not
+      (call@F importOpens~B ".jar"@1))
+     (stmts~1,1
+      (call@4 note~4
+       (infix@h & "this host cannot open a .jar; it opens "~g
+        (call@I importContainers~G))))))
+   (asgn@5,7 root~5
+    (call@C findSource~A Fingerprint@1))
+   (if@,8
+    (elif@3
+     (infix@9 ==
+      (dot~5 root~4 len@1)0@3)
+     (stmts~1,1
+      (call@4 note~4
+       (infix@r &
+        (infix~L & "grant a Minecraft folder in "~V
+         (call@I importPolicyFile~G))", for example"@2))
+      (call@4,1 note~4
+       (infix@h &
+        (infix~P & "  minecraft = "~H
+         (call@D importKnown~B "appdata"@1))"\5C.minecraft"@2))))
+    (else@,3
+     (stmts@2,1
+      (call@4 note~4
+       (infix@H & "Minecraft at "~G root@2)))))
+   (asgn@6,D names~6
+    (call@B readIndex~9 BlockIndex@1))
+   (asgn@B,E stateNames~B
+    (call@B readIndex~9 StateIndex@1))
+   (asgn@A,F itemNames~A
+    (call@B readIndex~9 ItemIndex@1))
+   (asgn@C,G recipeNames~C
+    (call@B readIndex~9 RecipeIndex@1))
+   (asgn@A,H metaNames~A
+    (call@B readIndex~9 MetaIndex@1))
+   (asgn@A,I packNames~A
+    (call@B readIndex~9 PackIndex@1))
+   (call@D,J rebuildLayers~D)
+   (if@,K
+    (elif@3
+     (infix@J or
+      (infix~4 >
+       (dot~5 stateNames~A len@1)0@2)
+      (infix@D >
+       (dot~5 names~5 len@1)0@2))
+     (stmts~1,1
+      (call@4 note~4
+       (infix@D,1 &
+        (infix@u,~1 &
+         (infix~E &
+          (infix~I & "an earlier import is still here\3A "~a
+           (prefix@2 $
+            (dot@B stateNames~A len@1)))" blocks, "@2)
+         (prefix~19,1 $
+          (dot@A itemNames~9 len@1)))" items"@2))
+      (asgn@8,2 jarPath~8
+       (call@A remember~8 "jar"@1 ""@8))
+      (asgn@B,3 jarVersion~B
+       (call@A remember~8 "version"@1 ""@C))
+      (asgn@C,4 jarSearched~C
+       (infix@E >
+        (dot~5 jarPath~7 len@1)0@2))
+      (call@3,9 log~3
+       (infix@V & "\5Bassert\5D minecraft.version="~U jarVersion@2))
+      (call@3,A log~3
+       (infix@U & "\5Bassert\5D minecraft.target="~T
+        (call@A remember~8 "target"@1 TargetVersion@B)))
+      (call@7,B publish~7)
+      (if@,C
+       (elif@3
+        (infix@10 and
+         (par~10
+          (infix@Z or
+           (infix~H or
+            (infix~5 ==
+             (dot~5 jarPath~7 len@1)0@3)
+            (infix@C == guiCount~9 0@3))
+           (infix@L ==
+            (dot~5
+             (call~2 packPicture~B)len@1)0@3)))
+         (infix@D >
+          (dot~5 root~4 len@1)0@2))
+        (stmts~1,5
+         (call@4 note~4 "that import predates the interface or the picture; topping it up"@1)
+         (call@B,1 beginImport~B true@1))))))
+    (elif@5,K
+     (infix@9 >
+      (dot~5 root~4 len@1)0@2)
+     (stmts~3,6
+      (call@4 note~4 "reading your Minecraft now - this happens once"@1)
+      (call@B,1 beginImport~B false@1)))
+    (else@,S
+     (stmts@2,1
+      (call@4 note~4 "grant a Minecraft above, or press M once you have"@1))))))
+ (comment@,fz)
+ (proc@,g1 panelUp@5 . . .
+  (params@C)bool@4 . .
+  (stmts@N
+   (call@6 wanted~6 running@1
+    (infix@L \2D
+     (call~3 gameTime~8)saidAt@2)ask@V)))
+ (proc@,g3 update@5 . . .
+  (params@B). . .
+  (stmts@2,1
+   (call@I stepLanguageAssets~I root@1 jarPath@7)
+   (let@4,7 frameMs . . .
+    (call@D int~3
+     (infix@D *
+      (call~3 deltaTime~9)1000.0@2)))
+   (call@8,8 paceLang~8 frameMs@1)
+   (call@9,9 pacePacks~9 frameMs@1)
+   (call@8,A stepLang~8)
+   (if@,B
+    (elif@3
+     (call@7 pressed~7 "B"@1)
+     (stmts@E
+      (asgn@4 ask~4
+       (call@9 toggled~7
+        (call@8 panelUp~7))))))
+   (if@,C
+    (elif@3
+     (infix@D and
+      (call~6 pressed~7 "M"@1)
+      (prefix@4 not running@4))
+     (stmts@U
+      (call@B beginImport~B false@1))))
+   (if@,D
+    (elif@3
+     (call@7 pressed~7 "R"@1)
+     (stmts@E
+      (call@B beginImport~B true@1))))
+   (if@,E
+    (elif@3
+     (call@7 pressed~7 "K"@1)
+     (stmts~1,1
+      (let@4 gone . . .
+       (call@J importForget~C Extracted@1))
+      (call@4,1 note~4
+       (infix@K &
+        (infix~8 & "removed "~B
+         (prefix@2 $ gone@1))" imported files; reload the pack to clear the catalog"@2)))))
+   (if@,H
+    (elif@3
+     (infix@8 != finding~8 0@3)
+     (stmts@E
+      (call@D settleFinding~D startingOver@1))))
+   (call@9,I listPacks~9)
+   (if@,M
+    (elif@3
+     (infix@X and
+      (infix~G and packChangeWanted~H
+       (prefix@4 not running@4))
+      (infix@C == finding~8 0@3))
+     (stmts@p
+      (call@F startPackChange~F))))
+   (call@8,S stepFont~8)
+   (if@,T
+    (elif@3 published
+     (stmts~1,1
+      (call@9 fillVoxel~9)
+      (call@7,1 fillHud~7)
+      (call@B,2 stepRecipes~B)
+      (call@A,3 stepStates~A)
+      (call@8,4 stepMeta~8)
+      (call@9,5 stepIcons~9)
+      (call@8,6 checkFit~8))))
+   (if@,f
+    (elif@3
+     (infix@J and publishInitialized~J
+      (prefix@4 not published@4))
+     (stmts~1,1
+      (call@7 publish~7))))
+   (if@,i
+    (elif@3
+     (prefix not running@4)
+     (stmts@D
+      (ret .))))
+   (let@4,j status . . .
+    (call@H tickPlan~8))
+   (if@,k
+    (elif@3
+     (infix@7 == status~7 PlanStepDone@3)
+     (stmts~1,1
+      (let@4 job . . .
+       (call@D planJob~7))
+      (let@4,4 at . . .
+       (call@H finishedStep~C
+        (call@A planIndex~9)))
+      (if@,7
+       (elif@3
+        (prefix not packPlanRunning@4)
+        (stmts@L
+         (call@C writeReceipt~C))))
+      (let@4,8 role . . .
+       (if@7
+        (elif@3 packPlanRunning
+         (stmts@H
+          (call@8 packRole~8 at@1)))
+        (else@X
+         (stmts@6
+          (call@7 jarRole~7 at@1)))))
+      (if@,9
+       (elif@3
+        (infix@5 == role~5 RoleListing@3)
+        (stmts~1,1
+         (call@4 note~4
+          (infix@c &
+           (infix~K & "the jar lists "~H
+            (prefix@2 $
+             (call@C importCount~B job@1)))" block models"@2))))
+       (elif@5,2
+        (infix@5 == role~5 RoleBlockModels@3)
+        (stmts~3,1
+         (asgn@6 names~6
+          (call@9 collect~7 job@1))
+         (call@A,1 writeIndex~A BlockIndex@1 names@D)
+         (call@4,2 note~4
+          (infix@N &
+           (infix~D & "wrote "~9
+            (prefix@2 $
+             (dot@6 names~5 len@1)))" block models"@2))))
+       (elif@5,6
+        (infix@5 == role~5 RoleBlockstates@3)
+        (stmts~3,1
+         (asgn@B stateNames~B
+          (call@9 collect~7 job@1))
+         (call@A,1 writeIndex~A StateIndex@1 stateNames@D)
+         (call@4,2 note~4
+          (infix@S &
+           (infix~I & "wrote "~9
+            (prefix@2 $
+             (dot@B stateNames~A len@1)))" blockstates"@2))))
+       (elif@5,A
+        (infix@5 == role~5 RoleItemModels@3)
+        (stmts~3,1
+         (asgn@A itemNames~A
+          (call@9 collect~7 job@1))
+         (call@A,1 writeIndex~A ItemIndex@1 itemNames@C)
+         (call@4,2 note~4
+          (infix@R &
+           (infix~H & "wrote "~9
+            (prefix@2 $
+             (dot@A itemNames~9 len@1)))" item models"@2))))
+       (elif@5,E
+        (infix@5 == role~5 RoleItemDefinitions@3)
+        (stmts~3,5
+         (let@4 defs . . .
+          (call@E collect~7 job@1))
+         (if@,1
+          (elif@3
+           (infix@9 >
+            (dot~5 defs~4 len@1)0@2)
+           (stmts~1,1
+            (asgn@A itemNames~A defs@2)
+            (call@A,1 writeIndex~A ItemIndex@1 itemNames@C)
+            (call@4,2 note~4
+             (infix@R &
+              (infix~H & "wrote "~9
+               (prefix@2 $
+                (dot@A itemNames~9 len@1)))" item definitions"@2))))
+          (else@,4
+           (stmts@2,1
+            (call@4 note~4
+             (infix@G,1 &
+              (infix@V,~1 & "this jar keeps its items in models/item/ - "~k
+               (prefix~k,1 $
+                (dot@A itemNames~9 len@1)))" of them"@2)))))))
+       (elif@5,R
+        (infix@5 == role~5 RoleRecipes@3)
+        (stmts~3,1
+         (asgn@C recipeNames~C
+          (call@9 collect~7 job@1))
+         (call@A,1 writeIndex~A RecipeIndex@1 recipeNames@E)
+         (call@4,2 note~4
+          (infix@T &
+           (infix~J & "wrote "~9
+            (prefix@2 $
+             (dot@C recipeNames~B len@1)))" recipes"@2))))
+       (elif@5,V
+        (infix@5 == role~5 RoleMeta@3)
+        (stmts~3,1
+         (asgn@A metaNames~A
+          (call@E collectPaths~C job@1))
+         (call@A,1 writeIndex~A MetaIndex@1 metaNames@C)
+         (call@4,2 note~4
+          (infix@R &
+           (infix~H & "wrote "~9
+            (prefix@2 $
+             (dot@A metaNames~9 len@1)))" texture metadata files"@2))))
+       (else@,Z
+        (stmts@2,1
+         (call@4 note~4
+          (infix@U &
+           (infix~K & "wrote "~9
+            (prefix@2 $
+             (call@C importCount~B job@1)))" files"@2)))))))
+    (elif@5,l
+     (infix@7 == status~7 PlanFailed@3)
+     (stmts~3,1
+      (asgn@8 running~8 false@2)
+      (call@4,1 note~4
+       (infix@C & "failed\3A "~B
+        (call@D planFailure~B)))))
+    (elif@5,o
+     (infix@7 == status~7 PlanDone@3)
+     (stmts~3,1
+      (if
+       (elif@3 packPlanRunning
+        (stmts~1,1
+         (asgn@G packPlanRunning~G false@2)
+         (asgn@8,1 running~8 false@2)
+         (call@D,2 rebuildLayers~D)
+         (call@4,3 note~4 "resource packs are in place"@1)
+         (call@4,4 save~4 "jar"@1 jarPath@8)
+         (call@4,5 save~4 "version"@1 jarVersion@C)
+         (asgn@B,6 fitChecked~B false@2)
+         (call@7,7 publish~7)
+         (asgn@D,C guiPublished~D false@2)
+         (call@A,D publishGui~A)
+         (call@A,E publishSky~A)
+         (call@B,L measureFont~B)))
+       (elif@5,N
+        (call@A queuePacks~A)
+        (stmts~3,1
+         (discard .)))
+       (else@,P
+        (stmts@2,1
+         (asgn@8 running~8 false@2)
+         (call@D,1 rebuildLayers~D)
+         (call@4,2 save~4 "jar"@1 jarPath@8)
+         (call@4,3 save~4 "version"@1 jarVersion@C)
+         (asgn@B,4 fitChecked~B false@2)
+         (call@7,5 publish~7)
+         (asgn@D,A guiPublished~D false@2)
+         (call@A,B publishGui~A)
+         (call@A,C publishSky~A)
+         (call@B,J measureFont~B)))))))))
+ (proc@,iO drawGui@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@B panelUp~7))
+     (stmts@F
+      (ret .))))
+   (let@4,4 wide . . . 560.0@7)
+   (var@4,5 x . . .
+    (infix@P \2D
+     (infix~7 \2D
+      (call~3 screenWidth~B)wide@2)20.0@2))
+   (if@,6
+    (elif@3
+     (infix@2 < x~2 20.0@2)
+     (stmts@A
+      (asgn@2 x~2 20.0@2))))
+   (call@A,7 beginPanel~A x@1 20.0@4 wide@A
+    (infix@M \2B 130.0~6
+     (infix@7 * 24.0~5
+      (call@9 float64~7
+       (dot@6 lines~5 len@1)))))
+   (call@7,8 heading~7 "Minecraft"@1)
+   (if@,9
+    (elif@3 running
+     (stmts~1,1
+      (call@5 label~5
+       (infix@O &
+        (infix~8 &
+         (prefix~F $
+          (call@C planPercent~B))"%  "@2)
+        (call@A planNote~8)))))
+    (else@,2
+     (stmts@2,1
+      (call@5 label~5 "M import   R start over   K take it back   B hide"@1)
+      (if@,1
+       (elif@3
+        (infix@9 ==
+         (dot~5 root~4 len@1)0@3)
+        (stmts~1,1
+         (call@5 label~5
+          (infix@h &
+           (infix~L & "grant a folder in "~L
+            (call@I importPolicyFile~G))" and press M"@2))))))))
+   (var@4,F i . . . 0@4)
+   (while@,G
+    (infix@8 < i~2
+     (dot@7 lines~5 len@1))
+    (stmts@2,1
+     (call@5 label~5
+      (at@6 lines~5 i@1))
+     (cmd@,1 inc i@4)))
+   (call@8,J endPanel~8))))

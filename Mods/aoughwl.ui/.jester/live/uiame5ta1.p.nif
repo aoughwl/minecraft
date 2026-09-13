@@ -1,0 +1,937 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,ui.nim
+ (comment)
+ (import@,P jester@7)
+ (import@,Q vec@7)
+ (import@,R color@7)
+ (import@,S input@7)
+ (import@,T ui_floor@7)
+ (export@,U ui_floor@7)
+ (type@B,Y Flow~6 x . .
+  (enum@2 .
+   (efld~B,1 Downward . . . .)
+   (efld~1,1 Rightward . . . .)))
+ (type@D,b Layout~8 x . .
+  (object@2 .
+   (fld~9,3 area~4 x . Rect@3 .)
+   (fld~9,4 flow~4 x . Flow@3 .)
+   (fld~A,5 gap~3 x . float64@3 .)
+   (fld~9,6 used~4 x . float64@3 .)))
+ (comment@,j)
+ (proc@,k column@5 x . .
+  (params@C
+   (param@1 area . . Rect@6 .)
+   (param@D gap . . . 6.0@6))Layout@P . .
+  (stmts@2,1
+   (oconstr@6 Layout~6
+    (kv@5 area~4 area@2)
+    (kv@H flow~4 Downward@2)
+    (kv@W gap~3 gap@2)
+    (kv@h used~4 0.0@2))))
+ (comment@,n)
+ (proc@,o across@5 x . .
+  (params@C
+   (param@1 area . . Rect@6 .)
+   (param@D gap . . . 6.0@6))Layout@P . .
+  (stmts@2,1
+   (oconstr@6 Layout~6
+    (kv@5 area~4 area@2)
+    (kv@H flow~4 Rightward@2)
+    (kv@X gap~3 gap@2)
+    (kv@i used~4 0.0@2))))
+ (comment@,r)
+ (proc@,s take@5 x . .
+  (params@A
+   (param@1 l . .
+    (mut@3 Layout@4).)
+   (param@G size . . float64@6 .))Rect@W . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 ==
+      (dot~6 l~1 flow@1)Downward@3)
+     (stmts~1,1
+      (asgn@7 result~7
+       (call@6 rect~4
+        (dot@7
+         (dot~5 l~1 area@1)x@1)
+        (infix@K \2B
+         (dot~3
+          (dot~5 l~1 area@1)y@1)
+         (dot@3 l~1 used@1))
+        (dot@a
+         (dot~5 l~1 area@1)width@1)size@i))))
+    (else@,2
+     (stmts@2,1
+      (asgn@7 result~7
+       (call@6 rect~4
+        (infix@A \2B
+         (dot~3
+          (dot~5 l~1 area@1)x@1)
+         (dot@3 l~1 used@1))
+        (dot@Q
+         (dot~5 l~1 area@1)y@1)size@U
+        (dot@g
+         (dot~5 l~1 area@1)height@1))))))
+   (asgn@7,4
+    (dot~6 l~1 used@1)
+    (infix@G \2B
+     (infix~7 \2B
+      (dot~6 l~1 used@1)size@2)
+     (dot@3 l~1 gap@1)))))
+ (comment@,z)
+ (proc@,10 skip@5 x . .
+  (params@A
+   (param@1 l . .
+    (mut@3 Layout@4).)
+   (param@G size . . float64@6 .)). . .
+  (stmts@2,1
+   (asgn@7
+    (dot~6 l~1 used@1)
+    (infix@9 \2B
+     (dot~6 l~1 used@1)size@2))))
+ (comment@,13)
+ (proc@,14 rest@5 x . .
+  (params@A
+   (param@1 l . . Layout@3 .))Rect@D . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 ==
+      (dot~6 l~1 flow@1)Downward@3)
+     (stmts~1,1
+      (call@4 rect~4
+       (dot@7
+        (dot~5 l~1 area@1)x@1)
+       (infix@K \2B
+        (dot~3
+         (dot~5 l~1 area@1)y@1)
+        (dot@3 l~1 used@1))
+       (dot@a
+        (dot~5 l~1 area@1)width@1)
+       (infix@w \2D
+        (dot~8
+         (dot~5 l~1 area@1)height@1)
+        (dot@3 l~1 used@1)))))
+    (else@,2
+     (stmts@2,1
+      (call@4 rect~4
+       (infix@A \2B
+        (dot~3
+         (dot~5 l~1 area@1)x@1)
+        (dot@3 l~1 used@1))
+       (dot@Q
+        (dot~5 l~1 area@1)y@1)
+       (infix@h \2D
+        (dot~7
+         (dot~5 l~1 area@1)width@1)
+        (dot@3 l~1 used@1))
+       (dot@x
+        (dot~5 l~1 area@1)height@1)))))))
+ (comment@,1A)
+ (proc@,1C taken@5 x . .
+  (params@B
+   (param@1 l . . Layout@3 .))Rect@D . .
+  (stmts@2,1
+   (var@4 span . . .
+    (infix@E \2D
+     (dot~6 l~1 used@1)
+     (dot@3 l~1 gap@1)))
+   (if@,1
+    (elif@3
+     (infix@5 < span~5 0.0@2)
+     (stmts@C
+      (asgn@5 span~5 0.0@2))))
+   (if@,2
+    (elif@3
+     (infix@7 ==
+      (dot~6 l~1 flow@1)Downward@3)
+     (stmts@K
+      (call@4 rect~4
+       (dot@7
+        (dot~5 l~1 area@1)x@1)
+       (dot@H
+        (dot~5 l~1 area@1)y@1)
+       (dot@R
+        (dot~5 l~1 area@1)width@1)span@Z)))
+    (else@,1
+     (stmts@6
+      (call@4 rect~4
+       (dot@7
+        (dot~5 l~1 area@1)x@1)
+       (dot@H
+        (dot~5 l~1 area@1)y@1)span@L
+       (dot@X
+        (dot~5 l~1 area@1)height@1)))))))
+ (comment@,1I)
+ (proc@,1K share@5 x . .
+  (params@B
+   (param@1 area . . Rect@6 .)
+   (param@D count . . int@7 .)
+   (param@P gap . . . 6.0@6)
+   (param@a flow . . . Rightward@7))
+  (at@w seq~3 Rect@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (if@,1
+    (elif@3
+     (infix@6 <= count~6 0@3)
+     (stmts@C
+      (ret result@7))))
+   (var@4,2 total . . .
+    (dot@C area~4 height@1))
+   (if@,3
+    (elif@3
+     (infix@5 == flow~5 Rightward@3)
+     (stmts@J
+      (asgn@6 total~6
+       (dot@6 area~4 width@1)))))
+   (let@4,4 size . . .
+    (infix@g /
+     (par~Z
+      (infix@7 \2D total~6
+       (infix@6 * gap~4
+        (call@9 float64~7
+         (infix@7 \2D count~6 1@2)))))
+     (call@9 float64~7 count@1)))
+   (var@4,5 i . . . 0@4)
+   (while@,6
+    (infix@8 < i~2 count@2)
+    (stmts@2,1
+     (let@4 at . . .
+      (infix@I *
+       (par~D
+        (infix@6 \2B size~5 gap@2))
+       (call@9 float64~7 i@1)))
+     (if@,1
+      (elif@3
+       (infix@5 == flow~5 Rightward@3)
+       (stmts~1,1
+        (cmd@6
+         (dot result~6 add@1)
+         (call@9 rect~4
+          (infix@8 \2B
+           (dot~3 area~4 x@1)at@2)
+          (dot@I area~4 y@1)size@M
+          (dot@W area~4 height@1)))))
+      (else@,2
+       (stmts@2,1
+        (cmd@6
+         (dot result~6 add@1)
+         (call@9 rect~4
+          (dot@5 area~4 x@1)
+          (infix@G \2B
+           (dot~3 area~4 y@1)at@2)
+          (dot@Q area~4 width@1)size@Y)))))
+     (asgn@2,5 i~2
+      (infix@4 \2B i~2 1@2))))))
+ (type@B,1b Grid~6 x . .
+  (object@2 .
+   (fld~9,4 at~2 x . Vec2@3 .)
+   (fld~4,5 columns~7 x . int@A .)
+   (fld@3,5 rows~4 x . int@3 .)
+   (fld~7,6 cell~4 x . float64@9 .)
+   (fld~1,6 gap~3 x . float64@3 .)))
+ (proc@,1j grid@5 x . .
+  (params@A
+   (param@1 at . . Vec2@4 .)
+   (param@B columns . . int@F .)
+   (param@K rows . . int@6 .)
+   (param@V cell . . float64@6 .)
+   (param@k gap . . . 2.0@6))Grid@w . .
+  (stmts@2,1
+   (oconstr@4 Grid~4
+    (kv@3 at~2 at@2)
+    (kv@G columns~7 columns@2)
+    (kv@V rows~4 rows@2)
+    (kv@h cell~4 cell@2)
+    (kv@s gap~3 gap@2))))
+ (comment@,1m)
+ (proc@,1n bounds@5 x . .
+  (params@C
+   (param@1 g . . Grid@3 .))Rect@B . .
+  (stmts@2,1
+   (call@4 rect~4
+    (dot@5
+     (dot~3 g~1 at@1)x@1)
+    (dot@D
+     (dot~3 g~1 at@1)y@1)
+    (infix@Q,1 \2B
+     (infix~9 *
+      (call~C float64~7
+       (dot@2 g~1 columns@1))
+      (dot@3 g~1 cell@1))
+     (infix@P *
+      (call~G float64~7
+       (infix@B \2D
+        (dot~9 g~1 columns@1)1@2))
+      (dot@3 g~1 gap@1)))
+    (infix@N,2 \2B
+     (infix~9 *
+      (call~9 float64~7
+       (dot@2 g~1 rows@1))
+      (dot@3 g~1 cell@1))
+     (infix@M *
+      (call~D float64~7
+       (infix@8 \2D
+        (dot~6 g~1 rows@1)1@2))
+      (dot@3 g~1 gap@1))))))
+ (comment@,1s)
+ (proc@,1t cellAt@5 x . .
+  (params@C
+   (param@1 g . . Grid@3 .)
+   (param@A column . . int@D .)
+   (param@I row . . int@5 .))Rect@T . .
+  (stmts@2,1
+   (call@4 rect~4
+    (infix@8 \2B
+     (dot~3
+      (dot~3 g~1 at@1)x@1)
+     (infix@I *
+      (call~9 float64~7 column@1)
+      (par@2
+       (infix@8 \2B
+        (dot~6 g~1 cell@1)
+        (dot@3 g~1 gap@1)))))
+    (infix@5,1 \2B
+     (dot~3
+      (dot~3 g~1 at@1)y@1)
+     (infix@F *
+      (call~6 float64~7 row@1)
+      (par@2
+       (infix@8 \2B
+        (dot~6 g~1 cell@1)
+        (dot@3 g~1 gap@1)))))
+    (dot@f,1 g~1 cell@1)
+    (dot@n,1 g~1 cell@1))))
+ (comment@,1x)
+ (proc@,1z span@5 x . .
+  (params@A
+   (param@1 g . . Grid@3 .)
+   (param@A column . . int@P .)
+   (param@I row . . int@H .)
+   (param@N wide . . int@C .)
+   (param@T tall . . int@6 .))Rect@f . .
+  (stmts@2,1
+   (let@4 one . . .
+    (call@C cellAt~6 g@1 column@4 row@C))
+   (call@4,1 rect~4
+    (dot@4 one~3 x@1)
+    (dot@B one~3 y@1)
+    (infix@L,1 \2B
+     (infix~9 *
+      (call~7 float64~7 wide@1)
+      (dot@3 g~1 cell@1))
+     (infix@K *
+      (call~B float64~7
+       (infix@6 \2D wide~5 1@2))
+      (dot@3 g~1 gap@1)))
+    (infix@L,2 \2B
+     (infix~9 *
+      (call~7 float64~7 tall@1)
+      (dot@3 g~1 cell@1))
+     (infix@K *
+      (call~B float64~7
+       (infix@6 \2D tall~5 1@2))
+      (dot@3 g~1 gap@1))))))
+ (type@B,25 Cell~6 x . .
+  (object@2 .
+   (fld~5,3 column~6 x . int@9 .)
+   (fld@1,3 row~3 x . int@3 .)
+   (fld~5,4 inside~6 x . bool@3 .)))
+ (comment@,2B)
+ (proc@,2C cellUnder@5 x . .
+  (params@F
+   (param@1 g . . Grid@3 .)
+   (param@A point . . Vec2@7 .))Cell@O . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@6 Cell~4
+     (kv@7 column~6 -1@2)
+     (kv@G row~3 -1@2)
+     (kv@S inside~6 false@2)))
+   (var@4,1 r . . . 0@4)
+   (while@,2
+    (infix@8 < r~2
+     (dot@3 g~1 rows@1))
+    (stmts@2,1
+     (var@4 c . . . 0@4)
+     (while@,1
+      (infix@8 < c~2
+       (dot@3 g~1 columns@1))
+      (stmts@2,1
+       (if
+        (elif@3
+         (call@5 holds~5
+          (call@7 cellAt~6 g@1 c@4 r@7)point@I)
+         (stmts~1,1
+          (asgn@7 result~7
+           (oconstr@6 Cell~4
+            (kv@7 column~6 c@2)
+            (kv@F row~3 r@2)
+            (kv@Q inside~6 true@2)))
+          (ret@,1 result@7))))
+       (asgn@2,3 c~2
+        (infix@4 \2B c~2 1@2))))
+     (asgn@2,6 r~2
+      (infix@4 \2B r~2 1@2))))))
+ (comment@,2O)
+ (proc@,2P fits@5 x . .
+  (params@A
+   (param@1 g . . Grid@3 .)
+   (param@A column . . int@P .)
+   (param@I row . . int@H .)
+   (param@N wide . . int@C .)
+   (param@T tall . . int@6 .))bool@f . .
+  (stmts@2,1
+   (infix@u and
+    (infix~V and
+     (infix~D and
+      (infix~5 >= column~7 0@3)
+      (infix@8 >= row~4 0@3))
+     (infix@I <=
+      (infix~7 \2B column~7 wide@2)
+      (dot@4 g~1 columns@1)))
+    (infix~h,1 <=
+     (infix~7 \2B row~4 tall@2)
+     (dot@4 g~1 rows@1)))))
+ (comment@,2V)
+ (proc@,2W panel@5 x . .
+  (params@B
+   (param@1 r . . Rect@3 .)). . .
+  (stmts@2,1
+   (call@5 paint~5 r@1
+    (dot@B
+     (call~2 style~5)panel@1))
+   (call@6,1 border~6 r@1 1.0@4
+    (dot@G
+     (call~2 style~5)edge@1))))
+ (comment@,2a)
+ (proc@,2b label@5 x . .
+  (params@B
+   (param@1 r . . Rect@3 .)
+   (param@A text . . string@6 .)
+   (param@O align . . . AlignLeft@8)). . .
+  (stmts@2,1
+   (call@5 paint~5
+    (call@7 fitted~6 text@1
+     (dot@8 r~1 width@1)
+     (dot@N
+      (call~2 style~5)text@1))r@c
+    (dot@m
+     (call~2 style~5)text@1)align@t
+    (dot@17
+     (call~2 style~5)ink@1))))
+ (comment@,2e)
+ (proc@,2f heading@5 x . .
+  (params@D
+   (param@1 r . . Rect@3 .)
+   (param@A text . . string@6 .)
+   (param@O align . . . AlignLeft@8)). . .
+  (stmts@2,1
+   (call@5 paint~5
+    (call@7 fitted~6 text@1
+     (dot@8 r~1 width@1)19.0@G)r@U 19.0@X align@d
+    (dot@r
+     (call~2 style~5)ink@1))))
+ (comment@,2i)
+ (proc@,2j hint@5 x . .
+  (params@A
+   (param@1 r . . Rect@3 .)
+   (param@A text . . string@6 .)
+   (param@O align . . . AlignLeft@8)). . .
+  (stmts@2,1
+   (call@5 paint~5
+    (call@7 fitted~6 text@1
+     (dot@8 r~1 width@1)
+     (dot@N
+      (call~2 style~5)small@1))r@d
+    (dot@n
+     (call~2 style~5)small@1)align@v
+    (dot@19
+     (call~2 style~5)faint@1))))
+ (comment@,2m)
+ (proc@,2o button@5 x . .
+  (params@C
+   (param@1 name . . string@6 .)
+   (param@F r . . Rect@3 .)
+   (param@O text . . string@6 .))bool@d . .
+  (stmts@2,1
+   (let@4 t . . .
+    (call@9 touch~5 name@1 r@7))
+   (if@,1
+    (elif@3
+     (dot@1 t~1 held@1)
+     (stmts@8
+      (call@5 paint~5 r@1
+       (dot@B
+        (call~2 style~5)pressed@1))))
+    (elif@5,1
+     (dot@1 t~1 hot@1)
+     (stmts@7
+      (call@5 paint~5 r@1
+       (dot@B
+        (call~2 style~5)hot@1))))
+    (else@,2
+     (stmts@6
+      (call@5 paint~5 r@1
+       (dot@B
+        (call~2 style~5)slot@1)))))
+   (var@4,4 edge . . .
+    (dot@E
+     (call~2 style~5)edge@1))
+   (if@,5
+    (elif@3
+     (dot@1 t~1 hot@1)
+     (stmts@7
+      (asgn@5 edge~5
+       (dot@9
+        (call~2 style~5)accent@1)))))
+   (call@6,6 border~6 r@1 1.0@4 edge@9)
+   (call@5,7 paint~5
+    (call@7 fitted~6 text@1
+     (infix@F \2D
+      (dot~7 r~1 width@1)12.0@2)
+     (dot@U
+      (call~2 style~5)text@1))
+    (call@q
+     (dot~6 r~1 inset@1)6.0@1)
+    (dot@14
+     (call~2 style~5)text@1)AlignCentre~3,1
+    (dot@H,1
+     (call~2 style~5)ink@1))
+   (asgn@7,9 result~7
+    (dot@3 t~1 clicked@1))))
+ (comment@,30)
+ (proc@,32 toggle@5 x . .
+  (params@C
+   (param@1 name . . string@6 .)
+   (param@F r . . Rect@3 .)
+   (param@O text . . string@6 .)
+   (param@c value . . bool@7 .))bool@q . .
+  (stmts@2,1
+   (let@4 t . . .
+    (call@9 touch~5 name@1 r@7))
+   (if@,1
+    (elif@3
+     (dot@1 t~1 hot@1)
+     (stmts@7
+      (call@5 paint~5 r@1
+       (dot@B
+        (call~2 style~5)hot@1))))
+    (else@,1
+     (stmts@6
+      (call@5 paint~5 r@1
+       (dot@B
+        (call~2 style~5)slot@1)))))
+   (let@4,3 side . . .
+    (infix@G \2D
+     (dot~8 r~1 height@1)10.0@2))
+   (let@4,4 box . . .
+    (call@A rect~4
+     (infix@5 \2B
+      (dot~3 r~1 x@1)5.0@2)
+     (infix@G \2B
+      (dot~3 r~1 y@1)5.0@2)side@N side@T))
+   (call@5,5 paint~5 box@1
+    (dot@D
+     (call~2 style~5)panel@1))
+   (if@,6
+    (elif@3 value
+     (stmts@7
+      (call@5 paint~5
+       (call@A
+        (dot~6 box~3 inset@1)4.0@1)
+       (dot@O
+        (call~2 style~5)welcome@1))))
+    (else@,1
+     (stmts@6
+      (call@6 border~6 box@1 1.0@6
+       (dot@I
+        (call~2 style~5)edge@1)))))
+   (let@4,8 words . . .
+    (call@C rect~4
+     (infix@C \2B
+      (infix~7 \2B
+       (dot~3 r~1 x@1)side@2)14.0@2)
+     (dot@L r~1 y@1)
+     (infix@e \2D
+      (infix~7 \2D
+       (dot~7 r~1 width@1)side@2)20.0@2)
+     (dot@n r~1 height@1)))
+   (call@5,9 paint~5
+    (call@7 fitted~6 text@1
+     (dot@C words~5 width@1)
+     (dot@R
+      (call~2 style~5)text@1))words@g
+    (dot@u
+     (call~2 style~5)text@1)AlignLeft@11
+    (dot@4,1
+     (call~2 style~5)ink@1))
+   (asgn@7,B result~7 value@2)
+   (if@,C
+    (elif@3
+     (dot@1 t~1 clicked@1)
+     (stmts@B
+      (asgn@7 result~7
+       (prefix@2 not value@4)))))))
+ (type@D,3J Scroll~8 x . .
+  (object@2 .
+   (fld~9,5 view~4 x . Rect@D .)
+   (fld@1,5 content~7 x . Rect@3 .)
+   (fld~B,6 id~2 x . string@3 .)
+   (fld~7,7 offset~6 x . float64@A .)
+   (fld@,7 span~4 x . float64@3 .)))
+ (const@6,3S BarWidth . . . 9.0@B)
+ (comment@,3U)
+ (const@6,3W WheelStep . . . 56.0@C)
+ (comment@,3Y)
+ (proc@,3b beginScroll@5 x . .
+  (params@H
+   (param@1 name . . string@6 .)
+   (param@F area . . Rect@6 .)
+   (param@R contentHeight . . float64@F .))Scroll@q . .
+  (stmts@2,1
+   (let@4 full . . .
+    (call@B here~4 name@1))
+   (call@6,1 pushId~6 name@1)
+   (var@4,2 span . . .
+    (infix@L \2D contentHeight~E
+     (dot@6 area~4 height@1)))
+   (if@,3
+    (elif@3
+     (infix@5 < span~5 0.0@2)
+     (stmts@C
+      (asgn@5 span~5 0.0@2))))
+   (var@4,4 view . . . area@7)
+   (if@,5
+    (elif@3
+     (infix@5 > span~5 0.0@2)
+     (stmts@C
+      (asgn@5 view~5
+       (call@6 rect~4
+        (dot@5 area~4 x@1)
+        (dot@D area~4 y@1)
+        (infix@d \2D
+         (infix~B \2D
+          (dot~7 area~4 width@1)BarWidth@2)2.0@2)
+        (dot@o area~4 height@1))))))
+   (var@4,6 off . . .
+    (call@E scrollOf~8 full@1))
+   (if@,B
+    (elif@3
+     (infix@5 > span~5 0.0@2)
+     (stmts@C
+      (asgn@4 off~4
+       (infix@6 \2D off~4
+        (infix@I *
+         (call~7 wheelOver~9 area@1)WheelStep@2))))))
+   (if@,C
+    (elif@3
+     (infix@4 > off~4 span@2)
+     (stmts@C
+      (asgn@4 off~4 span@2))))
+   (if@,D
+    (elif@3
+     (infix@4 < off~4 0.0@2)
+     (stmts@B
+      (asgn@4 off~4 0.0@2))))
+   (if@,E
+    (elif@3
+     (infix@5 > span~5 0.0@2)
+     (stmts~1,1
+      (let@4 track . . .
+       (call@C rect~4
+        (infix@L \2D
+         (infix~D \2B
+          (dot~3 area~4 x@1)
+          (dot@6 area~4 width@1))BarWidth@2)
+        (dot@b area~4 y@1)BarWidth@f
+        (dot@t area~4 height@1)))
+      (call@5,1 paint~5 track@1
+       (dot@F
+        (call~2 style~5)slot@1))
+      (var@4,2 thumbTall . . .
+       (infix@c /
+        (infix~E *
+         (dot~8 area~4 height@1)
+         (dot@6 area~4 height@1))contentHeight@2))
+      (if@,3
+       (elif@3
+        (infix@A < thumbTall~A 20.0@2)
+        (stmts@I
+         (asgn@A thumbTall~A 20.0@2))))
+      (let@4,4 travel . . .
+       (infix@M \2D
+        (dot~8 track~5 height@1)thumbTall@2))
+      (let@4,5 t . . .
+       (call@9 touch~5 "bar"@1
+        (call~7,1 rect~4
+         (dot@6 track~5 x@1)
+         (infix@I \2B
+          (dot~3 track~5 y@1)
+          (infix@9 * travel~7
+           (par@2
+            (infix@5 / off~4 span@2))))BarWidth@h thumbTall@r)))
+      (if@,7
+       (elif@3
+        (infix@7 and
+         (dot~6 t~1 held@1)
+         (infix@B > travel~7 0.0@2))
+        (stmts~1,1
+         (asgn@4 off~4
+          (infix@6 \2B off~4
+           (infix@J *
+            (dot~3
+             (call~2 pointerMoved~C)y@1)
+            (par@2
+             (infix@6 / span~5 travel@2)))))
+         (if@,1
+          (elif@3
+           (infix@4 < off~4 0.0@2)
+           (stmts@B
+            (asgn@4 off~4 0.0@2))))
+         (if@,2
+          (elif@3
+           (infix@4 > off~4 span@2)
+           (stmts@C
+            (asgn@4 off~4 span@2)))))))
+      (var@4,B grip . . .
+       (dot@E
+        (call~2 style~5)edge@1))
+      (if@,C
+       (elif@3
+        (infix@6 or
+         (dot~5 t~1 hot@1)
+         (dot@4 t~1 held@1))
+        (stmts@H
+         (asgn@5 grip~5
+          (dot@9
+           (call~2 style~5)accent@1)))))
+      (call@5,D paint~5
+       (call@5 rect~4
+        (dot@6 track~5 x@1)
+        (infix@I \2B
+         (dot~3 track~5 y@1)
+         (infix@9 * travel~7
+          (par@2
+           (infix@5 / off~4 span@2))))BarWidth@h thumbTall@r)grip~3,1))))
+   (call@9,U setScroll~9 full@1 off@7)
+   (call@8,V pushClip~8 view@1)
+   (asgn@7,W result~7
+    (oconstr@8 Scroll~6
+     (kv@5 view~4 view@2)
+     (kv~6,1 content~7
+      (call@6 rect~4
+       (dot@5 view~4 x@1)
+       (infix@G \2D
+        (dot~3 view~4 y@1)off@2)
+       (dot@R view~4 width@1)contentHeight@Z))
+     (kv~B,2 id~2 full@2)
+     (kv@3,2 offset~6 off@2)
+     (kv@E,2 span~4 span@2)))))
+ (proc@,4C endScroll@5 x . .
+  (params@F
+   (param@1 s . . Scroll@3 .)). . .
+  (stmts@2,1
+   (call@7 popClip~7)
+   (call@5,1 popId~5)))
+ (type@B,4G Rows~6 x . .
+  (object@2 .
+   (fld~5,3 scroll~6 x . Scroll@3 .)
+   (fld~5,4 height~6 x . float64@3 .)
+   (fld~6,5 first~5 x . int@A .)
+   (fld@1,5 last~4 x . int@3 .)))
+ (proc@,4O beginList@5 x . .
+  (params@F
+   (param@1 name . . string@6 .)
+   (param@F area . . Rect@6 .)
+   (param@R count . . int@7 .)
+   (param@d height . . . 28.0@9))Rows@t . .
+  (stmts@2,1
+   (let@4 s . . .
+    (call@F beginScroll~B name@1 area@7
+     (infix@S *
+      (call~8 float64~7 count@1)height@2)))
+   (var@4,1 first . . .
+    (call@B int~3
+     (infix@A /
+      (dot~8 s~1 offset@1)height@2)))
+   (if@,2
+    (elif@3
+     (infix@6 < first~6 0@2)
+     (stmts@B
+      (asgn@6 first~6 0@2))))
+   (var@4,3 last . . .
+    (infix@f \2B
+     (infix~S \2B first~6
+      (call@5 int~3
+       (infix@D /
+        (dot~8 area~4 height@1)height@2)))2@2))
+   (if@,4
+    (elif@3
+     (infix@5 > last~5 count@2)
+     (stmts@E
+      (asgn@5 last~5 count@2))))
+   (asgn@7,5 result~7
+    (oconstr@6 Rows~4
+     (kv@7 scroll~6 s@2)
+     (kv@I height~6 height@2)
+     (kv@X first~5 first@2)
+     (kv@k last~4 last@2)))))
+ (comment@,4W)
+ (proc@,4X rowAt@5 x . .
+  (params@B
+   (param@1 r . . Rows@3 .)
+   (param@A index . . int@7 .))Rect@N . .
+  (stmts@2,1
+   (call@4 rect~4
+    (dot@H
+     (dot~8
+      (dot~7 r~1 scroll@1)content@1)x@1)
+    (infix@e \2B
+     (dot~3
+      (dot~8
+       (dot~7 r~1 scroll@1)content@1)y@1)
+     (infix@H *
+      (call~8 float64~7 index@1)
+      (dot@3 r~1 height@1)))
+    (dot@E,1
+     (dot~8
+      (dot~7 r~1 scroll@1)content@1)width@1)
+    (dot@N,1 r~1 height@1))))
+ (proc@,4b endList@5 x . .
+  (params@D
+   (param@1 r . . Rows@3 .)). . .
+  (stmts@P
+   (call@9 endScroll~9
+    (dot@2 r~1 scroll@1))))
+ (comment@,4f)
+ (proc@,4h slot@5 x . .
+  (params@A
+   (param@1 name . . string@6 .)
+   (param@F r . . Rect@3 .)
+   (param@O accepts . . string@9 .))Drop@g . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@A dropZone~8 name@1 r@7 accepts@A))
+   (call@5,1 paint~5 r@1
+    (dot@B
+     (call~2 style~5)slot@1))
+   (if@,2
+    (elif@3
+     (dot@6 result~6 over@1)
+     (stmts@D
+      (call@6 border~6 r@1 2.0@4
+       (dot@G
+        (call~2 style~5)welcome@1))))
+    (elif@5,1
+     (infix@V and
+      (infix~K and
+       (call~3 carrying~8)
+       (infix@G >
+        (dot~5 accepts~7 len@1)0@2))
+      (prefix@4 not
+       (call@C carrying~8 accepts@1)))
+     (stmts~3,1
+      (call@6 border~6 r@1 1.0@4
+       (dot@G
+        (call~2 style~5)refuse@1))))
+    (else@,3
+     (stmts@6
+      (call@6 border~6 r@1 1.0@4
+       (dot@G
+        (call~2 style~5)edge@1)))))))
+ (comment@,4p)
+ (proc@,4s tile@5 x . .
+  (params@A
+   (param@1 name . . string@6 .)
+   (param@F r . . Rect@3 .)
+   (param@O text . . string@6 .)
+   (param@c load . . Carry@6 .))Drag@q . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@6 drag~4 name@1 r@7 load@A))
+   (if@,1
+    (elif@3
+     (dot@6 result~6 dragging@1)
+     (stmts~1,1
+      (call@5 paint~5 r@1
+       (dot@B
+        (call~2 style~5)slot@1))
+      (call@6,1 border~6 r@1 1.0@4
+       (dot@G
+        (call~2 style~5)edge@1))
+      (ret@,2 result@7))))
+   (if@,5
+    (elif@3
+     (dot@6 result~6 hot@1)
+     (stmts@C
+      (call@5 paint~5 r@1
+       (dot@B
+        (call~2 style~5)hot@1))))
+    (else@,1
+     (stmts@6
+      (call@5 paint~5 r@1
+       (dot@B
+        (call~2 style~5)filled@1)))))
+   (var@4,7 edge . . .
+    (dot@E
+     (call~2 style~5)edge@1))
+   (if@,8
+    (elif@3
+     (dot@6 result~6 hot@1)
+     (stmts@C
+      (asgn@5 edge~5
+       (dot@9
+        (call~2 style~5)accent@1)))))
+   (call@6,9 border~6 r@1 1.0@4 edge@9)
+   (call@5,A paint~5
+    (call@7 fitted~6 text@1
+     (infix@F \2D
+      (dot~7 r~1 width@1)8.0@2)
+     (dot@T
+      (call~2 style~5)small@1))
+    (call@q
+     (dot~6 r~1 inset@1)4.0@1)
+    (dot@14
+     (call~2 style~5)small@1)AlignCentre~3,1
+    (dot@H,1
+     (call~2 style~5)ink@1))))
+ (comment@,56)
+ (proc@,58 ghost@5 x . .
+  (params@B
+   (param@1 text . . string@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@C carrying~8))
+     (stmts@G
+      (ret .))))
+   (let@4,1 box . . .
+    (call@F ghostRect~9))
+   (call@5,2 paint~5 box@1
+    (call@U
+     (dot~A
+      (dot~7
+       (call~2 style~5)filled@1)withAlpha@1)0.85@1))
+   (call@6,3 border~6 box@1 1.0@6
+    (dot@I
+     (call~2 style~5)ghost@1))
+   (call@5,4 paint~5
+    (call@7 fitted~6 text@1
+     (infix@H \2D
+      (dot~7 box~3 width@1)8.0@2)
+     (dot@V
+      (call~2 style~5)small@1))
+    (call@u
+     (dot~6 box~3 inset@1)4.0@1)
+    (dot@18
+     (call~2 style~5)small@1)AlignCentre~3,1
+    (dot@H,1
+     (call~2 style~5)ink@1)))))

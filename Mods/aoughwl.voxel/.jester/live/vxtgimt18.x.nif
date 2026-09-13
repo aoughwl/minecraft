@@ -1,0 +1,352 @@
+(.nif27)
+(.indexat 7676             )
+(stmts@,1,vxtune.nim
+ (const@9,F :McChunk.0.~7 .
+  (i@7,S 64)
+  (suf@4 16 "i64"))
+ (const@C,I :TuneRegion.0.~A .
+  (i@4,P 64)
+  (suf@4 48 "i64"))
+ (const@B,L :MinRender.0.~9 .
+  (i@5,M 64)
+  (suf@4 2 "i64"))
+ (const@B,M :MaxRender.0.~9 .
+  (i@5,L 64)
+  (suf@4 32 "i64"))
+ (const@8,O :MinFov.0.~6 .
+  (i@8,J 64)
+  (suf@4 30 "i64"))
+ (const@8,P :MaxFov.0.~6 .
+  (i@8,I 64)
+  (suf@4 110 "i64"))
+ (const@G,Q :MaxSensitivity.0.~E .
+  (i@,H 64)
+  (suf@4 200 "i64"))
+ (proc@,Y :isWhole.0.@5
+  (params@D
+   (param@1 :text.0 . string.0.sysvq0asl@6))
+  (bool@G)
+  (pragmas
+   (smry writeGlobal readGlobal callsUnknown
+    (param 0 0 reads writes escapes)))
+  (stmts@2,1
+   (var :result.0 .
+    (bool@E,~1).)
+   (var@7 :`x.0 .
+    (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+    (call len.4.sysvq0asl@1 text.0~4))
+   (if
+    (elif@3
+     (eq@9 `x.0~5 0@3)
+     (stmts@F
+      (ret
+       (false@7)))))
+   (var@4,1 :i.0 .
+    (i 64)0@4)
+   (scope@,2
+    (stmts
+     (while
+      (true)
+      (stmts
+       (var@E :`x.1 .
+        (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+        (call len.4.sysvq0asl@1 text.0~4))
+       (if
+        (elif
+         (lt@8 i.0~2 `x.1@6)
+         (stmts@2,1
+          (var@H :`x.2 .
+           (bool).)
+          (var@3 :`x.3 .
+           (c@L,6V,../../../../../../nimony/lib/std/system/stringimpl.nim 8)
+           (call \5B\5D.9.sysvq0asl text.0 i.0@5))
+          (if@H
+           (elif
+            (lt~6 `x.3~8 '0'@2)
+            (stmts
+             (asgn `x.2
+              (true))))
+           (else
+            (stmts
+             (var@3 :`x.4 .
+              (c@L,6V,../../../../../../nimony/lib/std/system/stringimpl.nim 8)
+              (call \5B\5D.9.sysvq0asl text.0 i.0@5))
+             (asgn@4,1u,../../../../../../nimony/lib/std/system/comparisons.nim `x.2
+              (lt '9'@Y,d,vxtune.nim `x.4@O,d,vxtune.nim)))))
+          (if
+           (elif@3 `x.2@E
+            (stmts@W
+             (ret
+              (false@7)))))
+          (call@,1 inc.1.Irn1g7r1.
+           (addr@4 i.0))))
+        (else
+         (stmts
+          (break))))))))
+   (lab@,2 :whileStmtLabel.0)
+   (asgn@,5 result.0
+    (true))
+   (ret~2,~1 result.0)))
+ (proc@,h :wholeOf.0.@5
+  (params@D
+   (param@1 :text.1 . string.0.sysvq0asl@6))
+  (i@G 64)
+  (pragmas
+   (smry writeGlobal readGlobal callsUnknown
+    (param 0 0 reads writes escapes)))
+  (stmts@2,1
+   (var@4 :result.1 .
+    (i@A,~1 64).)
+   (var@4 :value.1 .
+    (i 64)0@8)
+   (var@4,1 :i.1 .
+    (i 64)0@4)
+   (scope@,2
+    (stmts
+     (while
+      (true)
+      (stmts
+       (var@E :`x.5 .
+        (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+        (call len.4.sysvq0asl@1 text.1~4))
+       (if
+        (elif
+         (lt@8 i.1~2 `x.5@6)
+         (stmts@2,1
+          (var@Q :`x.6 .
+           (c@L,6V,../../../../../../nimony/lib/std/system/stringimpl.nim 8)
+           (call \5B\5D.9.sysvq0asl text.1 i.1@5))
+          (asgn@6 value.1~6
+           (add@D
+            (i 64)
+            (mul~5
+             (i 64)value.1~6 10@2)
+            (sub@G
+             (i 64)
+             (conv~A
+              (i~3 64)`x.6@1)
+             (conv@5
+              (i~I 64)'0'@1))))
+          (call@,1 inc.1.Irn1g7r1.
+           (addr@4 i.1))))
+        (else
+         (stmts
+          (break))))))))
+   (lab@,2 :whileStmtLabel.0)
+   (asgn@,5 result.1 value.1)
+   (ret~2,~1 result.1)))
+ (proc@,p :clampWhole.0.@5
+  (params@G
+   (param@1 :value.0 .
+    (i@F 64))
+   (param@8 :lo.0 .
+    (i@8 64))
+   (param@C :hi.0 .
+    (i@4 64)))
+  (i@M 64)
+  (pragmas
+   (smry
+    (param 0 0 reads)
+    (param 1 0 reads)
+    (param 2 0 reads)result 0))
+  (stmts@2,1
+   (var :result.2 .
+    (i@E,~9 64).)
+   (if
+    (elif@3
+     (lt@6 value.0~6 lo.0@2)
+     (stmts@C
+      (ret lo.0@7))))
+   (if@,1
+    (elif@3
+     (lt@4,1u,../../../../../../nimony/lib/std/system/comparisons.nim hi.0@D,s,vxtune.nim value.0@5,s,vxtune.nim)
+     (stmts@C
+      (ret hi.0@7))))
+   (asgn@,2 result.2 value.0)
+   (ret~2,~1 result.2)))
+ (proc@,x :isFlag.0.@5
+  (params@C
+   (param@1 :text.2 . string.0.sysvq0asl@6))
+  (bool@G)
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads writes escapes)result 0))
+  (stmts@Z
+   (var@C :result.3 .
+    (bool~V,~P).)
+   (var@C :`x.7 .
+    (bool).)
+   (var@5 :`x.8 .
+    (bool@G,9T,../../../../../../nimony/lib/std/system/stringimpl.nim)
+    (call ==.20.sysvq0asl text.2~5
+     (oconstr@3 string.0.sysvq0asl
+      (kv bytes.0 12289u)
+      (kv more.0
+       (nil)))))
+   (if@C
+    (elif `x.8~7
+     (stmts
+      (asgn `x.7
+       (true))))
+    (else
+     (stmts
+      (var@8 :`x.9 .
+       (bool@G,9T,../../../../../../nimony/lib/std/system/stringimpl.nim)
+       (call ==.20.sysvq0asl text.2~5
+        (oconstr@3 string.0.sysvq0asl
+         (kv bytes.0 12545u)
+         (kv more.0
+          (nil)))))
+      (asgn@8 `x.7 `x.9))))
+   (asgn@C result.3 `x.7)
+   (ret~Z result.3)))
+ (proc@,1B :lodRadiusFor.0.@5
+  (params@I
+   (param@1 :chunks.0 .
+    (i@8 64)))
+  (i@F 64)
+  (pragmas
+   (smry readGlobal
+    (param 0 0 reads)))
+  (stmts@2,1
+   (var@4 :result.4 .
+    (i@A,~V 64).)
+   (var@N :`x.10 .
+    (i~3,~N 64)
+    (call clampWhole.0.~A chunks.0@1
+     (suf~A,~r 2 "i64")
+     (suf~A,~q 32 "i64")))
+   (var@4 :blocks.0 .
+    (i@A,~V 64)
+    (mul@o
+     (i 64)`x.10~V
+     (suf~h,~x 16 "i64")))
+   (asgn@7,1 result.4~7
+    (div@S
+     (i 64)
+     (sub~5
+      (i 64)
+      (add~D
+       (i 64)blocks.0~7
+       (suf~3,~v 48 "i64"))1@2)
+     (suf~L,~v 48 "i64")))
+   (if@,2
+    (elif@3
+     (lt@7 result.4~7 1@2)
+     (stmts@C
+      (asgn@7 result.4~7 1@2))))
+   (ret~2,~1 result.4)))
+ (proc@,1J :renderChunksFor.0.@5
+  (params@L
+   (param@1 :radius.0 .
+    (i@8 64)))
+  (i@F 64)
+  (pragmas
+   (smry
+    (param 0 0 reads)))
+  (stmts@g
+   (var@K :result.5 .
+    (i~k,~c 64).)
+   (asgn@K result.5
+    (div
+     (i 64)
+     (mul~D
+      (i 64)radius.0~7
+      (suf~X,~11 48 "i64"))
+     (suf~n,~14 16 "i64")))
+   (ret~g result.5)))
+ (proc@,1P :lookSpeedFor.0.@5
+  (params@I
+   (param@1 :base.0 .
+    (f@6 64))
+   (param@E :percent.0 .
+    (i@9 64)))
+  (f@T 64)
+  (pragmas
+   (smry readGlobal
+    (param 0 0 reads)
+    (param 1 1 reads)))
+  (stmts@2,1
+   (var@r :result.6 .
+    (f~U,~1 64).)
+   (var@N :`x.11 .
+    (i~3,~b 64)
+    (call clampWhole.0.~A percent.0@1 0@A
+     (suf~5,~10 200 "i64")))
+   (asgn@r result.6
+    (div
+     (f 64)
+     (mul~m
+      (f 64)base.0~5
+      (conv@7
+       (f~5 64)`x.11@B))100.0@2))
+   (ret~2,~1 result.6)))
+ (proc@,1T :fovFor.0.@5
+  (params@C
+   (param@1 :degrees.0 .
+    (i@9 64)))
+  (f@G 64)
+  (pragmas
+   (smry readGlobal
+    (param 0 0 reads)result 0))
+  (stmts@2,1
+   (var@5 :result.7 .
+    (f@I,~5 64).)
+   (var@G :`x.12 .
+    (i@4,~f 64)
+    (call clampWhole.0.~A degrees.0@1
+     (suf~6,~16 30 "i64")
+     (suf~6,~15 110 "i64")))
+   (asgn@5 result.7
+    (conv
+     (f@2,~4 64)`x.12@B))
+   (ret~2,~1 result.7)))
+ (proc@4,d :inc.1.Irn1g7r1.
+  (params@L,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (param@1 :x.1 .
+    (ptr@3
+     (i 64)))).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (pragmas@W,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (inline 0 20)
+   (smry@4,e,vxtune.nim
+    (param 0 0 reads writes)))
+  (stmts@2,F,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (asgn@2,1
+    (deref~2 x.1)
+    (add@6
+     (i 64)
+     (deref@1 x.1)
+     (conv@U,~F
+      (i 64)1@1)))))
+ (gvar :`iniGuard.0. .
+  (bool).)
+ (proc :`ini.0.
+  (params).
+  (pragmas
+   (smry callsUnknown))
+  (stmts
+   (if
+    (elif `iniGuard.0.
+     (stmts
+      (ret .))))
+   (asgn `iniGuard.0.
+    (true))
+   (call `ini.0.sysvq0asl))))(.index@,1,vxtune.nim
+ (h McChunk.0. 58)
+ (h TuneRegion.0. 61)
+ (h MinRender.0. 64)
+ (h MaxRender.0. 62)
+ (h MinFov.0. 63)
+ (h MaxFov.0. 60)
+ (h MaxSensitivity.0. 61)
+ (x isWhole.0. 68)
+ (x wholeOf.0. 1751)
+ (x clampWhole.0. 1203)
+ (x isFlag.0. 614)
+ (x lodRadiusFor.0. 882)
+ (x renderChunksFor.0. 707)
+ (x lookSpeedFor.0. 344)
+ (x fovFor.0. 512)
+ (x inc.1.Irn1g7r1. 412)
+ (h `iniGuard.0. 525)
+ (x `ini.0. 34))

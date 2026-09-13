@@ -1,0 +1,776 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/source/jester_mod_6592d214b24d7c77.nim
+ (comment)
+ (import@,s
+  (infix@A / std~3 math@1))
+ (import@,t jester@7)
+ (import@,u vec@7)
+ (import@,v color@7)
+ (import@,w parts@7)
+ (import@,x catalogs@7)
+ (import@,y textures@7)
+ (import@,z skyday@7)
+ (const@2,12 Scheme . . . "aoughwl.sky"@9)
+ (const@2,13 Parts . . . "sky.parts"@8)
+ (const@2,14 Pictures . . . "aoughwl.minecraft"@B)
+ (const@2,16 SkyRadius . . . 380.0@C)
+ (const@2,1B CelestialRadius . . . 340.0@I)
+ (const@2,1C SunHalfSpan . . . 34.0@E)
+ (const@2,1D MoonHalfSpan . . . 22.0@F)
+ (const@2,1E CloudSpan . . . 700.0@C)
+ (const@2,1F CloudTiles . . . 8.0@D)
+ (const@2,1G DomeRings . . . 12@C)
+ (const@2,1H DomeSegments . . . 24@F)
+ (const@2,1I StarCount . . . 1500@C)
+ (comment@2,1K)
+ (const@2,1M SunPicture . . . "environment/sun"@D)
+ (const@2,1N MoonPicture . . . "environment/moon_phases"@E)
+ (const@2,1O CloudPicture . . . "environment/clouds"@F)
+ (var@2,1R ticks . . . 0.0@8)
+ (var@2,1S temperature . . . 0.8@E)
+ (var@2,1W root . . .
+  (call@E nothing~7))
+ (var@2,1X dome . . .
+  (call@E nothing~7))
+ (var@2,1Y horizon . . .
+  (call@H nothing~7))
+ (var@2,1Z sunQuad . . .
+  (call@H nothing~7))
+ (var@2,1a moonQuad . . .
+  (call@I nothing~7))
+ (var@2,1b starField . . .
+  (call@J nothing~7))
+ (var@2,1c clouds . . .
+  (call@G nothing~7))
+ (var@2,1d sunLight . . .
+  (call@I nothing~7))
+ (var@2,1e drawnPhase . . . -1@D)
+ (var@2,1f building . . . ""@B)
+ (proc@,1k buildDome@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (comment)
+   (call@9,4 beginMesh~9)
+   (var@4,5 ring . . . 0@7)
+   (var@4,6 index . .
+    (at@A seq~3 int@1)
+    (prefix@I \40
+     (bracket@1)))
+   (while@,7
+    (infix@B <= ring~5 DomeRings@3)
+    (stmts@2,1
+     (let@4 lat . . .
+      (infix@j *
+       (infix~6 *
+        (par~X
+         (infix@D /
+          (call~7 float~5 ring@1)
+          (call@7 float~5 DomeRings@1)))0.5@2)PI@2))
+     (let@4,1 y . . .
+      (infix@D *
+       (call~6 cos~3 lat@1)SkyRadius@2))
+     (let@4,2 r . . .
+      (infix@D *
+       (call~6 sin~3 lat@1)SkyRadius@2))
+     (var@4,3 seg . . . 0@6)
+     (while@,4
+      (infix@A <= seg~4 DomeSegments@3)
+      (stmts@2,1
+       (let@4 lon . . .
+        (infix@l *
+         (infix~6 *
+          (par~Z
+           (infix@C /
+            (call~6 float~5 seg@1)
+            (call@7 float~5 DomeSegments@1)))2.0@2)PI@2))
+       (cmd@5,1
+        (dot index~5 add@1)
+        (call@E addVertex~9
+         (infix@A *
+          (call~6 cos~3 lon@1)r@2)y@F
+         (infix@R *
+          (call~6 sin~3 lon@1)r@2)0.0@1,1 1.0@6,1 0.0@B,1
+         (infix@C,2 /
+          (call~6 float~5 seg@1)
+          (call@7 float~5 DomeSegments@1))
+         (infix@D,3 /
+          (call~7 float~5 ring@1)
+          (call@7 float~5 DomeRings@1))1.0@1,4 1.0@6,4 1.0@B,4 1.0@G,4))
+       (cmd@,6 inc seg@4)))
+     (cmd@,C inc ring@4)))
+   (let@4,L stride . . .
+    (infix@M \2B DomeSegments~D 1@2))
+   (asgn@5,M ring~5 0@2)
+   (while@,N
+    (infix@B < ring~5 DomeRings@2)
+    (stmts@2,1
+     (var@4 seg . . . 0@6)
+     (while@,1
+      (infix@A < seg~4 DomeSegments@2)
+      (stmts@2,1
+       (let@4 a . . .
+        (at@9 index~5
+         (infix@F \2B
+          (infix~9 * ring~5 stride@2)seg@2)))
+       (let@4,1 b . . .
+        (at@9 index~5
+         (infix@L \2B
+          (infix~6 \2B
+           (infix~9 * ring~5 stride@2)seg@2)1@2)))
+       (let@4,2 c . . .
+        (at@9 index~5
+         (infix@R \2B
+          (infix~6 \2B
+           (infix~9 *
+            (par~B
+             (infix@6 \2B ring~5 1@2))stride@2)seg@2)1@2)))
+       (let@4,3 d . . .
+        (at@9 index~5
+         (infix@L \2B
+          (infix~9 *
+           (par~B
+            (infix@6 \2B ring~5 1@2))stride@2)seg@2)))
+       (call@7,5 addQuad~7 d@1 c@4 b@7 a@A)
+       (cmd@,6 inc seg@4)))
+     (cmd@,9 inc ring@4)))
+   (call@A,Y finishMesh~A)))
+ (proc@,2L buildHorizon@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (comment)
+   (call@9,4 beginMesh~9)
+   (var@4,5 seg . . . 0@6)
+   (var@4,6 lower . .
+    (at@A seq~3 int@1)
+    (prefix@I \40
+     (bracket@1)))
+   (var@4,7 upper . .
+    (at@A seq~3 int@1)
+    (prefix@I \40
+     (bracket@1)))
+   (let@4,8 r . . .
+    (infix@E * SkyRadius~A 0.98@2))
+   (while@,9
+    (infix@A <= seg~4 DomeSegments@3)
+    (stmts@2,1
+     (let@4 lon . . .
+      (infix@l *
+       (infix~6 *
+        (par~Z
+         (infix@C /
+          (call~6 float~5 seg@1)
+          (call@7 float~5 DomeSegments@1)))2.0@2)PI@2))
+     (let@4,1 x . . .
+      (infix@D *
+       (call~6 cos~3 lon@1)r@2))
+     (let@4,2 z . . .
+      (infix@D *
+       (call~6 sin~3 lon@1)r@2))
+     (cmd@5,3
+      (dot lower~5 add@1)
+      (call@E addVertex~9 x@1
+       (infix@F *
+        (prefix~B \2D SkyRadius@1)0.08@2)z@N 0.0@Q 1.0@V 0.0@a
+       (infix@C,1 /
+        (call~6 float~5 seg@1)
+        (call@7 float~5 DomeSegments@1))1.0@Z,1 1.0@1,2 1.0@6,2 1.0@B,2 1.0@G,2))
+     (cmd@5,6
+      (dot upper~5 add@1)
+      (call@E addVertex~9 x@1
+       (infix@E * SkyRadius~A 0.3@2)z@M 0.0@P 1.0@U 0.0@Z
+       (infix@C,1 /
+        (call~6 float~5 seg@1)
+        (call@7 float~5 DomeSegments@1))0.0@Z,1 1.0@1,2 1.0@6,2 1.0@B,2 0.0@G,2))
+     (cmd@,9 inc seg@4)))
+   (asgn@4,K seg~4 0@2)
+   (while@,L
+    (infix@A < seg~4 DomeSegments@2)
+    (stmts@2,1
+     (call@7 addQuad~7
+      (at@6 upper~5
+       (infix@5 \2B seg~4 1@2))
+      (at@M upper~5 seg@1)
+      (at@Y lower~5 seg@1)
+      (at@k lower~5
+       (infix@5 \2B seg~4 1@2)))
+     (cmd@,1 inc seg@4)))
+   (call@A,O finishMesh~A)))
+ (proc@,2m buildCelestialQuad@5 . . .
+  (params@N
+   (param@1 half . . float@A .)
+   (param@7 at . . float@4 .)
+   (param@I tile . . Tile@6 .)). . .
+  (stmts@2,1
+   (comment)
+   (call@9,2 beginMesh~9)
+   (let@4,3 y . . .
+    (infix@7 * at~3 CelestialRadius@2))
+   (let@4,4 n . . .
+    (prefix@4 \2D at@1))
+   (let@4,5 a . . .
+    (call@D addVertex~9
+     (prefix@1 \2D half@1)y@8
+     (prefix@B \2D half@1)0.0@I n@N 0.0@Q
+     (dot@Z tile~4 u0@1)
+     (dot@i tile~4 v1@1)))
+   (let@4,6 b . . .
+    (call@D addVertex~9 half@1 y@7
+     (prefix@A \2D half@1)0.0@H n@M 0.0@P
+     (dot@Y tile~4 u1@1)
+     (dot@h tile~4 v1@1)))
+   (let@4,7 c . . .
+    (call@D addVertex~9 half@1 y@7 half@A 0.0@G n@L 0.0@O
+     (dot@X tile~4 u1@1)
+     (dot@g tile~4 v0@1)))
+   (let@4,8 d . . .
+    (call@D addVertex~9
+     (prefix@1 \2D half@1)y@8 half@B 0.0@H n@M 0.0@P
+     (dot@Y tile~4 u0@1)
+     (dot@h tile~4 v0@1)))
+   (if@,9
+    (elif@3
+     (infix@3 > at~3 0.0@2)
+     (stmts@A
+      (call@7 addQuad~7 a@1 b@4 c@7 d@A)))
+    (else@X
+     (stmts@6
+      (call@7 addQuad~7 d@1 c@4 b@7 a@A))))
+   (call@A,A finishMesh~A)))
+ (proc@,2z buildStars@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (comment)
+   (call@9,4 beginMesh~9)
+   (let@4,5 field . . .
+    (call@D stars~5 StarCount@1 CelestialRadius@C))
+   (var@4,6 i . . . 0@4)
+   (while@,7
+    (infix@8 < i~2
+     (dot@7 field~5 len@1))
+    (stmts@2,1
+     (let@4 s . . .
+      (at@9 field~5 i@1))
+     (cmd@,1 inc i@4)
+     (var@4,3 ux . . .
+      (prefix@5 \2D
+       (dot@2 s~1 z@1)))
+     (var@4,4 uz . . .
+      (dot@6 s~1 x@1))
+     (let@4,5 ul . . .
+      (call@9 sqrt~4
+       (infix@9 \2B
+        (infix~5 * ux~3 ux@2)
+        (infix@5 * uz~3 uz@2))))
+     (if@,6
+      (elif@3
+       (infix@3 < ul~3 0.00001@2)
+       (stmts@E
+        (continue .))))
+     (asgn@3,7 ux~3
+      (infix@5 / ux~3 ul@2))
+     (asgn@3,8 uz~3
+      (infix@5 / uz~3 ul@2))
+     (let@4,9 nl . . .
+      (call@9 sqrt~4
+       (infix@N \2B
+        (infix~C \2B
+         (infix~6 *
+          (dot~3 s~1 x@1)
+          (dot@3 s~1 x@1))
+         (infix@6 *
+          (dot~3 s~1 y@1)
+          (dot@3 s~1 y@1)))
+        (infix@6 *
+         (dot~3 s~1 z@1)
+         (dot@3 s~1 z@1)))))
+     (let@4,A nx . . .
+      (infix@A /
+       (prefix~5 \2D
+        (dot@2 s~1 x@1))nl@2))
+     (let@4,B ny . . .
+      (infix@A /
+       (prefix~5 \2D
+        (dot@2 s~1 y@1))nl@2))
+     (let@4,C nz . . .
+      (infix@A /
+       (prefix~5 \2D
+        (dot@2 s~1 z@1))nl@2))
+     (let@4,F vx . . .
+      (infix@8 * ny~3 uz@2))
+     (let@4,G vy . . .
+      (infix@D \2D
+       (infix~5 * nz~3 ux@2)
+       (infix@5 * nx~3 uz@2)))
+     (let@4,H vz . . .
+      (prefix@5 \2D
+       (par@1
+        (infix@4 * ny~3 ux@2))))
+     (let@4,I h . . .
+      (dot@5 s~1 size@1))
+     (let@4,J a . . .
+      (call@D addVertex~9
+       (infix@E \2D
+        (infix~9 \2D
+         (dot~3 s~1 x@1)
+         (infix@5 * ux~3 h@2))
+        (infix@5 * vx~3 h@2))
+       (infix@S \2D
+        (dot~3 s~1 y@1)
+        (infix@5 * vy~3 h@2))
+       (infix@p \2D
+        (infix~9 \2D
+         (dot~3 s~1 z@1)
+         (infix@5 * uz~3 h@2))
+        (infix@5 * vz~3 h@2))nx@1,1 ny@5,1 nz@9,1 0.0@D,1 0.0@I,1 1.0@N,1 1.0@S,1 1.0@X,1 1.0@c,1))
+     (let@4,L b . . .
+      (call@D addVertex~9
+       (infix@E \2D
+        (infix~9 \2B
+         (dot~3 s~1 x@1)
+         (infix@5 * ux~3 h@2))
+        (infix@5 * vx~3 h@2))
+       (infix@S \2D
+        (dot~3 s~1 y@1)
+        (infix@5 * vy~3 h@2))
+       (infix@p \2D
+        (infix~9 \2B
+         (dot~3 s~1 z@1)
+         (infix@5 * uz~3 h@2))
+        (infix@5 * vz~3 h@2))nx@1,1 ny@5,1 nz@9,1 1.0@D,1 0.0@I,1 1.0@N,1 1.0@S,1 1.0@X,1 1.0@c,1))
+     (let@4,N c . . .
+      (call@D addVertex~9
+       (infix@E \2B
+        (infix~9 \2B
+         (dot~3 s~1 x@1)
+         (infix@5 * ux~3 h@2))
+        (infix@5 * vx~3 h@2))
+       (infix@S \2B
+        (dot~3 s~1 y@1)
+        (infix@5 * vy~3 h@2))
+       (infix@p \2B
+        (infix~9 \2B
+         (dot~3 s~1 z@1)
+         (infix@5 * uz~3 h@2))
+        (infix@5 * vz~3 h@2))nx@1,1 ny@5,1 nz@9,1 1.0@D,1 1.0@I,1 1.0@N,1 1.0@S,1 1.0@X,1 1.0@c,1))
+     (let@4,P d . . .
+      (call@D addVertex~9
+       (infix@E \2B
+        (infix~9 \2D
+         (dot~3 s~1 x@1)
+         (infix@5 * ux~3 h@2))
+        (infix@5 * vx~3 h@2))
+       (infix@S \2B
+        (dot~3 s~1 y@1)
+        (infix@5 * vy~3 h@2))
+       (infix@p \2B
+        (infix~9 \2D
+         (dot~3 s~1 z@1)
+         (infix@5 * uz~3 h@2))
+        (infix@5 * vz~3 h@2))nx@1,1 ny@5,1 nz@9,1 0.0@D,1 1.0@I,1 1.0@N,1 1.0@S,1 1.0@X,1 1.0@c,1))
+     (call@7,R addQuad~7 a@1 b@4 c@7 d@A)))
+   (call@A,a finishMesh~A)))
+ (proc@,3c buildClouds@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (comment)
+   (call@9,7 beginMesh~9)
+   (let@4,8 h . . . CloudSpan@4)
+   (let@4,9 a . . .
+    (call@D addVertex~9
+     (prefix@1 \2D h@1)CloudHeight@5
+     (prefix@I \2D h@1)0.0@M 1.0@R 0.0@W 0.0@b 0.0@g))
+   (let@4,A b . . .
+    (call@D addVertex~9 h@1 CloudHeight@4
+     (prefix@H \2D h@1)0.0@L 1.0@Q 0.0@V CloudTiles@a 0.0@m))
+   (let@4,B c . . .
+    (call@D addVertex~9 h@1 CloudHeight@4 h@H 0.0@K 1.0@P 0.0@U CloudTiles@Z CloudTiles@l))
+   (let@4,C d . . .
+    (call@D addVertex~9
+     (prefix@1 \2D h@1)CloudHeight@5 h@I 0.0@L 1.0@Q 0.0@V 0.0@a CloudTiles@f))
+   (call@7,E addQuad~7 d@1 c@4 b@7 a@A)
+   (call@A,F finishMesh~A)))
+ (proc@,3u resolvePart@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (comment)
+   (let@4,3 want . . .
+    (call@I partRequest~B))
+   (case@,4
+    (dot@9 want~4 locator@1)
+    (of@,1
+     (ranges "dome"@3)
+     (stmts@B
+      (call@9 buildDome~9)))
+    (of@,2
+     (ranges "horizon"@3)
+     (stmts@E
+      (call@C buildHorizon~C)))
+    (of@,3
+     (ranges "sun"@3)
+     (stmts@2,1
+      (call@I buildCelestialQuad~I SunHalfSpan@1 1.0@E
+       (oconstr~C,1 Tile~4
+        (kv@3 u0~2 0.0@2)
+        (kv@C v0~2 0.0@2)
+        (kv@L u1~2 1.0@2)
+        (kv@U v1~2 1.0@2)))
+      (call@A,2 useTexture~A
+       (call@B pictureUri~A Pictures@1 SunPicture@B))))
+    (of@,7
+     (ranges "moon"@3)
+     (stmts@2,1
+      (call@I buildCelestialQuad~I MoonHalfSpan@1 -1.0@F
+       (call@T moonTile~8 drawnPhase@1))
+      (call@A,1 useTexture~A
+       (call@B pictureUri~A Pictures@1 MoonPicture@B))))
+    (of@,A
+     (ranges "stars"@3)
+     (stmts@C
+      (call@A buildStars~A)))
+    (of@,B
+     (ranges "clouds"@3)
+     (stmts@2,1
+      (call@B buildClouds~B)
+      (call@A,1 useTexture~A
+       (call@B pictureUri~A Pictures@1 CloudPicture@B))))
+    (else@,E
+     (stmts@6
+      (discard .))))))
+ (comment@,4F)
+ (proc@,4P pictureReady@5 . . .
+  (params@H
+   (param@1 name . . string@6 .))bool@G . .
+  (stmts@2,1
+   (call@8 hasImage~8
+    (call@B pictureUri~A Pictures@1 name@B))))
+ (proc@,4V unsolid@5 . . .
+  (params@C
+   (param@1 thing . . Entity@7 .)). . .
+  (stmts@2,1
+   (comment)
+   (let@4,5 box . . .
+    (call@L
+     (dot~A thing~5 component@1)"UnityEngine.MeshCollider, UnityEngine.PhysicsModule"@1))
+   (if@,6
+    (elif@3
+     (prefix not
+      (call@H
+       (dot~A box~3 isNothing@1)))
+     (stmts@L
+      (call@7
+       (dot~4 box~3 set@1)"enabled"@1 false@C))))))
+ (proc@,4e place@5 . . .
+  (params@A
+   (param@1 thing . . Entity@7 .)
+   (param@G x . . float64@9 .)
+   (param@J y . . float64@6 .)
+   (param@M z . . float64@3 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@J
+       (dot~A thing~5 isNothing@1)))
+     (stmts@N
+      (call@E
+       (dot~9 thing~5 position@1)x@1 y@4 z@7))))))
+ (proc@,4j start@5 . . .
+  (params@A). . .
+  (stmts@2,1
+   (discard
+    (call@6,6
+     (dot~4
+      (call@4,~1
+       (dot~4
+        (call@4,~1
+         (dot~4
+          (call@4,~1
+           (dot~4
+            (call@4,~1
+             (dot~4
+              (call@4,~1
+               (dot~4
+                (call@D,~1 catalog~7 Parts@1 "aoughwl.part"@8 "The pieces of the sky"@O)put@1)"dome"@1
+               (infix@G & Scheme~7 "\3A//dome"@2))put@1)"horizon"@1
+             (infix@J & Scheme~7 "\3A//horizon"@2))put@1)"sun"@1
+           (infix@F & Scheme~7 "\3A//sun"@2))put@1)"moon"@1
+         (infix@G & Scheme~7 "\3A//moon"@2))put@1)"stars"@1
+       (infix@H & Scheme~7 "\3A//stars"@2))put@1)"clouds"@1
+     (infix@I & Scheme~7 "\3A//clouds"@2)))
+   (call@D,7 provideScheme~D Scheme@1)
+   (asgn@6,9 ticks~6
+    (call@7 float~5
+     (call@9 remember~8 "ticks"@1
+      (call@F int64~5 DawnTick@1))))
+   (asgn@B,A drawnPhase~B
+    (call@B moonPhase~9 ticks@1))
+   (asgn@5,C root~5
+    (call@E createObject~C "Sky"@1))
+   (asgn@5,D dome~5
+    (call@B spawnPart~9 Parts@1 "dome"@8 0.0@G 0.0@L 0.0@Q))
+   (asgn@8,E horizon~8
+    (call@B spawnPart~9 Parts@1 "horizon"@8 0.0@J 0.0@O 0.0@T))
+   (asgn@A,F starField~A
+    (call@B spawnPart~9 Parts@1 "stars"@8 0.0@H 0.0@M 0.0@R))
+   (call@7,G unsolid~7 dome@1)
+   (call@7,H unsolid~7 horizon@1)
+   (call@7,I unsolid~7 starField@1)
+   (call@6,J attach~6 starField@1 root@C false@I)
+   (let@4,P sun . . .
+    (call@I createObject~C "Sky Sun"@1))
+   (asgn@9,Q sunLight~9
+    (call@I
+     (dot~D sun~3 addComponent@1)"UnityEngine.Light, UnityEngine.CoreModule"@1))
+   (call@C,R
+    (dot~4 sunLight~8 set@1)"type"@1 "Directional"@9)
+   (call@C,S
+    (dot~4 sunLight~8 set@1)"shadows"@1 "Soft"@C)
+   (call@C,T
+    (dot~4 sunLight~8 set@1)"shadowStrength"@1 0.7@J)
+   (call@3,V log~3
+    (infix@Y,1 &
+     (infix@U,~1 &
+      (infix~D &
+       (infix~I &
+        (infix~M & "sky\3A a "~A
+         (prefix@2 $
+          (call@4 int~3 SecondsPerDay@1)))"-second day, "@2)
+       (prefix@2 $ StarCount@1))" star candidates, clouds at y="~11,1)
+     (prefix@2 $
+      (call@4 int~3 CloudHeight@1))))))
+ (proc@,5I update@5 . . .
+  (params@B). . .
+  (stmts@2,1
+   (asgn@6 ticks~6
+    (infix@8 \2B ticks~6
+     (infix@E *
+      (call~3 deltaTime~9)
+      (par@2
+       (infix@K /
+        (call~E float~5 TicksPerDay@1)SecondsPerDay@2)))))
+   (let@4,1 angle . . .
+    (call@M celestialAngle~E ticks@1))
+   (let@4,2 sky . . .
+    (call@F skyColour~9 temperature@1 ticks@E))
+   (let@4,3 glow . . .
+    (call@I sunriseGlow~B angle@1))
+   (let@4,4 sunAt . . .
+    (call@K sunDirection~C angle@1))
+   (let@4,5 cloud . . .
+    (call@J cloudColour~B ticks@1))
+   (let@4,6 stars . . .
+    (call@M starBrightness~E angle@1))
+   (let@4,7 level . . .
+    (call@L skyLightLevel~D angle@1))
+   (let@4,B ex . . .
+    (call@9 eyeX~4))
+   (let@4,C ey . . .
+    (call@9 eyeY~4))
+   (let@4,D ez . . .
+    (call@9 eyeZ~4))
+   (call@5,E place~5 root@1 ex@7 ey@B ez@F)
+   (call@5,F place~5 dome@1 ex@7 ey@B ez@F)
+   (call@5,G place~5 horizon@1 ex@A ey@E ez@I)
+   (let@4,K drift . . .
+    (call@I cloudDrift~A ticks@1))
+   (let@4,L cell . . .
+    (infix@u /
+     (infix~X * CloudCellBlocks~G
+      (par@2
+       (infix@H /
+        (infix~6 * CloudSpan~A 2.0@2)CloudTiles@2)))CloudCellBlocks@2))
+   (call@5,M place~5 clouds@1
+    (infix@C \2B ex~3
+     (par@2
+      (infix@7 \2D drift~6
+       (infix@R *
+        (call~K float~5
+         (call@4 int~3
+          (infix@7 / drift~6 cell@2)))cell@2))))ey@v ez@z)
+   (if@,R
+    (elif@3
+     (prefix not
+      (call@I
+       (dot~A root~4 isNothing@1)))
+     (stmts@M
+      (call@D
+       (dot~9 root~4 rotation@1)0.0@1 0.0@6
+       (call@R celestialDegrees~G angle@1)))))
+   (if@,T
+    (elif@3
+     (prefix not
+      (call@I
+       (dot~A dome~4 isNothing@1)))
+     (stmts@M
+      (call@A
+       (dot~6 dome~4 color@1)
+       (dot@4 sky~3 r@1)
+       (dot@B sky~3 g@1)
+       (dot@I sky~3 b@1)1.0@M))))
+   (if@,U
+    (elif@3
+     (prefix not
+      (call@L
+       (dot~A horizon~7 isNothing@1)))
+     (stmts@P
+      (call@D
+       (dot~6 horizon~7 color@1)
+       (dot@5 glow~4 r@1)
+       (dot@D glow~4 g@1)
+       (dot@L glow~4 b@1)
+       (dot@T glow~4 a@1)))))
+   (if@,V
+    (elif@3
+     (prefix not
+      (call@K
+       (dot~A clouds~6 isNothing@1)))
+     (stmts@O
+      (call@C
+       (dot~6 clouds~6 color@1)
+       (dot@6 cloud~5 r@1)
+       (dot@F cloud~5 g@1)
+       (dot@O cloud~5 b@1)0.85@S))))
+   (if@,W
+    (elif@3
+     (prefix not
+      (call@N
+       (dot~A starField~9 isNothing@1)))
+     (stmts@R
+      (call@F
+       (dot~6 starField~9 color@1)1.0@1 1.0@6 1.0@B
+       (infix@M * stars~6 2.0@2)))))
+   (if@,Y
+    (elif@3
+     (prefix not
+      (call@M
+       (dot~A sunLight~8 isNothing@1)))
+     (stmts~1,3
+      (let@4 up . . .
+       (if@5
+        (elif@3
+         (infix@8 >
+          (dot~3 sunAt~5 y@1)0.0@2)
+         (stmts@F
+          (dot@5 sunAt~5 y@1)))
+        (else@Q
+         (stmts@6 0.0))))
+      (call@C,1
+       (dot~4 sunLight~8 set@1)"intensity"@1
+       (infix@J \2B 0.15~5
+        (infix@7 * 0.95~5 up@2)))
+      (call@C,2
+       (dot~4 sunLight~8 set@1)"color"@1
+       (if@A
+        (elif@3
+         (infix@7 >
+          (dot~3 glow~4 a@1)0.05@2)
+         (stmts@F "\23ffd2a0"))
+        (else@S
+         (stmts@6 "\23fff2d8"))))
+      (let@4,3 sunObject . . . sunLight@C)
+      (discard@,4 sunObject@8))))
+   (let@4,j phase . . .
+    (call@H moonPhase~9 ticks@1))
+   (if@,p
+    (elif@3
+     (infix@K and
+      (call~3
+       (dot~A sunQuad~7 isNothing@1))
+      (call@G pictureReady~C SunPicture@1))
+     (stmts~1,1
+      (asgn@8 sunQuad~8
+       (call@B spawnPart~9 Parts@1 "sun"@8 0.0@F 0.0@K 0.0@P))
+      (call@7,1 unsolid~7 sunQuad@1)
+      (call@6,2 attach~6 sunQuad@1 root@A false@G))))
+   (if@,t
+    (elif@3
+     (infix@J and
+      (call~3
+       (dot~A clouds~6 isNothing@1))
+      (call@G pictureReady~C CloudPicture@1))
+     (stmts~1,1
+      (asgn@7 clouds~7
+       (call@B spawnPart~9 Parts@1 "clouds"@8 0.0@I 0.0@N 0.0@S))
+      (call@7,1 unsolid~7 clouds@1))))
+   (if@,w
+    (elif@3
+     (infix@k and
+      (par~k
+       (infix@M or
+        (call~3
+         (dot~A moonQuad~8 isNothing@1))
+        (infix@9 != phase~6 drawnPhase@3)))
+      (call~X,1 pictureReady~C MoonPicture@1))
+     (stmts~1,2
+      (asgn@B drawnPhase~B phase@2)
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@M
+          (dot~A moonQuad~8 isNothing@1)))
+        (stmts@Q
+         (call@G
+          (dot~8 moonQuad~8 destroy@1)))))
+      (asgn@9,2 moonQuad~9
+       (call@B spawnPart~9 Parts@1 "moon"@8 0.0@G 0.0@L 0.0@Q))
+      (call@7,3 unsolid~7 moonQuad@1)
+      (call@6,4 attach~6 moonQuad@1 root@B false@H))))
+   (call@3,16 log~3
+    (infix@E,3 &
+     (infix@r,~1 &
+      (infix~E &
+       (infix~C &
+        (infix~9 &
+         (infix~C &
+          (infix~9 &
+           (infix@v,~1 &
+            (infix~9 &
+             (infix~F &
+              (infix~9 &
+               (infix~E &
+                (infix~9 &
+                 (infix@g,~1 &
+                  (infix~9 &
+                   (infix~C &
+                    (infix~E & "\5Bassert\5D ticks="~I
+                     (prefix@2 $
+                      (call@4 int~3 ticks@1)))" angle="@2)
+                   (prefix@2 $ angle@1))" skyred="~r,1)
+                 (prefix@2 $
+                  (dot@4 sky~3 r@1)))" skyblue="@2)
+               (prefix@2 $
+                (dot@4 sky~3 b@1)))" daylight="@2)
+             (prefix@2 $ level@1))" phase="~15,1)
+           (prefix@2 $ phase@1))" stars="@2)
+         (prefix@2 $ stars@1))" drift="@2)
+       (prefix@2 $
+        (call@4 int~3 drift@1)))" pictures="~14,1)
+     (prefix@2 $
+      (par@1
+       (infix@c,1 \2B
+        (infix~1,~1 \2B
+         (expr
+          (stmts~a)
+          (if@1
+           (elif@3
+            (call@H
+             (dot~A sunQuad~7 isNothing@1))0@L)
+           (else@Q 1@6)))
+         (expr
+          (stmts~a,1)
+          (if@1
+           (elif@3
+            (call@I
+             (dot~A moonQuad~8 isNothing@1))0@M)
+           (else@R 1@6))))
+        (expr
+         (stmts~b,1)
+         (if@1
+          (elif@3
+           (call@G
+            (dot~A clouds~6 isNothing@1))0@K)
+          (else@P 1@6))))))))
+   (call@4,1C save~4 "ticks"@1
+    (call@F int64~5 ticks@1)))))

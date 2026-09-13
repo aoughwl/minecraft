@@ -1,0 +1,524 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,vxview.nim
+ (comment)
+ (import@,P vxray@7)
+ (import@,Q vxblocks@7)
+ (import@,R vxworld@7)
+ (type@I,T Perspective~D x . .
+  (enum@2 .
+   (efld~I,1 Inside . . . .)
+   (efld~I,4 Behind . . . .)
+   (efld~I,7 Facing . . . .)))
+ (const@E,f PullDistance~C x . . 4.0@4)
+ (const@D,h PullPadding~B x . . 0.1@4)
+ (const@F,l HeadTurnLimit~D x . . 50.0@4)
+ (const@E,o BodyTurnRate~C x . . 8.0@4)
+ (const@B,r BobStride~9 x . . 1.4@4)
+ (comment@,y)
+ (proc@,z nextPerspective@5 x . .
+  (params@L
+   (param@1 p . . Perspective@3 .))Perspective@I . .
+  (stmts@2,1
+   (case p@5
+    (of@,1
+     (ranges Inside@3)
+     (stmts@B Behind))
+    (of@,2
+     (ranges Behind@3)
+     (stmts@B Facing))
+    (of@,3
+     (ranges Facing@3)
+     (stmts@B Inside)))))
+ (comment@,15)
+ (proc@,16 perspectiveName@5 x . .
+  (params@L
+   (param@1 p . . Perspective@3 .))string@I . .
+  (stmts@2,1
+   (case p@5
+    (of@,1
+     (ranges Inside@3)
+     (stmts@B "first"))
+    (of@,2
+     (ranges Behind@3)
+     (stmts@B "behind"))
+    (of@,3
+     (ranges Facing@3)
+     (stmts@B "front")))))
+ (comment@,1C)
+ (proc@,1F perspectiveOf@5 x . .
+  (params@J
+   (param@1 name . . string@6 .))Perspective@G . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 == name~5 "behind"@3)
+     (stmts@I
+      (ret Behind@7))))
+   (if@,1
+    (elif@3
+     (infix@5 == name~5 "front"@3)
+     (stmts@H
+      (ret Facing@7))))Inside@,2))
+ (comment@,1K)
+ (proc@,1L drawsPlayer@5 x . .
+  (params@H
+   (param@1 p . . Perspective@3 .))bool@I . .
+  (stmts@g
+   (infix@2 != p~2 Inside@3)))
+ (comment@,1N)
+ (proc@,1O drawsHand@5 x . .
+  (params@F
+   (param@1 p . . Perspective@3 .))bool@I . .
+  (stmts@e
+   (infix@2 == p~2 Inside@3)))
+ (comment@,1Q)
+ (proc@,1S pullSign@5 x . .
+  (params@E
+   (param@1 p . . Perspective@3 .))float@I . .
+  (stmts@2,1
+   (case p@5
+    (of@,1
+     (ranges Inside@3)
+     (stmts@B 0.0))
+    (of@,2
+     (ranges Behind@3)
+     (stmts@B -1.0))
+    (of@,3
+     (ranges Facing@3)
+     (stmts@B 1.0)))))
+ (comment@,1b)
+ (proc@,1f wrapAngle@5 x . .
+  (params@F
+   (param@1 a . . float@3 .))float@C . .
+  (stmts@2,1
+   (asgn@7 result~7 a@2)
+   (while@,1
+    (infix@D > result~7 180.0@2)
+    (stmts@M
+     (asgn@7 result~7
+      (infix@9 \2D result~7 360.0@2))))
+   (while@,2
+    (infix@D <= result~7 -180.0@3)
+    (stmts@O
+     (asgn@7 result~7
+      (infix@9 \2B result~7 360.0@2))))))
+ (comment@,1k)
+ (proc@,1m angleBetween@5 x . .
+  (params@I
+   (param@1 a . . float@6 .)
+   (param@4 b . . float@3 .))float@F . .
+  (stmts@f
+   (call@9 wrapAngle~9
+    (infix@3 \2D b~2 a@2))))
+ (comment@,1o)
+ (proc@,1s cameraPitch@5 x . .
+  (params@H
+   (param@1 p . . Perspective@3 .)
+   (param@H pitch . . float@7 .))float@W . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@2 == p~2 Facing@3)
+     (stmts@D
+      (ret
+       (prefix@7 \2D pitch@1)))))pitch@,1))
+ (proc@,1w cameraYaw@5 x . .
+  (params@F
+   (param@1 p . . Perspective@3 .)
+   (param@H yaw . . float@5 .))float@U . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@2 == p~2 Facing@3)
+     (stmts@D
+      (ret
+       (call@G wrapAngle~9
+        (infix@5 \2B yaw~4 180.0@2))))))
+   (call@9,1 wrapAngle~9 yaw@1)))
+ (type@C,23 Probe~7 x . .
+  (object@2 .
+   (fld~A,5 dx~2 x . float@D .)
+   (fld~5,5 dy~2 x . float@8 .)
+   (fld@,5 dz~2 x . float@3 .)))
+ (const@G,2A ProbeCount~A x . . 8@4)
+ (proc@,2C probeAt@5 x . .
+  (params@D
+   (param@1 i . . int@3 .)
+   (param@9 padding . . float@9 .))Probe@Q . .
+  (stmts@2,1
+   (comment)
+   (var@4,2 x . . .
+    (prefix@4 \2D padding@1))
+   (var@4,3 y . . .
+    (prefix@4 \2D padding@1))
+   (var@4,4 z . . .
+    (prefix@4 \2D padding@1))
+   (if@,5
+    (elif@3
+     (infix@A !=
+      (par~A
+       (infix@3 and i~2 1@4))0@3)
+     (stmts@G
+      (asgn@2 x~2 padding@2))))
+   (if@,6
+    (elif@3
+     (infix@A !=
+      (par~A
+       (infix@3 and i~2 2@4))0@3)
+     (stmts@G
+      (asgn@2 y~2 padding@2))))
+   (if@,7
+    (elif@3
+     (infix@A !=
+      (par~A
+       (infix@3 and i~2 4@4))0@3)
+     (stmts@G
+      (asgn@2 z~2 padding@2))))
+   (oconstr@5,8 Probe~5
+    (kv@3 dx~2 x@2)
+    (kv@A dy~2 y@2)
+    (kv@H dz~2 z@2))))
+ (comment@,2N)
+ (proc@,2Z pullBack@5 x . .
+  (params@E
+   (param@1 w . . World@3 .)
+   (param@B r . . Registry@3 .)
+   (param@O hx . . float@O .)
+   (param@S hy . . float@K .)
+   (param@W hz . . float@G .)
+   (param@a fx . . float@C .)
+   (param@e fy . . float@8 .)
+   (param@i fz . . float@4 .)
+   (param@1,1 p . . Perspective@3 .)
+   (param@H,1 want . . . PullDistance@7)
+   (param@1,2 padding . . . PullPadding@A))float@P,2 . .
+  (stmts@2,3
+   (if
+    (elif@3
+     (infix@2 == p~2 Inside@3)
+     (stmts@D
+      (ret 0.0@7))))
+   (let@4,1 sign . . .
+    (call@F pullSign~8 p@1))
+   (let@4,2 dx . . .
+    (infix@8 * fx~3 sign@2))
+   (let@4,3 dy . . .
+    (infix@8 * fy~3 sign@2))
+   (let@4,4 dz . . .
+    (infix@8 * fz~3 sign@2))
+   (asgn@7,5 result~7 want@2)
+   (var@4,6 i . . . 0@4)
+   (while@,7
+    (infix@8 < i~2 ProbeCount@2)
+    (stmts@2,1
+     (let@4 probe . . .
+      (call@F probeAt~7 i@1 padding@4))
+     (let@4,1 hit . . .
+      (call@G traceWorld~A w@1 r@4
+       (infix@A \2B hx~3
+        (dot@7 probe~5 dx@1))
+       (infix@P \2B hy~3
+        (dot@7 probe~5 dy@1))
+       (infix@e \2B hz~3
+        (dot@7 probe~5 dz@1))dx~I,1 dy~E,1 dz~A,1
+       (infix~1,1 \2B want~5 padding@2)))
+     (if@,3
+      (elif@3
+       (dot@3 hit~3 found@1)
+       (stmts~1,1
+        (var@4 reach . . .
+         (infix@L \2D
+          (dot~A hit~3 distance@1)padding@2))
+        (if@,1
+         (elif@3
+          (infix@6 < reach~6 0.0@2)
+          (stmts@D
+           (asgn@6 reach~6 0.0@2))))
+        (if@,2
+         (elif@3
+          (infix@6 < reach~6 result@2)
+          (stmts@G
+           (asgn@7 result~7 reach@2)))))))
+     (cmd@,7 inc i@4)))))
+ (type@G,2t Placement~B x . .
+  (object@2 .
+   (fld~F,3 x~1 x . float@B .)
+   (fld~B,3 y~1 x . float@7 .)
+   (fld~7,3 z~1 x . float@3 .)
+   (fld~B,4 pitch~5 x . float@9 .)
+   (fld~5,4 yaw~3 x . float@3 .)))
+ (comment@,2z)
+ (proc@,31 cameraPlacement@5 x . .
+  (params@L
+   (param@1 p . . Perspective@3 .)
+   (param@H hx . . float@O .)
+   (param@L hy . . float@K .)
+   (param@P hz . . float@G .)
+   (param@T fx . . float@C .)
+   (param@X fy . . float@8 .)
+   (param@b fz . . float@4 .)
+   (param@1,1 pitch . . float@M .)
+   (param@8,1 yaw . . float@F .)
+   (param@D,1 distance . . float@A .))Placement@V,1 . .
+  (stmts@2,2
+   (let@4 sign . . .
+    (call@F pullSign~8 p@1))
+   (oconstr@9,1 Placement~9
+    (kv@2 x~1
+     (infix@5 \2B hx~3
+      (infix@C *
+       (infix~7 * fx~3 sign@2)distance@2)))
+    (kv@W y~1
+     (infix@5 \2B hy~3
+      (infix@C *
+       (infix~7 * fy~3 sign@2)distance@2)))
+    (kv~6,1 z~1
+     (infix@5 \2B hz~3
+      (infix@C *
+       (infix~7 * fz~3 sign@2)distance@2)))
+    (kv~2,2 pitch~5
+     (call@D cameraPitch~B p@1 pitch@4))
+    (kv@Q,2 yaw~3
+     (call@B cameraYaw~9 p@1 yaw@4)))))
+ (comment@,3B)
+ (proc@,3N walkYawFor@5 x . .
+  (params@G
+   (param@1 ahead . . float@D .)
+   (param@8 side . . float@6 .))float@M . .
+  (stmts@2,1
+   (const@6 Tan22 . . . 0.4142135623730951@8)
+   (var@4,1 a . . . ahead@4)
+   (if@,2
+    (elif@3
+     (infix@2 < a~2 0.0@2)
+     (stmts@9
+      (asgn@2 a~2
+       (prefix@2 \2D a@1)))))
+   (var@4,3 s . . . side@4)
+   (if@,4
+    (elif@3
+     (infix@2 < s~2 0.0@2)
+     (stmts@9
+      (asgn@2 s~2
+       (prefix@2 \2D s@1)))))
+   (if@,5
+    (elif@3
+     (infix@9 and
+      (infix~7 == a~2 0.0@3)
+      (infix@6 == s~2 0.0@3))
+     (stmts@N
+      (ret 0.0@7))))
+   (var@4,6 base . . . 45.0@7)
+   (if@,7
+    (elif@3
+     (infix@2 <= s~2
+      (infix@5 * a~2 Tan22@2))
+     (stmts@G
+      (asgn@5 base~5 0.0@2)))
+    (elif@5,1
+     (infix@2 <= a~2
+      (infix@5 * s~2 Tan22@2))
+     (stmts@G
+      (asgn@5 base~5 90.0@2))))
+   (if@,9
+    (elif@3
+     (infix@5 < side~5 0.0@2)
+     (stmts@C
+      (asgn@5 base~5
+       (prefix@2 \2D base@1)))))
+   (if@,A
+    (elif@3
+     (infix@6 < ahead~6 0.0@2)
+     (stmts@D
+      (ret
+       (call@G wrapAngle~9
+        (infix@7 \2D 180.0~6 base@2))))))base@,B))
+ (comment@,3b)
+ (proc@,3p bodyYawFor@5 x . .
+  (params@G
+   (param@1 bodyYaw . . float@R .)
+   (param@A headYaw . . float@I .)
+   (param@J moveYaw . . float@9 .)
+   (param@Z moving . . bool@8 .)
+   (param@1,1 blend . . float@7 .))float@G,1 . .
+  (stmts@2,2
+   (var@4 body . . .
+    (call@G wrapAngle~9 bodyYaw@1))
+   (if@,1
+    (elif@3 moving
+     (stmts~1,1
+      (var@4 step . . . blend@7)
+      (if@,1
+       (elif@3
+        (infix@5 < step~5 0.0@2)
+        (stmts@C
+         (asgn@5 step~5 0.0@2))))
+      (if@,2
+       (elif@3
+        (infix@5 > step~5 1.0@2)
+        (stmts@C
+         (asgn@5 step~5 1.0@2))))
+      (asgn@5,3 body~5
+       (call@B wrapAngle~9
+        (infix@6 \2B body~5
+         (infix@U *
+          (call~G angleBetween~C body@1 moveYaw@7)step@2)))))))
+   (let@4,6 turned . . .
+    (call@L angleBetween~C body@1
+     (call@G wrapAngle~9 headYaw@1)))
+   (if@,7
+    (elif@3
+     (infix@7 > turned~7 HeadTurnLimit@2)
+     (stmts~1,1
+      (asgn@5 body~5
+       (call@B wrapAngle~9
+        (infix@9 \2D headYaw~8 HeadTurnLimit@2)))))
+    (elif@5,2
+     (infix@7 < turned~7
+      (prefix@2 \2D HeadTurnLimit@1))
+     (stmts~3,1
+      (asgn@5 body~5
+       (call@B wrapAngle~9
+        (infix@9 \2B headYaw~8 HeadTurnLimit@2))))))body@,B))
+ (comment@,44)
+ (proc@,47 headTurn@5 x . .
+  (params@E
+   (param@1 bodyYaw . . float@I .)
+   (param@A headYaw . . float@9 .))float@R . .
+  (stmts@2,1
+   (call@C angleBetween~C
+    (call@A wrapAngle~9 bodyYaw@1)
+    (call@U wrapAngle~9 headYaw@1))))
+ (comment@,4D)
+ (proc@,4N bobLike@5 x . .
+  (params@D
+   (param@1 u . . float@3 .))float@C . .
+  (stmts@2,1
+   (var@4 t . . . u@4)
+   (while@,1
+    (infix@8 >= t~2 1.0@3)
+    (stmts@G
+     (asgn@2 t~2
+      (infix@4 \2D t~2 1.0@2))))
+   (while@,2
+    (infix@8 < t~2 0.0@2)
+    (stmts@F
+     (asgn@2 t~2
+      (infix@4 \2B t~2 1.0@2))))
+   (if@,3
+    (elif@3
+     (infix@2 < t~2 0.5@2)
+     (stmts~1,1
+      (let@4 h . . .
+       (infix@6 * t~2 2.0@2))
+      (ret@,1
+       (infix@F *
+        (infix~4 * 4.0~4 h@2)
+        (par@2
+         (infix@5 \2D 1.0~4 h@2)))))))
+   (let@4,6 h . . .
+    (infix@E *
+     (par~A
+      (infix@3 \2D t~2 0.5@2))2.0@2))
+   (prefix@,7 \2D
+    (par@1
+     (infix@9 *
+      (infix~4 * 4.0~4 h@2)
+      (par@2
+       (infix@5 \2D 1.0~4 h@2)))))))
+ (comment@,4X)
+ (proc@,4Y bobPhase@5 x . .
+  (params@E
+   (param@1 walked . . float@8 .)
+   (param@G stride . . . BobStride@9))float@b . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 <= stride~7 0.0@3)
+     (stmts@F
+      (ret 0.0@7))))
+   (var@4,1 t . . .
+    (infix@B / walked~7 stride@2))
+   (while@,2
+    (infix@8 >= t~2 1.0@3)
+    (stmts@G
+     (asgn@2 t~2
+      (infix@4 \2D t~2 1.0@2))))
+   (while@,3
+    (infix@8 < t~2 0.0@2)
+    (stmts@F
+     (asgn@2 t~2
+      (infix@4 \2B t~2 1.0@2))))t@,4))
+ (type@B,4f Hand~6 x . .
+  (object@2 .
+   (fld~6,5 right~5 x . float@G .)
+   (fld~1,5 up~2 x . float@B .)
+   (fld@7,5 ahead~5 x . float@3 .)
+   (fld~7,6 roll~4 x . float@3 .)))
+ (const@B,4o HandRight~9 x . . 0.36@4)
+ (const@8,4p HandUp~6 x . . -0.28@4)
+ (const@B,4q HandAhead~9 x . . 0.52@4)
+ (const@9,4t BobSway~7 x . . 0.06@4)
+ (const@9,4u BobLift~7 x . . 0.045@4)
+ (const@9,4v BobRoll~7 x . . 3.2@4)
+ (comment@,4x)
+ (proc@,56 handAt@5 x . .
+  (params@C
+   (param@1 p . . Perspective@3 .)
+   (param@H walked . . float@F .)
+   (param@P speed . . float@7 .)
+   (param@1,1 stride . . . BobStride@9))Hand@M,1 . .
+  (stmts@2,2
+   (asgn@7 result~7
+    (oconstr@6 Hand~4
+     (kv@6 right~5 HandRight@2)
+     (kv@L up~2 HandUp@2)
+     (kv@a ahead~5 HandAhead@2)
+     (kv@r roll~4 0.0@2)))
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@D drawsHand~9 p@1))
+     (stmts@I
+      (ret .))))
+   (var@4,2 amount . . . speed@9)
+   (if@,3
+    (elif@3
+     (infix@7 < amount~7 0.0@2)
+     (stmts@E
+      (asgn@7 amount~7 0.0@2))))
+   (if@,4
+    (elif@3
+     (infix@7 > amount~7 1.0@2)
+     (stmts@E
+      (asgn@7 amount~7 1.0@2))))
+   (if@,5
+    (elif@3
+     (infix@7 == amount~7 0.0@3)
+     (stmts@F
+      (ret .))))
+   (let@4,6 phase . . .
+    (call@G bobPhase~8 walked@1 stride@9))
+   (let@4,7 sway . . .
+    (call@E bobLike~7 phase@1))
+   (let@4,8 lift . . .
+    (call@E bobLike~7
+     (infix@7 * phase~6 2.0@2)))
+   (asgn@D,9
+    (dot~7 result~6 right@1)
+    (infix@F \2B
+     (dot~7 result~6 right@1)
+     (infix@H *
+      (infix~A * sway~5 BobSway@2)amount@2)))
+   (asgn@A,A
+    (dot~4 result~6 up@1)
+    (infix@C \2B
+     (dot~4 result~6 up@1)
+     (infix@H *
+      (infix~A * lift~5 BobLift@2)amount@2)))
+   (asgn@C,B
+    (dot~6 result~6 roll@1)
+    (infix@H *
+     (infix~A * sway~5 BobRoll@2)amount@2)))))

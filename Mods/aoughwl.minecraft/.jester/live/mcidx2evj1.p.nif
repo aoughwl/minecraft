@@ -1,0 +1,543 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,mcitem.nim
+ (comment)
+ (import@,e mcjson@7)
+ (import@,f mcmodel@7)
+ (const@B,i ItemBlock~9 x . . 0@4)
+ (const@F,k ItemGenerated~D x . . 1@4)
+ (const@C,m ItemEntity~A x . . 2@4)
+ (const@D,o ItemUnknown~B x . . 3@4)
+ (const@F,q MaxItemLayers~D x . . 8@4)
+ (comment@,u)
+ (proc@,x classifyItem@5 x . .
+  (params@I
+   (param@1 docs . .
+    (at@9 seq~3 Json@1).))int@J . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@K >=
+      (call~7 geometryLayer~D docs@1)0@3)
+     (stmts@Q
+      (ret ItemBlock@7))))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 docs~4 len@1))
+    (stmts@2,1
+     (let@4 parent . . .
+      (call@H parentOf~8
+       (at@5 docs~4 i@1)))
+     (if@,1
+      (elif@3
+       (call@9 isBuiltin~9 parent@1)
+       (stmts~1,1
+        (let@4 path . . .
+         (call@J resourcePath~C parent@1))
+        (if@,1
+         (elif@3
+          (infix@5 == path~5 "builtin/entity"@3)
+          (stmts@Q
+           (ret ItemEntity@7))))
+        (ret@,2 ItemGenerated@7))))
+     (cmd@,5 inc i@4)))ItemUnknown@,9))
+ (comment@,19)
+ (proc@,1F layersOf@5 x . .
+  (params@E
+   (param@1 t . . Textures@3 .))
+  (at@I seq~3 string@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2 MaxItemLayers@2)
+    (stmts@2,1
+     (let@4 name . . .
+      (call@L resolveTexture~E t@1
+       (infix@D & "\23layer"~9
+        (prefix@2 $ i@1))))
+     (if@,1
+      (elif@3
+       (infix@9 ==
+        (dot~5 name~4 len@1)0@3)
+       (stmts@F
+        (ret result@7))))
+     (cmd@6,2
+      (dot result~6 add@1)name@5)
+     (cmd@,3 inc i@4)))))
+ (comment@,1O)
+ (proc@,1R predicateCount@5 x . .
+  (params@K
+   (param@1 doc . . Json@5 .))int@D . .
+  (stmts@2,1
+   (let@4 node . . .
+    (call@D member~6 doc@1
+     (dot@9 doc~3 root@1)"overrides"@G))
+   (if@,1
+    (elif@3
+     (infix@9 or
+      (infix~4 < node~5 0@2)
+      (infix@L !=
+       (call~C kindAt~6 doc@1 node@6)jArray@3))
+     (stmts@f
+      (ret 0@7))))
+   (call@3,2 len~3 doc@1 node@6)))
+ (comment@,1W)
+ (proc@,1Z sixteenths@5 x . .
+  (params@G
+   (param@1 n . . int@3 .))string@A . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 $
+     (par@1
+      (infix@3 div n~2 16@4))))
+   (let@4,1 rest . . .
+    (infix@I *
+     (par~B
+      (infix@3 mod n~2 16@4))625@2))
+   (if@,2
+    (elif@3
+     (infix@5 == rest~5 0@3)
+     (stmts@B
+      (ret result@7))))
+   (cmd@6,3
+    (dot result~6 add@1)"."@5)
+   (var@4,4 digits . . .
+    (prefix@9 $ rest@1))
+   (var@4,5 pad . . .
+    (infix@8 \2D 4~2
+     (dot@8 digits~6 len@1)))
+   (while@,6
+    (infix@A > pad~4 0@2)
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)"0"@5)
+     (cmd@,1 dec pad@4)))
+   (cmd@6,9
+    (dot result~6 add@1)digits@5)))
+ (comment@,1l)
+ (proc@,1v generatedJson@5 x . .
+  (params@J
+   (param@1 layers . .
+    (at@B seq~3 string@1).))string@N . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@B ==
+      (dot~5 layers~6 len@1)0@3)
+     (stmts@H
+      (ret ""@7))))
+   (asgn@7,1 result~7 "\7B\22textures\22\3A \7B"@2)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@8 layers~6 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 > i~2 0@2)
+       (stmts@7
+        (cmd@6
+         (dot result~6 add@1)", "@5))))
+     (cmd@6,1
+      (dot result~6 add@1)"\22layer"@5)
+     (cmd@6,2
+      (dot result~6 add@1)
+      (prefix@5 $ i@1))
+     (cmd@6,3
+      (dot result~6 add@1)"\22\3A \22"@5)
+     (var@4,4 j . . . 0@4)
+     (while@,5
+      (infix@8 < j~2
+       (dot@B
+        (at~3 layers~6 i@1)len@1))
+      (stmts@2,4
+       (let@4 c . . .
+        (at@D
+         (at~3 layers~6 i@1)j@1))
+       (if@,1
+        (elif@3
+         (infix@9 and
+          (infix~7 != c~2 '\22'@3)
+          (infix@6 != c~2 '\5C'@3))
+         (stmts@O
+          (cmd@6
+           (dot result~6 add@1)c@5))))
+       (cmd@,2 inc j@4)))
+     (cmd@6,C
+      (dot result~6 add@1)"\22"@5)
+     (cmd@,D inc i@4)))
+   (cmd@6,I
+    (dot result~6 add@1)"\7D, \22elements\22\3A \5B"@5)
+   (asgn@2,J i~2 0@2)
+   (while@,K
+    (infix@8 < i~2
+     (dot@8 layers~6 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 > i~2 0@2)
+       (stmts@7
+        (cmd@6
+         (dot result~6 add@1)", "@5))))
+     (cmd@6,4
+      (dot result~6 add@1)"\7B\22from\22\3A \5B0, 0, "@5)
+     (cmd@6,5
+      (dot result~6 add@1)
+      (call@F sixteenths~A
+       (infix@5 \2B 120~4 i@2)))
+     (cmd@6,6
+      (dot result~6 add@1)"\5D, \22to\22\3A \5B16, 16, "@5)
+     (cmd@6,7
+      (dot result~6 add@1)
+      (call@F sixteenths~A
+       (infix@5 \2B 136~4 i@2)))
+     (cmd@6,8
+      (dot result~6 add@1)"\5D, \22faces\22\3A \7B\22north\22\3A \7B\22texture\22\3A \22\23layer"@5)
+     (cmd@6,9
+      (dot result~6 add@1)
+      (prefix@5 $ i@1))
+     (cmd@6,A
+      (dot result~6 add@1)"\22\7D, \22south\22\3A \7B\22texture\22\3A \22\23layer"@5)
+     (cmd@6,B
+      (dot result~6 add@1)
+      (prefix@5 $ i@1))
+     (cmd@6,C
+      (dot result~6 add@1)"\22\7D\7D\7D"@5)
+     (cmd@,D inc i@4)))
+   (cmd@6,Z
+    (dot result~6 add@1)"\5D\7D"@5)))
+ (comment@,2X)
+ (proc@,2Z bakeGenerated@5 x . .
+  (params@J
+   (param@1 layers . .
+    (at@B seq~3 string@1).))Bake@N . .
+  (stmts@2,1
+   (var@4 t . . .
+    (oconstr@C Textures~8
+     (kv@5 keys~4
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@G vals~4
+      (prefix@2 \40
+       (bracket@1)))))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@8 layers~6 len@1))
+    (stmts@2,1
+     (cmd@6
+      (dot
+       (dot~5 t~1 keys@1)add@1)
+      (infix@D & "layer"~8
+       (prefix@2 $ i@1)))
+     (cmd@6,1
+      (dot
+       (dot~5 t~1 vals@1)add@1)
+      (at@B layers~6 i@1))
+     (cmd@,2 inc i@4)))
+   (let@4,6 body . . .
+    (call@K generatedJson~D layers@1))
+   (if@,7
+    (elif@3
+     (infix@9 ==
+      (dot~5 body~4 len@1)0@3)
+     (stmts~1,1
+      (asgn@7 result~7
+       (oconstr@6 Bake~4
+        (kv@6 count~5 0@2)
+        (kv@I texture~7
+         (prefix@2 \40
+          (bracket@1)))
+        (kv@T face~4
+         (prefix@2 \40
+          (bracket@1)))
+        (kv@e tint~4
+         (prefix@2 \40
+          (bracket@1)))
+        (kv@p cull~4
+         (prefix@2 \40
+          (bracket@1)))
+        (kv@4,1 pos~3
+         (prefix@2 \40
+          (bracket@1)))
+        (kv@F,1 norm~4
+         (prefix@2 \40
+          (bracket@1)))
+        (kv@O,1 uv~2
+         (prefix@2 \40
+          (bracket@1)))
+        (kv@8,2 problem~7 "this item names no layer0 texture"@2)
+        (kv@s,2 skipped~7 0@2)))
+      (ret@,3 result@7))))
+   (let@4,C doc . . .
+    (call@F parseJson~9 body@1))
+   (if@,D
+    (elif@3
+     (infix@G >
+      (dot~5
+       (dot~8 doc~3 problem@1)len@1)0@2)
+     (stmts~1,1
+      (asgn@7 result~7
+       (oconstr@6 Bake~4
+        (kv@6 count~5 0@2)
+        (kv@I texture~7
+         (prefix@2 \40
+          (bracket@1)))
+        (kv@T face~4
+         (prefix@2 \40
+          (bracket@1)))
+        (kv@e tint~4
+         (prefix@2 \40
+          (bracket@1)))
+        (kv@p cull~4
+         (prefix@2 \40
+          (bracket@1)))
+        (kv@4,1 pos~3
+         (prefix@2 \40
+          (bracket@1)))
+        (kv@F,1 norm~4
+         (prefix@2 \40
+          (bracket@1)))
+        (kv@O,1 uv~2
+         (prefix@2 \40
+          (bracket@1)))
+        (kv@8,2 problem~7
+         (infix@g & "the generated model would not parse\3A "~e
+          (dot@5 doc~3 problem@1)))
+        (kv@8,3 skipped~7 0@2)))
+      (ret@,4 result@7))))
+   (call@C,J bakeElements~C doc@1
+    (call@C member~6 doc@1
+     (dot@9 doc~3 root@1)"elements"@G)t@f)))
+ (comment@,2v)
+ (proc@,2z itemTexturePath@5 x . .
+  (params@L
+   (param@1 reference . . string@B .))string@L . .
+  (stmts@2,1
+   (infix@c &
+    (infix~Q & "textures/"~C
+     (call@E resourcePath~C reference@1))".png"@2)))
+ (const@K,3m MaxDefinitionDepth~I x . . 8@4)
+ (comment@,3q)
+ (proc@,3u isItemDefinition@5 x . .
+  (params@M
+   (param@1 doc . . Json@5 .))bool@D . .
+  (stmts@2,1
+   (let@4 node . . .
+    (call@D member~6 doc@1
+     (dot@9 doc~3 root@1)"model"@G))
+   (infix@A,1 and
+    (infix~5 >= node~5 0@3)
+    (infix@M ==
+     (call~C kindAt~6 doc@1 node@6)jObject@3))))
+ (comment@,3y)
+ (proc@,40 isItemModel@5 x . .
+  (params@H
+   (param@1 doc . . Json@5 .))bool@D . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@G isItemDefinition~G doc@1)
+     (stmts@N
+      (ret false@7))))
+   (infix@f,2 or
+    (infix~4,~1 or
+     (infix~5 >=
+      (call~Q member~6 doc@1
+       (dot@9 doc~3 root@1)"parent"@G)0@3)
+     (infix~1,1 >=
+      (call~S member~6 doc@1
+       (dot@9 doc~3 root@1)"elements"@G)0@3))
+    (infix~5,1 >=
+     (call~S member~6 doc@1
+      (dot@9 doc~3 root@1)"textures"@G)0@3))))
+ (proc@,46 modelWithin@5 . . .
+  (params@G
+   (param@1 doc . . Json@5 .)
+   (param@C node . . int@D .)
+   (param@I depth . . int@7 .))string@V . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 or
+      (infix~4 < node~5 0@2)
+      (infix@9 > depth~6 MaxDefinitionDepth@2))
+     (stmts@e
+      (ret ""@7))))
+   (if@,1
+    (elif@3
+     (infix@I !=
+      (call~C kindAt~6 doc@1 node@6)jObject@3)
+     (stmts@U
+      (ret ""@7))))
+   (let@4,2 tag . . .
+    (call@A text~4 doc@1
+     (call@C member~6 doc@1 node@6 "type"@C)))
+   (if@,3
+    (elif@3
+     (infix@P or
+      (infix~L == tag~4 "minecraft\3Amodel"@3)
+      (infix@7 == tag~4 "model"@3))
+     (stmts~1,1
+      (let@4 named . . .
+       (call@E member~6 doc@1 node@6 "model"@C))
+      (if@,1
+       (elif@3
+        (infix@J ==
+         (call~D kindAt~6 doc@1 named@6)jString@3)
+        (stmts@V
+         (ret
+          (call@B text~4 doc@1 named@6))))))))
+   (let@4,9 base . . .
+    (call@D member~6 doc@1 node@6 "base"@C))
+   (if@,A
+    (elif@3
+     (infix@I ==
+      (call~C kindAt~6 doc@1 base@6)jString@3)
+     (stmts@U
+      (ret
+       (call@B text~4 doc@1 base@6)))))
+   (var@4,D pick . . .
+    (call@I modelWithin~B doc@1
+     (call@C member~6 doc@1 node@6 "fallback"@C)
+     (infix@h \2B depth~6 1@2)))
+   (if@,E
+    (elif@3
+     (infix@9 >
+      (dot~5 pick~4 len@1)0@2)
+     (stmts@E
+      (ret pick@7))))
+   (asgn@5,F pick~5
+    (call@D modelWithin~B doc@1
+     (call@C member~6 doc@1 node@6 "on_false"@C)
+     (infix@h \2B depth~6 1@2)))
+   (if@,G
+    (elif@3
+     (infix@9 >
+      (dot~5 pick~4 len@1)0@2)
+     (stmts@E
+      (ret pick@7))))
+   (asgn@5,H pick~5
+    (call@D modelWithin~B doc@1
+     (call@C member~6 doc@1 node@6 "on_true"@C)
+     (infix@g \2B depth~6 1@2)))
+   (if@,I
+    (elif@3
+     (infix@9 >
+      (dot~5 pick~4 len@1)0@2)
+     (stmts@E
+      (ret pick@7))))
+   (const@6,N Lists . . .
+    (bracket@8 "cases"@1 "entries"@A "models"@L))
+   (var@4,O l . . . 0@4)
+   (while@,P
+    (infix@8 < l~2 3@2)
+    (stmts@2,1
+     (let@4 list . . .
+      (call@D member~6 doc@1 node@6
+       (at@H Lists~5 l@1)))
+     (cmd@,1 inc l@4)
+     (if@,2
+      (elif@3
+       (infix@I !=
+        (call~C kindAt~6 doc@1 list@6)jArray@3)
+       (stmts@T
+        (continue .))))
+     (var@4,3 i . . . 0@4)
+     (while@,4
+      (infix@8 < i~2
+       (call@5 len~3 doc@1 list@6))
+      (stmts@2,1
+       (let@4 entry . . .
+        (call@C item~4 doc@1 list@6 i@C))
+       (cmd@,1 inc i@4)
+       (asgn@5,2 pick~5
+        (call@D modelWithin~B doc@1
+         (call@C member~6 doc@1 entry@6 "model"@D)
+         (infix@f \2B depth~6 1@2)))
+       (if@,3
+        (elif@3
+         (infix@9 >
+          (dot~5 pick~4 len@1)0@2)
+         (stmts@E
+          (ret pick@7))))
+       (asgn@5,4 pick~5
+        (call@D modelWithin~B doc@1 entry@6
+         (infix@J \2B depth~6 1@2)))
+       (if@,5
+        (elif@3
+         (infix@9 >
+          (dot~5 pick~4 len@1)0@2)
+         (stmts@E
+          (ret pick@7))))))))""@,b))
+ (comment@,4k)
+ (proc@,4n definitionModel@5 x . .
+  (params@L
+   (param@1 doc . . Json@5 .))string@D . .
+  (stmts@2,1
+   (call@B modelWithin~B doc@1
+    (call@C member~6 doc@1
+     (dot@9 doc~3 root@1)"model"@G)0@c)))
+ (comment@,4q)
+ (proc@,4u definitionCases@5 x . .
+  (params@L
+   (param@1 doc . . Json@5 .))int@D . .
+  (stmts@2,1
+   (let@4 node . . .
+    (call@D member~6 doc@1
+     (dot@9 doc~3 root@1)"model"@G))
+   (if@,1
+    (elif@3
+     (infix@I !=
+      (call~C kindAt~6 doc@1 node@6)jObject@3)
+     (stmts@U
+      (ret 0@7))))
+   (let@4,2 tag . . .
+    (call@A text~4 doc@1
+     (call@C member~6 doc@1 node@6 "type"@C)))
+   (if@,3
+    (elif@3
+     (infix@P or
+      (infix~L == tag~4 "minecraft\3Amodel"@3)
+      (infix@7 == tag~4 "model"@3))
+     (stmts@i
+      (ret 0@7))))
+   (var@4,4 total . . . 0@8)
+   (const@6,5 Lists . . .
+    (bracket@8 "cases"@1 "entries"@A "models"@L))
+   (var@4,6 l . . . 0@4)
+   (while@,7
+    (infix@8 < l~2 3@2)
+    (stmts@2,1
+     (let@4 list . . .
+      (call@D member~6 doc@1 node@6
+       (at@H Lists~5 l@1)))
+     (cmd@,1 inc l@4)
+     (if@,2
+      (elif@3
+       (infix@I ==
+        (call~C kindAt~6 doc@1 list@6)jArray@3)
+       (stmts@T
+        (asgn@6 total~6
+         (infix@8 \2B total~6
+          (call@5 len~3 doc@1 list@6))))))))
+   (if@,B
+    (elif@3
+     (infix@U >=
+      (call~O member~6 doc@1 node@6 "fallback"@C)0@3)
+     (stmts@a
+      (asgn@6 total~6
+       (infix@8 \2B total~6 1@2)))))total@,C))
+ (comment@,59)
+ (proc@,5B itemDefinitionPath@5 x . .
+  (params@O
+   (param@1 name . . string@6 .))string@G . .
+  (stmts@2,1
+   (infix@U &
+    (infix~L & "items/"~9
+     (call@E resourcePath~C name@1))".json"@2))))

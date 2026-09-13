@@ -1,0 +1,820 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,mcrecipe.nim
+ (comment)
+ (import@,e mcjson@7)
+ (import@,f mcmodel@7)
+ (const@8,i Shaped~6 x . . 0@4)
+ (const@B,j Shapeless~9 x . . 1@4)
+ (const@7,k Other~5 x . . 2@4)
+ (const@9,m MaxGrid~7 x . . 9@4)
+ (type@A,r Recipe~8 x . .
+  (object@2 .
+   (fld~4,1 kind~4 x . int@3 .)
+   (fld@,2 typeName~8 x . string@3 .)
+   (fld~3,3 group~5 x . string@3 .)
+   (fld~3,4 width~5 x . int@C .)
+   (fld@6,4 height~6 x . int@3 .)
+   (fld~4,5 slot~4 x .
+    (at@6 seq~3 string@1).)
+   (fld~4,6 part~4 x .
+    (at@6 seq~3 string@1).)
+   (fld~4,7 made~4 x . string@3 .)
+   (fld~3,8 count~5 x . int@3 .)
+   (fld~1,9 problem~7 x . string@3 .)))
+ (proc@,12 noRecipe@5 x . .
+  (params@E)Recipe@4 . .
+  (stmts@2,1
+   (oconstr@6 Recipe~6
+    (kv@5 kind~4 Other@2)
+    (kv@M typeName~8 ""@2)
+    (kv@X group~5 ""@2)
+    (kv@i width~5 0@2)
+    (kv@t height~6 0@2)
+    (kv@5,1 slot~4
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@G,1 part~4
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@R,1 made~4 ""@2)
+    (kv@c,1 count~5 1@2)
+    (kv@o,1 problem~7 ""@2))))
+ (comment@,16)
+ (proc@,19 readIngredient@5 x . .
+  (params@K
+   (param@1 doc . . Json@5 .)
+   (param@C node . . int@6 .))string@O . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (if@,1
+    (elif@3
+     (infix@5 < node~5 0@2)
+     (stmts@A
+      (ret result@7))))
+   (if@,2
+    (elif@3
+     (infix@I ==
+      (call~C kindAt~6 doc@1 node@6)jString@3)
+     (stmts~1,1
+      (ret
+       (call@B text~4 doc@1 node@6)))))
+   (if@,4
+    (elif@3
+     (infix@I ==
+      (call~C kindAt~6 doc@1 node@6)jArray@3)
+     (stmts~1,1
+      (var@4 i . . . 0@4)
+      (while@,1
+       (infix@8 < i~2
+        (call@5 len~3 doc@1 node@6))
+       (stmts@2,1
+        (let@4 one . . .
+         (call@K readIngredient~E doc@1
+          (call@A item~4 doc@1 node@6 i@C)))
+        (if@,1
+         (elif@3
+          (infix@8 >
+           (dot~5 one~3 len@1)0@2)
+          (stmts~1,1
+           (if
+            (elif@3
+             (infix@B >
+              (dot~5 result~6 len@1)0@2)
+             (stmts@G
+              (cmd@6
+               (dot result~6 add@1)"|"@5))))
+           (cmd@6,1
+            (dot result~6 add@1)one@5))))
+        (cmd@,4 inc i@4)))
+      (ret@,7 result@7))))
+   (if@,D
+    (elif@3
+     (infix@I !=
+      (call~C kindAt~6 doc@1 node@6)jObject@3)
+     (stmts@U
+      (ret result@7))))
+   (let@4,E item0 . . .
+    (call@E member~6 doc@1 node@6 "item"@C))
+   (if@,F
+    (elif@3
+     (infix@6 >= item0~6 0@3)
+     (stmts@C
+      (ret
+       (call@B text~4 doc@1 item0@6)))))
+   (let@4,G tag . . .
+    (call@C member~6 doc@1 node@6 "tag"@C))
+   (if@,H
+    (elif@3
+     (infix@4 >= tag~4 0@3)
+     (stmts@A
+      (ret
+       (infix@B & "\23"~4
+        (call@6 text~4 doc@1 tag@6))))))
+   (call@E,J readIngredient~E doc@1
+    (call@C member~6 doc@1 node@6 "items"@C))))
+ (proc@,1V readResult@5 . . .
+  (params@F
+   (param@1 doc . . Json@5 .)
+   (param@C node . . int@6 .)
+   (param@N made . .
+    (mut@6 string@4).)
+   (param@f count . .
+    (mut@7 int@4).)). . .
+  (stmts@2,1
+   (asgn@5 made~5 ""@2)
+   (asgn@6,1 count~6 1@2)
+   (if@,2
+    (elif@3
+     (infix@5 < node~5 0@2)
+     (stmts@A
+      (ret .))))
+   (if@,3
+    (elif@3
+     (infix@I ==
+      (call~C kindAt~6 doc@1 node@6)jString@3)
+     (stmts~1,1
+      (asgn@5 made~5
+       (call@6 text~4 doc@1 node@6))
+      (ret@,1 .))))
+   (let@4,6 id . . .
+    (call@B member~6 doc@1 node@6 "id"@C))
+   (if@,7
+    (elif@3
+     (infix@3 >= id~3 0@3)
+     (stmts@9
+      (asgn@5 made~5
+       (call@6 text~4 doc@1 id@6))))
+    (else@,1
+     (stmts@6
+      (asgn@5 made~5
+       (call@6 text~4 doc@1
+        (call@C member~6 doc@1 node@6 "item"@C))))))
+   (asgn@6,9 count~6
+    (call@5 int~3
+     (call@7 number~6 doc@1
+      (call@C member~6 doc@1 node@6 "count"@C)1.0@Y)))
+   (if@,A
+    (elif@3
+     (infix@6 < count~6 1@2)
+     (stmts@B
+      (asgn@6 count~6 1@2))))))
+ (proc@,1i readShaped@5 . . .
+  (params@F
+   (param@1 r . .
+    (mut@3 Recipe@4).)
+   (param@G doc . . Json@5 .)). . .
+  (stmts@2,1
+   (let@4 pattern . . .
+    (call@G member~6 doc@1
+     (dot@9 doc~3 root@1)"pattern"@G))
+   (let@4,1 keys . . .
+    (call@D member~6 doc@1
+     (dot@9 doc~3 root@1)"key"@G))
+   (if@,2
+    (elif@3
+     (infix@k or
+      (infix~Y or
+       (infix~4 < pattern~8 0@2)
+       (infix@O !=
+        (call~F kindAt~6 doc@1 pattern@6)jArray@3))
+      (infix@L ==
+       (call~F len~3 doc@1 pattern@6)0@3))
+     (stmts~1,1
+      (asgn@A
+       (dot~9 r~1 problem@1)"a shaped recipe with no pattern"@2)
+      (ret@,1 .))))
+   (asgn@9,5
+    (dot~8 r~1 height@1)
+    (call@5 len~3 doc@1 pattern@6))
+   (var@4,6 row . . . 0@6)
+   (while@,7
+    (infix@A < row~4
+     (dot@3 r~1 height@1))
+    (stmts@2,1
+     (let@4 line . . .
+      (call@B text~4 doc@1
+       (call@A item~4 doc@1 pattern@6 row@F)))
+     (if@,1
+      (elif@3
+       (infix@9 >
+        (dot~5 line~4 len@1)
+        (dot@3 r~1 width@1))
+       (stmts@K
+        (asgn@8
+         (dot~7 r~1 width@1)
+         (dot@6 line~4 len@1)))))
+     (cmd@,2 inc row@4)))
+   (if@,B
+    (elif@3
+     (infix@C or
+      (infix~4 <
+       (dot~7 r~1 width@1)1@2)
+      (infix@M >
+       (infix~B *
+        (dot~7 r~1 width@1)
+        (dot@3 r~1 height@1))MaxGrid@2))
+     (stmts~1,1
+      (asgn@7
+       (dot~6 r~1 kind@1)Other@2)
+      (asgn@A,1
+       (dot~9 r~1 problem@1)
+       (infix@d &
+        (infix~C &
+         (infix~9 &
+          (infix~B & "a "~5
+           (prefix@2 $
+            (dot@2 r~1 width@1)))" by "@2)
+         (prefix@2 $
+          (dot@2 r~1 height@1)))" pattern is not a crafting grid"~l,1))
+      (ret@,3 .))))
+   (asgn@4,G row~4 0@2)
+   (while@,H
+    (infix@A < row~4
+     (dot@3 r~1 height@1))
+    (stmts@2,1
+     (let@4 line . . .
+      (call@B text~4 doc@1
+       (call@A item~4 doc@1 pattern@6 row@F)))
+     (var@4,1 col . . . 0@6)
+     (while@,2
+      (infix@A < col~4
+       (dot@3 r~1 width@1))
+      (stmts@2,1
+       (var@4 name . . . ""@7)
+       (if@,1
+        (elif@3
+         (infix@F and
+          (infix~B < col~4
+           (dot@6 line~4 len@1))
+          (infix@E !=
+           (at~6 line~4 col@1)' '@3))
+         (stmts~1,1
+          (var@4 symbol . . . ""@9)
+          (cmd@6,1
+           (dot symbol~6 add@1)
+           (at@9 line~4 col@1))
+          (let@4,2 entry . . .
+           (call@E member~6 doc@1 keys@6 symbol@C))
+          (if@,3
+           (elif@3
+            (infix@6 < entry~6 0@2)
+            (stmts~1,1
+             (if
+              (elif@3
+               (infix@E ==
+                (dot~5
+                 (dot~8 r~1 problem@1)len@1)0@3)
+               (stmts~1,1
+                (asgn@A
+                 (dot~9 r~1 problem@1)
+                 (infix@W &
+                  (infix~9 & "the pattern uses \27"~L symbol@2)"\27, which the key does not define"@2)))))))
+           (else@,3
+            (stmts@2,1
+             (asgn@5 name~5
+              (call@G readIngredient~E doc@1 entry@6))))))))
+       (cmd@6,A
+        (dot
+         (dot~5 r~1 slot@1)add@1)name@5)
+       (cmd@,B inc col@4)))
+     (cmd@,F inc row@4)))))
+ (proc@,2I readShapeless@5 . . .
+  (params@I
+   (param@1 r . .
+    (mut@3 Recipe@4).)
+   (param@G doc . . Json@5 .)). . .
+  (stmts@2,1
+   (let@4 list . . .
+    (call@D member~6 doc@1
+     (dot@9 doc~3 root@1)"ingredients"@G))
+   (if@,1
+    (elif@3
+     (infix@9 or
+      (infix~4 < list~5 0@2)
+      (infix@L !=
+       (call~C kindAt~6 doc@1 list@6)jArray@3))
+     (stmts~1,1
+      (asgn@A
+       (dot~9 r~1 problem@1)"a shapeless recipe with no ingredients"@2)
+      (ret@,1 .))))
+   (if@,4
+    (elif@3
+     (infix@F >
+      (call~C len~3 doc@1 list@6)MaxGrid@2)
+     (stmts~1,1
+      (asgn@7
+       (dot~6 r~1 kind@1)Other@2)
+      (asgn@A,1
+       (dot~9 r~1 problem@1)
+       (infix@j &
+        (infix~I & "a shapeless recipe of "~P
+         (prefix@2 $
+          (call@4 len~3 doc@1 list@6)))" does not fit a crafting grid"~r,1))
+      (ret@,3 .))))
+   (var@4,9 i . . . 0@4)
+   (while@,A
+    (infix@8 < i~2
+     (call@5 len~3 doc@1 list@6))
+    (stmts@2,1
+     (let@4 name . . .
+      (call@L readIngredient~E doc@1
+       (call@A item~4 doc@1 list@6 i@C)))
+     (if@,1
+      (elif@3
+       (infix@9 ==
+        (dot~5 name~4 len@1)0@3)
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@E ==
+           (dot~5
+            (dot~8 r~1 problem@1)len@1)0@3)
+          (stmts@K
+           (asgn@A
+            (dot~9 r~1 problem@1)"an ingredient names nothing"@2))))))
+      (else@,2
+       (stmts@2,1
+        (cmd@6
+         (dot
+          (dot~5 r~1 part@1)add@1)name@5))))
+     (cmd@,5 inc i@4)))))
+ (comment@,2b)
+ (proc@,2e readRecipe@5 x . .
+  (params@G
+   (param@1 doc . . Json@5 .))Recipe@D . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@A noRecipe~8))
+   (if@,1
+    (elif@3
+     (infix@9 <
+      (dot~6 doc~3 root@1)0@2)
+     (stmts~1,1
+      (asgn@F
+       (dot~9 result~6 problem@1)"this recipe would not parse"@2)
+      (ret@,1 result@7))))
+   (asgn@G,4
+    (dot~A result~6 typeName@1)
+    (call@E resourcePath~C
+     (call@5 text~4 doc@1
+      (call@C member~6 doc@1
+       (dot@9 doc~3 root@1)"type"@G))))
+   (asgn@D,5
+    (dot~7 result~6 group@1)
+    (call@6 text~4 doc@1
+     (call@C member~6 doc@1
+      (dot@9 doc~3 root@1)"group"@G)))
+   (call@A,6 readResult~A doc@1
+    (call@C member~6 doc@1
+     (dot@9 doc~3 root@1)"result"@G)
+    (dot@j result~6 made@1)
+    (dot@w result~6 count@1))
+   (if@,7
+    (elif@3
+     (infix@G ==
+      (dot~A result~6 typeName@1)"crafting_shaped"@3)
+     (stmts~1,1
+      (asgn@C
+       (dot~6 result~6 kind@1)Shaped@2)
+      (call@A,1 readShaped~A result@1 doc@9)))
+    (elif@5,3
+     (infix@G ==
+      (dot~A result~6 typeName@1)"crafting_shapeless"@3)
+     (stmts~3,1
+      (asgn@C
+       (dot~6 result~6 kind@1)Shapeless@2)
+      (call@D,1 readShapeless~D result@1 doc@9)))
+    (else@,6
+     (stmts@2,1
+      (asgn@C
+       (dot~6 result~6 kind@1)Other@2)
+      (let@4,4 one . . .
+       (call@K readIngredient~E doc@1
+        (call@C member~6 doc@1
+         (dot@9 doc~3 root@1)"ingredient"@G)))
+      (if@,5
+       (elif@3
+        (infix@8 >
+         (dot~5 one~3 len@1)0@2)
+        (stmts@D
+         (cmd@B
+          (dot
+           (dot~5 result~6 part@1)add@1)one@5)))))))
+   (if@,K
+    (elif@3
+     (infix@L and
+      (infix~5 ==
+       (dot~5
+        (dot~5 result~6 made@1)len@1)0@3)
+      (infix@N ==
+       (dot~5
+        (dot~8 result~6 problem@1)len@1)0@3))
+     (stmts~1,1
+      (asgn@F
+       (dot~9 result~6 problem@1)"this recipe says nothing about what it makes"@2))))))
+ (proc@,32 kindName@5 x . .
+  (params@E
+   (param@1 kind . . int@6 .))string@D . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 == kind~5 Shaped@3)
+     (stmts@G "shaped"))
+    (elif@5,1
+     (infix@5 == kind~5 Shapeless@3)
+     (stmts@J "shapeless"))
+    (else@,2
+     (stmts@6 "other")))))
+ (proc@,37 joined@5 . . .
+  (params@B
+   (param@1 list . .
+    (at@9 seq~3 string@1).)
+   (param@K sep . . string@5 .))string@Y . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 list~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 > i~2 0@2)
+       (stmts@7
+        (cmd@6
+         (dot result~6 add@1)sep@5))))
+     (cmd@6,1
+      (dot result~6 add@1)
+      (at@9 list~4 i@1))
+     (cmd@,2 inc i@4)))))
+ (comment@,3F)
+ (proc@,3P recipeLine@5 x . .
+  (params@G
+   (param@1 r . . Recipe@3 .))string@D . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (infix@z &
+     (infix~C &
+      (infix~9 &
+       (infix~B &
+        (infix~J & "type="~8
+         (call@A kindName~8
+          (dot@2 r~1 kind@1)))";made="@2)
+       (dot@3 r~1 made@1))";count="@2)
+     (prefix@2 $
+      (dot@2 r~1 count@1))))
+   (if@,1
+    (elif@3
+     (infix@F >
+      (dot~5
+       (dot~9 r~1 typeName@1)len@1)0@2)
+     (stmts@K
+      (cmd@6
+       (dot result~6 add@1)
+       (infix@H & ";station="~C
+        (dot@3 r~1 typeName@1))))))
+   (if@,2
+    (elif@3
+     (infix@C >
+      (dot~5
+       (dot~6 r~1 group@1)len@1)0@2)
+     (stmts@H
+      (cmd@6
+       (dot result~6 add@1)
+       (infix@F & ";group="~A
+        (dot@3 r~1 group@1))))))
+   (if@,3
+    (elif@3
+     (infix@7 ==
+      (dot~6 r~1 kind@1)Shaped@3)
+     (stmts~1,1
+      (cmd@6
+       (dot result~6 add@1)
+       (infix@U &
+        (infix~8 &
+         (infix~B & ";w="~6
+          (prefix@2 $
+           (dot@2 r~1 width@1)))";h="@2)
+        (prefix@2 $
+         (dot@2 r~1 height@1))))
+      (cmd@6,1
+       (dot result~6 add@1)
+       (infix@F & ";slots="~A
+        (call@8 joined~6
+         (dot@2 r~1 slot@1)","@9)))))
+    (elif@5,3
+     (infix@B >
+      (dot~5
+       (dot~5 r~1 part@1)len@1)0@2)
+     (stmts~3,1
+      (cmd@6
+       (dot result~6 add@1)
+       (infix@F & ";parts="~A
+        (call@8 joined~6
+         (dot@2 r~1 part@1)","@9))))))))
+ (const@6,45 HudMarks . . . "abcdefghi"@B)
+ (comment@,47)
+ (proc@,48 hudItem@5 x . .
+  (params@D
+   (param@1 reference . . string@B .))string@L . .
+  (stmts@2,1
+   (var@4 first . . . ""@8)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@B reference~9 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@D ==
+        (at~4 reference~9 i@1)'|'@3)
+       (stmts@L
+        (break .))))
+     (cmd@5,1
+      (dot first~5 add@1)
+      (at@E reference~9 i@1))
+     (cmd@,2 inc i@4)))
+   (if@,6
+    (elif@3
+     (infix@A ==
+      (dot~5 first~5 len@1)0@3)
+     (stmts@G
+      (ret ""@7))))
+   (if@,7
+    (elif@3
+     (infix@9 ==
+      (at~4 first~5 0@1)'\23'@3)
+     (stmts~1,1
+      (var@4 rest . . . ""@7)
+      (asgn@2,1 i~2 1@2)
+      (while@,2
+       (infix@8 < i~2
+        (dot@7 first~5 len@1))
+       (stmts@2,1
+        (cmd@4
+         (dot rest~4 add@1)
+         (at@A first~5 i@1))
+        (cmd@,1 inc i@4)))
+      (let@4,5 bare . . .
+       (call@B leaf~4 rest@1))
+      (if@,6
+       (elif@3
+        (infix@9 ==
+         (dot~5 bare~4 len@1)0@3)
+        (stmts@F
+         (ret ""@7))))
+      (ret@,7
+       (infix@B & "\23"~4 bare@2)))))
+   (call@4,G leaf~4 first@1)))
+ (proc@,4R markOf@5 . . .
+  (params@B
+   (param@1 distinct0 . .
+    (at@E seq~3 string@1).)
+   (param@P want . . string@6 .))int@e . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@B distinct0~9 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@D ==
+        (at~4 distinct0~9 i@1)want@3)
+       (stmts@M
+        (ret i@7))))
+     (cmd@,1 inc i@4)))-1@,4))
+ (comment@,4Y)
+ (proc@,4b hudRecipeText@5 x . .
+  (params@J
+   (param@1 r . . Recipe@3 .))string@D . .
+  (stmts@2,1
+   (let@4 made . . .
+    (call@E hudItem~7
+     (dot@2 r~1 made@1)))
+   (if@,1
+    (elif@3
+     (infix@9 ==
+      (dot~5 made~4 len@1)0@3)
+     (stmts@F
+      (ret ""@7))))
+   (var@4,2 count . . .
+    (dot@9 r~1 count@1))
+   (if@,3
+    (elif@3
+     (infix@6 < count~6 1@2)
+     (stmts@B
+      (asgn@6 count~6 1@2))))
+   (if@,5
+    (elif@3
+     (infix@7 ==
+      (dot~6 r~1 kind@1)Shapeless@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@G or
+         (infix~5 ==
+          (dot~5
+           (dot~5 r~1 part@1)len@1)0@3)
+         (infix@E >
+          (dot~5
+           (dot~5 r~1 part@1)len@1)9@2))
+        (stmts@Z
+         (ret ""@7))))
+      (asgn@7,1 result~7 "shapeless|"@2)
+      (var@4,2 i . . . 0@4)
+      (while@,3
+       (infix@8 < i~2
+        (dot@8
+         (dot~5 r~1 part@1)len@1))
+       (stmts@2,1
+        (let@4 one . . .
+         (call@D hudItem~7
+          (at@7
+           (dot~5 r~1 part@1)i@1)))
+        (if@,1
+         (elif@3
+          (infix@8 ==
+           (dot~5 one~3 len@1)0@3)
+          (stmts@E
+           (ret ""@7))))
+        (if@,2
+         (elif@3
+          (infix@2 > i~2 0@2)
+          (stmts@7
+           (cmd@6
+            (dot result~6 add@1)","@5))))
+        (cmd@6,3
+         (dot result~6 add@1)one@5)
+        (cmd@,4 inc i@4)))
+      (cmd@6,9
+       (dot result~6 add@1)"|"@5)
+      (cmd@6,A
+       (dot result~6 add@1)made@5)
+      (cmd@6,B
+       (dot result~6 add@1)"*"@5)
+      (cmd@6,C
+       (dot result~6 add@1)
+       (prefix@5 $ count@1))
+      (ret@,D result@7))))
+   (if@,L
+    (elif@3
+     (infix@7 !=
+      (dot~6 r~1 kind@1)Shaped@3)
+     (stmts@I
+      (ret ""@7))))
+   (if@,M
+    (elif@3
+     (infix@h or
+      (infix~G or
+       (infix~F or
+        (infix~4 <
+         (dot~7 r~1 width@1)1@2)
+        (infix@B >
+         (dot~7 r~1 width@1)3@2))
+       (infix@C <
+        (dot~8 r~1 height@1)1@2))
+      (infix@C >
+       (dot~8 r~1 height@1)3@2))
+     (stmts@y
+      (ret ""@7))))
+   (if@,N
+    (elif@3
+     (infix@B !=
+      (dot~5
+       (dot~5 r~1 slot@1)len@1)
+      (infix@B *
+       (dot~7 r~1 width@1)
+       (dot@3 r~1 height@1)))
+     (stmts@Y
+      (ret ""@7))))
+   (var@4,S distinct0 . .
+    (at@E seq~3 string@1)
+    (prefix@P \40
+     (bracket@1)))
+   (var@4,T cells . .
+    (at@A seq~3 string@1)
+    (prefix@L \40
+     (bracket@1)))
+   (var@4,U i . . . 0@4)
+   (while@,V
+    (infix@8 < i~2
+     (dot@8
+      (dot~5 r~1 slot@1)len@1))
+    (stmts@2,1
+     (var@4 cell . . . ""@7)
+     (if@,1
+      (elif@3
+       (infix@E >
+        (dot~5
+         (at~3
+          (dot~5 r~1 slot@1)i@1)len@1)0@2)
+       (stmts~1,1
+        (asgn@5 cell~5
+         (call@9 hudItem~7
+          (at@7
+           (dot~5 r~1 slot@1)i@1)))
+        (if@,1
+         (elif@3
+          (infix@9 ==
+           (dot~5 cell~4 len@1)0@3)
+          (stmts@F
+           (ret ""@7))))
+        (if@,2
+         (elif@3
+          (infix@O <
+           (call~I markOf~6 distinct0@1 cell@C)0@2)
+          (stmts~1,1
+           (if
+            (elif@3
+             (infix@E >=
+              (dot~5 distinct0~9 len@1)9@3)
+             (stmts@K
+              (ret ""@7))))
+           (cmd@9,1
+            (dot distinct0~9 add@1)cell@5)))))))
+     (cmd@5,7
+      (dot cells~5 add@1)cell@5)
+     (cmd@,8 inc i@4)))
+   (asgn@7,g result~7 "shaped|"@2)
+   (cmd@6,h
+    (dot result~6 add@1)
+    (prefix@5 $
+     (dot@2 r~1 width@1)))
+   (cmd@6,i
+    (dot result~6 add@1)"x"@5)
+   (cmd@6,j
+    (dot result~6 add@1)
+    (prefix@5 $
+     (dot@2 r~1 height@1)))
+   (cmd@6,k
+    (dot result~6 add@1)"|"@5)
+   (var@4,l row . . . 0@6)
+   (while@,m
+    (infix@A < row~4
+     (dot@3 r~1 height@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@4 > row~4 0@2)
+       (stmts@9
+        (cmd@6
+         (dot result~6 add@1)"/"@5))))
+     (var@4,1 column . . . 0@9)
+     (while@,2
+      (infix@D < column~7
+       (dot@3 r~1 width@1))
+      (stmts@2,1
+       (let@4 cell . . .
+        (at@C cells~5
+         (infix@F \2B
+          (infix~A * row~4
+           (dot@3 r~1 width@1))column@2)))
+       (if@,1
+        (elif@3
+         (infix@9 ==
+          (dot~5 cell~4 len@1)0@3)
+         (stmts@F
+          (cmd@6
+           (dot result~6 add@1)"."@5)))
+        (else@,1
+         (stmts@6
+          (cmd@6
+           (dot result~6 add@1)
+           (at@D HudMarks~8
+            (call@7 markOf~6 distinct0@1 cell@C))))))
+       (cmd@,3 inc column@4)))
+     (cmd@,7 inc row@4)))
+   (cmd@6,v
+    (dot result~6 add@1)"|"@5)
+   (asgn@2,w i~2 0@2)
+   (while@,x
+    (infix@8 < i~2
+     (dot@B distinct0~9 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 > i~2 0@2)
+       (stmts@7
+        (cmd@6
+         (dot result~6 add@1)","@5))))
+     (cmd@6,1
+      (dot result~6 add@1)
+      (at@D HudMarks~8 i@1))
+     (cmd@6,2
+      (dot result~6 add@1)"="@5)
+     (cmd@6,3
+      (dot result~6 add@1)
+      (at@E distinct0~9 i@1))
+     (cmd@,4 inc i@4)))
+   (cmd@6,13
+    (dot result~6 add@1)"|"@5)
+   (cmd@6,14
+    (dot result~6 add@1)made@5)
+   (cmd@6,15
+    (dot result~6 add@1)"*"@5)
+   (cmd@6,16
+    (dot result~6 add@1)
+    (prefix@5 $ count@1)))))

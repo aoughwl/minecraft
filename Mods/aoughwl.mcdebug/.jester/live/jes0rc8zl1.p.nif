@@ -1,0 +1,796 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/source/jester_mod_787703f94844fc26.nim
+ (comment)
+ (import@,1U jester@7)
+ (import@,1V input@7)
+ (import@,1W services@7)
+ (import@,1X importing@7)
+ (import@,1Y textures@7)
+ (import@,1Z
+  (infix@J / aoughwl_mcui~C mcuicore@1))
+ (import@,1a
+  (infix@J / aoughwl_mcui~C mcuiscale@1))
+ (import@,1b
+  (infix@J / aoughwl_mcui~C mcuifont@1))
+ (import@,1c
+  (infix@J / aoughwl_mcui~C mcuilang@1))
+ (import@,1d dbgline@7)
+ (import@,1e dbglayout@7)
+ (import@,1f dbgpoll@7)
+ (const@2,1i Me . . . "aoughwl.mcdebug"@5)
+ (const@2,1j Provider . . . "aoughwl.minecraft"@B)
+ (const@2,1k GuiService . . . "minecraft.gui"@D)
+ (const@2,1m LineKind . . . "aoughwl.debugline"@B)
+ (const@2,1q LineCatalog . . . "aoughwl.debug.lines"@E)
+ (const@2,1s LayoutKind . . . "aoughwl.debuglayout"@D)
+ (const@2,1v LayoutCatalog . . . "aoughwl.debug.layout"@G)
+ (const@2,22 ConfFile . . . "screen.conf"@B)
+ (const@2,26 FontSheet . . . 128.0@C)
+ (const@2,27 Ghost . . . 0.0039@8)
+ (const@2,2F PollPacks . . . 30@C)
+ (var@2,2K lines . .
+  (at@A seq~3 DebugLine@1)
+  (prefix@O \40
+   (bracket@1)))
+ (var@2,2L leftOrder . .
+  (at@E seq~3 int@1)
+  (prefix@M \40
+   (bracket@1)))
+ (var@2,2M rightOrder . .
+  (at@F seq~3 int@1)
+  (prefix@N \40
+   (bracket@1)))
+ (var@2,2N screen . . .
+  (call@M defaultScreen~D))
+ (var@2,2O lang . . .
+  (call@D noLang~6))
+ (var@2,2P advances . .
+  (at@D seq~3 int@1)
+  (prefix@L \40
+   (bracket@1)))
+ (var@2,2Q showing . . . false@A)
+ (var@2,2R frame . . . 0@8)
+ (var@2,2S built . . . ""@8)
+ (var@2,2W askedLang . . . false@C)
+ (var@2,2X askedFont . . . false@C)
+ (var@2,2Y sinceAsk . . . 0@B)
+ (var@2,2Z toldName . .
+  (at@D seq~3 string@1)
+  (prefix@O \40
+   (bracket@1)))
+ (var@2,2a toldValue . .
+  (at@E seq~3 string@1)
+  (prefix@P \40
+   (bracket@1)))
+ (proc@,2c say@5 . . .
+  (params@8
+   (param@1 text . . string@6 .)). . .
+  (stmts@P
+   (call@3 log~3
+    (infix@E & "\5Bmcdebug\5D "~D text@2))))
+ (comment@,2e)
+ (proc@,2g tell@5 . . .
+  (params@9
+   (param@1 name . . string@D .)
+   (param@7 value . . string@7 .)). . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@A toldName~8 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@C ==
+        (at~4 toldName~8 i@1)name@3)
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@D ==
+           (at~4 toldValue~9 i@1)value@3)
+          (stmts@N
+           (ret .))))
+        (asgn@D,1
+         (at~4 toldValue~9 i@1)value@2)
+        (call@3,2 log~3
+         (infix@Y &
+          (infix~6 &
+           (infix~7 & "\5Bassert\5D mcdebug."~K name@2)"="@2)value@2))
+        (ret@,3 .))))
+     (cmd@,5 inc i@4)))
+   (cmd@8,8
+    (dot toldName~8 add@1)name@5)
+   (cmd@9,9
+    (dot toldValue~9 add@1)value@5)
+   (call@3,A log~3
+    (infix@Y &
+     (infix~6 &
+      (infix~7 & "\5Bassert\5D mcdebug."~K name@2)"="@2)value@2))))
+ (comment@,2t)
+ (proc@,2w tr@5 . . .
+  (params@7
+   (param@1 key . . string@5 .))string@F . .
+  (stmts@V
+   (call@9 translate~9 lang@1 key@7)))
+ (comment@,31)
+ (proc@,39 readOwn@5 . . .
+  (params@C
+   (param@1 path . . string@6 .))string@G . .
+  (stmts@2,1
+   (let@4 handle . . .
+    (call@I readBytes~9 path@1))
+   (if@,1
+    (elif@3
+     (infix@7 == handle~7 0@3)
+     (stmts@D
+      (ret ""@7))))
+   (asgn@7,2 result~7
+    (call@8 textAt~6 handle@1 0@9
+     (call@L byteCount~9 handle@1)))
+   (call@A,3 closeBytes~A handle@1)))
+ (comment@,3O)
+ (proc@,3g ensureCatalog@5 . . .
+  (params@I
+   (param@1 id . . string@Q .)
+   (param@5 kind . . string@M .)
+   (param@B kindNote . . string@G .)
+   (param@L note . . string@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@P >
+      (dot~5
+       (call~4 catalogSignature~G id@1)len@1)0@2)
+     (stmts@U
+      (ret .))))
+   (call@H,1 defineCatalogKind~H kind@1 "text"@7 kindNote@F)
+   (call@D,2 createCatalog~D id@1 kind@5 note@B)))
+ (proc@,3l ensureCatalogs@5 . . .
+  (params@J). . .
+  (stmts@2,1
+   (call@D ensureCatalog~D LineCatalog@1 LineKind@E "One line on a debug screen\3A where it goes and who to ask for it."~B,1 "What every mod has to say about itself, a line at a time."~B,2)
+   (call@D,3 ensureCatalog~D LayoutCatalog@1 LayoutKind@G "Where a line on a debug screen goes instead of where it said."~B,1 "Somebody else\27s idea of where a line goes."~B,2)))
+ (comment@,3t)
+ (proc@,3w rebuild@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (asgn@6 lines~6
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (let@4,2 n . . .
+    (call@G catalogCount~C LineCatalog@1))
+   (while@,3
+    (infix@8 < i~2 n@2)
+    (stmts@2,1
+     (cmd@5
+      (dot lines~5 add@1)
+      (call@D lineFrom~8
+       (call@E catalogItemId~D LineCatalog@1 i@E)
+       (call@3,1 catalogItemProvider~J LineCatalog@1 i@E)
+       (call@W,1 catalogText~B LineCatalog@1 i@E)))
+     (cmd@,2 inc i@4)))
+   (var@4,7 over . . .
+    (call@F noConfig~8))
+   (asgn@2,8 i~2 0@2)
+   (let@4,9 m . . .
+    (call@G catalogCount~C LayoutCatalog@1))
+   (while@,A
+    (infix@8 < i~2 m@2)
+    (stmts@2,1
+     (cmd@7
+      (dot
+       (dot~3 over~4 id@1)add@1)
+      (call@I catalogItemId~D LayoutCatalog@1 i@G))
+     (cmd@8,1
+      (dot
+       (dot~4 over~4 row@1)add@1)
+      (call@G catalogText~B LayoutCatalog@1 i@G))
+     (cmd@,2 inc i@4)))
+   (call@7,E applyTo~7 over@1 lines@7)
+   (asgn@7,F screen~7
+    (call@C screenFrom~A over@1
+     (call@K defaultScreen~D)))
+   (asgn@A,G leftOrder~A
+    (call@9 ordered~7 lines@1 LeftSection@8))
+   (asgn@B,H rightOrder~B
+    (call@9 ordered~7 lines@1 RightSection@8))
+   (call@4,I tell~4 "lines"@1
+    (prefix@A $
+     (dot@6 lines~5 len@1)))
+   (call@4,J tell~4 "left"@1
+    (prefix@9 $
+     (dot@A leftOrder~9 len@1)))
+   (call@4,K tell~4 "right"@1
+    (prefix@A $
+     (dot@B rightOrder~A len@1)))
+   (var@4,N missing . . . ""@A)
+   (asgn@2,O i~2 0@2)
+   (while@,P
+    (infix@8 < i~2
+     (dot@7 lines~5 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@M and
+        (prefix~M not
+         (call@B sourced~7
+          (at@6 lines~5 i@1)))
+        (infix@N >
+         (dot~5
+          (dot~6
+           (at~3 lines~5 i@1)needs@1)len@1)0@2))
+       (stmts~1,1
+        (asgn@8 missing~8
+         (infix@r &
+          (infix~H &
+           (infix~6 &
+            (infix~E &
+             (infix~6 & missing~8 " "@2)
+             (dot@A
+              (at~3 lines~5 i@1)id@1))"\28"@2)
+           (dot@A
+            (at~3 lines~5 i@1)needs@1))"\29"@2)))))
+     (cmd@,2 inc i@4)))
+   (if@,T
+    (elif@3
+     (infix@C >
+      (dot~5 missing~7 len@1)0@2)
+     (stmts@H
+      (call@3 say~3
+       (infix@I & "no source for\3A"~H missing@2)))))))
+ (comment@,4S)
+ (proc@,4W publishScreen@5 . . .
+  (params@I). . .
+  (stmts@2,1
+   (let@4 body . . .
+    (call@E readOwn~7 ConfFile@1))
+   (if@,1
+    (elif@3
+     (infix@9 ==
+      (dot~5 body~4 len@1)0@3)
+     (stmts~1,1
+      (call@3 say~3
+       (infix@I &
+        (infix~B & "no "~6 ConfFile@2)"; the screen keeps its built-in shape"@2))
+      (ret@,1 .))))
+   (let@4,4 conf . . .
+    (call@I parseConfig~B body@1))
+   (var@4,5 r . . . 0@4)
+   (while@,6
+    (infix@8 < r~2
+     (dot@9
+      (dot~3 conf~4 id@1)len@1))
+    (stmts@2,1
+     (call@C addToCatalog~C LayoutCatalog@1
+      (at@N
+       (dot~3 conf~4 id@1)r@1)
+      (at@a
+       (dot~4 conf~4 row@1)r@1))
+     (cmd@,1 inc r@4)))
+   (call@3,9 say~3
+    (infix@U &
+     (infix~G &
+      (prefix~D $
+       (dot@8
+        (dot~3 conf~4 id@1)len@1))" rows from "@2)ConfFile@2))))
+ (proc@,4l askLang@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A or askedLang~A
+      (prefix@3 not
+       (call@A serves~6 GuiService@1)))
+     (stmts@b
+      (ret .))))
+   (var@4,1 code . . .
+    (call@J languageFrom~C
+     (call@C callService~B GuiService@1 "language"@D)))
+   (var@4,2 table . . .
+    (call@J callService~B GuiService@1
+     (infix@L & "lang "~8 code@2)))
+   (if@,3
+    (elif@3
+     (infix@F and
+      (infix~5 ==
+       (dot~5 table~5 len@1)0@3)
+      (infix@9 != code~5 "en_us"@3))
+     (stmts~1,1
+      (asgn@5 code~5 "en_us"@2)
+      (asgn@6,1 table~6
+       (call@D callService~B GuiService@1
+        (infix@L & "lang "~8 code@2))))))
+   (if@,6
+    (elif@3
+     (infix@A ==
+      (dot~5 table~5 len@1)0@3)
+     (stmts@G
+      (ret .))))
+   (asgn@A,7 askedLang~A true@2)
+   (asgn@5,8 lang~5
+    (call@C parseTable~A table@1 code@8))
+   (call@4,9 tell~4 "lang"@1 code@9)))
+ (proc@,4x numbers@5 . . .
+  (params@C
+   (param@1 text . . string@6 .))
+  (at@J seq~3 int@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 value . . . 0@8)
+   (var@4,2 digits . . . false@9)
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 <= i~2
+     (dot@7 text~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@E or
+        (infix~C == i~2
+         (dot@7 text~4 len@1))
+        (infix@B ==
+         (at~4 text~4 i@1)' '@3))
+       (stmts~1,1
+        (if
+         (elif@3 digits
+          (stmts@8
+           (cmd@6
+            (dot result~6 add@1)value@5))))
+        (asgn@6,1 value~6 0@2)
+        (asgn@7,2 digits~7 false@2)))
+      (elif@5,4
+       (infix@F and
+        (infix~7 >=
+         (at~4 text~4 i@1)'0'@3)
+        (infix@C <=
+         (at~4 text~4 i@1)'9'@3))
+       (stmts~3,1
+        (asgn@6 value~6
+         (infix@D \2B
+          (infix~5 * value~6 10@2)
+          (par@2
+           (infix@E \2D
+            (call~A int~3
+             (at@5 text~4 i@1))
+            (call@5 int~3 '0'@1)))))
+        (asgn@7,1 digits~7 true@2))))
+     (cmd@,7 inc i@4)))))
+ (proc@,5C askFont@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A or askedFont~A
+      (prefix@3 not
+       (call@A serves~6 GuiService@1)))
+     (stmts@b
+      (ret .))))
+   (let@4,1 line . . .
+    (call@I callService~B GuiService@1 "font"@D))
+   (if@,2
+    (elif@3
+     (infix@9 ==
+      (dot~5 line~4 len@1)0@3)
+     (stmts@F
+      (ret .))))
+   (let@4,3 read . . .
+    (call@E numbers~7 line@1))
+   (if@,4
+    (elif@3
+     (infix@9 <
+      (dot~5 read~4 len@1)3@2)
+     (stmts@E
+      (ret .))))
+   (asgn@A,5 askedFont~A true@2)
+   (var@4,6 columns . .
+    (at@C seq~3 int@1)
+    (prefix@K \40
+     (bracket@1)))
+   (var@4,7 i . . . 2@4)
+   (while@,8
+    (infix@8 < i~2
+     (dot@6 read~4 len@1))
+    (stmts@2,1
+     (cmd@7
+      (dot columns~7 add@1)
+      (at@9 read~4 i@1))
+     (cmd@,1 inc i@4)))
+   (asgn@9,B advances~9
+    (call@L advancesFromColumns~J columns@1
+     (at@E read~4 0@1)))
+   (call@4,C tell~4 "advances"@1
+    (prefix@D $
+     (dot@9 advances~8 len@1)))))
+ (comment@,5R)
+ (proc@,5V packFont@5 . . .
+  (params@D)bool@4 . .
+  (stmts@2,1
+   (infix@j and
+    (infix~L and
+     (infix~C ==
+      (dot~6 screen~6 font@1)PackFont@3)
+     (infix@H >
+      (dot~5 advances~8 len@1)0@2))
+    (call~X,1 hasPicture~A Provider@1 "font/ascii"@B))))
+ (comment@,5c)
+ (proc@,5g labelOf@5 . . .
+  (params@C
+   (param@1 line . . DebugLine@6 .))string@J . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@D >
+      (dot~5
+       (dot~4 line~4 key@1)len@1)0@2)
+     (stmts@I
+      (ret
+       (call@9 tr~2
+        (dot@5 line~4 key@1))))))
+   (dot@4,1 line~4 label@1)))
+ (proc@,5k textsFor@5 . . .
+  (params@D
+   (param@1 order . .
+    (at@A seq~3 int@1).))
+  (at@M seq~3 string@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (let@4,1 missing . . .
+    (call@C tr~2
+     (dot@7 screen~6 missing@1)))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@7 order~5 len@1))
+    (stmts@2,1
+     (let@4 line . . .
+      (at@C lines~5
+       (at@6 order~5 i@1)))
+     (if@,1
+      (elif@3
+       (call@6 spacer~6 line@1)
+       (stmts@E
+        (cmd@6
+         (dot result~6 add@1)""@5)))
+      (else@,1
+       (stmts@6
+        (cmd@6
+         (dot result~6 add@1)
+         (call@D composed~8 line@1
+          (call@E labelOf~7 line@1)missing@M)))))
+     (cmd@,3 inc i@4)))))
+ (comment@,5u)
+ (proc@,5w widthOf@5 . . .
+  (params@C
+   (param@1 text . . string@6 .)
+   (param@F pack . . bool@6 .))int@S . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 ==
+      (dot~5 text~4 len@1)0@3)
+     (stmts@F
+      (ret 0@7))))
+   (if@,1
+    (elif@3
+     (infix@5 and pack~5
+      (call@C settable~8 text@1))
+     (stmts@P
+      (ret
+       (call@E measure~7 text@1 advances@7)))))
+   (call@3,2 int~3
+    (infix@a \2B
+     (call~Q textWidth~9 text@1
+      (call@C float~5 LineHeight@1))0.5@2))))
+ (proc@,61 widthsFor@5 . . .
+  (params@E
+   (param@1 texts . .
+    (at@A seq~3 string@1).)
+   (param@L pack . . bool@6 .))
+  (at@b seq~3 int@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@7 texts~5 len@1))
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (call@C widthOf~7
+       (at@6 texts~5 i@1)pack@B))
+     (cmd@,1 inc i@4)))))
+ (var@4,6I scaleNow . . . 1@B)
+ (proc@,6K up@5 . . .
+  (params@7
+   (param@1 v . . float@3 .))float@C . .
+  (stmts@R
+   (infix@2 * v~2
+    (call@7 float~5 scaleNow@1))))
+ (proc@,6M drawPlate@5 . . .
+  (params@E
+   (param@1 r . . DRect@3 .)). . .
+  (stmts@2,1
+   (call@4 fill~4
+    (call@3 up~2
+     (dot@2 r~1 x@1))
+    (call@C up~2
+     (dot@2 r~1 y@1))
+    (call@L up~2
+     (dot@2 r~1 w@1))
+    (call@U up~2
+     (dot@2 r~1 h@1))PlateRed~2,1 PlateGreen@8,1 PlateBlue@K,1 PlateAlpha@V,1)))
+ (proc@,6Q drawWithHost@5 . . .
+  (params@H
+   (param@1 run . . Run@5 .)). . .
+  (stmts@2,1
+   (call@7 writeIn~7
+    (dot@4 run~3 text@1)
+    (call@D up~2
+     (dot@7
+      (dot~3 run~3 at@1)x@1))
+    (call@R up~2
+     (dot@7
+      (dot~3 run~3 at@1)y@1))
+    (call@f up~2
+     (dot@7
+      (dot~3 run~3 at@1)w@1))
+    (call@t up~2
+     (dot@7
+      (dot~3 run~3 at@1)h@1))
+    (call~3,1 up~2
+     (call@6 float~5 LineHeight@1))"left"@I,1 TextRed@Q,1 TextGreen@Z,1 TextBlue@k,1 1.0@u,1)))
+ (comment@,6U)
+ (proc@,6Y drawWithPack@5 . . .
+  (params@H
+   (param@1 run . . Run@5 .)). . .
+  (stmts@2,1
+   (let@4 glyphs . . .
+    (call@F layout~6
+     (dot@4 run~3 text@1)advances@B
+     (dot@R
+      (dot~3 run~3 at@1)x@1)
+     (dot@b
+      (dot~3 run~3 at@1)y@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@8 glyphs~6 len@1))
+    (stmts@2,1
+     (let@4 one . . .
+      (at@C glyphs~6 i@1))
+     (cmd@,1 inc i@4)
+     (call@B,2 drawPicture~B Provider@1 "font/ascii"@B
+      (call~7,1 up~2
+       (dot@9
+        (dot~5 one~3 dest@1)x@1))
+      (call@9,1 up~2
+       (dot@9
+        (dot~5 one~3 dest@1)y@1))
+      (call@P,1 up~2
+       (dot@9
+        (dot~5 one~3 dest@1)w@1))
+      (call@f,1 up~2
+       (dot@9
+        (dot~5 one~3 dest@1)h@1))
+      (infix@1,2 /
+       (dot~3
+        (dot~4 one~3 src@1)x@1)FontSheet@2)
+      (infix@O,2 /
+       (dot~3
+        (dot~4 one~3 src@1)y@1)FontSheet@2)
+      (infix@F,3 /
+       (par~O
+        (infix@B \2B
+         (dot~3
+          (dot~4 one~3 src@1)x@1)
+         (dot@9
+          (dot~4 one~3 src@1)w@1)))FontSheet@2)
+      (infix@q,3 /
+       (par~O
+        (infix@B \2B
+         (dot~3
+          (dot~4 one~3 src@1)y@1)
+         (dot@9
+          (dot~4 one~3 src@1)h@1)))FontSheet@2)TextRed~9,4 TextGreen@,4 TextBlue@B,4 1.0@L,4)))
+   (call@7,C writeIn~7
+    (dot@4 run~3 text@1)
+    (call@D up~2
+     (dot@7
+      (dot~3 run~3 at@1)x@1))
+    (call@R up~2
+     (dot@7
+      (dot~3 run~3 at@1)y@1))
+    (call@f up~2
+     (dot@7
+      (dot~3 run~3 at@1)w@1))
+    (call@t up~2
+     (dot@7
+      (dot~3 run~3 at@1)h@1))
+    (call~3,1 up~2
+     (call@6 float~5 LineHeight@1))"left"@I,1 1.0@Q,1 1.0@V,1 1.0@a,1 Ghost@f,1)))
+ (proc@,6o drawColumn@5 . . .
+  (params@F
+   (param@1 order . .
+    (at@A seq~3 int@1).)
+   (param@I section . . Section@9 .)
+   (param@a guiW . . int@6 .)
+   (param@l pack . . bool@6 .))int@y . .
+  (stmts@2,1
+   (let@4 texts . . .
+    (call@G textsFor~8 order@1))
+   (let@4,1 widths . . .
+    (call@I widthsFor~9 texts@1 pack@8))
+   (let@4,2 runs . . .
+    (call@B plan~4 texts@1 widths@8 section@G guiW@P))
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@6 runs~4 len@1))
+    (stmts@2,1
+     (let@4 run . . .
+      (at@A runs~4 i@1))
+     (cmd@,1 inc i@4)
+     (if@,2
+      (elif@3
+       (prefix not
+        (dot@7 run~3 blank@1))
+       (stmts~1,1
+        (call@9 drawPlate~9
+         (dot@4 run~3 plate@1))
+        (if@,1
+         (elif@3 pack
+          (stmts@6
+           (call@C drawWithPack~C run@1)))
+         (else@,1
+          (stmts@6
+           (call@C drawWithHost~C run@1)))))))))
+   (dot@4,B runs~4 len@1)))
+ (comment@,75)
+ (proc@,76 poll@5 . . .
+  (params@9). . .
+  (stmts@2,1
+   (let@4 asks . . .
+    (call@E asksFor~7 lines@1 frame@8))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 asks~4 len@1))
+    (stmts@2,1
+     (let@4 ask . . .
+      (at@A asks~4 i@1))
+     (cmd@,1 inc i@4)
+     (if@,2
+      (elif@3
+       (call@6 serves~6
+        (dot@4 ask~3 service@1))
+       (stmts~1,1
+        (let@4 answer . . .
+         (call@K callService~B
+          (dot@4 ask~3 service@1)
+          (dot@H ask~3 argument@1)))
+        (if@,1
+         (elif@3
+          (infix@B ==
+           (dot~5 answer~6 len@1)0@3)
+          (stmts~1,1
+           (let@4 why . . .
+            (call@K serviceProblem~E))
+           (if@,1
+            (elif@3
+             (infix@8 >
+              (dot~5 why~3 len@1)0@2)
+             (stmts@D
+              (call@3 say~3
+               (infix@K &
+                (infix~7 &
+                 (dot~9 ask~3 service@1)"\3A "@2)why@2))))))))
+        (call@B,4 applyAnswer~B lines@1 ask@8 answer@D))))))
+   (call@4,B tell~4 "asks"@1
+    (prefix@9 $
+     (call@A crossings~9 asks@1)))))
+ (proc@,7K start@5 . . .
+  (params@A). . .
+  (stmts@2,1
+   (call@E ensureCatalogs~E)
+   (call@D,1 publishScreen~D)
+   (asgn@6,6 built~6
+    (infix@c &
+     (infix~6 &
+      (call~E catalogSignature~G LineCatalog@1)"/"@2)
+     (call@I catalogSignature~G LayoutCatalog@1)))
+   (call@7,7 rebuild~7)
+   (asgn@8,8 showing~8
+    (call@A remember~8 "showing"@1
+     (dot@I screen~6 on@1)))
+   (call@4,9 tell~4 "showing"@1
+    (prefix@C $ showing@1))
+   (call@3,A say~3
+    (infix@p & "F3 shows the debug screen; its lines come from "~o LineCatalog@2))))
+ (proc@,7X update@5 . . .
+  (params@B). . .
+  (stmts@2,1
+   (cmd inc frame@4)
+   (if@,1
+    (elif@3
+     (call@7 pressed~7 F3@1)
+     (stmts~1,1
+      (asgn@8 showing~8
+       (prefix@2 not showing@4))
+      (call@4,1 save~4 "showing"@1 showing@C)
+      (call@4,2 tell~4 "showing"@1
+       (prefix@C $ showing@1))
+      (asgn@9,6 sinceAsk~9 PollPacks@2))))
+   (if@,9
+    (elif@3
+     (prefix not showing@4)
+     (stmts@D
+      (ret .))))
+   (cmd@,B inc sinceAsk@4)
+   (if@,C
+    (elif@3
+     (infix@9 >= sinceAsk~9 PollPacks@3)
+     (stmts~1,1
+      (asgn@9 sinceAsk~9 0@2)
+      (call@7,1 askLang~7)
+      (call@7,2 askFont~7))))
+   (let@4,H signature . . .
+    (infix@m &
+     (infix~6 &
+      (call~E catalogSignature~G LineCatalog@1)"/"@2)
+     (call~Y,1 catalogSignature~G LayoutCatalog@1)))
+   (if@,J
+    (elif@3
+     (infix@A != signature~A built@3)
+     (stmts~1,1
+      (asgn@6 built~6 signature@2)
+      (call@7,1 rebuild~7))))
+   (call@4,N poll~4)
+   (let@4,P w . . .
+    (call@7 int~3
+     (call@C screenWidth~B)))
+   (let@4,Q h . . .
+    (call@7 int~3
+     (call@D screenHeight~C)))
+   (if@,R
+    (elif@3
+     (infix@7 or
+      (infix~5 <= w~2 0@3)
+      (infix@5 <= h~2 0@3))
+     (stmts@I
+      (ret .))))
+   (asgn@9,S scaleNow~9
+    (call@A guiScale~8 w@1 h@4 AutoGuiScale@7))
+   (let@4,T guiW . . .
+    (call@F guiWidth~8 w@1 scaleNow@4))
+   (let@4,U pack . . .
+    (call@F packFont~8))
+   (let@4,V drawn . . .
+    (infix@t \2B
+     (call~b drawColumn~A leftOrder@1 LeftSection@C guiW@P pack@V)
+     (call~l,1 drawColumn~A rightOrder@1 RightSection@D guiW@R pack@X)))
+   (call@4,X tell~4 "drawn"@1
+    (prefix@A $ drawn@1))
+   (call@4,Y tell~4 "answered"@1
+    (prefix@D $
+     (call@E answeredCount~D lines@1)))
+   (call@4,Z tell~4 "scale"@1
+    (prefix@A $ scaleNow@1))
+   (var@4,a fontName . . . HostFont@B)
+   (if@,b
+    (elif@3 pack
+     (stmts@6
+      (asgn@9 fontName~9 PackFont@2))))
+   (call@4,c tell~4 "font"@1 fontName@9)))
+ (proc@,8C stop@5 . . .
+  (params@9). . .
+  (stmts@E
+   (discard .))))

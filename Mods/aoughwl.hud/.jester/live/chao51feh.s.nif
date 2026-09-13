@@ -1,0 +1,1294 @@
+(.nif27)
+(.indexat 33521            )
+(stmts@,1,../../../../Packages/com.aoughwl.jester/ModSdk/character.nim
+ (import
+  (kv sysvq0asl "../../../../../../nimony/lib/std/system.nim")
+  (kv jesaqohvh1 "../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim")
+  (kv catbyu542 "../../../../Packages/com.aoughwl.jester/ModSdk/catalogs.nim")
+  (kv vecqnfc1h "../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim"))
+ (type@G,K :Character.0.~B x .
+  (pragmas
+   (destroy =destroy_SX43haracter0chao51feh.0.)
+   (wasmoved =wasmoved_SX43haracter0chao51feh.0.)
+   (dup =dup_SX43haracter0chao51feh.0.)
+   (copy =copy_SX43haracter0chao51feh.0.))
+  (object@2 .
+   (fld~C,2 :body.0~4 x . Entity.0.jesaqohvh1@3 .)
+   (fld~D,3 :eye.0~3 x . Entity.0.jesaqohvh1@3 .)
+   (fld~A,5 :height.0~6 x .
+    (f@3 64).)
+   (fld~A,6 :radius.0~6 x .
+    (f@3 64).)
+   (fld~7,7 :eyeHeight.0~9 x .
+    (f@3 64).)
+   (fld~6,9 :forwardKey.0~A x . string.0.sysvq0asl@3 .)
+   (fld~9,A :backKey.0~7 x . string.0.sysvq0asl@3 .)
+   (fld~9,B :leftKey.0~7 x . string.0.sysvq0asl@3 .)
+   (fld~8,C :rightKey.0~8 x . string.0.sysvq0asl@3 .)
+   (fld~9,D :jumpKey.0~7 x . string.0.sysvq0asl@3 .)
+   (fld~A,E :runKey.0~6 x . string.0.sysvq0asl@3 .)
+   (fld~7,G :walkSpeed.0~9 x .
+    (f@3 64).)
+   (fld~8,H :runSpeed.0~8 x .
+    (f@3 64).)
+   (fld~4,I :acceleration.0~C x .
+    (f@3 64).)
+   (fld~1,J :airAcceleration.0~F x .
+    (f@3 64).)
+   (fld~9,K :gravity.0~7 x .
+    (f@3 64).)
+   (fld~6,L :jumpHeight.0~A x .
+    (f@3 64).)
+   (fld~6,M :coyoteTime.0~A x .
+    (f@3 64).)
+   (fld~6,N :jumpBuffer.0~A x .
+    (f@3 64).)
+   (fld~5,O :groundStick.0~B x .
+    (f@3 64).)
+   (fld~7,P :lookSpeed.0~9 x .
+    (f@3 64).)
+   (fld~6,Q :pitchLimit.0~A x .
+    (f@3 64).)
+   (fld~D,S :yaw.0~3 x .
+    (f@3 64).)
+   (fld~B,T :pitch.0~5 x .
+    (f@3 64).)
+   (fld~A,V :speedX.0~6 x .
+    (f@3 64).)
+   (fld~A,W :speedY.0~6 x .
+    (f@3 64).)
+   (fld~A,X :speedZ.0~6 x .
+    (f@3 64).)
+   (fld~5,Y :sinceGround.0~B x .
+    (f@3 64).)
+   (fld~7,Z :sinceJump.0~9 x .
+    (f@3 64).)))
+ (proc@,x :squareRoot.0.@5 . . .
+  (params@F
+   (param@1 :value.0 . .
+    (f@7 64).))
+  (f@I 64). .
+  (stmts@2,1
+   (result :result.0 . .
+    (f@9,~Z 64).)
+   (if
+    (elif@3
+     (le@6
+      (f 64)value.0~6 0.0@3)
+     (stmts@E
+      (ret 0.0@7))))
+   (var@4,1 :guess.0 . .
+    (f@H,~2 64)value.0@8)
+   (var@4,2 :step.0 . .
+    (i 64)0@7)
+   (while@,3
+    (lt@B
+     (i 64)step.0~5 16@2)
+    (stmts@2,1
+     (asgn@6 guess.0~6
+      (mul@6
+       (f 64)0.5~4
+       (add@9
+        (f 64)guess.0~6
+        (div@8
+         (f 64)value.0~6 guess.0@2))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 step.0))))
+   (asgn@,6 result.0 guess.0)
+   (ret~2,~1 result.0)))
+ (proc@,16 :down.0.@5 . . .
+  (params@9
+   (param@1 :key.0 . . string.0.sysvq0asl@5 .))
+  (bool@F). .
+  (stmts@2,1
+   (result :result.1 . .
+    (bool@D,~1).)
+   (if
+    (elif@3
+     (eq@8
+      (i 64)
+      (call~5 len.4.sysvq0asl@1 key.0~3)0@3)
+     (stmts@E
+      (ret
+       (false@7)))))
+   (asgn@4,1 result.1
+    (call held.0.jesaqohvh1~4 key.0@1))
+   (ret~2,~1 result.1)))
+ (proc@,1A :hit.0.@5 . . .
+  (params@8
+   (param@1 :key.1 . . string.0.sysvq0asl@5 .))
+  (bool@F). .
+  (stmts@2,1
+   (result :result.2 . .
+    (bool@D,~5).)
+   (if
+    (elif@3
+     (eq@8
+      (i 64)
+      (call~5 len.4.sysvq0asl@1 key.1~3)0@3)
+     (stmts@E
+      (ret
+       (false@7)))))
+   (asgn@7,1 result.2
+    (call pressed.0.jesaqohvh1~7 key.1@1))
+   (ret~2,~1 result.2)))
+ (proc@,1G :newCharacter.0.@5 x . .
+  (params@I)Character.0.@4 . .
+  (stmts@2,1
+   (result@9 :result.3 . . Character.0.~7,~1 .)
+   (asgn@9 result.3
+    (oconstr Character.0.~7,~1
+     (kv@5 body.0~4
+      (call@9 nothing.0.jesaqohvh1~7))
+     (kv@L eye.0~3
+      (call@9 nothing.0.jesaqohvh1~7))
+     (kv height.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))
+     (kv radius.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))
+     (kv eyeHeight.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))
+     (kv forwardKey.0
+      (expr@n,I,../../../../../../nimony/lib/std/system/defaults.nim ""))
+     (kv backKey.0
+      (expr@n,I,../../../../../../nimony/lib/std/system/defaults.nim ""))
+     (kv leftKey.0
+      (expr@n,I,../../../../../../nimony/lib/std/system/defaults.nim ""))
+     (kv rightKey.0
+      (expr@n,I,../../../../../../nimony/lib/std/system/defaults.nim ""))
+     (kv jumpKey.0
+      (expr@n,I,../../../../../../nimony/lib/std/system/defaults.nim ""))
+     (kv runKey.0
+      (expr@n,I,../../../../../../nimony/lib/std/system/defaults.nim ""))
+     (kv walkSpeed.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))
+     (kv runSpeed.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))
+     (kv acceleration.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))
+     (kv airAcceleration.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))
+     (kv gravity.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))
+     (kv jumpHeight.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))
+     (kv coyoteTime.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))
+     (kv jumpBuffer.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))
+     (kv groundStick.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))
+     (kv lookSpeed.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))
+     (kv pitchLimit.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))
+     (kv yaw.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))
+     (kv pitch.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))
+     (kv speedX.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))
+     (kv speedY.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))
+     (kv speedZ.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))
+     (kv sinceGround.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))
+     (kv sinceJump.0
+      (expr@p,H,../../../../../../nimony/lib/std/system/defaults.nim
+       (suf 0.0 "f64")))))
+   (ret~2,~1 result.3)))
+ (proc@,1J :bindKey.0.@5 x . .
+  (params@D
+   (param@1 :c.0 . .
+    (mut@3 Character.0.@4).)
+   (param@J :action.0 . . string.0.sysvq0asl@D .)
+   (param@R :key.2 . . string.0.sysvq0asl@5 .)). . .
+  (stmts@2,1
+   (case action.0@5
+    (of@,1
+     (ranges "forward"@3)
+     (stmts@E
+      (asgn@D
+       (dot~C
+        (hderef~1 c.0)forwardKey.0 0)key.2@2)))
+    (of@,2
+     (ranges "back"@3)
+     (stmts@B
+      (asgn@A
+       (dot~9
+        (hderef~1 c.0)backKey.0 0)key.2@2)))
+    (of@,3
+     (ranges "left"@3)
+     (stmts@B
+      (asgn@A
+       (dot~9
+        (hderef~1 c.0)leftKey.0 0)key.2@2)))
+    (of@,4
+     (ranges "right"@3)
+     (stmts@C
+      (asgn@B
+       (dot~A
+        (hderef~1 c.0)rightKey.0 0)key.2@2)))
+    (of@,5
+     (ranges "jump"@3)
+     (stmts@B
+      (asgn@A
+       (dot~9
+        (hderef~1 c.0)jumpKey.0 0)key.2@2)))
+    (of@,6
+     (ranges "run"@3)
+     (stmts@A
+      (asgn@9
+       (dot~8
+        (hderef~1 c.0)runKey.0 0)key.2@2)))
+    (else@,7
+     (stmts@6
+      (call@3 log.0.jesaqohvh1~3
+       (infix@T &.0.sysvq0asl "no such control to bind\3A "~S action.0@2)))))))
+ (proc@,1T :tune.0.@5 x . .
+  (params@A
+   (param@1 :c.1 . .
+    (mut@3 Character.0.@4).)
+   (param@J :setting.0 . . string.0.sysvq0asl@9 .)
+   (param@a :value.1 . .
+    (f@7 64).)). . .
+  (stmts@2,1
+   (case setting.0@5
+    (of@,1
+     (ranges "height"@3)
+     (stmts@D
+      (asgn@9
+       (dot~8
+        (hderef~1 c.1)height.0 0)value.1@2)))
+    (of@,2
+     (ranges "radius"@3)
+     (stmts@D
+      (asgn@9
+       (dot~8
+        (hderef~1 c.1)radius.0 0)value.1@2)))
+    (of@,3
+     (ranges "eyeHeight"@3)
+     (stmts@G
+      (asgn@C
+       (dot~B
+        (hderef~1 c.1)eyeHeight.0 0)value.1@2)))
+    (of@,4
+     (ranges "walkSpeed"@3)
+     (stmts@G
+      (asgn@C
+       (dot~B
+        (hderef~1 c.1)walkSpeed.0 0)value.1@2)))
+    (of@,5
+     (ranges "runSpeed"@3)
+     (stmts@F
+      (asgn@B
+       (dot~A
+        (hderef~1 c.1)runSpeed.0 0)value.1@2)))
+    (of@,6
+     (ranges "acceleration"@3)
+     (stmts@J
+      (asgn@F
+       (dot~E
+        (hderef~1 c.1)acceleration.0 0)value.1@2)))
+    (of@,7
+     (ranges "airAcceleration"@3)
+     (stmts@M
+      (asgn@I
+       (dot~H
+        (hderef~1 c.1)airAcceleration.0 0)value.1@2)))
+    (of@,8
+     (ranges "gravity"@3)
+     (stmts@E
+      (asgn@A
+       (dot~9
+        (hderef~1 c.1)gravity.0 0)value.1@2)))
+    (of@,9
+     (ranges "jumpHeight"@3)
+     (stmts@H
+      (asgn@D
+       (dot~C
+        (hderef~1 c.1)jumpHeight.0 0)value.1@2)))
+    (of@,A
+     (ranges "coyoteTime"@3)
+     (stmts@H
+      (asgn@D
+       (dot~C
+        (hderef~1 c.1)coyoteTime.0 0)value.1@2)))
+    (of@,B
+     (ranges "jumpBuffer"@3)
+     (stmts@H
+      (asgn@D
+       (dot~C
+        (hderef~1 c.1)jumpBuffer.0 0)value.1@2)))
+    (of@,C
+     (ranges "groundStick"@3)
+     (stmts@I
+      (asgn@E
+       (dot~D
+        (hderef~1 c.1)groundStick.0 0)value.1@2)))
+    (of@,D
+     (ranges "lookSpeed"@3)
+     (stmts@G
+      (asgn@C
+       (dot~B
+        (hderef~1 c.1)lookSpeed.0 0)value.1@2)))
+    (of@,E
+     (ranges "pitchLimit"@3)
+     (stmts@H
+      (asgn@D
+       (dot~C
+        (hderef~1 c.1)pitchLimit.0 0)value.1@2)))
+    (else@,F
+     (stmts@6
+      (call@3 log.0.jesaqohvh1~3
+       (infix@T &.0.sysvq0asl "no such setting to tune\3A "~S setting.0@2)))))))
+ (proc@,1n :configure.0.@5 x . .
+  (params@F
+   (param@1 :c.2 . .
+    (mut@3 Character.0.@4).)
+   (param@J :controls.0 . . string.0.sysvq0asl@K .)
+   (param@T :movement.0 . . string.0.sysvq0asl@A .)). . .
+  (stmts@2,1
+   (var@4 :i.0 . .
+    (i 64)0@4)
+   (while@,1
+    (lt@8
+     (i 64)i.0~2
+     (call@E catalogCount.0.jesaqohvh1~C controls.0@1))
+    (stmts@2,1
+     (call@9 bindKey.0.~7 c.2~9
+      (call@E catalogItemId.0.jesaqohvh1~D controls.0@1 i.0@B)
+      (call@e catalogText.0.jesaqohvh1~B controls.0@1 i.0@B))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.0))))
+   (asgn@2,4 i.0~2 0@2)
+   (while@,5
+    (lt@8
+     (i 64)i.0~2
+     (call@E catalogCount.0.jesaqohvh1~C movement.0@1))
+    (stmts@2,1
+     (call@6 tune.0.~4 c.2~6
+      (call@E catalogItemId.0.jesaqohvh1~D movement.0@1 i.0@B)
+      (call@g catalogNumber.0.jesaqohvh1~D movement.0@1 i.0@B))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.0))))))
+ (proc@,1y :configure.1.@5 x . .
+  (params@F
+   (param@1 :c.3 . .
+    (mut@3 Character.0.@4).)
+   (param@J :controls.1 . . Catalog.0.catbyu542@K .)
+   (param@T :movement.1 . . Catalog.0.catbyu542@A .)). . .
+  (stmts@2,1
+   (call@B configure.0.~9 c.3~B
+    (conv@7 string.0.sysvq0asl~5,~1W controls.1@1)
+    (conv@P string.0.sysvq0asl~N,~1W movement.1@1))))
+ (proc@,21 :lookFrom.0.@5 x . .
+  (params@E
+   (param@1 :c.4 . . Character.0.@3 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@F isNothing.0.jesaqohvh1~9
+      (dot~E c.4~1 eye.0 0))
+     (stmts@J
+      (ret .))))
+   (call@E,1 position.0.jesaqohvh1~8
+    (dot~D c.4~1 eye.0 0)
+    (call@H positionX.0.jesaqohvh1~9
+     (dot~F c.4~1 body.0 0))
+    (add@e
+     (f 64)
+     (call~3 positionY.0.jesaqohvh1~9
+      (dot~F c.4~1 body.0 0))
+     (dot@3 c.4~1 eyeHeight.0 0))
+    (call@4,1 positionZ.0.jesaqohvh1~9
+     (dot~F c.4~1 body.0 0)))
+   (call@E,3 rotation.0.jesaqohvh1~8
+    (dot~D c.4~1 eye.0 0)
+    (dot@2 c.4~1 pitch.0 0)
+    (dot@B c.4~1 yaw.0 0)0.0@H)))
+ (proc@,29 :place.0.@5 x . .
+  (params@B
+   (param@1 :c.5 . .
+    (mut@3 Character.0.@4).)
+   (param@J :name.0 . . string.0.sysvq0asl@6 .)
+   (param@X :x.0 . .
+    (f@9 64).)
+   (param@a :y.0 . .
+    (f@6 64).)
+   (param@d :z.0 . .
+    (f@3 64).)
+   (param@p :withEye.0 . .
+    (bool~l,~13)
+    (true@A))). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (le@9
+      (f 64)
+      (dot~8
+       (hderef~1 c.5)height.0 0)0.0@3)
+     (stmts@H
+      (asgn@9
+       (dot~8
+        (hderef~1 c.5)height.0 0)1.0@2))))
+   (if@,1
+    (elif@3
+     (le@9
+      (f 64)
+      (dot~8
+       (hderef~1 c.5)radius.0 0)0.0@3)
+     (stmts@H
+      (asgn@9
+       (dot~8
+        (hderef~1 c.5)radius.0 0)0.25@2))))
+   (asgn@7,2
+    (dot~6
+     (hderef~1 c.5)body.0 0)
+    (call@6 body.0.jesaqohvh1~4 name.0@1
+     (dot@8
+      (hderef~1 c.5)height.0 0)
+     (dot@I
+      (hderef~1 c.5)radius.0 0)))
+   (call@F,3 position.0.jesaqohvh1~8
+    (dot~E
+     (hderef~1 c.5)body.0 0)x.0@1 y.0@4 z.0@7)
+   (call@F,4 rotation.0.jesaqohvh1~8
+    (dot~E
+     (hderef~1 c.5)body.0 0)0.0@1
+    (dot@7
+     (hderef~1 c.5)yaw.0 0)0.0@D)
+   (if@,5
+    (elif@3 withEye.0
+     (stmts~1,1
+      (asgn@6
+       (dot~5
+        (hderef~1 c.5)eye.0 0)
+       (call@8 camera.0.jesaqohvh1~6
+        (infix@6 &.0.sysvq0asl name.0~5 " Eye"@2))))))
+   (asgn@E,7
+    (dot~D
+     (hderef~1 c.5)sinceGround.0 0)1000.0@2)
+   (asgn@C,8
+    (dot~B
+     (hderef~1 c.5)sinceJump.0 0)1000.0@2)
+   (call@A,9 lookFrom.0.~8
+    (hderef~A c.5))))
+ (proc@,2M :look.0.@5 x . .
+  (params@A
+   (param@1 :c.6 . .
+    (mut@3 Character.0.@4).)). . .
+  (stmts@2,1
+   (asgn@6
+    (dot~5
+     (hderef~1 c.6)yaw.0 0)
+    (add@8
+     (f 64)
+     (dot~5
+      (hderef~1 c.6)yaw.0 0)
+     (mul@A
+      (f 64)
+      (call~3 lookX.0.jesaqohvh1~5)
+      (dot@3
+       (hderef~1 c.6)lookSpeed.0 0))))
+   (asgn@8,1
+    (dot~7
+     (hderef~1 c.6)pitch.0 0)
+    (sub@A
+     (f 64)
+     (dot~7
+      (hderef~1 c.6)pitch.0 0)
+     (mul@A
+      (f 64)
+      (call~3 lookY.0.jesaqohvh1~5)
+      (dot@3
+       (hderef~1 c.6)lookSpeed.0 0))))
+   (if@,2
+    (elif@3
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (f 64)0.0@K,2Q,../../../../Packages/com.aoughwl.jester/ModSdk/character.nim
+       (dot@6,2Q,../../../../Packages/com.aoughwl.jester/ModSdk/character.nim
+        (hderef~1 c.6)pitchLimit.0 0)))
+     (stmts~1,1
+      (if
+       (elif@3
+        (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+         (lt@2,1
+          (f 64)
+          (dot@I,2R,../../../../Packages/com.aoughwl.jester/ModSdk/character.nim
+           (hderef~1 c.6)pitchLimit.0 0)
+          (dot@8,2R,../../../../Packages/com.aoughwl.jester/ModSdk/character.nim
+           (hderef~1 c.6)pitch.0 0)))
+        (stmts@O
+         (asgn@8
+          (dot~7
+           (hderef~1 c.6)pitch.0 0)
+          (dot@3
+           (hderef~1 c.6)pitchLimit.0 0)))))
+      (if@,1
+       (elif@3
+        (lt@8
+         (f 64)
+         (dot~7
+          (hderef~1 c.6)pitch.0 0)
+         (neg@2
+          (f 64)
+          (dot@2
+           (hderef~1 c.6)pitchLimit.0 0)))
+        (stmts@P
+         (asgn@8
+          (dot~7
+           (hderef~1 c.6)pitch.0 0)
+          (neg@2
+           (f 64)
+           (dot@2
+            (hderef~1 c.6)pitchLimit.0 0)))))))))
+   (call@F,5 rotation.0.jesaqohvh1~8
+    (dot~E
+     (hderef~1 c.6)body.0 0)0.0@1
+    (dot@7
+     (hderef~1 c.6)yaw.0 0)0.0@D)))
+ (proc@,2a :step.0.@5 x . .
+  (params@A
+   (param@1 :c.7 . .
+    (mut@3 Character.0.@4).)
+   (param@J :turning.0 . .
+    (bool~E,~1U)
+    (true@A))). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@G isNothing.0.jesaqohvh1~9
+      (dot~F
+       (hderef~1 c.7)body.0 0))
+     (stmts@K
+      (ret .))))
+   (let@4,1 :seconds.0 . .
+    (f@5,~2D 64)
+    (call@J deltaTime.0.jesaqohvh1~9))
+   (if@,2
+    (elif@3 turning.0
+     (stmts@9
+      (call@6 look.0.~4 c.7~6))))
+   (let@4,4 :onGround.0 . .
+    (bool@9,~1Z)
+    (call@Q grounded.0.jesaqohvh1~8
+     (dot~E
+      (hderef~1 c.7)body.0 0)))
+   (if@,5
+    (elif@3 onGround.0
+     (stmts~1,1
+      (asgn@E
+       (dot~D
+        (hderef~1 c.7)sinceGround.0 0)0.0@2)
+      (if@,1
+       (elif@3
+        (lt@9
+         (f 64)
+         (dot~8
+          (hderef~1 c.7)speedY.0 0)0.0@2)
+        (stmts@G
+         (asgn@9
+          (dot~8
+           (hderef~1 c.7)speedY.0 0)
+          (dot@3
+           (hderef~1 c.7)groundStick.0 0)))))))
+    (else@,3
+     (stmts@2,1
+      (asgn@E
+       (dot~D
+        (hderef~1 c.7)sinceGround.0 0)
+       (add@G
+        (f 64)
+        (dot~D
+         (hderef~1 c.7)sinceGround.0 0)seconds.0@2)))))
+   (if@,B
+    (elif@3
+     (call@D hit.0.~3
+      (dot~C
+       (hderef~1 c.7)jumpKey.0 0))
+     (stmts@H
+      (asgn@C
+       (dot~B
+        (hderef~1 c.7)sinceJump.0 0)0.0@2)))
+    (else@,1
+     (stmts@6
+      (asgn@C
+       (dot~B
+        (hderef~1 c.7)sinceJump.0 0)
+       (add@E
+        (f 64)
+        (dot~B
+         (hderef~1 c.7)sinceJump.0 0)seconds.0@2)))))
+   (if@,D
+    (elif@3
+     (and@S
+      (le~G
+       (f 64)
+       (dot~B
+        (hderef~1 c.7)sinceJump.0 0)
+       (dot@4
+        (hderef~1 c.7)jumpBuffer.0 0))
+      (le@I
+       (f 64)
+       (dot~D
+        (hderef~1 c.7)sinceGround.0 0)
+       (dot@4
+        (hderef~1 c.7)coyoteTime.0 0)))
+     (stmts~1,1
+      (asgn@9
+       (dot~8
+        (hderef~1 c.7)speedY.0 0)
+       (call@C squareRoot.0.~A
+        (mul@I
+         (f 64)
+         (mul~D
+          (f 64)2.0~4
+          (neg@2
+           (f 64)
+           (dot@2
+            (hderef~1 c.7)gravity.0 0)))
+         (dot@3
+          (hderef~1 c.7)jumpHeight.0 0))))
+      (asgn@C,1
+       (dot~B
+        (hderef~1 c.7)sinceJump.0 0)1000.0@2)
+      (asgn@E,2
+       (dot~D
+        (hderef~1 c.7)sinceGround.0 0)1000.0@2))))
+   (asgn@9,H
+    (dot~8
+     (hderef~1 c.7)speedY.0 0)
+    (add@B
+     (f 64)
+     (dot~8
+      (hderef~1 c.7)speedY.0 0)
+     (mul@C
+      (f 64)
+      (dot~9
+       (hderef~1 c.7)gravity.0 0)seconds.0@2)))
+   (var@4,J :side.0 . .
+    (f 64)0.0@7)
+   (if@,K
+    (elif@3
+     (call@F down.0.~4
+      (dot~E
+       (hderef~1 c.7)rightKey.0 0))
+     (stmts@J
+      (asgn@5 side.0~5
+       (add@7
+        (f 64)side.0~5 1.0@2)))))
+   (if@,L
+    (elif@3
+     (call@E down.0.~4
+      (dot~D
+       (hderef~1 c.7)leftKey.0 0))
+     (stmts@I
+      (asgn@5 side.0~5
+       (sub@7
+        (f 64)side.0~5 1.0@2)))))
+   (var@4,M :ahead.0 . .
+    (f 64)0.0@8)
+   (if@,N
+    (elif@3
+     (call@H down.0.~4
+      (dot~G
+       (hderef~1 c.7)forwardKey.0 0))
+     (stmts@L
+      (asgn@6 ahead.0~6
+       (add@8
+        (f 64)ahead.0~6 1.0@2)))))
+   (if@,O
+    (elif@3
+     (call@E down.0.~4
+      (dot~D
+       (hderef~1 c.7)backKey.0 0))
+     (stmts@I
+      (asgn@6 ahead.0~6
+       (sub@8
+        (f 64)ahead.0~6 1.0@2)))))
+   (if@,P
+    (elif@3
+     (and@C
+      (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+       (not@,1
+        (eq@7
+         (f 64)side.0@5,31,../../../../Packages/com.aoughwl.jester/ModSdk/character.nim 0.0@D,31,../../../../Packages/com.aoughwl.jester/ModSdk/character.nim)))
+      (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+       (not@,1
+        (eq@7
+         (f 64)ahead.0@L,31,../../../../Packages/com.aoughwl.jester/ModSdk/character.nim 0.0@U,31,../../../../Packages/com.aoughwl.jester/ModSdk/character.nim))))
+     (stmts~1,1
+      (asgn@5 side.0~5
+       (mul@7
+        (f 64)side.0~5 0.7071067811865476@2))
+      (asgn@6,1 ahead.0~6
+       (mul@8
+        (f 64)ahead.0~6 0.7071067811865476@2)))))
+   (var@4,T :top.0 . .
+    (f@8,~2U 64)
+    (dot@7
+     (hderef~1 c.7)walkSpeed.0 0))
+   (if@,U
+    (elif@3
+     (call@D down.0.~4
+      (dot~C
+       (hderef~1 c.7)runKey.0 0))
+     (stmts@H
+      (asgn@4 top.0~4
+       (dot@3
+        (hderef~1 c.7)runSpeed.0 0)))))
+   (let@4,X :facingX.0 . .
+    (f@5,~2j 64)
+    (call@P forwardX.0.jesaqohvh1~8
+     (dot~E
+      (hderef~1 c.7)body.0 0)))
+   (let@4,Y :facingZ.0 . .
+    (f@5,~2k 64)
+    (call@P forwardZ.0.jesaqohvh1~8
+     (dot~E
+      (hderef~1 c.7)body.0 0)))
+   (let@4,Z :wantX.0 . .
+    (f@5,~2l 64)
+    (mul@h
+     (f 64)
+     (add~I
+      (f 64)
+      (mul~8
+       (f 64)facingX.0~8 ahead.0@2)
+      (mul@A
+       (f 64)facingZ.0~8 side.0@2))top.0@2))
+   (let@4,a :wantZ.0 . .
+    (f@5,~2m 64)
+    (mul@h
+     (f 64)
+     (sub~I
+      (f 64)
+      (mul~8
+       (f 64)facingZ.0~8 ahead.0@2)
+      (mul@A
+       (f 64)facingX.0~8 side.0@2))top.0@2))
+   (var@4,c :grip.0 . .
+    (f@B,~2b 64)
+    (dot@8
+     (hderef~1 c.7)acceleration.0 0))
+   (if@,d
+    (elif@3
+     (not onGround.0@4)
+     (stmts@E
+      (asgn@5 grip.0~5
+       (dot@3
+        (hderef~1 c.7)airAcceleration.0 0)))))
+   (var@4,e :blend.0 . .
+    (f@5,~2q 64)
+    (mul@D
+     (f 64)grip.0~5 seconds.0@2))
+   (if@,f
+    (elif@3
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (f 64)1.0@D,3H,../../../../Packages/com.aoughwl.jester/ModSdk/character.nim blend.0@5,3H,../../../../Packages/com.aoughwl.jester/ModSdk/character.nim))
+     (stmts@D
+      (asgn@6 blend.0~6 1.0@2))))
+   (asgn@9,g
+    (dot~8
+     (hderef~1 c.7)speedX.0 0)
+    (add@B
+     (f 64)
+     (dot~8
+      (hderef~1 c.7)speedX.0 0)
+     (mul@L
+      (f 64)
+      (sub~C
+       (f 64)wantX.0~6
+       (dot@3
+        (hderef~1 c.7)speedX.0 0))blend.0@2)))
+   (asgn@9,h
+    (dot~8
+     (hderef~1 c.7)speedZ.0 0)
+    (add@B
+     (f 64)
+     (dot~8
+      (hderef~1 c.7)speedZ.0 0)
+     (mul@L
+      (f 64)
+      (sub~C
+       (f 64)wantZ.0~6
+       (dot@3
+        (hderef~1 c.7)speedZ.0 0))blend.0@2)))
+   (call@B,j move.0.jesaqohvh1~4
+    (dot~A
+     (hderef~1 c.7)body.0 0)
+    (mul@A
+     (f 64)
+     (dot~8
+      (hderef~1 c.7)speedX.0 0)seconds.0@2)
+    (mul@U
+     (f 64)
+     (dot~8
+      (hderef~1 c.7)speedY.0 0)seconds.0@2)
+    (mul@o
+     (f 64)
+     (dot~8
+      (hderef~1 c.7)speedZ.0 0)seconds.0@2))
+   (if@,m
+    (elif@3
+     (and@K
+      (call~3 hitCeiling.0.jesaqohvh1~A
+       (dot~G
+        (hderef~1 c.7)body.0 0))
+      (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+       (lt@2,1
+        (f 64)0.0@e,3O,../../../../Packages/com.aoughwl.jester/ModSdk/character.nim
+        (dot@U,3O,../../../../Packages/com.aoughwl.jester/ModSdk/character.nim
+         (hderef~1 c.7)speedY.0 0))))
+     (stmts@e
+      (asgn@9
+       (dot~8
+        (hderef~1 c.7)speedY.0 0)0.0@2))))
+   (call@A,n lookFrom.0.~8
+    (hderef~A c.7))))
+ (proc@,3R :teleport.0.@5 x . .
+  (params@E
+   (param@1 :c.8 . .
+    (mut@3 Character.0.@4).)
+   (param@J :x.1 . .
+    (f@9 64).)
+   (param@M :y.1 . .
+    (f@6 64).)
+   (param@P :z.1 . .
+    (f@3 64).)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@G isNothing.0.jesaqohvh1~9
+      (dot~F
+       (hderef~1 c.8)body.0 0))
+     (stmts@K
+      (ret .))))
+   (call@F,1 position.0.jesaqohvh1~8
+    (dot~E
+     (hderef~1 c.8)body.0 0)x.1@1 y.1@4 z.1@7)
+   (asgn@9,2
+    (dot~8
+     (hderef~1 c.8)speedX.0 0)0.0@2)
+   (asgn@9,3
+    (dot~8
+     (hderef~1 c.8)speedY.0 0)0.0@2)
+   (asgn@9,4
+    (dot~8
+     (hderef~1 c.8)speedZ.0 0)0.0@2)
+   (call@A,5 lookFrom.0.~8
+    (hderef~A c.8))))
+ (proc@,3g :place.1.@5 x . .
+  (params@B
+   (param@1 :c.9 . .
+    (mut@3 Character.0.@4).)
+   (param@J :name.1 . . string.0.sysvq0asl@6 .)
+   (param@X :at.0 . . Vec3.0.vecqnfc1h@4 .)
+   (param@h :withEye.1 . .
+    (bool~d,~2a)
+    (true@A))). . .
+  (stmts@2,1
+   (call@7 place.0.~5 c.9~7 name.1@1
+    (dot@9 at.0~2 x.0 0)
+    (dot@F at.0~2 y.0 0)
+    (dot@L at.0~2 z.0 0)withEye.1@P)))
+ (proc@,3j :teleport.1.@5 x . .
+  (params@E
+   (param@1 :c.10 . .
+    (mut@3 Character.0.@4).)
+   (param@J :at.1 . . Vec3.0.vecqnfc1h@4 .)). . .
+  (stmts@j
+   (call@A teleport.0.~8 c.10~A
+    (dot@3 at.1~2 x.0 0)
+    (dot@9 at.1~2 y.0 0)
+    (dot@F at.1~2 z.0 0))))
+ (proc@,3l :speed.0.@5 x . .
+  (params@B
+   (param@1 :c.11 . . Character.0.@3 .))Vec3.0.vecqnfc1h@G . .
+  (stmts@Y
+   (result@4 :result.4 . . Vec3.0.vecqnfc1h@A,~5 .)
+   (asgn@4 result.4
+    (call vec3.0.vecqnfc1h~4
+     (dot@2 c.11~1 speedX.0 0)
+     (dot@C c.11~1 speedY.0 0)
+     (dot@M c.11~1 speedZ.0 0)))
+   (ret~Y result.4)))
+ (proc@,3m :speed.1.@5 x . .
+  (params@B
+   (param@1 :c.12 . .
+    (mut@3 Character.0.@4).)
+   (param@J :v.0 . . Vec3.0.vecqnfc1h@3 .)). . .
+  (stmts@2,1
+   (asgn@9
+    (dot~8
+     (hderef~1 c.12)speedX.0 0)
+    (dot@3 v.0~1 x.0 0))
+   (asgn@9,1
+    (dot~8
+     (hderef~1 c.12)speedY.0 0)
+    (dot@3 v.0~1 y.0 0))
+   (asgn@9,2
+    (dot~8
+     (hderef~1 c.12)speedZ.0 0)
+    (dot@3 v.0~1 z.0 0))))
+ (proc@,3r :position.0.@5 x . .
+  (params@E
+   (param@1 :c.13 . . Character.0.@3 .))Vec3.0.vecqnfc1h@G . .
+  (stmts@b
+   (result@F :result.5 . . Vec3.0.vecqnfc1h~4,~B .)
+   (asgn@F result.5
+    (call position.0.vecqnfc1h~8
+     (dot~E c.13~1 body.0 0)))
+   (ret~b result.5)))
+ (proc@,3s :eyePosition.0.@5 x . .
+  (params@H
+   (param@1 :c.14 . . Character.0.@3 .))Vec3.0.vecqnfc1h@G . .
+  (stmts@e
+   (result@E :result.6 . . Vec3.0.vecqnfc1h~6,~C .)
+   (asgn@E result.6
+    (call position.0.vecqnfc1h~8
+     (dot~D c.14~1 eye.0 0)))
+   (ret~e result.6)))
+ (comment@B,P float64.0.sysvq0asl float64.0.sysvq0asl@,1 float64.0.sysvq0asl@3,2 float64.0.sysvq0asl@3,B float64.0.sysvq0asl@2,C float64.0.sysvq0asl@6,D float64.0.sysvq0asl@9,E float64.0.sysvq0asl@1,F float64.0.sysvq0asl@4,G float64.0.sysvq0asl@4,H float64.0.sysvq0asl@4,I float64.0.sysvq0asl@5,J float64.0.sysvq0asl@3,K float64.0.sysvq0asl@4,L float64.0.sysvq0asl~3,N float64.0.sysvq0asl~1,O float64.0.sysvq0asl@,Q float64.0.sysvq0asl@,R float64.0.sysvq0asl@,S float64.0.sysvq0asl@5,T float64.0.sysvq0asl@3,U float64.0.sysvq0asl@C,Y float64.0.sysvq0asl@7,Y bool.0.sysvq0asl@4,h bool.0.sysvq0asl@4,l float64.0.sysvq0asl@g,14 float64.0.sysvq0asl@g,1k float64.0.sysvq0asl@g,1k float64.0.sysvq0asl@g,1k true.0.sysvq0asl@z,1k true.0.sysvq0asl@S,2B float64.0.sysvq0asl@V,32 float64.0.sysvq0asl@V,32 float64.0.sysvq0asl@V,32 true.0.sysvq0asl@r,3H false.0.sysvq0asl@F,i false.0.sysvq0asl@F,m default.12.sysvq0asl@,s default.12.sysvq0asl@,s default.12.sysvq0asl@,s default.13.sysvq0asl@,s default.13.sysvq0asl@,s default.13.sysvq0asl@,s default.13.sysvq0asl@,s default.13.sysvq0asl@,s default.13.sysvq0asl@,s default.12.sysvq0asl@,s default.12.sysvq0asl@,s default.12.sysvq0asl@,s default.12.sysvq0asl@,s default.12.sysvq0asl@,s default.12.sysvq0asl@,s default.12.sysvq0asl@,s default.12.sysvq0asl@,s default.12.sysvq0asl@,s default.12.sysvq0asl@,s default.12.sysvq0asl@,s default.12.sysvq0asl@,s default.12.sysvq0asl@,s default.12.sysvq0asl@,s default.12.sysvq0asl@,s default.12.sysvq0asl@,s default.12.sysvq0asl@,s default.12.sysvq0asl@,s >.0.sysvq0asl@7,20 >.0.sysvq0asl@4,21 !=.0.sysvq0asl~1,2b !=.0.sysvq0asl@G,2b >.0.sysvq0asl@,2r >.0.sysvq0asl@R,2y)
+ (func@4,13 :inc.1.Irn1g7r1. . .@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (at inc.1.sysvq0asl
+   (i 64))
+  (params@L,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (param@1 :x.3 . .
+    (mut@3
+     (i 64)).)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (pragmas@W,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (inline@2)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (stmts@2,F,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (asgn@2,1
+    (hderef~2 x.3)
+    (add@6
+     (i 64)
+     (hderef@1 x.3)
+     (conv@U,~F
+      (i 64)1@1)))))
+ (proc@G,K :=destroy_SX43haracter0chao51feh.0. . . .
+  (params
+   (param :dest.0 . . Character.0. .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 runKey.0 0))
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 jumpKey.0 0))
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 rightKey.0 0))
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 leftKey.0 0))
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 backKey.0 0))
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 forwardKey.0 0))))
+ (proc@G,K :=wasmoved_SX43haracter0chao51feh.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut Character.0.).)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)forwardKey.0 0)))
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)backKey.0 0)))
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)leftKey.0 0)))
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)rightKey.0 0)))
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)jumpKey.0 0)))
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)runKey.0 0)))))
+ (proc@G,K :=dup_SX43haracter0chao51feh.0. . . .
+  (params
+   (param :src.0 . . Character.0. .))Character.0.
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (result :dest.0 .
+    (pragmas
+     (noinit))Character.0. .)
+   (asgn
+    (dot dest.0 body.0 0)
+    (dot src.0 body.0 0))
+   (asgn
+    (dot dest.0 eye.0 0)
+    (dot src.0 eye.0 0))
+   (asgn
+    (dot dest.0 height.0 0)
+    (dot src.0 height.0 0))
+   (asgn
+    (dot dest.0 radius.0 0)
+    (dot src.0 radius.0 0))
+   (asgn
+    (dot dest.0 eyeHeight.0 0)
+    (dot src.0 eyeHeight.0 0))
+   (asgn
+    (dot dest.0 forwardKey.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 forwardKey.0 0)))
+   (asgn
+    (dot dest.0 backKey.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 backKey.0 0)))
+   (asgn
+    (dot dest.0 leftKey.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 leftKey.0 0)))
+   (asgn
+    (dot dest.0 rightKey.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 rightKey.0 0)))
+   (asgn
+    (dot dest.0 jumpKey.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 jumpKey.0 0)))
+   (asgn
+    (dot dest.0 runKey.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 runKey.0 0)))
+   (asgn
+    (dot dest.0 walkSpeed.0 0)
+    (dot src.0 walkSpeed.0 0))
+   (asgn
+    (dot dest.0 runSpeed.0 0)
+    (dot src.0 runSpeed.0 0))
+   (asgn
+    (dot dest.0 acceleration.0 0)
+    (dot src.0 acceleration.0 0))
+   (asgn
+    (dot dest.0 airAcceleration.0 0)
+    (dot src.0 airAcceleration.0 0))
+   (asgn
+    (dot dest.0 gravity.0 0)
+    (dot src.0 gravity.0 0))
+   (asgn
+    (dot dest.0 jumpHeight.0 0)
+    (dot src.0 jumpHeight.0 0))
+   (asgn
+    (dot dest.0 coyoteTime.0 0)
+    (dot src.0 coyoteTime.0 0))
+   (asgn
+    (dot dest.0 jumpBuffer.0 0)
+    (dot src.0 jumpBuffer.0 0))
+   (asgn
+    (dot dest.0 groundStick.0 0)
+    (dot src.0 groundStick.0 0))
+   (asgn
+    (dot dest.0 lookSpeed.0 0)
+    (dot src.0 lookSpeed.0 0))
+   (asgn
+    (dot dest.0 pitchLimit.0 0)
+    (dot src.0 pitchLimit.0 0))
+   (asgn
+    (dot dest.0 yaw.0 0)
+    (dot src.0 yaw.0 0))
+   (asgn
+    (dot dest.0 pitch.0 0)
+    (dot src.0 pitch.0 0))
+   (asgn
+    (dot dest.0 speedX.0 0)
+    (dot src.0 speedX.0 0))
+   (asgn
+    (dot dest.0 speedY.0 0)
+    (dot src.0 speedY.0 0))
+   (asgn
+    (dot dest.0 speedZ.0 0)
+    (dot src.0 speedZ.0 0))
+   (asgn
+    (dot dest.0 sinceGround.0 0)
+    (dot src.0 sinceGround.0 0))
+   (asgn
+    (dot dest.0 sinceJump.0 0)
+    (dot src.0 sinceJump.0 0))
+   (ret dest.0)))
+ (proc@G,K :=copy_SX43haracter0chao51feh.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut Character.0.).)
+   (param :src.0 . . Character.0. .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (asgn
+    (dot
+     (hderef dest.0)body.0 0)
+    (dot src.0 body.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)eye.0 0)
+    (dot src.0 eye.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)height.0 0)
+    (dot src.0 height.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)radius.0 0)
+    (dot src.0 radius.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)eyeHeight.0 0)
+    (dot src.0 eyeHeight.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)forwardKey.0 0)
+    (dot src.0 forwardKey.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)backKey.0 0)
+    (dot src.0 backKey.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)leftKey.0 0)
+    (dot src.0 leftKey.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)rightKey.0 0)
+    (dot src.0 rightKey.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)jumpKey.0 0)
+    (dot src.0 jumpKey.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)runKey.0 0)
+    (dot src.0 runKey.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)walkSpeed.0 0)
+    (dot src.0 walkSpeed.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)runSpeed.0 0)
+    (dot src.0 runSpeed.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)acceleration.0 0)
+    (dot src.0 acceleration.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)airAcceleration.0 0)
+    (dot src.0 airAcceleration.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)gravity.0 0)
+    (dot src.0 gravity.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)jumpHeight.0 0)
+    (dot src.0 jumpHeight.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)coyoteTime.0 0)
+    (dot src.0 coyoteTime.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)jumpBuffer.0 0)
+    (dot src.0 jumpBuffer.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)groundStick.0 0)
+    (dot src.0 groundStick.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)lookSpeed.0 0)
+    (dot src.0 lookSpeed.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)pitchLimit.0 0)
+    (dot src.0 pitchLimit.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)yaw.0 0)
+    (dot src.0 yaw.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)pitch.0 0)
+    (dot src.0 pitch.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)speedX.0 0)
+    (dot src.0 speedX.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)speedY.0 0)
+    (dot src.0 speedY.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)speedZ.0 0)
+    (dot src.0 speedZ.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)sinceGround.0 0)
+    (dot src.0 sinceGround.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)sinceJump.0 0)
+    (dot src.0 sinceJump.0 0)))))(.index@,1,../../../../Packages/com.aoughwl.jester/ModSdk/character.nim
+ (x Character.0. 412)
+ (h squareRoot.0. 1616)
+ (h down.0. 661)
+ (h hit.0. 379)
+ (x newCharacter.0. 381)
+ (x bindKey.0. 3288)
+ (x tune.0. 1101)
+ (x configure.0. 2194)
+ (x configure.1. 917)
+ (x lookFrom.0. 357)
+ (x place.0. 667)
+ (x look.0. 1478)
+ (x step.0. 1939)
+ (x teleport.0. 6980)
+ (x place.1. 681)
+ (x teleport.1. 386)
+ (x speed.0. 266)
+ (x speed.1. 333)
+ (x position.0. 397)
+ (x eyePosition.0. 276)
+ (h inc.1.Irn1g7r1. 1927)
+ (h =destroy_SX43haracter0chao51feh.0. 630)
+ (h =wasmoved_SX43haracter0chao51feh.0. 505)
+ (h =dup_SX43haracter0chao51feh.0. 683)
+ (h =copy_SX43haracter0chao51feh.0. 2399))

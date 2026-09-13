@@ -1,0 +1,299 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,dbglayout.nim
+ (comment)
+ (import@,d dbgline@7)
+ (type@9,g DRect~7 x . .
+  (object@2 .
+   (fld~6,5 x~1 x . float@F .)
+   (fld~2,5 y~1 x . float@B .)
+   (fld@2,5 w~1 x . float@7 .)
+   (fld@6,5 h~1 x . float@3 .)))
+ (type@7,n Run~5 x . .
+  (object@2 .
+   (fld~1,1 text~4 x . string@3 .)
+   (fld~3,2 at~2 x . DRect@3 .)
+   (fld@,6 plate~5 x . DRect@3 .)
+   (fld@,8 blank~5 x . bool@3 .)
+   (fld~1,B line~4 x . int@3 .)))
+ (const@8,13 Margin~6 x . int@3 2@9)
+ (const@C,15 LineStride~A x . int@3 9@9)
+ (const@C,1C PlateInset~A x . int@3 1@9)
+ (const@B,1G Separator~9 x . string@3 "\3A "@C)
+ (const@9,1K TextRed~7 x . float@3 0.9019607843137255@B)
+ (const@B,1L TextGreen~9 x . float@3 0.9019607843137255@B)
+ (const@A,1M TextBlue~8 x . float@3 0.9019607843137255@B)
+ (const@A,1O PlateRed~8 x . float@3 0.3137254901960784@B)
+ (const@C,1P PlateGreen~A x . float@3 0.3137254901960784@B)
+ (const@B,1Q PlateBlue~9 x . float@3 0.3137254901960784@B)
+ (const@C,1R PlateAlpha~A x . float@3 0.5647058823529412@B)
+ (comment@,1X)
+ (proc@,1o composed@5 x . .
+  (params@E
+   (param@1 line . . DebugLine@6 .)
+   (param@I label . . string@G .)
+   (param@P missing . . string@9 .))string@h . .
+  (stmts@2,1
+   (var@4 value . . . missing@8)
+   (if@,1
+    (elif@3
+     (infix@E and
+      (call~7 sourced~7 line@1)
+      (dot@8 line~4 answered@1))
+     (stmts@X
+      (asgn@6 value~6
+       (dot@6 line~4 value@1)))))
+   (if@,2
+    (elif@3
+     (infix@A ==
+      (dot~5 label~5 len@1)0@3)
+     (stmts@G
+      (ret value@7))))
+   (infix@I,3 &
+    (infix~C & label~6 Separator@2)value@2)))
+ (comment@,1u)
+ (proc@,1w spacer@5 x . .
+  (params@C
+   (param@1 line . . DebugLine@6 .))bool@J . .
+  (stmts@2,1
+   (infix@12 and
+    (infix~M and
+     (infix~O and
+      (infix~5 ==
+       (dot~5
+        (dot~4 line~4 key@1)len@1)0@3)
+      (infix@J ==
+       (dot~5
+        (dot~6 line~4 label@1)len@1)0@3))
+     (prefix@4 not
+      (call@B sourced~7 line@1)))
+    (infix~l,1 ==
+     (dot~5
+      (dot~6 line~4 needs@1)len@1)0@3))))
+ (proc@,23 drect@5 x . .
+  (params@B
+   (param@1 x . . float@C .)
+   (param@4 y . . float@9 .)
+   (param@7 w . . float@6 .)
+   (param@A h . . float@3 .))DRect@L . .
+  (stmts@e
+   (oconstr@5 DRect~5
+    (kv@2 x~1 x@2)
+    (kv@8 y~1 y@2)
+    (kv@E w~1 w@2)
+    (kv@K h~1 h@2))))
+ (proc@,24 right@5 x . .
+  (params@B
+   (param@1 r . . DRect@3 .))float@C . .
+  (stmts@V
+   (infix@4 \2B
+    (dot~3 r~1 x@1)
+    (dot@3 r~1 w@1))))
+ (proc@,25 bottom@5 x . .
+  (params@C
+   (param@1 r . . DRect@3 .))float@C . .
+  (stmts@W
+   (infix@4 \2B
+    (dot~3 r~1 y@1)
+    (dot@3 r~1 h@1))))
+ (comment@,27)
+ (proc@,2F plan@5 x . .
+  (params@A
+   (param@1 texts . .
+    (at@A seq~3 string@1).)
+   (param@L widths . .
+    (at@B seq~3 int@1).)
+   (param@d section . . Section@9 .)
+   (param@1,1 guiW . . int@6 .))
+  (at@G,1 seq~3 Run@1). .
+  (stmts@2,2
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@K and
+     (infix~C < i~2
+      (dot@7 texts~5 len@1))
+     (infix@6 < i~2
+      (dot@8 widths~6 len@1)))
+    (stmts@2,1
+     (let@4 w . . .
+      (call@9 float~5
+       (at@7 widths~6 i@1)))
+     (var@4,1 x . . .
+      (call@9 float~5 Margin@1))
+     (if@,2
+      (elif@3
+       (infix@8 == section~8 RightSection@3)
+       (stmts@P
+        (asgn@2 x~2
+         (infix@N \2D
+          (call~G float~5
+           (infix@6 \2D guiW~5 Margin@2))w@2)))))
+     (let@4,3 y . . .
+      (call@9 float~5
+       (infix@8 \2B Margin~7
+        (infix@D * LineStride~B i@2))))
+     (cmd@6,4
+      (dot result~6 add@1)
+      (oconstr@8 Run~3
+       (kv@5 text~4
+        (at@7 texts~5 i@1))
+       (kv@L line~4 i@2)
+       (kv~A,1 at~2
+        (call@7 drect~5 x@1 y@4 w@7
+         (call@F float~5 LineStride@1)))
+       (kv~7,2 plate~5
+        (call@7 drect~5
+         (infix@3 \2D x~2
+          (call@7 float~5 PlateInset@1))
+         (infix@Q \2D y~2
+          (call@7 float~5 PlateInset@1))
+         (infix~8,1 \2B w~2
+          (call@7 float~5
+           (infix@C * PlateInset~B 2@2)))
+         (call@M,1 float~5 LineStride@1)))
+       (kv~7,4 blank~5
+        (infix@F ==
+         (dot~5
+          (at~3 texts~5 i@1)len@1)0@3))))
+     (cmd@,9 inc i@4)))))
+ (comment@,2V)
+ (proc@,2Y fitCount@5 x . .
+  (params@E
+   (param@1 guiH . . int@6 .))int@D . .
+  (stmts@2,1
+   (var@4 n . . .
+    (infix@K div
+     (par~G
+      (infix@6 \2D guiH~5 Margin@2))LineStride@4))
+   (if@,1
+    (elif@3
+     (infix@2 < n~2 0@2)
+     (stmts@7
+      (asgn@2 n~2 0@2))))n@,2))
+ (comment@,2d)
+ (proc@,2g withinWidth@5 x . .
+  (params@H
+   (param@1 runs . .
+    (at@9 seq~3 Run@1).)
+   (param@H guiW . . int@6 .))bool@T . .
+  (stmts@2,1
+   (asgn@7 result~7 true@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 runs~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (prefix not
+        (dot@B
+         (at~3 runs~4 i@1)blank@1))
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@G <
+           (dot~3
+            (dot~6
+             (at~3 runs~4 i@1)plate@1)x@1)0.0@2)
+          (stmts@N
+           (asgn@7 result~7 false@2))))
+        (if@,1
+         (elif@3
+          (infix@L >
+           (call~G right~5
+            (dot@8
+             (at~3 runs~4 i@1)plate@1))
+           (call@7 float~5 guiW@1))
+          (stmts@a
+           (asgn@7 result~7 false@2)))))))
+     (cmd@,3 inc i@4)))))
+ (comment@,2p)
+ (proc@,2s rightEdge@5 x . .
+  (params@F
+   (param@1 guiW . . int@6 .))float@D . .
+  (stmts@a
+   (call@5 float~5
+    (infix@6 \2D guiW~5 Margin@2))))
+ (comment@,2u)
+ (proc@,2y continuous@5 x . .
+  (params@G
+   (param@1 runs . .
+    (at@9 seq~3 Run@1).))bool@I . .
+  (stmts@2,1
+   (asgn@7 result~7 true@2)
+   (var@4,1 i . . . 1@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 runs~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@Q !=
+        (call~K bottom~6
+         (dot@C
+          (at~7 runs~4
+           (infix@3 \2D i~2 1@2))plate@1))
+        (dot@G
+         (dot~6
+          (at~3 runs~4 i@1)plate@1)y@1))
+       (stmts@k
+        (asgn@7 result~7 false@2))))
+     (cmd@,1 inc i@4)))))
+ (const@B,3D ScreenRow~9 x . string@3 "screen"@C)
+ (const@A,3E PackFont~8 x . string@3 "pack"@C)
+ (const@A,3F HostFont~8 x . string@3 "host"@C)
+ (type@A,3I Screen~8 x . .
+  (object@2 .
+   (fld~1,1 missing~7 x . string@3 .)
+   (fld~4,6 font~4 x . string@3 .)
+   (fld~6,B on~2 x . bool@3 .)))
+ (proc@,3W defaultScreen@5 x . .
+  (params@J)Screen@4 . .
+  (stmts@2,1
+   (oconstr@6 Screen~6
+    (kv@8 missing~7 "debug.unavailable"@2)
+    (kv@Z font~4 HostFont@2)
+    (kv@n on~2 false@2))))
+ (comment@,3Z)
+ (proc@,3a screenFrom@5 x . .
+  (params@G
+   (param@1 c . . Config@3 .)
+   (param@C base . . Screen@6 .))Screen@R . .
+  (stmts@2,1
+   (asgn@7 result~7 base@2)
+   (var@4,1 r . . . 0@4)
+   (while@,2
+    (infix@8 < r~2
+     (dot@6
+      (dot~3 c~1 id@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@8 ==
+        (at~4
+         (dot~3 c~1 id@1)r@1)ScreenRow@3)
+       (stmts~1,1
+        (asgn@F
+         (dot~9 result~6 missing@1)
+         (call@9 fieldOf~7
+          (at@6
+           (dot~4 c~1 row@1)r@1)"missing"@B
+          (dot@S result~6 missing@1)))
+        (asgn@C,1
+         (dot~6 result~6 font@1)
+         (call@9 fieldOf~7
+          (at@6
+           (dot~4 c~1 row@1)r@1)"font"@B
+          (dot@P result~6 font@1)))
+        (asgn@A,2
+         (dot~4 result~6 on@1)
+         (call@7 truth~5
+          (call@8 fieldOf~7
+           (at@6
+            (dot~4 c~1 row@1)r@1)"on"@B ""@H)
+          (dot@a result~6 on@1))))))
+     (cmd@,4 inc r@4))))))

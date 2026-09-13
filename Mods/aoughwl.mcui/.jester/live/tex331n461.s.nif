@@ -1,0 +1,372 @@
+(.nif27)
+(.indexat 10984            )
+(stmts@,1,../../../../Packages/com.aoughwl.jester/ModSdk/textures.nim
+ (import
+  (kv sysvq0asl "../../../../../../nimony/lib/std/system.nim")
+  (kv jesaqohvh1 "../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim"))
+ (proc@,R :hostSurfaceTexture.0.@5 . . .
+  (params@N
+   (param@1 :entity.0 . .
+    (i@8 64).)
+   (param@G :slot.0 . .
+    (i@6 64).)
+   (param@T :file.0 . . string.0.sysvq0asl@6 .)).
+  (pragmas@2,1
+   (importc@2 "jester_surface_texture"@9)). .)
+ (proc@,T :hostImagePresent.0.@5 . . .
+  (params@L
+   (param@1 :file.1 . . string.0.sysvq0asl@6 .))
+  (bool@G)
+  (pragmas@g
+   (importc@2 "jester_image_present"@9)). .)
+ (proc@,U :hostModelFilePresent.0.@5 . . .
+  (params@P
+   (param@1 :uri.0 . . string.0.sysvq0asl@5 .))
+  (bool@F)
+  (pragmas@2,1
+   (importc@2 "jester_model_file_present"@9)). .)
+ (proc@,W :hostModelTexture.0.@5 . . .
+  (params@L
+   (param@1 :slot.1 . .
+    (i@6 64).)
+   (param@E :uri.1 . . string.0.sysvq0asl@5 .)).
+  (pragmas@m
+   (importc@2 "jester_model_texture"@9)). .)
+ (proc@,X :hostModelTextureRange.0.@5 . . .
+  (params@Q
+   (param@1 :slot.2 . .
+    (i@T 64).)
+   (param@7 :bytes.0 . .
+    (i@N 64).)
+   (param@E :offset.0 . .
+    (i@G 64).)
+   (param@M :length.0 . .
+    (i@8 64).)).
+  (pragmas@2,1
+   (importc@2 "jester_model_texture_range"@9)). .)
+ (const@A,b :ColorMap.0.~8 x .
+  (i@M,~A 64)
+  (suf@4 0 "i64"))
+ (const@9,c :BumpMap.0.~7 x .
+  (i@N,~B 64)
+  (suf@4 1 "i64"))
+ (const@A,d :ShineMap.0.~8 x .
+  (i@M,~C 64)
+  (suf@4 2 "i64"))
+ (const@9,e :GlowMap.0.~7 x .
+  (i@N,~D 64)
+  (suf@4 3 "i64"))
+ (proc@,h :texture.0.@5 x . .
+  (params@D
+   (param@1 :thing.0 . . Entity.0.jesaqohvh1@7 .)
+   (param@G :file.2 . . string.0.sysvq0asl@6 .)). . .
+  (stmts@2,1
+   (call@I hostSurfaceTexture.0.~I
+    (conv@6
+     (i~5 64)thing.0@1)
+    (conv@K
+     (i~J 64)ColorMap.0.@1)file.2@W)))
+ (proc@,l :bumps.0.@5 x . .
+  (params@B
+   (param@1 :thing.1 . . Entity.0.jesaqohvh1@7 .)
+   (param@G :file.3 . . string.0.sysvq0asl@6 .)). . .
+  (stmts@2,1
+   (call@I hostSurfaceTexture.0.~I
+    (conv@6
+     (i~5,~4 64)thing.1@1)
+    (conv@K
+     (i~J,~4 64)BumpMap.0.@1)file.3@V)))
+ (proc@,p :shine.0.@5 x . .
+  (params@B
+   (param@1 :thing.2 . . Entity.0.jesaqohvh1@7 .)
+   (param@G :file.4 . . string.0.sysvq0asl@6 .)). . .
+  (stmts@2,1
+   (call@I hostSurfaceTexture.0.~I
+    (conv@6
+     (i~5,~8 64)thing.2@1)
+    (conv@K
+     (i~J,~8 64)ShineMap.0.@1)file.4@W)))
+ (proc@,s :glow.0.@5 x . .
+  (params@A
+   (param@1 :thing.3 . . Entity.0.jesaqohvh1@7 .)
+   (param@G :file.5 . . string.0.sysvq0asl@6 .)). . .
+  (stmts@2,1
+   (call@I hostSurfaceTexture.0.~I
+    (conv@6
+     (i~5,~B 64)thing.3@1)
+    (conv@K
+     (i~J,~B 64)GlowMap.0.@1)file.5@V)))
+ (proc@,x :hasImage.0.@5 x . .
+  (params@E
+   (param@1 :file.6 . . string.0.sysvq0asl@6 .))
+  (bool@G). .
+  (stmts@b
+   (result@G :result.0 . .
+    (bool~b,~U).)
+   (asgn@G result.0
+    (call hostImagePresent.0.~G file.6@1))
+   (ret~b result.0)))
+ (proc@,14 :hasModelFile.0.@5 x . .
+  (params@I
+   (param@1 :uri.2 . . string.0.sysvq0asl@5 .))
+  (bool@F). .
+  (stmts@e
+   (result@K :result.1 . .
+    (bool~i,~b).)
+   (asgn@K result.1
+    (call hostModelFilePresent.0.~K uri.2@1))
+   (ret~e result.1)))
+ (proc@,1A :dress.0.@5 x . .
+  (params@B
+   (param@1 :thing.4 . . Entity.0.jesaqohvh1@7 .)
+   (param@G :base.0 . . string.0.sysvq0asl@6 .)). . .
+  (stmts@2,1
+   (let@4 :colour.0 . . string.0.sysvq0asl@q,~k
+    (infix@E &.0.sysvq0asl base.0~5 "_diff.png"@2))
+   (if@,1
+    (elif@3
+     (call@8 hasImage.0.~8 colour.0@1)
+     (stmts@I
+      (call@D texture.0.~7 thing.4~D colour.0@1))))
+   (let@4,2 :bump.0 . . string.0.sysvq0asl@q,~m
+    (infix@C &.0.sysvq0asl base.0~5 "_nrm.png"@2))
+   (if@,3
+    (elif@3
+     (call@8 hasImage.0.~8 bump.0@1)
+     (stmts@G
+      (call@B bumps.0.~5 thing.4~B bump.0@1))))
+   (let@4,4 :gloss.0 . . string.0.sysvq0asl@q,~o
+    (infix@D &.0.sysvq0asl base.0~5 "_gloss.png"@2))
+   (if@,5
+    (elif@3
+     (call@8 hasImage.0.~8 gloss.0@1)
+     (stmts@H
+      (call@B shine.0.~5 thing.4~B gloss.0@1))))))
+ (proc@,1M :useTexture.0.@5 x . .
+  (params@G
+   (param@1 :uri.3 . . string.0.sysvq0asl@5 .)). . .
+  (stmts@W
+   (call@G hostModelTexture.0.~G
+    (conv@6
+     (i~X,~e 64)ColorMap.0.@1)uri.3@I)))
+ (proc@,1N :useBumps.0.@5 x . .
+  (params@E
+   (param@1 :uri.4 . . string.0.sysvq0asl@5 .)). . .
+  (stmts@U
+   (call@G hostModelTexture.0.~G
+    (conv@6
+     (i~V,~f 64)BumpMap.0.@1)uri.4@H)))
+ (proc@,1O :useShineMap.0.@5 x . .
+  (params@H
+   (param@1 :uri.5 . . string.0.sysvq0asl@5 .)). . .
+  (stmts@X
+   (call@G hostModelTexture.0.~G
+    (conv@6
+     (i~Y,~g 64)ShineMap.0.@1)uri.5@I)))
+ (proc@,1P :useGlow.0.@5 x . .
+  (params@D
+   (param@1 :uri.6 . . string.0.sysvq0asl@5 .)). . .
+  (stmts@T
+   (call@G hostModelTexture.0.~G
+    (conv@6
+     (i~U,~h 64)GlowMap.0.@1)uri.6@H)))
+ (proc@,1T :useTexture.1.@5 x . .
+  (params@G
+   (param@1 :bytes.1 . .
+    (i@N 64).)
+   (param@8 :offset.1 . .
+    (i@G 64).)
+   (param@G :length.1 . .
+    (i@8 64).)). . .
+  (stmts@2,1
+   (call@L hostModelTextureRange.0.~L
+    (conv@6
+     (i~8,~m 64)ColorMap.0.@1)
+    (conv@N
+     (i~P,~m 64)bytes.1@1)
+    (conv@b
+     (i~d,~m 64)offset.1@1)
+    (conv@q
+     (i~s,~m 64)length.1@1))))
+ (proc@,1V :useBumps.1.@5 x . .
+  (params@E
+   (param@1 :bytes.2 . .
+    (i@N 64).)
+   (param@8 :offset.2 . .
+    (i@G 64).)
+   (param@G :length.2 . .
+    (i@8 64).)). . .
+  (stmts@2,1
+   (call@L hostModelTextureRange.0.~L
+    (conv@6
+     (i~8,~o 64)BumpMap.0.@1)
+    (conv@M
+     (i~O,~o 64)bytes.2@1)
+    (conv@a
+     (i~c,~o 64)offset.2@1)
+    (conv@p
+     (i~r,~o 64)length.2@1))))
+ (proc@,1X :useShineMap.1.@5 x . .
+  (params@H
+   (param@1 :bytes.3 . .
+    (i@N 64).)
+   (param@8 :offset.3 . .
+    (i@G 64).)
+   (param@G :length.3 . .
+    (i@8 64).)). . .
+  (stmts@2,1
+   (call@L hostModelTextureRange.0.~L
+    (conv@6
+     (i~8,~q 64)ShineMap.0.@1)
+    (conv@N
+     (i~P,~q 64)bytes.3@1)
+    (conv@b
+     (i~d,~q 64)offset.3@1)
+    (conv@q
+     (i~s,~q 64)length.3@1))))
+ (proc@,1Z :useGlow.1.@5 x . .
+  (params@D
+   (param@1 :bytes.4 . .
+    (i@N 64).)
+   (param@8 :offset.4 . .
+    (i@G 64).)
+   (param@G :length.4 . .
+    (i@8 64).)). . .
+  (stmts@2,1
+   (call@L hostModelTextureRange.0.~L
+    (conv@6
+     (i~8,~s 64)GlowMap.0.@1)
+    (conv@M
+     (i~O,~s 64)bytes.4@1)
+    (conv@a
+     (i~c,~s 64)offset.4@1)
+    (conv@p
+     (i~r,~s 64)length.4@1))))
+ (const@D,2H :PictureKind.0.~B x . string.0.sysvq0asl@j,~1q "aoughwl.picture"@4)
+ (const@G,2I :PictureCatalog.0.~E x . string.0.sysvq0asl@g,~1r "aoughwl.pictures"@4)
+ (const@D,2J :IconPicture.0.~B x . string.0.sysvq0asl@j,~1s "icon"@4)
+ (proc@,2W :publishPicture.0.@5 x . .
+  (params@K
+   (param@1 :name.0 . . string.0.sysvq0asl@C .)
+   (param@7 :file.7 . . string.0.sysvq0asl@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (eq@b
+      (i 64)
+      (call~5 len.4.sysvq0asl@1
+       (call~G catalogSignature.0.jesaqohvh1~G PictureCatalog.0.@1))0@3)
+     (stmts~1,1
+      (call@H defineCatalogKind.0.jesaqohvh1~H PictureKind.0.@1 "text"@E "A public name and the file inside the publishing mod that it names."~F,1)
+      (call@D,2 createCatalog.0.jesaqohvh1~D PictureCatalog.0.@1 PictureKind.0.@H "Pictures mods have offered to each other."~B,1))))
+   (call@C,5 addToCatalog.0.jesaqohvh1~C PictureCatalog.0.@1 name.0@H file.7@N)))
+ (proc@,2f :publishIcon.0.@5 x . .
+  (params@H
+   (param@1 :file.8 . . string.0.sysvq0asl@6 .)). . .
+  (stmts@Y
+   (call@E publishPicture.0.~E IconPicture.0.@1 file.8@E)))
+ (proc@,2n :pictureUri.0.@5 x . .
+  (params@G
+   (param@1 :provider.0 . . string.0.sysvq0asl@G .)
+   (param@B :name.1 . . string.0.sysvq0asl@6 .))string.0.sysvq0asl@Q . .
+  (stmts@2,1
+   (result@U :result.2 . . string.0.sysvq0asl@Q,~2N .)
+   (asgn@U result.2
+    (infix &.0.sysvq0asl
+     (infix~6 &.0.sysvq0asl
+      (infix~B &.0.sysvq0asl "published\3A"~D provider.0@2)"/"@2)name.1@2))
+   (ret~2,~1 result.2)))
+ (proc@,2s :texture.1.@5 x . .
+  (params@D
+   (param@1 :thing.5 . . Entity.0.jesaqohvh1@7 .)
+   (param@G :provider.1 . . string.0.sysvq0asl@G .)
+   (param@Q :name.2 . . string.0.sysvq0asl@6 .)). . .
+  (stmts@2,1
+   (call@D texture.0.~7 thing.5~D
+    (call@B pictureUri.0.~A provider.1@1 name.2@B))))
+ (proc@,2u :bumps.1.@5 x . .
+  (params@B
+   (param@1 :thing.6 . . Entity.0.jesaqohvh1@7 .)
+   (param@G :provider.2 . . string.0.sysvq0asl@G .)
+   (param@Q :name.3 . . string.0.sysvq0asl@6 .)). . .
+  (stmts@2,1
+   (call@B bumps.0.~5 thing.6~B
+    (call@B pictureUri.0.~A provider.2@1 name.3@B))))
+ (proc@,2z :drawPicture.0.@5 x . .
+  (params@H
+   (param@1 :provider.3 . . string.0.sysvq0asl@G .)
+   (param@B :name.4 . . string.0.sysvq0asl@6 .)
+   (param@P :x.0 . .
+    (f@L 64).)
+   (param@S :y.0 . .
+    (f@I 64).)
+   (param@V :width.0 . .
+    (f@F 64).)
+   (param@c :height.0 . .
+    (f@8 64).)
+   (param~D,1 :u0.0 . .
+    (f@x,~1 64)0.0@5)
+   (param~3,1 :v0.0 . .
+    (f@n,~1 64)0.0@5)
+   (param@7,1 :u1.0 . .
+    (f@d,~1 64)1.0@5)
+   (param@H,1 :v1.0 . .
+    (f@T,~1 64)1.0@5)
+   (param~D,2 :red.0 . .
+    (f@x,~2 64)1.0@6)
+   (param~2,2 :green.0 . .
+    (f@m,~2 64)1.0@8)
+   (param@B,2 :blue.0 . .
+    (f@Z,~2 64)1.0@7)
+   (param@N,2 :alpha.0 . .
+    (f@N,~2 64)1.0@8)). . .
+  (stmts@2,3
+   (call@9 drawImage.0.jesaqohvh1~9
+    (call@B pictureUri.0.~A provider.3@1 name.4@B)x.0@T y.0@W width.0@Z height.0@g u0.0@o v0.0@s u1.0@w v1.0@10 red.0~7,1 green.0~2,1 blue.0@5,1 alpha.0@B,1)))
+ (proc@,3E :hasPicture.0.@5 x . .
+  (params@G
+   (param@1 :provider.4 . . string.0.sysvq0asl@G .)
+   (param@B :name.5 . . string.0.sysvq0asl@6 .))
+  (bool@Q). .
+  (stmts@2,1
+   (result@8 :result.3 . .
+    (bool@6,~2m).)
+   (asgn@8 result.3
+    (call hasImage.0.~8
+     (call@B pictureUri.0.~A provider.4@1 name.5@B)))
+   (ret~2,~1 result.3)))
+ (comment@W,R int64.0.sysvq0asl int64.0.sysvq0asl@D bool.0.sysvq0asl~G,2 bool.0.sysvq0asl~H,3 int64.0.sysvq0asl~4,5 int64.0.sysvq0asl@O,6 int64.0.sysvq0asl@O,6 int64.0.sysvq0asl@O,6 int64.0.sysvq0asl@O,6 bool.0.sysvq0asl~G,W bool.0.sysvq0asl~H,d int.0.sysvq0asl@8,12 int.0.sysvq0asl@8,12 int.0.sysvq0asl@8,12 int.0.sysvq0asl@6,14 int.0.sysvq0asl@6,14 int.0.sysvq0asl@6,14 int.0.sysvq0asl@9,16 int.0.sysvq0asl@9,16 int.0.sysvq0asl@9,16 int.0.sysvq0asl@5,18 int.0.sysvq0asl@5,18 int.0.sysvq0asl@5,18 float64.0.sysvq0asl@V,2Y float64.0.sysvq0asl@V,2Y float64.0.sysvq0asl@V,2Y float64.0.sysvq0asl@V,2Y bool.0.sysvq0asl~6,2n int64.0.sysvq0asl~B,H int64.0.sysvq0asl@3,H int64.0.sysvq0asl~B,L int64.0.sysvq0asl@3,L int64.0.sysvq0asl~B,P int64.0.sysvq0asl@3,P int64.0.sysvq0asl~B,S int64.0.sysvq0asl@3,S int64.0.sysvq0asl@H,v int64.0.sysvq0asl@F,w int64.0.sysvq0asl@I,x int64.0.sysvq0asl@E,y int64.0.sysvq0asl~8,13 int64.0.sysvq0asl@9,13 int64.0.sysvq0asl@N,13 int64.0.sysvq0asl@c,13 int64.0.sysvq0asl~8,15 int64.0.sysvq0asl@8,15 int64.0.sysvq0asl@M,15 int64.0.sysvq0asl@b,15 int64.0.sysvq0asl~8,17 int64.0.sysvq0asl@9,17 int64.0.sysvq0asl@N,17 int64.0.sysvq0asl@c,17 int64.0.sysvq0asl~8,19 int64.0.sysvq0asl@8,19 int64.0.sysvq0asl@M,19 int64.0.sysvq0asl@b,19))(.index@,1,../../../../Packages/com.aoughwl.jester/ModSdk/textures.nim
+ (h hostSurfaceTexture.0. 258)
+ (h hostImagePresent.0. 245)
+ (h hostModelFilePresent.0. 169)
+ (h hostModelTexture.0. 179)
+ (h hostModelTextureRange.0. 197)
+ (x ColorMap.0. 285)
+ (x BumpMap.0. 64)
+ (x ShineMap.0. 63)
+ (x GlowMap.0. 64)
+ (x texture.0. 63)
+ (x bumps.0. 281)
+ (x shine.0. 284)
+ (x glow.0. 285)
+ (x hasImage.0. 283)
+ (x hasModelFile.0. 247)
+ (x dress.0. 254)
+ (x useTexture.0. 832)
+ (x useBumps.0. 196)
+ (x useShineMap.0. 193)
+ (x useGlow.0. 197)
+ (x useTexture.1. 192)
+ (x useBumps.1. 390)
+ (x useShineMap.1. 387)
+ (x useGlow.1. 391)
+ (x PictureKind.0. 386)
+ (x PictureCatalog.0. 81)
+ (x IconPicture.0. 85)
+ (x publishPicture.0. 70)
+ (x publishIcon.0. 693)
+ (x pictureUri.0. 172)
+ (x texture.1. 413)
+ (x bumps.1. 300)
+ (x drawPicture.0. 296)
+ (x hasPicture.0. 892))

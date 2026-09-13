@@ -1,0 +1,542 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,mcuimenu.nim
+ (comment)
+ (import@,X mcuicore@7)
+ (import@,Y mcuifont@7)
+ (const@D,b ButtonWidth~B x . . 200@4)
+ (const@E,c ButtonHeight~C x . . 20@4)
+ (const@H,d HalfButtonWidth~F x . . 98@4)
+ (const@9,e RowStep~7 x . . 24@4)
+ (const@9,f MenuTop~7 x . . 48@4)
+ (const@9,h LogoTop~7 x . . 30@4)
+ (const@A,i LogoLeft~8 x . . 137@4)
+ (const@F,l LogoBandWidth~D x . . 155@4)
+ (const@G,m LogoBandHeight~E x . . 44@4)
+ (const@J,n LogoSecondBandTop~H x . . 45@4)
+ (const@F,o SplashAnchorX~D x . . 90@4)
+ (const@F,p SplashAnchorY~D x . . 70@4)
+ (const@C,q SplashRise~A x . . -8@4)
+ (const@C,s SplashTurn~A x . . -20.0@4)
+ (const@D,u CornerInset~B x . . 2@4)
+ (const@G,v CornerBaseline~E x . . 10@4)
+ (const@G,x BackgroundTile~E x . . 32@4)
+ (const@H,10 BackgroundShade~F x . . 0.25@4)
+ (const@F,13 SplashColourR~D x . . 255@4)
+ (const@F,14 SplashColourG~D x . . 255@4)
+ (const@F,15 SplashColourB~D x . . 0@4)
+ (const@D,1C WidgetsSize~B x . . 256.0@4)
+ (const@F,1D ButtonSpriteX~D x . . 0.0@4)
+ (const@H,1E ButtonSpriteTop~F x . . 46.0@4)
+ (const@K,1F ButtonSpriteStride~I x . . 20.0@4)
+ (const@H,1L KeySingleplayer~F x . . "menu.singleplayer"@4)
+ (const@G,1M KeyMultiplayer~E x . . "menu.multiplayer"@4)
+ (const@B,1N KeyOnline~9 x . . "menu.online"@4)
+ (const@C,1O KeyOptions~A x . . "menu.options"@4)
+ (const@9,1P KeyQuit~7 x . . "menu.quit"@4)
+ (const@H,1Q KeyOptionsTitle~F x . . "options.title"@4)
+ (const@9,1R KeyDone~7 x . . "gui.done"@4)
+ (const@D,1S KeyGuiScale~B x . . "options.guiScale"@4)
+ (const@H,1T KeyGuiScaleAuto~F x . . "options.guiScale.auto"@4)
+ (const@H,1U KeyGenericValue~F x . . "options.generic_value"@4)
+ (type@F,1Z ButtonState~D x . .
+  (enum@2 .
+   (efld~D,1 ButtonDisabled . . . .)
+   (efld@3,1 ButtonNormal . . . .)
+   (efld@H,1 ButtonHovered . . . .)))
+ (type@E,1c MenuButton~C x . .
+  (object@2 .
+   (fld~9,1 key~3 x . string@3 .)
+   (fld~8,2 rect~4 x . MRect@3 .)
+   (fld~5,3 enabled~7 x . bool@3 .)))
+ (type@A,1h Screen~8 x . .
+  (enum@2 .
+   (efld~8,1 TitleScreen . . . .)
+   (efld@5,1 OptionsScreen . . . .)))
+ (comment@,1k)
+ (proc@,1l buttonSprite@5 x . .
+  (params@I
+   (param@1 state . . ButtonState@7 .))MRect@M . .
+  (stmts@2,1
+   (var@4 band . . . 1@7)
+   (if@,1
+    (elif@3
+     (infix@6 == state~6 ButtonDisabled@3)
+     (stmts@P
+      (asgn@5 band~5 0@2)))
+    (elif@5,1
+     (infix@6 == state~6 ButtonHovered@3)
+     (stmts@O
+      (asgn@5 band~5 2@2))))
+   (call@5,3 mrect~5 ButtonSpriteX@1
+    (infix@W \2B ButtonSpriteTop~G
+     (infix@E *
+      (call~7 float~5 band@1)ButtonSpriteStride@2))
+    (call@6,1 float~5 ButtonWidth@1)
+    (call@Q,1 float~5 ButtonHeight@1))))
+ (proc@,1s stateOf@5 x . .
+  (params@D
+   (param@1 enabled . . bool@I .)
+   (param@A hovered . . bool@9 .))ButtonState@Q . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not enabled@4)
+     (stmts@D ButtonDisabled))
+    (elif@5,1 hovered
+     (stmts@9 ButtonHovered))
+    (else@,2
+     (stmts@6 ButtonNormal)))))
+ (comment@,1x)
+ (proc@,22 titleButtons@5 x . .
+  (params@I
+   (param@1 guiW . . int@C .)
+   (param@7 guiH . . int@6 .))
+  (at@M seq~3 MenuButton@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (let@4,1 j . . .
+    (infix@F \2B
+     (infix~6 div guiH~5 4@4)MenuTop@2))
+   (let@4,2 left . . .
+    (call@C float~5
+     (infix@C \2D
+      (infix~6 div guiW~5 2@4)
+      (infix@E div ButtonWidth~C 2@4))))
+   (cmd@6,3
+    (dot result~6 add@1)
+    (oconstr@F MenuButton~A
+     (kv@4 key~3 KeySingleplayer@2)
+     (kv~F,1 rect~4
+      (call@7 mrect~5 left@1
+       (call@C float~5 j@1)
+       (call@M float~5 ButtonWidth@1)
+       (call@g float~5 ButtonHeight@1)))
+     (kv~C,2 enabled~7 true@2)))
+   (cmd@6,6
+    (dot result~6 add@1)
+    (oconstr@F MenuButton~A
+     (kv@4 key~3 KeyMultiplayer@2)
+     (kv~F,1 rect~4
+      (call@7 mrect~5 left@1
+       (call@C float~5
+        (infix@3 \2B j~2 RowStep@2))
+       (call@W float~5 ButtonWidth@1)
+       (call@6,1 float~5 ButtonHeight@1)))
+     (kv~C,3 enabled~7 true@2)))
+   (cmd@6,A
+    (dot result~6 add@1)
+    (oconstr@F MenuButton~A
+     (kv@4 key~3 KeyOnline@2)
+     (kv~F,1 rect~4
+      (call@7 mrect~5 left@1
+       (call@C float~5
+        (infix@3 \2B j~2
+         (infix@A * RowStep~8 2@2)))
+       (call@a float~5 ButtonWidth@1)
+       (call@6,1 float~5 ButtonHeight@1)))
+     (kv~C,3 enabled~7 false@2)))
+   (cmd@6,E
+    (dot result~6 add@1)
+    (oconstr@F MenuButton~A
+     (kv@4 key~3 KeyOptions@2)
+     (kv~F,1 rect~4
+      (call@7 mrect~5 left@1
+       (call@C float~5
+        (infix@8 \2B
+         (infix~5 \2B j~2 72@2)12@2))
+       (call@W float~5 HalfButtonWidth@1)
+       (call@6,1 float~5 ButtonHeight@1)))
+     (kv~C,3 enabled~7 true@2)))
+   (cmd@6,I
+    (dot result~6 add@1)
+    (oconstr@F MenuButton~A
+     (kv@4 key~3 KeyQuit@2)
+     (kv~F,1 rect~4
+      (call@7 mrect~5
+       (call@6 float~5
+        (infix@C \2B
+         (infix~6 div guiW~5 2@4)2@2))
+       (call@T float~5
+        (infix@8 \2B
+         (infix~5 \2B j~2 72@2)12@2))
+       (call@6,1 float~5 HalfButtonWidth@1)
+       (call@U,1 float~5 ButtonHeight@1)))
+     (kv~C,3 enabled~7 true@2)))))
+ (comment@,2Q)
+ (proc@,2Z buttonUnder@5 x . .
+  (params@H
+   (param@1 buttons . .
+    (at@C seq~3 MenuButton@1).)
+   (param@R x . . float@6 .)
+   (param@U y . . float@3 .))int@f . .
+  (stmts@2,1
+   (asgn@7 result~7 -1@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@9 buttons~7 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (call@L
+        (dot~6
+         (dot~5
+          (at~3 buttons~7 i@1)rect@1)holds@1)x@1 y@4)
+       (stmts@T
+        (ret i@7))))
+     (cmd@,1 inc i@4)))))
+ (comment@,2g)
+ (proc@,2i labelBaseline@5 x . .
+  (params@J
+   (param@1 r . . MRect@3 .))float@C . .
+  (stmts@2,1
+   (call@6 floorf~6
+    (infix@5 \2B
+     (dot~3 r~1 y@1)
+     (infix@M *
+      (par~K
+       (infix@5 \2D
+        (dot~3 r~1 h@1)NominalCell@2))0.5@2)))))
+ (comment@,2l)
+ (proc@,2o logoQuads@5 x . .
+  (params@F
+   (param@1 guiW . . int@6 .)
+   (param@C sheet . . . 256.0@8))
+  (at@V seq~3 Quad@1). .
+  (stmts@2,1
+   (let@4 x . . .
+    (call@9 float~5
+     (infix@C \2D
+      (infix~6 div guiW~5 2@4)LogoLeft@2)))
+   (let@4,1 factor . . .
+    (infix@F / sheet~6 256.0@2))
+   (asgn@7,2 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (cmd@6,3
+    (dot result~6 add@1)
+    (call@9 quad~4
+     (call~8,1 mrect~5 x@1
+      (call@9 float~5 LogoTop@1)
+      (call@P float~5 LogoBandWidth@1)
+      (call@l float~5 LogoBandHeight@1))
+     (call~8,2 mrect~5 0.0@1 0.0@6
+      (infix@W *
+       (call~G float~5 LogoBandWidth@1)factor@2)
+      (infix@N,1 *
+       (call~H float~5 LogoBandHeight@1)factor@2))))
+   (cmd@6,7
+    (dot result~6 add@1)
+    (call@9 quad~4
+     (call~8,1 mrect~5
+      (infix@3 \2B x~2
+       (call@7 float~5 LogoBandWidth@1))
+      (call@W float~5 LogoTop@1)
+      (call@m float~5 LogoBandWidth@1)
+      (call@6,1 float~5 LogoBandHeight@1))
+     (call~8,3 mrect~5 0.0@1
+      (infix@V *
+       (call~K float~5 LogoSecondBandTop@1)factor@2)
+      (infix@M,1 *
+       (call~G float~5 LogoBandWidth@1)factor@2)
+      (infix@s,1 *
+       (call~H float~5 LogoBandHeight@1)factor@2))))))
+ (comment@,32)
+ (const@H,3B ModernLogoWidth~F x . . 256@4)
+ (const@I,3C ModernLogoHeight~G x . . 44@4)
+ (const@I,3D ModernLogoSheetW~G x . . 256.0@4)
+ (const@I,3E ModernLogoSheetH~G x . . 64.0@4)
+ (proc@,3G logoQuadsModern@5 x . .
+  (params@L
+   (param@1 guiW . . int@6 .))
+  (at@G seq~3 Quad@1). .
+  (stmts@2,1
+   (prefix \40
+    (bracket@1
+     (call@5 quad~4
+      (call@6 mrect~5
+       (call@6 float~5
+        (infix@C \2D
+         (infix~6 div guiW~5 2@4)
+         (infix@I div ModernLogoWidth~G 2@4)))
+       (call@n float~5 LogoTop@1)
+       (call@6,1 float~5 ModernLogoWidth@1)
+       (call@U,1 float~5 ModernLogoHeight@1))
+      (call@5,2 mrect~5 0.0@1 0.0@6
+       (call@G float~5 ModernLogoWidth@1)
+       (call@e float~5 ModernLogoHeight@1)))))))
+ (const@F,3e PanoramaSides~D x . . 4@4)
+ (const@F,3f PanoramaShade~D x . . 0.55@4)
+ (const@O,3h PanoramaTurnsPerSecond~M x . . 0.004@4)
+ (type@K,3k PanoramaPiece~F x . .
+  (object@2 .
+   (fld~G,1 face~4 x . int@3 .)
+   (fld~G,2 dest~4 x . MRect@3 .)
+   (fld~H,3 src~3 x . MRect@3 .)))
+ (proc@,3p panoramaPieces@5 x . .
+  (params@K
+   (param@1 guiW . . int@C .)
+   (param@7 guiH . . int@6 .)
+   (param@I spin . . float@6 .))
+  (at@Z seq~3 PanoramaPiece@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (if@,1
+    (elif@3
+     (infix@A or
+      (infix~5 <= guiW~5 0@3)
+      (infix@8 <= guiH~5 0@3))
+     (stmts@O
+      (ret result@7))))
+   (var@4,2 tall . . .
+    (infix@J /
+     (call~7 float~5 guiH@1)
+     (call@7 float~5 guiW@1)))
+   (if@,3
+    (elif@3
+     (infix@5 > tall~5 1.0@2)
+     (stmts@C
+      (asgn@5 tall~5 1.0@2))))
+   (if@,4
+    (elif@3
+     (infix@5 < tall~5 0.05@2)
+     (stmts@D
+      (asgn@5 tall~5 0.05@2))))
+   (let@4,5 v0 . . .
+    (infix@I *
+     (par~D
+      (infix@5 \2D 1.0~4 tall@2))0.5@2))
+   (let@4,6 sides . . .
+    (call@D float~5 PanoramaSides@1))
+   (let@4,7 start . . .
+    (infix@U *
+     (par~M
+      (infix@6 \2D spin~5
+       (call@8 floorf~6 spin@1)))sides@2))
+   (let@4,8 stop . . .
+    (infix@D \2B start~6 1.0@2))
+   (var@4,9 at . . . start@5)
+   (var@4,A guard . . . 0@8)
+   (while@,B
+    (infix@G and
+     (infix~7 < at~3 stop@2)
+     (infix@A < guard~6
+      (infix@G \2B PanoramaSides~E 2@2)))
+    (stmts@2,1
+     (cmd inc guard@4)
+     (let@4,1 base . . .
+      (call@D floorf~6 at@1))
+     (var@4,2 edge . . .
+      (infix@C \2B base~5 1.0@2))
+     (if@,3
+      (elif@3
+       (infix@5 > edge~5 stop@2)
+       (stmts@D
+        (asgn@5 edge~5 stop@2))))
+     (if@,4
+      (elif@3
+       (infix@5 <= edge~5 at@3)
+       (stmts@C
+        (ret result@7))))
+     (var@4,5 face . . .
+      (infix@H mod
+       (call~7 int~3 base@1)PanoramaSides@4))
+     (if@,6
+      (elif@3
+       (infix@5 < face~5 0@2)
+       (stmts@A
+        (asgn@5 face~5
+         (infix@7 \2B face~5 PanoramaSides@2)))))
+     (cmd@6,7
+      (dot result~6 add@1)
+      (oconstr@I PanoramaPiece~D
+       (kv@5 face~4 face@2)
+       (kv~I,1 dest~4
+        (call@7 mrect~5
+         (infix@E *
+          (par~D
+           (infix@4 \2D at~3 start@2))
+          (call@7 float~5 guiW@1))0.0@T
+         (infix@D,1 *
+          (par~C
+           (infix@6 \2D edge~5 at@2))
+          (call@7 float~5 guiW@1))
+         (call@X,1 float~5 guiH@1)))
+       (kv~J,3 src~3
+        (call@7 mrect~5
+         (infix@4 \2D at~3 base@2)v0@C
+         (infix@L \2D edge~5 at@2)tall@R))))
+     (asgn@3,B at~3 edge@2)))))
+ (comment@,4F)
+ (proc@,4G splashAnchor@5 x . .
+  (params@I
+   (param@1 guiW . . int@6 .))MRect@D . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@C \2B
+      (infix~6 div guiW~5 2@4)SplashAnchorX@2))
+    (call@f float~5 SplashAnchorY@1)0.0@w 0.0@11)))
+ (comment@,4J)
+ (proc@,4S splashScale@5 x . .
+  (params@H
+   (param@1 splashWidth . . int@D .)
+   (param@J seconds . . float@9 .))float@a . .
+  (stmts@2,1
+   (let@4 phase . . .
+    (infix@G \2D seconds~8
+     (call@8 floorf~6 seconds@1)))
+   (let@4,1 breath . . .
+    (infix@D \2D 1.8~4
+     (call@6 absf~4
+      (infix@O *
+       (call~J sine~4
+        (infix@C *
+         (infix~5 * phase~6 Pi@2)2.0@2))0.1@2))))
+   (infix@F,2 /
+    (infix~8 * breath~7 100.0@2)
+    (call@7 float~5
+     (infix@D \2B splashWidth~C 32@2)))))
+ (comment@,4X)
+ (proc@,4a splashPlace@5 x . .
+  (params@H
+   (param@1 along . . float@J .)
+   (param@8 lift . . float@C .)
+   (param@E size . . float@6 .))MRect@S . .
+  (stmts@2,1
+   (let@4 radians . . .
+    (infix@Q /
+     (infix~5 * SplashTurn~B Pi@2)180.0@2))
+   (let@4,1 c . . .
+    (call@A cosine~6 radians@1))
+   (let@4,2 s . . .
+    (call@8 sine~4 radians@1))
+   (let@4,3 x . . .
+    (infix@A * along~6 size@2))
+   (let@4,4 y . . .
+    (infix@9 * lift~5 size@2))
+   (call@5,5 mrect~5
+    (infix@7 \2D
+     (infix~4 * x~2 c@2)
+     (infix@4 * y~2 s@2))
+    (infix@M \2B
+     (infix~4 * x~2 s@2)
+     (infix@4 * y~2 c@2))0.0@V 0.0@a)))
+ (comment@,4i)
+ (proc@,4l splashLines@5 x . .
+  (params@H
+   (param@1 body . . string@6 .))
+  (at@J seq~3 string@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 line . . . ""@7)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 <= i~2
+     (dot@7 body~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@E or
+        (infix~C == i~2
+         (dot@7 body~4 len@1))
+        (infix@B ==
+         (at~4 body~4 i@1)'\0A'@3))
+       (stmts~1,1
+        (var@4 trimmed . . . ""@A)
+        (var@4,1 j . . . 0@4)
+        (while@,2
+         (infix@8 < j~2
+          (dot@6 line~4 len@1))
+         (stmts@2,1
+          (let@4 c . . .
+           (at@8 line~4 j@1))
+          (if@,1
+           (elif@3
+            (infix@2 != c~2 '\0D'@3)
+            (stmts@B
+             (cmd@7
+              (dot trimmed~7 add@1)c@5))))
+          (cmd@,2 inc j@4)))
+        (var@4,6 blank . . . true@8)
+        (asgn@2,7 j~2 0@2)
+        (while@,8
+         (infix@8 < j~2
+          (dot@9 trimmed~7 len@1))
+         (stmts@2,1
+          (if
+           (elif@3
+            (infix@I and
+             (infix~7 !=
+              (at~4 trimmed~7 j@1)' '@3)
+             (infix@F !=
+              (at~4 trimmed~7 j@1)'\09'@3))
+            (stmts@g
+             (asgn@6 blank~6 false@2))))
+          (cmd@,1 inc j@4)))
+        (if@,B
+         (elif@3
+          (prefix not blank@4)
+          (stmts@B
+           (cmd@6
+            (dot result~6 add@1)trimmed@5))))
+        (asgn@5,C line~5 ""@2)))
+      (else@,E
+       (stmts@2,1
+        (cmd@4
+         (dot line~4 add@1)
+         (at@9 body~4 i@1)))))
+     (cmd@,G inc i@4)))))
+ (comment@,58)
+ (proc@,5B splashAt@5 x . .
+  (params@E
+   (param@1 lines . .
+    (at@A seq~3 string@1).)
+   (param@L seed . . int@6 .))string@X . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A ==
+      (dot~5 lines~5 len@1)0@3)
+     (stmts@G
+      (ret ""@7))))
+   (var@4,1 i . . .
+    (infix@9 mod seed~5
+     (dot@9 lines~5 len@1)))
+   (if@,2
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (asgn@2 i~2
+       (infix@4 \2B i~2
+        (dot@7 lines~5 len@1))))))
+   (at@5,3 lines~5 i@1)))
+ (comment@,5H)
+ (proc@,5I bottomLeft@5 x . .
+  (params@G
+   (param@1 guiH . . int@6 .))MRect@D . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5 CornerInset@1)
+    (call@Q float~5
+     (infix@6 \2D guiH~5 CornerBaseline@2))0.0@p 0.0@u)))
+ (proc@,5K bottomRight@5 x . .
+  (params@H
+   (param@1 guiW . . int@J .)
+   (param@7 guiH . . int@D .)
+   (param@D width . . int@7 .))MRect@Q . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@E \2D
+      (infix~8 \2D guiW~5 width@2)CornerInset@2))
+    (call@f float~5
+     (infix@6 \2D guiH~5 CornerBaseline@2))0.0@1,1 0.0@6,1))))

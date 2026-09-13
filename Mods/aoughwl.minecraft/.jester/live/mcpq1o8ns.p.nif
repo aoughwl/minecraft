@@ -1,0 +1,1925 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,mcpng.nim
+ (comment)
+ (const@B,O MaxPixels~9 x . .
+  (infix@6 shl 1~2 20@4))
+ (type@9,V Image~7 x . .
+  (object@2 .
+   (fld~2,1 width~5 x . int@C .)
+   (fld@7,1 height~6 x . int@3 .)
+   (fld~3,2 rgba~4 x .
+    (at@6 seq~3 int@1).)
+   (fld@,3 problem~7 x . string@3 .)))
+ (proc@,a emptyImage@5 x . .
+  (params@G)Image@4 . .
+  (stmts@2,1
+   (oconstr@5 Image~5
+    (kv@6 width~5 0@2)
+    (kv@H height~6 0@2)
+    (kv@Q rgba~4
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@e problem~7 ""@2))))
+ (proc@,d pixels@5 x . .
+  (params@C
+   (param@1 img . . Image@5 .))int@E . .
+  (stmts@W
+   (infix@A *
+    (dot~7 img~3 width@1)
+    (dot@5 img~3 height@1))))
+ (type@7,k Bits~5 . . .
+  (object@2 .
+   (fld~5,1 data . .
+    (at@9 seq~3 int@1).)
+   (fld~5,2 at . . int@4 .)
+   (fld~5,3 bit . . int@5 .)
+   (fld~5,4 done . . bool@6 .)))
+ (type@7,q Huff~5 . . .
+  (object@2 .
+   (fld~5,1 count . .
+    (at@A seq~3 int@1).)
+   (fld~5,2 symbol . .
+    (at@B seq~3 int@1).)))
+ (proc@,u nextBit@5 . . .
+  (params@C
+   (param@1 b . .
+    (mut@3 Bits@4).))int@F . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 >=
+      (dot~4 b~1 at@1)
+      (dot@9
+       (dot~5 b~1 data@1)len@1))
+     (stmts~1,1
+      (asgn@7
+       (dot~6 b~1 done@1)true@2)
+      (ret@,1 0@7))))
+   (asgn@7,3 result~7
+    (infix@R and
+     (par~P
+      (infix@E shr
+       (at~7
+        (dot~5 b~1 data@1)
+        (dot@2 b~1 at@1))
+       (dot@5 b~1 bit@1)))1@4))
+   (cmd@,4 inc
+    (dot@5 b~1 bit@1))
+   (if@,5
+    (elif@3
+     (infix@6 ==
+      (dot~5 b~1 bit@1)8@3)
+     (stmts~1,1
+      (asgn@6
+       (dot~5 b~1 bit@1)0@2)
+      (cmd@,1 inc
+       (dot@5 b~1 at@1)))))))
+ (proc@,14 nextBits@5 . . .
+  (params@D
+   (param@1 b . .
+    (mut@3 Bits@4).)
+   (param@E n . . int@3 .))int@N . .
+  (stmts@2,1
+   (var@4 value . . . 0@8)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2 n@2)
+    (stmts@2,1
+     (asgn@6 value~6
+      (infix@8 or value~6
+       (par@3
+        (infix@C shl
+         (call~4 nextBit~7 b@1)i@4))))
+     (cmd@,1 inc i@4)))value@,5))
+ (proc@,1C align@5 . . .
+  (params@A
+   (param@1 b . .
+    (mut@3 Bits@4).)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 !=
+      (dot~5 b~1 bit@1)0@3)
+     (stmts~1,1
+      (asgn@6
+       (dot~5 b~1 bit@1)0@2)
+      (cmd@,1 inc
+       (dot@5 b~1 at@1)))))))
+ (proc@,1H build@5 . . .
+  (params@A
+   (param@1 lengths . .
+    (at@C seq~3 int@1).)
+   (param@K from0 . . int@E .)
+   (param@R count . . int@7 .))Huff@e . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@6 Huff~4
+     (kv@6 count~5
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@J symbol~6
+      (prefix@2 \40
+       (bracket@1)))))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 <= i~2 15@3)
+    (stmts@2,1
+     (cmd@C
+      (dot
+       (dot~6 result~6 count@1)add@1)0@5)
+     (cmd@,1 inc i@4)))
+   (asgn@2,5 i~2 0@2)
+   (while@,6
+    (infix@8 < i~2 count@2)
+    (stmts@2,1
+     (let@4 l . . .
+      (at@B lengths~7
+       (infix@7 \2B from0~6 i@2)))
+     (if@,1
+      (elif@3
+       (infix@6 and
+        (infix~4 > l~2 0@2)
+        (infix@6 <= l~2 15@3))
+       (stmts@J
+        (asgn@G
+         (at~4
+          (dot~6 result~6 count@1)l@1)
+         (infix@I \2B
+          (at~4
+           (dot~6 result~6 count@1)l@1)1@2)))))
+     (cmd@,2 inc i@4)))
+   (var@4,A offs . .
+    (at@9 seq~3 int@1)
+    (prefix@H \40
+     (bracket@1)))
+   (asgn@2,B i~2 0@2)
+   (while@,C
+    (infix@8 <= i~2 15@3)
+    (stmts@2,1
+     (cmd@4
+      (dot offs~4 add@1)0@5)
+     (cmd@,1 inc i@4)))
+   (var@4,F total . . . 0@8)
+   (var@4,G l . . . 1@4)
+   (while@,H
+    (infix@8 <= l~2 15@3)
+    (stmts@2,1
+     (asgn@8
+      (at~4 offs~4 l@1)total@2)
+     (asgn@6,1 total~6
+      (infix@8 \2B total~6
+       (at@E
+        (dot~6 result~6 count@1)l@1)))
+     (cmd@,2 inc l@4)))
+   (asgn@2,L i~2 0@2)
+   (while@,M
+    (infix@8 < i~2 total@2)
+    (stmts@2,1
+     (cmd@D
+      (dot
+       (dot~7 result~6 symbol@1)add@1)0@5)
+     (cmd@,1 inc i@4)))
+   (asgn@2,P i~2 0@2)
+   (while@,Q
+    (infix@8 < i~2 count@2)
+    (stmts@2,1
+     (let@4 len0 . . .
+      (at@E lengths~7
+       (infix@7 \2B from0~6 i@2)))
+     (if@,1
+      (elif@3
+       (infix@9 and
+        (infix~4 > len0~5 0@2)
+        (infix@9 <= len0~5 15@3))
+       (stmts~1,1
+        (asgn@Q
+         (at~D
+          (dot~7 result~6 symbol@1)
+          (at@5 offs~4 len0@1))i@2)
+        (asgn@B,1
+         (at~7 offs~4 len0@1)
+         (infix@D \2B
+          (at~7 offs~4 len0@1)1@2)))))
+     (cmd@,4 inc i@4)))))
+ (proc@,1p decodeSym@5 . . .
+  (params@E
+   (param@1 b . .
+    (mut@3 Bits@4).)
+   (param@E h . . Huff@3 .))int@O . .
+  (stmts@2,1
+   (var@4 code . . . 0@7)
+   (var@4,1 first . . . 0@8)
+   (var@4,2 index . . . 0@8)
+   (var@4,3 l . . . 1@4)
+   (while@,4
+    (infix@8 <= l~2 15@3)
+    (stmts@2,1
+     (asgn@5 code~5
+      (infix@7 or code~5
+       (call@A nextBit~7 b@1)))
+     (let@4,1 count . . .
+      (at@F
+       (dot~6 h~1 count@1)l@1))
+     (if@,2
+      (elif@3
+       (infix@D <
+        (infix~8 \2D code~5 first@2)count@2)
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@N >=
+           (infix~H \2B index~6
+            (par@2
+             (infix@6 \2D code~5 first@2)))
+           (dot@B
+            (dot~7 h~1 symbol@1)len@1))
+          (stmts@e
+           (ret -1@7))))
+        (ret@,1
+         (at@F
+          (dot~7 h~1 symbol@1)
+          (infix@7 \2B index~6
+           (par@2
+            (infix@6 \2D code~5 first@2))))))))
+     (asgn@6,5 index~6
+      (infix@8 \2B index~6 count@2))
+     (asgn@6,6 first~6
+      (infix@I shl
+       (par~G
+        (infix@7 \2B first~6 count@2))1@4))
+     (asgn@5,7 code~5
+      (infix@7 shl code~5 1@4))
+     (cmd@,8 inc l@4)))-1@,E))
+ (const@2,27 LenBase . . .
+  (bracket@A 3@1 4@4 5@7 6@A 7@D 8@G 9@J 10@M 11@Q 13@U 15@Y 17@c 19@g 23@k 27@o 31@s 35@w 43@10 51@1,1 59@5,1 67@9,1 83@D,1 99@H,1 115@L,1 131@Q,1 163@V,1 195@a,1 227@f,1 258@k,1))
+ (const@2,29 LenExtra . . .
+  (bracket@B 0@1 0@4 0@7 0@A 0@D 0@G 0@J 0@M 1@P 1@S 1@V 1@Y 2@b 2@e 2@h 2@k 3@n 3@q 3@t 3@w 4@z 4@12 4@1,1 4@4,1 5@7,1 5@A,1 5@D,1 5@G,1 0@J,1))
+ (const@2,2B DistBase . . .
+  (bracket@B 1@1 2@4 3@7 4@A 5@D 7@G 9@J 13@M 17@Q 25@U 33@Y 49@c 65@g 97@k 129@o 193@t 257@y 385@1,1 513@6,1 769@B,1 1025@G,1 1537@M,1 2049@S,1 3073@Y,1 4097@e,1 6145@k,1 8193@q,1 12289@w,1 16385@1,2 24577@8,2))
+ (const@2,2E DistExtra . . .
+  (bracket@C 0@1 0@4 0@7 0@A 1@D 1@G 2@J 2@M 3@P 3@S 4@V 4@Y 5@b 5@e 6@h 6@k 7@n 7@q 8@t 8@w 9@z 9@1,1 10@4,1 10@8,1 11@C,1 11@G,1 12@K,1 12@O,1 13@S,1 13@W,1))
+ (const@2,2G ClOrder . . .
+  (bracket@A 16@1 17@5 18@9 0@D 8@G 7@J 9@M 6@P 10@S 5@W 11@Z 4@d 12@g 3@k 13@n 2@r 14@u 1@y 15@11))
+ (proc@,2I fixedTables@5 . . .
+  (params@G
+   (param@1 lit . .
+    (mut@B Huff@4).)
+   (param@6 dist . .
+    (mut@6 Huff@4).)). . .
+  (stmts@2,1
+   (var@4 l . .
+    (at@6 seq~3 int@1)
+    (prefix@E \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2 288@2)
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 < i~2 144@2)
+       (stmts@9
+        (cmd@1
+         (dot l~1 add@1)8@5)))
+      (elif@5,1
+       (infix@2 < i~2 256@2)
+       (stmts@9
+        (cmd@1
+         (dot l~1 add@1)9@5)))
+      (elif@5,2
+       (infix@2 < i~2 280@2)
+       (stmts@9
+        (cmd@1
+         (dot l~1 add@1)7@5)))
+      (else@,3
+       (stmts@6
+        (cmd@1
+         (dot l~1 add@1)8@5))))
+     (cmd@,4 inc i@4)))
+   (asgn@4,8 lit~4
+    (call@7 build~5 l@1 0@4 288@7))
+   (var@4,9 d . .
+    (at@6 seq~3 int@1)
+    (prefix@E \40
+     (bracket@1)))
+   (asgn@2,A i~2 0@2)
+   (while@,B
+    (infix@8 < i~2 30@2)
+    (stmts@2,1
+     (cmd@1
+      (dot d~1 add@1)5@5)
+     (cmd@,1 inc i@4)))
+   (asgn@5,E dist~5
+    (call@7 build~5 d@1 0@4 30@7))))
+ (proc@,2Z dynamicTables@5 . . .
+  (params@I
+   (param@1 b . .
+    (mut@3 Bits@4).)
+   (param@E lit . .
+    (mut@B Huff@4).)
+   (param@J dist . .
+    (mut@6 Huff@4).)
+   (param@Z problem . .
+    (mut@9 string@4).))bool@v . .
+  (stmts@2,1
+   (let@4 hlit . . .
+    (infix@M \2B
+     (call~7 nextBits~8 b@1 5@4)257@2))
+   (let@4,1 hdist . . .
+    (infix@N \2B
+     (call~7 nextBits~8 b@1 5@4)1@2))
+   (let@4,2 hclen . . .
+    (infix@N \2B
+     (call~7 nextBits~8 b@1 4@4)4@2))
+   (if@,3
+    (elif@3
+     (infix@B or
+      (infix~6 > hlit~5 286@2)
+      (infix@9 > hdist~6 30@2))
+     (stmts~1,1
+      (asgn@8 problem~8 "a deflate block claims more Huffman codes than there are"@2)
+      (ret@,1 false@7))))
+   (var@4,6 clen . .
+    (at@9 seq~3 int@1)
+    (prefix@H \40
+     (bracket@1)))
+   (var@4,7 i . . . 0@4)
+   (while@,8
+    (infix@8 < i~2 19@2)
+    (stmts@2,1
+     (cmd@4
+      (dot clen~4 add@1)0@5)
+     (cmd@,1 inc i@4)))
+   (asgn@2,B i~2 0@2)
+   (while@,C
+    (infix@8 < i~2 hclen@2)
+    (stmts@2,1
+     (asgn@H
+      (at~D clen~4
+       (at@8 ClOrder~7 i@1))
+      (call@A nextBits~8 b@1 3@4))
+     (cmd@,1 inc i@4)))
+   (let@4,F cl . . .
+    (call@A build~5 clen@1 0@7 19@A))
+   (var@4,G lengths . .
+    (at@C seq~3 int@1)
+    (prefix@K \40
+     (bracket@1)))
+   (while@,H
+    (infix@I <
+     (dot~5 lengths~7 len@1)
+     (infix@7 \2B hlit~5 hdist@2))
+    (stmts@2,1
+     (let@4 sym . . .
+      (call@F decodeSym~9 b@1 cl@4))
+     (if@,1
+      (elif@3
+       (infix@8 or
+        (infix~4 < sym~4 0@2)
+        (dot@4 b~1 done@1))
+       (stmts~1,1
+        (asgn@8 problem~8 "the compressed data ends inside its own code lengths"@2)
+        (ret@,1 false@7))))
+     (if@,4
+      (elif@3
+       (infix@4 < sym~4 16@2)
+       (stmts~1,1
+        (cmd@7
+         (dot lengths~7 add@1)sym@5)))
+      (elif@5,2
+       (infix@4 == sym~4 16@3)
+       (stmts~3,1
+        (if
+         (elif@3
+          (infix@C ==
+           (dot~5 lengths~7 len@1)0@3)
+          (stmts~1,1
+           (asgn@8 problem~8 "a code length repeats one that is not there"@2)
+           (ret@,1 false@7))))
+        (let@4,3 prev . . .
+         (at@E lengths~7
+          (infix@D \2D
+           (dot~5 lengths~7 len@1)1@2)))
+        (var@4,4 n . . .
+         (infix@6 \2B 3~2
+          (call@A nextBits~8 b@1 2@4)))
+        (while@,5
+         (infix@C and
+          (infix~4 > n~2 0@2)
+          (infix@G <
+           (dot~5 lengths~7 len@1)
+           (infix@7 \2B hlit~5 hdist@2)))
+         (stmts@2,1
+          (cmd@7
+           (dot lengths~7 add@1)prev@5)
+          (cmd@,1 dec n@4)))))
+      (elif@5,B
+       (infix@4 == sym~4 17@3)
+       (stmts~3,1
+        (var@4 n . . .
+         (infix@6 \2B 3~2
+          (call@A nextBits~8 b@1 3@4)))
+        (while@,1
+         (infix@C and
+          (infix~4 > n~2 0@2)
+          (infix@G <
+           (dot~5 lengths~7 len@1)
+           (infix@7 \2B hlit~5 hdist@2)))
+         (stmts@2,1
+          (cmd@7
+           (dot lengths~7 add@1)0@5)
+          (cmd@,1 dec n@4)))))
+      (else@,G
+       (stmts@2,1
+        (var@4 n . . .
+         (infix@7 \2B 11~3
+          (call@A nextBits~8 b@1 7@4)))
+        (while@,1
+         (infix@C and
+          (infix~4 > n~2 0@2)
+          (infix@G <
+           (dot~5 lengths~7 len@1)
+           (infix@7 \2B hlit~5 hdist@2)))
+         (stmts@2,1
+          (cmd@7
+           (dot lengths~7 add@1)0@5)
+          (cmd@,1 dec n@4))))))))
+   (asgn@4,h lit~4
+    (call@7 build~5 lengths@1 0@A hlit@D))
+   (asgn@5,i dist~5
+    (call@7 build~5 lengths@1 hlit@A hdist@G))true@,j))
+ (comment@,3L)
+ (proc@,3N inflate@5 x . .
+  (params@D
+   (param@1 data . .
+    (at@9 seq~3 int@1).)
+   (param@H from0 . . int@E .)
+   (param@O limit . . int@7 .)
+   (param@a problem . .
+    (mut@9 string@4).))
+  (at@z seq~3 int@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 b . . .
+    (oconstr@8 Bits~4
+     (kv@5 data~4 data@2)
+     (kv@F at~2 from0@2)
+     (kv@R bit~3 0@2)
+     (kv@a done~4 false@2)))
+   (var@4,2 final . . . false@8)
+   (while@,3
+    (prefix@6 not final@4)
+    (stmts@2,1
+     (if
+      (elif@3
+       (dot@1 b~1 done@1)
+       (stmts~1,1
+        (asgn@8 problem~8 "the compressed data ends before its last block"@2)
+        (ret@,1 result@7))))
+     (asgn@6,3 final~6
+      (infix@D ==
+       (call~4 nextBit~7 b@1)1@3))
+     (let@4,4 kind . . .
+      (call@F nextBits~8 b@1 2@4))
+     (if@,5
+      (elif@3
+       (infix@5 == kind~5 0@3)
+       (stmts~1,1
+        (call@5 align~5 b@1)
+        (if@,1
+         (elif@3
+          (infix@9 >
+           (infix~4 \2B
+            (dot~4 b~1 at@1)4@2)
+           (dot@8
+            (dot~5 b~1 data@1)len@1))
+          (stmts~1,1
+           (asgn@8 problem~8 "a stored block has no length"@2)
+           (ret@,1 result@7))))
+        (let@4,4 n . . .
+         (infix@H or
+          (at~7
+           (dot~5 b~1 data@1)
+           (dot@2 b~1 at@1))
+          (par@3
+           (infix@I shl
+            (at~B
+             (dot~5 b~1 data@1)
+             (infix@6 \2B
+              (dot~4 b~1 at@1)1@2))8@4))))
+        (let@4,5 m . . .
+         (infix@L or
+          (at~B
+           (dot~5 b~1 data@1)
+           (infix@6 \2B
+            (dot~4 b~1 at@1)2@2))
+          (par@3
+           (infix@I shl
+            (at~B
+             (dot~5 b~1 data@1)
+             (infix@6 \2B
+              (dot~4 b~1 at@1)3@2))8@4))))
+        (asgn@5,6
+         (dot~4 b~1 at@1)
+         (infix@7 \2B
+          (dot~4 b~1 at@1)4@2))
+        (if@,7
+         (elif@3
+          (infix@F !=
+           (par~F
+            (infix@3 xor n~2 65535@4))m@3)
+          (stmts~1,1
+           (asgn@8 problem~8 "a stored block\27s length disagrees with its own check"@2)
+           (ret@,1 result@7))))
+        (if@,A
+         (elif@3
+          (infix@9 >
+           (infix~4 \2B
+            (dot~4 b~1 at@1)n@2)
+           (dot@8
+            (dot~5 b~1 data@1)len@1))
+          (stmts~1,1
+           (asgn@8 problem~8 "a stored block runs past the end of the file"@2)
+           (ret@,1 result@7))))
+        (var@4,D i . . . 0@4)
+        (while@,E
+         (infix@8 < i~2 n@2)
+         (stmts@2,1
+          (if
+           (elif@3
+            (infix@B >=
+             (dot~5 result~6 len@1)limit@3)
+            (stmts~1,1
+             (asgn@8 problem~8 "the picture is bigger than it said it would be"@2)
+             (ret@,1 result@7))))
+          (cmd@6,3
+           (dot result~6 add@1)
+           (at@B
+            (dot~5 b~1 data@1)
+            (infix@6 \2B
+             (dot~4 b~1 at@1)i@2)))
+          (cmd@,4 inc i@4)))
+        (asgn@5,K
+         (dot~4 b~1 at@1)
+         (infix@7 \2B
+          (dot~4 b~1 at@1)n@2))))
+      (elif@5,M
+       (infix@A or
+        (infix~5 == kind~5 1@3)
+        (infix@8 == kind~5 2@3))
+       (stmts~3,1
+        (var@4 lit . . .
+         (oconstr@A Huff~4
+          (kv@6 count~5
+           (prefix@2 \40
+            (bracket@1)))
+          (kv@J symbol~6
+           (prefix@2 \40
+            (bracket@1)))))
+        (var@4,1 dist . . .
+         (oconstr@B Huff~4
+          (kv@6 count~5
+           (prefix@2 \40
+            (bracket@1)))
+          (kv@J symbol~6
+           (prefix@2 \40
+            (bracket@1)))))
+        (if@,2
+         (elif@3
+          (infix@5 == kind~5 1@3)
+          (stmts~1,1
+           (call@B fixedTables~B lit@1 dist@6)))
+         (else@,2
+          (stmts@2,1
+           (if
+            (elif@3
+             (prefix not
+              (call@H dynamicTables~D b@1 lit@4 dist@9 problem@F))
+             (stmts@g
+              (ret result@7)))))))
+        (while@,6 true@6
+         (stmts@2,1
+          (let@4 sym . . .
+           (call@F decodeSym~9 b@1 lit@4))
+          (if@,1
+           (elif@3
+            (infix@8 or
+             (infix~4 < sym~4 0@2)
+             (dot@4 b~1 done@1))
+            (stmts~1,1
+             (asgn@8 problem~8 "the compressed data ends inside a block"@2)
+             (ret@,1 result@7))))
+          (if@,4
+           (elif@3
+            (infix@4 == sym~4 256@3)
+            (stmts@C
+             (break .))))
+          (if@,5
+           (elif@3
+            (infix@4 < sym~4 256@2)
+            (stmts~1,1
+             (if
+              (elif@3
+               (infix@B >=
+                (dot~5 result~6 len@1)limit@3)
+               (stmts~1,1
+                (asgn@8 problem~8 "the picture is bigger than it said it would be"@2)
+                (ret@,1 result@7))))
+             (cmd@6,3
+              (dot result~6 add@1)sym@5)
+             (continue@,4 .))))
+          (let@4,B li . . .
+           (infix@9 \2D sym~4 257@2))
+          (if@,C
+           (elif@3
+            (infix@3 >= li~3 29@3)
+            (stmts~1,1
+             (asgn@8 problem~8 "a length code that deflate does not have"@2)
+             (ret@,1 result@7))))
+          (let@4,F length . . .
+           (infix@L \2B
+            (at~5 LenBase~7 li@1)
+            (call@A nextBits~8 b@1
+             (at@C LenExtra~8 li@1))))
+          (let@4,G ds . . .
+           (call@E decodeSym~9 b@1 dist@4))
+          (if@,H
+           (elif@3
+            (infix@7 or
+             (infix~4 < ds~3 0@2)
+             (infix@6 >= ds~3 30@3))
+            (stmts~1,1
+             (asgn@8 problem~8 "a distance code that deflate does not have"@2)
+             (ret@,1 result@7))))
+          (let@4,K back . . .
+           (infix@K \2B
+            (at~5 DistBase~8 ds@1)
+            (call@A nextBits~8 b@1
+             (at@D DistExtra~9 ds@1))))
+          (if@,L
+           (elif@3
+            (infix@5 > back~5
+             (dot@8 result~6 len@1))
+            (stmts~1,1
+             (asgn@8 problem~8 "a back-reference points before the start of the picture"@2)
+             (ret@,1 result@7))))
+          (var@4,O i . . . 0@4)
+          (while@,P
+           (infix@8 < i~2 length@2)
+           (stmts@2,1
+            (if
+             (elif@3
+              (infix@B >=
+               (dot~5 result~6 len@1)limit@3)
+              (stmts~1,1
+               (asgn@8 problem~8 "the picture is bigger than it said it would be"@2)
+               (ret@,1 result@7))))
+            (let@4,6 earlier . . .
+             (at@G result~6
+              (infix@C \2D
+               (dot~5 result~6 len@1)back@2)))
+            (cmd@6,7
+             (dot result~6 add@1)earlier@5)
+            (cmd@,8 inc i@4)))))))
+      (else@,13
+       (stmts@2,1
+        (asgn@8 problem~8 "a deflate block of a kind that does not exist"@2)
+        (ret@,1 result@7))))))result@,1F))
+ (comment@,4f)
+ (proc@,4j zlibInflate@5 x . .
+  (params@H
+   (param@1 data . .
+    (at@9 seq~3 int@1).)
+   (param@H from0 . . int@E .)
+   (param@O limit . . int@7 .)
+   (param@a problem . .
+    (mut@9 string@4).))
+  (at@z seq~3 int@1). .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A >
+      (infix~4 \2B from0~6 2@2)
+      (dot@6 data~4 len@1))
+     (stmts~1,1
+      (asgn@8 problem~8 "there is no compressed data here at all"@2)
+      (ret@,1
+       (prefix@7 \40
+        (bracket@1))))))
+   (let@4,3 cmf . . .
+    (at@A data~4 from0@1))
+   (let@4,4 flg . . .
+    (at@A data~4
+     (infix@7 \2B from0~6 1@2)))
+   (if@,5
+    (elif@3
+     (infix@F !=
+      (par~F
+       (infix@5 and cmf~4 15@4))8@3)
+     (stmts~1,1
+      (asgn@8 problem~8 "the picture is compressed with something that is not deflate"@2)
+      (ret@,1
+       (prefix@7 \40
+        (bracket@1))))))
+   (if@,8
+    (elif@3
+     (infix@R !=
+      (infix~7 mod
+       (par~K
+        (infix@D \2B
+         (par~C
+          (infix@5 shl cmf~4 8@4))flg@2))31@4)0@3)
+     (stmts~1,1
+      (asgn@8 problem~8 "the compressed data\27s header fails its own check"@2)
+      (ret@,1
+       (prefix@7 \40
+        (bracket@1))))))
+   (if@,B
+    (elif@3
+     (infix@F !=
+      (par~F
+       (infix@5 and flg~4 32@4))0@3)
+     (stmts~1,1
+      (asgn@8 problem~8 "the compressed data wants a preset dictionary"@2)
+      (ret@,1
+       (prefix@7 \40
+        (bracket@1))))))
+   (call@7,E inflate~7 data@1
+    (infix@D \2B from0~6 2@2)limit@I problem@P)))
+ (proc@,53 be32@5 . . .
+  (params@9
+   (param@1 d . .
+    (at@6 seq~3 int@1).)
+   (param@E at . . int@4 .))int@O . .
+  (stmts@2,1
+   (infix@w or
+    (infix~L or
+     (infix~M or
+      (par~F
+       (infix@7 shl
+        (at~5 d~1 at@1)24@4))
+      (par@3
+       (infix@B shl
+        (at~9 d~1
+         (infix@4 \2B at~3 1@2))16@4)))
+     (par@3
+      (infix@B shl
+       (at~9 d~1
+        (infix@4 \2B at~3 2@2))8@4)))
+    (at@4 d~1
+     (infix@4 \2B at~3 3@2)))))
+ (proc@,56 paeth@5 . . .
+  (params@A
+   (param@1 a . . int@9 .)
+   (param@4 b . . int@6 .)
+   (param@7 c . . int@3 .))int@G . .
+  (stmts@2,1
+   (let@4 p . . .
+    (infix@A \2D
+     (infix~4 \2B a~2 b@2)c@2))
+   (var@4,1 pa . . .
+    (infix@7 \2D p~2 a@2))
+   (if@,2
+    (elif@3
+     (infix@3 < pa~3 0@2)
+     (stmts@8
+      (asgn@3 pa~3
+       (prefix@2 \2D pa@1)))))
+   (var@4,3 pb . . .
+    (infix@7 \2D p~2 b@2))
+   (if@,4
+    (elif@3
+     (infix@3 < pb~3 0@2)
+     (stmts@8
+      (asgn@3 pb~3
+       (prefix@2 \2D pb@1)))))
+   (var@4,5 pc . . .
+    (infix@7 \2D p~2 c@2))
+   (if@,6
+    (elif@3
+     (infix@3 < pc~3 0@2)
+     (stmts@8
+      (asgn@3 pc~3
+       (prefix@2 \2D pc@1)))))
+   (if@,7
+    (elif@3
+     (infix@9 and
+      (infix~6 <= pa~3 pb@3)
+      (infix@7 <= pa~3 pc@3))
+     (stmts@N a))
+    (elif@5,1
+     (infix@3 <= pb~3 pc@3)
+     (stmts@A b))
+    (else@,2
+     (stmts@6 c)))))
+ (proc@,5I sampleOf@5 . . .
+  (params@D
+   (param@1 row . .
+    (at@8 seq~3 int@1).)
+   (param@G bitAt . . int@E .)
+   (param@N depth . . int@7 .))int@a . .
+  (stmts@2,1
+   (comment)
+   (case@,3 depth@5
+    (of@,1
+     (ranges 1@3)
+     (stmts@2,1
+      (let@4 v . . .
+       (infix@l and
+        (par~h
+         (infix@I shr
+          (at~E row~3
+           (infix@7 shr bitAt~6 3@4))
+          (par@4
+           (infix@3 \2D 7~2
+            (par@2
+             (infix@7 and bitAt~6 7@4))))))1@4))
+      (infix@2,1 * v~2 255@2)))
+    (of@,4
+     (ranges 2@3)
+     (stmts@2,1
+      (let@4 v . . .
+       (infix@l and
+        (par~h
+         (infix@I shr
+          (at~E row~3
+           (infix@7 shr bitAt~6 3@4))
+          (par@4
+           (infix@3 \2D 6~2
+            (par@2
+             (infix@7 and bitAt~6 7@4))))))3@4))
+      (infix@2,1 * v~2 85@2)))
+    (of@,7
+     (ranges 4@3)
+     (stmts@2,1
+      (let@4 v . . .
+       (infix@l and
+        (par~h
+         (infix@I shr
+          (at~E row~3
+           (infix@7 shr bitAt~6 3@4))
+          (par@4
+           (infix@3 \2D 4~2
+            (par@2
+             (infix@7 and bitAt~6 7@4))))))15@4))
+      (infix@2,1 * v~2 17@2)))
+    (else@,A
+     (stmts@2,1
+      (at@3 row~3
+       (infix@7 shr bitAt~6 3@4)))))))
+ (comment@,5Z)
+ (proc@,5d decodePng@5 x . .
+  (params@F
+   (param@1 data . .
+    (at@9 seq~3 int@1).))Image@I . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@C emptyImage~A))
+   (if@,1
+    (elif@3
+     (infix@9 <
+      (dot~5 data~4 len@1)8@2)
+     (stmts~1,1
+      (asgn@F
+       (dot~9 result~6 problem@1)
+       (infix@l &
+        (infix~C & "this is not a PNG; it is only "~X
+         (prefix@2 $
+          (dot@5 data~4 len@1)))" bytes"@2))
+      (ret@,1 result@7))))
+   (const@6,4 Magic . . .
+    (bracket@8 137@1 80@6 78@A 71@E 13@I 10@M 26@Q 10@U))
+   (var@4,5 i . . . 0@4)
+   (while@,6
+    (infix@8 < i~2 8@2)
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@8 !=
+        (at~4 data~4 i@1)
+        (at@8 Magic~5 i@1))
+       (stmts~1,1
+        (asgn@F
+         (dot~9 result~6 problem@1)"this is not a PNG; its first eight bytes are wrong"@2)
+        (ret@,1 result@7))))
+     (cmd@,3 inc i@4)))
+   (var@4,B width . . . 0@8)
+   (var@4,C height . . . 0@9)
+   (var@4,D depth . . . 0@8)
+   (var@4,E colour . . . 0@9)
+   (var@4,F interlace . . . 0@C)
+   (var@4,G palette . .
+    (at@C seq~3 int@1)
+    (prefix@K \40
+     (bracket@1)))
+   (var@4,H alphas . .
+    (at@B seq~3 int@1)
+    (prefix@J \40
+     (bracket@1)))
+   (var@4,I idat . .
+    (at@9 seq~3 int@1)
+    (prefix@H \40
+     (bracket@1)))
+   (var@4,J sawHeader . . . false@C)
+   (var@4,K at . . . 8@5)
+   (while@,L
+    (infix@D <=
+     (infix~4 \2B at~3 8@2)
+     (dot@7 data~4 len@1))
+    (stmts@2,1
+     (let@4 length . . .
+      (call@D be32~4 data@1 at@7))
+     (if@,1
+      (elif@3
+       (infix@B or
+        (infix~4 < length~7 0@2)
+        (infix@K >
+         (infix~9 \2B
+          (infix~5 \2B at~3 12@2)length@2)
+         (dot@6 data~4 len@1)))
+       (stmts~1,1
+        (asgn@F
+         (dot~9 result~6 problem@1)"a chunk says it is longer than the rest of the file"@2)
+        (ret@,1 result@7))))
+     (var@4,4 name . . . ""@7)
+     (var@4,5 k . . . 0@4)
+     (while@,6
+      (infix@8 < k~2 4@2)
+      (stmts@2,1
+       (cmd@4
+        (dot name~4 add@1)
+        (call@9 char~4
+         (at@5 data~4
+          (infix@8 \2B
+           (infix~4 \2B at~3 4@2)k@2))))
+       (cmd@,1 inc k@4)))
+     (let@4,9 body . . .
+      (infix@A \2B at~3 8@2))
+     (if@,A
+      (elif@3
+       (infix@5 == name~5 "IHDR"@3)
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@7 < length~7 13@2)
+          (stmts~1,1
+           (asgn@F
+            (dot~9 result~6 problem@1)"the header chunk is too short"@2)
+           (ret@,1 result@7))))
+        (asgn@6,3 width~6
+         (call@6 be32~4 data@1 body@7))
+        (asgn@7,4 height~7
+         (call@6 be32~4 data@1
+          (infix@C \2B body~5 4@2)))
+        (asgn@6,5 depth~6
+         (at@6 data~4
+          (infix@6 \2B body~5 8@2)))
+        (asgn@7,6 colour~7
+         (at@6 data~4
+          (infix@6 \2B body~5 9@2)))
+        (asgn@A,7 interlace~A
+         (at@6 data~4
+          (infix@6 \2B body~5 12@2)))
+        (asgn@A,8 sawHeader~A true@2)
+        (if@,9
+         (elif@3
+          (infix@B or
+           (infix~5 <= width~6 0@3)
+           (infix@A <= height~7 0@3))
+          (stmts~1,1
+           (asgn@F
+            (dot~9 result~6 problem@1)
+            (infix@k &
+             (infix~9 &
+              (infix~9 & "the picture says it is "~Q
+               (prefix@2 $ width@1))" by "@2)
+             (prefix@2 $ height@1)))
+           (ret@,1 result@7))))
+        (if@,C
+         (elif@3
+          (infix@F >
+           (infix~9 * width~6 height@2)MaxPixels@2)
+          (stmts~1,1
+           (asgn@F
+            (dot~9 result~6 problem@1)
+            (infix@j &
+             (infix~A &
+              (infix~6 &
+               (infix~9 & "the picture is "~I
+                (prefix@2 $ width@1))"x"@2)
+              (prefix@2 $ height@1))"; a mod may only decode small ones, and this belongs to the host"~w,1))
+           (ret@,2 result@7))))
+        (if@,G
+         (elif@3
+          (infix@A != interlace~A 0@3)
+          (stmts~1,1
+           (asgn@F
+            (dot~9 result~6 problem@1)"this PNG is interlaced, which this does not read"@2)
+           (ret@,1 result@7))))))
+      (elif@5,K
+       (infix@5 == name~5 "PLTE"@3)
+       (stmts~3,1
+        (var@4 j . . . 0@4)
+        (while@,1
+         (infix@8 < j~2 length@2)
+         (stmts@2,1
+          (cmd@7
+           (dot palette~7 add@1)
+           (at@9 data~4
+            (infix@6 \2B body~5 j@2)))
+          (cmd@,1 inc j@4)))))
+      (elif@5,P
+       (infix@5 == name~5 "tRNS"@3)
+       (stmts~3,1
+        (var@4 j . . . 0@4)
+        (while@,1
+         (infix@8 < j~2 length@2)
+         (stmts@2,1
+          (cmd@6
+           (dot alphas~6 add@1)
+           (at@9 data~4
+            (infix@6 \2B body~5 j@2)))
+          (cmd@,1 inc j@4)))))
+      (elif@5,U
+       (infix@5 == name~5 "IDAT"@3)
+       (stmts~3,1
+        (var@4 j . . . 0@4)
+        (while@,1
+         (infix@8 < j~2 length@2)
+         (stmts@2,1
+          (cmd@4
+           (dot idat~4 add@1)
+           (at@9 data~4
+            (infix@6 \2B body~5 j@2)))
+          (cmd@,1 inc j@4)))))
+      (elif@5,Z
+       (infix@5 == name~5 "IEND"@3)
+       (stmts~3,1
+        (break .))))
+     (asgn@3,l at~3
+      (infix@G \2B
+       (infix~9 \2B body~5 length@2)4@2))))
+   (if@,18
+    (elif@3
+     (prefix not sawHeader@4)
+     (stmts~1,1
+      (asgn@F
+       (dot~9 result~6 problem@1)"this PNG has no header chunk"@2)
+      (ret@,1 result@7))))
+   (if@,1B
+    (elif@3
+     (infix@9 ==
+      (dot~5 idat~4 len@1)0@3)
+     (stmts~1,1
+      (asgn@F
+       (dot~9 result~6 problem@1)"this PNG has no pixels in it"@2)
+      (ret@,1 result@7))))
+   (var@4,1E channels . . . 0@B)
+   (case@,1F colour@5
+    (of@,1
+     (ranges 0@3)
+     (stmts@6
+      (asgn@9 channels~9 1@2)))
+    (of@,2
+     (ranges 2@3)
+     (stmts@6
+      (asgn@9 channels~9 3@2)))
+    (of@,3
+     (ranges 3@3)
+     (stmts@6
+      (asgn@9 channels~9 1@2)))
+    (of@,4
+     (ranges 4@3)
+     (stmts@6
+      (asgn@9 channels~9 2@2)))
+    (of@,5
+     (ranges 6@3)
+     (stmts@6
+      (asgn@9 channels~9 4@2)))
+    (else@,6
+     (stmts@2,1
+      (asgn@F
+       (dot~9 result~6 problem@1)
+       (infix@R &
+        (infix~A & "colour type "~F
+         (prefix@2 $ colour@1))" is not a PNG colour type"@2))
+      (ret@,1 result@7))))
+   (if@,1O
+    (elif@3
+     (infix@u and
+      (infix~F and
+       (infix~F and
+        (infix~F and
+         (infix~5 != depth~6 1@3)
+         (infix@A != depth~6 2@3))
+        (infix@A != depth~6 4@3))
+       (infix@A != depth~6 8@3))
+      (infix@A != depth~6 16@3))
+     (stmts~1,1
+      (asgn@F
+       (dot~9 result~6 problem@1)
+       (infix@O &
+        (infix~9 & "bit depth "~D
+         (prefix@2 $ depth@1))" is not a PNG bit depth"@2))
+      (ret@,1 result@7))))
+   (if@,1R
+    (elif@3
+     (infix@C and
+      (infix~5 == colour~7 3@3)
+      (infix@A == depth~6 16@3))
+     (stmts~1,1
+      (asgn@F
+       (dot~9 result~6 problem@1)"a palette cannot have sixteen-bit entries"@2)
+      (ret@,1 result@7))))
+   (if@,1U
+    (elif@3
+     (infix@S and
+      (infix~G and
+       (infix~5 != colour~7 3@3)
+       (infix@B != colour~7 0@3))
+      (infix@A < depth~6 8@2))
+     (stmts~1,5
+      (asgn@F
+       (dot~9 result~6 problem@1)
+       (infix@s &
+        (infix~9 &
+         (infix~I &
+          (infix~A & "colour type "~F
+           (prefix@2 $ colour@1))" cannot have "@2)
+         (prefix@2 $ depth@1))"-bit samples"@2))
+      (ret@,1 result@7))))
+   (let@4,1b bitsPerPixel . . .
+    (infix@O * channels~9 depth@2))
+   (let@4,1c rowBytes . . .
+    (infix@c div
+     (par~R
+      (infix@M \2B
+       (infix~F * width~6 bitsPerPixel@2)7@2))8@4))
+   (let@4,1d step . . .
+    (infix@Q div
+     (par~J
+      (infix@E \2B bitsPerPixel~D 7@2))8@4))
+   (var@4,1e problem . . . ""@A)
+   (let@4,1f raw . . .
+    (call@H zlibInflate~B idat@1 0@7
+     (infix@P *
+      (par~F
+       (infix@A \2B rowBytes~9 1@2))height@2)problem@Z))
+   (if@,1g
+    (elif@3
+     (infix@C >
+      (dot~5 problem~7 len@1)0@2)
+     (stmts~1,1
+      (asgn@F
+       (dot~9 result~6 problem@1)problem@2)
+      (ret@,1 result@7))))
+   (if@,1j
+    (elif@3
+     (infix@8 <
+      (dot~5 raw~3 len@1)
+      (infix@H *
+       (par~F
+        (infix@A \2B rowBytes~9 1@2))height@2))
+     (stmts~1,1
+      (asgn@F
+       (dot~9 result~6 problem@1)
+       (infix@16 &
+        (infix~b &
+         (infix~B & "this PNG holds "~I
+          (prefix@2 $
+           (dot@4 raw~3 len@1)))" bytes where its own size needs "@2)
+        (prefix~1J,1 $
+         (par@1
+          (infix@G *
+           (par~F
+            (infix@A \2B rowBytes~9 1@2))height@2)))))
+      (ret@,2 result@7))))
+   (var@4,1n prior . .
+    (at@A seq~3 int@1)
+    (prefix@I \40
+     (bracket@1)))
+   (var@4,1o i2 . . . 0@5)
+   (while@,1p
+    (infix@9 < i2~3 rowBytes@2)
+    (stmts@2,1
+     (cmd@5
+      (dot prior~5 add@1)0@5)
+     (cmd@,1 inc i2@4)))
+   (asgn@D,1s
+    (dot~7 result~6 width@1)width@2)
+   (asgn@E,1t
+    (dot~8 result~6 height@1)height@2)
+   (var@4,1u y . . . 0@4)
+   (while@,1v
+    (infix@8 < y~2 height@2)
+    (stmts@2,1
+     (let@4 filter . . .
+      (at@C raw~3
+       (infix@3 * y~2
+        (par@2
+         (infix@A \2B rowBytes~9 1@2)))))
+     (var@4,1 row . .
+      (at@8 seq~3 int@1)
+      (prefix@G \40
+       (bracket@1)))
+     (var@4,2 x . . . 0@4)
+     (while@,3
+      (infix@8 < x~2 rowBytes@2)
+      (stmts@2,1
+       (cmd@3
+        (dot row~3 add@1)
+        (at@8 raw~3
+         (infix@O \2B
+          (infix~4 \2B
+           (infix~H * y~2
+            (par@2
+             (infix@A \2B rowBytes~9 1@2)))1@2)x@2)))
+       (cmd@,1 inc x@4)))
+     (asgn@2,6 x~2 0@2)
+     (while@,7
+      (infix@8 < x~2 rowBytes@2)
+      (stmts@2,1
+       (let@4 a . . .
+        (if@4
+         (elif@3
+          (infix@2 >= x~2 step@3)
+          (stmts@B
+           (at@3 row~3
+            (infix@3 \2D x~2 step@2))))
+         (else@S
+          (stmts@6 0))))
+       (let@4,1 b . . .
+        (at@9 prior~5 x@1))
+       (let@4,2 c . . .
+        (if@4
+         (elif@3
+          (infix@2 >= x~2 step@3)
+          (stmts@B
+           (at@5 prior~5
+            (infix@3 \2D x~2 step@2))))
+         (else@U
+          (stmts@6 0))))
+       (var@4,3 v . . .
+        (at@7 row~3 x@1))
+       (case@,4 filter@5
+        (of@,1
+         (ranges 0@3)
+         (stmts@6
+          (discard .)))
+        (of@,2
+         (ranges 1@3)
+         (stmts@6
+          (asgn@2 v~2
+           (infix@A and
+            (par~8
+             (infix@3 \2B v~2 a@2))255@4))))
+        (of@,3
+         (ranges 2@3)
+         (stmts@6
+          (asgn@2 v~2
+           (infix@A and
+            (par~8
+             (infix@3 \2B v~2 b@2))255@4))))
+        (of@,4
+         (ranges 3@3)
+         (stmts@6
+          (asgn@2 v~2
+           (infix@O and
+            (par~M
+             (infix@3 \2B v~2
+              (par@2
+               (infix@9 div
+                (par~8
+                 (infix@3 \2B a~2 b@2))2@4))))255@4))))
+        (of@,5
+         (ranges 4@3)
+         (stmts@6
+          (asgn@2 v~2
+           (infix@N and
+            (par~L
+             (infix@3 \2B v~2
+              (call@7 paeth~5 a@1 b@4 c@7)))255@4))))
+        (else@,6
+         (stmts@2,1
+          (asgn@F
+           (dot~9 result~6 problem@1)
+           (infix@l &
+            (infix~A &
+             (infix~I &
+              (infix~5 & "scanline "~C
+               (prefix@2 $ y@1))" uses filter "@2)
+             (prefix@2 $ filter@1))", and there are only five"~y,1))
+          (asgn@C,2
+           (dot~6 result~6 rgba@1)
+           (prefix@2 \40
+            (bracket@1)))
+          (ret@,3 result@7))))
+       (asgn@7,F
+        (at~4 row~3 x@1)v@2)
+       (cmd@,G inc x@4)))
+     (asgn@2,P x~2 0@2)
+     (while@,Q
+      (infix@8 < x~2 width@2)
+      (stmts@2,1
+       (var@4 r . . . 0@4)
+       (var@4,1 g . . . 0@4)
+       (var@4,2 bl . . . 0@5)
+       (var@4,3 al . . . 255@5)
+       (if@,4
+        (elif@3
+         (infix@6 == depth~6 16@3)
+         (stmts~1,1
+          (let@4 base . . .
+           (infix@K *
+            (infix~B * x~2 channels@2)2@2))
+          (if@,1
+           (elif@3
+            (infix@7 == colour~7 0@3)
+            (stmts~1,1
+             (asgn@2 r~2
+              (at@5 row~3 base@1))
+             (asgn@H g~2 r@2)
+             (asgn@P bl~3 r@2)))
+           (elif@5,2
+            (infix@7 == colour~7 2@3)
+            (stmts~3,1
+             (asgn@2 r~2
+              (at@5 row~3 base@1))
+             (asgn@H g~2
+              (at@5 row~3
+               (infix@6 \2B base~5 2@2)))
+             (asgn@b bl~3
+              (at@5 row~3
+               (infix@6 \2B base~5 4@2)))))
+           (elif@5,4
+            (infix@7 == colour~7 4@3)
+            (stmts~3,1
+             (asgn@2 r~2
+              (at@5 row~3 base@1))
+             (asgn@H g~2 r@2)
+             (asgn@P bl~3 r@2)
+             (asgn@X al~3
+              (at@5 row~3
+               (infix@6 \2B base~5 2@2)))))
+           (else@,6
+            (stmts@2,1
+             (asgn@2 r~2
+              (at@5 row~3 base@1))
+             (asgn@H g~2
+              (at@5 row~3
+               (infix@6 \2B base~5 2@2)))
+             (asgn@b bl~3
+              (at@5 row~3
+               (infix@6 \2B base~5 4@2)))
+             (asgn@v al~3
+              (at@5 row~3
+               (infix@6 \2B base~5 6@2))))))))
+        (elif@5,A
+         (infix@7 == colour~7 3@3)
+         (stmts~3,1
+          (let@4 index . . .
+           (infix@e div
+            (call~O sampleOf~8 row@1
+             (infix@8 * x~2 depth@2)depth@H)
+            (expr
+             (stmts~g,1)
+             (if@1
+              (elif@3
+               (infix@6 == depth~6 1@3)255@C)
+              (elif@O
+               (infix@6 == depth~6 2@3)85@C)
+              (elif@i
+               (infix@6 == depth~6 4@3)17@C)
+              (else@x 1@6)))))
+          (if@,2
+           (elif@3
+            (infix@E <
+             (infix~4 \2B
+              (infix~4 * index~6 3@2)2@2)
+             (dot@9 palette~7 len@1))
+            (stmts~1,1
+             (asgn@2 r~2
+              (at@9 palette~7
+               (infix@7 * index~6 3@2)))
+             (asgn@2,1 g~2
+              (at@9 palette~7
+               (infix@B \2B
+                (infix~4 * index~6 3@2)1@2)))
+             (asgn@3,2 bl~3
+              (at@9 palette~7
+               (infix@B \2B
+                (infix~4 * index~6 3@2)2@2))))))
+          (if@,6
+           (elif@3
+            (infix@6 < index~6
+             (dot@8 alphas~6 len@1))
+            (stmts@K
+             (asgn@3 al~3
+              (at@8 alphas~6 index@1)))))))
+        (elif@5,I
+         (infix@C and
+          (infix~5 == colour~7 0@3)
+          (infix@A < depth~6 8@2))
+         (stmts~3,1
+          (asgn@2 r~2
+           (call@A sampleOf~8 row@1
+            (infix@8 * x~2 depth@2)depth@H))
+          (asgn@2,1 g~2 r@2)
+          (asgn@3,2 bl~3 r@2)))
+        (else@,M
+         (stmts@2,1
+          (let@4 base . . .
+           (infix@9 * x~2 channels@2))
+          (if@,1
+           (elif@3
+            (infix@7 == colour~7 0@3)
+            (stmts~1,1
+             (asgn@2 r~2
+              (at@5 row~3 base@1))
+             (asgn@H g~2 r@2)
+             (asgn@P bl~3 r@2)))
+           (elif@5,2
+            (infix@7 == colour~7 2@3)
+            (stmts~3,1
+             (asgn@2 r~2
+              (at@5 row~3 base@1))
+             (asgn@H g~2
+              (at@5 row~3
+               (infix@6 \2B base~5 1@2)))
+             (asgn@b bl~3
+              (at@5 row~3
+               (infix@6 \2B base~5 2@2)))))
+           (elif@5,4
+            (infix@7 == colour~7 4@3)
+            (stmts~3,1
+             (asgn@2 r~2
+              (at@5 row~3 base@1))
+             (asgn@H g~2 r@2)
+             (asgn@P bl~3 r@2)
+             (asgn@X al~3
+              (at@5 row~3
+               (infix@6 \2B base~5 1@2)))))
+           (else@,6
+            (stmts@2,1
+             (asgn@2 r~2
+              (at@5 row~3 base@1))
+             (asgn@H g~2
+              (at@5 row~3
+               (infix@6 \2B base~5 1@2)))
+             (asgn@b bl~3
+              (at@5 row~3
+               (infix@6 \2B base~5 2@2)))
+             (asgn@v al~3
+              (at@5 row~3
+               (infix@6 \2B base~5 3@2)))))))))
+       (cmd@B,a
+        (dot
+         (dot~5 result~6 rgba@1)add@1)r@5)
+       (cmd@B,b
+        (dot
+         (dot~5 result~6 rgba@1)add@1)g@5)
+       (cmd@B,c
+        (dot
+         (dot~5 result~6 rgba@1)add@1)bl@5)
+       (cmd@B,d
+        (dot
+         (dot~5 result~6 rgba@1)add@1)al@5)
+       (cmd@,e inc x@4)))
+     (asgn@6,16 prior~6 row@2)
+     (cmd@,17 inc y@4)))))
+ (var@4,8t crcTable . .
+  (at@D seq~3 int@1)
+  (prefix@L \40
+   (bracket@1)))
+ (proc@,8v buildCrcTable@5 . . .
+  (params@I). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@D ==
+      (dot~5 crcTable~8 len@1)256@3)
+     (stmts@L
+      (ret .))))
+   (asgn@9,1 crcTable~9
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,2 n . . . 0@4)
+   (while@,3
+    (infix@8 < n~2 256@2)
+    (stmts@2,1
+     (var@4 c . . . n@4)
+     (var@4,1 k . . . 0@4)
+     (while@,2
+      (infix@8 < k~2 8@2)
+      (stmts@2,1
+       (if
+        (elif@3
+         (infix@A !=
+          (par~A
+           (infix@3 and c~2 1@4))0@3)
+         (stmts@G
+          (asgn@2 c~2
+           (infix@D xor
+            (suf~B 3988292384 "i64")
+            (par@4
+             (infix@3 shr c~2 1@4))))))
+        (else@,1
+         (stmts@6
+          (asgn@2 c~2
+           (infix@4 shr c~2 1@4)))))
+       (cmd@,2 inc k@4)))
+     (cmd@8,6
+      (dot crcTable~8 add@1)c@5)
+     (cmd@,7 inc n@4)))))
+ (proc@,99 crc32@5 . . .
+  (params@A
+   (param@1 data . .
+    (at@9 seq~3 int@1).)
+   (param@H from0 . . int@F .)
+   (param@O length . . int@8 .))int@c . .
+  (stmts@2,1
+   (call@D buildCrcTable~D)
+   (var@4,1 c . . .
+    (suf@4 4294967295 "i64"))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2 length@2)
+    (stmts@2,1
+     (asgn@2 c~2
+      (infix@i xor
+       (at~Y crcTable~8
+        (infix@P and
+         (par~O
+          (infix@3 xor c~2
+           (at@8 data~4
+            (infix@7 \2B from0~6 i@2))))255@4))
+       (par@4
+        (infix@3 shr c~2 8@4))))
+     (cmd@,1 inc i@4)))
+   (infix@2,6 xor c~2
+    (suf@4 4294967295 "i64"))))
+ (proc@,9I adler32@5 . . .
+  (params@C
+   (param@1 data . .
+    (at@9 seq~3 int@1).))int@I . .
+  (stmts@2,1
+   (var@4 a . . . 1@4)
+   (var@4,1 b . . . 0@4)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@6 data~4 len@1))
+    (stmts@2,1
+     (asgn@2 a~2
+      (infix@G mod
+       (par~E
+        (infix@3 \2B a~2
+         (at@6 data~4 i@1)))65521@4))
+     (asgn@2,1 b~2
+      (infix@A mod
+       (par~8
+        (infix@3 \2B b~2 a@2))65521@4))
+     (cmd@,2 inc i@4)))
+   (infix@B,7 or
+    (par~B
+     (infix@3 shl b~2 16@4))a@3)))
+ (proc@,9S put32@5 . . .
+  (params@A
+   (param@1 out0 . .
+    (mut@6
+     (at@7 seq~3 int@1)).)
+   (param@L v . . int@3 .)). . .
+  (stmts@2,1
+   (cmd@4
+    (dot out0~4 add@1)
+    (infix@G and
+     (par~B
+      (infix@3 shr v~2 24@4))255@4))
+   (cmd@4,1
+    (dot out0~4 add@1)
+    (infix@G and
+     (par~B
+      (infix@3 shr v~2 16@4))255@4))
+   (cmd@4,2
+    (dot out0~4 add@1)
+    (infix@F and
+     (par~A
+      (infix@3 shr v~2 8@4))255@4))
+   (cmd@4,3
+    (dot out0~4 add@1)
+    (infix@7 and v~2 255@4))))
+ (proc@,9Y chunk@5 . . .
+  (params@A
+   (param@1 out0 . .
+    (mut@6
+     (at@7 seq~3 int@1)).)
+   (param@L name . . string@6 .)
+   (param@Z body . .
+    (at@9 seq~3 int@1).)). . .
+  (stmts@2,1
+   (call@5 put32~5 out0@1
+    (dot@B body~4 len@1))
+   (var@4,1 framed . .
+    (at@B seq~3 int@1)
+    (prefix@J \40
+     (bracket@1)))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@6 name~4 len@1))
+    (stmts@2,1
+     (cmd@6
+      (dot framed~6 add@1)
+      (call@8 int~3
+       (at@5 name~4 i@1)))
+     (cmd@,1 inc i@4)))
+   (asgn@2,6 i~2 0@2)
+   (while@,7
+    (infix@8 < i~2
+     (dot@6 body~4 len@1))
+    (stmts@2,1
+     (cmd@6
+      (dot framed~6 add@1)
+      (at@9 body~4 i@1))
+     (cmd@,1 inc i@4)))
+   (asgn@2,A i~2 0@2)
+   (while@,B
+    (infix@8 < i~2
+     (dot@8 framed~6 len@1))
+    (stmts@2,1
+     (cmd@4
+      (dot out0~4 add@1)
+      (at@B framed~6 i@1))
+     (cmd@,1 inc i@4)))
+   (call@5,E put32~5 out0@1
+    (call@C crc32~5 framed@1 0@9
+     (dot@I framed~6 len@1)))))
+ (comment@,9p)
+ (proc@,9q encodePng@5 x . .
+  (params@F
+   (param@1 img . . Image@5 .))
+  (at@H seq~3 int@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (if@,1
+    (elif@3
+     (infix@F or
+      (infix~5 <=
+       (dot~7 img~3 width@1)0@3)
+      (infix@E <=
+       (dot~8 img~3 height@1)0@3))
+     (stmts@Z
+      (ret result@7))))
+   (const@6,2 Magic . . .
+    (bracket@8 137@1 80@6 78@A 71@E 13@I 10@M 26@Q 10@U))
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2 8@2)
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (at@A Magic~5 i@1))
+     (cmd@,1 inc i@4)))
+   (var@4,7 header . .
+    (at@B seq~3 int@1)
+    (prefix@J \40
+     (bracket@1)))
+   (call@5,8 put32~5 header@1
+    (dot@C img~3 width@1))
+   (call@5,9 put32~5 header@1
+    (dot@C img~3 height@1))
+   (cmd@6,A
+    (dot header~6 add@1)8@5)
+   (cmd@6,B
+    (dot header~6 add@1)6@5)
+   (cmd@6,C
+    (dot header~6 add@1)0@5)
+   (cmd@6,D
+    (dot header~6 add@1)0@5)
+   (cmd@6,E
+    (dot header~6 add@1)0@5)
+   (call@5,F chunk~5 result@1 "IHDR"@9 header@H)
+   (var@4,G raw . .
+    (at@8 seq~3 int@1)
+    (prefix@G \40
+     (bracket@1)))
+   (var@4,H y . . . 0@4)
+   (while@,I
+    (infix@8 < y~2
+     (dot@5 img~3 height@1))
+    (stmts@2,1
+     (cmd@3
+      (dot raw~3 add@1)0@5)
+     (var@4,1 x . . . 0@4)
+     (while@,2
+      (infix@8 < x~2
+       (infix@C *
+        (dot~7 img~3 width@1)4@2))
+      (stmts@2,1
+       (cmd@3
+        (dot raw~3 add@1)
+        (at@D
+         (dot~5 img~3 rgba@1)
+         (infix@L \2B
+          (par~K
+           (infix@F *
+            (infix~C * y~2
+             (dot@5 img~3 width@1))4@2))x@2)))
+       (cmd@,1 inc x@4)))
+     (cmd@,5 inc y@4)))
+   (var@4,P z . .
+    (at@6 seq~3 int@1)
+    (prefix@E \40
+     (bracket@1)))
+   (cmd@1,Q
+    (dot z~1 add@1)120@5)
+   (cmd@1,R
+    (dot z~1 add@1)1@5)
+   (var@4,S at . . . 0@5)
+   (while@,T true@6
+    (stmts@2,1
+     (var@4 n . . .
+      (infix@C \2D
+       (dot~5 raw~3 len@1)at@2))
+     (if@,1
+      (elif@3
+       (infix@2 > n~2 65535@2)
+       (stmts@B
+        (asgn@2 n~2 65535@2))))
+     (let@4,2 last . . .
+      (if@7
+       (elif@3
+        (infix@7 >=
+         (infix~4 \2B at~3 n@2)
+         (dot@6 raw~3 len@1))
+        (stmts@J 1))
+       (else@O
+        (stmts@6 0))))
+     (cmd@1,3
+      (dot z~1 add@1)last@5)
+     (cmd@1,4
+      (dot z~1 add@1)
+      (infix@7 and n~2 255@4))
+     (cmd@1,5
+      (dot z~1 add@1)
+      (infix@F and
+       (par~A
+        (infix@3 shr n~2 8@4))255@4))
+     (cmd@1,6
+      (dot z~1 add@1)
+      (infix@K and
+       (par~F
+        (infix@3 xor n~2 65535@4))255@4))
+     (cmd@1,7
+      (dot z~1 add@1)
+      (infix@S and
+       (par~N
+        (infix@G shr
+         (par~F
+          (infix@3 xor n~2 65535@4))8@4))255@4))
+     (var@4,8 k . . . 0@4)
+     (while@,9
+      (infix@8 < k~2 n@2)
+      (stmts@2,1
+       (cmd@1
+        (dot z~1 add@1)
+        (at@8 raw~3
+         (infix@4 \2B at~3 k@2)))
+       (cmd@,1 inc k@4)))
+     (asgn@3,C at~3
+      (infix@5 \2B at~3 n@2))
+     (if@,D
+      (elif@3
+       (infix@5 == last~5 1@3)
+       (stmts@B
+        (break .))))))
+   (call@5,i put32~5 z@1
+    (call@B adler32~7 raw@1))
+   (call@5,j chunk~5 result@1 "IDAT"@9 z@H)
+   (var@4,k nothing . .
+    (at@C seq~3 int@1)
+    (prefix@K \40
+     (bracket@1)))
+   (call@5,l chunk~5 result@1 "IEND"@9 nothing@H)))
+ (const@6,Ae B64 . . . "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"@6)
+ (comment@,Ag)
+ (proc@,Ah base64@5 x . .
+  (params@C
+   (param@1 data . .
+    (at@9 seq~3 int@1).))string@I . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@C <
+     (infix~4 \2B i~2 2@2)
+     (dot@6 data~4 len@1))
+    (stmts@2,1
+     (let@4 v . . .
+      (infix@i or
+       (infix~N or
+        (par~H
+         (infix@9 shl
+          (at~4 data~4 i@1)16@4))
+        (par@3
+         (infix@D shl
+          (at~8 data~4
+           (infix@3 \2B i~2 1@2))8@4)))
+       (at@7 data~4
+        (infix@3 \2B i~2 2@2))))
+     (cmd@6,1
+      (dot result~6 add@1)
+      (at@8 B64~3
+       (infix@C and
+        (par~B
+         (infix@3 shr v~2 18@4))63@4)))
+     (cmd@6,2
+      (dot result~6 add@1)
+      (at@8 B64~3
+       (infix@C and
+        (par~B
+         (infix@3 shr v~2 12@4))63@4)))
+     (cmd@6,3
+      (dot result~6 add@1)
+      (at@8 B64~3
+       (infix@B and
+        (par~A
+         (infix@3 shr v~2 6@4))63@4)))
+     (cmd@6,4
+      (dot result~6 add@1)
+      (at@8 B64~3
+       (infix@3 and v~2 63@4)))
+     (asgn@2,5 i~2
+      (infix@4 \2B i~2 3@2))))
+   (let@4,9 left . . .
+    (infix@G \2D
+     (dot~5 data~4 len@1)i@2))
+   (if@,A
+    (elif@3
+     (infix@5 == left~5 1@3)
+     (stmts~1,1
+      (let@4 v . . .
+       (infix@C shl
+        (at~4 data~4 i@1)16@4))
+      (cmd@6,1
+       (dot result~6 add@1)
+       (at@8 B64~3
+        (infix@C and
+         (par~B
+          (infix@3 shr v~2 18@4))63@4)))
+      (cmd@6,2
+       (dot result~6 add@1)
+       (at@8 B64~3
+        (infix@C and
+         (par~B
+          (infix@3 shr v~2 12@4))63@4)))
+      (cmd@6,3
+       (dot result~6 add@1)'='@5)
+      (cmd@6,4
+       (dot result~6 add@1)'='@5)))
+    (elif@5,6
+     (infix@5 == left~5 2@3)
+     (stmts~3,1
+      (let@4 v . . .
+       (infix@L or
+        (par~H
+         (infix@9 shl
+          (at~4 data~4 i@1)16@4))
+        (par@3
+         (infix@D shl
+          (at~8 data~4
+           (infix@3 \2B i~2 1@2))8@4))))
+      (cmd@6,1
+       (dot result~6 add@1)
+       (at@8 B64~3
+        (infix@C and
+         (par~B
+          (infix@3 shr v~2 18@4))63@4)))
+      (cmd@6,2
+       (dot result~6 add@1)
+       (at@8 B64~3
+        (infix@C and
+         (par~B
+          (infix@3 shr v~2 12@4))63@4)))
+      (cmd@6,3
+       (dot result~6 add@1)
+       (at@8 B64~3
+        (infix@B and
+         (par~A
+          (infix@3 shr v~2 6@4))63@4)))
+      (cmd@6,4
+       (dot result~6 add@1)'='@5))))))
+ (comment@,B5)
+ (proc@,B6 dataUri@5 x . .
+  (params@D
+   (param@1 png . .
+    (at@8 seq~3 int@1).))string@H . .
+  (stmts@2,1
+   (infix@P & "data\3Aimage/png;base64,"~P
+    (call@8 base64~6 png@1)))))

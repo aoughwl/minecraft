@@ -1,0 +1,661 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/source/jester_mod_f223686efff1dc21.nim
+ (comment)
+ (import@,E jester@7)
+ (import@,F gridspace@7)
+ (const@2,I Items . . . "aoughwl.grid.selfcheck.items"@8)
+ (const@2,J Bags . . . "aoughwl.grid.selfcheck.bags"@7)
+ (var@2,M checks . . . 0@9)
+ (var@2,N failures . . . 0@B)
+ (proc@,P expect@5 . . .
+  (params@B
+   (param@1 what . . string@6 .)
+   (param@F okay . . bool@6 .)). . .
+  (stmts@2,1
+   (asgn@7 checks~7
+    (infix@9 \2B checks~7 1@2))
+   (if@,1
+    (elif@3
+     (prefix not okay@4)
+     (stmts~1,1
+      (asgn@9 failures~9
+       (infix@B \2B failures~9 1@2))
+      (call@3,1 log~3
+       (infix@S & "grid self-check failed\3A "~R what@2)))))))
+ (proc@,V defineEverything@5 . . .
+  (params@L). . .
+  (stmts@2,1
+   (let@4 kit . . .
+    (call@L gridItemCatalog~F Items@1 "Things to carry, for the self-check"@8))
+   (call@B,1 defineThing~B kit@1 "bandage"@6 "Bandage"@H
+    (vv@Y shape~6 "1x1"@2)
+    (vv@n stack~6 4@2)
+    (vv~2,1 weight~7 0.1@2)
+    (vv@A,1 tags~5 "medical small"@2))
+   (call@B,3 defineThing~B kit@1 "rifle"@6 "Rifle"@F
+    (vv@U shape~6 "5x1"@2)
+    (vv@k weight~7 3.5@2)
+    (vv~4,1 tags~5 "gun big"@2))
+   (call@B,5 defineThing~B kit@1 "mag"@6 "Magazine"@D
+    (vv@V shape~6 "1x2"@2)
+    (vv@k stack~6 60@2)
+    (vv@x weight~7 0.4@2)
+    (vv~4,1 tags~5 "ammo"@2))
+   (call@B,7 defineThing~B kit@1 "rig"@6 "Chest rig"@D
+    (vv@W shape~6 "2x2"@2)
+    (vv@m weight~7 1.0@2)
+    (vv~4,1 tags~5 "gear"@2)
+    (vv@C,1 holds~6 "rigbag"@2))
+   (call@B,9 defineThing~B kit@1 "lump"@6 "Lump"@E
+    (vv@S shape~6 "pistol"@2)
+    (vv@j tags~5 "junk"@2))
+   (let@4,B bags . . .
+    (call@R gridContainerCatalog~K Bags@1 "Things to carry in, for the self-check"@7))
+   (call@9,C defineBag~9 bags@1 "stash"@7 "Stash"@G
+    (vv@U grid~5 "4x6"@2))
+   (call@9,D defineBag~9 bags@1 "pouch"@7 "Medical pouch"@G
+    (vv@c grid~5 "3x3"@2)
+    (vv@t accepts~8 "medical"@2))
+   (call@9,E defineBag~9 bags@1 "rigbag"@7 "Rig pockets"@H
+    (vv@b grid~5 "2x3"@2))
+   (call@9,F defineBag~9 bags@1 "light"@7 "Light satchel"@G
+    (vv@c grid~5 "6x6"@2)
+    (vv@q load~5 1.2@2))))
+ (proc@,n anywhere@5 . . .
+  (params@D)Holder@4 . .
+  (stmts@2,1
+   (comment)
+   (oconstr@6,1 Holder~6
+    (kv@3 id~2 "ground"@2)
+    (kv@M display~7 "Ground"@2)
+    (kv@d slots~5 -1@2)
+    (kv@r capacity~8 -1.0@2)
+    (kv@,1 load~4 -1.0@2)
+    (kv@F,1 accepts~7 ""@2)
+    (kv@S,1 rejects~7 ""@2)
+    (kv@d,1 known~5 true@2))))
+ (proc@,u checkFootprints@5 . . .
+  (params@K). . .
+  (stmts@2,1
+   (call@6 expect~6 "a shape token reads as wide by tall"@1
+    (infix@R,1 and
+     (infix~5 ==
+      (dot~6
+       (call~7 readFootprint~D "5x1"@1)wide@1)5@3)
+     (infix@U ==
+      (dot~6
+       (call~7 readFootprint~D "5x1"@1)tall@1)1@3)))
+   (call@6,2 expect~6 "two digits either side read"@1
+    (infix@U,1 and
+     (infix~6 ==
+      (dot~6
+       (call~9 readFootprint~D "12x10"@1)wide@1)12@3)
+     (infix@W ==
+      (dot~6
+       (call~9 readFootprint~D "12x10"@1)tall@1)10@3)))
+   (call@6,4 expect~6 "a token this layer cannot read is one cell"@1
+    (infix@U,1 and
+     (infix~5 ==
+      (dot~6
+       (call~A readFootprint~D "pistol"@1)wide@1)1@3)
+     (infix@X ==
+      (dot~6
+       (call~A readFootprint~D "pistol"@1)tall@1)1@3)))
+   (call@6,6 expect~6 "no token at all is one cell"@1
+    (infix@t ==
+     (dot~6
+      (call~4 readFootprint~D ""@1)wide@1)1@3))
+   (call@6,7 expect~6 "turning swaps the sides"@1
+    (infix@U,1 and
+     (infix~5 ==
+      (dot~6
+       (call~H turned~6
+        (call@A footprint~9 5@1 1@4))wide@1)1@3)
+     (infix@X ==
+      (dot~6
+       (call~H turned~6
+        (call@A footprint~9 5@1 1@4))tall@1)5@3)))
+   (call@6,9 expect~6 "a square thing has one way up"@1
+    (prefix@Y not
+     (call@C turnable~8
+      (call@A footprint~9 2@1 2@4))))
+   (call@6,A expect~6 "an oblong has two"@1
+    (call@U turnable~8
+     (call@A footprint~9 5@1 1@4)))
+   (call@6,B expect~6 "an item with a shape nobody can read is still one cell"@1
+    (infix@L,1 ==
+     (dot~6
+      (call~8 footprintOf~B "lump"@1)wide@1)1@3))))
+ (proc@,1B checkPacking@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (let@4 stash . . .
+    (call@F openBag~7 "stash"@1 "stash"@A))
+   (call@6,1 expect~6 "a container opened from a catalog is live"@1
+    (call@r bagLive~7 stash@1))
+   (call@6,2 expect~6 "its cells come from the grid facet"@1
+    (infix@G,1 and
+     (infix~5 ==
+      (call~8 bagWide~7 stash@1)4@3)
+     (infix@J ==
+      (call~8 bagTall~7 stash@1)6@3)))
+   (let@4,5 flat . . .
+    (call@D stowAt~6 stash@1 "rifle"@8 1@H 0@K 0@N false@Q))
+   (call@6,6 expect~6 "a five-wide rifle is refused by a four-wide bag"@1
+    (prefix@q not
+     (call@8 went~4 flat@1)))
+   (call@6,7 expect~6 "and the refusal says why, in cells"@1
+    (infix@J,1 and
+     (infix~A ==
+      (dot~9 flat~4 trouble@1)NoRoom@3)
+     (infix@I >
+      (dot~5
+       (dot~5 flat~4 note@1)len@1)10@2)))
+   (call@6,9 expect~6 "a refused stow leaves the bag empty"@1
+    (infix@w ==
+     (call~8 entryCount~A stash@1)0@3))
+   (let@4,B turnedIn . . .
+    (call@H stowAt~6 stash@1 "rifle"@8 1@H 0@K 0@N true@Q))
+   (call@6,C expect~6 "the same rifle on its side fits"@1
+    (call@e went~4 turnedIn@1))
+   (call@6,D expect~6 "and it is one cell wide and five tall"@1
+    (infix@n,1 and
+     (infix~5 ==
+      (dot~6
+       (call~V footprintOn~B
+        (call@8 entryOf~7 stash@1
+         (dot@G turnedIn~8 slot@1)))wide@1)1@3)
+     (infix~5,1 ==
+      (dot~6
+       (call~V footprintOn~B
+        (call@8 entryOf~7 stash@1
+         (dot@G turnedIn~8 slot@1)))tall@1)5@3)))
+   (call@6,G expect~6 "it covers the cells under it"@1
+    (infix@a,1 and
+     (infix~H ==
+      (call~E keyAtCell~9 stash@1 0@8 4@B)
+      (dot@B turnedIn~8 slot@1))
+     (infix@R ==
+      (call~E keyAtCell~9 stash@1 0@8 5@B)0@3)))
+   (let@4,J onTop . . .
+    (call@E stowAt~6 stash@1 "bandage"@8 1@J 0@M 2@P false@S))
+   (call@6,K expect~6 "nothing goes where something already is"@1
+    (prefix@i not
+     (call@8 went~4 onTop@1)))
+   (call@6,L expect~6 "and that is a refusal about room"@1
+    (infix@p ==
+     (dot~9 onTop~5 trouble@1)NoRoom@3))
+   (let@4,N beside . . .
+    (call@F stowAt~6 stash@1 "bandage"@8 1@J 1@M 0@P false@S))
+   (call@6,O expect~6 "beside it is fine"@1
+    (call@Q went~4 beside@1))
+   (let@4,Q auto . . .
+    (call@B stow~4 stash@1 "mag"@8 30@F))
+   (call@6,R expect~6 "a stack put in with no cell named finds one"@1
+    (call@q went~4 auto@1))
+   (call@6,S expect~6 "and it landed on the grid"@1
+    (infix@T,1 >=
+     (dot~8
+      (call~I entryOf~7 stash@1
+       (dot@C auto~4 slot@1))column@1)0@3))
+   (call@6,V expect~6 "cells used is the sum of the footprints"@1
+    (infix@D,1 ==
+     (call~8 cellsUsed~9 stash@1)
+     (infix@9 \2B
+      (infix~4 \2B 5~2 1@2)2@2)))
+   (call@6,X expect~6 "cells there are is the whole grid"@1
+    (infix@u ==
+     (call~8 cellsTotal~A stash@1)24@3))
+   (let@4,a narrow . . .
+    (call@H openGrid~8
+     (call@9 anywhere~8)1@D 6@G "chimney"@J))
+   (let@4,b squeezed . . .
+    (call@F stow~4 narrow@1 "rifle"@9 1@I))
+   (call@6,c expect~6 "a rifle goes into a one-wide bag by turning"@1
+    (call@q went~4 squeezed@1))
+   (call@6,d expect~6 "and it went in on its side"@1
+    (dot@Q,1
+     (call~N entryOf~7 narrow@1
+      (dot@H squeezed~8 slot@1))rotated@1))
+   (let@4,g turnBack . . .
+    (call@F turn~4 narrow@1
+     (dot@H squeezed~8 slot@1)))
+   (call@6,h expect~6 "turning it back would put it off the grid"@1
+    (prefix@k not
+     (call@8 went~4 turnBack@1)))
+   (call@6,i expect~6 "and it did not move"@1
+    (dot@s
+     (call~N entryOf~7 narrow@1
+      (dot@H squeezed~8 slot@1))rotated@1))
+   (discard@,k
+    (call@G closeBag~8 narrow@1))
+   (discard@,l
+    (call@G closeBag~8 stash@1))))
+ (proc@,21 checkTags@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (let@4 pouch . . .
+    (call@F openBag~7 "pouch"@1 "pouch"@A))
+   (let@4,1 ground . . .
+    (call@H openGrid~8
+     (call@9 anywhere~8)6@D 6@G "ground"@J))
+   (discard@,2
+    (call@C stow~4 ground@1 "rifle"@9 1@I))
+   (let@4,3 rifleKey . . .
+    (dot@T
+     (call~B entryAt~7 ground@1 0@9)key@1))
+   (let@4,5 before . . .
+    (call@M arrangementOf~D ground@1))
+   (let@4,6 refused . . .
+    (call@G moveTo~6 ground@1 rifleKey@9 pouch@J 0@Q 0@T false@W))
+   (call@6,7 expect~6 "a medical pouch refuses a rifle"@1
+    (prefix@a not
+     (call@8 went~4 refused@1)))
+   (call@6,8 expect~6 "and says it was the tags"@1
+    (infix@j ==
+     (dot~9 refused~7 trouble@1)NotAccepted@3))
+   (call@6,9 expect~6 "the source is untouched by a refused move"@1
+    (infix@I,1 ==
+     (call~9 arrangementOf~D ground@1)before@3))
+   (call@6,B expect~6 "and so is the target"@1
+    (infix@h ==
+     (call~8 entryCount~A pouch@1)0@3))
+   (let@4,D welcome . . .
+    (call@E stow~4 pouch@1 "bandage"@8 1@J))
+   (call@6,E expect~6 "the pouch takes what it is for"@1
+    (call@d went~4 welcome@1))
+   (discard@,F
+    (call@G closeBag~8 pouch@1))
+   (discard@,G
+    (call@G closeBag~8 ground@1))))
+ (proc@,2M checkNesting@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (let@4 ground . . .
+    (call@H openGrid~8
+     (call@9 anywhere~8)6@D 6@G "ground"@J))
+   (let@4,1 put0 . . .
+    (call@B stow~4 ground@1 "rig"@9 1@G))
+   (call@6,2 expect~6 "a rig goes on the ground"@1
+    (call@X went~4 put0@1))
+   (let@4,3 rigKey . . .
+    (dot@D put0~4 slot@1))
+   (let@4,4 inside . . .
+    (dot@W
+     (call~G entryOf~7 ground@1 rigKey@9)inner@1))
+   (call@6,5 expect~6 "an item that names a container opens one"@1
+    (call@q bagLive~7 inside@1))
+   (call@6,6 expect~6 "its cells come from that definition"@1
+    (infix@H,1 and
+     (infix~5 ==
+      (call~9 bagWide~7 inside@1)2@3)
+     (infix@K ==
+      (call~9 bagTall~7 inside@1)3@3)))
+   (call@6,8 expect~6 "and its parent is the bag the rig is in"@1
+    (call@2,1 isSame~6
+     (call@A bagParent~9 inside@1)ground@K))
+   (call@6,B expect~6 "filling it works like any bag"@1
+    (call@c went~4
+     (call@5 stow~4 inside@1 "bandage"@9 4@K)))
+   (call@6,C expect~6 "which is one stack of four"@1
+    (infix@o ==
+     (call~9 entryCount~A inside@1)1@3))
+   (let@4,E itself . . .
+    (call@F moveTo~6 ground@1 rigKey@9 inside@H 0@P 0@S false@V))
+   (call@6,F expect~6 "a container cannot be put inside itself"@1
+    (prefix@i not
+     (call@8 went~4 itself@1)))
+   (call@6,G expect~6 "and the refusal says so"@1
+    (infix@i >
+     (dot~5
+      (dot~5 itself~6 note@1)len@1)10@2))
+   (call@6,H expect~6 "the rig is still on the ground"@1
+    (infix@s ==
+     (call~9 entryCount~A ground@1)1@3))
+   (call@6,I expect~6 "and still holds what it held"@1
+    (infix@q ==
+     (call~9 entryCount~A inside@1)1@3))
+   (let@4,L second . . .
+    (call@D stow~4 ground@1 "rig"@9 1@G))
+   (let@4,M secondInner . . .
+    (dot@g
+     (call~L entryOf~7 ground@1
+      (dot@F second~6 slot@1))inner@1))
+   (call@6,N expect~6 "a second rig opens a second space"@1
+    (call@j bagLive~7 secondInner@1))
+   (call@6,O expect~6 "a rig goes inside another rig"@1
+    (call@,1 went~4
+     (call@7 moveTo~6 ground@1
+      (dot@F second~6 slot@1)inside@M 0@U 1@X false@a)))
+   (call@6,Q expect~6 "and the ground is down to one thing"@1
+    (infix@x ==
+     (call~9 entryCount~A ground@1)1@3))
+   (let@4,R nowhereToGo . . .
+    (call@K moveTo~6 inside@1 rigKey@9 secondInner@H 0@U 0@X false@a))
+   (call@6,S expect~6 "moving the outer rig into its grandchild is refused"@1
+    (prefix~4,1 not
+     (call@8 went~4 nowhereToGo@1)))
+   (call@6,U expect~6 "because that rig is not even there"@1
+    (infix@G,1 ==
+     (dot~9 nowhereToGo~B trouble@1)NoSuchStack@3))
+   (let@4,W deeper . . .
+    (call@F moveTo~6 ground@1 rigKey@9 secondInner@H 0@U 0@X false@a))
+   (call@6,X expect~6 "nor from where it really is"@1
+    (prefix@W not
+     (call@8 went~4 deeper@1)))
+   (call@6,Y expect~6 "and that one is refused as self-containment"@1
+    (infix@B,1 ==
+     (dot~9 deeper~6 trouble@1)Nowhere@3))
+   (discard@,b
+    (call@G closeBag~8 ground@1))))
+ (proc@,30 checkMovingFull@5 . . .
+  (params@K). . .
+  (stmts@2,1
+   (let@4 ground . . .
+    (call@H openGrid~8
+     (call@9 anywhere~8)6@D 6@G "ground"@J))
+   (let@4,1 stash . . .
+    (call@G openGrid~8
+     (call@9 anywhere~8)6@D 6@G "stash"@J))
+   (let@4,2 rig . . .
+    (call@A stow~4 ground@1 "rig"@9 1@G))
+   (let@4,3 inside . . .
+    (dot@Y
+     (call~I entryOf~7 ground@1
+      (dot@C rig~3 slot@1))inner@1))
+   (discard@,4
+    (call@C stow~4 inside@1 "bandage"@9 4@K))
+   (discard@,5
+    (call@C stow~4 inside@1 "mag"@9 60@G))
+   (let@4,6 held . . .
+    (call@K arrangementOf~D inside@1))
+   (call@6,7 expect~6 "the rig has two things in it"@1
+    (infix@q ==
+     (call~9 entryCount~A inside@1)2@3))
+   (let@4,9 moved . . .
+    (call@E moveTo~6 ground@1
+     (dot@C rig~3 slot@1)stash@J 2@Q 2@T false@W))
+   (call@6,A expect~6 "a full rig moves"@1
+    (call@P went~4 moved@1))
+   (call@6,B expect~6 "the ground is empty"@1
+    (infix@h ==
+     (call~9 entryCount~A ground@1)0@3))
+   (call@6,C expect~6 "the stash has it"@1
+    (infix@d ==
+     (call~8 entryCount~A stash@1)1@3))
+   (call@6,D expect~6 "at the cell it was put at"@1
+    (infix@Q,1 and
+     (infix~5 ==
+      (dot~8
+       (call~A entryAt~7 stash@1 0@8)column@1)2@3)
+     (infix@Q ==
+      (dot~5
+       (call~A entryAt~7 stash@1 0@8)row@1)2@3)))
+   (call@6,F expect~6 "its contents came with it"@1
+    (infix@n ==
+     (call~9 entryCount~A inside@1)2@3))
+   (call@6,G expect~6 "unmoved, cell for cell"@1
+    (infix@n ==
+     (call~9 arrangementOf~D inside@1)held@3))
+   (call@6,H expect~6 "and it is the same space, not a copy"@1
+    (call@2,1 isSame~6
+     (dot@I
+      (call~A entryAt~7 stash@1 0@8)inner@1)inside@Q))
+   (call@6,J expect~6 "whose parent is now the stash"@1
+    (call@2,1 isSame~6
+     (call@A bagParent~9 inside@1)stash@K))
+   (call@6,L expect~6 "and the arrangement says what is inside what"@1
+    (infix@L,1 >
+     (dot~5
+      (call~7 arrangementOf~D stash@1)len@1)
+     (dot@6 held~4 len@1)))
+   (discard@,O
+    (call@G closeBag~8 ground@1))
+   (discard@,P
+    (call@G closeBag~8 stash@1))))
+ (proc@,3S checkRecursiveWeight@5 . . .
+  (params@P). . .
+  (stmts@2,1
+   (let@4 ground . . .
+    (call@H openGrid~8
+     (call@9 anywhere~8)6@D 6@G "ground"@J))
+   (let@4,1 rig . . .
+    (call@A stow~4 ground@1 "rig"@9 1@G))
+   (let@4,2 inside . . .
+    (dot@Y
+     (call~I entryOf~7 ground@1
+      (dot@C rig~3 slot@1))inner@1))
+   (call@6,3 expect~6 "an empty rig weighs what a rig weighs"@1
+    (infix@x ==
+     (call~9 weightIn~8 ground@1)1.0@3))
+   (discard@,4
+    (call@C stow~4 inside@1 "bandage"@9 4@K))
+   (call@6,5 expect~6 "a full one weighs more"@1
+    (infix@i >
+     (call~9 weightIn~8 ground@1)1.39@2))
+   (call@6,6 expect~6 "and it is the contents that made the difference"@1
+    (infix@K,1 and
+     (infix~7 >
+      (call~9 weightIn~8 inside@1)0.39@2)
+     (infix@L <
+      (call~9 weightIn~8 inside@1)0.41@2)))
+   (let@4,9 light . . .
+    (call@F openBag~7 "light"@1 "satchel"@A))
+   (call@6,A expect~6 "the satchel would take the rig on its own"@1
+    (infix@R,1 ==
+     (call~I troubleTaking~D light@1 "rig"@8 1@F)NoTrouble@3))
+   (let@4,C heavy . . .
+    (call@E moveTo~6 ground@1
+     (dot@C rig~3 slot@1)light@J 0@Q 0@T false@W))
+   (call@6,D expect~6 "but not the rig with four bandages in it"@1
+    (prefix@j not
+     (call@8 went~4 heavy@1)))
+   (call@6,E expect~6 "and the reason is the weight"@1
+    (infix@l ==
+     (dot~9 heavy~5 trouble@1)TooHeavy@3))
+   (call@6,F expect~6 "nothing moved"@1
+    (infix@f and
+     (infix~5 ==
+      (call~8 entryCount~A light@1)0@3)
+     (infix@N ==
+      (call~9 entryCount~A ground@1)1@3)))
+   (discard@,H
+    (call@C lift~4 inside@1
+     (dot@R
+      (call~B entryAt~7 inside@1 0@9)key@1)))
+   (call@6,I expect~6 "emptied, it goes in"@1
+    (call@,1 went~4
+     (call@7 moveTo~6 ground@1
+      (dot@C rig~3 slot@1)light@J 0@Q 0@T false@W)))
+   (discard@,L
+    (call@G closeBag~8 light@1))
+   (discard@,M
+    (call@G closeBag~8 ground@1))))
+ (proc@,3r checkLifting@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (let@4 ground . . .
+    (call@H openGrid~8
+     (call@9 anywhere~8)6@D 6@G "ground"@J))
+   (let@4,1 rig . . .
+    (call@A stow~4 ground@1 "rig"@9 1@G))
+   (let@4,2 inside . . .
+    (dot@Y
+     (call~I entryOf~7 ground@1
+      (dot@C rig~3 slot@1))inner@1))
+   (discard@,3
+    (call@C stow~4 inside@1 "bandage"@9 4@K))
+   (call@6,4 expect~6 "a rig on the ground is live"@1
+    (call@d bagLive~7 inside@1))
+   (discard@,5
+    (call@C lift~4 ground@1
+     (dot@C rig~3 slot@1)))
+   (call@6,6 expect~6 "lifting it away takes it off the grid"@1
+    (infix@z ==
+     (call~9 entryCount~A ground@1)0@3))
+   (call@6,7 expect~6 "and its space goes with it"@1
+    (prefix@V not
+     (call@B bagLive~7 inside@1)))
+   (call@6,8 expect~6 "a stale handle is a refusal, not somebody else\27s bag"@1
+    (infix@V,1 ==
+     (dot~9
+      (call~M stow~4 inside@1 "bandage"@9 1@K)trouble@1)NoSuchContainer@3))
+   (discard@,A
+    (call@G closeBag~8 ground@1))))
+ (proc@,46 checkStacks@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (let@4 ground . . .
+    (call@H openGrid~8
+     (call@9 anywhere~8)6@D 6@G "ground"@J))
+   (let@4,1 first . . .
+    (call@C stow~4 ground@1 "mag"@9 40@G))
+   (call@6,2 expect~6 "forty rounds go in as one stack"@1
+    (infix@t ==
+     (call~9 entryCount~A ground@1)1@3))
+   (let@4,3 cut . . .
+    (call@E splitOff~8 ground@1
+     (dot@E first~5 slot@1)15@L))
+   (call@6,4 expect~6 "a stack splits"@1
+    (call@N went~4 cut@1))
+   (call@6,5 expect~6 "into two"@1
+    (infix@W ==
+     (call~9 entryCount~A ground@1)2@3))
+   (call@6,6 expect~6 "and the halves add up"@1
+    (infix@a,1 and
+     (infix~6 ==
+      (dot~7
+       (call~K entryOf~7 ground@1
+        (dot@E first~5 slot@1))count@1)25@3)
+     (infix~8,1 ==
+      (dot~7
+       (call~I entryOf~7 ground@1
+        (dot@C cut~3 slot@1))count@1)15@3)))
+   (call@6,9 expect~6 "a split that leaves nothing behind is a move, and is refused"@1
+    (prefix~4,1 not
+     (call@8 went~4
+      (call@9 splitOff~8 ground@1
+       (dot@C cut~3 slot@1)15@J))))
+   (let@4,C poured . . .
+    (call@I mergeInto~9 ground@1
+     (dot@C cut~3 slot@1)
+     (dot@O first~5 slot@1)))
+   (call@6,D expect~6 "they pour back together"@1
+    (call@W went~4 poured@1))
+   (call@6,E expect~6 "into one stack again"@1
+    (infix@i ==
+     (call~9 entryCount~A ground@1)1@3))
+   (call@6,F expect~6 "of forty"@1
+    (infix@l ==
+     (dot~7
+      (call~K entryOf~7 ground@1
+       (dot@E first~5 slot@1))count@1)40@3))
+   (discard@,H
+    (call@C stow~4 ground@1 "bandage"@9 1@K))
+   (let@4,I mixed . . .
+    (call@H mergeInto~9 ground@1
+     (dot@R
+      (call~B entryAt~7 ground@1 1@9)key@1)
+     (dot@c first~5 slot@1)))
+   (call@6,J expect~6 "two different things do not pour together"@1
+    (prefix@k not
+     (call@8 went~4 mixed@1)))
+   (call@6,K expect~6 "a container does not split"@1
+    (prefix~4,1 not
+     (call@8 went~4
+      (call@9 splitOff~8 ground@1
+       (dot@V
+        (call~I stow~4 ground@1 "rig"@9 1@G)slot@1)1@c))))
+   (let@4,O other . . .
+    (call@G openGrid~8
+     (call@9 anywhere~8)4@D 4@G "other"@J))
+   (let@4,P spare . . .
+    (call@C stow~4 other@1 "mag"@8 10@F))
+   (let@4,Q poured2 . . .
+    (call@I pourOnto~8 other@1
+     (dot@D spare~5 slot@1)ground@K
+     (dot@X first~5 slot@1)))
+   (call@6,R expect~6 "a stack pours into one in another bag"@1
+    (call@k went~4 poured2@1))
+   (call@6,S expect~6 "as much of it as the stack size allows"@1
+    (infix@v ==
+     (dot~7 poured2~7 moved@1)10@3))
+   (call@6,T expect~6 "the emptied stack is gone from where it was"@1
+    (infix@E,1 ==
+     (call~8 entryCount~A other@1)0@3))
+   (call@6,V expect~6 "and the one it went into has both"@1
+    (infix@U,1 ==
+     (dot~7
+      (call~K entryOf~7 ground@1
+       (dot@E first~5 slot@1))count@1)50@3))
+   (discard@,X
+    (call@G closeBag~8 other@1))
+   (discard@,Y
+    (call@G closeBag~8 ground@1))))
+ (proc@,4j checkPublished@5 . . .
+  (params@J). . .
+  (stmts@2,1
+   (let@4 mine . . .
+    (call@L publishedItems~E))
+   (var@4,1 sawRifle . . . false@B)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@6 mine~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@8 ==
+        (at~4 mine~4 i@1)"rifle"@3)
+       (stmts@K
+        (asgn@9 sawRifle~9 true@2))))
+     (asgn@2,1 i~2
+      (infix@4 \2B i~2 1@2))))
+   (call@6,6 expect~6 "a published catalog can be walked by a mod that did not write it"@1 sawRifle~4,1)
+   (call@6,8 expect~6 "and it found every item this mod defined"@1
+    (infix@s >=
+     (dot~5 mine~4 len@1)5@3))
+   (call@6,9 expect~6 "adopting what is published takes up at least the two here"@1
+    (infix@D,1 >=
+     (call~3 adoptPublished~E)2@3))))
+ (comment@,4y)
+ (proc@,58 selfCheck@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (call@G defineEverything~G)
+   (call@F,1 checkFootprints~F)
+   (call@C,2 checkPacking~C)
+   (call@9,3 checkTags~9)
+   (call@C,4 checkNesting~C)
+   (call@F,5 checkMovingFull~F)
+   (call@K,6 checkRecursiveWeight~K)
+   (call@C,7 checkLifting~C)
+   (call@B,8 checkStacks~B)
+   (call@E,9 checkPublished~E)
+   (if@,A
+    (elif@3
+     (infix@9 == failures~9 0@3)
+     (stmts~1,1
+      (call@3 log~3
+       (infix@b &
+        (infix~A & "grid self-check passed "~Q
+         (prefix@2 $ checks@1))" checks"@2))))
+    (else@,2
+     (stmts@2,1
+      (call@3 log~3
+       (infix@w &
+        (infix~A &
+         (infix~9 &
+          (infix~C & "grid self-check FAILED "~Q
+           (prefix@2 $ failures@1))" of "@2)
+         (prefix@2 $ checks@1))" checks"@2)))))))
+ (proc@,5O start@5 . . .
+  (params@A). . .
+  (stmts@2,1
+   (call@G declareGridKinds~G)))
+ (proc@,5R stop@5 . . .
+  (params@9). . .
+  (stmts@E
+   (discard .))))

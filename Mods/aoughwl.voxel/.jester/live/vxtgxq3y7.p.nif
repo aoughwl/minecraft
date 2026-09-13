@@ -1,0 +1,283 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,vxturn.nim
+ (comment)
+ (const@4,n Pi~2 x . . 3.141592653589793@4)
+ (const@8,o HalfPi~6 x . . 1.5707963267948966@4)
+ (const@7,p TwoPi~5 x . . 6.283185307179586@4)
+ (const@8,q Degree~6 x . . 0.017453292519943295@4)
+ (comment@,u)
+ (proc@,x seriesSin@5 . . .
+  (params@E
+   (param@1 x . . float@3 .))float@C . .
+  (stmts@2,1
+   (let@4 xx . . .
+    (infix@7 * x~2 x@2))
+   (var@4,5 term . . .
+    (infix@C / -1.0~5 5.109094217170944E+19@2))
+   (asgn@5,6 term~5
+    (infix@C \2B
+     (infix~5 * term~5 xx@2)
+     (infix@6 / 1.0~4 1.21645100408832E+17@2)))
+   (asgn@5,7 term~5
+    (infix@C \2D
+     (infix~5 * term~5 xx@2)
+     (infix@6 / 1.0~4 355687428096000.0@2)))
+   (asgn@5,8 term~5
+    (infix@C \2B
+     (infix~5 * term~5 xx@2)
+     (infix@6 / 1.0~4 1307674368000.0@2)))
+   (asgn@5,9 term~5
+    (infix@C \2D
+     (infix~5 * term~5 xx@2)
+     (infix@6 / 1.0~4 6227020800.0@2)))
+   (asgn@5,A term~5
+    (infix@C \2B
+     (infix~5 * term~5 xx@2)
+     (infix@6 / 1.0~4 39916800.0@2)))
+   (asgn@5,B term~5
+    (infix@C \2D
+     (infix~5 * term~5 xx@2)
+     (infix@6 / 1.0~4 362880.0@2)))
+   (asgn@5,C term~5
+    (infix@C \2B
+     (infix~5 * term~5 xx@2)
+     (infix@6 / 1.0~4 5040.0@2)))
+   (asgn@5,D term~5
+    (infix@C \2D
+     (infix~5 * term~5 xx@2)
+     (infix@6 / 1.0~4 120.0@2)))
+   (asgn@5,E term~5
+    (infix@C \2B
+     (infix~5 * term~5 xx@2)
+     (infix@6 / 1.0~4 6.0@2)))
+   (infix@2,F \2D x~2
+    (infix@9 *
+     (infix~5 * x~2 xx@2)term@2))))
+ (comment@,1F)
+ (proc@,1O foldTurns@5 x . .
+  (params@F
+   (param@1 radians . . float@9 .))float@I . .
+  (stmts@2,1
+   (asgn@7 result~7 radians@2)
+   (if@,1
+    (elif@3
+     (infix@G or
+      (infix~9 >= result~7 TwoPi@3)
+      (infix@A < result~7
+       (prefix@2 \2D TwoPi@1)))
+     (stmts~1,1
+      (let@4 turns . . .
+       (call@D float~5
+        (call@4 int~3
+         (infix@8 / result~7 TwoPi@2))))
+      (asgn@7,1 result~7
+       (infix@9 \2D result~7
+        (infix@8 * turns~6 TwoPi@2))))))
+   (while@,4
+    (infix@D >= result~7 Pi@3)
+    (stmts@K
+     (asgn@7 result~7
+      (infix@9 \2D result~7 TwoPi@2))))
+   (while@,5
+    (infix@D < result~7
+     (prefix@2 \2D Pi@1))
+    (stmts@K
+     (asgn@7 result~7
+      (infix@9 \2B result~7 TwoPi@2))))))
+ (comment@,1W)
+ (proc@,1a sinOf@5 x . .
+  (params@B
+   (param@1 radians . . float@9 .))float@I . .
+  (stmts@2,1
+   (var@4 x . . .
+    (call@D foldTurns~9 radians@1))
+   (if@,1
+    (elif@3
+     (infix@2 > x~2 HalfPi@2)
+     (stmts@C
+      (asgn@2 x~2
+       (infix@5 \2D Pi~3 x@2))))
+    (elif@5,1
+     (infix@2 < x~2
+      (prefix@2 \2D HalfPi@1))
+     (stmts@D
+      (asgn@2 x~2
+       (infix@6 \2D
+        (prefix~4 \2D Pi@1)x@2)))))
+   (call@9,3 seriesSin~9 x@1)))
+ (comment@,1g)
+ (proc@,1i cosOf@5 x . .
+  (params@B
+   (param@1 radians . . float@9 .))float@I . .
+  (stmts@b
+   (call@5 sinOf~5
+    (infix@9 \2B radians~8 HalfPi@2))))
+ (comment@,1k)
+ (proc@,1n tanOf@5 x . .
+  (params@B
+   (param@1 radians . . float@9 .))float@I . .
+  (stmts@2,1
+   (let@4 c . . .
+    (call@9 cosOf~5 radians@1))
+   (if@,1
+    (elif@3
+     (infix@B and
+      (infix~9 > c~2 -1E-12@2)
+      (infix@6 < c~2 1E-12@2))
+     (stmts@Q
+      (ret 0.0@7))))
+   (infix@F,2 /
+    (call~A sinOf~5 radians@1)c@2)))
+ (comment@,1s)
+ (proc@,1t sinDeg@5 x . .
+  (params@C
+   (param@1 degrees . . float@9 .))float@I . .
+  (stmts@c
+   (call@5 sinOf~5
+    (infix@9 * degrees~8 Degree@2))))
+ (proc@,1u cosDeg@5 x . .
+  (params@C
+   (param@1 degrees . . float@9 .))float@I . .
+  (stmts@c
+   (call@5 cosOf~5
+    (infix@9 * degrees~8 Degree@2))))
+ (proc@,1v tanDeg@5 x . .
+  (params@C
+   (param@1 degrees . . float@9 .))float@I . .
+  (stmts@c
+   (call@5 tanOf~5
+    (infix@9 * degrees~8 Degree@2))))
+ (comment@,1x)
+ (proc@,21 rootOf@5 x . .
+  (params@C
+   (param@1 value . . float@7 .))float@G . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 <= value~6 0.0@3)
+     (stmts@E
+      (ret 0.0@7))))
+   (var@4,1 guess . . . value@8)
+   (if@,2
+    (elif@3
+     (infix@6 < guess~6 1.0@2)
+     (stmts@D
+      (asgn@6 guess~6 1.0@2))))
+   (var@4,3 step . . . 0@7)
+   (while@,4
+    (infix@B < step~5 20@2)
+    (stmts@2,1
+     (asgn@6 guess~6
+      (infix@6 * 0.5~4
+       (par@2
+        (infix@7 \2B guess~6
+         (infix@8 / value~6 guess@2)))))
+     (cmd@,1 inc step@4)))guess@,7))
+ (comment@,2B)
+ (proc@,2C lengthOf@5 x . .
+  (params@E
+   (param@1 x . . float@9 .)
+   (param@4 y . . float@6 .)
+   (param@7 z . . float@3 .))float@I . .
+  (stmts@e
+   (call@6 rootOf~6
+    (infix@F \2B
+     (infix~8 \2B
+      (infix~4 * x~2 x@2)
+      (infix@4 * y~2 y@2))
+     (infix@4 * z~2 z@2)))))
+ (type@F,2J Screened~A x . .
+  (object@2 .
+   (fld~E,8 x~1 x . float@7 .)
+   (fld~A,8 y~1 x . float@3 .)
+   (fld~A,9 ahead~5 x . float@3 .)
+   (fld~D,A on~2 x . bool@3 .)))
+ (comment@,2V)
+ (proc@,2Y focalLength@5 x . .
+  (params@H
+   (param@1 screenHigh . . float@P .)
+   (param@D fieldOfView . . float@D .))float@Y . .
+  (stmts@2,1
+   (let@4 half . . .
+    (call@D tanDeg~6
+     (infix@D * fieldOfView~C 0.5@2)))
+   (if@,1
+    (elif@3
+     (infix@5 < half~5 1E-9@2)
+     (stmts@D
+      (ret screenHigh@7))))
+   (infix@H,2 /
+    (infix~6 * screenHigh~B 0.5@2)half@2)))
+ (comment@,2d)
+ (proc@,2i screenOf@5 x . .
+  (params@E
+   (param@1 px . . float@O .)
+   (param@5 py . . float@K .)
+   (param@9 pz . . float@G .)
+   (param@D ex . . float@C .)
+   (param@H ey . . float@8 .)
+   (param@L ez . . float@4 .)
+   (param@1,1 rx . . float@a .)
+   (param@5,1 ry . . float@W .)
+   (param@9,1 rz . . float@S .)
+   (param@D,1 ux . . float@O .)
+   (param@H,1 uy . . float@K .)
+   (param@L,1 uz . . float@G .)
+   (param@P,1 ax . . float@C .)
+   (param@T,1 ay . . float@8 .)
+   (param@X,1 az . . float@4 .)
+   (param@1,2 screenWide . . float@V .)
+   (param@D,2 screenHigh . . float@J .)
+   (param@P,2 focal . . float@7 .))Screened@e,2 . .
+  (stmts@2,3
+   (let@4 dx . . .
+    (infix@8 \2D px~3 ex@2))
+   (let@4,1 dy . . .
+    (infix@8 \2D py~3 ey@2))
+   (let@4,2 dz . . .
+    (infix@8 \2D pz~3 ez@2))
+   (let@4,3 ahead . . .
+    (infix@Q \2B
+     (infix~A \2B
+      (infix~5 * dx~3 ax@2)
+      (infix@5 * dy~3 ay@2))
+     (infix@5 * dz~3 az@2)))
+   (asgn@7,4 result~7
+    (oconstr@A Screened~8
+     (kv@2 x~1 0.0@2)
+     (kv@A y~1 0.0@2)
+     (kv@M ahead~5 ahead@2)
+     (kv@X on~2 false@2)))
+   (if@,5
+    (elif@3
+     (infix@6 <= ahead~6 0.05@3)
+     (stmts@F
+      (ret .))))
+   (let@4,6 across . . .
+    (infix@R \2B
+     (infix~A \2B
+      (infix~5 * dx~3 rx@2)
+      (infix@5 * dy~3 ry@2))
+     (infix@5 * dz~3 rz@2)))
+   (let@4,7 above . . .
+    (infix@Q \2B
+     (infix~A \2B
+      (infix~5 * dx~3 ux@2)
+      (infix@5 * dy~3 uy@2))
+     (infix@5 * dz~3 uz@2)))
+   (asgn@9,8
+    (dot~3 result~6 x@1)
+    (infix@J \2B
+     (infix~6 * screenWide~B 0.5@2)
+     (infix@H /
+      (infix~8 * across~7 focal@2)ahead@2)))
+   (asgn@9,9
+    (dot~3 result~6 y@1)
+    (infix@J \2D
+     (infix~6 * screenHigh~B 0.5@2)
+     (infix@G /
+      (infix~8 * above~6 focal@2)ahead@2)))
+   (asgn@A,A
+    (dot~4 result~6 on@1)true@2))))

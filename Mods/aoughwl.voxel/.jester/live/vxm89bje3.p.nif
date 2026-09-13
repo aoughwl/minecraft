@@ -1,0 +1,3176 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,vxmcplay.nim
+ (comment)
+ (import@,p stream@7)
+ (import@,q
+  (infix@K / aoughwl_mcnet~D netwire@1))
+ (import@,r
+  (infix@K / aoughwl_mcnet~D netproto@1))
+ (import@,s
+  (infix@K / aoughwl_mcnet~D netplay@1))
+ (import@,t
+  (infix@K / aoughwl_mcnet~D netslot@1))
+ (import@,u
+  (infix@K / aoughwl_mcnet~D netinv@1))
+ (import@,v
+  (infix@K / aoughwl_mcnet~D netentity@1))
+ (import@,w
+  (infix@K / aoughwl_mcnet~D netherd@1))
+ (import@,x vxbeing@7)
+ (import@,y vxblocks@7)
+ (import@,z vxworld@7)
+ (import@,10 vxmcmap@7)
+ (const@B,13 BodyLimit~9 x . . 4096@4)
+ (const@H,1B DefaultSections~F x . . 24@4)
+ (const@J,1K DefaultMinSection~H x . . -4@4)
+ (const@C,1N ColumnCost~A x . . 1200@4)
+ (const@G,1U TicksPerSecond~E x . . 20.0@4)
+ (const@9,1V MinPace~7 x . . 0.05@4)
+ (const@9,1b MaxPace~7 x . . 40.0@4)
+ (const@A,1h MoveTick~8 x . . 0.05@4)
+ (const@A,1s FaceDown~8 x . . 0@4)
+ (const@8,1t FaceUp~6 x . . 1@4)
+ (const@B,1u FaceNorth~9 x . . 2@4)
+ (const@B,1v FaceSouth~9 x . . 3@4)
+ (const@A,1w FaceWest~8 x . . 4@4)
+ (const@A,1x FaceEast~8 x . . 5@4)
+ (const@A,23 MainHand~8 x . . 0@4)
+ (const@D,25 HotbarSlots~B x . . 9@4)
+ (type@C,29 McClient~A x . .
+  (object@2 .
+   (fld~4,1 handle~6 x . int@3 .)
+   (fld~6,2 conn~4 x . Connection@3 .)
+   (fld~5,3 table~5 x . Table@3 .)
+   (fld~6,4 play~4 x . Play@3 .)
+   (fld~8,5 ix~2 x . StateIndex@3 .)
+   (fld~7,6 map~3 x . BlockMap@3 .)
+   (fld~2,7 sections~8 x . int@3 .)
+   (fld@,8 minSection~A x . int@3 .)
+   (fld~3,A greeted~7 x . bool@3 .)
+   (fld~4,B floorY~6 x . int@3 .)
+   (fld~2,C anchored~8 x . bool@3 .)
+   (fld~3,E columns~7 x . int@3 .)
+   (fld~3,F refused~7 x . int@3 .)
+   (fld~3,G outside~7 x . int@3 .)
+   (fld@2,H serverBlocks~C x . int@3 .)
+   (fld~5,I holes~5 x . int@3 .)
+   (fld~5,P edits~5 x . int@3 .)
+   (fld~3,Q packets~7 x . int@3 .)
+   (fld@1,S groundState~B x . int@3 .)
+   (fld~3,T groundX~7 x . int@N .)
+   (fld@7,T groundY~7 x . int@D .)
+   (fld@H,T groundZ~7 x . int@3 .)
+   (fld@1,U groundKnown~B x . bool@3 .)
+   (fld~5,s moved~5 x . int@3 .)
+   (fld~1,t sinceMove~9 x . float@3 .)
+   (fld@,v centreSeen~A x . bool@3 .)
+   (fld~2,w centre0X~8 x . int@E .)
+   (fld@9,w centre0Z~8 x . int@3 .)
+   (fld@3,x driftTeleport~D x . int@3 .)
+   (fld~1,y driftWait~9 x . int@3 .)
+   (fld~2,z driftMax~8 x . int@3 .)
+   (fld~2,1G sequence~8 x . int@3 .)
+   (fld~5,1H acked~5 x . int@3 .)
+   (fld~3,1I lastAck~7 x . int@3 .)
+   (fld~3,1K digOpen~7 x . bool@3 .)
+   (fld~6,1L digX~4 x . int@H .)
+   (fld@1,1L digY~4 x . int@A .)
+   (fld@8,1L digZ~4 x . int@3 .)
+   (fld~3,1M digFace~7 x . int@3 .)
+   (fld@1,1N digsStarted~B x . int@3 .)
+   (fld@2,1O digsFinished~C x . int@3 .)
+   (fld~1,1Q wantBreak~9 x . bool@3 .)
+   (fld~4,1R breakX~6 x . int@L .)
+   (fld@5,1R breakY~6 x . int@C .)
+   (fld@E,1R breakZ~6 x . int@3 .)
+   (fld@2,1S breaksAgreed~C x . int@3 .)
+   (fld@,1Y placesSent~A x . int@3 .)
+   (fld~1,1Z wantPlace~9 x . bool@3 .)
+   (fld~2,1a placeAtX~8 x . int@P .)
+   (fld@9,1a placeAtY~8 x . int@E .)
+   (fld@K,1a placeAtZ~8 x . int@3 .)
+   (fld@2,1b placesAgreed~C x . int@3 .)
+   (fld~2,1f brokeAtX~8 x . int@P .)
+   (fld@9,1f brokeAtY~8 x . int@E .)
+   (fld@K,1f brokeAtZ~8 x . int@3 .)
+   (fld~4,1g putAtX~6 x . int@L .)
+   (fld@5,1g putAtY~6 x . int@C .)
+   (fld@E,1g putAtZ~6 x . int@3 .)
+   (fld~2,1h putState~8 x . int@3 .)
+   (fld~5,1r items~5 x .
+    (at@6 seq~3 string@1).)
+   (fld~5,1s parts~5 x . ComponentTable@3 .)
+   (fld~5,1t kinds~5 x .
+    (at@6 seq~3 string@1).)
+   (fld~7,1u inv~3 x . Containers@3 .)
+   (fld~3,1v slotIds~7 x .
+    (at@6 seq~3 int@1).)
+   (fld@,1w slotCounts~A x .
+    (at@6 seq~3 int@1).)
+   (fld~2,1x heldSlot~8 x . int@3 .)
+   (fld@,1y slotWrites~A x . int@3 .)
+   (fld@3,1z contentWrites~D x . int@3 .)
+   (fld@,20 heldWrites~A x . int@3 .)
+   (fld@,21 invProblem~A x . string@3 .)
+   (fld~6,2A herd~4 x . Herd@3 .)
+   (fld~5,2B feeds~5 x . int@3 .)
+   (fld~2,2C fedLines~8 x . int@3 .)
+   (fld~3,2D unnamed~7 x . int@3 .)
+   (fld@1,2H kindProblem~B x . string@3 .)
+   (fld~3,2J problem~7 x . string@3 .)
+   (fld~5,2K phase~5 x . string@3 .)
+   (fld~6,2L host~4 x . string@3 .)
+   (fld~6,2M port~4 x . int@3 .)))
+ (proc@,4X newClient@5 x . .
+  (params@F)McClient@4 . .
+  (stmts@2,1
+   (oconstr@8 McClient~8
+    (kv@7 handle~6 -1@2)
+    (kv@H conn~4
+     (oconstr@C Connection~A
+      (kv@6 state~5 StateHandshake@2)
+      (kv@X threshold~9 -1@2)
+      (kv~C,1 loginSucceeded~E false@2)
+      (kv@5,1 finished~8 false@2)
+      (kv@L,1 problem~7 ""@2)))
+    (kv@6,2 table~5
+     (call@C emptyTable~A))
+    (kv@Q,2 play~4
+     (call@D playSession~B))
+    (kv@3,3 ix~2
+     (call@H emptyStateIndex~F))
+    (kv@R,3 map~3
+     (call@F emptyBlockMap~D))
+    (kv@9,4 sections~8 DefaultSections@2)
+    (kv@c,4 minSection~A DefaultMinSection@2)
+    (kv@8,5 greeted~7 false@2)
+    (kv@N,5 floorY~6 0@2)
+    (kv@a,5 anchored~8 false@2)
+    (kv@8,6 columns~7 0@2)
+    (kv@K,6 refused~7 0@2)
+    (kv@W,6 outside~7 0@2)
+    (kv@n,6 serverBlocks~C 0@2)
+    (kv@x,6 holes~5 0@2)
+    (kv@6,7 edits~5 0@2)
+    (kv@8,8 packets~7 0@2)
+    (kv@O,8 groundState~B -1@2)
+    (kv@b,8 groundX~7 0@2)
+    (kv@n,8 groundY~7 0@2)
+    (kv@z,8 groundZ~7 0@2)
+    (kv@C,9 groundKnown~B false@2)
+    (kv@6,A moved~5 0@2)
+    (kv@K,A sinceMove~9 0.0@2)
+    (kv@B,B centreSeen~A false@2)
+    (kv@S,B centre0X~8 0@2)
+    (kv@f,B centre0Z~8 0@2)
+    (kv@x,B driftTeleport~D -2@2)
+    (kv@1C,B driftWait~9 0@2)
+    (kv@9,C driftMax~8 0@2)
+    (kv@9,D sequence~8 0@2)
+    (kv@J,D acked~5 0@2)
+    (kv@V,D lastAck~7 -1@2)
+    (kv@8,E digOpen~7 false@2)
+    (kv@L,E digX~4 0@2)
+    (kv@U,E digY~4 0@2)
+    (kv@d,E digZ~4 0@2)
+    (kv@p,E digFace~7 0@2)
+    (kv@C,F digsStarted~B 0@2)
+    (kv@T,F digsFinished~C 0@2)
+    (kv@A,G wantBreak~9 false@2)
+    (kv@P,G breakX~6 0@2)
+    (kv@a,G breakY~6 0@2)
+    (kv@l,G breakZ~6 0@2)
+    (kv@12,G breaksAgreed~C 0@2)
+    (kv@B,H placesSent~A 0@2)
+    (kv@P,H wantPlace~9 false@2)
+    (kv@9,I placeAtX~8 0@2)
+    (kv@M,I placeAtY~8 0@2)
+    (kv@Z,I placeAtZ~8 0@2)
+    (kv@q,I placesAgreed~C 0@2)
+    (kv@9,J brokeAtX~8 0@2)
+    (kv@M,J brokeAtY~8 0@2)
+    (kv@Z,J brokeAtZ~8 0@2)
+    (kv@7,K putAtX~6 0@2)
+    (kv@I,K putAtY~6 0@2)
+    (kv@T,K putAtZ~6 0@2)
+    (kv@g,K putState~8 -1@2)
+    (kv@6,L items~5
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@I,L parts~5
+     (call@H emptyComponents~F))
+    (kv@i,L kinds~5
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@s,L inv~3
+     (call@C containers~A))
+    (kv@8,M slotIds~7
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@P,M slotCounts~A
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@e,M heldSlot~8 0@2)
+    (kv@B,N slotWrites~A 0@2)
+    (kv@T,N contentWrites~D 0@2)
+    (kv@i,N heldWrites~A 0@2)
+    (kv@x,N invProblem~A ""@2)
+    (kv@5,O herd~4
+     (call@B emptyHerd~9))
+    (kv@P,O feeds~5 0@2)
+    (kv@c,O fedLines~8 0@2)
+    (kv@o,O unnamed~7 0@2)
+    (kv@C,P kindProblem~B ""@2)
+    (kv@8,Q problem~7 ""@2)
+    (kv@J,Q phase~5 "idle"@2)
+    (kv@X,Q host~4 ""@2)
+    (kv@h,Q port~4 0@2))))
+ (proc@,50 floorInt@5 . . .
+  (params@D
+   (param@1 v . . float@3 .))int@C . .
+  (stmts@2,1
+   (comment)
+   (let@4,4 whole . . .
+    (call@B int~3 v@1))
+   (if@,5
+    (elif@3
+     (infix@8 and
+      (infix~6 < v~2 0.0@2)
+      (infix@H !=
+       (call~8 float~5 whole@1)v@3))
+     (stmts@V
+      (ret
+       (infix@D \2D whole~6 1@2)))))whole@,6))
+ (proc@,59 fault@5 . . .
+  (params@A
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I why . . string@5 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@E ==
+      (dot~5
+       (dot~8 c~1 problem@1)len@1)0@3)
+     (stmts@K
+      (asgn@A
+       (dot~9 c~1 problem@1)why@2))))
+   (asgn@8,1
+    (dot~7 c~1 phase@1)"failed"@2)))
+ (comment@,5G)
+ (proc@,5K loadTables@5 x . .
+  (params@G
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I indexText . . string@O .)
+   (param@T packetsText . . string@D .)). . .
+  (stmts@2,1
+   (asgn@5
+    (dot~4 c~1 ix@1)
+    (call@H parseStateIndex~F indexText@1))
+   (if@,1
+    (elif@3
+     (infix@H >
+      (dot~5
+       (dot~8
+        (dot~3 c~1 ix@1)problem@1)len@1)0@2)
+     (stmts~1,1
+      (call@5 fault~5 c@1
+       (infix@U & "the block state index\3A "~Q
+        (dot@6
+         (dot~3 c~1 ix@1)problem@1)))
+      (ret@,1 .))))
+   (let@4,4 rows . . .
+    (call@N parsePlayPackets~G packetsText@1))
+   (if@,5
+    (elif@3
+     (infix@H >
+      (dot~5
+       (dot~8 rows~4 problem@1)len@1)0@2)
+     (stmts~1,1
+      (call@5 fault~5 c@1
+       (infix@U & "the play packet table\3A "~Q
+        (dot@6 rows~4 problem@1)))
+      (ret@,1 .))))
+   (asgn@8,8
+    (dot~7 c~1 table@1)
+    (call@C knownTable~A))
+   (var@4,9 i . . . 0@4)
+   (while@,A
+    (infix@8 < i~2
+     (dot@C
+      (dot~6 rows~4 names@1)len@1))
+    (stmts@2,1
+     (call@F declarePlayFrom~F
+      (dot@2 c~1 table@1)
+      (at@J
+       (dot~5 rows~4 dirs@1)i@1)
+      (at@W
+       (dot~4 rows~4 ids@1)i@1)
+      (at@l
+       (dot~6 rows~4 names@1)i@1))
+     (cmd@,1 inc i@4)))))
+ (comment@,5Z)
+ (proc@,5k loadItemTables@5 x . .
+  (params@K
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I itemsText . . string@R .)
+   (param@T componentsText . . string@G .)). . .
+  (stmts@2,1
+   (asgn@8
+    (dot~7 c~1 items@1)
+    (call@E parseIdNames~C itemsText@1))
+   (let@4,1 parts . . .
+    (call@K parseIdNames~C componentsText@1))
+   (asgn@8,2
+    (dot~7 c~1 parts@1)
+    (call@H emptyComponents~F))
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@7 parts~5 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@D >
+        (dot~5
+         (at~3 parts~5 i@1)len@1)0@2)
+       (stmts@I
+        (call@G declareComponent~G
+         (dot@2 c~1 parts@1)i@A
+         (at@I parts~5 i@1)))))
+     (cmd@,1 inc i@4)))
+   (if@,7
+    (elif@3
+     (infix@C ==
+      (dot~5
+       (dot~6 c~1 items@1)len@1)0@3)
+     (stmts~1,1
+      (asgn@D
+       (dot~C c~1 invProblem@1)"no item table - run tools/mcindex.ps1"@2)))
+    (elif@5,2
+     (infix@A ==
+      (dot~5 parts~5 len@1)0@3)
+     (stmts~3,1
+      (asgn@D
+       (dot~C c~1 invProblem@1)"no data component table - run tools/mcindex.ps1"@2))))))
+ (comment@,5x)
+ (proc@,66 loadEntityTable@5 x . .
+  (params@L
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I kindsText . . string@B .)). . .
+  (stmts@2,1
+   (asgn@8
+    (dot~7 c~1 kinds@1)
+    (call@E parseIdNames~C kindsText@1))
+   (if@,1
+    (elif@3
+     (infix@C ==
+      (dot~5
+       (dot~6 c~1 kinds@1)len@1)0@3)
+     (stmts~1,1
+      (asgn@E
+       (dot~D c~1 kindProblem@1)"no entity type table - run tools/mcindex.ps1"@2))))))
+ (comment@,6B)
+ (proc@,6E wantedNames@5 x . .
+  (params@H
+   (param@1 c . . McClient@3 .))
+  (at@I seq~3 string@1). .
+  (stmts@k
+   (call@A plainNames~A
+    (dot@2 c~1 ix@1))))
+ (comment@,6G)
+ (proc@,6I useBlocks@5 x . .
+  (params@F
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I resolved . .
+    (at@D seq~3 int@1).)). . .
+  (stmts@2,1
+   (asgn@6
+    (dot~5 c~1 map@1)
+    (call@E blockMapFrom~C
+     (dot@2 c~1 ix@1)resolved@7))))
+ (comment@,6L)
+ (proc@,6N connect@5 x . .
+  (params@D
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I host . . string@6 .)
+   (param@W port . . int@6 .)). . .
+  (stmts@2,1
+   (asgn@7
+    (dot~6 c~1 host@1)host@2)
+   (asgn@7,1
+    (dot~6 c~1 port@1)port@2)
+   (if@,2
+    (elif@3
+     (prefix not
+      (call@J streamAvailable~F))
+     (stmts~1,1
+      (call@5 fault~5 c@1 "this build has no stream host calls in it"@4)
+      (ret@,1 .))))
+   (if@,5
+    (elif@3
+     (prefix not
+      (call@H streamAllowed~D host@1))
+     (stmts~1,1
+      (call@5 fault~5 c@1
+       (infix@f &
+        (infix~7 & "the player has not allowed "~U host@2)" - see stream-allow.txt"@2))
+      (ret@,1 .))))
+   (asgn@9,8
+    (dot~8 c~1 handle@1)
+    (call@C openStream~A host@1 port@7))
+   (if@,9
+    (elif@3
+     (infix@9 <
+      (dot~8 c~1 handle@1)0@2)
+     (stmts~1,1
+      (call@5 fault~5 c@1
+       (call@H streamProblem~D -1@1))
+      (ret@,1 .))))
+   (asgn@8,C
+    (dot~7 c~1 phase@1)"connecting"@2)))
+ (proc@,6c close@5 x . .
+  (params@B
+   (param@1 c . .
+    (mut@3 McClient@4).)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 >=
+      (dot~8 c~1 handle@1)0@3)
+     (stmts@F
+      (discard
+       (call@J closeStream~B
+        (dot@2 c~1 handle@1))))))
+   (asgn@9,1
+    (dot~8 c~1 handle@1)-1@2)
+   (asgn@8,2
+    (dot~7 c~1 phase@1)"closed"@2)))
+ (proc@,6k sendBody@5 . . .
+  (params@D
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I dir . . int@C .)
+   (param@N state . . int@7 .)
+   (param@Z name . . string@6 .)
+   (param@n body . .
+    (at@9 seq~3 int@1).)). . .
+  (stmts@2,1
+   (comment)
+   (let@4,3 id . . .
+    (call@9 idOf~4
+     (dot@2 c~1 table@1)state@A dir@H name@M))
+   (if@,4
+    (elif@3
+     (infix@3 < id~3 0@2)
+     (stmts~1,1
+      (call@5 fault~5 c@1
+       (infix@h & "this protocol profile has no id for "~d name@2))
+      (ret@,1 .))))
+   (call@B,7 beginPacket~B
+    (dot@2 c~1 handle@1)id@B)
+   (if@,8
+    (elif@3
+     (infix@9 >
+      (dot~5 body~4 len@1)0@2)
+     (stmts@E
+      (call@8 putBytes~8
+       (dot@2 c~1 handle@1)
+       (call@J toBase64~8 body@1)))))
+   (discard@,9
+    (call@I sendPacket~A
+     (dot@2 c~1 handle@1)))))
+ (proc@,6w greet@5 . . .
+  (params@A
+   (param@1 c . .
+    (mut@3 McClient@4).)). . .
+  (stmts@2,1
+   (comment)
+   (call@B,2 beginPacket~B
+    (dot@2 c~1 handle@1)IdIntention@B)
+   (call@9,3 putVarInt~9
+    (dot@2 c~1 handle@1)ProtocolVersion@B)
+   (call@9,4 putString~9
+    (dot@2 c~1 handle@1)
+    (dot@C c~1 host@1))
+   (call@8,5 putShort~8
+    (dot@2 c~1 handle@1)
+    (dot@C c~1 port@1))
+   (call@9,6 putVarInt~9
+    (dot@2 c~1 handle@1)IntentLogin@B)
+   (discard@,7
+    (call@I sendPacket~A
+     (dot@2 c~1 handle@1)))
+   (asgn@D,8
+    (dot~7
+     (dot~5 c~1 conn@1)state@1)StateLogin@2)
+   (var@4,A w . . .
+    (call@A writer~6))
+   (call@9,B putString~9 w@1 "Jester"@4)
+   (var@4,E i . . . 0@4)
+   (while@,F
+    (infix@8 < i~2 16@2)
+    (stmts@2,1
+     (call@7 putByte~7 w@1 0@4)
+     (cmd@,1 inc i@4)))
+   (call@B,I beginPacket~B
+    (dot@2 c~1 handle@1)IdHello@B)
+   (call@8,J putBytes~8
+    (dot@2 c~1 handle@1)
+    (call@J toBase64~8
+     (dot@2 w~1 data@1)))
+   (discard@,K
+    (call@I sendPacket~A
+     (dot@2 c~1 handle@1)))
+   (asgn@A,L
+    (dot~9 c~1 greeted@1)true@2)
+   (asgn@8,M
+    (dot~7 c~1 phase@1)"login"@2)))
+ (proc@,7L tellClientInformation@5 . . .
+  (params@Q
+   (param@1 c . .
+    (mut@3 McClient@4).)). . .
+  (stmts@2,1
+   (comment)
+   (var@4,3 w . . .
+    (call@A writer~6))
+   (call@9,4 putString~9 w@1 "en_gb"@4)
+   (call@7,K putByte~7 w@1 2@4)
+   (call@9,L putVarInt~9 w@1 0@4)
+   (call@7,M putBool~7 w@1 true@4)
+   (call@7,N putByte~7 w@1 127@4)
+   (call@9,O putVarInt~9 w@1 1@4)
+   (call@7,P putBool~7 w@1 false@4)
+   (call@7,Q putBool~7 w@1 true@4)
+   (call@9,R putVarInt~9 w@1 0@4)
+   (call@B,S beginPacket~B
+    (dot@2 c~1 handle@1)IdClientInformation@B)
+   (call@8,T putBytes~8
+    (dot@2 c~1 handle@1)
+    (call@J toBase64~8
+     (dot@2 w~1 data@1)))
+   (discard@,U
+    (call@I sendPacket~A
+     (dot@2 c~1 handle@1)))))
+ (proc@,7s drainOutbound@5 . . .
+  (params@I
+   (param@1 c . .
+    (mut@3 McClient@4).)). . .
+  (stmts@2,1
+   (comment)
+   (let@4,3 queued . . .
+    (call@L takeOutbound~C
+     (dot@2 c~1 play@1)))
+   (var@4,4 i . . . 0@4)
+   (while@,5
+    (infix@8 < i~2
+     (dot@8 queued~6 len@1))
+    (stmts@2,1
+     (call@8 sendBody~8 c@1 ToServer@4 StatePlay@E
+      (dot@Y
+       (at~3 queued~6 i@1)name@1)
+      (dot@o
+       (at~3 queued~6 i@1)body@1))
+     (cmd@,1 inc i@4)))))
+ (proc@,8O talking@5 . . .
+  (params@C
+   (param@1 c . . McClient@3 .))bool@F . .
+  (stmts@2,1
+   (infix@15 and
+    (infix~U and
+     (infix~N and
+      (infix~5 >=
+       (dot~8 c~1 handle@1)0@3)
+      (infix@I ==
+       (dot~5
+        (dot~8 c~1 problem@1)len@1)0@3))
+     (infix@H ==
+      (dot~7
+       (dot~5 c~1 conn@1)state@1)StatePlay@3))
+    (dot~x,1
+     (dot~5 c~1 play@1)positioned@1))))
+ (comment@,8S)
+ (proc@,8U mcYof@5 x . .
+  (params@B
+   (param@1 c . . McClient@3 .)
+   (param@E worldY . . int@8 .))int@S . .
+  (stmts@j
+   (infix@7 \2B worldY~7
+    (dot@3 c~1 floorY@1))))
+ (comment@,8W)
+ (proc@,8e sendMovement@5 x . .
+  (params@I
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I x . . float@Q .)
+   (param@L worldY . . float@N .)
+   (param@T z . . float@F .)
+   (param@W yaw . . float@C .)
+   (param@b pitch . . float@7 .)
+   (param@1,1 onGround . . bool@A .)). . .
+  (stmts@2,2
+   (if
+    (elif@3
+     (prefix not
+      (call@B talking~7 c@1))
+     (stmts@G
+      (ret .))))
+   (let@4,1 before . . .
+    (dot@K
+     (dot~5
+      (dot~5 c~1 play@1)out0@1)len@1))
+   (call@C,2 stepMovement~C
+    (dot@2 c~1 play@1)x@9
+    (infix@J \2B worldY~7
+     (call@7 float~5
+      (dot@2 c~1 floorY@1)))z@c yaw@f pitch@k onGround@r)
+   (if@,3
+    (elif@3
+     (infix@G >
+      (dot~5
+       (dot~5
+        (dot~5 c~1 play@1)out0@1)len@1)before@2)
+     (stmts@Q
+      (cmd inc
+       (dot@5 c~1 moved@1)))))
+   (call@D,4 drainOutbound~D c@1)
+   (call@8,5 sendBody~8 c@1 ToServer@4 StatePlay@E PlayClientTickEnd@P
+    (call@z bodyClientTickEnd~H))))
+ (comment@,8n)
+ (proc@,8p movementDue@5 x . .
+  (params@H
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I seconds . . float@9 .))bool@Z . .
+  (stmts@2,1
+   (asgn@C
+    (dot~B c~1 sinceMove@1)
+    (infix@E \2B
+     (dot~B c~1 sinceMove@1)seconds@2))
+   (if@,1
+    (elif@3
+     (infix@C <
+      (dot~B c~1 sinceMove@1)MoveTick@2)
+     (stmts@O
+      (ret false@7))))
+   (asgn@C,2
+    (dot~B c~1 sinceMove@1)0.0@2)true@,3))
+ (comment@,8v)
+ (proc@,8y digStartAt@5 x . .
+  (params@G
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I x . . int@K .)
+   (param@L worldY . . int@H .)
+   (param@T z . . int@9 .)
+   (param@W face . . int@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@B talking~7 c@1))
+     (stmts@G
+      (ret .))))
+   (let@4,1 mcY . . .
+    (call@B mcYof~5 c@1 worldY@4))
+   (if@,2
+    (elif@3
+     (infix@i and
+      (infix~I and
+       (infix~G and
+        (dot~9 c~1 digOpen@1)
+        (infix@B ==
+         (dot~6 c~1 digX@1)x@3))
+       (infix@B ==
+        (dot~6 c~1 digY@1)mcY@3))
+      (infix@B ==
+       (dot~6 c~1 digZ@1)z@3))
+     (stmts@z
+      (ret .))))
+   (cmd@,3 inc
+    (dot@5 c~1 sequence@1))
+   (asgn@A,4
+    (dot~9 c~1 digOpen@1)true@2)
+   (asgn@7,5
+    (dot~6 c~1 digX@1)x@2)
+   (asgn@7,6
+    (dot~6 c~1 digY@1)mcY@2)
+   (asgn@7,7
+    (dot~6 c~1 digZ@1)z@2)
+   (asgn@A,8
+    (dot~9 c~1 digFace@1)face@2)
+   (cmd@,9 inc
+    (dot@5 c~1 digsStarted@1))
+   (call@8,A digStart~8
+    (dot@2 c~1 play@1)
+    (oconstr@H BlockPos~8
+     (kv@2 x~1 x@2)
+     (kv@8 y~1 mcY@2)
+     (kv@G z~1 z@2))face@d
+    (dot@k c~1 sequence@1))
+   (call@5,B swing~5
+    (dot@2 c~1 play@1)MainHand@9)
+   (call@D,C drainOutbound~D c@1)))
+ (comment@,9D)
+ (proc@,9E digCancelAt@5 x . .
+  (params@H
+   (param@1 c . .
+    (mut@3 McClient@4).)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (dot@5 c~1 digOpen@1))
+     (stmts@F
+      (ret .))))
+   (asgn@A,1
+    (dot~9 c~1 digOpen@1)false@2)
+   (if@,2
+    (elif@3
+     (prefix not
+      (call@B talking~7 c@1))
+     (stmts@G
+      (ret .))))
+   (cmd@,3 inc
+    (dot@5 c~1 sequence@1))
+   (call@9,4 digCancel~9
+    (dot@2 c~1 play@1)
+    (oconstr@H BlockPos~8
+     (kv@2 x~1
+      (dot@3 c~1 digX@1))
+     (kv@D y~1
+      (dot@3 c~1 digY@1))
+     (kv@O z~1
+      (dot@3 c~1 digZ@1)))
+    (dot@r c~1 digFace@1)
+    (dot@2,1 c~1 sequence@1))
+   (call@D,6 drainOutbound~D c@1)))
+ (comment@,9N)
+ (proc@,9Q digFinishAt@5 x . .
+  (params@H
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I x . . int@K .)
+   (param@L worldY . . int@H .)
+   (param@T z . . int@9 .)
+   (param@W face . . int@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@B talking~7 c@1))
+     (stmts~1,1
+      (asgn@A
+       (dot~9 c~1 digOpen@1)false@2)
+      (ret@,1 .))))
+   (let@4,3 mcY . . .
+    (call@B mcYof~5 c@1 worldY@4))
+   (if@,4
+    (elif@3
+     (prefix not
+      (dot@5 c~1 digOpen@1))
+     (stmts@F
+      (call@A digStartAt~A c@1 x@4 worldY@7 z@F face@I))))
+   (cmd@,5 inc
+    (dot@5 c~1 sequence@1))
+   (asgn@A,6
+    (dot~9 c~1 digOpen@1)false@2)
+   (cmd@,7 inc
+    (dot@5 c~1 digsFinished@1))
+   (asgn@C,8
+    (dot~B c~1 wantBreak@1)true@2)
+   (asgn@9,9
+    (dot~8 c~1 breakX@1)x@2)
+   (asgn@9,A
+    (dot~8 c~1 breakY@1)mcY@2)
+   (asgn@9,B
+    (dot~8 c~1 breakZ@1)z@2)
+   (call@9,C digFinish~9
+    (dot@2 c~1 play@1)
+    (oconstr@H BlockPos~8
+     (kv@2 x~1 x@2)
+     (kv@8 y~1 mcY@2)
+     (kv@G z~1 z@2))face@d
+    (dot@k c~1 sequence@1))
+   (call@D,D drainOutbound~D c@1)))
+ (comment@,9g)
+ (proc@,9k placeAt@5 x . .
+  (params@D
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I x . . int@K .)
+   (param@L worldY . . int@H .)
+   (param@T z . . int@9 .)
+   (param@W face . . int@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@B talking~7 c@1))
+     (stmts@G
+      (ret .))))
+   (cmd@,1 inc
+    (dot@5 c~1 sequence@1))
+   (cmd@,2 inc
+    (dot@5 c~1 placesSent@1))
+   (let@4,3 mcY . . .
+    (call@B mcYof~5 c@1 worldY@4))
+   (var@4,7 cx . . . 0.5@5)
+   (var@4,8 cy . . . 0.5@5)
+   (var@4,9 cz . . . 0.5@5)
+   (if@,A
+    (elif@3
+     (infix@5 == face~5 FaceDown@3)
+     (stmts@I
+      (asgn@3 cy~3 0.0@2)))
+    (elif@5,1
+     (infix@5 == face~5 FaceUp@3)
+     (stmts@G
+      (asgn@3 cy~3 1.0@2)))
+    (elif@5,2
+     (infix@5 == face~5 FaceNorth@3)
+     (stmts@J
+      (asgn@3 cz~3 0.0@2)))
+    (elif@5,3
+     (infix@5 == face~5 FaceSouth@3)
+     (stmts@J
+      (asgn@3 cz~3 1.0@2)))
+    (elif@5,4
+     (infix@5 == face~5 FaceWest@3)
+     (stmts@I
+      (asgn@3 cx~3 0.0@2)))
+    (elif@5,5
+     (infix@5 == face~5 FaceEast@3)
+     (stmts@I
+      (asgn@3 cx~3 1.0@2))))
+   (asgn@C,J
+    (dot~B c~1 wantPlace@1)true@2)
+   (asgn@B,K
+    (dot~A c~1 placeAtX@1)x@2)
+   (asgn@B,L
+    (dot~A c~1 placeAtY@1)mcY@2)
+   (asgn@B,M
+    (dot~A c~1 placeAtZ@1)z@2)
+   (if@,N
+    (elif@3
+     (infix@5 == face~5 FaceDown@3)
+     (stmts@I
+      (asgn@B
+       (dot~A c~1 placeAtY@1)
+       (infix@6 \2D mcY~4 1@2))))
+    (elif@5,1
+     (infix@5 == face~5 FaceUp@3)
+     (stmts@G
+      (asgn@B
+       (dot~A c~1 placeAtY@1)
+       (infix@6 \2B mcY~4 1@2))))
+    (elif@5,2
+     (infix@5 == face~5 FaceNorth@3)
+     (stmts@J
+      (asgn@B
+       (dot~A c~1 placeAtZ@1)
+       (infix@4 \2D z~2 1@2))))
+    (elif@5,3
+     (infix@5 == face~5 FaceSouth@3)
+     (stmts@J
+      (asgn@B
+       (dot~A c~1 placeAtZ@1)
+       (infix@4 \2B z~2 1@2))))
+    (elif@5,4
+     (infix@5 == face~5 FaceWest@3)
+     (stmts@I
+      (asgn@B
+       (dot~A c~1 placeAtX@1)
+       (infix@4 \2D x~2 1@2))))
+    (elif@5,5
+     (infix@5 == face~5 FaceEast@3)
+     (stmts@I
+      (asgn@B
+       (dot~A c~1 placeAtX@1)
+       (infix@4 \2B x~2 1@2)))))
+   (call@A,T placeBlock~A
+    (dot@2 c~1 play@1)MainHand@9
+    (oconstr@R BlockPos~8
+     (kv@2 x~1 x@2)
+     (kv@8 y~1 mcY@2)
+     (kv@G z~1 z@2))face@n cx@1,1 cy@5,1 cz@9,1 false@D,1
+    (dot@L,1 c~1 sequence@1))
+   (call@5,V swing~5
+    (dot@2 c~1 play@1)MainHand@9)
+   (call@D,W drainOutbound~D c@1)))
+ (comment@,AJ)
+ (proc@,AM holdSlot@5 x . .
+  (params@E
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I slot . . int@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 or
+      (infix~4 < slot~5 0@2)
+      (infix@8 >= slot~5 HotbarSlots@3))
+     (stmts@X
+      (ret .))))
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@B talking~7 c@1))
+     (stmts@G
+      (ret .))))
+   (asgn@B,2
+    (dot~A c~1 heldSlot@1)slot@2)
+   (call@8,3 sendBody~8 c@1 ToServer@4 StatePlay@E PlaySetCarriedItem@P
+    (call@11 bodySetCarriedItem~I slot@1))))
+ (comment@,AS)
+ (proc@,AW clickSlot@5 x . .
+  (params@F
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I window . . int@S .)
+   (param@Q slot . . int@K .)
+   (param@W button . . int@E .)
+   (param@e mode . . int@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@B talking~7 c@1))
+     (stmts@G
+      (ret .))))
+   (var@4,1 none . .
+    (at@9 seq~3 int@1)
+    (prefix@H \40
+     (bracket@1)))
+   (call@8,2 sendBody~8 c@1 ToServer@4 StatePlay@E PlayContainerClickOut@P
+    (call@J,1 bodyContainerClick~I window@1
+     (call@G stateOf~7
+      (dot@2 c~1 inv@1)window@8)slot@X button@d mode@1,1 none@7,1 none@D,1 none@J,1 false@P,1 0@W,1 0@Z,1))))
+ (proc@,Aj adoptColumn@5 . . .
+  (params@G
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I w . .
+    (mut@3 World@4).)
+   (param@W r . . Registry@3 .)). . .
+  (stmts@2,1
+   (comment)
+   (let@4,7 chunkX . . .
+    (call@G readInt~7
+     (dot@2 c~1 handle@1)))
+   (let@4,8 chunkZ . . .
+    (call@G readInt~7
+     (dot@2 c~1 handle@1)))
+   (let@4,9 maps . . .
+    (call@H readVarInt~A
+     (dot@2 c~1 handle@1)))
+   (if@,A
+    (elif@3
+     (infix@Z or
+      (infix~C or
+       (prefix~N not
+        (call@C packetOk~8
+         (dot@2 c~1 handle@1)))
+       (infix@8 < maps~5 0@2))
+      (infix@8 > maps~5 64@2))
+     (stmts~1,1
+      (call@5 fault~5 c@1 "a chunk header that does not parse"@4)
+      (ret@,1 .))))
+   (var@4,D m . . . 0@4)
+   (while@,E
+    (infix@8 < m~2 maps@2)
+    (stmts@2,1
+     (discard
+      (call@I readVarInt~A
+       (dot@2 c~1 handle@1)))
+     (let@4,1 longs . . .
+      (call@I readVarInt~A
+       (dot@2 c~1 handle@1)))
+     (if@,2
+      (elif@3
+       (infix@a or
+        (infix~D or
+         (prefix~N not
+          (call@C packetOk~8
+           (dot@2 c~1 handle@1)))
+         (infix@9 < longs~6 0@2))
+        (infix@9 > longs~6 4096@2))
+       (stmts~1,1
+        (call@5 fault~5 c@1 "a heightmap length out of range"@4)
+        (ret@,1 .))))
+     (discard@,5
+      (call@H skipBytes~9
+       (dot@2 c~1 handle@1)
+       (infix@H * longs~6 8@2)))
+     (cmd@,6 inc m@4)))
+   (let@4,M size . . .
+    (call@H readVarInt~A
+     (dot@2 c~1 handle@1)))
+   (if@,N
+    (elif@3
+     (infix@N or
+      (prefix~N not
+       (call@C packetOk~8
+        (dot@2 c~1 handle@1)))
+      (infix@8 < size~5 0@2))
+     (stmts~1,1
+      (call@5 fault~5 c@1 "a chunk section array length out of range"@4)
+      (ret@,1 .))))
+   (var@4,V spotSection . . . -1@E)
+   (var@4,W spotAt . . . 0@9)
+   (if@,X
+    (elif@3
+     (infix@B and
+      (dot~A c~1 anchored@1)
+      (prefix@4 not
+       (dot@5 c~1 groundKnown@1)))
+     (stmts~1,1
+      (let@4 px . . .
+       (call@D floorInt~8
+        (dot@7
+         (dot~5 c~1 play@1)x@1)))
+      (let@4,1 pz . . .
+       (call@D floorInt~8
+        (dot@7
+         (dot~5 c~1 play@1)z@1)))
+      (let@4,2 py . . .
+       (infix@O \2D
+        (call~B floorInt~8
+         (dot@7
+          (dot~5 c~1 play@1)y@1))1@2))
+      (if@,3
+       (elif@3
+        (infix@a and
+         (infix~A ==
+          (call~I floorDiv~8 px@1 SectionSide@5)chunkX@3)
+         (infix~A,1 ==
+          (call~I floorDiv~8 pz@1 SectionSide@5)chunkZ@3))
+        (stmts~1,2
+         (let@4 s0 . . .
+          (infix@V \2D
+           (call~I floorDiv~8 py@1 SectionSide@5)
+           (dot@3 c~1 minSection@1)))
+         (if@,1
+          (elif@3
+           (infix@8 and
+            (infix~5 >= s0~3 0@3)
+            (infix@7 < s0~3
+             (dot@3 c~1 sections@1)))
+           (stmts~1,6
+            (asgn@A
+             (dot~9 c~1 groundX@1)px@2)
+            (asgn@A,1
+             (dot~9 c~1 groundY@1)py@2)
+            (asgn@A,2
+             (dot~9 c~1 groundZ@1)pz@2)
+            (asgn@C,3 spotSection~C s0@2)
+            (asgn@7,4 spotAt~7
+             (infix@i,1 \2B
+              (infix~E *
+               (par~S,~1
+                (infix@f \2B
+                 (infix~E *
+                  (call~I floorMod~8 py@1 SectionSide@5)SectionSide@2)
+                 (call~W,1 floorMod~8 pz@1 SectionSide@5)))SectionSide@2)
+              (call~Y,1 floorMod~8 px@1 SectionSide@5))))))))))))
+   (let@4,s column . . .
+    (call@K chunkDecode~B
+     (dot@2 c~1 handle@1)
+     (dot@C c~1 sections@1)false@N size@U))
+   (if@,t
+    (elif@3
+     (infix@7 < column~7 0@2)
+     (stmts~1,1
+      (cmd inc
+       (dot@5 c~1 refused@1))
+      (if@,1
+       (elif@3
+        (infix@A ==
+         (dot~9 c~1 refused@1)1@3)
+        (stmts@G
+         (asgn@A
+          (dot~9 c~1 problem@1)
+          (infix@I & "chunkDecode\3A "~G
+           (call@E chunkProblem~C -1@1))))))
+      (ret@,2 .))))
+   (if@,y
+    (elif@3
+     (infix@C >= spotSection~C 0@3)
+     (stmts~1,1
+      (asgn@E
+       (dot~D c~1 groundState@1)
+       (call@C chunkBlock~A column@1 spotSection@9 spotAt@M))
+      (asgn@E,1
+       (dot~D c~1 groundKnown@1)true@2))))
+   (var@4,12 s . . . 0@4)
+   (while@,13
+    (infix@8 < s~2
+     (dot@3 c~1 sections@1))
+    (stmts@2,1
+     (let@4 sectionY . . .
+      (infix@O \2B
+       (dot~C c~1 minSection@1)s@2))
+     (if@,1
+      (elif@3
+       (prefix not
+        (call@I sectionInWorld~E sectionY@1
+         (dot@C c~1 floorY@1)
+         (call@X
+          (dot~B w~1 blocksHigh@1))))
+       (stmts~1,1
+        (cmd inc
+         (dot@5 c~1 outside@1))
+        (cmd@,1 inc s@4)
+        (continue@,2 .))))
+     (let@4,5 cy . . .
+      (infix@f div
+       (par~a
+        (infix@O \2D
+         (infix~E * sectionY~9 SectionSide@2)
+         (dot@3 c~1 floorY@1)))SectionSide@4))
+     (let@4,6 index . . .
+      (call@K
+       (dot~B w~1 chunkIndex@1)chunkX@1 cy@9 chunkZ@D))
+     (if@,7
+      (elif@3
+       (infix@6 < index~6 0@2)
+       (stmts~1,1
+        (cmd inc
+         (dot@5 c~1 outside@1))
+        (cmd@,1 inc s@4)
+        (continue@,2 .))))
+     (if@,D
+      (elif@3
+       (infix@N ==
+        (call~C chunkNonAir~B column@1 s@9)0@3)
+       (stmts~1,1
+        (var@4 nothing . .
+         (at@C seq~3 int@1)
+         (prefix@K \40
+          (bracket@1)))
+        (discard@,1
+         (call@K
+          (dot~B w~1 adoptChunk@1)index@1 nothing@8 0@H -1@K 0@O))
+        (cmd@,2 inc s@4)
+        (continue@,3 .))))
+     (var@4,J blocks . . .
+      (call@J airSection~A))
+     (var@4,K filled . . . 0@9)
+     (var@4,L opaque . . . 0@9)
+     (var@4,M top . . . -1@6)
+     (let@4,N runs . . .
+      (call@G chunkRuns~9 column@1 s@9))
+     (var@4,O at . . . 0@5)
+     (var@4,P run . . . 0@6)
+     (while@,Q
+      (infix@A < run~4 runs@2)
+      (stmts@2,1
+       (let@4 state . . .
+        (call@I chunkRunId~A column@1 s@9 run@C))
+       (let@4,1 n . . .
+        (call@I chunkRunLength~E column@1 s@9 run@C))
+       (if@,2
+        (elif@3
+         (infix@6 != state~6 McAir@3)
+         (stmts~1,1
+          (let@4 id . . .
+           (call@H blockOfState~C
+            (dot@2 c~1 ix@1)
+            (dot@8 c~1 map@1)state@E))
+          (if@,1
+           (elif@3
+            (infix@3 == id~3 AirId@3)
+            (stmts~1,4
+             (if
+              (elif@3
+               (call@B stateIsHole~B
+                (dot@2 c~1 ix@1)
+                (dot@8 c~1 map@1)state@E)
+               (stmts@X
+                (asgn@8
+                 (dot~7 c~1 holes@1)
+                 (infix@A \2B
+                  (dot~7 c~1 holes@1)n@2)))))))
+           (else@,5
+            (stmts@2,1
+             (let@4 wrote . . .
+              (call@F fillRun~7 blocks@1 at@9 n@D id@G))
+             (asgn@7,1 filled~7
+              (infix@9 \2B filled~7 wrote@2))
+             (if@,2
+              (elif@3
+               (call@A
+                (dot~9 r~1 isOpaque@1)id@1)
+               (stmts@G
+                (asgn@7 opaque~7
+                 (infix@9 \2B opaque~7 wrote@2)))))
+             (let@4,6 lastY . . .
+              (infix@P div
+               (par~H
+                (infix@C \2D
+                 (infix~8 \2B at~3 wrote@2)1@2))
+               (par@4
+                (infix@D * SectionSide~C SectionSide@2))))
+             (if@,7
+              (elif@3
+               (infix@6 > lastY~6 top@2)
+               (stmts@D
+                (asgn@4 top~4 lastY@2))))))))))
+       (asgn@3,I at~3
+        (infix@5 \2B at~3 n@2))
+       (cmd@,J inc run@4)))
+     (discard@,l
+      (call@K
+       (dot~B w~1 adoptChunk@1)index@1 blocks@8 filled@G top@O opaque@T))
+     (asgn@F,m
+      (dot~E c~1 serverBlocks@1)
+      (infix@H \2B
+       (dot~E c~1 serverBlocks@1)filled@2))
+     (cmd@,n inc s@4)))
+   (discard@,1t
+    (call@I chunkClose~A column@1))
+   (cmd@,1u inc
+    (dot@5 c~1 columns@1))
+   (call@9,1v noteChunk~9
+    (dot@2 c~1 play@1))))
+ (proc@,Cn applyOne@5 . . .
+  (params@D
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I w . .
+    (mut@3 World@4).)
+   (param@W at . . BlockPos@4 .)
+   (param@k state . . int@7 .)). . .
+  (stmts@2,1
+   (let@4 id . . .
+    (call@H blockOfState~C
+     (dot@2 c~1 ix@1)
+     (dot@8 c~1 map@1)state@E))
+   (if@,1
+    (elif@3
+     (call@C
+      (dot~B w~1 setBlockAt@1)
+      (dot@3 at~2 x@1)
+      (call@F worldYof~8
+       (dot@3 at~2 y@1)
+       (dot@8 c~1 floorY@1))
+      (dot@Z at~2 z@1)id@d)
+     (stmts@u
+      (cmd inc
+       (dot@5 c~1 edits@1)))))
+   (if@,7
+    (elif@3
+     (infix@H,1 and
+      (infix@b,~1 and
+       (infix~L and
+        (infix~L and
+         (dot~B c~1 wantBreak@1)
+         (infix@9 ==
+          (dot~3 at~2 x@1)
+          (dot@4 c~1 breakX@1)))
+        (infix@9 ==
+         (dot~3 at~2 y@1)
+         (dot@4 c~1 breakY@1)))
+       (infix~n,1 ==
+        (dot~3 at~2 z@1)
+        (dot@4 c~1 breakZ@1)))
+      (infix@A == state~6 McAir@3))
+     (stmts~1,2
+      (asgn@C
+       (dot~B c~1 wantBreak@1)false@2)
+      (cmd@,1 inc
+       (dot@5 c~1 breaksAgreed@1))
+      (asgn@B,2
+       (dot~A c~1 brokeAtX@1)
+       (dot@4 at~2 x@1))
+      (asgn@B,3
+       (dot~A c~1 brokeAtY@1)
+       (dot@4 at~2 y@1))
+      (asgn@B,4
+       (dot~A c~1 brokeAtZ@1)
+       (dot@4 at~2 z@1)))))
+   (if@,E
+    (elif@3
+     (infix@J,1 and
+      (infix@d,~1 and
+       (infix~N and
+        (infix~N and
+         (dot~B c~1 wantPlace@1)
+         (infix@9 ==
+          (dot~3 at~2 x@1)
+          (dot@4 c~1 placeAtX@1)))
+        (infix@9 ==
+         (dot~3 at~2 y@1)
+         (dot@4 c~1 placeAtY@1)))
+       (infix~r,1 ==
+        (dot~3 at~2 z@1)
+        (dot@4 c~1 placeAtZ@1)))
+      (infix@A != state~6 McAir@3))
+     (stmts~1,2
+      (asgn@C
+       (dot~B c~1 wantPlace@1)false@2)
+      (cmd@,1 inc
+       (dot@5 c~1 placesAgreed@1))
+      (asgn@9,2
+       (dot~8 c~1 putAtX@1)
+       (dot@4 at~2 x@1))
+      (asgn@9,3
+       (dot~8 c~1 putAtY@1)
+       (dot@4 at~2 y@1))
+      (asgn@9,4
+       (dot~8 c~1 putAtZ@1)
+       (dot@4 at~2 z@1))
+      (asgn@B,5
+       (dot~A c~1 putState@1)state@2))))))
+ (proc@,DJ putSlot@5 . . .
+  (params@C
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I slot . . int@6 .)
+   (param@T item . . SlotItem@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 or
+      (infix~4 < slot~5 0@2)
+      (infix@8 >= slot~5 PlayerSlotCount@3))
+     (stmts@b
+      (ret .))))
+   (while@,1
+    (infix@K <
+     (dot~5
+      (dot~8 c~1 slotIds@1)len@1)PlayerSlotCount@2)
+    (stmts@2,1
+     (call@D
+      (dot~4
+       (dot~8 c~1 slotIds@1)add@1)-1@1)
+     (cmd@C,1
+      (dot
+       (dot~B c~1 slotCounts@1)add@1)0@5)))
+   (if@,4
+    (elif@3
+     (infix@B or
+      (dot~7 item~4 empty@1)
+      (infix@E <=
+       (dot~7 item~4 count@1)0@3))
+     (stmts~1,1
+      (asgn@G
+       (at~7
+        (dot~8 c~1 slotIds@1)slot@1)-1@2)
+      (asgn@J,1
+       (at~7
+        (dot~B c~1 slotCounts@1)slot@1)0@2)))
+    (else@,3
+     (stmts@2,1
+      (asgn@G
+       (at~7
+        (dot~8 c~1 slotIds@1)slot@1)
+       (dot@6 item~4 itemId@1))
+      (asgn@J,1
+       (at~7
+        (dot~B c~1 slotCounts@1)slot@1)
+       (dot@6 item~4 count@1)))))))
+ (comment@,DV)
+ (proc@,DW hotbarName@5 x . .
+  (params@G
+   (param@1 c . . McClient@3 .)
+   (param@E cell . . int@6 .))string@Q . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 or
+      (infix~4 < cell~5 0@2)
+      (infix@8 >= cell~5 HotbarSlots@3))
+     (stmts@X
+      (ret ""@7))))
+   (let@4,1 slot . . .
+    (infix@N \2B SlotHotbarFirst~G cell@2))
+   (if@,2
+    (elif@3
+     (infix@M or
+      (infix~H >= slot~5
+       (dot@C
+        (dot~8 c~1 slotIds@1)len@1))
+      (infix@J <
+       (at~7
+        (dot~8 c~1 slotIds@1)slot@1)0@2))
+     (stmts@k
+      (ret ""@7))))
+   (call@9,3 plainName~9
+    (call@7 nameAt~6
+     (dot@2 c~1 items@1)
+     (at@J
+      (dot~8 c~1 slotIds@1)slot@1)))))
+ (proc@,Dc hotbarCount@5 x . .
+  (params@H
+   (param@1 c . . McClient@3 .)
+   (param@E cell . . int@6 .))int@Q . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 or
+      (infix~4 < cell~5 0@2)
+      (infix@8 >= cell~5 HotbarSlots@3))
+     (stmts@X
+      (ret 0@7))))
+   (let@4,1 slot . . .
+    (infix@N \2B SlotHotbarFirst~G cell@2))
+   (if@,2
+    (elif@3
+     (infix@5 >= slot~5
+      (dot@F
+       (dot~B c~1 slotCounts@1)len@1))
+     (stmts@Q
+      (ret 0@7))))
+   (at@C,3
+    (dot~B c~1 slotCounts@1)slot@1)))
+ (comment@,Di)
+ (proc@,Dk heldName@5 x . .
+  (params@E
+   (param@1 c . . McClient@3 .))string@F . .
+  (stmts@c
+   (call@A hotbarName~A c@1
+    (dot@5 c~1 heldSlot@1))))
+ (proc@,Dl heldCount0@5 x . .
+  (params@G
+   (param@1 c . . McClient@3 .))int@F . .
+  (stmts@b
+   (call@B hotbarCount~B c@1
+    (dot@5 c~1 heldSlot@1))))
+ (comment@,Dn)
+ (proc@,Dp stacksHeld@5 x . .
+  (params@G
+   (param@1 c . . McClient@3 .))int@F . .
+  (stmts@2,1
+   (asgn@7 result~7 0@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@B
+      (dot~8 c~1 slotIds@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@D >=
+        (at~4
+         (dot~8 c~1 slotIds@1)i@1)0@3)
+       (stmts@J
+        (asgn@7 result~7
+         (infix@9 \2B result~7 1@2)))))
+     (cmd@,1 inc i@4)))))
+ (proc@,Dw takeBody@5 . . .
+  (params@D
+   (param@1 c . .
+    (mut@3 McClient@4).))
+  (at@M seq~3 int@1). .
+  (stmts@2,1
+   (comment)
+   (call@A,2 fromBase64~A
+    (call@A readBytes~9
+     (dot@2 c~1 handle@1)-1@B))))
+ (proc@,E4 stepLogin@5 . . .
+  (params@E
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I id . . int@4 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@3 == id~3 IdSetCompression@3)
+     (stmts~1,1
+      (let@4 threshold . . .
+       (call@M readVarInt~A
+        (dot@2 c~1 handle@1)))
+      (call@H,3 streamCompression~H
+       (dot@2 c~1 handle@1)threshold@B)
+      (asgn@H,4
+       (dot~B
+        (dot~5 c~1 conn@1)threshold@1)threshold@2)
+      (ret@,5 .))))
+   (if@,7
+    (elif@3
+     (infix@3 == id~3 IdLoginSuccess@3)
+     (stmts~1,1
+      (asgn@M
+       (dot~G
+        (dot~5 c~1 conn@1)loginSucceeded@1)true@2)
+      (call@B,1 beginPacket~B
+       (dot@2 c~1 handle@1)IdLoginAcknowledged@B)
+      (discard@,2
+       (call@I sendPacket~A
+        (dot@2 c~1 handle@1)))
+      (asgn@D,6
+       (dot~7
+        (dot~5 c~1 conn@1)state@1)StateConfiguration@2)
+      (asgn@8,7
+       (dot~7 c~1 phase@1)"configuring"@2)
+      (call@L,8 tellClientInformation~L c@1)
+      (ret@,9 .))))
+   (if@,I
+    (elif@3
+     (infix@3 == id~3 IdEncryptionRequest@3)
+     (stmts~1,1
+      (call@5 fault~5 c@1 "this server is in online mode, which this client does not do yet"@4)
+      (ret@,1 .))))
+   (if@,L
+    (elif@3
+     (infix@3 == id~3 IdLoginDisconnect@3)
+     (stmts~1,1
+      (call@5 fault~5 c@1
+       (infix@b & "the server refused the login\3A "~X
+        (call@C readString~A
+         (dot@2 c~1 handle@1))))
+      (ret@,1 .))))))
+ (proc@,EU stepConfiguration@5 . . .
+  (params@M
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I id . . int@4 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@3 == id~3 IdConfigKeepAliveOut@3)
+     (stmts~1,1
+      (let@4 alive . . .
+       (call@G readLong~8
+        (dot@2 c~1 handle@1)))
+      (call@B,1 beginPacket~B
+       (dot@2 c~1 handle@1)IdConfigKeepAlive@B)
+      (call@7,2 putLong~7
+       (dot@2 c~1 handle@1)alive@B)
+      (discard@,3
+       (call@I sendPacket~A
+        (dot@2 c~1 handle@1)))
+      (ret@,4 .))))
+   (if@,6
+    (elif@3
+     (infix@3 == id~3 IdPing@3)
+     (stmts~1,1
+      (let@4 token . . .
+       (call@F readInt~7
+        (dot@2 c~1 handle@1)))
+      (call@B,1 beginPacket~B
+       (dot@2 c~1 handle@1)IdPong@B)
+      (call@6,2 putInt~6
+       (dot@2 c~1 handle@1)token@B)
+      (discard@,3
+       (call@I sendPacket~A
+        (dot@2 c~1 handle@1)))
+      (ret@,4 .))))
+   (if@,C
+    (elif@3
+     (infix@3 == id~3 IdKnownPacksOut@3)
+     (stmts~1,4
+      (let@4 count . . .
+       (call@I readVarInt~A
+        (dot@2 c~1 handle@1)))
+      (var@4,1 w . . .
+       (call@A writer~6))
+      (if@,2
+       (elif@3
+        (infix@A or
+         (infix~4 < count~6 0@2)
+         (infix@9 > count~6 1024@2))
+        (stmts~1,1
+         (call@9 putVarInt~9 w@1 0@4)))
+       (else@,2
+        (stmts@2,1
+         (call@9 putVarInt~9 w@1 count@4)
+         (var@4,1 i . . . 0@4)
+         (while@,2
+          (infix@8 < i~2 count@2)
+          (stmts@2,1
+           (let@4 space . . .
+            (call@I readString~A
+             (dot@2 c~1 handle@1)))
+           (let@4,1 name . . .
+            (call@H readString~A
+             (dot@2 c~1 handle@1)))
+           (let@4,2 version . . .
+            (call@K readString~A
+             (dot@2 c~1 handle@1)))
+           (call@9,3 putString~9 w@1 space@4)
+           (call@9,4 putString~9 w@1 name@4)
+           (call@9,5 putString~9 w@1 version@4)
+           (cmd@,6 inc i@4)))
+         (if@,A
+          (elif@3
+           (prefix not
+            (call@C packetOk~8
+             (dot@2 c~1 handle@1)))
+           (stmts~1,1
+            (asgn@2 w~2
+             (call@8 writer~6))
+            (call@9,1 putVarInt~9 w@1 0@4)))))))
+      (call@B,I beginPacket~B
+       (dot@2 c~1 handle@1)IdKnownPacks@B)
+      (call@8,J putBytes~8
+       (dot@2 c~1 handle@1)
+       (call@J toBase64~8
+        (dot@2 w~1 data@1)))
+      (discard@,K
+       (call@I sendPacket~A
+        (dot@2 c~1 handle@1)))
+      (ret@,L .))))
+   (if@,c
+    (elif@3
+     (infix@3 == id~3 IdFinishConfigurationOut@3)
+     (stmts~1,1
+      (call@B beginPacket~B
+       (dot@2 c~1 handle@1)IdFinishConfiguration@B)
+      (discard@,1
+       (call@I sendPacket~A
+        (dot@2 c~1 handle@1)))
+      (asgn@D,2
+       (dot~7
+        (dot~5 c~1 conn@1)state@1)StatePlay@2)
+      (asgn@G,3
+       (dot~A
+        (dot~5 c~1 conn@1)finished@1)true@2)
+      (call@9,4 enterPlay~9
+       (dot@2 c~1 play@1))
+      (asgn@8,5
+       (dot~7 c~1 phase@1)"playing"@2)
+      (ret@,6 .))))
+   (if@,k
+    (elif@3
+     (infix@3 == id~3 IdConfigDisconnect@3)
+     (stmts~1,1
+      (call@5 fault~5 c@1 "the server disconnected during configuration"@4)
+      (ret@,1 .))))))
+ (proc@,FJ stepPlay@5 . . .
+  (params@D
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I w . .
+    (mut@3 World@4).)
+   (param@W r . . Registry@3 .)
+   (param@j id . . int@4 .)). . .
+  (stmts@2,1
+   (let@4 name . . .
+    (call@D nameOf~6
+     (dot@2 c~1 table@1)StatePlay@A ToClient@L id@V))
+   (if@,1
+    (elif@3
+     (infix@5 == name~5 "unknown"@3)
+     (stmts@J
+      (ret .))))
+   (if@,3
+    (elif@3
+     (infix@5 == name~5 PlayLevelChunkWithLight@3)
+     (stmts~1,4
+      (if
+       (elif@3
+        (prefix not
+         (dot@5 c~1 anchored@1))
+        (stmts@G
+         (ret .))))
+      (call@B,1 adoptColumn~B c@1 w@4 r@7)
+      (ret@,2 .))))
+   (if@,B
+    (elif@3
+     (infix@5 == name~5 PlayBlockUpdate@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@L >
+         (call~B packetLeft~A
+          (dot@2 c~1 handle@1))BodyLimit@2)
+        (stmts@Y
+         (ret .))))
+      (var@4,1 body . . .
+       (call@F takeBody~8 c@1))
+      (var@4,2 reader0 . . .
+       (call@G reader~6 body@1))
+      (let@4,3 p . . .
+       (call@P readBlockUpdatePacket~L reader0@1))
+      (if@,4
+       (elif@3
+        (prefix not
+         (call@6 ok~2 reader0@1))
+        (stmts@H
+         (ret .))))
+      (if@,5
+       (elif@3
+        (dot@1 c~1 anchored@1)
+        (stmts@C
+         (call@8 applyOne~8 c@1 w@4
+          (dot@8 p~1 at@1)
+          (dot@E p~1 state@1)))))
+      (ret@,6 .))))
+   (if@,K
+    (elif@3
+     (infix@5 == name~5 PlaySectionBlocksUpdate@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@L >
+         (call~B packetLeft~A
+          (dot@2 c~1 handle@1))BodyLimit@2)
+        (stmts@Y
+         (ret .))))
+      (var@4,1 body . . .
+       (call@F takeBody~8 c@1))
+      (var@4,2 reader0 . . .
+       (call@G reader~6 body@1))
+      (let@4,3 p . . .
+       (call@R readSectionBlocksPacket~N reader0@1))
+      (if@,4
+       (elif@3
+        (prefix not
+         (call@6 ok~2 reader0@1))
+        (stmts@H
+         (ret .))))
+      (if@,5
+       (elif@3
+        (prefix not
+         (dot@5 c~1 anchored@1))
+        (stmts@G
+         (ret .))))
+      (var@4,6 i . . . 0@4)
+      (while@,7
+       (infix@8 < i~2
+        (dot@D
+         (dot~A p~1 positions@1)len@1))
+       (stmts@2,1
+        (call@8 applyOne~8 c@1 w@4
+         (at@I
+          (dot~A p~1 positions@1)i@1)
+         (at@V
+          (dot~7 p~1 states@1)i@1))
+        (cmd@,1 inc i@4)))
+      (ret@,A .))))
+   (if@,X
+    (elif@3
+     (infix@5 == name~5 PlayBlockChangedAck@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@L >
+         (call~B packetLeft~A
+          (dot@2 c~1 handle@1))BodyLimit@2)
+        (stmts@Y
+         (ret .))))
+      (var@4,1 body . . .
+       (call@F takeBody~8 c@1))
+      (var@4,2 reader0 . . .
+       (call@G reader~6 body@1))
+      (let@4,3 n . . .
+       (call@E readVarInt~A reader0@1))
+      (if@,4
+       (elif@3
+        (prefix not
+         (call@6 ok~2 reader0@1))
+        (stmts@H
+         (ret .))))
+      (cmd@,5 inc
+       (dot@5 c~1 acked@1))
+      (asgn@A,6
+       (dot~9 c~1 lastAck@1)n@2)
+      (ret@,7 .))))
+   (if@,k
+    (elif@3
+     (infix@V,1 or
+      (infix@X,~1 or
+       (infix~Z or
+        (infix~O == name~5 PlayContainerSetSlot@3)
+        (infix@8 == name~5 PlayContainerSetContent@3))
+       (infix~x,1 == name~5 PlaySetPlayerInventory@3))
+      (infix@8 == name~5 PlaySetHeldSlot@3))
+     (stmts~1,2
+      (if
+       (elif@3
+        (prefix not
+         (call@A loaded~6
+          (dot@2 c~1 parts@1)))
+        (stmts@L
+         (ret .))))
+      (if@,1
+       (elif@3
+        (infix@L >
+         (call~B packetLeft~A
+          (dot@2 c~1 handle@1))BodyLimit@2)
+        (stmts@Y
+         (ret .))))
+      (var@4,2 body . . .
+       (call@F takeBody~8 c@1))
+      (var@4,3 reader0 . . .
+       (call@G reader~6 body@1))
+      (if@,4
+       (elif@3
+        (infix@5 == name~5 PlaySetHeldSlot@3)
+        (stmts~1,1
+         (let@4 p . . .
+          (call@M readHeldSlotPacket~I reader0@1))
+         (if@,1
+          (elif@3
+           (prefix not
+            (call@6 ok~2 reader0@1))
+           (stmts@H
+            (ret .))))
+         (if@,2
+          (elif@3
+           (infix@C and
+            (infix~5 >=
+             (dot~6 p~1 slot@1)0@3)
+            (infix@B <
+             (dot~6 p~1 slot@1)HotbarSlots@2))
+           (stmts~1,1
+            (asgn@B
+             (dot~A c~1 heldSlot@1)
+             (dot@3 p~1 slot@1))
+            (cmd@,1 inc
+             (dot@5 c~1 heldWrites@1)))))
+         (ret@,5 .))))
+      (if@,B
+       (elif@3
+        (infix@5 == name~5 PlaySetPlayerInventory@3)
+        (stmts~1,1
+         (let@4 p . . .
+          (call@X readPlayerInventorySlotPacket~T reader0@1
+           (dot@B c~1 parts@1)))
+         (if@,1
+          (elif@3
+           (prefix not
+            (call@6 ok~2 reader0@1))
+           (stmts~1,1
+            (if
+             (elif@3
+              (infix@H ==
+               (dot~5
+                (dot~B c~1 invProblem@1)len@1)0@3)
+              (stmts@N
+               (asgn@D
+                (dot~C c~1 invProblem@1)
+                (dot@9 reader0~7 problem@1)))))
+            (ret@,1 .))))
+         (call@7,4 putSlot~7 c@1
+          (dot@5 p~1 slot@1)
+          (dot@D p~1 item@1))
+         (cmd@,5 inc
+          (dot@5 c~1 slotWrites@1))
+         (ret@,6 .))))
+      (if@,J
+       (elif@3
+        (infix@5 == name~5 PlayContainerSetSlot@3)
+        (stmts~1,1
+         (let@4 p . . .
+          (call@L readSetSlotPacket~H reader0@1
+           (dot@B c~1 parts@1)))
+         (if@,1
+          (elif@3
+           (prefix not
+            (call@6 ok~2 reader0@1))
+           (stmts~1,1
+            (if
+             (elif@3
+              (infix@H ==
+               (dot~5
+                (dot~B c~1 invProblem@1)len@1)0@3)
+              (stmts@N
+               (asgn@D
+                (dot~C c~1 invProblem@1)
+                (dot@9 reader0~7 problem@1)))))
+            (ret@,1 .))))
+         (call@9,4 noteState~9
+          (dot@2 c~1 inv@1)
+          (dot@9 p~1 window@1)
+          (dot@J p~1 stateId@1))
+         (if@,8
+          (elif@3
+           (infix@9 ==
+            (dot~8 p~1 window@1)WindowPlayer@3)
+           (stmts~1,1
+            (call@7 putSlot~7 c@1
+             (dot@5 p~1 slot@1)
+             (dot@D p~1 item@1))
+            (cmd@,1 inc
+             (dot@5 c~1 slotWrites@1)))))
+         (ret@,B .))))
+      (let@4,W p . . .
+       (call@O readSetContentPacket~K reader0@1
+        (dot@B c~1 parts@1)))
+      (if@,X
+       (elif@3
+        (prefix not
+         (call@6 ok~2 reader0@1))
+        (stmts~1,1
+         (if
+          (elif@3
+           (infix@H ==
+            (dot~5
+             (dot~B c~1 invProblem@1)len@1)0@3)
+           (stmts@N
+            (asgn@D
+             (dot~C c~1 invProblem@1)
+             (dot@9 reader0~7 problem@1)))))
+         (ret@,1 .))))
+      (call@9,a noteState~9
+       (dot@2 c~1 inv@1)
+       (dot@9 p~1 window@1)
+       (dot@J p~1 stateId@1))
+      (if@,b
+       (elif@3
+        (infix@9 ==
+         (dot~8 p~1 window@1)WindowPlayer@3)
+        (stmts~1,1
+         (var@4 i . . . 0@4)
+         (while@,1
+          (infix@8 < i~2
+           (dot@9
+            (dot~6 p~1 items@1)len@1))
+          (stmts@2,1
+           (call@7 putSlot~7 c@1 i@4
+            (at@E
+             (dot~6 p~1 items@1)i@1))
+           (cmd@,1 inc i@4)))
+         (cmd@,4 inc
+          (dot@5 c~1 contentWrites@1)))))
+      (ret@,h .))))
+   (if@,1e
+    (elif@3
+     (infix@O,4 or
+      (infix@X,~1 or
+       (infix~Q or
+        (infix@P,~1 or
+         (infix~U or
+          (infix@W,~1 or
+           (infix~W or
+            (infix@Q,~1 or
+             (infix~U or
+              (infix~H == name~5 PlayAddEntity@3)
+              (infix@8 == name~5 PlayRemoveEntities@3))
+             (infix~l,1 == name~5 PlayMoveEntityPos@3))
+            (infix@8 == name~5 PlayMoveEntityPosRot@3))
+           (infix~r,1 == name~5 PlayMoveEntityRot@3))
+          (infix@8 == name~5 PlayTeleportEntity@3))
+         (infix~p,1 == name~5 PlayEntityPositionSync@3))
+        (infix@8 == name~5 PlayRotateHead@3))
+       (infix~q,1 == name~5 PlayEntityEvent@3))
+      (infix@8 == name~5 PlayDamageEvent@3))
+     (stmts~1,5
+      (if
+       (elif@3
+        (infix@L >
+         (call~B packetLeft~A
+          (dot@2 c~1 handle@1))BodyLimit@2)
+        (stmts@Y
+         (ret .))))
+      (var@4,1 body . . .
+       (call@F takeBody~8 c@1))
+      (var@4,2 reader0 . . .
+       (call@G reader~6 body@1))
+      (if@,3
+       (elif@3
+        (infix@5 == name~5 PlayAddEntity@3)
+        (stmts~1,1
+         (let@4 p . . .
+          (call@P readSpawnEntityPacket~L reader0@1))
+         (if@,1
+          (elif@3
+           (call@2 ok~2 reader0@1)
+           (stmts@D
+            (call@5 onAdd~5
+             (dot@2 c~1 herd@1)p@9))))
+         (ret@,2 .))))
+      (if@,7
+       (elif@3
+        (infix@5 == name~5 PlayRemoveEntities@3)
+        (stmts~1,1
+         (let@4 p . . .
+          (call@S readRemoveEntitiesPacket~O reader0@1))
+         (if@,1
+          (elif@3
+           (call@2 ok~2 reader0@1)
+           (stmts@D
+            (call@8 onRemove~8
+             (dot@2 c~1 herd@1)p@9))))
+         (ret@,2 .))))
+      (if@,B
+       (elif@3
+        (infix@Q or
+         (infix~L == name~5 PlayMoveEntityPos@3)
+         (infix@8 == name~5 PlayMoveEntityPosRot@3))
+        (stmts~1,1
+         (let@4 p . . .
+          (call@I readMovePacket~E reader0@1
+           (infix@F == name~5 PlayMoveEntityPosRot@3)))
+         (if@,1
+          (elif@3
+           (call@2 ok~2 reader0@1)
+           (stmts@D
+            (call@6 onMove~6
+             (dot@2 c~1 herd@1)p@9))))
+         (ret@,2 .))))
+      (if@,F
+       (elif@3
+        (infix@5 == name~5 PlayMoveEntityRot@3)
+        (stmts~1,1
+         (let@4 p . . .
+          (call@K readRotatePacket~G reader0@1))
+         (if@,1
+          (elif@3
+           (call@2 ok~2 reader0@1)
+           (stmts@D
+            (call@8 onRotate~8
+             (dot@2 c~1 herd@1)p@9))))
+         (ret@,2 .))))
+      (if@,J
+       (elif@3
+        (infix@5 == name~5 PlayTeleportEntity@3)
+        (stmts~1,1
+         (let@4 p . . .
+          (call@M readTeleportPacket~I reader0@1))
+         (if@,1
+          (elif@3
+           (call@2 ok~2 reader0@1)
+           (stmts@D
+            (call@A onTeleport~A
+             (dot@2 c~1 herd@1)p@9))))
+         (ret@,2 .))))
+      (if@,N
+       (elif@3
+        (infix@5 == name~5 PlayEntityPositionSync@3)
+        (stmts~1,1
+         (let@4 p . . .
+          (call@Q readSyncPositionPacket~M reader0@1))
+         (if@,1
+          (elif@3
+           (call@2 ok~2 reader0@1)
+           (stmts@D
+            (call@6 onSync~6
+             (dot@2 c~1 herd@1)p@9))))
+         (ret@,2 .))))
+      (if@,R
+       (elif@3
+        (infix@5 == name~5 PlayRotateHead@3)
+        (stmts~1,1
+         (let@4 p . . .
+          (call@Q readHeadRotationPacket~M reader0@1))
+         (if@,1
+          (elif@3
+           (call@2 ok~2 reader0@1)
+           (stmts@D
+            (call@E onHeadRotation~E
+             (dot@2 c~1 herd@1)p@9))))
+         (ret@,2 .))))
+      (if@,V
+       (elif@3
+        (infix@5 == name~5 PlayEntityEvent@3)
+        (stmts~1,1
+         (let@4 p . . .
+          (call@P readEntityEventPacket~L reader0@1))
+         (if@,1
+          (elif@3
+           (call@2 ok~2 reader0@1)
+           (stmts@D
+            (call@7 onEvent~7
+             (dot@2 c~1 herd@1)p@9))))
+         (ret@,2 .))))
+      (let@4,d p . . .
+       (call@P readDamageEventPacket~L reader0@1))
+      (if@,e
+       (elif@3
+        (call@2 ok~2 reader0@1)
+        (stmts@D
+         (call@6 onHurt~6
+          (dot@2 c~1 herd@1)
+          (dot@A p~1 entityId@1)))))
+      (ret@,f .))))
+   (if@,2T
+    (elif@3
+     (infix@L >
+      (call~B packetLeft~A
+       (dot@2 c~1 handle@1))BodyLimit@2)
+     (stmts@Y
+      (ret .))))
+   (var@4,2U body . . .
+    (call@F takeBody~8 c@1))
+   (var@4,2V reader0 . . .
+    (call@G reader~6 body@1))
+   (call@C,2W onPlayPacket~C
+    (dot@2 c~1 play@1)name@9 reader0@F)
+   (if@,2b
+    (elif@3
+     (infix@I or
+      (infix~D == name~5 PlayLogin@3)
+      (infix@8 == name~5 PlayRespawn@3))
+     (stmts@g
+      (call@9 forgetAll~9
+       (dot@2 c~1 herd@1)))))
+   (if@,2c
+    (elif@3
+     (infix@G !=
+      (dot~A
+       (dot~5 c~1 play@1)entityId@1)
+      (dot@9
+       (dot~5 c~1 herd@1)mine@1))
+     (stmts@W
+      (call@9 ownEntity~9
+       (dot@2 c~1 herd@1)
+       (dot@F
+        (dot~5 c~1 play@1)entityId@1)))))))
+ (comment@,Hy)
+ (proc@,I7 step@5 x . .
+  (params@A
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I w . .
+    (mut@3 World@4).)
+   (param@W r . . Registry@3 .)
+   (param@j budget . . int@8 .))int@x . .
+  (stmts@2,1
+   (asgn@7 result~7 0@2)
+   (if@,1
+    (elif@3
+     (infix@D or
+      (infix~4 <
+       (dot~8 c~1 handle@1)0@2)
+      (infix@H >
+       (dot~5
+        (dot~8 c~1 problem@1)len@1)0@2))
+     (stmts@Z
+      (ret .))))
+   (let@4,3 state . . .
+    (call@J streamState~B
+     (dot@2 c~1 handle@1)))
+   (if@,4
+    (elif@3
+     (infix@6 == state~6 StreamClosed@3)
+     (stmts~1,5
+      (call@5 fault~5 c@1
+       (if@4
+        (elif@3
+         (infix@J >
+          (dot~5
+           (dot~8
+            (dot~5 c~1 play@1)problem@1)len@1)0@2)
+         (stmts@O
+          (dot@6
+           (dot~5 c~1 play@1)problem@1)))
+        (elif@5,1
+         (infix@S >
+          (dot~5
+           (call~A streamProblem~D
+            (dot@2 c~1 handle@1))len@1)0@2)
+         (stmts@X
+          (call@D streamProblem~D
+           (dot@2 c~1 handle@1))))
+        (else@,2
+         (stmts@6 "the server closed the connection"))))
+      (ret@,3 .))))
+   (if@,D
+    (elif@3
+     (infix@6 != state~6 StreamOpen@3)
+     (stmts~1,1
+      (asgn@8
+       (dot~7 c~1 phase@1)"connecting"@2)
+      (ret@,1 .))))
+   (if@,G
+    (elif@3
+     (prefix not
+      (dot@5 c~1 greeted@1))
+     (stmts@F
+      (call@5 greet~5 c@1))))
+   (var@4,I spent . . . 0@8)
+   (while@,J
+    (infix@C < spent~6 budget@2)
+    (stmts@2,1
+     (let@4 id . . .
+      (call@F nextPacket~A
+       (dot@2 c~1 handle@1)))
+     (if@,1
+      (elif@3
+       (infix@3 < id~3 0@2)
+       (stmts@8
+        (break .))))
+     (cmd@,2 inc
+      (dot@5 c~1 packets@1))
+     (let@4,3 before . . .
+      (dot@A c~1 columns@1))
+     (if@,4
+      (elif@3
+       (infix@D ==
+        (dot~7
+         (dot~5 c~1 conn@1)state@1)StateLogin@3)
+       (stmts@S
+        (call@9 stepLogin~9 c@1 id@4)))
+      (elif@5,1
+       (infix@D ==
+        (dot~7
+         (dot~5 c~1 conn@1)state@1)StateConfiguration@3)
+       (stmts@a
+        (call@H stepConfiguration~H c@1 id@4)))
+      (elif@5,2
+       (infix@D ==
+        (dot~7
+         (dot~5 c~1 conn@1)state@1)StatePlay@3)
+       (stmts@R
+        (call@8 stepPlay~8 c@1 w@4 r@7 id@A))))
+     (if@,7
+      (elif@3
+       (infix@E >
+        (dot~5
+         (dot~8 c~1 problem@1)len@1)0@2)
+       (stmts@J
+        (break .))))
+     (if@,8
+      (elif@3
+       (infix@A !=
+        (dot~9 c~1 columns@1)before@3)
+       (stmts@L
+        (asgn@6 spent~6
+         (infix@8 \2B spent~6 ColumnCost@2)))))
+     (if@,B
+      (elif@3
+       (infix@F and
+        (prefix~F not
+         (dot@5 c~1 anchored@1))
+        (dot@A
+         (dot~5 c~1 play@1)positioned@1))
+       (stmts~1,1
+        (asgn@9
+         (dot~8 c~1 floorY@1)
+         (call@A floorFor~8
+          (call@9 floorInt~8
+           (dot@7
+            (dot~5 c~1 play@1)y@1))
+          (call@X
+           (dot~B w~1 blocksHigh@1))))
+        (asgn@B,1
+         (dot~A c~1 anchored@1)true@2)
+        (call@D,2 drainOutbound~D c@1)
+        (ret@,E spent@7))))
+     (call@D,R drainOutbound~D c@1)))
+   (if@,o
+    (elif@3
+     (infix@B and
+      (dot~A c~1 anchored@1)
+      (infix@E >
+       (dot~9 c~1 columns@1)0@2))
+     (stmts~1,6
+      (if
+       (elif@3
+        (infix@M !=
+         (dot~G
+          (dot~5 c~1 play@1)lastTeleportId@1)
+         (dot@4 c~1 driftTeleport@1))
+        (stmts~1,1
+         (asgn@G
+          (dot~F c~1 driftTeleport@1)
+          (dot@8
+           (dot~5 c~1 play@1)lastTeleportId@1))
+         (asgn@D,1
+          (dot~C c~1 centreSeen@1)false@2)
+         (asgn@C,K
+          (dot~B c~1 driftWait@1)2@2))))
+      (if@,M
+       (elif@3
+        (infix@C >
+         (dot~B c~1 driftWait@1)0@2)
+        (stmts~1,1
+         (cmd dec
+          (dot@5 c~1 driftWait@1))))
+       (elif@5,2
+        (prefix not
+         (dot@5 c~1 centreSeen@1))
+        (stmts~3,1
+         (asgn@D
+          (dot~C c~1 centreSeen@1)true@2)
+         (asgn@B,1
+          (dot~A c~1 centre0X@1)
+          (dot@8
+           (dot~5 c~1 play@1)chunkCenterX@1))
+         (asgn@B,2
+          (dot~A c~1 centre0Z@1)
+          (dot@8
+           (dot~5 c~1 play@1)chunkCenterZ@1))))
+       (else@,6
+        (stmts@2,1
+         (var@4 dx . . .
+          (infix@P \2D
+           (dot~E
+            (dot~5 c~1 play@1)chunkCenterX@1)
+           (dot@3 c~1 centre0X@1)))
+         (if@,1
+          (elif@3
+           (infix@3 < dx~3 0@2)
+           (stmts@8
+            (asgn@3 dx~3
+             (prefix@2 \2D dx@1)))))
+         (var@4,2 dz . . .
+          (infix@P \2D
+           (dot~E
+            (dot~5 c~1 play@1)chunkCenterZ@1)
+           (dot@3 c~1 centre0Z@1)))
+         (if@,3
+          (elif@3
+           (infix@3 < dz~3 0@2)
+           (stmts@8
+            (asgn@3 dz~3
+             (prefix@2 \2D dz@1)))))
+         (if@,4
+          (elif@3
+           (infix@8 >
+            (infix~5 \2B dx~3 dz@2)
+            (dot@3 c~1 driftMax@1))
+           (stmts@M
+            (asgn@B
+             (dot~A c~1 driftMax@1)
+             (infix@5 \2B dx~3 dz@2)))))))))))
+   (asgn@7,1S result~7 spent@2)))
+ (comment@,Jc)
+ (proc@,Ju paceFor@5 x . .
+  (params@D
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I budget . . int@8 .)
+   (param@V seconds . . float@9 .)). . .
+  (stmts@2,1
+   (let@4 perFrame . . .
+    (infix@P /
+     (call~9 float~5 budget@1)
+     (call@7 float~5 ColumnCost@1)))
+   (var@4,3 frame . . . seconds@8)
+   (if@,4
+    (elif@3
+     (infix@6 < frame~6 0.001@2)
+     (stmts@F
+      (asgn@6 frame~6 0.001@2))))
+   (if@,5
+    (elif@3
+     (infix@6 > frame~6 4.0@2)
+     (stmts@D
+      (asgn@6 frame~6 4.0@2))))
+   (var@4,6 want . . .
+    (infix@O /
+     (infix~8 / perFrame~9 frame@2)TicksPerSecond@2))
+   (if@,7
+    (elif@3
+     (infix@5 < want~5 MinPace@2)
+     (stmts@G
+      (asgn@5 want~5 MinPace@2))))
+   (if@,8
+    (elif@3
+     (infix@5 > want~5 MaxPace@2)
+     (stmts@G
+      (asgn@5 want~5 MaxPace@2))))
+   (call@4,9 pace~4
+    (dot@2 c~1 play@1)want@9)))
+ (comment@,KD)
+ (proc@,KF wholeFor@5 . . .
+  (params@D
+   (param@1 v . . float@3 .))int@C . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@2 < v~2 0.0@2)
+     (stmts@9
+      (ret
+       (prefix@7 \2D
+        (call@4 int~3
+         (infix@4 \2B
+          (prefix~3 \2D v@1)0.5@2)))))))
+   (call@3,1 int~3
+    (infix@3 \2B v~2 0.5@2))))
+ (comment@,KJ)
+ (proc@,KV feedLineFor@5 . . .
+  (params@G
+   (param@1 c . . McClient@3 .)
+   (param@E slot . . int@6 .))string@Q . .
+  (stmts@2,1
+   (let@4 b . . .
+    (at@F
+     (dot~5
+      (dot~5 c~1 herd@1)list@1)slot@1))
+   (call@5,1 sayAt~5
+    (dot@2 b~1 id@1)
+    (dot@8 b~1 x@1)
+    (infix@G \2D
+     (dot~3 b~1 y@1)
+     (call@7 float~5
+      (dot@2 c~1 floorY@1)))
+    (dot@a b~1 z@1)
+    (prefix@e \2D
+     (dot@2 b~1 yaw@1))
+    (prefix@m \2D
+     (dot@2 b~1 headYaw@1))
+    (dot@z b~1 pitch@1))))
+ (comment@,KZ)
+ (proc@,Kh kindNameOf@5 . . .
+  (params@F
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I kind . . int@6 .))string@U . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 < kind~5 0@2)
+     (stmts@A
+      (ret ""@7))))
+   (let@4,1 full . . .
+    (call@D nameAt~6
+     (dot@2 c~1 kinds@1)kind@A))
+   (if@,2
+    (elif@3
+     (infix@9 ==
+      (dot~5 full~4 len@1)0@3)
+     (stmts~1,1
+      (cmd inc
+       (dot@5 c~1 unnamed@1))
+      (ret@,1 ""@7))))
+   (call@9,5 plainName~9 full@1)))
+ (comment@,Kp)
+ (proc@,Kv herdFeed@5 x . .
+  (params@E
+   (param@1 c . .
+    (mut@3 McClient@4).)
+   (param@I since . . int@7 .))string@V . .
+  (stmts@2,4
+   (if
+    (elif@3
+     (prefix not
+      (dot@5 c~1 anchored@1))
+     (stmts@G
+      (ret ""@7))))
+   (let@4,1 full . . .
+    (call@D behind~6
+     (dot@2 c~1 herd@1)since@9))
+   (var@4,2 body . . . ""@7)
+   (var@4,3 lines . . . 0@8)
+   (var@4,4 i . . . 0@4)
+   (while@,5
+    (infix@8 < i~2
+     (dot@D
+      (dot~5
+       (dot~5 c~1 herd@1)gone@1)len@1))
+    (stmts@2,1
+     (asgn@5 body~5
+      (infix@X &
+       (infix~Q & body~5
+        (call@9 sayGone~7
+         (at@C
+          (dot~5
+           (dot~5 c~1 herd@1)gone@1)i@1)))"\0A"@2))
+     (cmd@,1 inc lines@4)
+     (cmd@,2 inc i@4)))
+   (asgn@2,9 i~2 0@2)
+   (while@,A
+    (infix@8 < i~2
+     (dot@D
+      (dot~5
+       (dot~5 c~1 herd@1)list@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (prefix not
+        (par@4
+         (infix@6 or full~5
+          (call@8 dirty~5
+           (dot@2 c~1 herd@1)i@9))))
+       (stmts~1,1
+        (cmd inc i@4)
+        (continue@,1 .))))
+     (let@4,3 b . . .
+      (at@F
+       (dot~5
+        (dot~5 c~1 herd@1)list@1)i@1))
+     (if@,4
+      (elif@3
+       (infix@5 or full~5
+        (prefix@3 not
+         (dot@5 b~1 announced@1)))
+       (stmts~1,1
+        (asgn@5 body~5
+         (infix@v &
+          (infix~o & body~5
+           (call@B sayAppear~9
+            (dot@2 b~1 id@1)
+            (call@H kindNameOf~A c@1
+             (dot@5 b~1 kind@1))
+            (dot@V b~1 label@1)))"\0A"@2))
+        (cmd@,1 inc lines@4))))
+     (if@,7
+      (elif@3
+       (infix@I or
+        (infix~D or full~5
+         (dot@4 b~1 changed@1))
+        (prefix@3 not
+         (dot@5 b~1 announced@1)))
+       (stmts~1,1
+        (asgn@5 body~5
+         (infix@R &
+          (infix~K & body~5
+           (call@D feedLineFor~B c@1 i@4))"\0A"@2))
+        (cmd@,1 inc lines@4))))
+     (if@,A
+      (elif@3
+       (infix@N or
+        (infix~I or full~5
+         (dot@4 b~1 stateChanged@1))
+        (prefix@3 not
+         (dot@5 b~1 announced@1)))
+       (stmts~1,5
+        (asgn@5 body~5
+         (infix@T,1 &
+          (infix~M,~1 & body~5
+           (call@A sayState~8
+            (dot@2 b~1 id@1)"falling"@7
+            (expr
+             (stmts~K,1)
+             (if@1
+              (elif@3
+               (dot@1 b~1 onGround@1)0.0@C)
+              (else@J 1.0@6)))))"\0A"@2))
+        (asgn@5,2 body~5
+         (infix@12 &
+          (infix~v & body~5
+           (call@A sayState~8
+            (dot@2 b~1 id@1)
+            (expr
+             (stmts@7)
+             (if@1
+              (elif@3
+               (dot@1 b~1 dead@1)"dead"@8)
+              (else@I "alive"@6)))1.0@g))"\0A"@2))
+        (asgn@6,3 lines~6
+         (infix@8 \2B lines~6 2@2)))))
+     (if@,J
+      (elif@3
+       (infix@8 >
+        (dot~7 b~1 hurts@1)0@2)
+       (stmts~1,1
+        (asgn@5 body~5
+         (infix@b &
+          (infix~U & body~5
+           (call@A sayState~8
+            (dot@2 b~1 id@1)"hurt"@7 1.0@F))"\0A"@2))
+        (cmd@,1 inc lines@4))))
+     (cmd@,M inc i@4)))
+   (call@5,Y taken~5
+    (dot@2 c~1 herd@1))
+   (cmd@,Z inc
+    (dot@5 c~1 feeds@1))
+   (asgn@B,a
+    (dot~A c~1 fedLines@1)lines@2)
+   (infix@S,b &
+    (infix~7 &
+     (call~E sayTick~7
+      (dot@7
+       (dot~5 c~1 herd@1)tick@1))"\0A"@2)body@2)))
+ (proc@,Lc herdCount0@5 x . .
+  (params@G
+   (param@1 c . . McClient@3 .))int@F . .
+  (stmts@b
+   (call@A beastCount~A
+    (dot@2 c~1 herd@1))))
+ (proc@,Ld herdSpawns@5 x . .
+  (params@G
+   (param@1 c . . McClient@3 .))int@F . .
+  (stmts@b
+   (dot@6
+    (dot~5 c~1 herd@1)spawns@1)))
+ (proc@,Le herdRemoves@5 x . .
+  (params@H
+   (param@1 c . . McClient@3 .))int@F . .
+  (stmts@c
+   (dot@6
+    (dot~5 c~1 herd@1)removes@1)))
+ (proc@,Lf herdMoves@5 x . .
+  (params@F
+   (param@1 c . . McClient@3 .))int@F . .
+  (stmts@a
+   (dot@6
+    (dot~5 c~1 herd@1)moves@1)))
+ (proc@,Lg herdOrphans@5 x . .
+  (params@H
+   (param@1 c . . McClient@3 .))int@F . .
+  (stmts@c
+   (dot@6
+    (dot~5 c~1 herd@1)orphans@1)))
+ (proc@,Lh herdHurts@5 x . .
+  (params@F
+   (param@1 c . . McClient@3 .))int@F . .
+  (stmts@a
+   (dot@6
+    (dot~5 c~1 herd@1)hurtsSeen@1)))
+ (proc@,Li herdDeaths@5 x . .
+  (params@G
+   (param@1 c . . McClient@3 .))int@F . .
+  (stmts@b
+   (dot@6
+    (dot~5 c~1 herd@1)deathsSeen@1)))
+ (comment@,Lk)
+ (proc@,Lx nearestSlot@5 . . .
+  (params@G
+   (param@1 c . . McClient@3 .))int@F . .
+  (stmts@2,1
+   (asgn@7 result~7 -1@2)
+   (var@4,1 bestAway . . . 0.0@B)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@D
+      (dot~5
+       (dot~5 c~1 herd@1)list@1)len@1))
+    (stmts@2,1
+     (let@4 b . . .
+      (at@F
+       (dot~5
+        (dot~5 c~1 herd@1)list@1)i@1))
+     (if@,1
+      (elif@3
+       (infix@C and
+        (infix~5 >=
+         (dot~6 b~1 kind@1)0@3)
+        (infix@W >
+         (dot~5
+          (call~H nameAt~6
+           (dot@2 c~1 kinds@1)
+           (dot@B b~1 kind@1))len@1)0@2))
+       (stmts~1,1
+        (let@4 dx . . .
+         (infix@9 \2D
+          (dot~3 b~1 x@1)
+          (dot@8
+           (dot~5 c~1 play@1)x@1)))
+        (let@4,1 dy . . .
+         (infix@9 \2D
+          (dot~3 b~1 y@1)
+          (dot@8
+           (dot~5 c~1 play@1)y@1)))
+        (let@4,2 dz . . .
+         (infix@9 \2D
+          (dot~3 b~1 z@1)
+          (dot@8
+           (dot~5 c~1 play@1)z@1)))
+        (let@4,3 away . . .
+         (infix@P \2B
+          (infix~A \2B
+           (infix~5 * dx~3 dx@2)
+           (infix@5 * dy~3 dy@2))
+          (infix@5 * dz~3 dz@2)))
+        (if@,4
+         (elif@3
+          (infix@B or
+           (infix~4 < result~7 0@2)
+           (infix@8 < away~5 bestAway@2))
+          (stmts~1,1
+           (asgn@7 result~7 i@2)
+           (asgn@9,1 bestAway~9 away@2)))))))
+     (cmd@,9 inc i@4)))))
+ (proc@,MD herdNearestKind@5 x . .
+  (params@L
+   (param@1 c . . McClient@3 .))string@F . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@G nearestSlot~B c@1))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret ""@7))))
+   (call@9,2 plainName~9
+    (call@7 nameAt~6
+     (dot@2 c~1 kinds@1)
+     (dot@P
+      (at~4
+       (dot~5
+        (dot~5 c~1 herd@1)list@1)at@1)kind@1)))))
+ (proc@,MI selectorAt@5 . . .
+  (params@F
+   (param@1 c . . McClient@3 .)
+   (param@E at . . int@A .)
+   (param@I near . . int@6 .))string@U . .
+  (stmts@2,1
+   (infix@m,2 &
+    (infix~H &
+     (infix@8,~1 &
+      (infix~8 &
+       (infix@D,~1 &
+        (infix~8 &
+         (infix~V & "x="~5
+          (prefix@2 $
+           (call@9 wholeFor~8
+            (dot@G
+             (at~4
+              (dot~5
+               (dot~5 c~1 herd@1)list@1)at@1)x@1))))",y="@2)
+        (prefix~g,1 $
+         (call@9 wholeFor~8
+          (dot@G
+           (at~4
+            (dot~5
+             (dot~5 c~1 herd@1)list@1)at@1)y@1))))",z="@2)
+      (prefix~b,1 $
+       (call@9 wholeFor~8
+        (dot@G
+         (at~4
+          (dot~5
+           (dot~5 c~1 herd@1)list@1)at@1)z@1))))",distance=.."@2)
+    (prefix@2 $ near@1))))
+ (proc@,MN herdWhere@5 x . .
+  (params@F
+   (param@1 c . . McClient@3 .)
+   (param@E near . . int@6 .))string@Q . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@G nearestSlot~B c@1))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret ""@7))))
+   (call@A,2 selectorAt~A c@1 at@4 near@8)))
+ (comment@,MS)
+ (proc@,MY herdNewKind@5 x . .
+  (params@H
+   (param@1 c . . McClient@3 .))string@F . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@B slotOf~6
+     (dot@2 c~1 herd@1)
+     (dot@F
+      (dot~5 c~1 herd@1)newest@1)))
+   (if@,1
+    (elif@3
+     (infix@7 or
+      (infix~4 < at~3 0@2)
+      (infix@O <
+       (dot~6
+        (at~4
+         (dot~5
+          (dot~5 c~1 herd@1)list@1)at@1)kind@1)0@2))
+     (stmts@a
+      (ret ""@7))))
+   (call@9,2 plainName~9
+    (call@7 nameAt~6
+     (dot@2 c~1 kinds@1)
+     (dot@P
+      (at~4
+       (dot~5
+        (dot~5 c~1 herd@1)list@1)at@1)kind@1)))))
+ (proc@,Md herdNewWhere@5 x . .
+  (params@I
+   (param@1 c . . McClient@3 .)
+   (param@E near . . int@6 .))string@Q . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@B slotOf~6
+     (dot@2 c~1 herd@1)
+     (dot@F
+      (dot~5 c~1 herd@1)newest@1)))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret ""@7))))
+   (call@A,2 selectorAt~A c@1 at@4 near@8)))
+ (comment@,Mi)
+ (proc@,Mn herdWhereKind@5 x . .
+  (params@J
+   (param@1 c . . McClient@3 .)
+   (param@E kind . . string@6 .)
+   (param@S near . . int@6 .))string@e . .
+  (stmts@2,1
+   (var@4 best . . . -1@7)
+   (var@4,1 bestAway . . . 0.0@B)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@D
+      (dot~5
+       (dot~5 c~1 herd@1)list@1)len@1))
+    (stmts@2,1
+     (let@4 b . . .
+      (at@F
+       (dot~5
+        (dot~5 c~1 herd@1)list@1)i@1))
+     (if@,1
+      (elif@3
+       (infix@C and
+        (infix~5 >=
+         (dot~6 b~1 kind@1)0@3)
+        (infix@d ==
+         (call~Q plainName~9
+          (call@7 nameAt~6
+           (dot@2 c~1 kinds@1)
+           (dot@B b~1 kind@1)))kind@3))
+       (stmts~1,1
+        (let@4 dx . . .
+         (infix@9 \2D
+          (dot~3 b~1 x@1)
+          (dot@8
+           (dot~5 c~1 play@1)x@1)))
+        (let@4,1 dy . . .
+         (infix@9 \2D
+          (dot~3 b~1 y@1)
+          (dot@8
+           (dot~5 c~1 play@1)y@1)))
+        (let@4,2 dz . . .
+         (infix@9 \2D
+          (dot~3 b~1 z@1)
+          (dot@8
+           (dot~5 c~1 play@1)z@1)))
+        (let@4,3 away . . .
+         (infix@P \2B
+          (infix~A \2B
+           (infix~5 * dx~3 dx@2)
+           (infix@5 * dy~3 dy@2))
+          (infix@5 * dz~3 dz@2)))
+        (if@,4
+         (elif@3
+          (infix@9 or
+           (infix~4 < best~5 0@2)
+           (infix@8 < away~5 bestAway@2))
+          (stmts~1,1
+           (asgn@5 best~5 i@2)
+           (asgn@9,1 bestAway~9 away@2)))))))
+     (cmd@,9 inc i@4)))
+   (if@,E
+    (elif@3
+     (infix@5 < best~5 0@2)
+     (stmts@A
+      (ret ""@7))))
+   (call@A,F selectorAt~A c@1 best@4 near@A)))
+ (comment@,N5)
+ (proc@,NG herdKindCount@5 x . .
+  (params@J
+   (param@1 c . . McClient@3 .))int@F . .
+  (stmts@2,1
+   (var@4 seen . .
+    (at@9 seq~3 string@1)
+    (prefix@K \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@D
+      (dot~5
+       (dot~5 c~1 herd@1)list@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@K >=
+        (dot~6
+         (at~3
+          (dot~5
+           (dot~5 c~1 herd@1)list@1)i@1)kind@1)0@3)
+       (stmts~1,1
+        (let@4 name . . .
+         (call@G plainName~9
+          (call@7 nameAt~6
+           (dot@2 c~1 kinds@1)
+           (dot@O
+            (at~3
+             (dot~5
+              (dot~5 c~1 herd@1)list@1)i@1)kind@1))))
+        (if@,1
+         (elif@3
+          (infix@9 >
+           (dot~5 name~4 len@1)0@2)
+          (stmts~1,1
+           (var@4 known . . . false@8)
+           (var@4,1 k . . . 0@4)
+           (while@,2
+            (infix@8 < k~2
+             (dot@6 seen~4 len@1))
+            (stmts@2,1
+             (if
+              (elif@3
+               (infix@8 ==
+                (at~4 seen~4 k@1)name@3)
+               (stmts@H
+                (asgn@6 known~6 true@2))))
+             (cmd@,1 inc k@4)))
+           (if@,5
+            (elif@3
+             (prefix not known@4)
+             (stmts@B
+              (cmd@4
+               (dot seen~4 add@1)name@5))))))))))
+     (cmd@,9 inc i@4)))
+   (dot@4,D seen~4 len@1)))
+ (proc@,NW herdKindAt@5 x . .
+  (params@G
+   (param@1 c . . McClient@3 .)
+   (param@E index . . int@7 .))string@R . .
+  (stmts@2,1
+   (var@4 seen . .
+    (at@9 seq~3 string@1)
+    (prefix@K \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@D
+      (dot~5
+       (dot~5 c~1 herd@1)list@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@K >=
+        (dot~6
+         (at~3
+          (dot~5
+           (dot~5 c~1 herd@1)list@1)i@1)kind@1)0@3)
+       (stmts~1,1
+        (let@4 name . . .
+         (call@G plainName~9
+          (call@7 nameAt~6
+           (dot@2 c~1 kinds@1)
+           (dot@O
+            (at~3
+             (dot~5
+              (dot~5 c~1 herd@1)list@1)i@1)kind@1))))
+        (if@,1
+         (elif@3
+          (infix@9 >
+           (dot~5 name~4 len@1)0@2)
+          (stmts~1,1
+           (var@4 known . . . false@8)
+           (var@4,1 k . . . 0@4)
+           (while@,2
+            (infix@8 < k~2
+             (dot@6 seen~4 len@1))
+            (stmts@2,1
+             (if
+              (elif@3
+               (infix@8 ==
+                (at~4 seen~4 k@1)name@3)
+               (stmts@H
+                (asgn@6 known~6 true@2))))
+             (cmd@,1 inc k@4)))
+           (if@,5
+            (elif@3
+             (prefix not known@4)
+             (stmts~1,1
+              (cmd@4
+               (dot seen~4 add@1)name@5)
+              (if@,1
+               (elif@3
+                (infix@D ==
+                 (infix~4 \2D
+                  (dot~5 seen~4 len@1)1@2)index@3)
+                (stmts@N
+                 (ret name@7)))))))))))))
+     (cmd@,B inc i@4)))""@,F))
+ (proc@,No herdKinds@5 x . .
+  (params@F
+   (param@1 c . . McClient@3 .)
+   (param@E kind . . string@6 .))int@T . .
+  (stmts@2,1
+   (var@4 n . . . 0@4)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@D
+      (dot~5
+       (dot~5 c~1 herd@1)list@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@P and
+        (infix~5 >=
+         (dot~6
+          (at~3
+           (dot~5
+            (dot~5 c~1 herd@1)list@1)i@1)kind@1)0@3)
+        (infix@N,1 ==
+         (call~d plainName~9
+          (call@7 nameAt~6
+           (dot@2 c~1 kinds@1)
+           (dot@O
+            (at~3
+             (dot~5
+              (dot~5 c~1 herd@1)list@1)i@1)kind@1)))kind@3))
+       (stmts@v,1
+        (cmd inc n@4))))
+     (cmd@,2 inc i@4)))n@,6))
+ (comment@,Nx)
+ (proc@,Nz placedYet@5 x . .
+  (params@F
+   (param@1 c . . McClient@3 .))bool@F . .
+  (stmts@b
+   (infix@B and
+    (dot~A c~1 anchored@1)
+    (dot@A
+     (dot~5 c~1 play@1)positioned@1))))
+ (proc@,O0 placeX@5 x . .
+  (params@C
+   (param@1 c . . McClient@3 .))float@F . .
+  (stmts@Z
+   (dot@6
+    (dot~5 c~1 play@1)x@1)))
+ (proc@,O1 placeY@5 x . .
+  (params@C
+   (param@1 c . . McClient@3 .))float@F . .
+  (stmts@Z
+   (infix@9 \2D
+    (dot~3
+     (dot~5 c~1 play@1)y@1)
+    (call@7 float~5
+     (dot@2 c~1 floorY@1)))))
+ (proc@,O7 placeZ@5 x . .
+  (params@C
+   (param@1 c . . McClient@3 .))float@F . .
+  (stmts@Z
+   (dot@6
+    (dot~5 c~1 play@1)z@1)))
+ (comment@,O9)
+ (proc@,OB groundState0@5 x . .
+  (params@I
+   (param@1 c . . McClient@3 .))int@F . .
+  (stmts@d
+   (dot@1 c~1 groundState@1)))
+ (proc@,OC groundWhere@5 x . .
+  (params@H
+   (param@1 c . . McClient@3 .))string@F . .
+  (stmts@2,1
+   (comment)
+   (infix@a,2 &
+    (infix~6 &
+     (infix~D &
+      (infix~6 &
+       (prefix~B $
+        (dot@2 c~1 groundX@1))" "@2)
+      (prefix@2 $
+       (dot@2 c~1 groundY@1)))" "@2)
+    (prefix@2 $
+     (dot@2 c~1 groundZ@1)))))
+ (comment@,OH)
+ (proc@,ON brokeWhere@5 x . .
+  (params@G
+   (param@1 c . . McClient@3 .))string@F . .
+  (stmts@2,1
+   (infix@c &
+    (infix~6 &
+     (infix~E &
+      (infix~6 &
+       (prefix~C $
+        (dot@2 c~1 brokeAtX@1))" "@2)
+      (prefix@2 $
+       (dot@2 c~1 brokeAtY@1)))" "@2)
+    (prefix@2 $
+     (dot@2 c~1 brokeAtZ@1)))))
+ (proc@,OP putWhere@5 x . .
+  (params@E
+   (param@1 c . . McClient@3 .))string@F . .
+  (stmts@2,1
+   (infix@Y &
+    (infix~6 &
+     (infix~C &
+      (infix~6 &
+       (prefix~A $
+        (dot@2 c~1 putAtX@1))" "@2)
+      (prefix@2 $
+       (dot@2 c~1 putAtY@1)))" "@2)
+    (prefix@2 $
+     (dot@2 c~1 putAtZ@1)))))
+ (comment@,OR)
+ (proc@,OS putName@5 x . .
+  (params@D
+   (param@1 c . . McClient@3 .))string@F . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@B <
+      (dot~A c~1 putState@1)0@2)
+     (stmts@G
+      (ret ""@7))))
+   (let@4,1 name . . .
+    (call@I nameOfState~B
+     (dot@2 c~1 ix@1)
+     (dot@8 c~1 putState@1)))
+   (if@,2
+    (elif@3
+     (infix@9 ==
+      (dot~5 name~4 len@1)0@3)
+     (stmts@F
+      (ret
+       (infix@G & "state "~9
+        (prefix@2 $
+         (dot@2 c~1 putState@1)))))))name@,3))
+ (proc@,OY serverHealth@5 x . .
+  (params@I
+   (param@1 c . . McClient@3 .))float@F . .
+  (stmts@f
+   (dot@6
+    (dot~5 c~1 play@1)health@1)))
+ (comment@,OZ)
+ (proc@,Od serverDeaths@5 x . .
+  (params@I
+   (param@1 c . . McClient@3 .))int@F . .
+  (stmts@d
+   (dot@6
+    (dot~5 c~1 play@1)deaths@1)))
+ (proc@,Oe serverFood@5 x . .
+  (params@G
+   (param@1 c . . McClient@3 .))int@F . .
+  (stmts@b
+   (dot@6
+    (dot~5 c~1 play@1)food@1)))
+ (proc@,Of serverExperience@5 x . .
+  (params@M
+   (param@1 c . . McClient@3 .))int@F . .
+  (stmts@h
+   (dot@6
+    (dot~5 c~1 play@1)experienceLevel@1)))
+ (proc@,Og serverGamemode@5 x . .
+  (params@K
+   (param@1 c . . McClient@3 .))int@F . .
+  (stmts@f
+   (dot@6
+    (dot~5 c~1 play@1)gamemode@1)))
+ (proc@,Oh serverDead@5 x . .
+  (params@G
+   (param@1 c . . McClient@3 .))bool@F . .
+  (stmts@c
+   (dot@6
+    (dot~5 c~1 play@1)dead@1)))
+ (comment@,Oj)
+ (proc@,Ol askRespawn@5 x . .
+  (params@G
+   (param@1 c . .
+    (mut@3 McClient@4).)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (dot@A
+       (dot~5 c~1 play@1)dead@1))
+     (stmts@H
+      (ret .))))
+   (call@A,1 respawnNow~A
+    (dot@2 c~1 play@1))
+   (call@D,2 drainOutbound~D c@1)))
+ (proc@,Oq groundName@5 x . .
+  (params@G
+   (param@1 c . . McClient@3 .))string@F . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (dot@5 c~1 groundKnown@1))
+     (stmts@J
+      (ret ""@7))))
+   (let@4,1 name . . .
+    (call@I nameOfState~B
+     (dot@2 c~1 ix@1)
+     (dot@8 c~1 groundState@1)))
+   (if@,2
+    (elif@3
+     (infix@9 ==
+      (dot~5 name~4 len@1)0@3)
+     (stmts@F
+      (ret
+       (infix@G & "state "~9
+        (prefix@2 $
+         (dot@2 c~1 groundState@1)))))))name@,3)))

@@ -1,0 +1,2890 @@
+(.nif27)
+(.indexat 91906            )
+(stmts@,1,hudscreen.nim
+ (import
+  (kv sysvq0asl "../../../../../../nimony/lib/std/system.nim")
+  (kv jesaqohvh1 "../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim")
+  (kv vecqnfc1h "../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim")
+  (kv colpmj4ay "../../../../Packages/com.aoughwl.jester/ModSdk/color.nim")
+  (kv inpl8nz921 "../../../../Packages/com.aoughwl.jester/ModSdk/input.nim")
+  (kv tex331n461 "../../../../Packages/com.aoughwl.jester/ModSdk/textures.nim")
+  (kv serc3z79d1 "../../../../Packages/com.aoughwl.jester/ModSdk/services.nim")
+  (kv ui1kqzdw ".jester/deps/aoughwl_ui/ui.nim")
+  (kv ui_3jxafv1 ".jester/deps/aoughwl_ui/ui_floor.nim")
+  (kv drasfcs4c "../../../../Packages/com.aoughwl.jester/ModSdk/draw.nim")
+  (kv mcu4jd2yh1 ".jester/deps/aoughwl_mcui/mcuicore.nim")
+  (kv mcutrttwl1 ".jester/deps/aoughwl_mcui/mcuiscale.nim")
+  (kv mcud2uvh5 ".jester/deps/aoughwl_mcui/mcuihud.nim")
+  (kv mcu470hmq1 ".jester/deps/aoughwl_mcui/mcuigrant.nim")
+  (kv mcu0ofxy9 ".jester/deps/aoughwl_mcui/mcuilang.nim")
+  (kv hudwqoeb4 "hudcore.nim")
+  (kv hud0ve3r21 "hudrecipe.nim"))
+ (const@2,1Q :StatusSheet.0. . . string.0.sysvq0asl@2,1M "hud.png"@E)
+ (const@2,1T :ItemSheet.0. . . string.0.sysvq0asl@2,1J "items.png"@C)
+ (const@9,1U :SlotTag.0.~7 x . string.0.sysvq0asl~5,1I "hud.slot"@4)
+ (const@2,1X :HeartFull.0. . .
+  (i@W,3J 64)
+  (suf@C 0 "i64"))
+ (const@2,1Y :HeartEmpty.0. . .
+  (i@W,3I 64)
+  (suf@D 1 "i64"))
+ (const@2,1Z :HaunchFull.0. . .
+  (i@W,3H 64)
+  (suf@D 2 "i64"))
+ (const@2,1a :HaunchEmpty.0. . .
+  (i@W,3G 64)
+  (suf@E 3 "i64"))
+ (const@2,1b :ShieldFull.0. . .
+  (i@W,3F 64)
+  (suf@D 4 "i64"))
+ (const@2,1c :ShieldEmpty.0. . .
+  (i@W,3E 64)
+  (suf@E 5 "i64"))
+ (const@2,1e :Provider.0. . . string.0.sysvq0asl@2,18 "aoughwl.minecraft"@B)
+ (const@2,1g :GuiService.0. . . string.0.sysvq0asl@2,16 "minecraft.gui"@D)
+ (const@2,1l :HotbarSprite.0. . . string.0.sysvq0asl@2,11 "gui/sprites/hud/hotbar"@F)
+ (const@2,1m :SelectSprite.0. . . string.0.sysvq0asl@2,10 "gui/sprites/hud/hotbar_selection"@F)
+ (const@2,1n :BarBackSprite.0. . . string.0.sysvq0asl@2,z "gui/sprites/hud/experience_bar_background"@G)
+ (const@2,1o :BarFillSprite.0. . . string.0.sysvq0asl@2,y "gui/sprites/hud/experience_bar_progress"@G)
+ (const@2,1p :HeartFullSprite.0. . . string.0.sysvq0asl@2,x "gui/sprites/hud/heart/full"@I)
+ (const@2,1q :HeartHalfSprite.0. . . string.0.sysvq0asl@2,w "gui/sprites/hud/heart/half"@I)
+ (const@2,1r :HeartBackSprite.0. . . string.0.sysvq0asl@2,v "gui/sprites/hud/heart/container"@I)
+ (const@2,1s :FoodFullSprite.0. . . string.0.sysvq0asl@2,u "gui/sprites/hud/food_full"@H)
+ (const@2,1t :FoodHalfSprite.0. . . string.0.sysvq0asl@2,t "gui/sprites/hud/food_half"@H)
+ (const@2,1u :FoodBackSprite.0. . . string.0.sysvq0asl@2,s "gui/sprites/hud/food_empty"@H)
+ (const@2,1v :ArmourFullSprite.0. . . string.0.sysvq0asl@2,r "gui/sprites/hud/armor_full"@J)
+ (const@2,1w :ArmourHalfSprite.0. . . string.0.sysvq0asl@2,q "gui/sprites/hud/armor_half"@J)
+ (const@2,1x :ArmourBackSprite.0. . . string.0.sysvq0asl@2,p "gui/sprites/hud/armor_empty"@J)
+ (const@2,1y :SlotSprite.0. . . string.0.sysvq0asl@2,o "gui/sprites/container/slot"@D)
+ (const@2,1z :SlotHotSprite.0. . . string.0.sysvq0asl@2,n "gui/sprites/container/slot_highlight_front"@G)
+ (const@2,20 :InventorySheet.0. . . string.0.sysvq0asl@2,m "gui/container/inventory"@H)
+ (const@2,21 :BenchSheet.0. . . string.0.sysvq0asl@2,l "gui/container/crafting_table"@D)
+ (const@2,26 :KeyInventory.0. . . string.0.sysvq0asl@2,g "container.inventory"@F)
+ (const@2,27 :KeyCrafting.0. . . string.0.sysvq0asl@2,f "container.crafting"@E)
+ (const@2,28 :KeyHead.0. . . string.0.sysvq0asl@2,e "container.inventory"@A)
+ (const@2,29 :KeyDeath.0. . . string.0.sysvq0asl@2,d "deathScreen.title"@B)
+ (const@2,2A :KeyRespawn.0. . . string.0.sysvq0asl@2,c "deathScreen.respawn"@D)
+ (gvar@2,2D :dragFrom.0. . .
+  (i 64)-1@B)
+ (gvar@2,2H :saidLast.0. . . string.0.sysvq0asl ""@B)
+ (gvar@2,2J :art.0. . . Art.0.mcud2uvh5@4,1b,.jester/deps/aoughwl_mcui/mcuihud.nim
+  (call@K placeholderArt.0.mcud2uvh5~E))
+ (gvar@2,2M :skinned.0. . .
+  (bool@C,h,../../../../../../nimony/lib/std/system/basic_types.nim)
+  (false@A))
+ (gvar@2,2S :worded.0. . .
+  (bool@C,h,../../../../../../nimony/lib/std/system/basic_types.nim)
+  (false@9))
+ (gvar@2,2X :langCode.0. . . string.0.sysvq0asl "en_us"@B)
+ (gvar@2,2Y :askAgainAt.0. . .
+  (f 64)0.0@D)
+ (gvar@2,2f :scale.0. . .
+  (i 64)1@8)
+ (gvar@2,2g :guiW.0. . .
+  (i 64)0@7)
+ (gvar@2,2h :guiH.0. . .
+  (i 64)0@7)
+ (gvar@2,2i :words.0. . . Lang.0.mcu0ofxy9@4,r,.jester/deps/aoughwl_mcui/mcuilang.nim
+  (call@E noLang.0.mcu0ofxy9~6))
+ (gvar@2,2j :notice.0. . . Notice.0.mcu470hmq1@I,1D,.jester/deps/aoughwl_mcui/mcuigrant.nim
+  (call@K parseNotice.0.mcu470hmq1~B ""@1))
+ (proc@,2m :said.0.@5 x . .
+  (params@A)string.0.sysvq0asl@4 . .
+  (stmts@N
+   (result :result.0 . . string.0.sysvq0asl~J .)
+   (asgn result.0 saidLast.0.)
+   (ret~N result.0)))
+ (proc@,2n :say.0.@5 x . .
+  (params@9
+   (param@1 :words0.0 . . string.0.sysvq0asl@8 .)). . .
+  (stmts@S
+   (asgn@9 saidLast.0.~9 words0.0@2)))
+ (proc@,2q :forgetSkin.0.@5 x . .
+  (params@G). . .
+  (stmts@2,1
+   (asgn@8 skinned.0.~8
+    (false@2))
+   (asgn@7,1 worded.0.~7
+    (false@2))
+   (asgn@B,2 askAgainAt.0.~B 0.0@2)))
+ (proc@,32 :worn.0.@5 . . .
+  (params@9
+   (param@1 :name.0 . . string.0.sysvq0asl@6 .))
+  (bool@G). .
+  (stmts@W
+   (result@A :result.1 . .
+    (bool~Q).)
+   (asgn@A result.1
+    (call hasPicture.0.tex331n461~A Provider.0.@1 name.0@B))
+   (ret~W result.1)))
+ (proc@,3T :warmSkin.0.@5 x . .
+  (params@E). . .
+  (stmts@2,1
+   (if
+    (elif@3 skinned.0.
+     (stmts@9
+      (ret .))))
+   (let@4,1 :now.0 . .
+    (f@l,1m 64)
+    (call@E gameTime.0.jesaqohvh1~8))
+   (if@,2
+    (elif@3
+     (lt@4
+      (f 64)now.0~4 askAgainAt.0.@2)
+     (stmts@I
+      (ret .))))
+   (asgn@B,3 askAgainAt.0.~B
+    (add@6
+     (f 64)now.0~4 1.0@2))
+   (if@,4
+    (elif@3
+     (not
+      (call@A serves.0.serc3z79d1~6 GuiService.0.@1))
+     (stmts@O
+      (ret .))))
+   (asgn@7,5 notice.0.~7
+    (call@D parseNotice.0.mcu470hmq1~B
+     (call@C callService.0.serc3z79d1~B GuiService.0.@1 "notice"@D)))
+   (if@,6
+    (elif@3
+     (and@R
+      (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+       (not@,1
+        (eq@7 GrantState.0.mcu470hmq1
+         (dot@B,3b,hudscreen.nim notice.0.~6 state.0 0)GrantReady.0.mcu470hmq1@L,3b,hudscreen.nim)))
+      (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+       (not@,1
+        (eq@7 GrantState.0.mcu470hmq1
+         (dot@g,3b,hudscreen.nim notice.0.~6 state.0 0)PackMismatch.0.mcu470hmq1@q,3b,hudscreen.nim))))
+     (stmts~1,5
+      (ret .))))
+   (asgn@8,C skinned.0.~8
+    (true@2))
+   (asgn@4,D art.0.~4
+    (call@9 artFrom.0.mcud2uvh5~7
+     (call@C callService.0.serc3z79d1~B GuiService.0.@1 "sizes"@D)))
+   (asgn@9,E langCode.0.~9
+    (call@E languageFrom.0.mcu0ofxy9~C
+     (call@C callService.0.serc3z79d1~B GuiService.0.@1 "language"@D)))))
+ (proc@,42 :warmWords.0.@5 x . .
+  (params@F). . .
+  (stmts@2,1
+   (if
+    (elif@3 worded.0.
+     (stmts@8
+      (ret .))))
+   (if@,1
+    (elif@3
+     (not skinned.0.@4)
+     (stmts@D
+      (ret .))))
+   (if@,2
+    (elif@3
+     (not
+      (call@A serves.0.serc3z79d1~6 GuiService.0.@1))
+     (stmts@O
+      (ret .))))
+   (asgn@7,3 worded.0.~7
+    (true@2))
+   (var@4,4 :table.0 . . string.0.sysvq0asl~2,~1L
+    (call@J callService.0.serc3z79d1~B GuiService.0.@1
+     (infix@L &.0.sysvq0asl "lang "~8 langCode.0.@2)))
+   (if@,5
+    (elif@3
+     (eq@A
+      (i 64)
+      (call~5 len.4.sysvq0asl@1 table.0~5)0@3)
+     (stmts@G
+      (asgn@6 table.0~6
+       (call@D callService.0.serc3z79d1~B GuiService.0.@1 "lang en_us"@D)))))
+   (asgn@6,6 words.0.~6
+    (call@C parseTable.0.mcu0ofxy9~A table.0@1 ""@g,2c,.jester/deps/aoughwl_mcui/mcuilang.nim))))
+ (proc@,4C :skinWarm.0.@5 x . .
+  (params@E)
+  (bool@4). .
+  (stmts@P
+   (result :result.2 . .
+    (bool~9,~1A).)
+   (asgn result.2 skinned.0.)
+   (ret~P result.2)))
+ (proc@,4H :reason.0.@5 x . .
+  (params@C)string.0.sysvq0asl@4 . .
+  (stmts@2,1
+   (result :result.3 . . string.0.sysvq0asl@2,~1W .)
+   (if
+    (elif@3
+     (call@7 settled.0.mcu470hmq1~7 notice.0.@1)
+     (stmts@H
+      (ret ""@7))))
+   (let@4,1 :lines.0 . . seq.0.Ixdx2fh1.mcu470hmq1@G,1d,.jester/deps/aoughwl_mcui/mcuigrant.nim
+    (call@J noticeLines.0.mcu470hmq1~B notice.0.@1))
+   (if@,2
+    (elif@3
+     (eq@A
+      (i 64)
+      (call~5 len.3.Ixq6taz.@1 lines.0~5)0@3)
+     (stmts@G
+      (ret ""@7))))
+   (asgn@5,3 result.3
+    (hderef~5
+     (call \5B\5D.7.Ir6d0tw. lines.0 0@6)))
+   (ret~2,~1 result.3)))
+ (proc@,4Q :tr.0.@5 . . .
+  (params@7
+   (param@1 :key.0 . . string.0.sysvq0asl@5 .))string.0.sysvq0asl@F . .
+  (stmts@V
+   (result@9 :result.4 . . string.0.sysvq0asl~a,~1e .)
+   (asgn@9 result.4
+    (call translate.0.mcu0ofxy9~9 words.0.@1 key.0@8))
+   (ret~V result.4)))
+ (proc@,4V :measure.0.@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (let@4 :area.0 . . Rect.0.vecqnfc1h@6,9
+    (call@H screenArea.0.ui_3jxafv1~A))
+   (let@4,1 :w.1 . .
+    (i@4 64)
+    (conv@7
+     (i~3 64)
+     (dot@5 area.0~4 width.0 0)))
+   (let@4,2 :h.8 . .
+    (i@4,~1 64)
+    (conv@7
+     (i~3,~1 64)
+     (dot@5 area.0~4 height.0 0)))
+   (asgn@6,3 scale.0.~6
+    (call@A guiScale.0.mcutrttwl1~8 w.1@1 h.8@4 AutoGuiScale.0.mcutrttwl1@j,i,.jester/deps/aoughwl_mcui/mcuiscale.nim))
+   (asgn@5,4 guiW.0.~5
+    (call@A guiWidth.0.mcutrttwl1~8 w.1@1 scale.0.@4))
+   (asgn@5,5 guiH.0.~5
+    (call@B guiHeight.0.mcutrttwl1~9 h.8@1 scale.0.@4))))
+ (proc@,4f :onScreen.0.@5 . . .
+  (params@D
+   (param@1 :r.0 . . MRect.0.mcu4jd2yh1@3 .))Rect.0.vecqnfc1h@C . .
+  (stmts@2,1
+   (result@4 :result.5 . . Rect.0.vecqnfc1h@6,~1 .)
+   (asgn@4 result.5
+    (call rect.0.vecqnfc1h~4
+     (mul@5
+      (f 64)
+      (dot~3 r.0~1 x.0 0)
+      (conv@9
+       (f~7 64)scale.0.@1))
+     (mul@R
+      (f 64)
+      (dot~3 r.0~1 y.0 0)
+      (conv@9
+       (f~T 64)scale.0.@1))
+     (mul@5,1
+      (f 64)
+      (dot~3 r.0~1 w.0 0)
+      (conv@9
+       (f~7,~1 64)scale.0.@1))
+     (mul@R,1
+      (f 64)
+      (dot~3 r.0~1 h.0 0)
+      (conv@9
+       (f~T,~1 64)scale.0.@1))))
+   (ret~2,~1 result.5)))
+ (proc@,4q :paintStatus.0.@5 . . .
+  (params@G
+   (param@1 :box.0 . . Rect.0.vecqnfc1h@5 .)
+   (param@C :cell.0 . .
+    (i@6 64).)
+   (param@N :portion.0 . .
+    (f@E,R 64)1.0@A)
+   (param@c :fromRight.0 . .
+    (bool~c,~1o)
+    (false@C))). . .
+  (stmts@2,1
+   (let@4 :w.2 . . IconWindow.0.hudwqoeb4@D,EF,hudcore.nim
+    (call@E iconWindow.0.hudwqoeb4~A cell.0@1))
+   (if@,1
+    (elif@3
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (f 64)1.0@G,4t,hudscreen.nim portion.0@5,4t,hudscreen.nim))
+     (stmts~1,1
+      (call@A paintImage.0.ui_3jxafv1~A StatusSheet.0.@1 box.0@E White.0.colpmj4ay@J
+       (dot@R w.2~1 u0.0 0)
+       (dot@X w.2~1 v0.0 0)
+       (dot@d w.2~1 u1.0 0)
+       (dot@j w.2~1 v1.0 0))
+      (ret@,1 .))))
+   (if@,4
+    (elif@3
+     (le@8
+      (f 64)portion.0~8 0.0@3)
+     (stmts@G
+      (ret .))))
+   (let@4,5 :span.0 . .
+    (f@l,L 64)
+    (sub@C
+     (f 64)
+     (dot~4 w.2~1 u1.0 0)
+     (dot@3 w.2~1 u0.0 0)))
+   (if@,6
+    (elif@3 fromRight.0
+     (stmts~1,1
+      (call@A paintImage.0.ui_3jxafv1~A StatusSheet.0.@1
+       (call~4,1 rect.0.vecqnfc1h~4
+        (add@7
+         (f 64)
+         (dot~3 box.0~3 x.0 0)
+         (mul@C
+          (f 64)
+          (dot~7 box.0~3 width.0 0)
+          (sub@7
+           (f 64)1.0~4 portion.0@2)))
+        (dot@f box.0~3 y.0 0)
+        (mul@8,1
+         (f 64)
+         (dot~7 box.0~3 width.0 0)portion.0@2)
+        (dot@M,1 box.0~3 height.0 0))White.0.colpmj4ay@S,2
+       (sub~3,3
+        (f 64)
+        (dot~4 w.2~1 u1.0 0)
+        (mul@7
+         (f 64)span.0~5 portion.0@2))
+       (dot@G,3 w.2~1 v0.0 0)
+       (dot@M,3 w.2~1 u1.0 0)
+       (dot@S,3 w.2~1 v1.0 0))))
+    (else@,5
+     (stmts@2,1
+      (call@A paintImage.0.ui_3jxafv1~A StatusSheet.0.@1
+       (call~4,1 rect.0.vecqnfc1h~4
+        (dot@4 box.0~3 x.0 0)
+        (dot@B box.0~3 y.0 0)
+        (mul@P
+         (f 64)
+         (dot~7 box.0~3 width.0 0)portion.0@2)
+        (dot@d box.0~3 height.0 0))White.0.colpmj4ay@j,1
+       (dot~7,2 w.2~1 u0.0 0)
+       (dot~1,2 w.2~1 v0.0 0)
+       (add@9,2
+        (f 64)
+        (dot~4 w.2~1 u0.0 0)
+        (mul@7
+         (f 64)span.0~5 portion.0@2))
+       (dot@S,2 w.2~1 v1.0 0)))))))
+ (proc@,5A :paintSprite.0.@5 . . .
+  (params@G
+   (param@1 :name.1 . . string.0.sysvq0asl@6 .)
+   (param@F :at.0 . . MRect.0.mcu4jd2yh1@4 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (not
+      (call@8 worn.0.~4 name.1@1))
+     (stmts@G
+      (ret .))))
+   (call@A,1 paintImage.0.ui_3jxafv1~A
+    (call@B pictureUri.0.tex331n461~A Provider.0.@1 name.1@B)
+    (call@b onScreen.0.~8 at.0@1)White.0.colpmj4ay@h 0.0@C,5z,.jester/deps/aoughwl_ui/ui_floor.nim 0.0@P,5z,.jester/deps/aoughwl_ui/ui_floor.nim 1.0@a,5z,.jester/deps/aoughwl_ui/ui_floor.nim 1.0@l,5z,.jester/deps/aoughwl_ui/ui_floor.nim)))
+ (proc@,5H :paintSheet.0.@5 . . .
+  (params@F
+   (param@1 :name.2 . . string.0.sysvq0asl@6 .)
+   (param@F :at.1 . . MRect.0.mcu4jd2yh1@4 .)
+   (param@Q :u.0 . .
+    (f@C 64).)
+   (param@T :v.0 . .
+    (f@9 64).)
+   (param@W :w.0 . .
+    (f@6 64).)
+   (param@Z :h.0 . .
+    (f@3 64).)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (not
+      (call@8 worn.0.~4 name.2@1))
+     (stmts@G
+      (ret .))))
+   (let@4,1 :sw.0 . .
+    (f@7,~d 64)
+    (conv@A
+     (f~3,~d 64)
+     (dot@4 art.0.~3 sheetW.0 0)))
+   (let@4,2 :sh.0 . .
+    (f@7,~e 64)
+    (conv@A
+     (f~3,~e 64)
+     (dot@4 art.0.~3 sheetH.0 0)))
+   (if@,3
+    (elif@3
+     (or@A
+      (le~7
+       (f 64)sw.0~3 0.0@3)
+      (le@6
+       (f 64)sh.0~3 0.0@3))
+     (stmts@O
+      (ret .))))
+   (call@A,4 paintImage.0.ui_3jxafv1~A
+    (call@B pictureUri.0.tex331n461~A Provider.0.@1 name.2@B)
+    (call@b onScreen.0.~8 at.1@1)White.0.colpmj4ay@h
+    (div~6,1
+     (f 64)u.0~2 sw.0@2)
+    (div@2,1
+     (f 64)v.0~2 sh.0@2)
+    (div@G,1
+     (f 64)
+     (add~5
+      (f 64)u.0~2 w.0@2)sw.0@2)
+    (div@U,1
+     (f 64)
+     (add~5
+      (f 64)v.0~2 h.0@2)sh.0@2))))
+ (proc@,5Z :publishedUri.0.@5 . . .
+  (params@H
+   (param@1 :icon.0 . . string.0.sysvq0asl@6 .))
+  (bool@G). .
+  (stmts@2,1
+   (result@6 :result.6 . .
+    (bool@8,~2Y).)
+   (const@6 :Head.0 . . string.0.sysvq0asl "published\3A"@7)
+   (if@,1
+    (elif@3
+     (le@9
+      (i 64)
+      (call~5 len.4.sysvq0asl@1 icon.0~4)
+      (call@7 len.4.sysvq0asl@1 Head.0~4))
+     (stmts@M
+      (ret
+       (false@7)))))
+   (var@4,2 :i.1 . .
+    (i 64)0@4)
+   (while@,3
+    (lt@8
+     (i 64)i.1~2
+     (call@6 len.4.sysvq0asl@1 Head.0~4))
+    (stmts@2,1
+     (if
+      (elif@3
+       (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+        (not@,1
+         (eq@7
+          (c 8)
+          (call@7,5f,hudscreen.nim \5B\5D.9.sysvq0asl icon.0 i.1@5)
+          (call@I,5f,hudscreen.nim \5B\5D.9.sysvq0asl Head.0 i.1@5))))
+       (stmts@K
+        (ret
+         (false@7)))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.1))))
+   (asgn@,6 result.6
+    (true))
+   (ret~2,~1 result.6)))
+ (proc@,5i :paintItem.0.@5 x . .
+  (params@F
+   (param@1 :box.1 . . Rect.0.vecqnfc1h@5 .)
+   (param@C :reg.0 . . Registry.0.hudwqoeb4@5 .)
+   (param@R :item.0 . . string.0.sysvq0asl@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (eq@9
+      (i 64)
+      (call~5 len.4.sysvq0asl@1 item.0~4)0@3)
+     (stmts@F
+      (ret .))))
+   (let@4,1 :d.0 . . ItemDef.0.hudwqoeb4@R,4x,hudcore.nim
+    (call@G definitionOf.0.hudwqoeb4~C reg.0@1 item.0@6))
+   (if@,2
+    (elif@3
+     (call@C publishedUri.0.~C
+      (dot@2 d.0~1 icon.0 0))
+     (stmts~1,1
+      (call@A paintImage.0.ui_3jxafv1~A
+       (dot@2 d.0~1 icon.0 0)box.1@9 White.0.colpmj4ay@E 0.0@C,5z,.jester/deps/aoughwl_ui/ui_floor.nim 0.0@P,5z,.jester/deps/aoughwl_ui/ui_floor.nim 1.0@a,5z,.jester/deps/aoughwl_ui/ui_floor.nim 1.0@l,5z,.jester/deps/aoughwl_ui/ui_floor.nim)
+      (ret@,1 .))))
+   (let@4,5 :cell.1 . .
+    (i@S,~y 64)
+    (call@F iconCell.0.hudwqoeb4~8
+     (dot@2 d.0~1 icon.0 0)))
+   (if@,6
+    (elif@3
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)0@D,5q,hudscreen.nim cell.1@5,5q,hudscreen.nim))
+     (stmts~1,1
+      (let@4 :w.3 . . IconWindow.0.hudwqoeb4@D,EF,hudcore.nim
+       (call@E iconWindow.0.hudwqoeb4~A cell.1@1))
+      (call@A,1 paintImage.0.ui_3jxafv1~A ItemSheet.0.@1 box.1@C White.0.colpmj4ay@H
+       (dot@P w.3~1 u0.0 0)
+       (dot@V w.3~1 v0.0 0)
+       (dot@b w.3~1 u1.0 0)
+       (dot@h w.3~1 v1.0 0))
+      (ret@,2 .))))
+   (let@4,A :c.0 . . Rgb.0.hudwqoeb4@K,Ea,hudcore.nim
+    (call@E iconColour.0.hudwqoeb4~A item.0@1
+     (dot@8 d.0~1 icon.0 0)))
+   (let@4,B :face.0 . . Color.0.colpmj4ay@T,M,../../../../Packages/com.aoughwl.jester/ModSdk/color.nim
+    (call@A rgb.0.colpmj4ay~3
+     (dot@2 c.0~1 r.0 0)
+     (dot@7 c.0~1 g.0 0)
+     (dot@C c.0~1 b.0 0)1.0@G))
+   (call@5,C paint.0.ui_3jxafv1~5
+    (call@A inset.0.vecqnfc1h~5 box.1~9 1.0@1)face.0@H)
+   (call@5,D paint.0.ui_3jxafv1~5
+    (call@5 rect.0.vecqnfc1h~4
+     (add@7
+      (f 64)
+      (dot~3 box.1~3 x.0 0)1.0@2)
+     (add@K
+      (f 64)
+      (dot~3 box.1~3 y.0 0)1.0@2)
+     (sub@b
+      (f 64)
+      (dot~7 box.1~3 width.0 0)2.0@2)
+     (mul@t
+      (f 64)
+      (dot~8 box.1~3 height.0 0)0.2@2))
+    (call@O,1 withAlpha.0.colpmj4ay~9
+     (call~G dimmed.0.colpmj4ay~6 face.0~B 1.35@1)1.0@1))
+   (call@6,F border.0.ui_3jxafv1~6
+    (call@A inset.0.vecqnfc1h~5 box.1~9 1.0@1)1.0@H
+    (call@b withAlpha.0.colpmj4ay~9 Black.0.colpmj4ay~F 0.5@1))))
+ (proc@,66 :paintStack.0.@5 x . .
+  (params@G
+   (param@1 :box.2 . . Rect.0.vecqnfc1h@5 .)
+   (param@C :reg.1 . . Registry.0.hudwqoeb4@5 .)
+   (param@R :s.0 . . ItemStack.0.hudwqoeb4@3 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@7 isEmpty.0.hudwqoeb4~7 s.0@1)
+     (stmts@C
+      (ret .))))
+   (call@9,1 paintItem.0.~9 box.2@1 reg.1@6
+    (dot@C s.0~1 item.0 0))
+   (if@,2
+    (elif@3
+     (le@8
+      (i 64)
+      (dot~7 s.0~1 count.0 0)1@3)
+     (stmts@E
+      (ret .))))
+   (let@4,3 :size.0 . .
+    (f@l,~t 64)
+    (mul@I
+     (f 64)
+     (dot~8 box.2~3 height.0 0)0.42@2))
+   (let@4,4 :at.4 . . Rect.0.vecqnfc1h@6,~1W
+    (call@9 rect.0.vecqnfc1h~4
+     (dot@4 box.2~3 x.0 0)
+     (sub@Y
+      (f 64)
+      (sub~7
+       (f 64)
+       (add~D
+        (f 64)
+        (dot~3 box.2~3 y.0 0)
+        (dot@5 box.2~3 height.0 0))size.0@2)1.0@2)
+     (sub@p
+      (f 64)
+      (dot~7 box.2~3 width.0 0)1.0@2)size.0@w))
+   (call@5,7 paint.1.ui_3jxafv1~5
+    (prefix@1 $.1.sysvq0asl
+     (dot@2 s.0~1 count.0 0))
+    (call@F rect.0.vecqnfc1h~4
+     (add@6
+      (f 64)
+      (dot~3 at.4~2 x.0 0)
+      (conv@9
+       (f~O,~1Y 64)scale.0.@1))
+     (add@T
+      (f 64)
+      (dot~3 at.4~2 y.0 0)
+      (conv@9
+       (f~l,~1Y 64)scale.0.@1))
+     (dot@n at.4~2 width.0 0)
+     (dot~G,1 at.4~2 height.0 0))size.0@9,1 AlignRight.0.drasfcs4c@F,1
+    (call@g,1 withAlpha.0.colpmj4ay~9 Black.0.colpmj4ay~F 0.85@1))
+   (call@5,9 paint.1.ui_3jxafv1~5
+    (prefix@1 $.1.sysvq0asl
+     (dot@2 s.0~1 count.0 0))at.4@B size.0@F AlignRight.0.drasfcs4c@L White.0.colpmj4ay@X)))
+ (proc@,6Q :paintRow.0.@5 . . .
+  (params@D
+   (param@1 :boxes.0 . . seq.0.Iqeo1l3.@A .)
+   (param@K :points.0 . .
+    (i@8 64).)
+   (param@X :full.0 . . string.0.sysvq0asl@I .)
+   (param@d :half.0 . . string.0.sysvq0asl@C .)
+   (param@j :back.0 . . string.0.sysvq0asl@6 .)
+   (param~9,1 :ourFull.0 . .
+    (i@J 64).)
+   (param@,1 :ourEmpty.0 . .
+    (i@A 64).)
+   (param@F,1 :fromRight.1 . .
+    (bool@B).)). . .
+  (stmts@2,2
+   (var@4 :i.2 . .
+    (i 64)0@4)
+   (while@,1
+    (lt@8
+     (i 64)i.2~2
+     (call@7 len.3.Iw2fbd8.@1 boxes.0~5))
+    (stmts@2,1
+     (let@4 :box.3 . . Rect.0.vecqnfc1h@4,~1p
+      (call@E onScreen.0.~8
+       (hderef@1
+        (call \5B\5D.7.I300ruf1. boxes.0 i.2@6))))
+     (let@4,1 :left.0 . .
+      (i@Q,~1f 64)
+      (sub@E
+       (i 64)points.0~7
+       (mul@4
+        (i 64)i.2~2 2@2)))
+     (if@,2
+      (elif@3
+       (call@4 worn.0.~4 back.0@1)
+       (stmts~1,1
+        (call@B paintSprite.0.~B back.0@1
+         (hderef@7
+          (call \5B\5D.7.I300ruf1. boxes.0 i.2@6)))
+        (if@,1
+         (elif@3
+          (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+           (le@2,1
+            (i 64)2@H,6Z,hudscreen.nim left.0@9,6Z,hudscreen.nim))
+          (stmts@B
+           (call@B paintSprite.0.~B full.0@1
+            (hderef@7
+             (call \5B\5D.7.I300ruf1. boxes.0 i.2@6)))))
+         (elif@5,1
+          (eq@5
+           (i 64)left.0~5 1@3)
+          (stmts~3,1
+           (if
+            (elif@3
+             (call@4 worn.0.~4 half.0@1)
+             (stmts@C
+              (call@B paintSprite.0.~B half.0@1
+               (hderef@7
+                (call \5B\5D.7.I300ruf1. boxes.0 i.2@6)))))
+            (else@,1
+             (stmts@6
+              (call@B paintSprite.0.~B full.0@1
+               (hderef@7
+                (call \5B\5D.7.I300ruf1. boxes.0 i.2@6)))))))))))
+      (else@,6
+       (stmts@2,1
+        (call@B paintStatus.0.~B box.3@1 ourEmpty.0@6 1.0@W,~1n
+         (false@n,~1n))
+        (if@,1
+         (elif@3
+          (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+           (le@2,1
+            (i 64)2@H,6f,hudscreen.nim left.0@9,6f,hudscreen.nim))
+          (stmts@B
+           (call@B paintStatus.0.~B box.3@1 ourFull.0@6 1.0@F fromRight.1@K)))
+         (elif@5,1
+          (eq@5
+           (i 64)left.0~5 1@3)
+          (stmts@B
+           (call@B paintStatus.0.~B box.3@1 ourFull.0@6 0.5@F fromRight.1@K)))))))
+     (asgn@2,C i.2~2
+      (add@4
+       (i 64)i.2~2 1@2))))))
+ (proc@,6l :drawHud.0.@5 x . .
+  (params@D
+   (param@1 :h.1 . .
+    (mut@3 Hud.0.hud0ve3r21@4).)
+   (param@D :reg.2 . . Registry.0.hudwqoeb4@5 .)). . .
+  (stmts@2,1
+   (call@7 measure.0.~7)
+   (let@4,1 :hotbar.0 . . MRect.0.mcu4jd2yh1@B,~28
+    (call@J hotbarRect.0.mcud2uvh5~A art.0.@1 guiW.0.@6 guiH.0.@C))
+   (let@4,4 :bar.0 . . MRect.0.mcu4jd2yh1@B,~2B
+    (call@D barRect.0.mcud2uvh5~7 art.0.@1 hotbar.0@6))
+   (let@4,5 :filled.0 . .
+    (f@l,~1a 64)
+    (call@M levelProgress.0.hudwqoeb4~D
+     (dot@7
+      (dot~5
+       (hderef~1 h.1)life.0 0)experience.0 0)))
+   (if@,6
+    (elif@3
+     (call@4 worn.0.~4 BarBackSprite.0.@1)
+     (stmts~1,1
+      (call@B paintSprite.0.~B BarBackSprite.0.@1 bar.0@G)
+      (if@,1
+       (elif@3
+        (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+         (lt@2,1
+          (f 64)0.0@G,6v,hudscreen.nim filled.0@7,6v,hudscreen.nim))
+        (stmts~1,4
+         (let@4 :run.0 . .
+          (f@3,~2I 64)
+          (conv@B
+           (f~8,~2I 64)
+           (conv@4
+            (i~F,~2R 64)
+            (mul@H
+             (f 64)
+             (conv~B
+              (f~I,~2I 64)
+              (dot@4 art.0.~3 barW.0 0))filled.0@2))))
+         (if@,1
+          (elif@3
+           (and@A
+            (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+             (lt@2,1
+              (f 64)0.0@F,70,hudscreen.nim run.0@9,70,hudscreen.nim))
+            (call@8 worn.0.~4 BarFillSprite.0.@1))
+           (stmts~1,1
+            (call@A paintImage.0.ui_3jxafv1~A
+             (call@B pictureUri.0.tex331n461~A Provider.0.@1 BarFillSprite.0.@B)
+             (call@,1 onScreen.0.~8
+              (call@6 mrect.0.mcu4jd2yh1~5
+               (dot@4 bar.0~3 x.0 0)
+               (dot@B bar.0~3 y.0 0)run.0@F
+               (dot@N bar.0~3 h.0 0)))White.0.colpmj4ay@Z,1 0.0~8,2 0.0~3,2
+             (div@6,2
+              (f 64)run.0~4
+              (conv@7
+               (f~I,~2M 64)
+               (dot@4 art.0.~3 barW.0 0)))1.0@P,2)))))))))
+    (else@,B
+     (stmts@2,1
+      (call@5 paint.0.ui_3jxafv1~5
+       (call@9 onScreen.0.~8 bar.0@1)
+       (call@J rgb.0.colpmj4ay~3 0.05@1 0.06@7 0.08@D 0.85@J))
+      (if@,1
+       (elif@3
+        (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+         (lt@2,1
+          (f 64)0.0@G,76,hudscreen.nim filled.0@7,76,hudscreen.nim))
+        (stmts~1,1
+         (call@5 paint.0.ui_3jxafv1~5
+          (call@9 onScreen.0.~8
+           (call@6 mrect.0.mcu4jd2yh1~5
+            (dot@4 bar.0~3 x.0 0)
+            (dot@B bar.0~3 y.0 0)
+            (mul@L
+             (f 64)
+             (dot~3 bar.0~3 w.0 0)filled.0@2)
+            (dot@Y bar.0~3 h.0 0)))
+          (call@,1 rgb.0.colpmj4ay~3 0.44@1 0.85@7 0.26@D 1.0@J)))))
+      (call@6,4 border.0.ui_3jxafv1~6
+       (call@9 onScreen.0.~8 bar.0@1)1.0@G
+       (call@O rgb.0.colpmj4ay~3 0.0@1 0.0@6 0.0@B 0.6@G)))))
+   (let@4,O :level.0 . .
+    (i@S,~2K 64)
+    (call@F levelOf.0.hudwqoeb4~7
+     (dot@7
+      (dot~5
+       (hderef~1 h.1)life.0 0)experience.0 0)))
+   (if@,P
+    (elif@3
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)0@D,7C,hudscreen.nim level.0@5,7C,hudscreen.nim))
+     (stmts~1,1
+      (let@4 :size.1 . .
+       (f@5,~2W 64)
+       (conv@E
+        (f~9,~2W 64)
+        (mul@B
+         (i 64)
+         (dot~7 art.0.~3 iconH.0 0)scale.0.@2)))
+      (let@4,1 :over.0 . . Rect.0.vecqnfc1h@4,~2Y
+       (call@F onScreen.0.~8
+        (call@6 mrect.0.mcu4jd2yh1~5
+         (dot@4 bar.0~3 x.0 0)
+         (sub@E
+          (f 64)
+          (dot~3 bar.0~3 y.0 0)
+          (conv@7
+           (f~b,~2X 64)
+           (dot@4 art.0.~3 iconH.0 0)))
+         (dot@b bar.0~3 w.0 0)size.1@f)))
+      (call@5,2 paint.1.ui_3jxafv1~5
+       (prefix@1 $.1.sysvq0asl level.0@1)
+       (call@D rect.0.vecqnfc1h~4
+        (add@8
+         (f 64)
+         (dot~3 over.0~4 x.0 0)
+         (conv@9
+          (f~Q,~2Y 64)scale.0.@1))
+        (add@X
+         (f 64)
+         (dot~3 over.0~4 y.0 0)
+         (conv@9
+          (f~p,~2Y 64)scale.0.@1))
+        (dot~C,1 over.0~4 width.0 0)
+        (dot@,1 over.0~4 height.0 0))size.1@N,1 AlignCentre.0.drasfcs4c@T,1
+       (call@v,1 withAlpha.0.colpmj4ay~9 Black.0.colpmj4ay~F 0.85@1))
+      (call@5,4 paint.1.ui_3jxafv1~5
+       (prefix@1 $.1.sysvq0asl level.0@1)over.0@9 size.1@F AlignCentre.0.drasfcs4c@L
+       (call@b rgb.0.colpmj4ay~3 0.52@1 0.95@7 0.32@D 1.0@J)))))
+   (call@8,Z paintRow.0.~8
+    (call@A heartsRow.0.mcud2uvh5~9 art.0.@1 hotbar.0@6 StatusRows.0.mcud2uvh5@l,4W,.jester/deps/aoughwl_mcui/mcuihud.nim)
+    (dot@V
+     (dot~5
+      (hderef~1 h.1)life.0 0)health.0 0)HeartFullSprite.0.@e HeartHalfSprite.0.~6,1 HeartBackSprite.0.@B,1 HeartFull.0.@S,1 HeartEmpty.0.@d,1
+    (false@p,1))
+   (call@8,b paintRow.0.~8
+    (call@A hungerRow.0.mcud2uvh5~9 art.0.@1 hotbar.0@6 StatusRows.0.mcud2uvh5@l,4Z,.jester/deps/aoughwl_mcui/mcuihud.nim)
+    (dot@V
+     (dot~5
+      (hderef~1 h.1)life.0 0)hunger.0 0)FoodFullSprite.0.@e FoodHalfSprite.0.~6,1 FoodBackSprite.0.@A,1 HaunchFull.0.@Q,1 HaunchEmpty.0.@c,1
+    (true@p,1))
+   (if@,d
+    (elif@3
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)0@L,7Q,hudscreen.nim
+       (dot@B,7Q,hudscreen.nim
+        (dot~5
+         (hderef~1 h.1)life.0 0)armour.0 0)))
+     (stmts~1,1
+      (call@8 paintRow.0.~8
+       (call@A armourRow.0.mcud2uvh5~9 art.0.@1 hotbar.0@6 StatusRows.0.mcud2uvh5@l,4c,.jester/deps/aoughwl_mcui/mcuihud.nim)
+       (dot@V
+        (dot~5
+         (hderef~1 h.1)life.0 0)armour.0 0)ArmourFullSprite.0.@e ArmourHalfSprite.0.~6,1 ArmourBackSprite.0.@C,1 ShieldFull.0.@U,1 ShieldEmpty.0.@g,1
+       (false@t,1)))))
+   (if@,j
+    (elif@3
+     (call@4 worn.0.~4 HotbarSprite.0.@1)
+     (stmts~1,1
+      (call@B paintSprite.0.~B HotbarSprite.0.@1 hotbar.0@F)))
+    (else@,2
+     (stmts@2,1
+      (call@5 paint.0.ui_3jxafv1~5
+       (call@9 onScreen.0.~8 hotbar.0@1)
+       (call@M rgb.0.colpmj4ay~3 0.08@1 0.09@7 0.12@D 0.72@J))
+      (call@6,1 border.0.ui_3jxafv1~6
+       (call@9 onScreen.0.~8 hotbar.0@1)1.0@J
+       (call@R rgb.0.colpmj4ay~3 1.0@1 1.0@6 1.0@B 0.22@G)))))
+   (var@4,o :i.4 . .
+    (i 64)0@4)
+   (while@,p
+    (lt@8
+     (i 64)i.4~2 HotbarSlots.0.hudwqoeb4@2)
+    (stmts@2,1
+     (if
+      (elif@3
+       (eq@2
+        (i 64)i.4~2
+        (dot@4
+         (hderef~1 h.1)selected.0 0))
+       (stmts~1,1
+        (let@4 :sel.0 . . MRect.0.mcu4jd2yh1@7,~2y
+         (call@J selectionRect.0.mcud2uvh5~D art.0.@1 hotbar.0@6 i.4@E))
+        (if@,1
+         (elif@3
+          (call@4 worn.0.~4 SelectSprite.0.@1)
+          (stmts@K
+           (call@B paintSprite.0.~B SelectSprite.0.@1 sel.0@F)))
+         (else@,1
+          (stmts@6
+           (call@6 border.0.ui_3jxafv1~6
+            (call@9 onScreen.0.~8 sel.0@1)
+            (conv@N
+             (f~S,~2z 64)scale.0.@1)
+            (call@l withAlpha.0.colpmj4ay~9 White.0.colpmj4ay~F 0.92@1))))))))
+     (call@A,4 paintStack.0.~A
+      (call@9 onScreen.0.~8
+       (call@F hotbarItemRect.0.mcud2uvh5~E art.0.@1 hotbar.0@6 i.4@E))reg.2@h
+      (call@u at.0.hudwqoeb4~2
+       (dot~7
+        (hderef~1 h.1)inv.0 0)i.4@1))
+     (asgn@2,5 i.4~2
+      (add@4
+       (i 64)i.4~2 1@2))))
+   (let@4,y :holding.0 . . ItemStack.0.hudwqoeb4@e,~1e
+    (call@E held.0.hud0ve3r21~4
+     (hderef@1 h.1)))
+   (let@4,z :lineH.0 . .
+    (f@7,~35 64)
+    (conv@F
+     (f~8,~35 64)
+     (mul@B
+      (i 64)
+      (dot~7 art.0.~3 iconH.0 0)scale.0.@2)))
+   (if@,10
+    (elif@3
+     (not
+      (call@B isEmpty.0.hudwqoeb4~7 holding.0@1))
+     (stmts~1,1
+      (let@4 :d.1 . . ItemDef.0.hudwqoeb4@R,4x,hudcore.nim
+       (call@G definitionOf.0.hudwqoeb4~C reg.2@1
+        (dot@D holding.0~7 item.0 0)))
+      (let@4,1 :over.1 . . Rect.0.vecqnfc1h@4,~39
+       (call@F onScreen.0.~8
+        (call@6 mrect.0.mcu4jd2yh1~5
+         (dot@7 hotbar.0~6 x.0 0)
+         (call@L statusRowY.0.mcud2uvh5~A art.0.@1 hotbar.0@6 2@E)
+         (dot@j hotbar.0~6 w.0 0)
+         (conv~I,1
+          (f@2,~39 64)
+          (dot@4 art.0.~3 iconH.0 0)))))
+      (call@5,3 paint.1.ui_3jxafv1~5
+       (dot@2 d.1~1 display.0 0)over.1@C lineH.0@I AlignCentre.0.drasfcs4c@P
+       (call@r withAlpha.0.colpmj4ay~9 White.0.colpmj4ay~F 0.75@1)))))
+   (if@,16
+    (elif@3
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)0@K,7t,hudscreen.nim
+       (call@D,7t,hudscreen.nim len.4.sysvq0asl@1 saidLast.0.~8)))
+     (stmts~1,1
+      (let@4 :over.2 . . Rect.0.vecqnfc1h@4,~3E
+       (call@F onScreen.0.~8
+        (call@6 mrect.0.mcu4jd2yh1~5
+         (dot@7 hotbar.0~6 x.0 0)
+         (call@L statusRowY.0.mcud2uvh5~A art.0.@1 hotbar.0@6 3@E)
+         (dot@j hotbar.0~6 w.0 0)
+         (conv~I,1
+          (f@2,~3E 64)
+          (dot@4 art.0.~3 iconH.0 0)))))
+      (call@5,2 paint.1.ui_3jxafv1~5 saidLast.0.@1 over.2@B lineH.0@H AlignCentre.0.drasfcs4c@O
+       (call@e rgb.0.colpmj4ay~3 1.0@1 0.82@6 0.35@C 0.95@I)))))
+   (if@,1B
+    (elif@3
+     (dot@6
+      (dot~5
+       (hderef~1 h.1)life.0 0)dead.0 0)
+     (stmts~1,1
+      (let@4 :area.1 . . Rect.0.vecqnfc1h@4,~3J
+       (call@H screenArea.0.ui_3jxafv1~A))
+      (call@5,1 paint.0.ui_3jxafv1~5 area.1@1
+       (call@A rgb.0.colpmj4ay~3 0.45@1 0.03@7 0.03@D 0.45@J))
+      (call@5,2 paint.1.ui_3jxafv1~5
+       (call@3 tr.0.~2 KeyDeath.0.@1)
+       (call@J rect.0.vecqnfc1h~4
+        (dot@5 area.1~4 x.0 0)
+        (mul@L
+         (f 64)
+         (dot~8 area.1~4 height.0 0)0.34@2)
+        (dot@X area.1~4 width.0 0)40.0@f)38.0~3,1 AlignCentre.0.drasfcs4c@3,1 White.0.colpmj4ay@G,1)
+      (call@5,4 paint.1.ui_3jxafv1~5
+       (call@3 tr.0.~2 KeyRespawn.0.@1)
+       (call@1,1 rect.0.vecqnfc1h~4
+        (dot@5 area.1~4 x.0 0)
+        (add@S
+         (f 64)
+         (mul~7
+          (f 64)
+          (dot~8 area.1~4 height.0 0)0.34@2)46.0@2)
+        (dot@e area.1~4 width.0 0)22.0@m)18.0@u,1 AlignCentre.0.drasfcs4c~3,2
+       (call@P,2 withAlpha.0.colpmj4ay~9 White.0.colpmj4ay~F 0.85@1)))))))
+ (proc@,8A :countIn.0.@5 . . .
+  (params@C
+   (param@1 :h.2 . . Hud.0.hud0ve3r21@3 .)
+   (param@9 :slot.0 . .
+    (i@6 64).))
+  (i@L 64). .
+  (stmts@2,1
+   (result@5 :result.7 . .
+    (i@R,~3L 64).)
+   (asgn@5 result.7
+    (conv
+     (i@3,~3e 64)
+     (dot@L
+      (call~9 stackAtWide.0.hud0ve3r21~B h.2@1 slot.0@4)count.0 0)))
+   (ret~2,~1 result.7)))
+ (proc@,8L :slotWidget.0.@5 . . .
+  (params@F
+   (param@1 :name.3 . . string.0.sysvq0asl@6 .)
+   (param@F :at.2 . . MRect.0.mcu4jd2yh1@4 .)
+   (param@Q :slot.1 . .
+    (i@6 64).)
+   (param@b :h.3 . .
+    (mut@3 Hud.0.hud0ve3r21@4).)
+   (param~B,1 :reg.3 . . Registry.0.hudwqoeb4@5 .)
+   (param@4,1 :recipes.0 . . seq.0.I2shrwj.@C .)). . .
+  (stmts@2,2
+   (let@4 :box.4 . . Rect.0.vecqnfc1h@6,~3i
+    (call@E onScreen.0.~8 at.2@1))
+   (if@,3
+    (elif@3
+     (not
+      (call@8 worn.0.~4 InventorySheet.0.@1))
+     (stmts~1,1
+      (if
+       (elif@3
+        (call@4 worn.0.~4 SlotSprite.0.@1)
+        (stmts@I
+         (call@B paintSprite.0.~B SlotSprite.0.@1 at.2@D)))
+       (else@,1
+        (stmts@2,1
+         (call@5 paint.0.ui_3jxafv1~5 box.4@1
+          (call@9 rgb.0.colpmj4ay~3 0.55@1 0.55@7 0.58@D 0.3@J))
+         (call@6,1 border.0.ui_3jxafv1~6 box.4@1 1.0@6
+          (call@E rgb.0.colpmj4ay~3 1.0@1 1.0@6 1.0@B 0.18@G))))))))
+   (let@4,9 :here.0 . . ItemStack.0.hudwqoeb4@e,~2Q
+    (call@I stackAtWide.0.hud0ve3r21~B
+     (hderef@1 h.3)slot.1@4))
+   (let@4,A :inner.0 . . Rect.0.vecqnfc1h@6,~3s
+    (call@G onScreen.0.~8
+     (call@6 mrect.0.mcu4jd2yh1~5
+      (add@6
+       (f 64)
+       (dot~3 at.2~2 x.0 0)
+       (conv@7
+        (f~S,~3r 64)SlotBorder.0.mcud2uvh5@1))
+      (add@W
+       (f 64)
+       (dot~3 at.2~2 y.0 0)
+       (conv@7
+        (f~s,~3r 64)SlotBorder.0.mcud2uvh5@1))
+      (conv~J,1
+       (f@4,~3s 64)
+       (call@9 itemSize.0.mcud2uvh5~8 art.0.@1))
+      (conv@3,1
+       (f~I,~3s 64)
+       (call@9 itemSize.0.mcud2uvh5~8 art.0.@1)))))
+   (let@4,D :zone.0 . . Drop.0.ui_3jxafv1@g,7z,.jester/deps/aoughwl_ui/ui_floor.nim
+    (call@F dropZone.0.ui_3jxafv1~8 name.3@1 box.4@7 SlotTag.0.@C))
+   (if@,E
+    (elif@3
+     (or@A
+      (dot~6 zone.0~4 over.0 0)
+      (call@7 over.0.ui_3jxafv1~4 box.4@1))
+     (stmts~1,2
+      (if
+       (elif@3
+        (call@4 worn.0.~4 SlotHotSprite.0.@1)
+        (stmts@L
+         (call@B paintSprite.0.~B SlotHotSprite.0.@1 at.2@G)))
+       (else@,1
+        (stmts@6
+         (call@5 paint.0.ui_3jxafv1~5 box.4@1
+          (call@L withAlpha.0.colpmj4ay~9 White.0.colpmj4ay~F 0.35@1))))))))
+   (if@,J
+    (elif@3
+     (call@7 isEmpty.0.hudwqoeb4~7
+      (dot@2
+       (hderef~1 h.3)carried.0 0))
+     (stmts~1,1
+      (let@4 :load.0 . . Carry.0.ui_3jxafv1@c,2O,.jester/deps/aoughwl_ui/ui_floor.nim
+       (call@C carry.0.ui_3jxafv1~5 SlotTag.0.@1
+        (prefix@A $.1.sysvq0asl slot.1@1)
+        (call@O countIn.0.~7
+         (hderef@1 h.3)slot.1@4)))
+      (let@4,1 :d.2 . . Drag.0.ui_3jxafv1@c,7h,.jester/deps/aoughwl_ui/ui_floor.nim
+       (call@8 drag.0.ui_3jxafv1~4 name.3@1 box.4@7 load.0@C))
+      (if@,2
+       (elif@3
+        (and@W
+         (and~L
+          (dot~A d.2~1 dragging.0 0)
+          (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+           (not@,1
+            (eq@7
+             (i 64)dragFrom.0.@M,8k,hudscreen.nim slot.1@Y,8k,hudscreen.nim))))
+         (not@4
+          (call@B isEmpty.0.hudwqoeb4~7 here.0@1)))
+        (stmts@t
+         (asgn@9 dragFrom.0.~9 slot.1@2))))
+      (if@,3
+       (elif@3
+        (dot@1 d.2~1 clicked.0 0)
+        (stmts~1,1
+         (if
+          (elif@3
+           (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+            (le@2,1
+             (i 64)FirstBenchSlot.0.hud0ve3r21@H,8m,hudscreen.nim slot.1@9,8m,hudscreen.nim))
+           (stmts@O
+            (call@A clickBench.0.hud0ve3r21~A h.3@1 reg.3@4
+             (sub@E
+              (i 64)slot.1~5 FirstBenchSlot.0.hud0ve3r21@2)recipes.0@W
+             (false@C,74,hudrecipe.nim))))
+          (else@,1
+           (stmts@6
+            (call@7 clickAt.0.hud0ve3r21~7 h.3@1 reg.3@4 slot.1@9
+             (false@y,6r,hudrecipe.nim))))))))))
+    (else@,7
+     (stmts@2,1
+      (let@4 :t.0 . . Touch.0.ui_3jxafv1@P,6w,.jester/deps/aoughwl_ui/ui_floor.nim
+       (call@9 touch.0.ui_3jxafv1~5 name.3@1 box.4@7))
+      (if@,1
+       (elif@3
+        (dot@1 t.0~1 clicked.0 0)
+        (stmts~1,1
+         (if
+          (elif@3
+           (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+            (le@2,1
+             (i 64)FirstBenchSlot.0.hud0ve3r21@H,8r,hudscreen.nim slot.1@9,8r,hudscreen.nim))
+           (stmts@O
+            (call@A clickBench.0.hud0ve3r21~A h.3@1 reg.3@4
+             (sub@E
+              (i 64)slot.1~5 FirstBenchSlot.0.hud0ve3r21@2)recipes.0@W
+             (false@C,74,hudrecipe.nim))))
+          (else@,1
+           (stmts@6
+            (call@7 clickAt.0.hud0ve3r21~7 h.3@1 reg.3@4 slot.1@9
+             (false@y,6r,hudrecipe.nim)))))))))))
+   (if@,Y
+    (elif@3
+     (and@A
+      (call~6 over.0.ui_3jxafv1~4 box.4@1)
+      (call@B clicked.0.inpl8nz921~7 RightButton.0.inpl8nz921@1))
+     (stmts~1,1
+      (if
+       (elif@3
+        (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+         (le@2,1
+          (i 64)FirstBenchSlot.0.hud0ve3r21@F,8x,hudscreen.nim slot.1@7,8x,hudscreen.nim))
+        (stmts~1,1
+         (call@A clickBench.0.hud0ve3r21~A h.3@1 reg.3@4
+          (sub@E
+           (i 64)slot.1~5 FirstBenchSlot.0.hud0ve3r21@2)recipes.0@W
+          (true@f))))
+       (else@,2
+        (stmts@2,1
+         (call@7 clickAt.0.hud0ve3r21~7 h.3@1 reg.3@4 slot.1@9
+          (true@F))))))))
+   (if@,e
+    (elif@3
+     (not
+      (and@j
+       (and~L
+        (call~C isEmpty.0.hudwqoeb4~7
+         (dot@2
+          (hderef~1 h.3)carried.0 0))
+        (eq@D
+         (i 64)dragFrom.0.~9 slot.1@3))
+       (call@C carrying.1.ui_3jxafv1~8 SlotTag.0.@1)))
+     (stmts~1,1
+      (call@A paintStack.0.~A inner.0@1 reg.3@8
+       (call@O stackAtWide.0.hud0ve3r21~B
+        (hderef@1 h.3)slot.1@4)))))
+   (if@,h
+    (elif@3
+     (and@V
+      (and~I
+       (dot~9 zone.0~4 dropped.0 0)
+       (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+        (le@2,1
+         (i 64)0@Y,95,hudscreen.nim dragFrom.0.@M,95,hudscreen.nim)))
+      (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+       (not@,1
+        (eq@7
+         (i 64)dragFrom.0.@e,95,hudscreen.nim slot.1@q,95,hudscreen.nim))))
+     (stmts~1,1
+      (if
+       (elif@3
+        (not
+         (call@C dragSlot.0.hud0ve3r21~8 h.3@1 reg.3@4 dragFrom.0.@9 slot.1@J recipes.0@P))
+        (stmts~1,1
+         (call@3 say.0.~3 "that does not go there"@1)))
+       (else@,2
+        (stmts@2,1
+         (call@3 say.0.~3 ""@1)))))))))
+ (proc@,9C :resultWidget.0.@5 . . .
+  (params@H
+   (param@1 :at.3 . . MRect.0.mcu4jd2yh1@4 .)
+   (param@C :h.4 . .
+    (mut@3 Hud.0.hud0ve3r21@4).)
+   (param@O :reg.4 . . Registry.0.hudwqoeb4@5 .)
+   (param@d :recipes.1 . . seq.0.I2shrwj.@C .)). . .
+  (stmts@2,1
+   (let@4 :box.5 . . Rect.0.vecqnfc1h@6,~4Y
+    (call@E onScreen.0.~8 at.3@1))
+   (if@,1
+    (elif@3
+     (not
+      (call@8 worn.0.~4 InventorySheet.0.@1))
+     (stmts~1,1
+      (if
+       (elif@3
+        (call@4 worn.0.~4 SlotSprite.0.@1)
+        (stmts@I
+         (call@B paintSprite.0.~B SlotSprite.0.@1 at.3@D)))
+       (else@,1
+        (stmts@2,1
+         (call@5 paint.0.ui_3jxafv1~5 box.5@1
+          (call@9 rgb.0.colpmj4ay~3 0.55@1 0.55@7 0.58@D 0.3@J))
+         (call@6,1 border.0.ui_3jxafv1~6 box.5@1 1.0@6
+          (call@E rgb.0.colpmj4ay~3 1.0@1 1.0@6 1.0@B 0.18@G))))))))
+   (call@A,6 paintStack.0.~A
+    (call@9 onScreen.0.~8
+     (call@6 mrect.0.mcu4jd2yh1~5
+      (add@6
+       (f 64)
+       (dot~3 at.3~2 x.0 0)
+       (conv@7
+        (f~R,~4d 64)SlotBorder.0.mcud2uvh5@1))
+      (add@W
+       (f 64)
+       (dot~3 at.3~2 y.0 0)
+       (conv@7
+        (f~r,~4d 64)SlotBorder.0.mcud2uvh5@1))
+      (conv~I,1
+       (f@4,~4e 64)
+       (call@9 itemSize.0.mcud2uvh5~8 art.0.@1))
+      (conv@4,1
+       (f~I,~4e 64)
+       (call@9 itemSize.0.mcud2uvh5~8 art.0.@1))))reg.4@c,1
+    (dot@o,1
+     (dot~6
+      (hderef~1 h.4)bench.0 0)made.0 0))
+   (let@4,8 :t.1 . . Touch.0.ui_3jxafv1@P,6w,.jester/deps/aoughwl_ui/ui_floor.nim
+    (call@9 touch.0.ui_3jxafv1~5 "result"@1 box.5@B))
+   (if@,9
+    (elif@3
+     (and@6
+      (dot~5 t.1~1 hot.0 0)
+      (not@4
+       (call@B isEmpty.0.hudwqoeb4~7
+        (dot@8
+         (dot~6
+          (hderef~1 h.4)bench.0 0)made.0 0))))
+     (stmts~1,1
+      (if
+       (elif@3
+        (call@4 worn.0.~4 SlotHotSprite.0.@1)
+        (stmts@L
+         (call@B paintSprite.0.~B SlotHotSprite.0.@1 at.3@G)))
+       (else@,1
+        (stmts@6
+         (call@5 paint.0.ui_3jxafv1~5 box.5@1
+          (call@L withAlpha.0.colpmj4ay~9 White.0.colpmj4ay~F 0.35@1))))))))
+   (if@,C
+    (elif@3
+     (and@A
+      (dot~9 t.1~1 clicked.0 0)
+      (not@4
+       (call@B isEmpty.0.hudwqoeb4~7
+        (dot@8
+         (dot~6
+          (hderef~1 h.4)bench.0 0)made.0 0))))
+     (stmts~1,1
+      (let@4 :name0.0 . . string.0.sysvq0asl@J,3V,hudcore.nim
+       (dot@i
+        (call~O definitionOf.0.hudwqoeb4~C reg.4@1
+         (dot@I
+          (dot~5
+           (dot~6
+            (hderef~1 h.4)bench.0 0)made.0 0)item.0 0))display.0 0))
+      (if@,1
+       (elif@3
+        (call@8 takeMade.0.hud0ve3r21~8 h.4@1 reg.4@4 recipes.1@9)
+        (stmts@R
+         (call@3 say.0.~3
+          (infix@9 &.0.sysvq0asl "made "~8 name0.0@2))))
+       (else@,1
+        (stmts@6
+         (call@3 say.0.~3
+          (infix@G &.0.sysvq0asl "no room for "~F name0.0@2))))))))))
+ (proc@,9U :runOfSlots.0.@5 . . .
+  (params@F
+   (param@1 :name.4 . . string.0.sysvq0asl@6 .)
+   (param@F :boxes.1 . . seq.0.Iqeo1l3.@A .)
+   (param@Y :first.0 . .
+    (i@7 64).)
+   (param@k :h.5 . .
+    (mut@3 Hud.0.hud0ve3r21@4).)
+   (param~B,1 :reg.5 . . Registry.0.hudwqoeb4@5 .)
+   (param@4,1 :recipes.2 . . seq.0.I2shrwj.@C .)). . .
+  (stmts@2,2
+   (var@4 :i.5 . .
+    (i 64)0@4)
+   (while@,1
+    (lt@8
+     (i 64)i.5~2
+     (call@7 len.3.Iw2fbd8.@1 boxes.1~5))
+    (stmts@2,1
+     (call@A slotWidget.0.~A
+      (infix@6 &.0.sysvq0asl name.4~5
+       (prefix@2 $.1.sysvq0asl i.5@1))
+      (hderef@C
+       (call \5B\5D.7.I300ruf1. boxes.1 i.5@6))
+      (add@S
+       (i 64)first.0~6 i.5@2)h.5@X reg.5@a recipes.2@f)
+     (asgn@2,1 i.5~2
+      (add@4
+       (i 64)i.5~2 1@2))))))
+ (proc@,9e :drawInventory.0.@5 x . .
+  (params@J
+   (param@1 :h.6 . .
+    (mut@3 Hud.0.hud0ve3r21@4).)
+   (param@D :reg.6 . . Registry.0.hudwqoeb4@5 .)
+   (param@S :recipes.3 . . seq.0.I2shrwj.@C .)). . .
+  (stmts@2,1
+   (call@7 measure.0.~7)
+   (let@4,1 :s.5 . . Rect.0.vecqnfc1h@6,~51
+    (call@E screenArea.0.ui_3jxafv1~A))
+   (call@5,2 paint.0.ui_3jxafv1~5 s.5@1
+    (call@7 rgb.0.colpmj4ay~3 0.0@1 0.0@6 0.0@B 0.55@G))
+   (let@4,4 :bench.0 . .
+    (bool@A,~6h)
+    (or@Q
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)3@U,9k,hudscreen.nim
+       (dot@L,9k,hudscreen.nim
+        (dot~6
+         (hderef~1 h.6)bench.0 0)wide.0 0)))
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)3@p,9k,hudscreen.nim
+       (dot@g,9k,hudscreen.nim
+        (dot~6
+         (hderef~1 h.6)bench.0 0)tall.0 0)))))
+   (let@4,5 :panel.0 . . MRect.0.mcu4jd2yh1@B,~55
+    (call@H panelRect.0.mcud2uvh5~9 art.0.@1 guiW.0.@6 guiH.0.@C))
+   (let@4,6 :sheet.0 . . string.0.sysvq0asl~2,~6z
+    (if@8
+     (elif@3 bench.0
+      (expr@7 BenchSheet.0.))
+     (else@L
+      (expr@6 InventorySheet.0.))))
+   (if@,7
+    (elif@3
+     (call@4 worn.0.~4 sheet.0@1)
+     (stmts~1,1
+      (call@A paintSheet.0.~A sheet.0@1 panel.0@8 0.0@F 0.0@K
+       (conv@U
+        (f~V,~57 64)
+        (dot@4 art.0.~3 panelW.0 0))
+       (conv@n
+        (f~o,~57 64)
+        (dot@4 art.0.~3 panelH.0 0)))))
+    (else@,2
+     (stmts@2,1
+      (call@5 panel.0.ui1kqzdw~5
+       (call@9 onScreen.0.~8 panel.0@1)))))
+   (call@6,B pushId.0.ui_3jxafv1~6 "hudinv"@1)
+   (let@4,E :title.0 . . string.0.sysvq0asl~2,~77
+    (if@8
+     (elif@3 bench.0
+      (expr@7
+       (call@2 tr.0.~2 KeyCrafting.0.@1)))
+     (else@Q
+      (expr@6
+       (call@2 tr.0.~2 KeyInventory.0.@1)))))
+   (let@4,F :head.0 . . Rect.0.vecqnfc1h@6,~5F
+    (call@F onScreen.0.~8
+     (call@6 mrect.0.mcu4jd2yh1~5
+      (add@9
+       (f 64)
+       (dot~3 panel.0~5 x.0 0)
+       (conv@7
+        (f~U,~5E 64)MainOriginX.0.mcud2uvh5@1))
+      (add@R,1
+       (f 64)
+       (sub~J
+        (f 64)
+        (add~N
+         (f 64)
+         (dot~3 panel.0~5 y.0 0)
+         (conv@7
+          (f~6,~5F 64)ArmourOriginY.0.mcud2uvh5@1))
+        (conv@7
+         (f~T,~5F 64)
+         (dot@4 art.0.~3 iconH.0 0)))3.0@2)
+      (dot~I,2 panel.0~5 w.0 0)
+      (conv~9,2
+       (f~5,~5G 64)
+       (dot@4 art.0.~3 iconH.0 0)))))
+   (call@5,I paint.1.ui_3jxafv1~5 title.0@1 head.0@8
+    (conv@L
+     (f~F,~5H 64)
+     (mul@B
+      (i 64)
+      (dot~7 art.0.~3 iconH.0 0)scale.0.@2))AlignLeft.0.drasfcs4c@g
+    (call@,1 rgb.0.colpmj4ay~3 0.25@1 0.25@7 0.25@D 1.0@J))
+   (call@A,L runOfSlots.0.~A "armour"@1
+    (call@N armourColumn.0.mcud2uvh5~C art.0.@1 panel.0@6)FirstArmour.0.hudwqoeb4@b h.6@o reg.6@r recipes.3@w)
+   (call@A,M runOfSlots.0.~A "bench"@1
+    (call@J craftGrid.0.mcud2uvh5~9 art.0.@1 panel.0@6
+     (dot@K
+      (dot~6
+       (hderef~1 h.6)bench.0 0)wide.0 0)
+     (dot@Y
+      (dot~6
+       (hderef~1 h.6)bench.0 0)tall.0 0))FirstBenchSlot.0.hud0ve3r21~8,1 h.6@8,1 reg.6@B,1 recipes.3@G,1)
+   (call@C,O resultWidget.0.~C
+    (call@C craftResult.0.mcud2uvh5~B art.0.@1 panel.0@6
+     (dot@K
+      (dot~6
+       (hderef~1 h.6)bench.0 0)wide.0 0)
+     (dot@Y
+      (dot~6
+       (hderef~1 h.6)bench.0 0)tall.0 0))h.6@s reg.6@v recipes.3~A,1)
+   (call@A,Q runOfSlots.0.~A "main"@1
+    (call@H mainGrid.0.mcud2uvh5~8 art.0.@1 panel.0@6)FirstMain.0.hudwqoeb4@V h.6@g reg.6@j recipes.3@o)
+   (call@A,R runOfSlots.0.~A "hot"@1
+    (call@G quickRow.0.mcud2uvh5~8 art.0.@1 panel.0@6)0@U h.6@X reg.6@a recipes.3@f)
+   (var@4,W :footer.0 . . string.0.sysvq0asl saidLast.0.@9)
+   (if@,X
+    (elif@3
+     (eq@B
+      (i 64)
+      (call~5 len.4.sysvq0asl@1 footer.0~6)0@3)
+     (stmts@H
+      (asgn@7 footer.0~7
+       (call@8 reason.0.~6)))))
+   (if@,Y
+    (elif@3
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)0@I,AE,hudscreen.nim
+       (call@B,AE,hudscreen.nim len.4.sysvq0asl@1 footer.0~6)))
+     (stmts~1,1
+      (call@4 hint.0.ui1kqzdw~4
+       (call@9 onScreen.0.~8
+        (call@6 mrect.0.mcu4jd2yh1~5
+         (dot@6 panel.0~5 x.0 0)
+         (add@N
+          (f 64)
+          (call~8 bottom.0.mcu4jd2yh1@1 panel.0~5)2.0@2)
+         (dot@Z panel.0~5 w.0 0)
+         (conv~C,1
+          (f@2,~5Z 64)
+          (dot@4 art.0.~3 iconH.0 0))))footer.0@I,1 AlignLeft.0.drasfcs4c@g,2k,.jester/deps/aoughwl_ui/ui.nim))))
+   (call@5,c popId.0.ui_3jxafv1~5)))
+ (proc@,AL :drawHand.0.@5 x . .
+  (params@E
+   (param@1 :h.7 . . Hud.0.hud0ve3r21@3 .)
+   (param@9 :reg.7 . . Registry.0.hudwqoeb4@5 .)). . .
+  (stmts@2,1
+   (let@4 :side.0 . .
+    (f@7,~5g 64)
+    (conv@E
+     (f~7,~5g 64)
+     (mul@F
+      (i 64)
+      (call~6 itemSize.0.mcud2uvh5~8 art.0.@1)scale.0.@2)))
+   (if@,1
+    (elif@3
+     (call@8 carrying.1.ui_3jxafv1~8 SlotTag.0.@1)
+     (stmts~1,1
+      (call@A paintStack.0.~A
+       (call@A ghostRect.0.ui_3jxafv1~9)reg.7@E
+       (call@U stackAtWide.0.hud0ve3r21~B h.7@1 dragFrom.0.@4))
+      (ret@,1 .))))
+   (if@,4
+    (elif@3
+     (call@7 isEmpty.0.hudwqoeb4~7
+      (dot@2 h.7~1 carried.0 0))
+     (stmts@K
+      (ret .))))
+   (let@4,5 :at.5 . . Vec2.0.vecqnfc1h@4,4G,.jester/deps/aoughwl_ui/ui_floor.nim
+    (call@E pointerAt.0.ui_3jxafv1~9))
+   (call@A,6 paintStack.0.~A
+    (call@5 rect.0.vecqnfc1h~4
+     (sub@6
+      (f 64)
+      (dot~3 at.5~2 x.0 0)
+      (mul@7
+       (f 64)side.0~5 0.5@2))
+     (sub@P
+      (f 64)
+      (dot~3 at.5~2 y.0 0)
+      (mul@7
+       (f 64)side.0~5 0.5@2))side.0@d side.0@j)reg.7@v
+    (dot~7,1 h.7~1 carried.0 0))))
+ (proc@,AX :settleHudDrag.0.@5 x . .
+  (params@J). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (dot@9
+      (call~2 landing.0.ui_3jxafv1~7)happened.0 0)
+     (stmts@K
+      (asgn@9 dragFrom.0.~9 -1@2))))))
+ (proc@,Ao :proveLayout.0.@5 x . .
+  (params@H). . .
+  (stmts@2,1
+   (call@7 measure.0.~7)
+   (let@4,1 :hotbar.1 . . MRect.0.mcu4jd2yh1@B,~6B
+    (call@J hotbarRect.0.mcud2uvh5~A art.0.@1 guiW.0.@6 guiH.0.@C))
+   (let@4,2 :hearts.0 . . MRect.0.mcu4jd2yh1@B,~6C
+    (call@I rowExtent.0.mcud2uvh5~9
+     (call@A heartsRow.0.mcud2uvh5~9 art.0.@1 hotbar.1@6 StatusRows.0.mcud2uvh5@l,4W,.jester/deps/aoughwl_mcui/mcuihud.nim)))
+   (let@4,3 :hunger.0 . . MRect.0.mcu4jd2yh1@B,~6D
+    (call@I rowExtent.0.mcud2uvh5~9
+     (call@A hungerRow.0.mcud2uvh5~9 art.0.@1 hotbar.1@6 StatusRows.0.mcud2uvh5@l,4Z,.jester/deps/aoughwl_mcui/mcuihud.nim)))
+   (let@4,4 :panel.1 . . MRect.0.mcu4jd2yh1@B,~6E
+    (call@H panelRect.0.mcud2uvh5~9 art.0.@1 guiW.0.@6 guiH.0.@C))
+   (let@4,5 :main.0 . . seq.0.Iqeo1l3.@I,~4U
+    (call@F mainGrid.0.mcud2uvh5~8 art.0.@1 panel.1@6))
+   (var@4,6 :ok.0 . .
+    (bool@M,h,../../../../../../nimony/lib/std/system/basic_types.nim)
+    (true@5))
+   (if@,9
+    (elif@3
+     (call@8 overlaps.0.mcud2uvh5~8 hearts.0@1 hunger.0@9)
+     (stmts@Q
+      (asgn@3 ok.0~3
+       (false@2)))))
+   (if@,A
+    (elif@3
+     (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+      (not@,1
+       (eq@7
+        (f 64)
+        (dot@B,B0,hudscreen.nim hearts.0~6 x.0 0)
+        (dot@N,B0,hudscreen.nim hotbar.1~6 x.0 0))))
+     (stmts@M
+      (asgn@3 ok.0~3
+       (false@2)))))
+   (if@,B
+    (elif@3
+     (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+      (not@,1
+       (eq@7
+        (f 64)
+        (call@B,B1,hudscreen.nim right.0.mcu4jd2yh1@1 hunger.0~6)
+        (call@R,B1,hudscreen.nim right.0.mcu4jd2yh1@1 hotbar.1~6))))
+     (stmts@U
+      (asgn@3 ok.0~3
+       (false@2)))))
+   (if@,C
+    (elif@3
+     (le@9
+      (f 64)
+      (dot~3 hunger.0~6 x.0 0)
+      (call@9 right.0.mcu4jd2yh1@1 hearts.0~6))
+     (stmts@Q
+      (asgn@3 ok.0~3
+       (false@2)))))
+   (if@,F
+    (elif@3
+     (not
+      (call@A within.0.mcud2uvh5~6 main.0@1 panel.1@7))
+     (stmts@P
+      (asgn@3 ok.0~3
+       (false@2)))))
+   (if@,G
+    (elif@3
+     (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+      (not@,1
+       (eq@7
+        (i 64)
+        (dot@9,B6,hudscreen.nim main.0~4 len.0 0 "x")MainSlots.0.hudwqoeb4@H,B6,hudscreen.nim)))
+     (stmts@N
+      (asgn@3 ok.0~3
+       (false@2)))))
+   (if@,H
+    (elif@3
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)0@G,B7,hudscreen.nim
+       (dot@9,B7,hudscreen.nim main.0~4 len.0 0 "x")))
+     (stmts~1,1
+      (let@4 :b.0 . . MRect.0.mcu4jd2yh1@H,~4h
+       (hderef@4
+        (call \5B\5D.7.I300ruf1. main.0 0@5)))
+      (if@,1
+       (elif@3
+        (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+         (not@,1
+          (eq@7
+           (i 64)
+           (call@D,B9,hudscreen.nim slotAt.0.mcud2uvh5~6 main.0@1
+            (add@B
+             (f 64)
+             (dot~3 b.0~1 x.0 0)
+             (mul@6
+              (f 64)
+              (dot~3 b.0~1 w.0 0)0.5@2))
+            (add@S
+             (f 64)
+             (dot~3 b.0~1 y.0 0)
+             (mul@6
+              (f 64)
+              (dot~3 b.0~1 h.0 0)0.5@2)))0@v,B9,hudscreen.nim)))
+        (stmts@r
+         (asgn@3 ok.0~3
+          (false@2)))))
+      (if@,2
+       (elif@3
+        (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+         (not@,1
+          (eq@7
+           (i 64)
+           (call@D,BA,hudscreen.nim slotAt.0.mcud2uvh5~6 main.0@1
+            (call@P right.0.mcu4jd2yh1@1
+             (hderef~I
+              (call \5B\5D.7.I300ruf1. main.0
+               (sub@E
+                (i 64)
+                (dot~5 main.0~4 len.0 0 "x")1@2))))
+            (dot@e
+             (hderef~7
+              (call \5B\5D.7.I300ruf1. main.0 0@5))y.0 0))-1@y,BA,hudscreen.nim)))
+        (stmts@v
+         (asgn@3 ok.0~3
+          (false@2))))))))
+   (call@3,L log.0.jesaqohvh1~3
+    (infix@N &.0.sysvq0asl "\5Bassert\5D hud.scale="~M
+     (prefix@2 $.1.sysvq0asl scale.0.@1)))
+   (call@3,M log.0.jesaqohvh1~3
+    (infix@Q &.0.sysvq0asl "\5Bassert\5D hud.guiwidth="~P
+     (prefix@2 $.1.sysvq0asl guiW.0.@1)))
+   (call@3,N log.0.jesaqohvh1~3
+    (infix@R &.0.sysvq0asl "\5Bassert\5D hud.guiheight="~Q
+     (prefix@2 $.1.sysvq0asl guiH.0.@1)))
+   (call@3,O log.0.jesaqohvh1~3
+    (infix@T &.0.sysvq0asl "\5Bassert\5D hud.hotbarwidth="~S
+     (prefix@2 $.1.sysvq0asl
+      (dot@4 art.0.~3 hotbarW.0 0))))
+   (call@3,P log.0.jesaqohvh1~3
+    (infix@R &.0.sysvq0asl "\5Bassert\5D hud.barsclear="~Q
+     (prefix@2 $.1.sysvq0asl
+      (conv@4
+       (i~S,~6h 64)
+       (sub@A
+        (f 64)
+        (dot~3 hunger.0~6 x.0 0)
+        (call@8 right.0.mcu4jd2yh1@1 hearts.0~6))))))
+   (call@3,Q log.0.jesaqohvh1~3
+    (infix@O &.0.sysvq0asl "\5Bassert\5D hud.slot0x="~N
+     (prefix@2 $.1.sysvq0asl
+      (conv@4
+       (i~P,~6i 64)
+       (sub@B
+        (f 64)
+        (dot~3
+         (hderef~7
+          (call \5B\5D.7.I300ruf1. main.0 0@5))x.0 0)
+        (dot@7 panel.1~5 x.0 0))))))
+   (call@3,R log.0.jesaqohvh1~3
+    (infix@O &.0.sysvq0asl "\5Bassert\5D hud.slot0y="~N
+     (prefix@2 $.1.sysvq0asl
+      (conv@4
+       (i~P,~6j 64)
+       (sub@B
+        (f 64)
+        (dot~3
+         (hderef~7
+          (call \5B\5D.7.I300ruf1. main.0 0@5))y.0 0)
+        (dot@7 panel.1~5 y.0 0))))))
+   (call@3,S log.0.jesaqohvh1~3
+    (infix@R &.0.sysvq0asl "\5Bassert\5D hud.slotpitch="~Q
+     (prefix@2 $.1.sysvq0asl
+      (call@A slotPitch.0.mcud2uvh5~9 art.0.@1))))
+   (call@3,T log.0.jesaqohvh1~3
+    (infix@N &.0.sysvq0asl "\5Bassert\5D hud.slots="~M
+     (prefix@2 $.1.sysvq0asl
+      (call@5 len.3.Iw2fbd8.@1 main.0~4))))
+   (call@3,U log.0.jesaqohvh1~3
+    (infix@M &.0.sysvq0asl "\5Bassert\5D hud.skin="~L
+     (expr
+      (stmts@2)
+      (if@1
+       (elif@3
+        (dot@3 art.0.~3 granted.0 0)"minecraft"@D)
+       (else@S "ours"@6)))))
+   (call@3,V log.0.jesaqohvh1~3
+    (infix@O &.0.sysvq0asl "\5Bassert\5D hud.layout="~N
+     (expr
+      (stmts@2)
+      (if@1
+       (elif@3 ok.0 "ok"@4)
+       (else@C "wrong"@6)))))))
+ (comment@G,32 bool.0.sysvq0asl bool.0.sysvq0asl~C,1A int.0.sysvq0asl@I,1o false.0.sysvq0asl@o,1o float.0.sysvq0asl@b,2F float.0.sysvq0asl@b,2F float.0.sysvq0asl@b,2F float.0.sysvq0asl@b,2F bool.0.sysvq0asl@,2X int.0.sysvq0asl@P,3O int.0.sysvq0asl@7,3P int.0.sysvq0asl@7,3P bool.0.sysvq0asl@N,3P int.0.sysvq0asl@B,58 int64.0.sysvq0asl@5,58 int.0.sysvq0asl@V,5J int.0.sysvq0asl@e,6S false.0.sysvq0asl~4,~g false.0.sysvq0asl~5,~a false.0.sysvq0asl~4,~B false.0.sysvq0asl~5,~A !=.0.sysvq0asl@2,Y !=.0.sysvq0asl@X,Y true.0.sysvq0asl~4,e true.0.sysvq0asl~5,14 int.0.sysvq0asl~6,1V int.0.sysvq0asl~6,1W float64.0.sysvq0asl~3,1e float64.0.sysvq0asl@J,1e float64.0.sysvq0asl~3,1f float64.0.sysvq0asl@J,1f >=.0.sysvq0asl~3,1q float.0.sysvq0asl~5,2H float.0.sysvq0asl~5,2I false.0.sysvq0asl@I,2Z !=.0.sysvq0asl~1,2c false.0.sysvq0asl@I,2c true.0.sysvq0asl~E,2e >=.0.sysvq0asl~6,2n float64.0.sysvq0asl@E,3C float64.0.sysvq0asl@b,3C >=.0.sysvq0asl~2,3W >=.0.sysvq0asl~2,3c >.0.sysvq0asl~2,3s float.0.sysvq0asl@,3w int.0.sysvq0asl@6,3w float.0.sysvq0asl@A,3w >.0.sysvq0asl~3,3x float.0.sysvq0asl@A,40 >.0.sysvq0asl~2,43 >.0.sysvq0asl~5,49 float64.0.sysvq0asl~1,4A float.0.sysvq0asl@T,4B float64.0.sysvq0asl@G,4C float64.0.sysvq0asl@f,4C false.0.sysvq0asl@j,4K true.0.sysvq0asl@j,4M >.0.sysvq0asl@3,4N false.0.sysvq0asl@p,4P float64.0.sysvq0asl@I,4d float64.0.sysvq0asl~2,4j float.0.sysvq0asl~A,4n >.0.sysvq0asl@2,4q float.0.sysvq0asl~A,4s int64.0.sysvq0asl~E,59 float.0.sysvq0asl@K,5V float.0.sysvq0asl@k,5V float.0.sysvq0asl~C,5W float.0.sysvq0asl@A,5W !=.0.sysvq0asl@F,5h >=.0.sysvq0asl~2,5j >=.0.sysvq0asl~2,5o >=.0.sysvq0asl~4,5u true.0.sysvq0asl@f,5v true.0.sysvq0asl@C,5x >=.0.sysvq0asl@F,62 !=.0.sysvq0asl@X,62 float.0.sysvq0asl@J,6H float.0.sysvq0asl@j,6H float.0.sysvq0asl~C,6I float.0.sysvq0asl@A,6I >=.0.sysvq0asl@B,6h >=.0.sysvq0asl@W,6h float.0.sysvq0asl@N,6l float.0.sysvq0asl@g,6l float.0.sysvq0asl@M,6s float.0.sysvq0asl~2,6t float.0.sysvq0asl@L,6t float.0.sysvq0asl~3,6u float64.0.sysvq0asl@5,6v >.0.sysvq0asl@,7B float.0.sysvq0asl~A,7D float64.0.sysvq0asl~3,7K true.0.sysvq0asl~5,7t false.0.sysvq0asl@K,7w !=.0.sysvq0asl~2,7x false.0.sysvq0asl@G,7x !=.0.sysvq0asl@2,7y false.0.sysvq0asl@O,7y false.0.sysvq0asl@K,7z false.0.sysvq0asl@J,82 !=.0.sysvq0asl~2,83 false.0.sysvq0asl@H,83 >.0.sysvq0asl~2,84 !=.0.sysvq0asl@c,86 false.0.sysvq0asl@n,86 !=.0.sysvq0asl@f,87 false.0.sysvq0asl@r,87 int.0.sysvq0asl@J,8C int.0.sysvq0asl@G,8D int.0.sysvq0asl@G,8E)
+ (func@A,4K :len.3.Ixq6taz. . .@,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at len.3.sysvq0asl string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)
+  (params@C,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.6 . . seq.0.Ixdx2fh1.@6 .))
+  (i@D,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim 64)
+  (pragmas@T,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (inline@2)).@,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,2a,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (result :result.8 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@1,1 result.8
+    (dot s.6~1 len.0 0 "x"))
+   (ret~2,~1 result.8)))
+ (func@2,4L :\5B\5D.7.Ir6d0tw. . .@,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at \5B\5D.7.sysvq0asl string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)
+  (params@D,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.7 . . seq.0.Ixdx2fh1.@6 .)
+   (param@C :i.6 . .
+    (i@3 64).))
+  (mut@L,2h,../../../../../../nimony/lib/std/system/seqimpl.nim string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)
+  (pragmas@e,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (requires@2
+    (and@L
+     (lt~8
+      (i 64)i.6~2
+      (dot@3 s.7~1 len.0 0 "x"))
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)0@1A,2h,../../../../../../nimony/lib/std/system/seqimpl.nim i.6@15,2h,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+   (inline@a)).@,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@1P,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (result@6 :result.9 . .
+    (mut~1A string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim).)
+   (asgn@6 result.9
+    (haddr~5
+     (pat
+      (dot s.7~1 data.0 0 "x")i.6@6)))
+   (ret~1P result.9)))
+ (func@4,5f :inc.1.Irn1g7r1. . .@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (at inc.1.sysvq0asl
+   (i 64))
+  (params@L,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (param@1 :x.1 . .
+    (mut@3
+     (i 64)).)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (pragmas@W,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (inline@2)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (stmts@2,F,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (asgn@2,1
+    (hderef~2 x.1)
+    (add@6
+     (i 64)
+     (hderef@1 x.1)
+     (conv@U,~F
+      (i 64)1@1)))))
+ (func@H,6T :len.3.Iw2fbd8. . .@,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at len.3.sysvq0asl MRect.0.mcu4jd2yh1@8,~3)
+  (params@C,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.8 . . seq.0.Iqeo1l3.@6 .))
+  (i@D,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim 64)
+  (pragmas@T,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (inline@2)).@,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,2a,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (result :result.10 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@1,1 result.10
+    (dot s.8~1 len.0 0 "x"))
+   (ret~2,~1 result.10)))
+ (func@N,6U :\5B\5D.7.I300ruf1. . .@,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at \5B\5D.7.sysvq0asl MRect.0.mcu4jd2yh1@2,~4)
+  (params@D,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.9 . . seq.0.Iqeo1l3.@6 .)
+   (param@C :i.7 . .
+    (i@3 64).))
+  (mut@L,2h,../../../../../../nimony/lib/std/system/seqimpl.nim MRect.0.mcu4jd2yh1@P,6R,hudscreen.nim)
+  (pragmas@e,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (requires@2
+    (and@L
+     (lt~8
+      (i 64)i.7~2
+      (dot@3 s.9~1 len.0 0 "x"))
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)0@1A,2h,../../../../../../nimony/lib/std/system/seqimpl.nim i.7@15,2h,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+   (inline@a)).@,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@1P,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (result@6 :result.11 . .
+    (mut~1A MRect.0.mcu4jd2yh1@P,6R,hudscreen.nim).)
+   (asgn@6 result.11
+    (haddr~5
+     (pat
+      (dot s.9~1 data.0 0 "x")i.7@6)))
+   (ret~1P result.11)))
+ (type@O,6Q :seq.0.Iqeo1l3. .
+  (at seq.0.sysvq0asl MRect.0.mcu4jd2yh1@1)
+  (pragmas@A,6,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (destroy =destroy.1.I19v29l.)
+   (wasmoved =wasMoved.1.Irnne6j.)
+   (dup =dup.1.Ia10imc.)
+   (copy =copy.1.Id9a3uk.))
+  (object@C,6,../../../../../../nimony/lib/std/system/seqimpl.nim .
+   (fld~8,1 :len.0 . .
+    (i@5 64).)
+   (fld~8,2 :data.0 . .
+    (ptr@6
+     (uarray@I MRect.0.mcu4jd2yh1@P,6R,hudscreen.nim)
+     (unchecked)).)))
+ (type@V,8M :seq.0.I2shrwj. .
+  (at seq.0.sysvq0asl Recipe.0.hud0ve3r21@1)
+  (pragmas@A,6,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (destroy =destroy.1.Islmtds1.)
+   (wasmoved =wasMoved.1.Iu6zhvy1.)
+   (dup =dup.1.Ij79233.)
+   (copy =copy.1.I6t8ldl.))
+  (object@C,6,../../../../../../nimony/lib/std/system/seqimpl.nim .
+   (fld~8,1 :len.0 . .
+    (i@5 64).)
+   (fld~8,2 :data.0 . .
+    (ptr@6
+     (uarray@I Recipe.0.hud0ve3r21@W,8N,hudscreen.nim)
+     (unchecked)).)))
+ (type@J,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim :seq.0.Ixdx2fh1. .
+  (at seq.0.sysvq0asl string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)
+  (pragmas~9,~2T
+   (destroy =destroy.1.Ivioh0a.)
+   (wasmoved =wasMoved.1.I5vdnla.)
+   (dup =dup.1.Imq0s4c.)
+   (copy =copy.1.Iiwrt4i1.))
+  (object~7,~2T .
+   (fld~8,1 :len.0 . .
+    (i@5 64).)
+   (fld~8,2 :data.0 . .
+    (ptr@6
+     (uarray@I string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)
+     (unchecked)).)))
+ (func@,D,../../../../../../nimony/lib/std/system/seqimpl.nim :=destroy.1.I19v29l. . .
+  (at =destroy.1.sysvq0asl MRect.0.mcu4jd2yh1@P,6R,hudscreen.nim)
+  (params@J
+   (param@1 :s.16 . . seq.0.Iqeo1l3.@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+      (not@,1
+       (eq@7
+        (ptr
+         (uarray MRect.0.mcu4jd2yh1@P,6R,hudscreen.nim)
+         (unchecked))
+        (dot@6,E,../../../../../../nimony/lib/std/system/seqimpl.nim s.16~1 data.0 0 "x")
+        (nil@F,E,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+     (stmts~1,1
+      (var@4 :i.8 . .
+       (i@Y,4r,hudscreen.nim 64)0@4)
+      (while@,1
+       (lt@8
+        (i 64)i.8~2
+        (dot@3 s.16~1 len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@2
+          (dot s.16~1 data.0 0 "x")i.8@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.8))))
+      (cmd@,4 dealloc.0.sysvq0asl
+       (hconv@9
+        (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+         (unchecked))
+        (hconv
+         (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (dot s.16~1 data.0 0 "x")))))))))
+ (func@,L,../../../../../../nimony/lib/std/system/seqimpl.nim :=wasMoved.1.Irnne6j. . .
+  (at =wasMoved.1.sysvq0asl MRect.0.mcu4jd2yh1@P,6R,hudscreen.nim)
+  (params@K
+   (param@1 :s.17 . .
+    (mut@3 seq.0.Iqeo1l3.@7).)).
+  (pragmas@a
+   (inline@2)).
+  (stmts@2,1
+   (asgn@6
+    (dot~5
+     (hderef~1 s.17)len.0 0 "x")0@2)
+   (asgn@7,1
+    (dot~6
+     (hderef~1 s.17)data.0 0 "x")
+    (nil@2))))
+ (func@,1U,../../../../../../nimony/lib/std/system/seqimpl.nim :=dup.1.Ia10imc. . .
+  (at =dup.1.sysvq0asl MRect.0.mcu4jd2yh1@P,6R,hudscreen.nim)
+  (params@F
+   (param@1 :a.3 . . seq.0.Iqeo1l3.@6 .))seq.0.Iqeo1l3.@G
+  (pragmas@Z
+   (nodestroy@2)).
+  (stmts@2,1
+   (result@7 :result.12 . . seq.0.Iqeo1l3.@D,~1 .)
+   (asgn@7 result.12~7
+    (call@H newSeqUninit.0.Icsd45b.~F
+     (dot@2 a.3~1 len.0 0 "x")))
+   (var@4,1 :i.9 . .
+    (i@Y,4r,hudscreen.nim 64)0@4)
+   (while@,2
+    (lt@8
+     (i 64)i.9~2
+     (dot@3 a.3~1 len.0 0 "x"))
+    (stmts@2,1
+     (asgn@H
+      (pat~A
+       (dot result.12~6 data.0 0 "x")i.9@6)
+      (dup@8
+       (pat@2
+        (dot a.3~1 data.0 0 "x")i.9@6)))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.9))))
+   (ret~2,~1 result.12)))
+ (func@,20,../../../../../../nimony/lib/std/system/seqimpl.nim :=copy.1.Id9a3uk. . .
+  (at =copy.1.sysvq0asl MRect.0.mcu4jd2yh1@P,6R,hudscreen.nim)
+  (params@G
+   (param@1 :dest.3 . .
+    (mut@6 seq.0.Iqeo1l3.@7).)
+   (param@J :src.3 . . seq.0.Iqeo1l3.@8 .)).
+  (pragmas@m
+   (nodestroy@2)).
+  (stmts@2,1
+   (if
+    (elif@3
+     (eq@A
+      (ptr
+       (uarray MRect.0.mcu4jd2yh1@P,6R,hudscreen.nim)
+       (unchecked))
+      (dot~6
+       (hderef~4 dest.3)data.0 0 "x")
+      (dot@6 src.3~3 data.0 0 "x"))
+     (stmts@N
+      (ret .))))
+   (if@,1
+    (elif@3
+     (lt@8
+      (i 64)
+      (dot~5 src.3~3 len.0 0 "x")
+      (dot@6
+       (hderef~4 dest.3)len.0 0 "x"))
+     (stmts~1,1
+      (var@4 :i.10 . .
+       (i@Y,4r,hudscreen.nim 64)
+       (dot@7 src.3~3 len.0 0 "x"))
+      (while@,1
+       (lt@8
+        (i 64)i.10~2
+        (dot@6
+         (hderef~4 dest.3)len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@5
+          (dot
+           (hderef~4 dest.3)data.0 0 "x")i.10@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.10))))))
+    (elif@5,5
+     (lt@G
+      (i 64)
+      (call~C capInBytes.0.Ie40gqy.@1
+       (hderef~4 dest.3))
+      (mul@A
+       (i 64)
+       (dot~5 src.3~3 len.0 0 "x")
+       (sizeof@8 MRect.0.mcu4jd2yh1@P,6R,hudscreen.nim)))
+     (stmts~3,1
+      (let@4 :oldCap.0 . .
+       (i@Y,4r,hudscreen.nim 64)
+       (div@P
+        (i 64)
+        (call~C capInBytes.0.Ie40gqy.@1
+         (hderef~4 dest.3))
+        (sizeof@A MRect.0.mcu4jd2yh1@P,6R,hudscreen.nim)))
+      (let@4,1 :newCap.0 . .
+       (i@Y,4r,hudscreen.nim 64)
+       (call@I recalcCap.0.sysvq0asl~9 oldCap.0@1
+        (sub@H
+         (i 64)
+         (dot~5 src.3~3 len.0 0 "x")oldCap.0@2)))
+      (let@4,2 :memSize.0 . .
+       (i@Y,4r,hudscreen.nim 64)
+       (call@R memSizeInBytes.0.Iioxnym.~H newCap.0@1))
+      (asgn@A,3
+       (dot~6
+        (hderef~4 dest.3)data.0 0 "x")
+       (cast@2
+        (ptr@5
+         (uarray@I MRect.0.mcu4jd2yh1@P,6R,hudscreen.nim)
+         (unchecked))
+        (call@Z realloc.0.sysvq0asl~7
+         (hconv@5
+          (pointer@H,1I,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (hconv
+           (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+            (unchecked))
+           (dot
+            (hderef~4 dest.3)data.0 0 "x")))memSize.0@C)))
+      (if@,4
+       (elif@3
+        (eq@A
+         (ptr
+          (uarray MRect.0.mcu4jd2yh1@P,6R,hudscreen.nim)
+          (unchecked))
+         (dot~6
+          (hderef~4 dest.3)data.0 0 "x")
+         (nil@3))
+        (stmts~1,1
+         (asgn@9
+          (dot~5
+           (hderef~4 dest.3)len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.0@B)))
+         (ret@,3 .)))))))
+   (asgn@9,G
+    (dot~5
+     (hderef~4 dest.3)len.0 0 "x")
+    (dot@5 src.3~3 len.0 0 "x"))
+   (var@4,H :i.11 . .
+    (i@Y,4r,hudscreen.nim 64)0@4)
+   (while@,I
+    (lt@8
+     (i 64)i.11~2
+     (dot@6
+      (hderef~4 dest.3)len.0 0 "x"))
+    (stmts@2,1
+     (stmts@2,Y,../../../../../../nimony/lib/std/system.nim
+      (asgn@7
+       (pat~6
+        (dot@8,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+         (hderef~4 dest.3)data.0 0 "x")i.11@E,2K,../../../../../../nimony/lib/std/system/seqimpl.nim)
+       (dup@P,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+        (pat@4
+         (dot src.3~3 data.0 0 "x")i.11@6))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.11))))))
+ (func@,D,../../../../../../nimony/lib/std/system/seqimpl.nim :=destroy.1.Islmtds1. . .
+  (at =destroy.1.sysvq0asl Recipe.0.hud0ve3r21@W,8N,hudscreen.nim)
+  (params@J
+   (param@1 :s.19 . . seq.0.I2shrwj.@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+      (not@,1
+       (eq@7
+        (ptr
+         (uarray Recipe.0.hud0ve3r21@W,8N,hudscreen.nim)
+         (unchecked))
+        (dot@6,E,../../../../../../nimony/lib/std/system/seqimpl.nim s.19~1 data.0 0 "x")
+        (nil@F,E,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+     (stmts~1,1
+      (var@4 :i.12 . .
+       (i@Y,4r,hudscreen.nim 64)0@4)
+      (while@,1
+       (lt@8
+        (i 64)i.12~2
+        (dot@3 s.19~1 len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@2
+          (dot s.19~1 data.0 0 "x")i.12@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.12))))
+      (cmd@,4 dealloc.0.sysvq0asl
+       (hconv@9
+        (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+         (unchecked))
+        (hconv
+         (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (dot s.19~1 data.0 0 "x")))))))))
+ (func@,L,../../../../../../nimony/lib/std/system/seqimpl.nim :=wasMoved.1.Iu6zhvy1. . .
+  (at =wasMoved.1.sysvq0asl Recipe.0.hud0ve3r21@W,8N,hudscreen.nim)
+  (params@K
+   (param@1 :s.20 . .
+    (mut@3 seq.0.I2shrwj.@7).)).
+  (pragmas@a
+   (inline@2)).
+  (stmts@2,1
+   (asgn@6
+    (dot~5
+     (hderef~1 s.20)len.0 0 "x")0@2)
+   (asgn@7,1
+    (dot~6
+     (hderef~1 s.20)data.0 0 "x")
+    (nil@2))))
+ (func@,1U,../../../../../../nimony/lib/std/system/seqimpl.nim :=dup.1.Ij79233. . .
+  (at =dup.1.sysvq0asl Recipe.0.hud0ve3r21@W,8N,hudscreen.nim)
+  (params@F
+   (param@1 :a.4 . . seq.0.I2shrwj.@6 .))seq.0.I2shrwj.@G
+  (pragmas@Z
+   (nodestroy@2)).
+  (stmts@2,1
+   (result@7 :result.13 . . seq.0.I2shrwj.@D,~1 .)
+   (asgn@7 result.13~7
+    (call@H newSeqUninit.0.I9ndac.~F
+     (dot@2 a.4~1 len.0 0 "x")))
+   (var@4,1 :i.13 . .
+    (i@Y,4r,hudscreen.nim 64)0@4)
+   (while@,2
+    (lt@8
+     (i 64)i.13~2
+     (dot@3 a.4~1 len.0 0 "x"))
+    (stmts@2,1
+     (asgn@H
+      (pat~A
+       (dot result.13~6 data.0 0 "x")i.13@6)
+      (dup@8
+       (pat@2
+        (dot a.4~1 data.0 0 "x")i.13@6)))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.13))))
+   (ret~2,~1 result.13)))
+ (func@,20,../../../../../../nimony/lib/std/system/seqimpl.nim :=copy.1.I6t8ldl. . .
+  (at =copy.1.sysvq0asl Recipe.0.hud0ve3r21@W,8N,hudscreen.nim)
+  (params@G
+   (param@1 :dest.4 . .
+    (mut@6 seq.0.I2shrwj.@7).)
+   (param@J :src.4 . . seq.0.I2shrwj.@8 .)).
+  (pragmas@m
+   (nodestroy@2)).
+  (stmts@2,1
+   (if
+    (elif@3
+     (eq@A
+      (ptr
+       (uarray Recipe.0.hud0ve3r21@W,8N,hudscreen.nim)
+       (unchecked))
+      (dot~6
+       (hderef~4 dest.4)data.0 0 "x")
+      (dot@6 src.4~3 data.0 0 "x"))
+     (stmts@N
+      (ret .))))
+   (if@,1
+    (elif@3
+     (lt@8
+      (i 64)
+      (dot~5 src.4~3 len.0 0 "x")
+      (dot@6
+       (hderef~4 dest.4)len.0 0 "x"))
+     (stmts~1,1
+      (var@4 :i.14 . .
+       (i@Y,4r,hudscreen.nim 64)
+       (dot@7 src.4~3 len.0 0 "x"))
+      (while@,1
+       (lt@8
+        (i 64)i.14~2
+        (dot@6
+         (hderef~4 dest.4)len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@5
+          (dot
+           (hderef~4 dest.4)data.0 0 "x")i.14@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.14))))))
+    (elif@5,5
+     (lt@G
+      (i 64)
+      (call~C capInBytes.0.Ix7zwp51.@1
+       (hderef~4 dest.4))
+      (mul@A
+       (i 64)
+       (dot~5 src.4~3 len.0 0 "x")
+       (sizeof@8 Recipe.0.hud0ve3r21@W,8N,hudscreen.nim)))
+     (stmts~3,1
+      (let@4 :oldCap.1 . .
+       (i@Y,4r,hudscreen.nim 64)
+       (div@P
+        (i 64)
+        (call~C capInBytes.0.Ix7zwp51.@1
+         (hderef~4 dest.4))
+        (sizeof@A Recipe.0.hud0ve3r21@W,8N,hudscreen.nim)))
+      (let@4,1 :newCap.1 . .
+       (i@Y,4r,hudscreen.nim 64)
+       (call@I recalcCap.0.sysvq0asl~9 oldCap.1@1
+        (sub@H
+         (i 64)
+         (dot~5 src.4~3 len.0 0 "x")oldCap.1@2)))
+      (let@4,2 :memSize.1 . .
+       (i@Y,4r,hudscreen.nim 64)
+       (call@R memSizeInBytes.0.Iwn5wv5.~H newCap.1@1))
+      (asgn@A,3
+       (dot~6
+        (hderef~4 dest.4)data.0 0 "x")
+       (cast@2
+        (ptr@5
+         (uarray@I Recipe.0.hud0ve3r21@W,8N,hudscreen.nim)
+         (unchecked))
+        (call@Z realloc.0.sysvq0asl~7
+         (hconv@5
+          (pointer@H,1I,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (hconv
+           (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+            (unchecked))
+           (dot
+            (hderef~4 dest.4)data.0 0 "x")))memSize.1@C)))
+      (if@,4
+       (elif@3
+        (eq@A
+         (ptr
+          (uarray Recipe.0.hud0ve3r21@W,8N,hudscreen.nim)
+          (unchecked))
+         (dot~6
+          (hderef~4 dest.4)data.0 0 "x")
+         (nil@3))
+        (stmts~1,1
+         (asgn@9
+          (dot~5
+           (hderef~4 dest.4)len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.1@B)))
+         (ret@,3 .)))))))
+   (asgn@9,G
+    (dot~5
+     (hderef~4 dest.4)len.0 0 "x")
+    (dot@5 src.4~3 len.0 0 "x"))
+   (var@4,H :i.15 . .
+    (i@Y,4r,hudscreen.nim 64)0@4)
+   (while@,I
+    (lt@8
+     (i 64)i.15~2
+     (dot@6
+      (hderef~4 dest.4)len.0 0 "x"))
+    (stmts@2,1
+     (stmts@2,Y,../../../../../../nimony/lib/std/system.nim
+      (asgn@7
+       (pat~6
+        (dot@8,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+         (hderef~4 dest.4)data.0 0 "x")i.15@E,2K,../../../../../../nimony/lib/std/system/seqimpl.nim)
+       (dup@P,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+        (pat@4
+         (dot src.4~3 data.0 0 "x")i.15@6))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.15))))))
+ (func@,D,../../../../../../nimony/lib/std/system/seqimpl.nim :=destroy.1.Ivioh0a. . .
+  (at =destroy.1.sysvq0asl string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)
+  (params@J
+   (param@1 :s.22 . . seq.0.Ixdx2fh1.@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+      (not@,1
+       (eq@7
+        (ptr
+         (uarray string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)
+         (unchecked))
+        (dot@6,E,../../../../../../nimony/lib/std/system/seqimpl.nim s.22~1 data.0 0 "x")
+        (nil@F,E,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+     (stmts~1,1
+      (var@4 :i.16 . .
+       (i@Y,4r,hudscreen.nim 64)0@4)
+      (while@,1
+       (lt@8
+        (i 64)i.16~2
+        (dot@3 s.22~1 len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@2
+          (dot s.22~1 data.0 0 "x")i.16@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.16))))
+      (cmd@,4 dealloc.0.sysvq0asl
+       (hconv@9
+        (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+         (unchecked))
+        (hconv
+         (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (dot s.22~1 data.0 0 "x")))))))))
+ (func@,L,../../../../../../nimony/lib/std/system/seqimpl.nim :=wasMoved.1.I5vdnla. . .
+  (at =wasMoved.1.sysvq0asl string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)
+  (params@K
+   (param@1 :s.23 . .
+    (mut@3 seq.0.Ixdx2fh1.@7).)).
+  (pragmas@a
+   (inline@2)).
+  (stmts@2,1
+   (asgn@6
+    (dot~5
+     (hderef~1 s.23)len.0 0 "x")0@2)
+   (asgn@7,1
+    (dot~6
+     (hderef~1 s.23)data.0 0 "x")
+    (nil@2))))
+ (func@,1U,../../../../../../nimony/lib/std/system/seqimpl.nim :=dup.1.Imq0s4c. . .
+  (at =dup.1.sysvq0asl string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)
+  (params@F
+   (param@1 :a.5 . . seq.0.Ixdx2fh1.@6 .))seq.0.Ixdx2fh1.@G
+  (pragmas@Z
+   (nodestroy@2)).
+  (stmts@2,1
+   (result@7 :result.14 . . seq.0.Ixdx2fh1.@D,~1 .)
+   (asgn@7 result.14~7
+    (call@H newSeqUninit.0.Im3cqd9.~F
+     (dot@2 a.5~1 len.0 0 "x")))
+   (var@4,1 :i.17 . .
+    (i@Y,4r,hudscreen.nim 64)0@4)
+   (while@,2
+    (lt@8
+     (i 64)i.17~2
+     (dot@3 a.5~1 len.0 0 "x"))
+    (stmts@2,1
+     (asgn@H
+      (pat~A
+       (dot result.14~6 data.0 0 "x")i.17@6)
+      (dup@8
+       (pat@2
+        (dot a.5~1 data.0 0 "x")i.17@6)))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.17))))
+   (ret~2,~1 result.14)))
+ (func@,20,../../../../../../nimony/lib/std/system/seqimpl.nim :=copy.1.Iiwrt4i1. . .
+  (at =copy.1.sysvq0asl string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)
+  (params@G
+   (param@1 :dest.5 . .
+    (mut@6 seq.0.Ixdx2fh1.@7).)
+   (param@J :src.5 . . seq.0.Ixdx2fh1.@8 .)).
+  (pragmas@m
+   (nodestroy@2)).
+  (stmts@2,1
+   (if
+    (elif@3
+     (eq@A
+      (ptr
+       (uarray string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)
+       (unchecked))
+      (dot~6
+       (hderef~4 dest.5)data.0 0 "x")
+      (dot@6 src.5~3 data.0 0 "x"))
+     (stmts@N
+      (ret .))))
+   (if@,1
+    (elif@3
+     (lt@8
+      (i 64)
+      (dot~5 src.5~3 len.0 0 "x")
+      (dot@6
+       (hderef~4 dest.5)len.0 0 "x"))
+     (stmts~1,1
+      (var@4 :i.18 . .
+       (i@Y,4r,hudscreen.nim 64)
+       (dot@7 src.5~3 len.0 0 "x"))
+      (while@,1
+       (lt@8
+        (i 64)i.18~2
+        (dot@6
+         (hderef~4 dest.5)len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@5
+          (dot
+           (hderef~4 dest.5)data.0 0 "x")i.18@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.18))))))
+    (elif@5,5
+     (lt@G
+      (i 64)
+      (call~C capInBytes.0.Ih2sbn01.@1
+       (hderef~4 dest.5))
+      (mul@A
+       (i 64)
+       (dot~5 src.5~3 len.0 0 "x")
+       (sizeof@8 string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)))
+     (stmts~3,1
+      (let@4 :oldCap.2 . .
+       (i@Y,4r,hudscreen.nim 64)
+       (div@P
+        (i 64)
+        (call~C capInBytes.0.Ih2sbn01.@1
+         (hderef~4 dest.5))
+        (sizeof@A string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)))
+      (let@4,1 :newCap.2 . .
+       (i@Y,4r,hudscreen.nim 64)
+       (call@I recalcCap.0.sysvq0asl~9 oldCap.2@1
+        (sub@H
+         (i 64)
+         (dot~5 src.5~3 len.0 0 "x")oldCap.2@2)))
+      (let@4,2 :memSize.2 . .
+       (i@Y,4r,hudscreen.nim 64)
+       (call@R memSizeInBytes.0.I7me00i.~H newCap.2@1))
+      (asgn@A,3
+       (dot~6
+        (hderef~4 dest.5)data.0 0 "x")
+       (cast@2
+        (ptr@5
+         (uarray@I string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)
+         (unchecked))
+        (call@Z realloc.0.sysvq0asl~7
+         (hconv@5
+          (pointer@H,1I,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (hconv
+           (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+            (unchecked))
+           (dot
+            (hderef~4 dest.5)data.0 0 "x")))memSize.2@C)))
+      (if@,4
+       (elif@3
+        (eq@A
+         (ptr
+          (uarray string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)
+          (unchecked))
+         (dot~6
+          (hderef~4 dest.5)data.0 0 "x")
+         (nil@3))
+        (stmts~1,1
+         (asgn@9
+          (dot~5
+           (hderef~4 dest.5)len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.2@B)))
+         (ret@,3 .)))))))
+   (asgn@9,G
+    (dot~5
+     (hderef~4 dest.5)len.0 0 "x")
+    (dot@5 src.5~3 len.0 0 "x"))
+   (var@4,H :i.19 . .
+    (i@Y,4r,hudscreen.nim 64)0@4)
+   (while@,I
+    (lt@8
+     (i 64)i.19~2
+     (dot@6
+      (hderef~4 dest.5)len.0 0 "x"))
+    (stmts@2,1
+     (stmts@2,Y,../../../../../../nimony/lib/std/system.nim
+      (asgn@7
+       (pat~6
+        (dot@8,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+         (hderef~4 dest.5)data.0 0 "x")i.19@E,2K,../../../../../../nimony/lib/std/system/seqimpl.nim)
+       (dup@P,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+        (pat@4
+         (dot src.5~3 data.0 0 "x")i.19@6))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.19))))))
+ (func@Q,1V,../../../../../../nimony/lib/std/system/seqimpl.nim :newSeqUninit.0.Icsd45b. . .~Q,~R
+  (at newSeqUninit.0.sysvq0asl MRect.0.mcu4jd2yh1@P,6R,hudscreen.nim)
+  (params~5,~R
+   (param@1 :size.8 . .
+    (i@6 64).))seq.0.Iqeo1l3.~A,~R
+  (pragmas@F,~R
+   (nodestroy@2)
+   (inline@D)).~Q,~R
+  (stmts~O,~Q
+   (result :result.15 . . seq.0.Iqeo1l3.@E,~1 .)
+   (if@,1
+    (elif@3
+     (eq@5
+      (i 64)size.8~5 0@3)
+     (stmts~1,1
+      (asgn@7 result.15~7
+       (oconstr@8 seq.0.Iqeo1l3.@O,6R,hudscreen.nim
+        (kv@4 len.0~3 size.8@2)
+        (kv@G data.0~4
+         (nil@2))))))
+    (else@,2
+     (stmts@2,1
+      (let@4 :memSize.3 . .
+       (i@Y,4r,hudscreen.nim 64)
+       (call@R memSizeInBytes.0.Iioxnym.~H size.8@1))
+      (asgn@7,1 result.15~7
+       (oconstr@8 seq.0.Iqeo1l3.@O,6R,hudscreen.nim
+        (kv@4 len.0~3 size.8@2)
+        (kv@G data.0~4
+         (cast@2
+          (ptr@5
+           (uarray@I MRect.0.mcu4jd2yh1@P,6R,hudscreen.nim)
+           (unchecked))
+          (call@X alloc.0.sysvq0asl~5 memSize.3@1)))))
+      (if@,2
+       (elif@3
+        (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+         (not@,1
+          (eq@7
+           (ptr
+            (uarray MRect.0.mcu4jd2yh1@P,6R,hudscreen.nim)
+            (unchecked))
+           (dot@D,1B,../../../../../../nimony/lib/std/system/seqimpl.nim result.15~6 data.0 0 "x")
+           (nil@M,1B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+        (stmts~1,1
+         (discard "leave uninitialized"@8)))
+       (else@,2
+        (stmts@2,1
+         (asgn@B
+          (dot~5 result.15~6 len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.3@B)))))))))
+   (ret~2,~1 result.15)))
+ (func@B,27,../../../../../../nimony/lib/std/system/seqimpl.nim :capInBytes.0.Ie40gqy. . .~B,~1x
+  (at capInBytes.0.sysvq0asl MRect.0.mcu4jd2yh1@P,6R,hudscreen.nim)
+  (params@7,~1x
+   (param@1 :s.25 . . seq.0.Iqeo1l3.@6 .))
+  (i@2,~1x 64)
+  (pragmas@O,~1x
+   (inline@2)).~B,~1x
+  (stmts~9,~1w
+   (result@7 :result.16 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@7 result.16~7
+    (if@2
+     (elif@3
+      (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+       (not@,1
+        (eq@7
+         (ptr
+          (uarray MRect.0.mcu4jd2yh1@P,6R,hudscreen.nim)
+          (unchecked))
+         (dot@F,B,../../../../../../nimony/lib/std/system/seqimpl.nim s.25~1 data.0 0 "x")
+         (nil@O,B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+      (expr@F
+       (call@D allocatedSize.0.sysvq0asl~D
+        (hconv@2
+         (pointer@N,1O,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (hconv
+          (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (dot s.25~1 data.0 0 "x"))))))
+     (else@e
+      (expr@6 0))))
+   (ret~2,~1 result.16)))
+ (func@Z,2A,../../../../../../nimony/lib/std/system/seqimpl.nim :memSizeInBytes.0.Iioxnym. . .~Z,~1l
+  (at memSizeInBytes.0.sysvq0asl MRect.0.mcu4jd2yh1@P,6R,hudscreen.nim)
+  (params~D,~1l
+   (param@1 :size.9 . .
+    (i@6 64).))
+  (i~M,~1l 64)
+  (pragmas@4,~1l
+   (inline@2)).~Z,~1l
+  (stmts~X,~1k
+   (result :result.17 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (pragmax
+    (pragmas
+     (keepOverflowFlag@2))
+    (stmts@2,1
+     (asgn@7 result.17~7
+      (mul@7
+       (i 64)size.9~5
+       (sizeof@8 MRect.0.mcu4jd2yh1@P,6R,hudscreen.nim)))
+     (if@,1
+      (elif@3
+       (ovf@C)
+       (stmts~1,2
+        (asgn@7 result.17~7
+         (suf@6 9223372036854775807 "i64")))))))
+   (ret~2,~1 result.17)))
+ (func@Q,1V,../../../../../../nimony/lib/std/system/seqimpl.nim :newSeqUninit.0.I9ndac. . .~Q,~R
+  (at newSeqUninit.0.sysvq0asl Recipe.0.hud0ve3r21@W,8N,hudscreen.nim)
+  (params~5,~R
+   (param@1 :size.10 . .
+    (i@6 64).))seq.0.I2shrwj.~A,~R
+  (pragmas@F,~R
+   (nodestroy@2)
+   (inline@D)).~Q,~R
+  (stmts~O,~Q
+   (result :result.18 . . seq.0.I2shrwj.@E,~1 .)
+   (if@,1
+    (elif@3
+     (eq@5
+      (i 64)size.10~5 0@3)
+     (stmts~1,1
+      (asgn@7 result.18~7
+       (oconstr@8 seq.0.I2shrwj.@V,8N,hudscreen.nim
+        (kv@4 len.0~3 size.10@2)
+        (kv@G data.0~4
+         (nil@2))))))
+    (else@,2
+     (stmts@2,1
+      (let@4 :memSize.4 . .
+       (i@Y,4r,hudscreen.nim 64)
+       (call@R memSizeInBytes.0.Iwn5wv5.~H size.10@1))
+      (asgn@7,1 result.18~7
+       (oconstr@8 seq.0.I2shrwj.@V,8N,hudscreen.nim
+        (kv@4 len.0~3 size.10@2)
+        (kv@G data.0~4
+         (cast@2
+          (ptr@5
+           (uarray@I Recipe.0.hud0ve3r21@W,8N,hudscreen.nim)
+           (unchecked))
+          (call@X alloc.0.sysvq0asl~5 memSize.4@1)))))
+      (if@,2
+       (elif@3
+        (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+         (not@,1
+          (eq@7
+           (ptr
+            (uarray Recipe.0.hud0ve3r21@W,8N,hudscreen.nim)
+            (unchecked))
+           (dot@D,1B,../../../../../../nimony/lib/std/system/seqimpl.nim result.18~6 data.0 0 "x")
+           (nil@M,1B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+        (stmts~1,1
+         (discard "leave uninitialized"@8)))
+       (else@,2
+        (stmts@2,1
+         (asgn@B
+          (dot~5 result.18~6 len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.4@B)))))))))
+   (ret~2,~1 result.18)))
+ (func@B,27,../../../../../../nimony/lib/std/system/seqimpl.nim :capInBytes.0.Ix7zwp51. . .~B,~1x
+  (at capInBytes.0.sysvq0asl Recipe.0.hud0ve3r21@W,8N,hudscreen.nim)
+  (params@7,~1x
+   (param@1 :s.26 . . seq.0.I2shrwj.@6 .))
+  (i@2,~1x 64)
+  (pragmas@O,~1x
+   (inline@2)).~B,~1x
+  (stmts~9,~1w
+   (result@7 :result.19 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@7 result.19~7
+    (if@2
+     (elif@3
+      (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+       (not@,1
+        (eq@7
+         (ptr
+          (uarray Recipe.0.hud0ve3r21@W,8N,hudscreen.nim)
+          (unchecked))
+         (dot@F,B,../../../../../../nimony/lib/std/system/seqimpl.nim s.26~1 data.0 0 "x")
+         (nil@O,B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+      (expr@F
+       (call@D allocatedSize.0.sysvq0asl~D
+        (hconv@2
+         (pointer@N,1O,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (hconv
+          (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (dot s.26~1 data.0 0 "x"))))))
+     (else@e
+      (expr@6 0))))
+   (ret~2,~1 result.19)))
+ (func@Z,2A,../../../../../../nimony/lib/std/system/seqimpl.nim :memSizeInBytes.0.Iwn5wv5. . .~Z,~1l
+  (at memSizeInBytes.0.sysvq0asl Recipe.0.hud0ve3r21@W,8N,hudscreen.nim)
+  (params~D,~1l
+   (param@1 :size.11 . .
+    (i@6 64).))
+  (i~M,~1l 64)
+  (pragmas@4,~1l
+   (inline@2)).~Z,~1l
+  (stmts~X,~1k
+   (result :result.20 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (pragmax
+    (pragmas
+     (keepOverflowFlag@2))
+    (stmts@2,1
+     (asgn@7 result.20~7
+      (mul@7
+       (i 64)size.11~5
+       (sizeof@8 Recipe.0.hud0ve3r21@W,8N,hudscreen.nim)))
+     (if@,1
+      (elif@3
+       (ovf@C)
+       (stmts~1,2
+        (asgn@7 result.20~7
+         (suf@6 9223372036854775807 "i64")))))))
+   (ret~2,~1 result.20)))
+ (func@Q,1V,../../../../../../nimony/lib/std/system/seqimpl.nim :newSeqUninit.0.Im3cqd9. . .~Q,~R
+  (at newSeqUninit.0.sysvq0asl string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)
+  (params~5,~R
+   (param@1 :size.12 . .
+    (i@6 64).))seq.0.Ixdx2fh1.~A,~R
+  (pragmas@F,~R
+   (nodestroy@2)
+   (inline@D)).~Q,~R
+  (stmts~O,~Q
+   (result :result.21 . . seq.0.Ixdx2fh1.@E,~1 .)
+   (if@,1
+    (elif@3
+     (eq@5
+      (i 64)size.12~5 0@3)
+     (stmts~1,1
+      (asgn@7 result.21~7
+       (oconstr@8 seq.0.Ixdx2fh1.mcu470hmq1@G,1d,.jester/deps/aoughwl_mcui/mcuigrant.nim
+        (kv@4 len.0~3 size.12@2)
+        (kv@G data.0~4
+         (nil@2))))))
+    (else@,2
+     (stmts@2,1
+      (let@4 :memSize.5 . .
+       (i@Y,4r,hudscreen.nim 64)
+       (call@R memSizeInBytes.0.I7me00i.~H size.12@1))
+      (asgn@7,1 result.21~7
+       (oconstr@8 seq.0.Ixdx2fh1.mcu470hmq1@G,1d,.jester/deps/aoughwl_mcui/mcuigrant.nim
+        (kv@4 len.0~3 size.12@2)
+        (kv@G data.0~4
+         (cast@2
+          (ptr@5
+           (uarray@I string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)
+           (unchecked))
+          (call@X alloc.0.sysvq0asl~5 memSize.5@1)))))
+      (if@,2
+       (elif@3
+        (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+         (not@,1
+          (eq@7
+           (ptr
+            (uarray string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)
+            (unchecked))
+           (dot@D,1B,../../../../../../nimony/lib/std/system/seqimpl.nim result.21~6 data.0 0 "x")
+           (nil@M,1B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+        (stmts~1,1
+         (discard "leave uninitialized"@8)))
+       (else@,2
+        (stmts@2,1
+         (asgn@B
+          (dot~5 result.21~6 len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.5@B)))))))))
+   (ret~2,~1 result.21)))
+ (func@B,27,../../../../../../nimony/lib/std/system/seqimpl.nim :capInBytes.0.Ih2sbn01. . .~B,~1x
+  (at capInBytes.0.sysvq0asl string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)
+  (params@7,~1x
+   (param@1 :s.27 . . seq.0.Ixdx2fh1.@6 .))
+  (i@2,~1x 64)
+  (pragmas@O,~1x
+   (inline@2)).~B,~1x
+  (stmts~9,~1w
+   (result@7 :result.22 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@7 result.22~7
+    (if@2
+     (elif@3
+      (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+       (not@,1
+        (eq@7
+         (ptr
+          (uarray string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)
+          (unchecked))
+         (dot@F,B,../../../../../../nimony/lib/std/system/seqimpl.nim s.27~1 data.0 0 "x")
+         (nil@O,B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+      (expr@F
+       (call@D allocatedSize.0.sysvq0asl~D
+        (hconv@2
+         (pointer@N,1O,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (hconv
+          (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (dot s.27~1 data.0 0 "x"))))))
+     (else@e
+      (expr@6 0))))
+   (ret~2,~1 result.22)))
+ (func@Z,2A,../../../../../../nimony/lib/std/system/seqimpl.nim :memSizeInBytes.0.I7me00i. . .~Z,~1l
+  (at memSizeInBytes.0.sysvq0asl string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)
+  (params~D,~1l
+   (param@1 :size.13 . .
+    (i@6 64).))
+  (i~M,~1l 64)
+  (pragmas@4,~1l
+   (inline@2)).~Z,~1l
+  (stmts~X,~1k
+   (result :result.23 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (pragmax
+    (pragmas
+     (keepOverflowFlag@2))
+    (stmts@2,1
+     (asgn@7 result.23~7
+      (mul@7
+       (i 64)size.13~5
+       (sizeof@8 string.0.sysvq0asl@e,v,.jester/deps/aoughwl_mcui/mcuigrant.nim)))
+     (if@,1
+      (elif@3
+       (ovf@C)
+       (stmts~1,2
+        (asgn@7 result.23~7
+         (suf@6 9223372036854775807 "i64")))))))
+   (ret~2,~1 result.23))))(.index@,1,hudscreen.nim
+ (h StatusSheet.0. 1139)
+ (h ItemSheet.0. 70)
+ (x SlotTag.0. 70)
+ (h HeartFull.0. 69)
+ (h HeartEmpty.0. 64)
+ (h HaunchFull.0. 65)
+ (h HaunchEmpty.0. 65)
+ (h ShieldFull.0. 66)
+ (h ShieldEmpty.0. 65)
+ (h Provider.0. 66)
+ (h GuiService.0. 77)
+ (h HotbarSprite.0. 75)
+ (h SelectSprite.0. 86)
+ (h BarBackSprite.0. 96)
+ (h BarFillSprite.0. 105)
+ (h HeartFullSprite.0. 103)
+ (h HeartHalfSprite.0. 92)
+ (h HeartBackSprite.0. 92)
+ (h FoodFullSprite.0. 97)
+ (h FoodHalfSprite.0. 90)
+ (h FoodBackSprite.0. 90)
+ (h ArmourFullSprite.0. 91)
+ (h ArmourHalfSprite.0. 93)
+ (h ArmourBackSprite.0. 93)
+ (h SlotSprite.0. 94)
+ (h SlotHotSprite.0. 87)
+ (h InventorySheet.0. 106)
+ (h BenchSheet.0. 88)
+ (h KeyInventory.0. 89)
+ (h KeyCrafting.0. 82)
+ (h KeyHead.0. 80)
+ (h KeyDeath.0. 77)
+ (h KeyRespawn.0. 76)
+ (h dragFrom.0. 80)
+ (h saidLast.0. 43)
+ (h art.0. 54)
+ (h skinned.0. 124)
+ (h worded.0. 110)
+ (h langCode.0. 109)
+ (h askAgainAt.0. 59)
+ (h scale.0. 46)
+ (h guiW.0. 39)
+ (h guiH.0. 38)
+ (h words.0. 38)
+ (h notice.0. 119)
+ (x said.0. 136)
+ (x say.0. 178)
+ (x forgetSkin.0. 145)
+ (h worn.0. 182)
+ (x warmSkin.0. 259)
+ (x warmWords.0. 1449)
+ (x skinWarm.0. 848)
+ (x reason.0. 166)
+ (h tr.0. 615)
+ (h measure.0. 273)
+ (h onScreen.0. 643)
+ (h paintStatus.0. 635)
+ (h paintSprite.0. 2216)
+ (h paintSheet.0. 596)
+ (h publishedUri.0. 1116)
+ (x paintItem.0. 986)
+ (x paintStack.0. 2460)
+ (h paintRow.0. 1565)
+ (x drawHud.0. 2498)
+ (h countIn.0. 10009)
+ (h slotWidget.0. 353)
+ (h resultWidget.0. 6393)
+ (h runOfSlots.0. 2851)
+ (x drawInventory.0. 785)
+ (x drawHand.0. 4517)
+ (x settleHudDrag.0. 1111)
+ (x proveLayout.0. 203)
+ (h len.3.Ixq6taz. 8523)
+ (h \5B\5D.7.Ir6d0tw. 730)
+ (h inc.1.Irn1g7r1. 1184)
+ (h len.3.Iw2fbd8. 630)
+ (h \5B\5D.7.I300ruf1. 693)
+ (h seq.0.Iqeo1l3. 1098)
+ (h seq.0.I2shrwj. 479)
+ (h seq.0.Ixdx2fh1. 483)
+ (h =destroy.1.I19v29l. 500)
+ (h =wasMoved.1.Irnne6j. 1216)
+ (h =dup.1.Ia10imc. 396)
+ (h =copy.1.Id9a3uk. 764)
+ (h =destroy.1.Islmtds1. 3579)
+ (h =wasMoved.1.Iu6zhvy1. 1223)
+ (h =dup.1.Ij79233. 398)
+ (h =copy.1.I6t8ldl. 769)
+ (h =destroy.1.Ivioh0a. 3587)
+ (h =wasMoved.1.I5vdnla. 1271)
+ (h =dup.1.Imq0s4c. 422)
+ (h =copy.1.Iiwrt4i1. 797)
+ (h newSeqUninit.0.Icsd45b. 3734)
+ (h capInBytes.0.Ie40gqy. 1835)
+ (h memSizeInBytes.0.Iioxnym. 1191)
+ (h newSeqUninit.0.I9ndac. 744)
+ (h capInBytes.0.Ix7zwp51. 1842)
+ (h memSizeInBytes.0.Iwn5wv5. 1194)
+ (h newSeqUninit.0.Im3cqd9. 748)
+ (h capInBytes.0.Ih2sbn01. 1991)
+ (h memSizeInBytes.0.I7me00i. 1243))

@@ -1,0 +1,255 @@
+(.nif27)
+(.indexat 10147            )
+(stmts@,1,.jester/source/jester_mod_e1064ed627a34e4d.nim
+ (import
+  (kv sysvq0asl "../../../../../../nimony/lib/std/system.nim")
+  (kv jesaqohvh1 "../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim")
+  (kv invuity7x ".jester/deps/aoughwl_inventory/inventory.nim")
+  (kv invz5nst41 "invpanel.nim"))
+ (const@2,J :CheckItems.0. . . string.0.sysvq0asl@G,9 "aoughwl.inventory.selfcheck.items"@D)
+ (const@2,K :CheckContainers.0. . . string.0.sysvq0asl@G,8 "aoughwl.inventory.selfcheck.containers"@I)
+ (gvar@2,N :checks.0. . .
+  (i 64)0@9)
+ (gvar@2,O :passed.0. . .
+  (i 64)0@9)
+ (gvar@2,P :ask.0. . . Ask.0.invz5nst41@4,S,invpanel.nim AskNothing.0.invz5nst41@6)
+ (gvar@2,Q :loadedAt.0. . .
+  (f 64)0.0@B)
+ (proc@,S :expect.0.@5 . . .
+  (params@B
+   (param@1 :what.0 . . string.0.sysvq0asl@6 .)
+   (param@F :ok.0 . .
+    (bool@4).)). . .
+  (stmts@2,1
+   (asgn@7 checks.0.~7
+    (add@9
+     (i 64)checks.0.~7 1@2))
+   (if@,1
+    (elif@3 ok.0
+     (stmts@4
+      (asgn@7 passed.0.~7
+       (add@9
+        (i 64)passed.0.~7 1@2))))
+    (else@,1
+     (stmts@6
+      (call@3 log.0.jesaqohvh1~3
+       (infix@X &.0.sysvq0asl "inventory self-check failed\3A "~W what.0@2)))))))
+ (proc@,X :expectTrouble.0.@5 . . .
+  (params@I
+   (param@1 :what.1 . . string.0.sysvq0asl@6 .)
+   (param@F :o.0 . . Outcome.0.invuity7x@3 .)
+   (param@R :want.0 . . Trouble.0.invuity7x@6 .)). . .
+  (stmts@2,1
+   (call@6 expect.0.~6
+    (infix@Z &.0.sysvq0asl
+     (infix~I &.0.sysvq0asl
+      (infix~B &.0.sysvq0asl what.1~5 " \28was "@2)
+      (call@6 name.0.invuity7x~4
+       (dot@2 o.0~1 trouble.0 0)))"\29"@2)
+    (eq@q Trouble.0.invuity7x
+     (dot~9 o.0~1 trouble.0 0)want.0@3))))
+ (proc@,f :selfCheck.0.@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (let@4 :kit.0 . . Catalog.0.catbyu542@W,6X,.jester/deps/aoughwl_inventory/inventory.nim
+    (call@H itemCatalog.0.invuity7x~B CheckItems.0.@1 "Items the inventory library checks itself with"@D))
+   (call@E,1 defineItem.0.invuity7x~A kit.0~E "bandage"@1 "Bandage"@C 4@V 1.0@f 0.1@t "1x1"~4,1 "medical small"@A,1)
+   (call@E,3 defineItem.0.invuity7x~A kit.0~E "rifle"@1 "Rifle"@A 1@R 4.0@b 3.5@p "4x1"~4,1 "weapon large"@A,1)
+   (let@4,6 :bags.0 . . Catalog.0.catbyu542@W,6X,.jester/deps/aoughwl_inventory/inventory.nim
+    (call@N containerCatalog.0.invuity7x~G CheckContainers.0.@1 "Containers the inventory library checks itself with"~P,1))
+   (call@K,8 defineContainer.0.invuity7x~F bags.0~K "pouch"@1 "Belt pouch"@A 2@W 4.0@k 2.0~B,1 "medical"@4,1 ""@w,77,.jester/deps/aoughwl_inventory/inventory.nim)
+   (call@K,A defineContainer.0.invuity7x~F bags.0~K "crate"@1 "Crate"@A 8@R 40.0@f 100.0@s ""@i,77,.jester/deps/aoughwl_inventory/inventory.nim ""@w,77,.jester/deps/aoughwl_inventory/inventory.nim)
+   (let@4,C :bandage.0 . . Item.0.invuity7x@E,5e,.jester/deps/aoughwl_inventory/inventory.nim
+    (call@G itemOf.0.invuity7x~6 "bandage"@1))
+   (call@6,D expect.0.~6 "a defined item reads back"@1
+    (and@i
+     (dot~7 bandage.0~7 known.0 0)
+     (eq@I
+      (i 64)
+      (dot~7 bandage.0~7 stack.0 0)4@3)))
+   (call@6,E expect.0.~6 "an undefined item is not known"@1
+    (not@Z
+     (dot@L
+      (call~B itemOf.0.invuity7x~6 "nothing"@1)known.0 0)))
+   (call@6,F expect.0.~6 "a shape is carried but never read here"@1
+    (infix@v ==.20.sysvq0asl
+     (dot~7 bandage.0~7 shape.0 0)"1x1"@3))
+   (call@6,G expect.0.~6 "tags match whole words"@1
+    (and@x
+     (call~Q tagged.0.invuity7x~6
+      (dot@8 bandage.0~7 tags.0 0)"medical"@F)
+     (not~11,1
+      (call@A tagged.0.invuity7x~6
+       (dot@8 bandage.0~7 tags.0 0)"medic"@F))))
+   (let@4,J :pouch.0 . . Container.0.invuity7x@h,96,.jester/deps/aoughwl_inventory/inventory.nim
+    (call@L openContainer.0.invuity7x~D CheckContainers.0.@1 "pouch"@I "belt"@R))
+   (let@4,K :crate.0 . . Container.0.invuity7x@h,96,.jester/deps/aoughwl_inventory/inventory.nim
+    (call@L openContainer.0.invuity7x~D CheckContainers.0.@1 "crate"@I ""@v,96,.jester/deps/aoughwl_inventory/inventory.nim))
+   (call@6,L expect.0.~6 "a container opens"@1
+    (and@Z
+     (call~3 open.0.invuity7x~4 pouch.0~A)
+     (call@E open.0.invuity7x~4 crate.0~A)))
+   (call@6,M expect.0.~6 "an undefined container does not"@1
+    (call@G,1 isNothing.0.invuity7x~9
+     (call@X,~1 openContainer.0.invuity7x~D CheckContainers.0.@1 "nothing"~r,1 ""@v,96,.jester/deps/aoughwl_inventory/inventory.nim)))
+   (call@D,P expectTrouble.0.~D "a pouch refuses a rifle by tag"@1
+    (call@i put.0.invuity7x~3 pouch.0~9 "rifle"@1 1@A)NotAccepted.0.invuity7x@w)
+   (call@D,Q expectTrouble.0.~D "an unknown item is refused"@1
+    (call@e put.0.invuity7x~3 pouch.0~9 "nothing"@1 1@C)UnknownItem.0.invuity7x@u)
+   (call@6,R expect.0.~6 "four bandages are one stack"@1
+    (and@z
+     (call~6 went.0.invuity7x@1
+      (call~E put.0.invuity7x~3 pouch.0~9 "bandage"@1 4@C))
+     (eq~k,1
+      (i 64)
+      (call~3 stackCount.0.invuity7x~A pouch.0~G)1@3)))
+   (call@D,T expectTrouble.0.~D "a fifth bandage does not fit the bulk"@1
+    (call@p put.0.invuity7x~3 pouch.0~9 "bandage"@1 1@C)NoRoom.0.invuity7x~B,1)
+   (call@6,V expect.0.~6 "a refusal changes nothing"@1
+    (eq@t
+     (i 64)
+     (call~C countOf.0.invuity7x~7 pouch.0~D "bandage"@1)4@3))
+   (call@6,X expect.0.~6 "a crate takes two rifles as two stacks"@1
+    (and@18
+     (call~6 went.0.invuity7x@1
+      (call~C put.0.invuity7x~3 crate.0~9 "rifle"@1 2@A))
+     (eq~t,1
+      (i 64)
+      (call~3 stackCount.0.invuity7x~A crate.0~G)2@3)))
+   (call@D,Z expectTrouble.0.~D "a move the target refuses is refused"@1
+    (call~2,1 moveStack.0.invuity7x~9 crate.0@1 pouch.0@8 0@F 0@10,Aj,.jester/deps/aoughwl_inventory/inventory.nim)NotAccepted.0.invuity7x@H,1)
+   (call@6,b expect.0.~6 "and leaves the source alone"@1
+    (eq@t
+     (i 64)
+     (call~A countOf.0.invuity7x~7 crate.0~D "rifle"@1)2@3))
+   (call@6,d expect.0.~6 "a stack splits"@1
+    (and@l
+     (call~6 went.0.invuity7x@1
+      (call~6 splitStack.0.invuity7x~A pouch.0~G 0@1 2@4))
+     (eq@N
+      (i 64)
+      (call~3 stackCount.0.invuity7x~A pouch.0~G)2@3)))
+   (call@6,e expect.0.~6 "and merges back"@1
+    (and@n
+     (call~6 went.0.invuity7x@1
+      (call~6 mergeStacks.0.invuity7x~B pouch.0~H 1@1 0@4))
+     (eq~Y,1
+      (i 64)
+      (call~3 stackCount.0.invuity7x~A pouch.0~G)1@3)))
+   (let@4,h :moved.0 . . Outcome.0.invuity7x@U,~q
+    (call@H moveStack.0.invuity7x~9 pouch.0@1 crate.0@8 0@F 2@I))
+   (call@6,i expect.0.~6 "a move that fits moves exactly what it said"@1
+    (and@l,1
+     (and~Y
+      (and@k,~1
+       (call~6 went.0.invuity7x@1 moved.0~5)
+       (eq~p,1
+        (i 64)
+        (dot~7 moved.0~5 moved.0 0)2@3))
+      (eq@T
+       (i 64)
+       (call~C countOf.0.invuity7x~7 pouch.0~D "bandage"@1)2@3))
+     (eq~Q,1
+      (i 64)
+      (call~C countOf.0.invuity7x~7 crate.0~D "bandage"@1)2@3)))
+   (call@D,l expectTrouble.0.~D "a move within one container is neither"@1
+    (call@q moveStack.0.invuity7x~9 pouch.0@1 pouch.0@8 0@F 0@10,Aj,.jester/deps/aoughwl_inventory/inventory.nim)Nowhere.0.invuity7x~B,1)
+   (call@D,n expectTrouble.0.~D "a move of more than is there is refused"@1
+    (call~2,1 moveStack.0.invuity7x~9 pouch.0@1 crate.0@8 0@F 99@I)NotEnough.0.invuity7x@L,1)
+   (call@6,q expect.0.~6 "taking works across stacks"@1
+    (and@z
+     (call~6 went.0.invuity7x@1
+      (call~E take.0.invuity7x~4 pouch.0~A "bandage"@1 2@C))
+     (eq~k,1
+      (i 64)
+      (call~3 stackCount.0.invuity7x~A pouch.0~G)0@3)))
+   (call@D,s expectTrouble.0.~D "taking what is not there is refused"@1
+    (call@o take.0.invuity7x~4 pouch.0~A "bandage"@1 1@C)NotEnough.0.invuity7x~B,1)
+   (call@6,v expect.0.~6 "a closed container is gone"@1
+    (and@x
+     (call~6 went.0.invuity7x@1
+      (call~2 closeContainer.0.invuity7x~E crate.0~K))
+     (not~11,1
+      (call@E open.0.invuity7x~4 crate.0~A))))
+   (call@D,x expectTrouble.0.~D "and stays gone"@1
+    (call@S put.0.invuity7x~3 crate.0~9 "rifle"@1 1@A)NoSuchContainer.0.invuity7x@g)
+   (discard@,y
+    (call@S closeContainer.0.invuity7x~E pouch.0~K))))
+ (proc@,1g :start.0.@5 . . .
+  (params@A). . .
+  (stmts@2,1
+   (call@L declareInventoryKinds.0.invuity7x~L)
+   (call@9,1 selfCheck.0.~9)
+   (asgn@9,2 loadedAt.0.~9
+    (call@A gameTime.0.jesaqohvh1~8))
+   (call@3,3 log.0.jesaqohvh1~3
+    (infix@16 &.0.sysvq0asl
+     (infix~A &.0.sysvq0asl
+      (infix~6 &.0.sysvq0asl
+       (infix~A &.0.sysvq0asl "inventory\3A kinds declared, self-check "~f
+        (prefix@2 $.1.sysvq0asl passed.0.@1))"/"@2)
+      (prefix@2 $.1.sysvq0asl checks.0.@1))" \28L shows this on the screen\29"~17,1))))
+ (proc@,1p :showing.0.@5 . . .
+  (params@C)
+  (bool@4). .
+  (stmts@2,1
+   (result@6 :result.0 . .
+    (bool@M,~1O).)
+   (asgn@6 result.0
+    (call wanted.0.invz5nst41~6 passed.0.@1 checks.0.@9
+     (sub@S
+      (f 64)
+      (call~3 gameTime.0.jesaqohvh1~8)loadedAt.0.@2)ask.0.@e Linger.0.invz5nst41@M,V,invpanel.nim))
+   (ret~2,~1 result.0)))
+ (proc@,1s :update.0.@5 . . .
+  (params@B). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@7 pressed.0.jesaqohvh1~7 "L"@1)
+     (stmts@E
+      (asgn@4 ask.0.~4
+       (call@9 toggled.0.invz5nst41~7
+        (call@8 showing.0.~7))))))))
+ (proc@,2A :drawGui.0.@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (not
+      (call@B showing.0.~7))
+     (stmts@F
+      (ret .))))
+   (call@9,1 beginMenu.0.jesaqohvh1~9 "Inventory Library"@1 460.0@d,9O,../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim)
+   (call@5,2 label.0.jesaqohvh1~5 "kinds declared\3A item, container"@1)
+   (call@5,3 label.0.jesaqohvh1~5
+    (infix@i &.0.sysvq0asl
+     (infix~A &.0.sysvq0asl
+      (infix~9 &.0.sysvq0asl
+       (infix~A &.0.sysvq0asl "self-check "~E
+        (prefix@2 $.1.sysvq0asl passed.0.@1))" of "@2)
+      (prefix@2 $.1.sysvq0asl checks.0.@1))
+     (expr
+      (stmts~l,1)
+      (if@1
+       (elif@3
+        (eq@7
+         (i 64)passed.0.~7 checks.0.@3)" - all pass"@I)
+       (else@Z " - SEE THE LOG"@6)))))
+   (call@5,5 label.0.jesaqohvh1~5 "a mod that fills a catalog of these kinds draws the screen"@1)
+   (call@5,6 label.0.jesaqohvh1~5 "L hides this"@1)
+   (call@7,7 endMenu.0.jesaqohvh1~7)))
+ (comment@U,S bool.0.sysvq0asl bool.0.sysvq0asl~Q,1N))(.index@,1,.jester/source/jester_mod_e1064ed627a34e4d.nim
+ (h CheckItems.0. 342)
+ (h CheckContainers.0. 93)
+ (h checks.0. 103)
+ (h passed.0. 39)
+ (h ask.0. 39)
+ (h loadedAt.0. 84)
+ (h expect.0. 43)
+ (h expectTrouble.0. 465)
+ (h selfCheck.0. 489)
+ (h start.0. 6312)
+ (h showing.0. 534)
+ (h update.0. 343)
+ (h drawGui.0. 235))

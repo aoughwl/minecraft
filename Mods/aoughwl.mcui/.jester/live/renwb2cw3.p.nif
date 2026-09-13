@@ -1,0 +1,103 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,../../../../Packages/com.aoughwl.jester/ModSdk/render.nim
+ (comment)
+ (proc@,R hostRenderFpsSet@5 . . .
+  (params@L
+   (param@1 rate . . int64@6 .)).
+  (pragmas@Z
+   (kv@9 importc~7 "jester_render_fps_set"@2)). .)
+ (proc@,S hostRenderFps@5 . . .
+  (params@I)int64@4
+  (pragmas@S
+   (kv@9 importc~7 "jester_render_fps"@2)). .)
+ (proc@,T hostRenderIntervalSet@5 . . .
+  (params@Q
+   (param@1 every . . int64@7 .)).
+  (pragmas@f
+   (kv@9 importc~7 "jester_render_interval_set"@2)). .)
+ (proc@,U hostRenderInterval@5 . . .
+  (params@N)int64@4
+  (pragmas@X
+   (kv@9 importc~7 "jester_render_interval"@2)). .)
+ (proc@,V hostRenderIdle@5 . . .
+  (params@J
+   (param@1 idle . . int64@D .)
+   (param@7 awake . . int64@7 .)
+   (param@L seconds . . float64@9 .)).
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_render_idle"@2)). .)
+ (proc@,X hostRenderIdling@5 . . .
+  (params@L)bool@4
+  (pragmas@U
+   (kv@9 importc~7 "jester_render_idling"@2)). .)
+ (proc@,Y hostRenderWake@5 . . .
+  (params@J).
+  (pragmas@M
+   (kv@9 importc~7 "jester_render_wake"@2)). .)
+ (proc@,Z hostRenderContinuous@5 . . .
+  (params@P).
+  (pragmas@S
+   (kv@9 importc~7 "jester_render_continuous"@2)). .)
+ (proc@,a hostRenderFrames@5 . . .
+  (params@L)int64@4
+  (pragmas@V
+   (kv@9 importc~7 "jester_render_frames"@2)). .)
+ (comment@,c)
+ (proc@,e frameRate@5 x . .
+  (params@F
+   (param@1 rate . . int@6 .)). . .
+  (stmts@T
+   (call@G hostRenderFpsSet~G
+    (call@6 int64~5 rate@1))))
+ (comment@,f)
+ (proc@,g frameRate@5 x . .
+  (params@F)int@4 . .
+  (stmts@P
+   (call@3 int~3
+    (call@E hostRenderFps~D))))
+ (comment@,i)
+ (proc@,l drawEvery@5 x . .
+  (params@F
+   (param@1 frames . . int@8 .)). . .
+  (stmts@V
+   (call@L hostRenderIntervalSet~L
+    (call@6 int64~5 frames@1))))
+ (comment@,m)
+ (proc@,n drawEvery@5 x . .
+  (params@F)int@4 . .
+  (stmts@P
+   (call@3 int~3
+    (call@J hostRenderInterval~I))))
+ (comment@,p)
+ (proc@,s idleWhenQuiet@5 x . .
+  (params@J
+   (param@1 idle . . . 5@7)
+   (param@B awake . . . 60@8)
+   (param@N seconds . . . 0.4@A)). . .
+  (stmts@2,1
+   (call@E hostRenderIdle~E
+    (call@6 int64~5 idle@1)
+    (call@J int64~5 awake@1)seconds@S)))
+ (comment@,v)
+ (proc@,w idling@5 x . .
+  (params@C)bool@4 . .
+  (stmts@N
+   (call@G hostRenderIdling~G)))
+ (comment@,y)
+ (proc@,10 redraw@5 x . .
+  (params@C). . .
+  (stmts@H
+   (call@E hostRenderWake~E)))
+ (comment@,12)
+ (proc@,13 drawContinuously@5 x . .
+  (params@M). . .
+  (stmts@R
+   (call@K hostRenderContinuous~K)))
+ (comment@,15)
+ (proc@,17 framesDrawn@5 x . .
+  (params@H)int@4 . .
+  (stmts@R
+   (call@3 int~3
+    (call@H hostRenderFrames~G)))))

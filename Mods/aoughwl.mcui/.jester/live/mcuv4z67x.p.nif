@@ -1,0 +1,1283 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,mcuiopts.nim
+ (comment)
+ (import@,1M mcuicore@7)
+ (import@,1N mcuimenu@7)
+ (import@,1O mcuistack@7)
+ (const@A,1S RowWidth~8 x . . 150@4)
+ (const@C,1T ColumnStep~A x . . 160@4)
+ (const@A,1U GridLeft~8 x . . 155@4)
+ (const@B,1X RowHeight~9 x . . 20@4)
+ (const@A,1Y DoneDrop~8 x . . 168@4)
+ (const@A,1c RootLift~8 x . . -12@4)
+ (const@E,1e RootBlockTop~C x . . 42@4)
+ (const@B,1g LockWidth~9 x . . 20@4)
+ (const@A,1h LockLeft~8 x . . 135@4)
+ (const@C,1p OptListTop~A x . . 32@4)
+ (const@F,1q OptListBottom~D x . . 32@4)
+ (const@C,1s OptListRow~A x . . 25@4)
+ (const@D,1t OptListDone~B x . . 27@4)
+ (const@E,1v OptListTitle~C x . . 5@4)
+ (const@E,1z GridTitleTop~C x . . 15@4)
+ (const@B,2A KnobWidth~9 x . . 8@4)
+ (const@G,2B KnobPieceWidth~E x . . 4@4)
+ (const@D,2C KnobSpriteX~B x . . 0.0@4)
+ (const@H,2D KnobSpriteRight~F x . . 196.0@4)
+ (const@F,2E KnobSpriteTop~D x . . 66.0@4)
+ (const@I,2F KnobSpriteStride~G x . . 20.0@4)
+ (const@B,2H WideWidth~9 x . . 310@4)
+ (const@G,2K ReasonBaseline~E x . . 12@4)
+ (const@F,2O UnicodeReason~D x . .
+  (infix@13 & "there is one font sheet, and forcing unicode would need a "~z "second one the granted copy does not publish"~1E,1))
+ (const@I,2Q FallbackLanguage~G x . . "en_us"@4)
+ (const@F,2U KeyFullscreen~D x . . "options.fullscreen"@4)
+ (const@K,2V KeyFullscreenStore~I x . . "fullscreen"@4)
+ (const@E,2W KeyFramerate~C x . . "options.framerateLimit"@4)
+ (const@I,2X KeyGuiScaleStore~G x . . "guiScale"@4)
+ (const@J,2Y KeyFramerateStore~H x . . "maxFps"@4)
+ (const@H,2b KeyPercentValue~F x . . "options.percent_value"@4)
+ (const@7,2d KeyOn~5 x . . "options.on"@4)
+ (const@8,2e KeyOff~6 x . . "options.off"@4)
+ (const@B,2f WorldMark~9 x . . "world\3A"@4)
+ (type@E,2k OptionKind~C x . .
+  (enum@2 .
+   (efld~C,1 CycleOption . . . .)
+   (efld~C,2 SliderOption . . . .)
+   (efld~C,3 ScreenOption . . . .)))
+ (type@E,2p ValueStyle~C x . .
+  (enum@2 .
+   (efld~C,1 PlainValue . . . .)
+   (efld~C,2 PercentValue . . . .)
+   (efld~C,3 SwitchValue . . . .)
+   (efld~C,4 NamedValue . . . .)
+   (efld~C,5 ScaleValue . . . .)
+   (efld~C,6 NoValue . . . .)))
+ (type@A,2x Option~8 x . .
+  (object@2 .
+   (fld~4,1 page~4 x . Page@3 .)
+   (fld~5,2 key~3 x . string@3 .)
+   (fld~3,3 store~5 x . string@3 .)
+   (fld~4,4 kind~4 x . OptionKind@3 .)
+   (fld~3,5 style~5 x . ValueStyle@3 .)
+   (fld~6,6 lo~2 x . int@H .)
+   (fld~1,6 hi~2 x . int@C .)
+   (fld@8,6 stride~6 x . int@3 .)
+   (fld@,7 fallback~8 x . int@3 .)
+   (fld~1,8 pattern~7 x . string@3 .)
+   (fld~2,9 minKey~6 x . string@C .)
+   (fld@7,9 maxKey~6 x . string@3 .)
+   (fld~2,A effect~6 x . string@3 .)
+   (fld~2,B reason~6 x . string@3 .)
+   (fld~4,C rect~4 x . MRect@3 .)))
+ (type@9,3B Shown~7 x . .
+  (object@2 .
+   (fld@,3 pattern~7 x . string@3 .)
+   (fld@1,4 valueKey~8 x . string@3 .)
+   (fld@2,5 valueText~9 x . string@3 .)
+   (fld@5,6 valuePattern~C x . string@3 .)))
+ (const@6,3N Rows~4 x . .
+  (bracket@4 "page=options;key=options.fov;store=fov;kind=slider;lo=30;hi=110;default=70;min=options.fov.min;max=options.fov.max;effect=world\3Afov"~6,2 "page=options;key=options.difficulty;store=difficulty;style=named;hi=3;default=2;effect=world\3Adifficulty"~6,3 "page=options;key=options.skinCustomisation;kind=screen;style=none;effect=stack.go SkinPage"~6,4 "page=options;key=options.sounds;kind=screen;style=none;effect=stack.go SoundPage"~6,5 "page=options;key=options.video;kind=screen;style=none;effect=stack.go VideoPage"~6,6 "page=options;key=options.controls;kind=screen;style=none;effect=stack.go ControlsPage"~6,7 "page=options;key=options.language;kind=screen;style=none;effect=stack.go LanguagePage"~6,8 "page=options;key=options.chat.title;kind=screen;style=none;effect=stack.go ChatPage"~6,9 "page=options;key=options.resourcepack;kind=screen;style=none;effect=stack.go PacksPage"~6,A "page=options;key=options.accessibility.title;kind=screen;style=none;effect=stack.go AccessPage"~6,B "page=video;key=options.graphics;store=graphicsMode;style=named;hi=2;default=1;reason=no host call chooses a render path, and RenderSettings is a static class the mod seam cannot reach at all"~6,E "page=video;key=options.renderDistance;store=renderDistance;kind=slider;lo=2;hi=32;default=12;pattern=options.chunks;effect=world\3ArenderDistance"~6,F "page=video;key=options.simulationDistance;store=simulationDistance;kind=slider;lo=5;hi=32;default=8;pattern=options.chunks;reason=the near world is a fixed window of chunks round the player and nothing reaches its span from here"~6,G "page=video;key=options.guiScale;store=guiScale;style=scale;hi=4;default=0;effect=scaleSetting = value"~6,H "page=video;key=options.framerateLimit;store=maxFps;kind=slider;lo=10;hi=260;step=10;default=120;pattern=options.framerate;max=options.framerateLimit.max;effect=frameRate\28frameCap\29"~6,I "page=video;key=options.vsync;store=enableVsync;style=switch;default=1;reason=no host call sets QualitySettings.vSyncCount"~6,J "page=video;key=options.fullscreen;store=fullscreen;style=switch;effect=displayMode\28"~6,K "page=video;key=options.gamma;store=gamma;kind=slider;hi=100;default=50;style=percent;min=options.gamma.min;max=options.gamma.max;reason=no host call sets RenderSettings.ambientLight, and docs/SKY.md specifies the sky_ calls that would carry it"~6,L "page=video;key=options.ao;store=ao;style=switch;default=1;reason=the mesh host takes no vertex colours, so smooth lighting cannot be baked into a chunk"~6,M "page=video;key=options.viewBobbing;store=bobView;style=switch;default=1;effect=world\3AviewBobbing"~6,N "page=video;key=options.renderClouds;store=renderClouds;style=switch;default=1;reason=nothing in this modpack draws clouds"~6,O "page=video;key=options.particles;store=particles;style=named;hi=2;reason=nothing in this modpack spawns a particle"~6,P "page=video;key=options.mipmapLevels;store=mipmapLevels;kind=slider;hi=4;default=4;reason=no host call sets a texture\27s mipmap count"~6,Q "page=video;key=options.entityShadows;store=entityShadows;style=switch;default=1;reason=no host call turns one renderer\27s shadows off"~6,R "page=video;key=options.biomeBlendRadius;store=biomeBlendRadius;kind=slider;hi=7;default=2;reason=the generator has one biome, so there is nothing to blend between"~6,S "page=video;key=options.entityDistanceScaling;store=entityDistanceScaling;kind=slider;style=percent;lo=50;hi=500;step=25;default=100;reason=no host call sets a renderer\27s cull distance"~6,T "page=video;key=options.attackIndicator;store=attackIndicator;style=named;hi=2;default=1;reason=nothing draws an attack cooldown"~6,U "page=video;key=options.screenEffectScale;store=screenEffectScale;kind=slider;style=percent;hi=100;default=100;reason=no post-processing is reachable\3A no RenderTexture, no command buffers, no Graphics calls"~6,V "page=video;key=options.fovEffectScale;store=fovEffectScale;kind=slider;style=percent;hi=100;default=100;reason=the field of view is set once and nothing modulates it per frame"~6,W "page=controls;key=options.mouse_settings;kind=screen;style=none;effect=stack.go MousePage"~6,Z "page=controls;key=options.autoJump;store=autoJump;style=switch;effect=world\3AautoJump"~6,a "page=mouse;key=options.sensitivity;store=mouseSensitivity;kind=slider;style=percent;hi=200;default=100;min=options.sensitivity.min;max=options.sensitivity.max;effect=world\3Asensitivity"~6,d "page=mouse;key=options.invertMouse;store=invertYMouse;style=switch;effect=world\3AinvertMouse"~6,e "page=mouse;key=options.discrete_mouse_scroll;store=discrete_mouse_scroll;style=switch;reason=the wheel arrives already counted in notches, so there is nothing left to discretise"~6,f "page=mouse;key=options.touchscreen;store=touchscreen;style=switch;reason=there is no touch input on this floor"~6,g "page=mouse;key=options.rawMouseInput;store=rawMouseInput;style=switch;default=1;reason=no host call chooses between raw and accelerated pointer input"~6,h "page=sound;key=soundCategory.master;store=soundCategory_master;kind=slider;style=percent;hi=100;default=100;effect=busVolume\28"~6,k "page=sound;key=soundCategory.music;store=soundCategory_music;kind=slider;style=percent;hi=100;default=100;effect=busVolume\28"~6,l "page=sound;key=soundCategory.record;store=soundCategory_record;kind=slider;style=percent;hi=100;default=100;effect=busVolume\28"~6,m "page=sound;key=soundCategory.weather;store=soundCategory_weather;kind=slider;style=percent;hi=100;default=100;effect=busVolume\28"~6,n "page=sound;key=soundCategory.block;store=soundCategory_block;kind=slider;style=percent;hi=100;default=100;effect=busVolume\28"~6,o "page=sound;key=soundCategory.hostile;store=soundCategory_hostile;kind=slider;style=percent;hi=100;default=100;effect=busVolume\28"~6,p "page=sound;key=soundCategory.neutral;store=soundCategory_neutral;kind=slider;style=percent;hi=100;default=100;effect=busVolume\28"~6,q "page=sound;key=soundCategory.player;store=soundCategory_player;kind=slider;style=percent;hi=100;default=100;effect=busVolume\28"~6,r "page=sound;key=soundCategory.ambient;store=soundCategory_ambient;kind=slider;style=percent;hi=100;default=100;effect=busVolume\28"~6,s "page=sound;key=options.showSubtitles;store=showSubtitles;style=switch;reason=nothing in this modpack produces a subtitle"~6,t "page=chat;key=options.chat.visibility;store=chatVisibility;style=named;hi=2;reason=aoughwl.chat serves no settings - it would need a chat.settings service with a visibility line on it"~6,w "page=chat;key=options.chat.color;store=chatColors;style=switch;default=1;reason=the same service, with a colour line on it"~6,x "page=chat;key=options.chat.links;store=chatLinks;style=switch;default=1;reason=nothing in the chat window makes a link out of a url"~6,y "page=chat;key=options.chat.links.prompt;store=chatLinksPrompt;style=switch;default=1;reason=there are no links to prompt about"~6,z "page=chat;key=options.chat.opacity;store=chatOpacity;kind=slider;style=percent;hi=100;default=100;reason=the same service, with an opacity line on it"~6,10 "page=chat;key=options.chat.scale;store=chatScale;kind=slider;style=percent;hi=100;default=100;reason=the same service, with a scale line on it"~6,11 "page=chat;key=options.chat.width;store=chatWidth;kind=slider;style=percent;hi=100;default=100;reason=the same service, with a width line on it"~6,12 "page=chat;key=options.chat.height.focused;store=chatHeightFocused;kind=slider;style=percent;hi=100;default=100;reason=the same service, with a height line on it"~6,13 "page=chat;key=options.chat.height.unfocused;store=chatHeightUnfocused;kind=slider;style=percent;hi=100;default=44;reason=the same service, with a height line on it"~6,14 "page=chat;key=options.chat.line_spacing;store=chatLineSpacing;kind=slider;style=percent;hi=100;reason=the same service, with a line-spacing line on it"~6,15 "page=chat;key=options.chat.delay_instant;store=chatDelay;kind=slider;hi=60;reason=nothing delays a chat line"~6,16 "page=chat;key=options.autoSuggestCommands;store=autoSuggestCommands;style=switch;default=1;reason=there are no commands to suggest"~6,17 "page=chat;key=options.hideMatchedNames;store=hideMatchedNames;style=switch;default=1;reason=there is no ignore list to match a name against"~6,18 "page=skin;key=options.modelPart.cape;store=modelPart_cape;style=switch;default=1;reason=the player model in aoughwl.voxel is six boxes and has no cape"~6,1B "page=skin;key=options.modelPart.jacket;store=modelPart_jacket;style=switch;default=1;reason=the player model has no outer layer to hide"~6,1C "page=skin;key=options.modelPart.left_sleeve;store=modelPart_left_sleeve;style=switch;default=1;reason=the player model has no outer layer to hide"~6,1D "page=skin;key=options.modelPart.right_sleeve;store=modelPart_right_sleeve;style=switch;default=1;reason=the player model has no outer layer to hide"~6,1E "page=skin;key=options.modelPart.left_pants_leg;store=modelPart_left_pants_leg;style=switch;default=1;reason=the player model has no outer layer to hide"~6,1F "page=skin;key=options.modelPart.right_pants_leg;store=modelPart_right_pants_leg;style=switch;default=1;reason=the player model has no outer layer to hide"~6,1G "page=skin;key=options.modelPart.hat;store=modelPart_hat;style=switch;default=1;reason=the head\27s second layer is drawn unconditionally in vxskin"~6,1H "page=skin;key=options.mainHand;store=mainHand;style=named;hi=1;default=1;reason=the hand in the corner of the screen is drawn on one side only"~6,1I "page=access;key=options.accessibility.text_background_opacity;store=textBackgroundOpacity;kind=slider;style=percent;hi=100;default=50;reason=nothing draws a background behind text"~6,1L "page=access;key=options.chat.line_spacing;store=chatLineSpacing;kind=slider;style=percent;hi=100;reason=aoughwl.chat serves no settings"~6,1M "page=access;key=options.chat.delay_instant;store=chatDelay;kind=slider;hi=60;reason=nothing delays a chat line"~6,1N "page=access;key=options.autoJump;store=autoJump;style=switch;effect=world\3AautoJump"~6,1O "page=access;key=options.showSubtitles;store=showSubtitles;style=switch;reason=nothing produces a subtitle"~6,1P "page=access;key=options.accessibility.toggle_sprint;store=toggleSprint;style=switch;reason=sprint is held rather than toggled inside the character, and ModSdk bindKey has no say over which"~6,1Q "page=access;key=options.accessibility.toggle_crouch;store=toggleCrouch;style=switch;reason=there is no crouch in this world, so there is nothing to hold down or to toggle"~6,1R "page=access;key=options.darkMojangStudiosBackgroundColor;store=darkMojangStudiosBackground;style=switch;reason=the studio screen is drawn from the granted copy\27s own picture"~6,1S "page=access;key=options.hideLightningFlashes;store=hideLightningFlashes;style=switch;reason=there is no weather in this world, and therefore no lightning to flash"~6,1T "page=access;key=options.monochromeLogo;store=monochromeLogo;style=switch;reason=the logo is the granted copy\27s own picture and has one colouring"~6,1U "page=access;key=options.screenEffectScale;store=screenEffectScale;kind=slider;style=percent;hi=100;default=100;reason=no post-processing is reachable"~6,1V "page=access;key=options.fovEffectScale;store=fovEffectScale;kind=slider;style=percent;hi=100;default=100;reason=nothing modulates the field of view per frame"~6,1W))
+ (const@C,4v FieldNames~A x . .
+  (bracket@4 "page"@1 "key"@9 "store"@G "kind"@P "style"@X "lo"@g "hi"@m "step"@s "default"@1,1 "pattern"@C,1 "min"@N,1 "max"@U,1 "effect"@b,1 "reason"@l,1))
+ (comment@,51)
+ (proc@,55 valueKeys@5 x . .
+  (params@F
+   (param@1 key . . string@5 .))
+  (at@I seq~3 string@1). .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@4 == key~4 "options.difficulty"@3)
+     (stmts~1,1
+      (prefix \40
+       (bracket@1 "options.difficulty.peaceful"@1 "options.difficulty.easy"@W "options.difficulty.normal"@1,1 "options.difficulty.hard"@U,1))))
+    (elif@5,3
+     (infix@4 == key~4 "options.graphics"@3)
+     (stmts~3,1
+      (prefix \40
+       (bracket@1 "options.graphics.fast"@1 "options.graphics.fancy"@Q "options.graphics.fabulous"@1,1))))
+    (elif@5,6
+     (infix@4 == key~4 "options.particles"@3)
+     (stmts~3,1
+      (prefix \40
+       (bracket@1 "options.particles.all"@1 "options.particles.decreased"@Q "options.particles.minimal"@1,1))))
+    (elif@5,9
+     (infix@4 == key~4 "options.attackIndicator"@3)
+     (stmts~3,1
+      (prefix \40
+       (bracket@1 KeyOff@1 "options.attack.crosshair"@9 "options.attack.hotbar"@b))))
+    (elif@5,B
+     (infix@4 == key~4 "options.chat.visibility"@3)
+     (stmts~3,1
+      (prefix \40
+       (bracket@1 "options.chat.visibility.full"@1 "options.chat.visibility.system"@X "options.chat.visibility.hidden"@1,1))))
+    (elif@5,E
+     (infix@4 == key~4 "options.mainHand"@3)
+     (stmts~3,1
+      (prefix \40
+       (bracket@1 "options.mainHand.left"@1 "options.mainHand.right"@Q))))
+    (else@,G
+     (stmts@6
+      (prefix \40
+       (bracket@1)))))))
+ (comment@,5R)
+ (proc@,5U fieldOf@5 x . .
+  (params@D
+   (param@1 line . . string@C .)
+   (param@7 want . . string@6 .))string@M . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 at . . . 0@5)
+   (while@,2
+    (infix@9 < at~3
+     (dot@6 line~4 len@1))
+    (stmts@2,2
+     (var@4 name . . . ""@7)
+     (while@,1
+      (infix@e and
+       (infix~K and
+        (infix~B < at~3
+         (dot@6 line~4 len@1))
+        (infix@D !=
+         (at~5 line~4 at@1)'='@3))
+       (infix@D !=
+        (at~5 line~4 at@1)';'@3))
+      (stmts@2,1
+       (cmd@4
+        (dot name~4 add@1)
+        (at@9 line~4 at@1))
+       (cmd@,1 inc at@4)))
+     (var@4,4 value . . . ""@8)
+     (if@,5
+      (elif@3
+       (infix@E and
+        (infix~B < at~3
+         (dot@6 line~4 len@1))
+        (infix@D ==
+         (at~5 line~4 at@1)'='@3))
+       (stmts~1,1
+        (cmd inc at@4)
+        (while@,1
+         (infix@K and
+          (infix~B < at~3
+           (dot@6 line~4 len@1))
+          (infix@D !=
+           (at~5 line~4 at@1)';'@3))
+         (stmts@2,1
+          (cmd@5
+           (dot value~5 add@1)
+           (at@9 line~4 at@1))
+          (cmd@,1 inc at@4))))))
+     (if@,A
+      (elif@3
+       (infix@E and
+        (infix~B < at~3
+         (dot@6 line~4 len@1))
+        (infix@D ==
+         (at~5 line~4 at@1)';'@3))
+       (stmts@Z
+        (cmd inc at@4))))
+     (if@,B
+      (elif@3
+       (infix@5 == name~5 want@3)
+       (stmts@E
+        (ret value@7))))))""@,G))
+ (comment@,5n)
+ (proc@,5o fieldNamesOf@5 x . .
+  (params@I
+   (param@1 line . . string@6 .))
+  (at@J seq~3 string@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 at . . . 0@5)
+   (while@,2
+    (infix@9 < at~3
+     (dot@6 line~4 len@1))
+    (stmts@2,1
+     (var@4 name . . . ""@7)
+     (while@,1
+      (infix@e and
+       (infix~K and
+        (infix~B < at~3
+         (dot@6 line~4 len@1))
+        (infix@D !=
+         (at~5 line~4 at@1)'='@3))
+       (infix@D !=
+        (at~5 line~4 at@1)';'@3))
+      (stmts@2,1
+       (cmd@4
+        (dot name~4 add@1)
+        (at@9 line~4 at@1))
+       (cmd@,1 inc at@4)))
+     (if@,4
+      (elif@3
+       (infix@9 >
+        (dot~5 name~4 len@1)0@2)
+       (stmts@E
+        (cmd@6
+         (dot result~6 add@1)name@5))))
+     (if@,5
+      (elif@3
+       (infix@E and
+        (infix~B < at~3
+         (dot@6 line~4 len@1))
+        (infix@D ==
+         (at~5 line~4 at@1)'='@3))
+       (stmts~1,1
+        (cmd inc at@4)
+        (while@,1
+         (infix@K and
+          (infix~B < at~3
+           (dot@6 line~4 len@1))
+          (infix@D !=
+           (at~5 line~4 at@1)';'@3))
+         (stmts@f
+          (cmd inc at@4))))))
+     (if@,8
+      (elif@3
+       (infix@E and
+        (infix~B < at~3
+         (dot@6 line~4 len@1))
+        (infix@D ==
+         (at~5 line~4 at@1)';'@3))
+       (stmts@Z
+        (cmd inc at@4))))))))
+ (proc@,62 wholeOf@5 . . .
+  (params@C
+   (param@1 text . . string@6 .)
+   (param@F fallback . . int@A .))int@V . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 ==
+      (dot~5 text~4 len@1)0@3)
+     (stmts@F
+      (ret fallback@7))))
+   (var@4,1 i . . . 0@4)
+   (var@4,2 sign . . . 1@7)
+   (if@,3
+    (elif@3
+     (infix@8 ==
+      (at~4 text~4 0@1)'-'@3)
+     (stmts~1,1
+      (asgn@5 sign~5 -1@2)
+      (asgn@2,1 i~2 1@2))))
+   (var@4,6 value . . . 0@8)
+   (var@4,7 digits . . . 0@9)
+   (while@,8
+    (infix@8 < i~2
+     (dot@6 text~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@E or
+        (infix~6 <
+         (at~4 text~4 i@1)'0'@2)
+        (infix@B >
+         (at~4 text~4 i@1)'9'@2))
+       (stmts@W
+        (ret fallback@7))))
+     (asgn@6,1 value~6
+      (infix@D \2B
+       (infix~5 * value~6 10@2)
+       (par@2
+        (infix@E \2D
+         (call~A int~3
+          (at@5 text~4 i@1))
+         (call@5 int~3 '0'@1)))))
+     (cmd@,2 inc digits@4)
+     (cmd@,3 inc i@4)))
+   (if@,D
+    (elif@3
+     (infix@7 == digits~7 0@3)
+     (stmts@D fallback))
+    (else@P
+     (stmts@6
+      (infix@6 * value~6 sign@2))))))
+ (proc@,6I kindOf@5 . . .
+  (params@B
+   (param@1 word . . string@6 .))OptionKind@G . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 == word~5 "slider"@3)
+     (stmts@I SliderOption))
+    (elif@5,1
+     (infix@5 == word~5 "screen"@3)
+     (stmts@I ScreenOption))
+    (else@,2
+     (stmts@6 CycleOption)))))
+ (proc@,6N styleOf@5 . . .
+  (params@C
+   (param@1 word . . string@6 .))ValueStyle@G . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 == word~5 "percent"@3)
+     (stmts@J PercentValue))
+    (elif@5,1
+     (infix@5 == word~5 "switch"@3)
+     (stmts@I SwitchValue))
+    (elif@5,2
+     (infix@5 == word~5 "named"@3)
+     (stmts@H NamedValue))
+    (elif@5,3
+     (infix@5 == word~5 "scale"@3)
+     (stmts@H ScaleValue))
+    (elif@5,4
+     (infix@5 == word~5 "none"@3)
+     (stmts@G NoValue))
+    (else@,5
+     (stmts@6 PlainValue)))))
+ (comment@,6V)
+ (proc@,6X pageOf@5 x . .
+  (params@C
+   (param@1 word . . string@6 .))Page@G . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 == word~5 "video"@3)
+     (stmts@H VideoPage))
+    (elif@5,1
+     (infix@5 == word~5 "controls"@3)
+     (stmts@K ControlsPage))
+    (elif@5,2
+     (infix@5 == word~5 "mouse"@3)
+     (stmts@H MousePage))
+    (elif@5,3
+     (infix@5 == word~5 "language"@3)
+     (stmts@K LanguagePage))
+    (elif@5,4
+     (infix@5 == word~5 "sound"@3)
+     (stmts@H SoundPage))
+    (elif@5,5
+     (infix@5 == word~5 "chat"@3)
+     (stmts@G ChatPage))
+    (elif@5,6
+     (infix@5 == word~5 "skin"@3)
+     (stmts@G SkinPage))
+    (elif@5,7
+     (infix@5 == word~5 "access"@3)
+     (stmts@I AccessPage))
+    (else@,8
+     (stmts@6 OptionsPage)))))
+ (comment@,6i)
+ (proc@,6k readRow@5 x . .
+  (params@D
+   (param@1 line . . string@6 .))Option@G . .
+  (stmts@2,1
+   (oconstr@6 Option~6
+    (kv@5 page~4
+     (call@8 pageOf~6
+      (call@8 fieldOf~7 line@1 "page"@7)))
+    (kv@4,1 key~3
+     (call@9 fieldOf~7 line@1 "key"@7))
+    (kv@6,2 store~5
+     (call@9 fieldOf~7 line@1 "store"@7))
+    (kv@5,3 kind~4
+     (call@8 kindOf~6
+      (call@8 fieldOf~7 line@1 "kind"@7)))
+    (kv@6,4 style~5
+     (call@9 styleOf~7
+      (call@8 fieldOf~7 line@1 "style"@7)))
+    (kv@3,5 lo~2
+     (call@9 wholeOf~7
+      (call@8 fieldOf~7 line@1 "lo"@7)0@M))
+    (kv@3,6 hi~2
+     (call@9 wholeOf~7
+      (call@8 fieldOf~7 line@1 "hi"@7)1@M))
+    (kv@7,7 stride~6
+     (call@9 wholeOf~7
+      (call@8 fieldOf~7 line@1 "step"@7)1@O))
+    (kv@9,8 fallback~8
+     (call@9 wholeOf~7
+      (call@8 fieldOf~7 line@1 "default"@7)0@R))
+    (kv@8,9 pattern~7
+     (call@9 fieldOf~7 line@1 "pattern"@7))
+    (kv@7,A minKey~6
+     (call@9 fieldOf~7 line@1 "min"@7))
+    (kv@7,B maxKey~6
+     (call@9 fieldOf~7 line@1 "max"@7))
+    (kv@7,C effect~6
+     (call@9 fieldOf~7 line@1 "effect"@7))
+    (kv@7,D reason~6
+     (call@9 fieldOf~7 line@1 "reason"@7))
+    (kv@5,E rect~4
+     (call@7 mrect~5 0.0@1 0.0@6 0.0@B 0.0@G)))))
+ (comment@,71)
+ (proc@,73 titleKey@5 x . .
+  (params@E
+   (param@1 p . . Page@3 .))string@B . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@2 == p~2 OptionsPage@3)
+     (stmts@I KeyOptionsTitle))
+    (elif@5,1
+     (infix@2 == p~2 VideoPage@3)
+     (stmts@G "options.videoTitle"))
+    (elif@5,2
+     (infix@2 == p~2 ControlsPage@3)
+     (stmts@J "controls.title"))
+    (elif@5,3
+     (infix@2 == p~2 MousePage@3)
+     (stmts@G "options.mouse_settings.title"))
+    (elif@5,4
+     (infix@2 == p~2 LanguagePage@3)
+     (stmts@J "options.language"))
+    (elif@5,5
+     (infix@2 == p~2 SoundPage@3)
+     (stmts@G "options.sounds.title"))
+    (elif@5,6
+     (infix@2 == p~2 ChatPage@3)
+     (stmts@F "options.chat.title"))
+    (elif@5,7
+     (infix@2 == p~2 SkinPage@3)
+     (stmts@F "options.skinCustomisation.title"))
+    (elif@5,8
+     (infix@2 == p~2 AccessPage@3)
+     (stmts@H "options.accessibility.title"))
+    (else@,9
+     (stmts@6 "")))))
+ (comment@,7F)
+ (proc@,7H isOptionsPage@5 x . .
+  (params@J
+   (param@1 p . . Page@3 .))bool@B . .
+  (stmts@b
+   (infix@G >
+    (dot~5
+     (call~3 titleKey~8 p@1)len@1)0@2)))
+ (comment@,7J)
+ (proc@,7M opensPage@5 x . .
+  (params@F
+   (param@1 effect . . string@8 .))Page@I . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 == effect~7 "stack.go VideoPage"@3)
+     (stmts@W VideoPage))
+    (elif@5,1
+     (infix@7 == effect~7 "stack.go ControlsPage"@3)
+     (stmts@Z ControlsPage))
+    (elif@5,2
+     (infix@7 == effect~7 "stack.go MousePage"@3)
+     (stmts@W MousePage))
+    (elif@5,3
+     (infix@7 == effect~7 "stack.go LanguagePage"@3)
+     (stmts@Z LanguagePage))
+    (elif@5,4
+     (infix@7 == effect~7 "stack.go SoundPage"@3)
+     (stmts@W SoundPage))
+    (elif@5,5
+     (infix@7 == effect~7 "stack.go ChatPage"@3)
+     (stmts@V ChatPage))
+    (elif@5,6
+     (infix@7 == effect~7 "stack.go SkinPage"@3)
+     (stmts@V SkinPage))
+    (elif@5,7
+     (infix@7 == effect~7 "stack.go AccessPage"@3)
+     (stmts@X AccessPage))
+    (elif@5,8
+     (infix@7 == effect~7 "stack.go PacksPage"@3)
+     (stmts@W PacksPage))
+    (else@,9
+     (stmts@6 OptionsPage)))))
+ (comment@,7Y)
+ (proc@,7a worldName@5 x . .
+  (params@F
+   (param@1 effect . . string@8 .))string@I . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@B <=
+      (dot~5 effect~6 len@1)
+      (dot@C WorldMark~9 len@1))
+     (stmts@T
+      (ret ""@7))))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@B WorldMark~9 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@A !=
+        (at~4 effect~6 i@1)
+        (at@C WorldMark~9 i@1))
+       (stmts@R
+        (ret ""@7))))
+     (cmd@,1 inc i@4)))
+   (asgn@7,5 result~7 ""@2)
+   (asgn@2,6 i~2
+    (dot@B WorldMark~9 len@1))
+   (while@,7
+    (infix@8 < i~2
+     (dot@8 effect~6 len@1))
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (at@B effect~6 i@1))
+     (cmd@,1 inc i@4)))))
+ (proc@,7m wired@5 x . .
+  (params@B
+   (param@1 o . . Option@3 .))bool@D . .
+  (stmts@V
+   (infix@D >
+    (dot~5
+     (dot~7 o~1 effect@1)len@1)0@2)))
+ (proc@,7r gridRect@5 x . .
+  (params@E
+   (param@1 guiW . . int@F .)
+   (param@7 guiH . . int@9 .)
+   (param@D i . . int@3 .))MRect@M . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@N \2B
+      (infix~B \2D
+       (infix~6 div guiW~5 2@4)GridLeft@2)
+      (infix@C *
+       (par~A
+        (infix@3 mod i~2 2@4))ColumnStep@2)))
+    (call@6,1 float~5
+     (infix@C \2B
+      (infix~6 div guiH~5 6@4)
+      (infix@A * RowStep~8
+       (par@2
+        (infix@3 div i~2 2@4)))))
+    (call@l,1 float~5 RowWidth@1)
+    (call@6,2 float~5 RowHeight@1))))
+ (proc@,7w gridDone@5 x . .
+  (params@E
+   (param@1 guiW . . int@C .)
+   (param@7 guiH . . int@6 .))MRect@J . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@C \2D
+      (infix~6 div guiW~5 2@4)
+      (infix@E div ButtonWidth~C 2@4)))
+    (call@j float~5
+     (infix@C \2B
+      (infix~6 div guiH~5 6@4)DoneDrop@2))
+    (call@6,1 float~5 ButtonWidth@1)
+    (call@Q,1 float~5 ButtonHeight@1))))
+ (comment@,80)
+ (proc@,84 optListRows@5 x . .
+  (params@H
+   (param@1 controls . . int@A .))int@H . .
+  (stmts@e
+   (infix@F div
+    (par~F
+     (infix@A \2B controls~9 1@2))2@4)))
+ (proc@,86 listRect@5 x . .
+  (params@E
+   (param@1 guiW . . int@N .)
+   (param@7 guiH . . int@H .)
+   (param@D i . . int@B .)
+   (param@G scroll . . int@8 .))MRect@U . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@N \2B
+      (infix~B \2D
+       (infix~6 div guiW~5 2@4)GridLeft@2)
+      (infix@C *
+       (par~A
+        (infix@3 mod i~2 2@4))ColumnStep@2)))
+    (call@6,1 float~5
+     (infix@b \2D
+      (infix~P \2B OptListTop~B
+       (infix@C *
+        (par~A
+         (infix@3 div i~2 2@4))OptListRow@2))scroll@2))
+    (call@6,2 float~5 RowWidth@1)
+    (call@N,2 float~5 RowHeight@1))))
+ (proc@,8B listDone@5 x . .
+  (params@E
+   (param@1 guiW . . int@C .)
+   (param@7 guiH . . int@6 .))MRect@J . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@C \2D
+      (infix~6 div guiW~5 2@4)
+      (infix@E div ButtonWidth~C 2@4)))
+    (call@j float~5
+     (infix@6 \2D guiH~5 OptListDone@2))
+    (call@6,1 float~5 ButtonWidth@1)
+    (call@Q,1 float~5 ButtonHeight@1))))
+ (comment@,8F)
+ (proc@,8H rootRect@5 x . .
+  (params@E
+   (param@1 guiW . . int@F .)
+   (param@7 guiH . . int@9 .)
+   (param@D i . . int@3 .))MRect@M . .
+  (stmts@2,1
+   (let@4 x . . .
+    (call@9 float~5
+     (infix@N \2B
+      (infix~B \2D
+       (infix~6 div guiW~5 2@4)GridLeft@2)
+      (infix@C *
+       (par~A
+        (infix@3 mod i~2 2@4))ColumnStep@2))))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 2@2)
+     (stmts~1,1
+      (ret
+       (call@C mrect~5 x@1
+        (call@9 float~5
+         (infix@C \2B
+          (infix~6 div guiH~5 6@4)RootLift@2))
+        (call@d float~5 RowWidth@1)
+        (call@6,1 float~5 RowHeight@1))))))
+   (call@5,4 mrect~5 x@1
+    (call@9 float~5
+     (infix@R \2B
+      (infix~F \2B
+       (infix~6 div guiH~5 6@4)RootBlockTop@2)
+      (infix@A * RowStep~8
+       (par@2
+        (infix@9 div
+         (par~8
+          (infix@3 \2D i~2 2@2))2@4)))))
+    (call@6,1 float~5 RowWidth@1)
+    (call@N,1 float~5 RowHeight@1))))
+ (comment@,8P)
+ (proc@,8R lockRect@5 x . .
+  (params@E
+   (param@1 guiW . . int@C .)
+   (param@7 guiH . . int@6 .))MRect@J . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@C \2B
+      (infix~6 div guiW~5 2@4)LockLeft@2))
+    (call@a float~5
+     (infix@C \2B
+      (infix~6 div guiH~5 6@4)RootLift@2))
+    (call@6,1 float~5 LockWidth@1)
+    (call@O,1 float~5 RowHeight@1))))
+ (proc@,8V difficultyRect@5 x . .
+  (params@K
+   (param@1 guiW . . int@C .)
+   (param@7 guiH . . int@6 .))MRect@J . .
+  (stmts@2,1
+   (let@4 full . . .
+    (call@F rootRect~8 guiW@1 guiH@7 1@D))
+   (call@5,1 mrect~5
+    (dot@5 full~4 x@1)
+    (dot@D full~4 y@1)
+    (infix@O \2D
+     (dot~3 full~4 w@1)
+     (call@7 float~5 LockWidth@1))
+    (dot@m full~4 h@1))))
+ (comment@,8Z)
+ (proc@,8n scrolls@5 x . .
+  (params@D
+   (param@1 p . . Page@3 .))bool@B . .
+  (stmts@V
+   (infix@2 == p~2 VideoPage@3)))
+ (comment@,8p)
+ (proc@,8w options@5 x . .
+  (params@D
+   (param@1 p . . Page@3 .)
+   (param@A guiW . . int@C .)
+   (param@G guiH . . int@6 .)
+   (param@R inWorld . . . false@A)
+   (param@1,1 scroll . . . 0@9))
+  (at@H,1 seq~3 Option@1). .
+  (stmts@2,2
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (var@4,2 at . . . 0@5)
+   (while@,3
+    (infix@8 < i~2
+     (dot@6 Rows~4 len@1))
+    (stmts@2,1
+     (var@4 one . . .
+      (call@D readRow~7
+       (at@5 Rows~4 i@1)))
+     (cmd@,1 inc i@4)
+     (if@,2
+      (elif@3
+       (infix@9 !=
+        (dot~6 one~3 page@1)p@3)
+       (stmts@F
+        (continue .))))
+     (if@,3
+      (elif@3
+       (infix@r and
+        (infix~a and
+         (infix~F == p~2 OptionsPage@3)
+         (infix@C ==
+          (dot~5 one~3 key@1)"options.difficulty"@3))
+        (prefix@4 not inWorld@4))
+       (stmts~1,5
+        (cmd inc at@4)
+        (continue@,1 .))))
+     (if@,A
+      (elif@3
+       (infix@2 == p~2 OptionsPage@3)
+       (stmts@I
+        (asgn@9
+         (dot~6 one~3 rect@1)
+         (call@A rootRect~8 guiW@1 guiH@7 at@D))))
+      (elif@5,1
+       (call@7 scrolls~7 p@1)
+       (stmts@C
+        (asgn@9
+         (dot~6 one~3 rect@1)
+         (call@A listRect~8 guiW@1 guiH@7 at@D scroll@H))))
+      (else@,2
+       (stmts@6
+        (asgn@9
+         (dot~6 one~3 rect@1)
+         (call@A gridRect~8 guiW@1 guiH@7 at@D)))))
+     (if@,D
+      (elif@3
+       (infix@H and
+        (infix~F == p~2 OptionsPage@3)
+        (infix@C ==
+         (dot~5 one~3 key@1)"options.difficulty"@3))
+       (stmts~1,1
+        (asgn@9
+         (dot~6 one~3 rect@1)
+         (call@G difficultyRect~E guiW@1 guiH@7)))))
+     (cmd@6,F
+      (dot result~6 add@1)one@5)
+     (cmd@,G inc at@4)))))
+ (comment@,9K)
+ (proc@,9M allRows@5 x . .
+  (params@D)
+  (at@7 seq~3 Option@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 Rows~4 len@1))
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (call@C readRow~7
+       (at@5 Rows~4 i@1)))
+     (cmd@,1 inc i@4)))))
+ (proc@,9T doneRect@5 x . .
+  (params@E
+   (param@1 p . . Page@3 .)
+   (param@A guiW . . int@C .)
+   (param@G guiH . . int@6 .))MRect@S . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@7 scrolls~7 p@1)
+     (stmts@C
+      (call@8 listDone~8 guiW@1 guiH@7)))
+    (else@a
+     (stmts@6
+      (call@8 gridDone~8 guiW@1 guiH@7))))))
+ (proc@,9W titleTop@5 x . .
+  (params@E
+   (param@1 p . . Page@3 .))int@B . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@7 scrolls~7 p@1)
+     (stmts@C OptListTitle))
+    (else@S
+     (stmts@6 GridTitleTop)))))
+ (proc@,9Z optionUnder@5 x . .
+  (params@H
+   (param@1 list . .
+    (at@9 seq~3 Option@1).)
+   (param@K x . . float@6 .)
+   (param@N y . . float@3 .))int@Y . .
+  (stmts@2,1
+   (asgn@7 result~7 -1@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 list~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (call@I
+        (dot~6
+         (dot~5
+          (at~3 list~4 i@1)rect@1)holds@1)x@1 y@4)
+       (stmts@Q
+        (ret i@7))))
+     (cmd@,1 inc i@4)))))
+ (comment@,9j)
+ (proc@,9k nextValue@5 x . .
+  (params@F
+   (param@1 o . . Option@3 .)
+   (param@C value . . int@7 .))int@P . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 <=
+      (dot~4 o~1 hi@1)
+      (dot@4 o~1 lo@1))
+     (stmts@E
+      (ret
+       (dot@8 o~1 lo@1)))))
+   (var@4,1 step . . .
+    (dot@8 o~1 stride@1))
+   (if@,2
+    (elif@3
+     (infix@5 <= step~5 0@3)
+     (stmts@B
+      (asgn@5 step~5 1@2))))
+   (let@4,3 n . . .
+    (infix@A \2B value~6 step@2))
+   (if@,4
+    (elif@3
+     (infix@2 > n~2
+      (dot@3 o~1 hi@1))
+     (stmts@A
+      (dot@1 o~1 lo@1)))
+    (else@I
+     (stmts@6 n)))))
+ (proc@,9r clampValue@5 x . .
+  (params@G
+   (param@1 o . . Option@3 .)
+   (param@C value . . int@7 .))int@P . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 < value~6
+      (dot@3 o~1 lo@1))
+     (stmts@E
+      (dot@1 o~1 lo@1)))
+    (elif@5,1
+     (infix@6 > value~6
+      (dot@3 o~1 hi@1))
+     (stmts@E
+      (dot@1 o~1 hi@1)))
+    (else@,2
+     (stmts@6 value)))))
+ (comment@,9w)
+ (proc@,9x knobAt@5 x . .
+  (params@C
+   (param@1 o . . Option@3 .)
+   (param@C value . . int@7 .))float@P . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 <=
+      (dot~4 o~1 hi@1)
+      (dot@4 o~1 lo@1))
+     (stmts@E
+      (ret
+       (dot@D
+        (dot~5 o~1 rect@1)x@1)))))
+   (let@4,1 v . . .
+    (call@E clampValue~A o@1 value@4))
+   (infix@9,2 \2B
+    (dot~3
+     (dot~5 o~1 rect@1)x@1)
+    (infix@o /
+     (infix~W *
+      (call~B float~5
+       (infix@3 \2D v~2
+        (dot@3 o~1 lo@1)))
+      (par@2
+       (infix@A \2D
+        (dot~3
+         (dot~5 o~1 rect@1)w@1)
+        (call@7 float~5 KnobWidth@1))))
+     (call~q,1 float~5
+      (infix@6 \2D
+       (dot~4 o~1 hi@1)
+       (dot@3 o~1 lo@1)))))))
+ (comment@,A3)
+ (proc@,A7 valueAt@5 x . .
+  (params@D
+   (param@1 o . . Option@3 .)
+   (param@C x . . float@3 .))int@N . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 <=
+      (dot~4 o~1 hi@1)
+      (dot@4 o~1 lo@1))
+     (stmts@E
+      (ret
+       (dot@8 o~1 lo@1)))))
+   (let@4,1 travel . . .
+    (infix@I \2D
+     (dot~3
+      (dot~5 o~1 rect@1)w@1)
+     (call@7 float~5 KnobWidth@1)))
+   (if@,2
+    (elif@3
+     (infix@7 <= travel~7 0.0@3)
+     (stmts@F
+      (ret
+       (dot@8 o~1 lo@1)))))
+   (var@4,3 f . . .
+    (infix@i /
+     (par~e
+      (infix@E \2D
+       (infix~B \2D x~2
+        (dot@8
+         (dot~5 o~1 rect@1)x@1))
+       (infix@J *
+        (call~C float~5 KnobWidth@1)0.5@2)))travel@2))
+   (if@,4
+    (elif@3
+     (infix@2 < f~2 0.0@2)
+     (stmts@9
+      (asgn@2 f~2 0.0@2))))
+   (if@,5
+    (elif@3
+     (infix@2 > f~2 1.0@2)
+     (stmts@9
+      (asgn@2 f~2 1.0@2))))
+   (var@4,6 step . . .
+    (dot@8 o~1 stride@1))
+   (if@,7
+    (elif@3
+     (infix@5 <= step~5 0@3)
+     (stmts@B
+      (asgn@5 step~5 1@2))))
+   (var@4,8 v . . .
+    (infix@9 \2B
+     (dot~4 o~1 lo@1)
+     (call@5 int~3
+      (infix@O \2B
+       (infix~L * f~2
+        (call@7 float~5
+         (infix@6 \2D
+          (dot~4 o~1 hi@1)
+          (dot@3 o~1 lo@1))))0.5@2))))
+   (asgn@2,9 v~2
+    (infix@7 \2B
+     (dot~4 o~1 lo@1)
+     (infix@b *
+      (par~Z
+       (infix@P div
+        (par~O
+         (infix@A \2B
+          (infix~7 \2D v~2
+           (dot@3 o~1 lo@1))
+          (infix@7 div step~5 2@4)))step@4))step@2)))
+   (call@A,A clampValue~A o@1 v@4)))
+ (comment@,AK)
+ (proc@,AL knobQuads@5 x . .
+  (params@F
+   (param@1 o . . Option@3 .)
+   (param@C value . . int@7 .)
+   (param@O hovered . . bool@9 .))
+  (at@h seq~3 Quad@1). .
+  (stmts@2,1
+   (var@4 band . . . 0.0@7)
+   (if@,1
+    (elif@3 hovered
+     (stmts@9
+      (asgn@5 band~5 KnobSpriteStride@2))))
+   (let@4,2 x . . .
+    (call@A knobAt~6 o@1 value@4))
+   (prefix@,3 \40
+    (bracket@1
+     (call@5 quad~4
+      (call@6 mrect~5 x@1
+       (dot@A
+        (dot~5 o~1 rect@1)y@1)
+       (call@J float~5 KnobPieceWidth@1)
+       (dot@h
+        (dot~5 o~1 rect@1)h@1))
+      (call@6,1 mrect~5 KnobSpriteX@1
+       (infix@S \2B KnobSpriteTop~E band@2)
+       (call@f float~5 KnobPieceWidth@1)KnobSpriteStride@1,1))
+     (call@5,3 quad~4
+      (call@6 mrect~5
+       (infix@3 \2B x~2
+        (call@7 float~5 KnobPieceWidth@1))
+       (dot@Y
+        (dot~5 o~1 rect@1)y@1)
+       (call@h float~5 KnobPieceWidth@1)
+       (dot@7,1
+        (dot~5 o~1 rect@1)h@1))
+      (call@6,2 mrect~5 KnobSpriteRight@1
+       (infix@W \2B KnobSpriteTop~E band@2)
+       (call@j float~5 KnobPieceWidth@1)KnobSpriteStride@1,1))))))
+ (comment@,AX)
+ (proc@,Ab shownValue@5 x . .
+  (params@G
+   (param@1 o . . Option@3 .)
+   (param@C value . . int@7 .))Shown@P . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@7 Shown~5
+     (kv@8 pattern~7 KeyGenericValue@2)
+     (kv@Z valueKey~8 ""@2)
+     (kv@o valueText~9 ""@2)
+     (kv@D,1 valuePattern~C ""@2)))
+   (if@,2
+    (elif@3
+     (infix@8 ==
+      (dot~7 o~1 style@1)NoValue@3)
+     (stmts@K
+      (ret result@7))))
+   (if@,3
+    (elif@3
+     (infix@E and
+      (infix~8 <= value~6
+       (dot@4 o~1 lo@1))
+      (infix@H >
+       (dot~5
+        (dot~7 o~1 minKey@1)len@1)0@2))
+     (stmts~1,1
+      (asgn@G
+       (dot~A result~6 valueKey@1)
+       (dot@3 o~1 minKey@1))
+      (ret@,1 result@7))))
+   (if@,6
+    (elif@3
+     (infix@E and
+      (infix~8 >= value~6
+       (dot@4 o~1 hi@1))
+      (infix@H >
+       (dot~5
+        (dot~7 o~1 maxKey@1)len@1)0@2))
+     (stmts~1,1
+      (asgn@G
+       (dot~A result~6 valueKey@1)
+       (dot@3 o~1 maxKey@1))
+      (ret@,1 result@7))))
+   (if@,9
+    (elif@3
+     (infix@8 ==
+      (dot~7 o~1 style@1)SwitchValue@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@6 != value~6 0@3)
+        (stmts@C
+         (asgn@G
+          (dot~A result~6 valueKey@1)KeyOn@2)))
+       (else@,1
+        (stmts@6
+         (asgn@G
+          (dot~A result~6 valueKey@1)KeyOff@2))))
+      (ret@,2 result@7))))
+   (if@,D
+    (elif@3
+     (infix@8 ==
+      (dot~7 o~1 style@1)NamedValue@3)
+     (stmts~1,1
+      (let@4 names . . .
+       (call@H valueKeys~9
+        (dot@2 o~1 key@1)))
+      (if@,1
+       (elif@3
+        (infix@B and
+         (infix~5 >= value~6 0@3)
+         (infix@A < value~6
+          (dot@7 names~5 len@1)))
+        (stmts@Y
+         (asgn@G
+          (dot~A result~6 valueKey@1)
+          (at@7 names~5 value@1))))
+       (else@,1
+        (stmts@6
+         (asgn@H
+          (dot~B result~6 valueText@1)
+          (prefix@2 $ value@1)))))
+      (ret@,3 result@7))))
+   (if@,I
+    (elif@3
+     (infix@8 ==
+      (dot~7 o~1 style@1)ScaleValue@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@6 <= value~6 0@3)
+        (stmts@C
+         (asgn@G
+          (dot~A result~6 valueKey@1)KeyGuiScaleAuto@2)))
+       (else@,1
+        (stmts@6
+         (asgn@H
+          (dot~B result~6 valueText@1)
+          (prefix@2 $ value@1)))))
+      (ret@,2 result@7))))
+   (if@,M
+    (elif@3
+     (infix@8 ==
+      (dot~7 o~1 style@1)PercentValue@3)
+     (stmts~1,1
+      (asgn@F
+       (dot~9 result~6 pattern@1)KeyPercentValue@2)
+      (asgn@H,1
+       (dot~B result~6 valueText@1)
+       (prefix@2 $ value@1))
+      (ret@,2 result@7))))
+   (asgn@H,Q
+    (dot~B result~6 valueText@1)
+    (prefix@2 $ value@1))
+   (asgn@K,R
+    (dot~E result~6 valuePattern@1)
+    (dot@3 o~1 pattern@1))))
+ (proc@,BC nextScale@5 x . .
+  (params@F
+   (param@1 setting . . int@J .)
+   (param@A maxScale . . int@A .))int@Q . .
+  (stmts@2,1
+   (let@4 n . . .
+    (infix@C \2B setting~8 1@2))
+   (if@,1
+    (elif@3
+     (infix@2 > n~2 maxScale@2)
+     (stmts@E 0))
+    (else@J
+     (stmts@6 n)))))
+ (proc@,BG scaleValue@5 x . .
+  (params@G
+   (param@1 setting . . int@9 .))string@G . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 <= setting~8 0@3)
+     (stmts@E KeyGuiScaleAuto))
+    (else@X
+     (stmts@6
+      (prefix $ setting@1))))))
+ (const@D,BK FrameCapMin~B x . . 10@4)
+ (const@D,BL FrameCapMax~B x . . 260@4)
+ (const@E,BO FrameCapStep~C x . . 10@4)
+ (comment@,BQ)
+ (proc@,BS frameCapFor@5 x . .
+  (params@H
+   (param@1 setting . . int@9 .))int@G . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 >= setting~8 FrameCapMax@3)
+     (stmts@O 0))
+    (else@T
+     (stmts@6 setting)))))
+ (comment@,BV)
+ (proc@,BX frameCapSetting@5 x . .
+  (params@L
+   (param@1 cap . . int@5 .))int@C . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@4 <= cap~4 0@3)
+     (stmts@A FrameCapMax))
+    (elif@5,1
+     (infix@4 < cap~4 FrameCapMin@2)
+     (stmts@J FrameCapMin))
+    (elif@5,2
+     (infix@4 > cap~4 FrameCapMax@2)
+     (stmts@J FrameCapMax))
+    (else@,3
+     (stmts@6 cap)))))
+ (const@F,Bm SoundMark~9 x . . "soundCategory."@4)
+ (proc@,Bo busOf@5 x . .
+  (params@B
+   (param@1 key . . string@5 .))string@F . .
+  (stmts@2,1
+   (comment)
+   (var@4,1 cut . . . -1@6)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@5 key~3 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@7 ==
+        (at~4 key~3 i@1)'.'@3)
+       (stmts@F
+        (asgn@4 cut~4 i@2))))
+     (cmd@,1 inc i@4)))
+   (if@,6
+    (elif@3
+     (infix@4 < cut~4 0@2)
+     (stmts@9
+      (ret ""@7))))
+   (asgn@7,7 result~7 ""@2)
+   (asgn@2,8 i~2
+    (infix@6 \2B cut~4 1@2))
+   (while@,9
+    (infix@8 < i~2
+     (dot@5 key~3 len@1))
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (at@8 key~3 i@1))
+     (cmd@,1 inc i@4)))))
+ (proc@,C2 isSoundRow@5 x . .
+  (params@G
+   (param@1 key . . string@5 .))bool@F . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 <=
+      (dot~5 key~3 len@1)
+      (dot@C SoundMark~9 len@1))
+     (stmts@Q
+      (ret false@7))))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@B SoundMark~9 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@7 !=
+        (at~4 key~3 i@1)
+        (at@C SoundMark~9 i@1))
+       (stmts@O
+        (ret false@7))))
+     (cmd@,1 inc i@4)))true@,5))
+ (const@D,CM LangListTop~B x . . 32@4)
+ (const@G,CN LangListBottom~E x . . 65@4)
+ (const@F,CP LangRowHeight~D x . . 18@4)
+ (const@C,CQ LangFooter~A x . . 38@4)
+ (const@D,CS LangWarning~B x . . 56@4)
+ (const@E,CU LangTitleTop~C x . . 16@4)
+ (const@K,CV KeyLanguageWarning~I x . . "options.languageWarning"@4)
+ (const@H,CW KeyForceUnicode~F x . . "options.forceUnicodeFont"@4)
+ (proc@,CY langDoneRect@5 x . .
+  (params@I
+   (param@1 guiW . . int@C .)
+   (param@7 guiH . . int@6 .))MRect@J . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@N \2B
+      (infix~B \2D
+       (infix~6 div guiW~5 2@4)GridLeft@2)ColumnStep@2))
+    (call@n float~5
+     (infix@6 \2D guiH~5 LangFooter@2))
+    (call@6,1 float~5 RowWidth@1)
+    (call@N,1 float~5 RowHeight@1))))
+ (proc@,Cc langUnicodeRect@5 x . .
+  (params@L
+   (param@1 guiW . . int@C .)
+   (param@7 guiH . . int@6 .))MRect@J . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@C \2D
+      (infix~6 div guiW~5 2@4)GridLeft@2))
+    (call@a float~5
+     (infix@6 \2D guiH~5 LangFooter@2))
+    (call@6,1 float~5 RowWidth@1)
+    (call@N,1 float~5 RowHeight@1)))))

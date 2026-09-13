@@ -1,0 +1,346 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,vxray.nim
+ (comment)
+ (const@9,L FarAway~7 x . . 1E+30@4)
+ (type@8,O Walk~6 x . .
+  (object@2 .
+   (fld~5,2 x~1 x . int@B .)
+   (fld~1,2 y~1 x . int@7 .)
+   (fld@3,2 z~1 x . int@3 .)
+   (fld~4,4 nx~2 x . int@D .)
+   (fld@1,4 ny~2 x . int@8 .)
+   (fld@6,4 nz~2 x . int@3 .)
+   (fld@3,9 travelled~9 x . float@3 .)
+   (fld~6,B stepX . . int@L .)
+   (fld@1,B stepY . . int@E .)
+   (fld@8,B stepZ . . int@7 .)
+   (fld~6,C tMaxX . . float@L .)
+   (fld@1,C tMaxY . . float@E .)
+   (fld@8,C tMaxZ . . float@7 .)
+   (fld~6,D tDeltaX . . float@R .)
+   (fld@3,D tDeltaY . . float@I .)
+   (fld@C,D tDeltaZ . . float@9 .)))
+ (proc@,d cellOf@5 x . .
+  (params@C
+   (param@1 v . . float@3 .))int@C . .
+  (stmts@2,1
+   (let@4 t . . .
+    (call@7 int~3 v@1))
+   (if@,1
+    (elif@3
+     (infix@8 and
+      (infix~6 < v~2 0.0@2)
+      (infix@D !=
+       (call~4 float~5 t@1)v@3))
+     (stmts@R
+      (ret
+       (infix@9 \2D t~2 1@2)))))t@,2))
+ (proc@,i absOf@5 . . .
+  (params@A
+   (param@1 v . . float@3 .))float@C . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@2 < v~2 0.0@2)
+     (stmts@9
+      (ret
+       (prefix@7 \2D v@1)))))v@,1))
+ (comment@,m)
+ (proc@,o firstCrossing@5 . . .
+  (params@I
+   (param@1 origin . . float@8 .)
+   (param@G cell . . int@C .)
+   (param@M step . . int@6 .)
+   (param@X delta . . float@7 .))float@m . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 == step~5 0@3)
+     (stmts@B
+      (ret FarAway@7))))
+   (if@,1
+    (elif@3
+     (infix@5 > step~5 0@2)
+     (stmts@A
+      (ret
+       (infix@Y *
+        (par~R
+         (infix@H \2D
+          (call~B float~5
+           (infix@6 \2B cell~5 1@2))origin@2))delta@2)))))
+   (infix@N,2 *
+    (par~N
+     (infix@8 \2D origin~7
+      (call@7 float~5 cell@1)))delta@2)))
+ (comment@,t)
+ (proc@,u beginWalk@5 x . .
+  (params@F
+   (param@1 ox . . float@O .)
+   (param@5 oy . . float@K .)
+   (param@9 oz . . float@G .)
+   (param@D dx . . float@C .)
+   (param@H dy . . float@8 .)
+   (param@L dz . . float@4 .))Walk@X . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@6 Walk~4
+     (kv@2 x~1
+      (call@8 cellOf~6 ox@1))
+     (kv@H y~1
+      (call@8 cellOf~6 oy@1))
+     (kv@W z~1
+      (call@8 cellOf~6 oz@1))
+     (kv~9,1 nx~2 0@2)
+     (kv~2,1 ny~2 0@2)
+     (kv@5,1 nz~2 0@2)
+     (kv@J,1 travelled~9 0.0@2)
+     (kv~6,2 stepX~5 0@2)
+     (kv@4,2 stepY~5 0@2)
+     (kv@E,2 stepZ~5 0@2)
+     (kv~6,3 tMaxX~5 FarAway@2)
+     (kv@A,3 tMaxY~5 FarAway@2)
+     (kv@Q,3 tMaxZ~5 FarAway@2)
+     (kv~4,4 tDeltaX~7 FarAway@2)
+     (kv@E,4 tDeltaY~7 FarAway@2)
+     (kv@W,4 tDeltaZ~7 FarAway@2)))
+   (if@,5
+    (elif@3
+     (infix@3 > dx~3 0.0@2)
+     (stmts@A
+      (asgn@D
+       (dot~7 result~6 stepX@1)1@2)))
+    (elif@5,1
+     (infix@3 < dx~3 0.0@2)
+     (stmts@A
+      (asgn@D
+       (dot~7 result~6 stepX@1)-1@2))))
+   (if@,7
+    (elif@3
+     (infix@3 > dy~3 0.0@2)
+     (stmts@A
+      (asgn@D
+       (dot~7 result~6 stepY@1)1@2)))
+    (elif@5,1
+     (infix@3 < dy~3 0.0@2)
+     (stmts@A
+      (asgn@D
+       (dot~7 result~6 stepY@1)-1@2))))
+   (if@,9
+    (elif@3
+     (infix@3 > dz~3 0.0@2)
+     (stmts@A
+      (asgn@D
+       (dot~7 result~6 stepZ@1)1@2)))
+    (elif@5,1
+     (infix@3 < dz~3 0.0@2)
+     (stmts@A
+      (asgn@D
+       (dot~7 result~6 stepZ@1)-1@2))))
+   (if@,B
+    (elif@3
+     (infix@D !=
+      (dot~7 result~6 stepX@1)0@3)
+     (stmts@J
+      (asgn@F
+       (dot~9 result~6 tDeltaX@1)
+       (infix@6 / 1.0~4
+        (call@7 absOf~5 dx@1))))))
+   (if@,C
+    (elif@3
+     (infix@D !=
+      (dot~7 result~6 stepY@1)0@3)
+     (stmts@J
+      (asgn@F
+       (dot~9 result~6 tDeltaY@1)
+       (infix@6 / 1.0~4
+        (call@7 absOf~5 dy@1))))))
+   (if@,D
+    (elif@3
+     (infix@D !=
+      (dot~7 result~6 stepZ@1)0@3)
+     (stmts@J
+      (asgn@F
+       (dot~9 result~6 tDeltaZ@1)
+       (infix@6 / 1.0~4
+        (call@7 absOf~5 dz@1))))))
+   (asgn@D,E
+    (dot~7 result~6 tMaxX@1)
+    (call@F firstCrossing~D ox@1
+     (dot@B result~6 x@1)
+     (dot@L result~6 stepX@1)
+     (dot@Z result~6 tDeltaX@1)))
+   (asgn@D,F
+    (dot~7 result~6 tMaxY@1)
+    (call@F firstCrossing~D oy@1
+     (dot@B result~6 y@1)
+     (dot@L result~6 stepY@1)
+     (dot@Z result~6 tDeltaY@1)))
+   (asgn@D,G
+    (dot~7 result~6 tMaxZ@1)
+    (call@F firstCrossing~D oz@1
+     (dot@B result~6 z@1)
+     (dot@L result~6 stepZ@1)
+     (dot@Z result~6 tDeltaZ@1)))))
+ (comment@,1D)
+ (proc@,1H stepOn@5 x . .
+  (params@C
+   (param@1 walk . .
+    (mut@6 Walk@4).)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@a and
+      (infix~K and
+       (infix~5 ==
+        (dot~7 walk~4 stepX@1)0@3)
+       (infix@F ==
+        (dot~7 walk~4 stepY@1)0@3))
+      (infix@F ==
+       (dot~7 walk~4 stepZ@1)0@3))
+     (stmts~1,1
+      (asgn@F
+       (dot~B walk~4 travelled@1)FarAway@2)
+      (ret@,1 .))))
+   (if@,3
+    (elif@3
+     (infix@P and
+      (infix~E <=
+       (dot~7 walk~4 tMaxX@1)
+       (dot@7 walk~4 tMaxY@1))
+      (infix@F <=
+       (dot~7 walk~4 tMaxX@1)
+       (dot@7 walk~4 tMaxZ@1)))
+     (stmts~1,1
+      (asgn@F
+       (dot~B walk~4 travelled@1)
+       (dot@6 walk~4 tMaxX@1))
+      (asgn@7,1
+       (dot~3 walk~4 x@1)
+       (infix@9 \2B
+        (dot~3 walk~4 x@1)
+        (dot@6 walk~4 stepX@1)))
+      (asgn@B,2
+       (dot~7 walk~4 tMaxX@1)
+       (infix@D \2B
+        (dot~7 walk~4 tMaxX@1)
+        (dot@6 walk~4 tDeltaX@1)))
+      (asgn@8,3
+       (dot~4 walk~4 nx@1)
+       (prefix@2 \2D
+        (dot@5 walk~4 stepX@1)))
+      (asgn@8,4
+       (dot~4 walk~4 ny@1)0@2)
+      (asgn@8,5
+       (dot~4 walk~4 nz@1)0@2)))
+    (elif@5,7
+     (infix@B <=
+      (dot~7 walk~4 tMaxY@1)
+      (dot@7 walk~4 tMaxZ@1))
+     (stmts~3,1
+      (asgn@F
+       (dot~B walk~4 travelled@1)
+       (dot@6 walk~4 tMaxY@1))
+      (asgn@7,1
+       (dot~3 walk~4 y@1)
+       (infix@9 \2B
+        (dot~3 walk~4 y@1)
+        (dot@6 walk~4 stepY@1)))
+      (asgn@B,2
+       (dot~7 walk~4 tMaxY@1)
+       (infix@D \2B
+        (dot~7 walk~4 tMaxY@1)
+        (dot@6 walk~4 tDeltaY@1)))
+      (asgn@8,3
+       (dot~4 walk~4 nx@1)0@2)
+      (asgn@8,4
+       (dot~4 walk~4 ny@1)
+       (prefix@2 \2D
+        (dot@5 walk~4 stepY@1)))
+      (asgn@8,5
+       (dot~4 walk~4 nz@1)0@2)))
+    (else@,E
+     (stmts@2,1
+      (asgn@F
+       (dot~B walk~4 travelled@1)
+       (dot@6 walk~4 tMaxZ@1))
+      (asgn@7,1
+       (dot~3 walk~4 z@1)
+       (infix@9 \2B
+        (dot~3 walk~4 z@1)
+        (dot@6 walk~4 stepZ@1)))
+      (asgn@B,2
+       (dot~7 walk~4 tMaxZ@1)
+       (infix@D \2B
+        (dot~7 walk~4 tMaxZ@1)
+        (dot@6 walk~4 tDeltaZ@1)))
+      (asgn@8,3
+       (dot~4 walk~4 nx@1)0@2)
+      (asgn@8,4
+       (dot~4 walk~4 ny@1)0@2)
+      (asgn@8,5
+       (dot~4 walk~4 nz@1)
+       (prefix@2 \2D
+        (dot@5 walk~4 stepZ@1))))))))
+ (type@8,1i Pick~6 x . .
+  (object@2 .
+   (fld~1,4 found~5 x . bool@3 .)
+   (fld~5,5 x~1 x . int@B .)
+   (fld~1,5 y~1 x . int@7 .)
+   (fld@3,5 z~1 x . int@3 .)
+   (fld@,6 placeX~6 x . int@L .)
+   (fld@9,6 placeY~6 x . int@C .)
+   (fld@I,6 placeZ~6 x . int@3 .)
+   (fld~4,7 nx~2 x . int@D .)
+   (fld@1,7 ny~2 x . int@8 .)
+   (fld@6,7 nz~2 x . int@3 .)
+   (fld@2,8 distance~8 x . float@3 .)))
+ (proc@,1s noPick@5 x . .
+  (params@C)Pick@4 . .
+  (stmts@2,1
+   (oconstr@4 Pick~4
+    (kv@6 found~5 false@2)
+    (kv@G x~1 0@2)
+    (kv@M y~1 0@2)
+    (kv@S z~1 0@2)
+    (kv@d placeX~6 0@2)
+    (kv@o placeY~6 0@2)
+    (kv@z placeZ~6 0@2)
+    (kv@,1 nx~2 0@2)
+    (kv@7,1 ny~2 0@2)
+    (kv@E,1 nz~2 0@2)
+    (kv@R,1 distance~8 0.0@2))))
+ (comment@,1w)
+ (proc@,1x pickAt@5 x . .
+  (params@C
+   (param@1 walk . . Walk@6 .))Pick@E . .
+  (stmts@2,1
+   (oconstr@4 Pick~4
+    (kv@6 found~5 true@2)
+    (kv@F x~1
+     (dot@6 walk~4 x@1))
+    (kv@Q y~1
+     (dot@6 walk~4 y@1))
+    (kv@b z~1
+     (dot@6 walk~4 z@1))
+    (kv@4,1 placeX~6
+     (infix@9 \2B
+      (dot~3 walk~4 x@1)
+      (dot@6 walk~4 nx@1)))
+    (kv@U,1 placeY~6
+     (infix@9 \2B
+      (dot~3 walk~4 y@1)
+      (dot@6 walk~4 ny@1)))
+    (kv@4,2 placeZ~6
+     (infix@9 \2B
+      (dot~3 walk~4 z@1)
+      (dot@6 walk~4 nz@1)))
+    (kv@,3 nx~2
+     (dot@6 walk~4 nx@1))
+    (kv@D,3 ny~2
+     (dot@6 walk~4 ny@1))
+    (kv@Q,3 nz~2
+     (dot@6 walk~4 nz@1))
+    (kv@j,3 distance~8
+     (dot@6 walk~4 travelled@1))))))

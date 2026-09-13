@@ -1,0 +1,665 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,vxnoise.nim
+ (comment)
+ (const@6,E Mask~4 x . .
+  (suf@4 4294967295 "i64"))
+ (const@J,F LacunarityDefault~H x . . 2.0@4)
+ (const@D,G GainDefault~B x . . 0.5@4)
+ (proc@,M mix32@5 x . .
+  (params@B
+   (param@1 value . . int@7 .))int@E . .
+  (stmts@2,1
+   (comment)
+   (var@4,3 h . . .
+    (infix@A and value~6 Mask@4))
+   (asgn@2,4 h~2
+    (infix@L and
+     (par~J
+      (infix@3 xor h~2
+       (par@4
+        (infix@3 shr h~2 16@4))))Mask@4))
+   (asgn@2,5 h~2
+    (infix@J and
+     (par~H
+      (infix@3 * h~2 2146121005@2))Mask@4))
+   (asgn@2,6 h~2
+    (infix@L and
+     (par~J
+      (infix@3 xor h~2
+       (par@4
+        (infix@3 shr h~2 15@4))))Mask@4))
+   (asgn@2,7 h~2
+    (infix@J and
+     (par~H
+      (infix@3 * h~2
+       (suf@2 2221713035 "i64")))Mask@4))
+   (asgn@2,8 h~2
+    (infix@L and
+     (par~J
+      (infix@3 xor h~2
+       (par@4
+        (infix@3 shr h~2 16@4))))Mask@4))h@,9))
+ (comment@,Y)
+ (proc@,a hash2@5 x . .
+  (params@B
+   (param@1 seed . . int@C .)
+   (param@7 x . . int@6 .)
+   (param@A y . . int@3 .))int@J . .
+  (stmts@2,1
+   (call@5 mix32~5
+    (infix@x \2B
+     (infix~U \2B
+      (par~S
+       (infix@I and
+        (par~H
+         (infix@3 * x~2 668265261@2))Mask@4))
+      (par@2
+       (infix@I and
+        (par~H
+         (infix@3 * y~2 374761393@2))Mask@4)))
+     (par~w,1
+      (infix@L and
+       (par~K
+        (infix@6 * seed~5
+         (suf@2 2654435761 "i64")))Mask@4))))))
+ (proc@,e hash3@5 x . .
+  (params@B
+   (param@1 seed . . int@F .)
+   (param@7 x . . int@9 .)
+   (param@A y . . int@6 .)
+   (param@D z . . int@3 .))int@M . .
+  (stmts@2,1
+   (call@5 mix32~5
+    (infix@T,1 \2B
+     (infix@U,~1 \2B
+      (infix~U \2B
+       (par~S
+        (infix@I and
+         (par~H
+          (infix@3 * x~2 668265261@2))Mask@4))
+       (par@2
+        (infix@I and
+         (par~H
+          (infix@3 * y~2
+           (suf@2 2246822507 "i64")))Mask@4)))
+      (par~w,1
+       (infix@I and
+        (par~H
+         (infix@3 * z~2 374761393@2))Mask@4)))
+     (par@2
+      (infix@L and
+       (par~K
+        (infix@6 * seed~5
+         (suf@2 2654435761 "i64")))Mask@4))))))
+ (comment@,i)
+ (proc@,l unit2@5 x . .
+  (params@B
+   (param@1 seed . . int@C .)
+   (param@7 x . . int@6 .)
+   (param@A y . . int@3 .))float@J . .
+  (stmts@c
+   (infix@P /
+    (call~K float~5
+     (call@6 hash2~5 seed@1 x@7 y@A))4294967296.0@2)))
+ (proc@,m unit3@5 x . .
+  (params@B
+   (param@1 seed . . int@F .)
+   (param@7 x . . int@9 .)
+   (param@A y . . int@6 .)
+   (param@D z . . int@3 .))float@M . .
+  (stmts@f
+   (infix@S /
+    (call~N float~5
+     (call@6 hash3~5 seed@1 x@7 y@A z@D))4294967296.0@2)))
+ (comment@,o)
+ (proc@,r floorInt@5 x . .
+  (params@E
+   (param@1 v . . float@3 .))int@C . .
+  (stmts@2,1
+   (let@4 t . . .
+    (call@7 int~3 v@1))
+   (if@,1
+    (elif@3
+     (infix@8 and
+      (infix~6 < v~2 0.0@2)
+      (infix@D !=
+       (call~4 float~5 t@1)v@3))
+     (stmts@R
+      (ret
+       (infix@9 \2D t~2 1@2)))))t@,2))
+ (proc@,w fadeCurve@5 x . .
+  (params@F
+   (param@1 t . . float@3 .))float@C . .
+  (stmts@2,1
+   (comment)
+   (infix@6,3 *
+    (infix~4 * t~2 t@2)
+    (par@2
+     (infix@5 \2D 3.0~4
+      (infix@6 * 2.0~4 t@2))))))
+ (comment@,12)
+ (proc@,13 valueNoise2@5 x . .
+  (params@H
+   (param@1 seed . . int@6 .)
+   (param@C x . . float@6 .)
+   (param@F y . . float@3 .))float@Q . .
+  (stmts@2,1
+   (let@4 ix . . .
+    (call@D floorInt~8 x@1))
+   (let@4,1 iy . . .
+    (call@D floorInt~8 y@1))
+   (let@4,2 fx . . .
+    (call@E fadeCurve~9
+     (infix@3 \2D x~2
+      (call@7 float~5 ix@1))))
+   (let@4,3 fy . . .
+    (call@E fadeCurve~9
+     (infix@3 \2D y~2
+      (call@7 float~5 iy@1))))
+   (let@4,4 a . . .
+    (call@9 unit2~5 seed@1 ix@7 iy@B))
+   (let@4,5 b . . .
+    (call@9 unit2~5 seed@1
+     (infix@A \2B ix~3 1@2)iy@F))
+   (let@4,6 c . . .
+    (call@9 unit2~5 seed@1 ix@7
+     (infix@E \2B iy~3 1@2)))
+   (let@4,7 d . . .
+    (call@9 unit2~5 seed@1
+     (infix@A \2B ix~3 1@2)
+     (infix@I \2B iy~3 1@2)))
+   (let@4,8 top . . .
+    (infix@8 \2B a~2
+     (infix@A *
+      (par~8
+       (infix@3 \2D b~2 a@2))fx@2)))
+   (let@4,9 bottom . . .
+    (infix@B \2B c~2
+     (infix@A *
+      (par~8
+       (infix@3 \2D d~2 c@2))fx@2)))
+   (infix@4,A \2B top~4
+    (infix@H *
+     (par~F
+      (infix@8 \2D bottom~7 top@2))fy@2))))
+ (comment@,1G)
+ (proc@,1I valueNoise3@5 x . .
+  (params@H
+   (param@1 seed . . int@6 .)
+   (param@C x . . float@9 .)
+   (param@F y . . float@6 .)
+   (param@I z . . float@3 .))float@T . .
+  (stmts@2,1
+   (let@4 ix . . .
+    (call@D floorInt~8 x@1))
+   (let@4,1 iy . . .
+    (call@D floorInt~8 y@1))
+   (let@4,2 iz . . .
+    (call@D floorInt~8 z@1))
+   (let@4,3 fx . . .
+    (call@E fadeCurve~9
+     (infix@3 \2D x~2
+      (call@7 float~5 ix@1))))
+   (let@4,4 fy . . .
+    (call@E fadeCurve~9
+     (infix@3 \2D y~2
+      (call@7 float~5 iy@1))))
+   (let@4,5 fz . . .
+    (call@E fadeCurve~9
+     (infix@3 \2D z~2
+      (call@7 float~5 iz@1))))
+   (var@4,6 corner . .
+    (at@D array~5 8@1 float@4)
+    (bracket@Q 0.0@1 0.0@6 0.0@B 0.0@G 0.0@L 0.0@Q 0.0@V 0.0@a))
+   (var@4,7 i . . . 0@4)
+   (while@,8
+    (infix@8 < i~2 8@2)
+    (stmts@2,1
+     (asgn@A
+      (at~4 corner~6 i@1)
+      (call@7 unit3~5 seed@1
+       (infix@A \2B ix~3
+        (par@2
+         (infix@3 and i~2 1@4)))
+       (infix@Q \2B iy~3
+        (par@2
+         (infix@B and
+          (par~A
+           (infix@3 shr i~2 1@4))1@4)))
+       (infix@4,1 \2B iz~3
+        (par@2
+         (infix@B and
+          (par~A
+           (infix@3 shr i~2 2@4))1@4)))))
+     (cmd@,2 inc i@4)))
+   (var@4,C lane . .
+    (at@B array~5 4@1 float@4)
+    (bracket@O 0.0@1 0.0@6 0.0@B 0.0@G))
+   (asgn@2,D i~2 0@2)
+   (while@,E
+    (infix@8 < i~2 4@2)
+    (stmts@2,1
+     (asgn@8
+      (at~4 lane~4 i@1)
+      (infix@G \2B
+       (at~8 corner~6
+        (infix@3 * i~2 2@2))
+       (infix@c *
+        (par~a
+         (infix@J \2D
+          (at~C corner~6
+           (infix@7 \2B
+            (infix~4 * i~2 2@2)1@2))
+          (at@8 corner~6
+           (infix@3 * i~2 2@2))))fx@2)))
+     (cmd@,1 inc i@4)))
+   (let@4,H front . . .
+    (infix@G \2B
+     (at~4 lane~4 0@1)
+     (infix@M *
+      (par~K
+       (infix@9 \2D
+        (at~4 lane~4 1@1)
+        (at@6 lane~4 0@1)))fy@2)))
+   (let@4,I back . . .
+    (infix@F \2B
+     (at~4 lane~4 2@1)
+     (infix@M *
+      (par~K
+       (infix@9 \2D
+        (at~4 lane~4 3@1)
+        (at@6 lane~4 2@1)))fy@2)))
+   (infix@6,J \2B front~6
+    (infix@H *
+     (par~F
+      (infix@6 \2D back~5 front@2))fz@2))))
+ (comment@,1e)
+ (proc@,1i fbm2@5 x . .
+  (params@A
+   (param@1 seed . . int@6 .)
+   (param@C x . . float@6 .)
+   (param@F y . . float@3 .)
+   (param@P octaves . . int@9 .)
+   (param@1,1 lacunarity . . . LacunarityDefault@D)
+   (param@X,1 gain . . . GainDefault@7))float@s,1 . .
+  (stmts@2,2
+   (var@4 sum . . . 0.0@6)
+   (var@4,1 weight . . . 0.0@9)
+   (var@4,2 amplitude . . . 1.0@C)
+   (var@4,3 frequency . . . 1.0@C)
+   (var@4,4 octave . . . 0@9)
+   (while@,5
+    (infix@D < octave~7 octaves@2)
+    (stmts@2,1
+     (asgn@4 sum~4
+      (infix@6 \2B sum~4
+       (infix@14 *
+        (call~r valueNoise2~B
+         (infix@6 \2B seed~5
+          (infix@9 * octave~7 1013@2))
+         (infix@P * x~2 frequency@2)
+         (infix@e * y~2 frequency@2))amplitude~1C,1)))
+     (asgn@7,2 weight~7
+      (infix@9 \2B weight~7 amplitude@2))
+     (asgn@A,3 amplitude~A
+      (infix@C * amplitude~A gain@2))
+     (asgn@A,4 frequency~A
+      (infix@C * frequency~A lacunarity@2))
+     (cmd@,5 inc octave@4)))
+   (if@,C
+    (elif@3
+     (infix@7 <= weight~7 0.0@3)
+     (stmts@F
+      (ret 0.0@7))))
+   (infix@4,D / sum~4 weight@2)))
+ (proc@,1z fbm3@5 x . .
+  (params@A
+   (param@1 seed . . int@6 .)
+   (param@C x . . float@9 .)
+   (param@F y . . float@6 .)
+   (param@I z . . float@3 .)
+   (param@S octaves . . int@9 .)
+   (param@1,1 lacunarity . . . LacunarityDefault@D)
+   (param@X,1 gain . . . GainDefault@7))float@s,1 . .
+  (stmts@2,2
+   (var@4 sum . . . 0.0@6)
+   (var@4,1 weight . . . 0.0@9)
+   (var@4,2 amplitude . . . 1.0@C)
+   (var@4,3 frequency . . . 1.0@C)
+   (var@4,4 octave . . . 0@9)
+   (while@,5
+    (infix@D < octave~7 octaves@2)
+    (stmts@2,1
+     (asgn@4 sum~4
+      (infix@6 \2B sum~4
+       (infix@7,1 *
+        (call@6,~1 valueNoise3~B
+         (infix@6 \2B seed~5
+          (infix@9 * octave~7 1013@2))
+         (infix@P * x~2 frequency@2)
+         (infix@e * y~2 frequency@2)
+         (infix~J,1 * z~2 frequency@2))amplitude@2)))
+     (asgn@7,2 weight~7
+      (infix@9 \2B weight~7 amplitude@2))
+     (asgn@A,3 amplitude~A
+      (infix@C * amplitude~A gain@2))
+     (asgn@A,4 frequency~A
+      (infix@C * frequency~A lacunarity@2))
+     (cmd@,5 inc octave@4)))
+   (if@,C
+    (elif@3
+     (infix@7 <= weight~7 0.0@3)
+     (stmts@F
+      (ret 0.0@7))))
+   (infix@4,D / sum~4 weight@2)))
+ (comment@,2G)
+ (proc@,2J ridged2@5 x . .
+  (params@D
+   (param@1 seed . . int@6 .)
+   (param@C x . . float@6 .)
+   (param@F y . . float@3 .)
+   (param@P octaves . . int@9 .))float@e . .
+  (stmts@2,1
+   (let@4 v . . .
+    (call@8 fbm2~4 seed@1 x@7 y@A octaves@D))
+   (let@4,1 folded . . .
+    (infix@D \2D 1.0~4
+     (expr
+      (stmts@2)
+      (if@1
+       (elif@3
+        (infix@2 > v~2 0.5@2)
+        (infix@J *
+         (par~A
+          (infix@3 \2D v~2 0.5@2))2.0@2))
+       (else@S
+        (infix@G *
+         (par~A
+          (infix@5 \2D 0.5~4 v@2))2.0@2))))))
+   (infix@7,2 * folded~7 folded@2)))
+ (proc@,2l fbm2Flat@5 x . .
+  (params@E
+   (param@1 seed . . int@6 .)
+   (param@C x . . float@6 .)
+   (param@F y . . float@3 .)
+   (param@P octaves . . int@9 .))float@e . .
+  (stmts@2,1
+   (comment)
+   (var@4,1 sum . . . 0.0@6)
+   (var@4,2 weight . . . 0.0@9)
+   (var@4,3 amplitude . . . 1.0@C)
+   (var@4,4 frequency . . . 1.0@C)
+   (var@4,5 octave . . . 0@9)
+   (while@,6
+    (infix@D < octave~7 octaves@2)
+    (stmts@2,1
+     (let@4 s . . .
+      (infix@9 \2B seed~5
+       (infix@9 * octave~7 1013@2)))
+     (let@4,1 px . . .
+      (infix@7 * x~2 frequency@2))
+     (let@4,2 py . . .
+      (infix@7 * y~2 frequency@2))
+     (var@4,5 ix . . .
+      (call@8 int~3 px@1))
+     (if@,6
+      (elif@3
+       (infix@9 and
+        (infix~6 < px~3 0.0@2)
+        (infix@E !=
+         (call~5 float~5 ix@1)px@3))
+       (stmts@U
+        (asgn@3 ix~3
+         (infix@5 \2D ix~3 1@2)))))
+     (var@4,7 iy . . .
+      (call@8 int~3 py@1))
+     (if@,8
+      (elif@3
+       (infix@9 and
+        (infix~6 < py~3 0.0@2)
+        (infix@E !=
+         (call~5 float~5 iy@1)py@3))
+       (stmts@U
+        (asgn@3 iy~3
+         (infix@5 \2D iy~3 1@2)))))
+     (let@4,B tx . . .
+      (infix@8 \2D px~3
+       (call@7 float~5 ix@1)))
+     (let@4,C ty . . .
+      (infix@8 \2D py~3
+       (call@7 float~5 iy@1)))
+     (let@4,D fx . . .
+      (infix@D *
+       (infix~5 * tx~3 tx@2)
+       (par@2
+        (infix@5 \2D 3.0~4
+         (infix@6 * 2.0~4 tx@2)))))
+     (let@4,E fy . . .
+      (infix@D *
+       (infix~5 * ty~3 ty@2)
+       (par@2
+        (infix@5 \2D 3.0~4
+         (infix@6 * 2.0~4 ty@2)))))
+     (let@4,I sw . . .
+      (infix@M and
+       (par~H
+        (infix@3 * s~2
+         (suf@2 2654435761 "i64")))Mask@4))
+     (let@4,J xw0 . . .
+      (infix@O and
+       (par~I
+        (infix@4 * ix~3 668265261@2))Mask@4))
+     (let@4,K xw1 . . .
+      (infix@U and
+       (par~O
+        (infix@A *
+         (par~9
+          (infix@4 \2B ix~3 1@2))668265261@2))Mask@4))
+     (let@4,L yw0 . . .
+      (infix@O and
+       (par~I
+        (infix@4 * iy~3 374761393@2))Mask@4))
+     (let@4,M yw1 . . .
+      (infix@U and
+       (par~O
+        (infix@A *
+         (par~9
+          (infix@4 \2B iy~3 1@2))374761393@2))Mask@4))
+     (var@4,P ha . . .
+      (infix@M and
+       (par~H
+        (infix@B \2B
+         (infix~6 \2B xw0~4 yw0@2)sw@2))Mask@4))
+     (asgn@3,Q ha~3
+      (infix@N and
+       (par~L
+        (infix@4 xor ha~3
+         (par@4
+          (infix@4 shr ha~3 16@4))))Mask@4))
+     (asgn@3,R ha~3
+      (infix@K and
+       (par~I
+        (infix@4 * ha~3 2146121005@2))Mask@4))
+     (asgn@3,S ha~3
+      (infix@N and
+       (par~L
+        (infix@4 xor ha~3
+         (par@4
+          (infix@4 shr ha~3 15@4))))Mask@4))
+     (asgn@3,T ha~3
+      (infix@K and
+       (par~I
+        (infix@4 * ha~3
+         (suf@2 2221713035 "i64")))Mask@4))
+     (asgn@3,U ha~3
+      (infix@N and
+       (par~L
+        (infix@4 xor ha~3
+         (par@4
+          (infix@4 shr ha~3 16@4))))Mask@4))
+     (var@4,W hb . . .
+      (infix@M and
+       (par~H
+        (infix@B \2B
+         (infix~6 \2B xw1~4 yw0@2)sw@2))Mask@4))
+     (asgn@3,X hb~3
+      (infix@N and
+       (par~L
+        (infix@4 xor hb~3
+         (par@4
+          (infix@4 shr hb~3 16@4))))Mask@4))
+     (asgn@3,Y hb~3
+      (infix@K and
+       (par~I
+        (infix@4 * hb~3 2146121005@2))Mask@4))
+     (asgn@3,Z hb~3
+      (infix@N and
+       (par~L
+        (infix@4 xor hb~3
+         (par@4
+          (infix@4 shr hb~3 15@4))))Mask@4))
+     (asgn@3,a hb~3
+      (infix@K and
+       (par~I
+        (infix@4 * hb~3
+         (suf@2 2221713035 "i64")))Mask@4))
+     (asgn@3,b hb~3
+      (infix@N and
+       (par~L
+        (infix@4 xor hb~3
+         (par@4
+          (infix@4 shr hb~3 16@4))))Mask@4))
+     (var@4,d hc . . .
+      (infix@M and
+       (par~H
+        (infix@B \2B
+         (infix~6 \2B xw0~4 yw1@2)sw@2))Mask@4))
+     (asgn@3,e hc~3
+      (infix@N and
+       (par~L
+        (infix@4 xor hc~3
+         (par@4
+          (infix@4 shr hc~3 16@4))))Mask@4))
+     (asgn@3,f hc~3
+      (infix@K and
+       (par~I
+        (infix@4 * hc~3 2146121005@2))Mask@4))
+     (asgn@3,g hc~3
+      (infix@N and
+       (par~L
+        (infix@4 xor hc~3
+         (par@4
+          (infix@4 shr hc~3 15@4))))Mask@4))
+     (asgn@3,h hc~3
+      (infix@K and
+       (par~I
+        (infix@4 * hc~3
+         (suf@2 2221713035 "i64")))Mask@4))
+     (asgn@3,i hc~3
+      (infix@N and
+       (par~L
+        (infix@4 xor hc~3
+         (par@4
+          (infix@4 shr hc~3 16@4))))Mask@4))
+     (var@4,k hd . . .
+      (infix@M and
+       (par~H
+        (infix@B \2B
+         (infix~6 \2B xw1~4 yw1@2)sw@2))Mask@4))
+     (asgn@3,l hd~3
+      (infix@N and
+       (par~L
+        (infix@4 xor hd~3
+         (par@4
+          (infix@4 shr hd~3 16@4))))Mask@4))
+     (asgn@3,m hd~3
+      (infix@K and
+       (par~I
+        (infix@4 * hd~3 2146121005@2))Mask@4))
+     (asgn@3,n hd~3
+      (infix@N and
+       (par~L
+        (infix@4 xor hd~3
+         (par@4
+          (infix@4 shr hd~3 15@4))))Mask@4))
+     (asgn@3,o hd~3
+      (infix@K and
+       (par~I
+        (infix@4 * hd~3
+         (suf@2 2221713035 "i64")))Mask@4))
+     (asgn@3,p hd~3
+      (infix@N and
+       (par~L
+        (infix@4 xor hd~3
+         (par@4
+          (infix@4 shr hd~3 16@4))))Mask@4))
+     (let@4,r a . . .
+      (infix@E /
+       (call~5 float~5 ha@1)4294967296.0@2))
+     (let@4,s b . . .
+      (infix@E /
+       (call~5 float~5 hb@1)4294967296.0@2))
+     (let@4,t c . . .
+      (infix@E /
+       (call~5 float~5 hc@1)4294967296.0@2))
+     (let@4,u d . . .
+      (infix@E /
+       (call~5 float~5 hd@1)4294967296.0@2))
+     (let@4,w top . . .
+      (infix@8 \2B a~2
+       (infix@A *
+        (par~8
+         (infix@3 \2D b~2 a@2))fx@2)))
+     (let@4,x bottom . . .
+      (infix@B \2B c~2
+       (infix@A *
+        (par~8
+         (infix@3 \2D d~2 c@2))fx@2)))
+     (let@4,y value . . .
+      (infix@C \2B top~4
+       (infix@H *
+        (par~F
+         (infix@8 \2D bottom~7 top@2))fy@2)))
+     (asgn@4,10 sum~4
+      (infix@6 \2B sum~4
+       (infix@8 * value~6 amplitude@2)))
+     (asgn@7,11 weight~7
+      (infix@9 \2B weight~7 amplitude@2))
+     (asgn@A,12 amplitude~A
+      (infix@C * amplitude~A GainDefault@2))
+     (asgn@A,13 frequency~A
+      (infix@C * frequency~A LacunarityDefault@2))
+     (cmd@,14 inc octave@4)))
+   (if@,1C
+    (elif@3
+     (infix@7 <= weight~7 0.0@3)
+     (stmts@F
+      (ret 0.0@7))))
+   (infix@4,1D / sum~4 weight@2)))
+ (proc@,41 ridged2Flat@5 x . .
+  (params@H
+   (param@1 seed . . int@6 .)
+   (param@C x . . float@6 .)
+   (param@F y . . float@3 .)
+   (param@P octaves . . int@9 .))float@e . .
+  (stmts@2,1
+   (comment)
+   (let@4,1 v . . .
+    (call@C fbm2Flat~8 seed@1 x@7 y@A octaves@D))
+   (let@4,2 folded . . .
+    (infix@D \2D 1.0~4
+     (expr
+      (stmts@2)
+      (if@1
+       (elif@3
+        (infix@2 > v~2 0.5@2)
+        (infix@J *
+         (par~A
+          (infix@3 \2D v~2 0.5@2))2.0@2))
+       (else@S
+        (infix@G *
+         (par~A
+          (infix@5 \2D 0.5~4 v@2))2.0@2))))))
+   (infix@7,3 * folded~7 folded@2))))

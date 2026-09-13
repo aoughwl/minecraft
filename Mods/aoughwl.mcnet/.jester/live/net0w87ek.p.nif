@@ -1,0 +1,1614 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,netnbt.nim
+ (comment)
+ (import@,X netwire@7)
+ (const@8,a TagEnd~6 x . . 0@4)
+ (const@9,b TagByte~7 x . . 1@4)
+ (const@A,c TagShort~8 x . . 2@4)
+ (const@8,d TagInt~6 x . . 3@4)
+ (const@9,e TagLong~7 x . . 4@4)
+ (const@A,f TagFloat~8 x . . 5@4)
+ (const@B,g TagDouble~9 x . . 6@4)
+ (const@E,h TagByteArray~C x . . 7@4)
+ (const@B,i TagString~9 x . . 8@4)
+ (const@9,j TagList~7 x . . 9@4)
+ (const@D,k TagCompound~B x . . 10@4)
+ (const@D,l TagIntArray~B x . . 11@4)
+ (const@E,m TagLongArray~C x . . 12@4)
+ (const@C,o MaxNesting~A x . . 512@4)
+ (const@D,r MaxElements~B x . . 8388608@4)
+ (type@7,x Nbt~5 x . .
+  (object@2 .
+   (fld~1,1 kind~4 x .
+    (at@6 seq~3 int@1).)
+   (fld~2,2 key~3 x .
+    (at@6 seq~3 string@1).)
+   (fld~2,3 num~3 x .
+    (at@6 seq~3 int@1).)
+   (fld~2,4 dec~3 x .
+    (at@6 seq~3 float@1).)
+   (fld~1,5 text~4 x .
+    (at@6 seq~3 string@1).)
+   (fld@,6 first~5 x .
+    (at@6 seq~3 int@1).)
+   (fld@,7 count~5 x .
+    (at@6 seq~3 int@1).)
+   (fld@3,8 listKind~8 x .
+    (at@6 seq~3 int@1).)
+   (fld~1,9 kids~4 x .
+    (at@6 seq~3 int@1).)
+   (fld~1,A pool~4 x .
+    (at@6 seq~3 int@1).)
+   (fld~1,B root~4 x . int@3 .)
+   (fld@2,C present~7 x . bool@3 .)
+   (fld@2,D problem~7 x . string@3 .)))
+ (proc@,1C emptyNbt@5 x . .
+  (params@E)Nbt@4 . .
+  (stmts@2,1
+   (oconstr@3 Nbt~3
+    (kv@5 kind~4
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@F key~3
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@P num~3
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@Z dec~3
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@k text~4
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@w first~5
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@6,1 count~5
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@L,1 listKind~8
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@W,1 kids~4
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@h,1 pool~4
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@s,1 root~4 -1@2)
+    (kv@8,2 present~7 false@2)
+    (kv@O,2 problem~7 ""@2))))
+ (proc@,1H failDoc@5 . . .
+  (params@C
+   (param@1 doc . .
+    (mut@5 Nbt@4).)
+   (param@F why . . string@5 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@G ==
+      (dot~5
+       (dot~8 doc~3 problem@1)len@1)0@3)
+     (stmts@M
+      (asgn@C
+       (dot~9 doc~3 problem@1)why@2))))))
+ (proc@,1K node@5 . . .
+  (params@9
+   (param@1 doc . .
+    (mut@5 Nbt@4).)
+   (param@F kind . . int@6 .))int@R . .
+  (stmts@2,1
+   (cmd@8
+    (dot
+     (dot~5 doc~3 kind@1)add@1)kind@5)
+   (cmd@7,1
+    (dot
+     (dot~4 doc~3 key@1)add@1)""@5)
+   (cmd@7,2
+    (dot
+     (dot~4 doc~3 num@1)add@1)0@5)
+   (cmd@7,3
+    (dot
+     (dot~4 doc~3 dec@1)add@1)0.0@5)
+   (cmd@8,4
+    (dot
+     (dot~5 doc~3 text@1)add@1)""@5)
+   (cmd@9,5
+    (dot
+     (dot~6 doc~3 first@1)add@1)0@5)
+   (cmd@9,6
+    (dot
+     (dot~6 doc~3 count@1)add@1)0@5)
+   (cmd@C,7
+    (dot
+     (dot~9 doc~3 listKind@1)add@1)0@5)
+   (infix@D,8 \2D
+    (dot~5
+     (dot~5 doc~3 kind@1)len@1)1@2)))
+ (proc@,1V tagName@5 x . .
+  (params@D
+   (param@1 tag . . int@5 .))string@C . .
+  (stmts@2,1
+   (comment)
+   (case@,2 tag@5
+    (of@,1
+     (ranges TagEnd@3)
+     (stmts@B "end"))
+    (of@,2
+     (ranges TagByte@3)
+     (stmts@C "byte"))
+    (of@,3
+     (ranges TagShort@3)
+     (stmts@D "short"))
+    (of@,4
+     (ranges TagInt@3)
+     (stmts@B "int"))
+    (of@,5
+     (ranges TagLong@3)
+     (stmts@C "long"))
+    (of@,6
+     (ranges TagFloat@3)
+     (stmts@D "float"))
+    (of@,7
+     (ranges TagDouble@3)
+     (stmts@E "double"))
+    (of@,8
+     (ranges TagByteArray@3)
+     (stmts@H "byte array"))
+    (of@,9
+     (ranges TagString@3)
+     (stmts@E "string"))
+    (of@,A
+     (ranges TagList@3)
+     (stmts@C "list"))
+    (of@,B
+     (ranges TagCompound@3)
+     (stmts@G "compound"))
+    (of@,C
+     (ranges TagIntArray@3)
+     (stmts@G "int array"))
+    (of@,D
+     (ranges TagLongArray@3)
+     (stmts@H "long array"))
+    (else@,E
+     (stmts@6
+      (infix@7 & "tag "~7
+       (prefix@2 $ tag@1)))))))
+ (proc@,1x readNbtString@5 x . .
+  (params@J
+   (param@1 r . .
+    (mut@3 Reader@4).))string@H . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (let@4,2 length . . .
+    (call@J readUShort~A r@1))
+   (if@,3
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (if@,4
+    (elif@3
+     (infix@7 > length~7
+      (call@B remaining~9 r@1))
+     (stmts~1,1
+      (call@4 fail~4 r@1 "an NBT string runs past the end"@4)
+      (ret@,1 .))))
+   (var@4,7 i . . . 0@4)
+   (while@,8
+    (infix@8 < i~2 length@2)
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (call@9 char~4
+       (at@7
+        (dot~5 r~1 data@1)
+        (infix@6 \2B
+         (dot~4 r~1 at@1)i@2))))
+     (cmd@,1 inc i@4)))
+   (asgn@5,B
+    (dot~4 r~1 at@1)
+    (infix@7 \2B
+     (dot~4 r~1 at@1)length@2))))
+ (proc@,2B readPayload@5 . . .
+  (params@G
+   (param@1 doc . .
+    (mut@5 Nbt@4).)
+   (param@F r . .
+    (mut@3 Reader@4).)
+   (param@U tag . . int@C .)
+   (param@Z depth . . int@7 .))int@m . . .)
+ (proc@,2D readCompound@5 . . .
+  (params@H
+   (param@1 doc . .
+    (mut@5 Nbt@4).)
+   (param@F r . .
+    (mut@3 Reader@4).)
+   (param@U me . . int@B .)
+   (param@Y depth . . int@7 .)). . .
+  (stmts@2,1
+   (comment)
+   (var@4,2 children . .
+    (at@D seq~3 int@1)
+    (prefix@L \40
+     (bracket@1)))
+   (while@,3 true@6
+    (stmts@2,1
+     (if
+      (elif@3
+       (prefix not
+        (call@6 ok~2 r@1))
+       (stmts@B
+        (ret .))))
+     (let@4,1 tag . . .
+      (call@E readByte~8 r@1))
+     (if@,2
+      (elif@3
+       (prefix not
+        (call@6 ok~2 r@1))
+       (stmts@B
+        (ret .))))
+     (if@,3
+      (elif@3
+       (infix@4 == tag~4 TagEnd@3)
+       (stmts@F
+        (break .))))
+     (let@4,4 name . . .
+      (call@K readNbtString~D r@1))
+     (if@,5
+      (elif@3
+       (prefix not
+        (call@6 ok~2 r@1))
+       (stmts@B
+        (ret .))))
+     (let@4,6 child . . .
+      (call@J readPayload~B doc@1 r@6 tag@9
+       (infix@K \2B depth~6 1@2)))
+     (if@,7
+      (elif@3
+       (infix@K or
+        (infix~4 >
+         (dot~5
+          (dot~8 doc~3 problem@1)len@1)0@2)
+        (prefix@3 not
+         (call@6 ok~2 r@1)))
+       (stmts@Y
+        (ret .))))
+     (asgn@F,8
+      (at~8
+       (dot~4 doc~3 key@1)child@1)name@2)
+     (cmd@8,9
+      (dot children~8 add@1)child@5)))
+   (asgn@E,E
+    (at~5
+     (dot~6 doc~3 first@1)me@1)
+    (dot@A
+     (dot~5 doc~3 kids@1)len@1))
+   (asgn@E,F
+    (at~5
+     (dot~6 doc~3 count@1)me@1)
+    (dot@A children~8 len@1))
+   (var@4,G i . . . 0@4)
+   (while@,H
+    (infix@8 < i~2
+     (dot@A children~8 len@1))
+    (stmts@2,1
+     (cmd@8
+      (dot
+       (dot~5 doc~3 kids@1)add@1)
+      (at@D children~8 i@1))
+     (cmd@,1 inc i@4)))))
+ (proc@,2Z readPayload@5 . . .
+  (params@G
+   (param@1 doc . .
+    (mut@5 Nbt@4).)
+   (param@F r . .
+    (mut@3 Reader@4).)
+   (param@U tag . . int@C .)
+   (param@Z depth . . int@7 .))int@m . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 > depth~6 MaxNesting@2)
+     (stmts~1,1
+      (call@7 failDoc~7 doc@1 "NBT nested deeper than the protocol allows"@6)
+      (ret@,1 0@7))))
+   (asgn@7,3 result~7
+    (call@6 node~4 doc@1 tag@6))
+   (case@,4 tag@5
+    (of@,1
+     (ranges TagByte@3)
+     (stmts@2,1
+      (asgn@G
+       (at~9
+        (dot~4 doc~3 num@1)result@1)
+       (call@B readSByte~9 r@1))))
+    (of@,3
+     (ranges TagShort@3)
+     (stmts@2,1
+      (asgn@G
+       (at~9
+        (dot~4 doc~3 num@1)result@1)
+       (call@B readShort~9 r@1))))
+    (of@,5
+     (ranges TagInt@3)
+     (stmts@2,1
+      (asgn@G
+       (at~9
+        (dot~4 doc~3 num@1)result@1)
+       (call@9 readInt~7 r@1))))
+    (of@,7
+     (ranges TagLong@3)
+     (stmts@2,1
+      (asgn@G
+       (at~9
+        (dot~4 doc~3 num@1)result@1)
+       (call@A readLong~8 r@1))))
+    (of@,9
+     (ranges TagFloat@3)
+     (stmts@2,1
+      (asgn@G
+       (at~9
+        (dot~4 doc~3 dec@1)result@1)
+       (call@B readFloat~9 r@1))))
+    (of@,B
+     (ranges TagDouble@3)
+     (stmts@2,1
+      (asgn@G
+       (at~9
+        (dot~4 doc~3 dec@1)result@1)
+       (call@C readDouble~A r@1))))
+    (of@,D
+     (ranges TagString@3)
+     (stmts@2,1
+      (asgn@H
+       (at~9
+        (dot~5 doc~3 text@1)result@1)
+       (call@F readNbtString~D r@1))))
+    (of@,F
+     (ranges TagByteArray@3)
+     (stmts@2,1
+      (let@4 n . . .
+       (call@B readInt~7 r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts@B
+         (ret .))))
+      (if@,2
+       (elif@3
+        (infix@6 or
+         (infix~4 < n~2 0@2)
+         (infix@5 > n~2 MaxElements@2))
+        (stmts~1,1
+         (call@7 failDoc~7 doc@1 "a byte array length is out of range"@6)
+         (ret@,1 .))))
+      (if@,5
+       (elif@3
+        (infix@2 > n~2
+         (call@B remaining~9 r@1))
+        (stmts~1,1
+         (call@7 failDoc~7 doc@1 "a byte array runs past the end"@6)
+         (ret@,1 .))))
+      (asgn@I,8
+       (at~9
+        (dot~6 doc~3 first@1)result@1)
+       (dot@A
+        (dot~5 doc~3 pool@1)len@1))
+      (asgn@I,9
+       (at~9
+        (dot~6 doc~3 count@1)result@1)n@2)
+      (var@4,A i . . . 0@4)
+      (while@,B
+       (infix@8 < i~2 n@2)
+       (stmts@2,1
+        (cmd@8
+         (dot
+          (dot~5 doc~3 pool@1)add@1)
+         (call@E readSByte~9 r@1))
+        (cmd@,1 inc i@4)))))
+    (of@,U
+     (ranges TagIntArray@3)
+     (stmts@2,1
+      (let@4 n . . .
+       (call@B readInt~7 r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts@B
+         (ret .))))
+      (if@,2
+       (elif@3
+        (infix@6 or
+         (infix~4 < n~2 0@2)
+         (infix@5 > n~2 MaxElements@2))
+        (stmts~1,1
+         (call@7 failDoc~7 doc@1 "an int array length is out of range"@6)
+         (ret@,1 .))))
+      (if@,5
+       (elif@3
+        (infix@6 >
+         (infix~4 * n~2 4@2)
+         (call@B remaining~9 r@1))
+        (stmts~1,1
+         (call@7 failDoc~7 doc@1 "an int array runs past the end"@6)
+         (ret@,1 .))))
+      (asgn@I,8
+       (at~9
+        (dot~6 doc~3 first@1)result@1)
+       (dot@A
+        (dot~5 doc~3 pool@1)len@1))
+      (asgn@I,9
+       (at~9
+        (dot~6 doc~3 count@1)result@1)n@2)
+      (var@4,A i . . . 0@4)
+      (while@,B
+       (infix@8 < i~2 n@2)
+       (stmts@2,1
+        (cmd@8
+         (dot
+          (dot~5 doc~3 pool@1)add@1)
+         (call@C readInt~7 r@1))
+        (cmd@,1 inc i@4)))))
+    (of@,j
+     (ranges TagLongArray@3)
+     (stmts@2,1
+      (let@4 n . . .
+       (call@B readInt~7 r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts@B
+         (ret .))))
+      (if@,2
+       (elif@3
+        (infix@6 or
+         (infix~4 < n~2 0@2)
+         (infix@5 > n~2 MaxElements@2))
+        (stmts~1,1
+         (call@7 failDoc~7 doc@1 "a long array length is out of range"@6)
+         (ret@,1 .))))
+      (if@,5
+       (elif@3
+        (infix@6 >
+         (infix~4 * n~2 8@2)
+         (call@B remaining~9 r@1))
+        (stmts~1,1
+         (call@7 failDoc~7 doc@1 "a long array runs past the end"@6)
+         (ret@,1 .))))
+      (asgn@I,8
+       (at~9
+        (dot~6 doc~3 first@1)result@1)
+       (dot@A
+        (dot~5 doc~3 pool@1)len@1))
+      (asgn@I,9
+       (at~9
+        (dot~6 doc~3 count@1)result@1)n@2)
+      (var@4,A i . . . 0@4)
+      (while@,B
+       (infix@8 < i~2 n@2)
+       (stmts@2,1
+        (cmd@8
+         (dot
+          (dot~5 doc~3 pool@1)add@1)
+         (call@D readLong~8 r@1))
+        (cmd@,1 inc i@4)))))
+    (of@,y
+     (ranges TagList@3)
+     (stmts@2,1
+      (let@4 elem . . .
+       (call@F readByte~8 r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts@B
+         (ret .))))
+      (let@4,2 n . . .
+       (call@B readInt~7 r@1))
+      (if@,3
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts@B
+         (ret .))))
+      (asgn@L,4
+       (at~9
+        (dot~9 doc~3 listKind@1)result@1)elem@2)
+      (if@,5
+       (elif@3
+        (infix@2 <= n~2 0@3)
+        (stmts~1,4
+         (asgn@I
+          (at~9
+           (dot~6 doc~3 count@1)result@1)0@2)
+         (asgn@I,1
+          (at~9
+           (dot~6 doc~3 first@1)result@1)
+          (dot@A
+           (dot~5 doc~3 kids@1)len@1))
+         (ret@,2 .))))
+      (if@,C
+       (elif@3
+        (infix@2 > n~2 MaxElements@2)
+        (stmts~1,1
+         (call@7 failDoc~7 doc@1 "a list length is out of range"@6)
+         (ret@,1 .))))
+      (if@,F
+       (elif@3
+        (infix@5 == elem~5 TagEnd@3)
+        (stmts~1,1
+         (call@7 failDoc~7 doc@1 "a non-empty list of TAG_End"@6)
+         (ret@,1 .))))
+      (var@4,I children . .
+       (at@D seq~3 int@1)
+       (prefix@L \40
+        (bracket@1)))
+      (var@4,J i . . . 0@4)
+      (while@,K
+       (infix@8 < i~2 n@2)
+       (stmts@2,1
+        (let@4 child . . .
+         (call@J readPayload~B doc@1 r@6 elem@9
+          (infix@L \2B depth~6 1@2)))
+        (if@,1
+         (elif@3
+          (infix@K or
+           (infix~4 >
+            (dot~5
+             (dot~8 doc~3 problem@1)len@1)0@2)
+           (prefix@3 not
+            (call@6 ok~2 r@1)))
+          (stmts@Y
+           (ret .))))
+        (cmd@8,2
+         (dot children~8 add@1)child@5)
+        (cmd@,3 inc i@4)))
+      (asgn@I,P
+       (at~9
+        (dot~6 doc~3 first@1)result@1)
+       (dot@A
+        (dot~5 doc~3 kids@1)len@1))
+      (asgn@I,Q
+       (at~9
+        (dot~6 doc~3 count@1)result@1)
+       (dot@A children~8 len@1))
+      (asgn@2,R i~2 0@2)
+      (while@,S
+       (infix@8 < i~2
+        (dot@A children~8 len@1))
+       (stmts@2,1
+        (cmd@8
+         (dot
+          (dot~5 doc~3 kids@1)add@1)
+         (at@D children~8 i@1))
+        (cmd@,1 inc i@4)))))
+    (of@,1U
+     (ranges TagCompound@3)
+     (stmts@2,1
+      (call@C readCompound~C doc@1 r@6 result@9 depth@H)))
+    (else@,1W
+     (stmts@2,1
+      (call@7 failDoc~7 doc@1
+       (infix@l & "an NBT tag this reader does not know\3A "~f
+        (prefix@2 $ tag@1))))))))
+ (proc@,4D readNbt@5 x . .
+  (params@D
+   (param@1 r . .
+    (mut@3 Reader@4).))Nbt@H . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,2 result~7
+    (call@A emptyNbt~8))
+   (if@,3
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (let@4,4 tag . . .
+    (call@E readByte~8 r@1))
+   (if@,5
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts~1,1
+      (asgn@F
+       (dot~9 result~6 problem@1)"an NBT value ran off the end before its tag"@2)
+      (ret@,1 .))))
+   (if@,8
+    (elif@3
+     (infix@4 == tag~4 TagEnd@3)
+     (stmts~1,1
+      (asgn@F
+       (dot~9 result~6 present@1)false@2)
+      (asgn@C,1
+       (dot~6 result~6 root@1)-1@2)
+      (ret@,2 .))))
+   (asgn@F,C
+    (dot~9 result~6 present@1)true@2)
+   (asgn@C,D
+    (dot~6 result~6 root@1)
+    (call@D readPayload~B result@1 r@9 tag@C 0@H))
+   (if@,E
+    (elif@3
+     (infix@O and
+      (infix~5 ==
+       (dot~5
+        (dot~8 result~6 problem@1)len@1)0@3)
+      (prefix@4 not
+       (call@6 ok~2 r@1)))
+     (stmts~1,1
+      (asgn@F
+       (dot~9 result~6 problem@1)
+       (dot@3 r~1 problem@1)))))
+   (if@,G
+    (elif@3
+     (infix@J >
+      (dot~5
+       (dot~8 result~6 problem@1)len@1)0@2)
+     (stmts~1,3
+      (call@4 fail~4 r@1
+       (dot@A result~6 problem@1)))))))
+ (proc@,4Z readNamedNbt@5 x . .
+  (params@I
+   (param@1 r . .
+    (mut@3 Reader@4).))Nbt@H . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,3 result~7
+    (call@A emptyNbt~8))
+   (if@,4
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (let@4,5 tag . . .
+    (call@E readByte~8 r@1))
+   (if@,6
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (if@,7
+    (elif@3
+     (infix@4 == tag~4 TagEnd@3)
+     (stmts~1,1
+      (asgn@F
+       (dot~9 result~6 present@1)false@2)
+      (ret@,1 .))))
+   (discard@,A
+    (call@L readNbtString~D r@1))
+   (if@,B
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (asgn@F,C
+    (dot~9 result~6 present@1)true@2)
+   (asgn@C,D
+    (dot~6 result~6 root@1)
+    (call@D readPayload~B result@1 r@9 tag@C 0@H))
+   (if@,E
+    (elif@3
+     (infix@J >
+      (dot~5
+       (dot~8 result~6 problem@1)len@1)0@2)
+     (stmts@O
+      (call@4 fail~4 r@1
+       (dot@A result~6 problem@1)))))))
+ (proc@,4t okNbt@5 x . .
+  (params@B
+   (param@1 doc . . Nbt@5 .))bool@C . .
+  (stmts@U
+   (infix@G ==
+    (dot~5
+     (dot~8 doc~3 problem@1)len@1)0@3)))
+ (proc@,4v kindOf@5 x . .
+  (params@C
+   (param@1 doc . . Nbt@5 .)
+   (param@B at . . int@4 .))int@L . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 or
+      (infix~4 < at~3 0@2)
+      (infix@6 >= at~3
+       (dot@B
+        (dot~5 doc~3 kind@1)len@1)))
+     (stmts@U TagEnd))
+    (else@e
+     (stmts@6
+      (at@8
+       (dot~5 doc~3 kind@1)at@1))))))
+ (proc@,4y childCount@5 x . .
+  (params@G
+   (param@1 doc . . Nbt@5 .)
+   (param@B at . . int@4 .))int@L . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 or
+      (infix~4 < at~3 0@2)
+      (infix@6 >= at~3
+       (dot@C
+        (dot~6 doc~3 count@1)len@1)))
+     (stmts@V
+      (ret 0@7))))
+   (if@,1
+    (elif@3
+     (infix@S or
+      (infix~F ==
+       (at~5
+        (dot~5 doc~3 kind@1)at@1)TagCompound@3)
+      (infix@G ==
+       (at~5
+        (dot~5 doc~3 kind@1)at@1)TagList@3))
+     (stmts@u
+      (at@9
+       (dot~6 doc~3 count@1)at@1)))
+    (else@,1
+     (stmts@6 0)))))
+ (proc@,53 childAt@5 x . .
+  (params@D
+   (param@1 doc . . Nbt@5 .)
+   (param@B at . . int@B .)
+   (param@F index . . int@7 .))int@S . .
+  (stmts@2,1
+   (comment)
+   (if@,2
+    (elif@3
+     (infix@7 or
+      (infix~4 < at~3 0@2)
+      (infix@6 >= at~3
+       (dot@C
+        (dot~6 doc~3 count@1)len@1)))
+     (stmts@V
+      (ret -1@7))))
+   (if@,3
+    (elif@3
+     (infix@S and
+      (infix~F !=
+       (at~5
+        (dot~5 doc~3 kind@1)at@1)TagCompound@3)
+      (infix@H !=
+       (at~5
+        (dot~5 doc~3 kind@1)at@1)TagList@3))
+     (stmts@v
+      (ret -1@7))))
+   (if@,4
+    (elif@3
+     (infix@A or
+      (infix~4 < index~6 0@2)
+      (infix@9 >= index~6
+       (at@C
+        (dot~6 doc~3 count@1)at@1)))
+     (stmts@b
+      (ret -1@7))))
+   (let@4,5 slot . . .
+    (infix@L \2B
+     (at~5
+      (dot~6 doc~3 first@1)at@1)index@2))
+   (if@,6
+    (elif@3
+     (infix@9 or
+      (infix~4 < slot~5 0@2)
+      (infix@8 >= slot~5
+       (dot@B
+        (dot~5 doc~3 kids@1)len@1)))
+     (stmts@Y
+      (ret -1@7))))
+   (at@8,7
+    (dot~5 doc~3 kids@1)slot@1)))
+ (proc@,5D childNamed@5 x . .
+  (params@G
+   (param@1 doc . . Nbt@5 .)
+   (param@B at . . int@4 .)
+   (param@K name . . string@6 .))int@Z . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 or
+      (infix~4 < at~3 0@2)
+      (infix@6 >= at~3
+       (dot@C
+        (dot~6 doc~3 count@1)len@1)))
+     (stmts@V
+      (ret -1@7))))
+   (if@,1
+    (elif@3
+     (infix@D !=
+      (at~5
+       (dot~5 doc~3 kind@1)at@1)TagCompound@3)
+     (stmts@T
+      (ret -1@7))))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (at@B
+      (dot~6 doc~3 count@1)at@1))
+    (stmts@2,1
+     (let@4 c . . .
+      (call@B childAt~7 doc@1 at@6 i@A))
+     (if@,1
+      (elif@3
+       (infix@7 and
+        (infix~5 >= c~2 0@3)
+        (infix@F ==
+         (at~4
+          (dot~4 doc~3 key@1)c@1)name@3))
+       (stmts@V
+        (ret c@7))))
+     (cmd@,2 inc i@4)))
+   (asgn@7,7 result~7 -1@2)))
+ (proc@,5N field@5 x . .
+  (params@B
+   (param@1 doc . . Nbt@5 .)
+   (param@B name . . string@6 .))int@Q . .
+  (stmts@2,1
+   (comment)
+   (call@A,1 childNamed~A doc@1
+    (dot@9 doc~3 root@1)name@G)))
+ (proc@,5R wholeAt@5 x . .
+  (params@D
+   (param@1 doc . . Nbt@5 .)
+   (param@B at . . int@E .)
+   (param@F fallback . . int@A .))int@V . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 or
+      (infix~4 < at~3 0@2)
+      (infix@6 >= at~3
+       (dot@A
+        (dot~4 doc~3 num@1)len@1)))
+     (stmts@T
+      (ret fallback@7))))
+   (case@,1
+    (at@D
+     (dot~5 doc~3 kind@1)at@1)
+    (of@,1
+     (ranges TagByte@3 TagShort@C TagInt@M TagLong@U)
+     (stmts@d
+      (at@7
+       (dot~4 doc~3 num@1)at@1)))
+    (of@,2
+     (ranges TagFloat@3 TagDouble@D)
+     (stmts@O
+      (call@3 int~3
+       (at@8
+        (dot~4 doc~3 dec@1)at@1))))
+    (else@,3
+     (stmts@6 fallback)))))
+ (proc@,5Y realAt@5 x . .
+  (params@C
+   (param@1 doc . . Nbt@5 .)
+   (param@B at . . int@4 .)
+   (param@K fallback . . float@A .))float@c . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 or
+      (infix~4 < at~3 0@2)
+      (infix@6 >= at~3
+       (dot@A
+        (dot~4 doc~3 dec@1)len@1)))
+     (stmts@T
+      (ret fallback@7))))
+   (case@,1
+    (at@D
+     (dot~5 doc~3 kind@1)at@1)
+    (of@,1
+     (ranges TagFloat@3 TagDouble@D)
+     (stmts@O
+      (at@7
+       (dot~4 doc~3 dec@1)at@1)))
+    (of@,2
+     (ranges TagByte@3 TagShort@C TagInt@M TagLong@U)
+     (stmts@d
+      (call@5 float~5
+       (at@8
+        (dot~4 doc~3 num@1)at@1))))
+    (else@,3
+     (stmts@6 fallback)))))
+ (proc@,5f textAt@5 x . .
+  (params@C
+   (param@1 doc . . Nbt@5 .)
+   (param@B at . . int@4 .))string@L . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 or
+      (infix~4 < at~3 0@2)
+      (infix@6 >= at~3
+       (dot@B
+        (dot~5 doc~3 text@1)len@1)))
+     (stmts@U
+      (ret ""@7))))
+   (if@,1
+    (elif@3
+     (infix@D !=
+      (at~5
+       (dot~5 doc~3 kind@1)at@1)TagString@3)
+     (stmts@R
+      (ret ""@7))))
+   (at@8,2
+    (dot~5 doc~3 text@1)at@1)))
+ (proc@,5k arrayLen@5 x . .
+  (params@E
+   (param@1 doc . . Nbt@5 .)
+   (param@B at . . int@4 .))int@L . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 or
+      (infix~4 < at~3 0@2)
+      (infix@6 >= at~3
+       (dot@C
+        (dot~6 doc~3 count@1)len@1)))
+     (stmts@V
+      (ret 0@7))))
+   (let@4,1 k . . .
+    (at@C
+     (dot~5 doc~3 kind@1)at@1))
+   (if@,2
+    (elif@3
+     (infix@d and
+      (infix~L and
+       (infix~G != k~2 TagByteArray@3)
+       (infix@6 != k~2 TagIntArray@3))
+      (infix@6 != k~2 TagLongArray@3))
+     (stmts@10
+      (ret 0@7))))
+   (at@9,3
+    (dot~6 doc~3 count@1)at@1)))
+ (proc@,5q arrayAt@5 x . .
+  (params@D
+   (param@1 doc . . Nbt@5 .)
+   (param@B at . . int@B .)
+   (param@F index . . int@7 .))int@S . .
+  (stmts@2,1
+   (comment)
+   (if@,1
+    (elif@3
+     (infix@A or
+      (infix~4 < index~6 0@2)
+      (infix@9 >= index~6
+       (call@B arrayLen~8 doc@1 at@6)))
+     (stmts@f
+      (ret 0@7))))
+   (at@8,2
+    (dot~5 doc~3 pool@1)
+    (infix@F \2B
+     (at~5
+      (dot~6 doc~3 first@1)at@1)index@2))))
+ (proc@,65 plainInto@5 . . .
+  (params@E
+   (param@1 doc . . Nbt@5 .)
+   (param@B at . . int@4 .)
+   (param@K into . .
+    (mut@6 string@4).)
+   (param@c depth . . int@7 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 or
+      (infix~4 < at~3 0@2)
+      (infix@9 > depth~6 32@2))
+     (stmts@M
+      (ret .))))
+   (case@,1
+    (at@D
+     (dot~5 doc~3 kind@1)at@1)
+    (of@,1
+     (ranges TagString@3)
+     (stmts@2,3
+      (cmd@4
+       (dot into~4 add@1)
+       (at@D
+        (dot~5 doc~3 text@1)at@1))))
+    (of@,5
+     (ranges TagList@3)
+     (stmts@2,1
+      (var@4 i . . . 0@4)
+      (while@,1
+       (infix@8 < i~2
+        (at@B
+         (dot~6 doc~3 count@1)at@1))
+       (stmts@2,1
+        (call@9 plainInto~9 doc@1
+         (call@D childAt~7 doc@1 at@6 i@A)into@R
+         (infix@d \2B depth~6 1@2))
+        (cmd@,1 inc i@4)))))
+    (of@,A
+     (ranges TagCompound@3)
+     (stmts@2,1
+      (let@4 t . . .
+       (call@E childNamed~A doc@1 at@6 "text"@A))
+      (if@,1
+       (elif@3
+        (infix@2 >= t~2 0@3)
+        (stmts@8
+         (cmd@4
+          (dot into~4 add@1)
+          (call@B textAt~6 doc@1 t@6))))
+       (else@,1
+        (stmts@2,1
+         (let@4 tr . . .
+          (call@F childNamed~A doc@1 at@6 "translate"@A))
+         (if@,1
+          (elif@3
+           (infix@3 >= tr~3 0@3)
+           (stmts~1,1
+            (cmd@4
+             (dot into~4 add@1)
+             (call@B textAt~6 doc@1 tr@6))
+            (let@4,1 args . . .
+             (call@H childNamed~A doc@1 at@6 "with"@A))
+            (if@,2
+             (elif@3
+              (infix@5 >= args~5 0@3)
+              (stmts~1,1
+               (cmd@4
+                (dot into~4 add@1)"\28"@5)
+               (var@4,1 i . . . 0@4)
+               (while@,2
+                (infix@8 < i~2
+                 (at@B
+                  (dot~6 doc~3 count@1)args@1))
+                (stmts@2,1
+                 (if
+                  (elif@3
+                   (infix@2 > i~2 0@2)
+                   (stmts@7
+                    (cmd@4
+                     (dot into~4 add@1)", "@5))))
+                 (call@9,1 plainInto~9 doc@1
+                  (call@D childAt~7 doc@1 args@6 i@C)into@T
+                  (infix@f \2B depth~6 1@2))
+                 (cmd@,2 inc i@4)))
+               (cmd@4,6
+                (dot into~4 add@1)"\29"@5))))))))))
+      (let@4,F extra . . .
+       (call@I childNamed~A doc@1 at@6 "extra"@A))
+      (if@,G
+       (elif@3
+        (infix@6 >= extra~6 0@3)
+        (stmts~1,1
+         (var@4 i . . . 0@4)
+         (while@,1
+          (infix@8 < i~2
+           (at@B
+            (dot~6 doc~3 count@1)extra@1))
+          (stmts@2,1
+           (call@9 plainInto~9 doc@1
+            (call@D childAt~7 doc@1 extra@6 i@D)into@U
+            (infix@g \2B depth~6 1@2))
+           (cmd@,1 inc i@4))))))))
+    (else@,W
+     (stmts@2,1
+      (discard .))))))
+ (proc@,6g plain@5 x . .
+  (params@B
+   (param@1 doc . . Nbt@5 .))string@C . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,1 result~7 ""@2)
+   (if@,2
+    (elif@3
+     (prefix not
+      (dot@7 doc~3 present@1))
+     (stmts@H
+      (ret .))))
+   (call@9,3 plainInto~9 doc@1
+    (dot@9 doc~3 root@1)result@G 0@O)))
+ (proc@,6p putNbtString@5 x . .
+  (params@I
+   (param@1 w . .
+    (mut@3 Writer@4).)
+   (param@G s . . string@3 .)). . .
+  (stmts@2,1
+   (call@8 putShort~8 w@1
+    (dot@5 s~1 len@1))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@3 s~1 len@1))
+    (stmts@2,1
+     (cmd@6
+      (dot
+       (dot~5 w~1 data@1)add@1)
+      (infix@F and
+       (call~7 int~3
+        (at@2 s~1 i@1))255@4))
+     (cmd@,1 inc i@4)))))
+ (proc@,6w writePayload@5 x . .
+  (params@I
+   (param@1 w . .
+    (mut@3 Writer@4).)
+   (param@G doc . . Nbt@5 .)
+   (param@Q at . . int@4 .)
+   (param@Z depth . . int@7 0@D)). . .
+  (stmts@2,1
+   (comment)
+   (if@,5
+    (elif@3
+     (infix@7 or
+      (infix~4 < at~3 0@2)
+      (infix@6 >= at~3
+       (dot@B
+        (dot~5 doc~3 kind@1)len@1)))
+     (stmts@U
+      (ret .))))
+   (if@,6
+    (elif@3
+     (infix@6 > depth~6 MaxNesting@2)
+     (stmts@K
+      (ret .))))
+   (case@,7
+    (at@D
+     (dot~5 doc~3 kind@1)at@1)
+    (of@,1
+     (ranges TagByte@3)
+     (stmts@C
+      (call@7 putByte~7 w@1
+       (at@B
+        (dot~4 doc~3 num@1)at@1))))
+    (of@,2
+     (ranges TagShort@3)
+     (stmts@D
+      (call@8 putShort~8 w@1
+       (at@B
+        (dot~4 doc~3 num@1)at@1))))
+    (of@,3
+     (ranges TagInt@3)
+     (stmts@B
+      (call@6 putInt~6 w@1
+       (at@B
+        (dot~4 doc~3 num@1)at@1))))
+    (of@,4
+     (ranges TagLong@3)
+     (stmts@C
+      (call@7 putLong~7 w@1
+       (at@B
+        (dot~4 doc~3 num@1)at@1))))
+    (of@,5
+     (ranges TagFloat@3)
+     (stmts@D
+      (call@8 putFloat~8 w@1
+       (at@B
+        (dot~4 doc~3 dec@1)at@1))))
+    (of@,6
+     (ranges TagDouble@3)
+     (stmts@E
+      (call@9 putDouble~9 w@1
+       (at@B
+        (dot~4 doc~3 dec@1)at@1))))
+    (of@,7
+     (ranges TagString@3)
+     (stmts@E
+      (call@C putNbtString~C w@1
+       (at@C
+        (dot~5 doc~3 text@1)at@1))))
+    (of@,8
+     (ranges TagByteArray@3)
+     (stmts@2,1
+      (call@6 putInt~6 w@1
+       (at@D
+        (dot~6 doc~3 count@1)at@1))
+      (var@4,1 i . . . 0@4)
+      (while@,2
+       (infix@8 < i~2
+        (at@B
+         (dot~6 doc~3 count@1)at@1))
+       (stmts@2,1
+        (call@7 putByte~7 w@1
+         (at@C
+          (dot~5 doc~3 pool@1)
+          (infix@F \2B
+           (at~5
+            (dot~6 doc~3 first@1)at@1)i@2)))
+        (cmd@,1 inc i@4)))))
+    (of@,E
+     (ranges TagIntArray@3)
+     (stmts@2,1
+      (call@6 putInt~6 w@1
+       (at@D
+        (dot~6 doc~3 count@1)at@1))
+      (var@4,1 i . . . 0@4)
+      (while@,2
+       (infix@8 < i~2
+        (at@B
+         (dot~6 doc~3 count@1)at@1))
+       (stmts@2,1
+        (call@6 putInt~6 w@1
+         (at@C
+          (dot~5 doc~3 pool@1)
+          (infix@F \2B
+           (at~5
+            (dot~6 doc~3 first@1)at@1)i@2)))
+        (cmd@,1 inc i@4)))))
+    (of@,K
+     (ranges TagLongArray@3)
+     (stmts@2,1
+      (call@6 putInt~6 w@1
+       (at@D
+        (dot~6 doc~3 count@1)at@1))
+      (var@4,1 i . . . 0@4)
+      (while@,2
+       (infix@8 < i~2
+        (at@B
+         (dot~6 doc~3 count@1)at@1))
+       (stmts@2,1
+        (call@7 putLong~7 w@1
+         (at@C
+          (dot~5 doc~3 pool@1)
+          (infix@F \2B
+           (at~5
+            (dot~6 doc~3 first@1)at@1)i@2)))
+        (cmd@,1 inc i@4)))))
+    (of@,Q
+     (ranges TagList@3)
+     (stmts@2,1
+      (var@4 elem . . .
+       (at@J
+        (dot~9 doc~3 listKind@1)at@1))
+      (if@,1
+       (elif@3
+        (infix@J and
+         (infix~5 ==
+          (at~5
+           (dot~6 doc~3 count@1)at@1)0@3)
+         (infix@9 == elem~5 0@3))
+        (stmts@Y
+         (asgn@5 elem~5 TagEnd@2))))
+      (call@7,2 putByte~7 w@1 elem@4)
+      (call@6,3 putInt~6 w@1
+       (at@D
+        (dot~6 doc~3 count@1)at@1))
+      (var@4,4 i . . . 0@4)
+      (while@,5
+       (infix@8 < i~2
+        (at@B
+         (dot~6 doc~3 count@1)at@1))
+       (stmts@2,1
+        (call@C writePayload~C w@1 doc@4
+         (call@G childAt~7 doc@1 at@6 i@A)
+         (infix@a \2B depth~6 1@2))
+        (cmd@,1 inc i@4)))))
+    (of@,Z
+     (ranges TagCompound@3)
+     (stmts@2,1
+      (var@4 i . . . 0@4)
+      (while@,1
+       (infix@8 < i~2
+        (at@B
+         (dot~6 doc~3 count@1)at@1))
+       (stmts@2,1
+        (let@4 c . . .
+         (call@B childAt~7 doc@1 at@6 i@A))
+        (call@7,1 putByte~7 w@1
+         (at@C
+          (dot~5 doc~3 kind@1)c@1))
+        (call@C,2 putNbtString~C w@1
+         (at@B
+          (dot~4 doc~3 key@1)c@1))
+        (call@C,3 writePayload~C w@1 doc@4 c@9
+         (infix@I \2B depth~6 1@2))
+        (cmd@,4 inc i@4)))
+      (call@7,7 putByte~7 w@1 TagEnd@4)))
+    (else@,i
+     (stmts@2,1
+      (discard .))))))
+ (proc@,7p putNbt@5 x . .
+  (params@C
+   (param@1 w . .
+    (mut@3 Writer@4).)
+   (param@G doc . . Nbt@5 .)). . .
+  (stmts@2,1
+   (comment)
+   (if@,1
+    (elif@3
+     (infix@G or
+      (prefix~G not
+       (dot@7 doc~3 present@1))
+      (infix@C <
+       (dot~6 doc~3 root@1)0@2))
+     (stmts~1,1
+      (call@7 putByte~7 w@1 TagEnd@4)
+      (ret@,1 .))))
+   (call@7,4 putByte~7 w@1
+    (at@C
+     (dot~5 doc~3 kind@1)
+     (dot@4 doc~3 root@1)))
+   (call@C,5 writePayload~C w@1 doc@4
+    (dot@C doc~3 root@1)0@J)))
+ (proc@,80 newCompound@5 x . .
+  (params@H
+   (param@1 doc . .
+    (mut@5 Nbt@4).))int@G . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,2 result~7
+    (call@6 node~4 doc@1 TagCompound@6))
+   (asgn@I,3
+    (at~9
+     (dot~6 doc~3 first@1)result@1)0@2)
+   (asgn@I,4
+    (at~9
+     (dot~6 doc~3 count@1)result@1)0@2)))
+ (proc@,87 newList@5 x . .
+  (params@D
+   (param@1 doc . .
+    (mut@5 Nbt@4).)
+   (param@F elem . . int@6 .))int@R . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@6 node~4 doc@1 TagList@6))
+   (asgn@L,1
+    (at~9
+     (dot~9 doc~3 listKind@1)result@1)elem@2)
+   (asgn@I,2
+    (at~9
+     (dot~6 doc~3 first@1)result@1)0@2)
+   (asgn@I,3
+    (at~9
+     (dot~6 doc~3 count@1)result@1)0@2)))
+ (proc@,8D newInt@5 x . .
+  (params@C
+   (param@1 doc . .
+    (mut@5 Nbt@4).)
+   (param@F tag . . int@C .)
+   (param@K value . . int@7 .))int@X . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@6 node~4 doc@1 tag@6))
+   (asgn@G,1
+    (at~9
+     (dot~4 doc~3 num@1)result@1)value@2)))
+ (proc@,8H newReal@5 x . .
+  (params@D
+   (param@1 doc . .
+    (mut@5 Nbt@4).)
+   (param@F tag . . int@5 .)
+   (param@P value . . float@7 .))int@e . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@6 node~4 doc@1 tag@6))
+   (asgn@G,1
+    (at~9
+     (dot~4 doc~3 dec@1)result@1)value@2)))
+ (proc@,8L newText@5 x . .
+  (params@D
+   (param@1 doc . .
+    (mut@5 Nbt@4).)
+   (param@F value . . string@7 .))int@V . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@6 node~4 doc@1 TagString@6))
+   (asgn@H,1
+    (at~9
+     (dot~5 doc~3 text@1)result@1)value@2)))
+ (proc@,8P newArray@5 x . .
+  (params@E
+   (param@1 doc . .
+    (mut@5 Nbt@4).)
+   (param@F tag . . int@5 .)
+   (param@P values . .
+    (at@B seq~3 int@1).))int@i . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@6 node~4 doc@1 tag@6))
+   (asgn@I,1
+    (at~9
+     (dot~6 doc~3 first@1)result@1)
+    (dot@A
+     (dot~5 doc~3 pool@1)len@1))
+   (asgn@I,2
+    (at~9
+     (dot~6 doc~3 count@1)result@1)
+    (dot@8 values~6 len@1))
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@8 values~6 len@1))
+    (stmts@2,1
+     (cmd@8
+      (dot
+       (dot~5 doc~3 pool@1)add@1)
+      (at@B values~6 i@1))
+     (cmd@,1 inc i@4)))))
+ (proc@,8Y addChildren@5 x . .
+  (params@H
+   (param@1 doc . .
+    (mut@5 Nbt@4).)
+   (param@F parent . . int@8 .)
+   (param@S children . .
+    (at@D seq~3 int@1).)
+   (param@1,1 names . .
+    (at@A seq~3 string@1).)). . .
+  (stmts@2,2
+   (comment)
+   (if@,H
+    (elif@3
+     (infix@B or
+      (infix~4 < parent~7 0@2)
+      (infix@A >= parent~7
+       (dot@C
+        (dot~6 doc~3 count@1)len@1)))
+     (stmts@d
+      (ret .))))
+   (asgn@I,I
+    (at~9
+     (dot~6 doc~3 first@1)parent@1)
+    (dot@A
+     (dot~5 doc~3 kids@1)len@1))
+   (asgn@I,J
+    (at~9
+     (dot~6 doc~3 count@1)parent@1)
+    (dot@A children~8 len@1))
+   (var@4,K i . . . 0@4)
+   (while@,L
+    (infix@8 < i~2
+     (dot@A children~8 len@1))
+    (stmts@2,1
+     (let@4 c . . .
+      (at@C children~8 i@1))
+     (if@,1
+      (elif@3
+       (infix@7 and
+        (infix~5 >= c~2 0@3)
+        (infix@6 < c~2
+         (dot@9
+          (dot~4 doc~3 key@1)len@1)))
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@2 < i~2
+           (dot@7 names~5 len@1))
+          (stmts@F
+           (asgn@B
+            (at~4
+             (dot~4 doc~3 key@1)c@1)
+            (at@7 names~5 i@1))))))))
+     (cmd@8,3
+      (dot
+       (dot~5 doc~3 kids@1)add@1)c@5)
+     (cmd@,4 inc i@4)))))
+ (proc@,92 visit@5 . . .
+  (params@A
+   (param@1 doc . . Nbt@5 .)
+   (param@B at . . int@4 .)
+   (param@K seen . .
+    (mut@6
+     (at@7 seq~3 int@1)).)
+   (param@e depth . . int@7 .))bool@r . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 or
+      (infix~4 < at~3 0@2)
+      (infix@6 >= at~3
+       (dot@B
+        (dot~5 doc~3 kind@1)len@1)))
+     (stmts@U
+      (ret false@7))))
+   (if@,1
+    (elif@3
+     (infix@6 > depth~6 MaxNesting@2)
+     (stmts@K
+      (ret false@7))))
+   (if@,2
+    (elif@3
+     (infix@9 !=
+      (at~5 seen~4 at@1)0@3)
+     (stmts@F
+      (ret false@7))))
+   (asgn@9,3
+    (at~5 seen~4 at@1)1@2)
+   (if@,4
+    (elif@3
+     (infix@S or
+      (infix~F ==
+       (at~5
+        (dot~5 doc~3 kind@1)at@1)TagCompound@3)
+      (infix@G ==
+       (at~5
+        (dot~5 doc~3 kind@1)at@1)TagList@3))
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@E <
+         (at~5
+          (dot~6 doc~3 first@1)at@1)0@2)
+        (stmts@J
+         (ret false@7))))
+      (if@,1
+       (elif@3
+        (infix@U >
+         (infix~G \2B
+          (at~5
+           (dot~6 doc~3 first@1)at@1)
+          (at@B
+           (dot~6 doc~3 count@1)at@1))
+         (dot@A
+          (dot~5 doc~3 kids@1)len@1))
+        (stmts@k
+         (ret false@7))))
+      (var@4,2 i . . . 0@4)
+      (while@,3
+       (infix@8 < i~2
+        (at@B
+         (dot~6 doc~3 count@1)at@1))
+       (stmts@2,1
+        (if
+         (elif@3
+          (prefix not
+           (call@9 visit~5 doc@1
+            (at@E
+             (dot~5 doc~3 kids@1)
+             (infix@F \2B
+              (at~5
+               (dot~6 doc~3 first@1)at@1)i@2))seen@Z
+            (infix@l \2B depth~6 1@2)))
+          (stmts~1,1
+           (ret false@7))))
+        (cmd@,2 inc i@4))))))true@,C))
+ (proc@,9H wellFormed@5 x . .
+  (params@G
+   (param@1 doc . . Nbt@5 .))bool@C . .
+  (stmts@2,1
+   (comment)
+   (if@,4
+    (elif@3
+     (prefix not
+      (dot@7 doc~3 present@1))
+     (stmts@H
+      (ret
+       (infix@G <
+        (dot~6 doc~3 root@1)0@2)))))
+   (if@,5
+    (elif@3
+     (infix@D or
+      (infix~4 <
+       (dot~6 doc~3 root@1)0@2)
+      (infix@C >=
+       (dot~6 doc~3 root@1)
+       (dot@B
+        (dot~5 doc~3 kind@1)len@1)))
+     (stmts@g
+      (ret false@7))))
+   (var@4,6 seen . . .
+    (call@I
+     (at~5 newSeq~6 int@1)
+     (dot@9
+      (dot~5 doc~3 kind@1)len@1)))
+   (call@5,7 visit~5 doc@1
+    (dot@9 doc~3 root@1)seen@G 0@M)))
+ (proc@,9R setRoot@5 x . .
+  (params@D
+   (param@1 doc . .
+    (mut@5 Nbt@4).)
+   (param@F at . . int@4 .)). . .
+  (stmts@2,1
+   (asgn@9
+    (dot~6 doc~3 root@1)at@2)
+   (asgn@C,1
+    (dot~9 doc~3 present@1)
+    (infix@5 >= at~3 0@3)))))

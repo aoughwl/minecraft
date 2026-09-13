@@ -1,0 +1,154 @@
+(.nif27)
+(.indexat 3647             )
+(stmts@,1,../../../../Packages/com.aoughwl.jester/ModSdk/render.nim
+ (import
+  (kv sysvq0asl "../../../../../../nimony/lib/std/system.nim"))
+ (proc@,R :hostRenderFpsSet.0.@5 . . .
+  (params@L
+   (param@1 :rate.0 . .
+    (i@6 64).)).
+  (pragmas@Z
+   (importc@2 "jester_render_fps_set"@9)). .)
+ (proc@,S :hostRenderFps.0.@5 . . .
+  (params@I)
+  (i@4 64)
+  (pragmas@S
+   (importc@2 "jester_render_fps"@9)). .)
+ (proc@,T :hostRenderIntervalSet.0.@5 . . .
+  (params@Q
+   (param@1 :every.0 . .
+    (i@7 64).)).
+  (pragmas@f
+   (importc@2 "jester_render_interval_set"@9)). .)
+ (proc@,U :hostRenderInterval.0.@5 . . .
+  (params@N)
+  (i@4 64)
+  (pragmas@X
+   (importc@2 "jester_render_interval"@9)). .)
+ (proc@,V :hostRenderIdle.0.@5 . . .
+  (params@J
+   (param@1 :idle.0 . .
+    (i@D 64).)
+   (param@7 :awake.0 . .
+    (i@7 64).)
+   (param@L :seconds.0 . .
+    (f@9 64).)).
+  (pragmas@2,1
+   (importc@2 "jester_render_idle"@9)). .)
+ (proc@,X :hostRenderIdling.0.@5 . . .
+  (params@L)
+  (bool@4)
+  (pragmas@U
+   (importc@2 "jester_render_idling"@9)). .)
+ (proc@,Y :hostRenderWake.0.@5 . . .
+  (params@J).
+  (pragmas@M
+   (importc@2 "jester_render_wake"@9)). .)
+ (proc@,Z :hostRenderContinuous.0.@5 . . .
+  (params@P).
+  (pragmas@S
+   (importc@2 "jester_render_continuous"@9)). .)
+ (proc@,a :hostRenderFrames.0.@5 . . .
+  (params@L)
+  (i@4 64)
+  (pragmas@V
+   (importc@2 "jester_render_frames"@9)). .)
+ (proc@,e :frameRate.0.@5 x . .
+  (params@F
+   (param@1 :rate.1 . .
+    (i@6 64).)). . .
+  (stmts@T
+   (call@G hostRenderFpsSet.0.~G
+    (conv@6
+     (i~5 64)rate.1@1))))
+ (proc@,g :frameRate.1.@5 x . .
+  (params@F)
+  (i@4 64). .
+  (stmts@P
+   (result@3 :result.0 . .
+    (i@,~F 64).)
+   (asgn@3 result.0
+    (conv
+     (i@I,~2 64)
+     (call@E hostRenderFps.0.~D)))
+   (ret~P result.0)))
+ (proc@,l :drawEvery.0.@5 x . .
+  (params@F
+   (param@1 :frames.0 . .
+    (i@8 64).)). . .
+  (stmts@V
+   (call@L hostRenderIntervalSet.0.~L
+    (conv@6
+     (i~C,~7 64)frames.0@1))))
+ (proc@,n :drawEvery.1.@5 x . .
+  (params@F)
+  (i@4 64). .
+  (stmts@P
+   (result@3 :result.1 . .
+    (i@,~M 64).)
+   (asgn@3 result.1
+    (conv
+     (i@I,~9 64)
+     (call@J hostRenderInterval.0.~I)))
+   (ret~P result.1)))
+ (proc@,s :idleWhenQuiet.0.@5 x . .
+  (params@J
+   (param@1 :idle.1 . .
+    (i@8,~R 64)5@7)
+   (param@B :awake.1 . .
+    (i~2,~R 64)60@8)
+   (param@N :seconds.1 . .
+    (f@7,~N 64)0.4@A)). . .
+  (stmts@2,1
+   (call@E hostRenderIdle.0.~E
+    (conv@6
+     (i@O,~F 64)idle.1@1)
+    (conv@J
+     (i@B,~F 64)awake.1@1)seconds.1@S)))
+ (proc@,w :idling.0.@5 x . .
+  (params@C)
+  (bool@4). .
+  (stmts@N
+   (result@G :result.2 . .
+    (bool~Z,~P).)
+   (asgn@G result.2
+    (call hostRenderIdling.0.~G))
+   (ret~N result.2)))
+ (proc@,10 :redraw.0.@5 x . .
+  (params@C). . .
+  (stmts@H
+   (call@E hostRenderWake.0.~E)))
+ (proc@,13 :drawContinuously.0.@5 x . .
+  (params@M). . .
+  (stmts@R
+   (call@K hostRenderContinuous.0.~K)))
+ (proc@,17 :framesDrawn.0.@5 x . .
+  (params@H)
+  (i@4 64). .
+  (stmts@R
+   (result@3 :result.3 . .
+    (i~2,~g 64).)
+   (asgn@3 result.3
+    (conv
+     (i@G,~T 64)
+     (call@H hostRenderFrames.0.~G)))
+   (ret~R result.3)))
+ (comment@S,R int64.0.sysvq0asl int64.0.sysvq0asl~O,1 int64.0.sysvq0asl@6,2 int64.0.sysvq0asl~O,3 int64.0.sysvq0asl@5,4 int64.0.sysvq0asl@5,4 float64.0.sysvq0asl@L,4 bool.0.sysvq0asl~O,6 int64.0.sysvq0asl~O,9 int.0.sysvq0asl~6,D int.0.sysvq0asl~O,F int.0.sysvq0asl~4,K int.0.sysvq0asl~O,M bool.0.sysvq0asl~O,V int.0.sysvq0asl~O,g int64.0.sysvq0asl@I,D int.0.sysvq0asl~3,F int64.0.sysvq0asl@P,K int.0.sysvq0asl~3,M int64.0.sysvq0asl~B,S int64.0.sysvq0asl@2,S int.0.sysvq0asl~1,g))(.index@,1,../../../../Packages/com.aoughwl.jester/ModSdk/render.nim
+ (h hostRenderFpsSet.0. 178)
+ (h hostRenderFps.0. 151)
+ (h hostRenderIntervalSet.0. 115)
+ (h hostRenderInterval.0. 162)
+ (h hostRenderIdle.0. 125)
+ (h hostRenderIdling.0. 230)
+ (h hostRenderWake.0. 121)
+ (h hostRenderContinuous.0. 107)
+ (h hostRenderFrames.0. 119)
+ (x frameRate.0. 121)
+ (x frameRate.1. 171)
+ (x drawEvery.0. 218)
+ (x drawEvery.1. 183)
+ (x idleWhenQuiet.0. 223)
+ (x idling.0. 328)
+ (x redraw.0. 188)
+ (x drawContinuously.0. 93)
+ (x framesDrawn.0. 109))

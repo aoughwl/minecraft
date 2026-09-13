@@ -1,0 +1,851 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,mcuiworlds.nim
+ (comment)
+ (import@,n mcuicore@7)
+ (import@,o mcuilist@7)
+ (import@,p mcuitext@7)
+ (const@G,s KeyWorldsTitle~E x . . "selectWorld.title"@4)
+ (const@9,t KeyPlay~7 x . . "selectWorld.select"@4)
+ (const@B,u KeyCreate~9 x . . "selectWorld.create"@4)
+ (const@9,v KeyEdit~7 x . . "selectWorld.edit"@4)
+ (const@B,w KeyDelete~9 x . . "selectWorld.delete"@4)
+ (const@D,x KeyRecreate~B x . . "selectWorld.recreate"@4)
+ (const@B,y KeyCancel~9 x . . "gui.cancel"@4)
+ (const@A,z KeyEmpty~8 x . . "selectWorld.empty"@4)
+ (const@E,10 KeyEnterName~C x . . "selectWorld.enterName"@4)
+ (const@H,11 KeyResultFolder~F x . . "selectWorld.resultFolder"@4)
+ (const@E,12 KeyEnterSeed~C x . . "selectWorld.enterSeed"@4)
+ (const@D,13 KeySeedInfo~B x . . "selectWorld.seedInfo"@4)
+ (const@D,14 KeyGameMode~B x . . "selectWorld.gameMode"@4)
+ (const@D,15 KeySurvival~B x . . "gameMode.survival"@4)
+ (const@D,16 KeyCreative~B x . . "gameMode.creative"@4)
+ (const@J,17 KeyDeleteQuestion~H x . . "selectWorld.deleteQuestion"@4)
+ (const@I,18 KeyDeleteWarning~G x . . "selectWorld.deleteWarning"@4)
+ (const@H,19 KeyDeleteButton~F x . . "selectWorld.deleteButton"@4)
+ (const@E,1B NameFieldTop~C x . . 60@4)
+ (const@E,1C NameLabelTop~C x . . 47@4)
+ (const@F,1D FolderNoteTop~D x . . 85@4)
+ (const@E,1E SeedFieldTop~C x . . 130@4)
+ (const@E,1F SeedLabelTop~C x . . 117@4)
+ (const@D,1G SeedNoteTop~B x . . 155@4)
+ (const@D,1H GameModeTop~B x . . 178@4)
+ (const@H,1Q FooterFullWidth~F x . . 150@4)
+ (const@I,1R FooterSmallWidth~G x . . 72@4)
+ (const@J,1S CreateButtonWidth~H x . . 150@4)
+ (type@C,1V GameMode~A x . .
+  (enum@2 .
+   (efld~A,1 Survival . . . .)
+   (efld@,1 Creative . . . .)))
+ (type@9,1Y World~7 x . .
+  (object@2 .
+   (fld~1,3 folder~6 x . string@3 .)
+   (fld~3,4 name~4 x . string@3 .)
+   (fld~3,5 seed~4 x . int@3 .)
+   (fld~3,6 mode~4 x . GameMode@3 .)
+   (fld~3,7 turn~4 x . int@3 .)
+   (fld~2,8 plays~5 x . int@3 .)))
+ (type@F,1i WorldChoice~D x . .
+  (object@2 .
+   (fld~7,1 worlds~6 x .
+    (at@6 seq~3 World@1).)
+   (fld~9,2 pick~4 x . int@3 .)
+   (fld~7,3 scroll~6 x . int@3 .)))
+ (proc@,1n noWorlds@5 x . .
+  (params@E)WorldChoice@4 . .
+  (stmts@2,1
+   (oconstr@B WorldChoice~B
+    (kv@7 worlds~6
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@I pick~4 -1@2)
+    (kv@U scroll~6 0@2))))
+ (proc@,1q modeKey@5 x . .
+  (params@D
+   (param@1 m . . GameMode@3 .))string@F . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@2 == m~2 Creative@3)
+     (stmts@F KeyCreative))
+    (else@U
+     (stmts@6 KeySurvival)))))
+ (proc@,1t modeWord@5 x . .
+  (params@E
+   (param@1 m . . GameMode@3 .))string@F . .
+  (stmts@2,1
+   (comment)
+   (if@,1
+    (elif@3
+     (infix@2 == m~2 Creative@3)
+     (stmts@F "creative"))
+    (else@T
+     (stmts@6 "survival")))))
+ (proc@,1x modeOf@5 x . .
+  (params@C
+   (param@1 word . . string@6 .))GameMode@G . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 == word~5 "creative"@3)
+     (stmts@K Creative))
+    (else@W
+     (stmts@6 Survival)))))
+ (proc@,20 nextMode@5 x . .
+  (params@E
+   (param@1 m . . GameMode@3 .))GameMode@F . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@2 == m~2 Survival@3)
+     (stmts@F Creative))
+    (else@R
+     (stmts@6 Survival)))))
+ (proc@,2A escapeField@5 . . .
+  (params@G
+   (param@1 text . . string@6 .))string@G . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 text~4 len@1))
+    (stmts@2,1
+     (let@4 c . . .
+      (at@8 text~4 i@1))
+     (if@,1
+      (elif@3
+       (infix@2 == c~2 '\5C'@3)
+       (stmts@B
+        (cmd@6
+         (dot result~6 add@1)"\5C\5C"@5)))
+      (elif@5,1
+       (infix@2 == c~2 '\0A'@3)
+       (stmts@B
+        (cmd@6
+         (dot result~6 add@1)"\5Cn"@5)))
+      (elif@5,2
+       (infix@2 == c~2 '\09'@3)
+       (stmts@B
+        (cmd@6
+         (dot result~6 add@1)"\5Ct"@5)))
+      (else@,3
+       (stmts@6
+        (cmd@6
+         (dot result~6 add@1)c@5))))
+     (cmd@,5 inc i@4)))))
+ (proc@,2L unescapeField@5 . . .
+  (params@I
+   (param@1 text . . string@6 .))string@G . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 text~4 len@1))
+    (stmts@2,1
+     (let@4 c . . .
+      (at@8 text~4 i@1))
+     (if@,1
+      (elif@3
+       (infix@A and
+        (infix~8 == c~2 '\5C'@3)
+        (infix@A <
+         (infix~4 \2B i~2 1@2)
+         (dot@6 text~4 len@1)))
+       (stmts~1,1
+        (let@4 n . . .
+         (at@8 text~4
+          (infix@3 \2B i~2 1@2)))
+        (asgn@2,1 i~2
+         (infix@4 \2B i~2 2@2))
+        (if@,2
+         (elif@3
+          (infix@2 == n~2 'n'@3)
+          (stmts@A
+           (cmd@6
+            (dot result~6 add@1)'\0A'@5)))
+         (elif@5,1
+          (infix@2 == n~2 't'@3)
+          (stmts@A
+           (cmd@6
+            (dot result~6 add@1)'\09'@5)))
+         (elif@5,2
+          (infix@2 == n~2 '\5C'@3)
+          (stmts@B
+           (cmd@6
+            (dot result~6 add@1)'\5C'@5)))
+         (else@,3
+          (stmts@2,1
+           (cmd@6
+            (dot result~6 add@1)c@5)
+           (cmd@6,1
+            (dot result~6 add@1)n@5))))))
+      (else@,9
+       (stmts@2,1
+        (cmd@6
+         (dot result~6 add@1)c@5)
+        (cmd@,1 inc i@4))))))))
+ (proc@,2d splitOn@5 . . .
+  (params@C
+   (param@1 line . . string@6 .)
+   (param@F sep . . char@5 .))
+  (at@U seq~3 string@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 piece . . . ""@8)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 <= i~2
+     (dot@7 line~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@E or
+        (infix~C == i~2
+         (dot@7 line~4 len@1))
+        (infix@B ==
+         (at~4 line~4 i@1)sep@3))
+       (stmts~1,1
+        (cmd@6
+         (dot result~6 add@1)piece@5)
+        (asgn@6,1 piece~6 ""@2)))
+      (else@,3
+       (stmts@2,1
+        (if
+         (elif@3
+          (infix@8 !=
+           (at~4 line~4 i@1)'\0D'@3)
+          (stmts@H
+           (cmd@5
+            (dot piece~5 add@1)
+            (at@9 line~4 i@1))))))))
+     (cmd@,5 inc i@4)))))
+ (proc@,2p wholeOf@5 . . .
+  (params@C
+   (param@1 text . . string@6 .))int@G . .
+  (stmts@2,1
+   (var@4 sign . . . 1@7)
+   (var@4,1 i . . . 0@4)
+   (if@,2
+    (elif@3
+     (infix@D and
+      (infix~B < i~2
+       (dot@6 text~4 len@1))
+      (infix@C ==
+       (at~4 text~4 i@1)'-'@3))
+     (stmts~1,1
+      (asgn@5 sign~5 -1@2)
+      (cmd@,1 inc i@4))))
+   (var@4,5 value . . . 0@8)
+   (var@4,6 digits . . . 0@9)
+   (while@,7
+    (infix@c and
+     (infix~J and
+      (infix~B < i~2
+       (dot@6 text~4 len@1))
+      (infix@C >=
+       (at~4 text~4 i@1)'0'@3))
+     (infix@C <=
+      (at~4 text~4 i@1)'9'@3))
+    (stmts@2,1
+     (asgn@6 value~6
+      (infix@D \2B
+       (infix~5 * value~6 10@2)
+       (par@2
+        (infix@E \2D
+         (call~A int~3
+          (at@5 text~4 i@1))
+         (call@5 int~3 '0'@1)))))
+     (cmd@,1 inc digits@4)
+     (cmd@,2 inc i@4)))
+   (if@,B
+    (elif@3
+     (infix@7 == digits~7 0@3)
+     (stmts@D 0))
+    (else@I
+     (stmts@6
+      (infix@6 * value~6 sign@2))))))
+ (comment@,33)
+ (proc@,34 writeRegistry@5 x . .
+  (params@J
+   (param@1 worlds . .
+    (at@B seq~3 World@1).))string@M . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@8 worlds~6 len@1))
+    (stmts@2,1
+     (let@4 w . . .
+      (at@A worlds~6 i@1))
+     (cmd@,1 inc i@4)
+     (cmd@6,2
+      (dot result~6 add@1)
+      (infix@13,1 &
+       (infix~B &
+        (infix~7 &
+         (infix~A &
+          (infix~7 &
+           (infix~J &
+            (infix~7 &
+             (infix@x,~1 &
+              (infix~7 &
+               (infix~M &
+                (infix~7 &
+                 (call~B escapeField~B
+                  (dot@2 w~1 folder@1))"\09"@2)
+                (call@D escapeField~B
+                 (dot@2 w~1 name@1)))"\09"@2)
+              (prefix~15,1 $
+               (dot@2 w~1 seed@1)))"\09"@2)
+            (call@A modeWord~8
+             (dot@2 w~1 mode@1)))"\09"@2)
+          (prefix@2 $
+           (dot@2 w~1 turn@1)))"\09"@2)
+        (prefix@2 $
+         (dot@2 w~1 plays@1)))"\0A"~17,1))))))
+ (comment@,3E)
+ (proc@,3H readRegistry@5 x . .
+  (params@I
+   (param@1 body . . string@6 .))
+  (at@J seq~3 World@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 line . . . ""@7)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 <= i~2
+     (dot@7 body~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@E or
+        (infix~C == i~2
+         (dot@7 body~4 len@1))
+        (infix@B ==
+         (at~4 body~4 i@1)'\0A'@3))
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@9 >
+           (dot~5 line~4 len@1)0@2)
+          (stmts~1,1
+           (let@4 f . . .
+            (call@B splitOn~7 line@1 '\09'@7))
+           (if@,1
+            (elif@3
+             (infix@B and
+              (infix~5 >=
+               (dot~5 f~1 len@1)6@3)
+              (infix@D >
+               (dot~5
+                (at~3 f~1 0@1)len@1)0@2))
+             (stmts~1,1
+              (cmd@6
+               (dot result~6 add@1)
+               (oconstr@A World~5
+                (kv@7 folder~6
+                 (call@F unescapeField~D
+                  (at@2 f~1 0@1)))
+                (kv~A,1 name~4
+                 (call@F unescapeField~D
+                  (at@2 f~1 1@1)))
+                (kv@H,1 seed~4
+                 (call@9 wholeOf~7
+                  (at@2 f~1 2@1)))
+                (kv~A,2 mode~4
+                 (call@8 modeOf~6
+                  (at@2 f~1 3@1)))
+                (kv@A,2 turn~4
+                 (call@9 wholeOf~7
+                  (at@2 f~1 4@1)))
+                (kv@W,2 plays~5
+                 (call@9 wholeOf~7
+                  (at@2 f~1 5@1)))))))))))
+        (asgn@5,6 line~5 ""@2)))
+      (else@,8
+       (stmts@2,1
+        (cmd@4
+         (dot line~4 add@1)
+         (at@9 body~4 i@1)))))
+     (cmd@,A inc i@4)))))
+ (comment@,3Y)
+ (proc@,3b byRecency@5 x . .
+  (params@F
+   (param@1 worlds . .
+    (at@B seq~3 World@1).))
+  (at@P seq~3 World@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 left . . . worlds@7)
+   (while@,2
+    (infix@F >
+     (dot~5 left~4 len@1)0@2)
+    (stmts@2,1
+     (var@4 best . . . 0@7)
+     (var@4,1 i . . . 1@4)
+     (while@,2
+      (infix@8 < i~2
+       (dot@6 left~4 len@1))
+      (stmts@2,1
+       (if
+        (elif@3
+         (infix@D >
+          (dot~6
+           (at~3 left~4 i@1)turn@1)
+          (dot@C
+           (at~6 left~4 best@1)turn@1))
+         (stmts@W
+          (asgn@5 best~5 i@2))))
+       (cmd@,1 inc i@4)))
+     (cmd@6,5
+      (dot result~6 add@1)
+      (at@9 left~4 best@1))
+     (var@4,6 kept . .
+      (at@9 seq~3 World@1)
+      (prefix@J \40
+       (bracket@1)))
+     (asgn@2,7 i~2 0@2)
+     (while@,8
+      (infix@8 < i~2
+       (dot@6 left~4 len@1))
+      (stmts@2,1
+       (if
+        (elif@3
+         (infix@2 != i~2 best@3)
+         (stmts@B
+          (cmd@4
+           (dot kept~4 add@1)
+           (at@9 left~4 i@1)))))
+       (cmd@,1 inc i@4)))
+     (asgn@5,B left~5 kept@2)))))
+ (proc@,3s highestTurn@5 x . .
+  (params@H
+   (param@1 worlds . .
+    (at@B seq~3 World@1).))int@M . .
+  (stmts@2,1
+   (asgn@7 result~7 0@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@8 worlds~6 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@F >
+        (dot~6
+         (at~3 worlds~6 i@1)turn@1)result@2)
+       (stmts@P
+        (asgn@7 result~7
+         (dot@B
+          (at~3 worlds~6 i@1)turn@1)))))
+     (cmd@,1 inc i@4)))))
+ (proc@,3z folders@5 x . .
+  (params@D
+   (param@1 worlds . .
+    (at@B seq~3 World@1).))
+  (at@P seq~3 string@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@8 worlds~6 len@1))
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (dot@E
+       (at~3 worlds~6 i@1)folder@1))
+     (cmd@,1 inc i@4)))))
+ (comment@,46)
+ (proc@,48 visit@5 x . .
+  (params@B
+   (param@1 worlds . .
+    (at@B seq~3 World@1).)
+   (param@L folder . . string@8 .))
+  (at@f seq~3 World@1). .
+  (stmts@2,1
+   (let@4 turn . . .
+    (infix@R \2B
+     (call~9 highestTurn~B worlds@1)1@2))
+   (asgn@7,1 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@8 worlds~6 len@1))
+    (stmts@2,1
+     (var@4 w . . .
+      (at@A worlds~6 i@1))
+     (if@,1
+      (elif@3
+       (infix@9 ==
+        (dot~8 w~1 folder@1)folder@3)
+       (stmts~1,1
+        (asgn@7
+         (dot~6 w~1 turn@1)turn@2)
+        (asgn@8,1
+         (dot~7 w~1 plays@1)
+         (infix@A \2B
+          (dot~7 w~1 plays@1)1@2)))))
+     (cmd@6,4
+      (dot result~6 add@1)w@5)
+     (cmd@,5 inc i@4)))))
+ (proc@,4K without@5 x . .
+  (params@D
+   (param@1 worlds . .
+    (at@B seq~3 World@1).)
+   (param@L folder . . string@8 .))
+  (at@f seq~3 World@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@8 worlds~6 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@H !=
+        (dot~8
+         (at~3 worlds~6 i@1)folder@1)folder@3)
+       (stmts@S
+        (cmd@6
+         (dot result~6 add@1)
+         (at@B worlds~6 i@1)))))
+     (cmd@,1 inc i@4)))))
+ (comment@,4R)
+ (proc@,4U newWorld@5 x . .
+  (params@E
+   (param@1 worlds . .
+    (at@B seq~3 World@1).)
+   (param@L name . . string@6 .)
+   (param@Z seed . . int@6 .)
+   (param@1,1 mode . . GameMode@6 .))World@I,1 . .
+  (stmts@2,2
+   (oconstr@5 World~5
+    (kv@7 folder~6
+     (call@E uniqueFolder~C
+      (call@D folderNameOf~C name@1)
+      (call@S folders~7 worlds@1)))
+    (kv@5,1 name~4
+     (call@9 trimmed~7 name@1))
+    (kv@Q,1 seed~4 seed@2)
+    (kv@c,1 mode~4 mode@2)
+    (kv@5,2 turn~4
+     (infix@M \2B
+      (call~9 highestTurn~B worlds@1)1@2))
+    (kv@b,2 plays~5 0@2))))
+ (proc@,4d worldBox@5 x . .
+  (params@E
+   (param@1 guiW . . int@I .)
+   (param@7 guiH . . int@C .)
+   (param@D rows . . int@6 .))ListBox@P . .
+  (stmts@2,1
+   (call@7 listBox~7 ListTop@1
+    (infix@F \2D guiH~5 ListBottomTwoRows@2)
+    (infix@C,1 \2D
+     (infix~6 div guiW~5 2@4)
+     (infix@C div ListWidth~A 2@4))ListWidth@V,1 WorldRowHeight@g,1 rows@w,1)))
+ (type@F,4i WorldAction~D x . .
+  (enum@2 .
+   (efld~D,1 NoWorldAction . . . .)
+   (efld@2,1 PlayWorld . . . .)
+   (efld@D,1 CreateWorld . . . .)
+   (efld@Q,1 EditWorld . . . .)
+   (efld@b,1 DeleteWorld . . . .)
+   (efld~D,2 RecreateWorld . . . .)
+   (efld@2,2 LeaveWorlds . . . .)))
+ (type@G,4m FooterButton~E x . .
+  (object@2 .
+   (fld~8,1 action~6 x . WorldAction@3 .)
+   (fld~B,2 key~3 x . string@3 .)
+   (fld~A,3 rect~4 x . MRect@3 .)
+   (fld~7,4 enabled~7 x . bool@3 .)))
+ (comment@,4s)
+ (proc@,4v worldFooter@5 x . .
+  (params@H
+   (param@1 guiW . . int@C .)
+   (param@7 guiH . . int@6 .)
+   (param@I picked . . bool@8 .))
+  (at@a seq~3 FooterButton@1). .
+  (stmts@2,1
+   (let@4 mid . . .
+    (infix@B div guiW~5 2@4))
+   (let@4,1 up . . .
+    (call@E footerRow~9 guiH@1 0@7))
+   (let@4,2 down . . .
+    (call@G footerRow~9 guiH@1 1@7))
+   (asgn@7,3 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (cmd@6,4
+    (dot result~6 add@1)
+    (oconstr@H FooterButton~C
+     (kv@7 action~6 PlayWorld@2)
+     (kv@N key~3 KeyPlay@2)
+     (kv~H,1 rect~4
+      (call@7 mrect~5
+       (call@6 float~5
+        (infix@5 \2D mid~4 154@2))
+       (call@O float~5 up@1)
+       (call@Z float~5 FooterFullWidth@1)20.0@s))
+     (kv~E,2 enabled~7 picked@2)))
+   (cmd@6,7
+    (dot result~6 add@1)
+    (oconstr@H FooterButton~C
+     (kv@7 action~6 CreateWorld@2)
+     (kv@P key~3 KeyCreate@2)
+     (kv~H,1 rect~4
+      (call@7 mrect~5
+       (call@6 float~5
+        (infix@5 \2B mid~4 4@2))
+       (call@M float~5 up@1)
+       (call@X float~5 FooterFullWidth@1)20.0@q))
+     (kv~E,2 enabled~7 true@2)))
+   (cmd@6,A
+    (dot result~6 add@1)
+    (oconstr@H FooterButton~C
+     (kv@7 action~6 EditWorld@2)
+     (kv@N key~3 KeyEdit@2)
+     (kv~H,1 rect~4
+      (call@7 mrect~5
+       (call@6 float~5
+        (infix@5 \2D mid~4 154@2))
+       (call@O float~5 down@1)
+       (call@b float~5 FooterSmallWidth@1)20.0@v))
+     (kv~E,2 enabled~7 picked@2)))
+   (cmd@6,D
+    (dot result~6 add@1)
+    (oconstr@H FooterButton~C
+     (kv@7 action~6 DeleteWorld@2)
+     (kv@P key~3 KeyDelete@2)
+     (kv~H,1 rect~4
+      (call@7 mrect~5
+       (call@6 float~5
+        (infix@5 \2D mid~4 76@2))
+       (call@N float~5 down@1)
+       (call@a float~5 FooterSmallWidth@1)20.0@u))
+     (kv~E,2 enabled~7 picked@2)))
+   (cmd@6,G
+    (dot result~6 add@1)
+    (oconstr@H FooterButton~C
+     (kv@7 action~6 RecreateWorld@2)
+     (kv@R key~3 KeyRecreate@2)
+     (kv~H,1 rect~4
+      (call@7 mrect~5
+       (call@6 float~5
+        (infix@5 \2B mid~4 4@2))
+       (call@M float~5 down@1)
+       (call@Z float~5 FooterSmallWidth@1)20.0@t))
+     (kv~E,2 enabled~7 picked@2)))
+   (cmd@6,J
+    (dot result~6 add@1)
+    (oconstr@H FooterButton~C
+     (kv@7 action~6 LeaveWorlds@2)
+     (kv@P key~3 KeyCancel@2)
+     (kv~H,1 rect~4
+      (call@7 mrect~5
+       (call@6 float~5
+        (infix@5 \2B mid~4 82@2))
+       (call@N float~5 down@1)
+       (call@a float~5 FooterSmallWidth@1)20.0@u))
+     (kv~E,2 enabled~7 true@2)))))
+ (proc@,5J footerUnder@5 x . .
+  (params@H
+   (param@1 buttons . .
+    (at@C seq~3 FooterButton@1).)
+   (param@T x . . float@6 .)
+   (param@W y . . float@3 .))int@h . .
+  (stmts@2,1
+   (asgn@7 result~7 -1@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@9 buttons~7 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (call@L
+        (dot~6
+         (dot~5
+          (at~3 buttons~7 i@1)rect@1)holds@1)x@1 y@4)
+       (stmts@T
+        (ret i@7))))
+     (cmd@,1 inc i@4)))))
+ (comment@,5Q)
+ (proc@,5T rowLines@5 x . .
+  (params@E
+   (param@1 w . . World@3 .))
+  (at@F seq~3 string@1). .
+  (stmts@2,1
+   (prefix \40
+    (bracket@1
+     (dot@2 w~1 name@1)
+     (dot@A w~1 folder@1)""@J))))
+ (type@E,5a CreateForm~C x . .
+  (object@2 .
+   (fld~8,1 name~4 x . Field@3 .)
+   (fld~8,2 seed~4 x . Field@3 .)
+   (fld~8,3 mode~4 x . GameMode@3 .)
+   (fld~6,4 onSeed~6 x . bool@3 .)))
+ (proc@,5g newForm@5 x . .
+  (params@D
+   (param@1 name . . . ""@7)
+   (param@C seed . . . ""@7))CreateForm@O . .
+  (stmts@2,1
+   (var@4 f . . .
+    (oconstr@E CreateForm~A
+     (kv@5 name~4
+      (call@7 field~5 name@1))
+     (kv@O seed~4
+      (call@7 field~5 seed@1))
+     (kv@h mode~4 Survival@2)
+     (kv@7,1 onSeed~6 false@2)))
+   (asgn@F,2
+    (dot~9
+     (dot~5 f~1 name@1)focused@1)true@2)f@,3))
+ (proc@,5m focusName@5 x . .
+  (params@F
+   (param@1 f . .
+    (mut@3 CreateForm@4).)). . .
+  (stmts@2,1
+   (asgn@9
+    (dot~8 f~1 onSeed@1)false@2)
+   (asgn@F,1
+    (dot~9
+     (dot~5 f~1 name@1)focused@1)true@2)
+   (asgn@F,2
+    (dot~9
+     (dot~5 f~1 seed@1)focused@1)false@2)))
+ (proc@,5r focusSeed@5 x . .
+  (params@F
+   (param@1 f . .
+    (mut@3 CreateForm@4).)). . .
+  (stmts@2,1
+   (asgn@9
+    (dot~8 f~1 onSeed@1)true@2)
+   (asgn@F,1
+    (dot~9
+     (dot~5 f~1 name@1)focused@1)false@2)
+   (asgn@F,2
+    (dot~9
+     (dot~5 f~1 seed@1)focused@1)true@2)))
+ (comment@,5w)
+ (proc@,5y nextField@5 x . .
+  (params@F
+   (param@1 f . .
+    (mut@3 CreateForm@4).)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (dot@1 f~1 onSeed@1)
+     (stmts@A
+      (call@9 focusName~9 f@1)))
+    (else@Q
+     (stmts@6
+      (call@9 focusSeed~9 f@1))))))
+ (proc@,61 nameRect@5 x . .
+  (params@E
+   (param@1 guiW . . int@6 .))MRect@D . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@C \2D
+      (infix~6 div guiW~5 2@4)
+      (infix@D div FieldWidth~B 2@4)))
+    (call@i float~5 NameFieldTop@1)
+    (call@6,1 float~5 FieldWidth@1)
+    (call@P,1 float~5 FieldHeight@1))))
+ (proc@,64 seedRect@5 x . .
+  (params@E
+   (param@1 guiW . . int@6 .))MRect@D . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@C \2D
+      (infix~6 div guiW~5 2@4)
+      (infix@D div FieldWidth~B 2@4)))
+    (call@i float~5 SeedFieldTop@1)
+    (call@6,1 float~5 FieldWidth@1)
+    (call@P,1 float~5 FieldHeight@1))))
+ (proc@,67 modeRect@5 x . .
+  (params@E
+   (param@1 guiW . . int@6 .))MRect@D . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@C \2D
+      (infix~6 div guiW~5 2@4)75@2))
+    (call@U float~5 GameModeTop@1)150.0@j 20.0@q)))
+ (proc@,69 createRect@5 x . .
+  (params@G
+   (param@1 guiW . . int@C .)
+   (param@7 guiH . . int@6 .))MRect@J . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@C \2D
+      (infix~6 div guiW~5 2@4)155@2))
+    (call@V float~5
+     (infix@6 \2D guiH~5 28@2))
+    (call@n float~5 CreateButtonWidth@1)20.0@1,1)))
+ (proc@,6C cancelRect@5 x . .
+  (params@G
+   (param@1 guiW . . int@C .)
+   (param@7 guiH . . int@6 .))MRect@J . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@C \2B
+      (infix~6 div guiW~5 2@4)5@2))
+    (call@T float~5
+     (infix@6 \2D guiH~5 28@2))
+    (call@l float~5 CreateButtonWidth@1)20.0@1,1)))
+ (comment@,6G)
+ (proc@,6I fieldUnder@5 x . .
+  (params@G
+   (param@1 guiW . . int@6 .)
+   (param@C x . . float@6 .)
+   (param@F y . . float@3 .))int@Q . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@K
+      (dot~6
+       (call~6 nameRect~8 guiW@1)holds@1)x@1 y@4)
+     (stmts@S
+      (ret 0@7))))
+   (if@,1
+    (elif@3
+     (call@K
+      (dot~6
+       (call~6 seedRect~8 guiW@1)holds@1)x@1 y@4)
+     (stmts@S
+      (ret 1@7))))-1@,2))
+ (comment@,6N)
+ (proc@,6R previewFolder@5 x . .
+  (params@J
+   (param@1 f . . CreateForm@3 .)
+   (param@G worlds . .
+    (at@B seq~3 World@1).))string@b . .
+  (stmts@2,1
+   (call@C uniqueFolder~C
+    (call@D folderNameOf~C
+     (dot@7
+      (dot~5 f~1 name@1)text@1))
+    (call@Z folders~7 worlds@1)))))

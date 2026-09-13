@@ -1,0 +1,1997 @@
+(.nif27)
+(.indexat 69748            )
+(stmts@,1,.jester/source/jester_mod_dae2e0425dd31985.nim
+ (import
+  (kv sysvq0asl "../../../../../../nimony/lib/std/system.nim")
+  (kv jesaqohvh1 "../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim")
+  (kv vecqnfc1h "../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim")
+  (kv uiame5ta1 "ui.nim")
+  (kv ui_8zfkc31 "ui_floor.nim")
+  (kv drasfcs4c "../../../../Packages/com.aoughwl.jester/ModSdk/draw.nim")
+  (kv exaiduokl "example.nim")
+  (kv texi40plu1 "textfield.nim")
+  (kv inpl8nz921 "../../../../Packages/com.aoughwl.jester/ModSdk/input.nim"))
+ (glet@4,K :area.0. . . Rect.0.vecqnfc1h@W,2e,../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim
+  (call@B rect.0.vecqnfc1h~4 0.0@1 0.0@6 800.0@B 600.0@I))
+ (gvar@2,N :checks.0. . .
+  (i 64)0@9)
+ (gvar@2,O :failures.0. . .
+  (i 64)0@B)
+ (proc@,Q :expect.0.@5 . . .
+  (params@B
+   (param@1 :what.0 . . string.0.sysvq0asl@6 .)
+   (param@F :ok.0 . .
+    (bool@4).)). . .
+  (stmts@2,1
+   (asgn@7 checks.0.~7
+    (add@9
+     (i 64)checks.0.~7 1@2))
+   (if@,1
+    (elif@3
+     (not ok.0@4)
+     (stmts~1,1
+      (asgn@9 failures.0.~9
+       (add@B
+        (i 64)failures.0.~9 1@2))
+      (call@3,1 log.0.jesaqohvh1~3
+       (infix@Q &.0.sysvq0asl "ui self-check failed\3A "~P what.0@2)))))))
+ (proc@,W :frameAt.0.@5 . . .
+  (params@C
+   (param@1 :x.0 . .
+    (f@6 64).)
+   (param@4 :y.0 . .
+    (f@3 64).)
+   (param@G :down.0 . .
+    (bool@6).)). . .
+  (stmts@2,1
+   (call@A beginFrame.0.ui_8zfkc31~A
+    (call@5 vec2.0.vecqnfc1h~4 x.0@1 y.0@4)down.0@D area.0.@J 0.0@w,3d,ui_floor.nim)))
+ (proc@,Z :frameAt.1.@5 . . .
+  (params@C
+   (param@1 :x.1 . .
+    (f@6 64).)
+   (param@4 :y.1 . .
+    (f@3 64).)
+   (param@G :down.1 . .
+    (bool@6).)
+   (param@S :turn.0 . .
+    (f@6 64).)). . .
+  (stmts@2,1
+   (call@A beginFrame.0.ui_8zfkc31~A
+    (call@5 vec2.0.vecqnfc1h~4 x.1@1 y.1@4)down.1@D area.0.@J turn.0@P)))
+ (proc@,e :settle.0.@5 . . .
+  (params@B). . .
+  (stmts@2,1
+   (call@7 frameAt.0.~7 4.0@1 4.0@6
+    (false@B))
+   (call@8,1 endFrame.0.ui_8zfkc31~8)
+   (call@7,2 frameAt.0.~7 4.0@1 4.0@6
+    (false@B))
+   (call@8,3 endFrame.0.ui_8zfkc31~8)))
+ (proc@,m :checkLayout.0.@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (var@4 :down.3 . . Layout.0.uiame5ta1@P,l,ui.nim
+    (call@D column.0.uiame5ta1~6
+     (call@5 rect.0.vecqnfc1h~4 10.0@1 20.0@7 200.0@D 400.0@K)5.0@X))
+   (let@4,1 :first.0 . . Rect.0.vecqnfc1h@W,2e,../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim
+    (call@H take.0.uiame5ta1~4
+     (haddr~9 down.3)30.0@1))
+   (let@4,2 :second.0 . . Rect.0.vecqnfc1h@W,2e,../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim
+    (call@I take.0.uiame5ta1~4
+     (haddr~9 down.3)40.0@1))
+   (call@6,3 expect.0.~6 "a column starts at the top"@1
+    (and@b,1
+     (and~P
+      (eq~8
+       (f 64)
+       (dot~3 first.0~5 y.0 0)20.0@3)
+      (eq@H
+       (f 64)
+       (dot~8 first.0~5 height.0 0)30.0@3))
+     (eq@G
+      (f 64)
+      (dot~7 first.0~5 width.0 0)200.0@3)))
+   (call@6,5 expect.0.~6 "the next row is under the first and the gap"@1
+    (and@D,1
+     (eq~8
+      (f 64)
+      (dot~3 second.0~6 y.0 0)55.0@3)
+     (eq@I
+      (f 64)
+      (dot~8 second.0~6 height.0 0)40.0@3)))
+   (call@6,7 expect.0.~6 "what is left starts under both"@1
+    (eq@m
+     (f 64)
+     (dot~3
+      (call~6 rest.0.uiame5ta1~4 down.3@1)y.0 0)100.0@3))
+   (call@6,8 expect.0.~6 "what was taken is as tall as the rows and the gap between them"@1
+    (eq@F,1
+     (f 64)
+     (dot~8
+      (call~6 taken.0.uiame5ta1~5 down.3@1)height.0 0)75.0@3))
+   (var@4,B :right.0 . . Layout.0.uiame5ta1@P,l,ui.nim
+    (call@E across.0.uiame5ta1~6
+     (call@5 rect.0.vecqnfc1h~4 0.0@1 0.0@6 300.0@B 40.0@I)10.0@U))
+   (let@4,C :left.0 . . Rect.0.vecqnfc1h@W,2e,../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim
+    (call@H take.0.uiame5ta1~4
+     (haddr~A right.0)100.0@1))
+   (let@4,D :next.0 . . Rect.0.vecqnfc1h@W,2e,../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim
+    (call@H take.0.uiame5ta1~4
+     (haddr~A right.0)50.0@1))
+   (call@6,E expect.0.~6 "a row starts at the left"@1
+    (and@h
+     (eq~7
+      (f 64)
+      (dot~3 left.0~4 x.0 0)0.0@3)
+     (eq@F
+      (f 64)
+      (dot~7 left.0~4 width.0 0)100.0@3)))
+   (call@6,F expect.0.~6 "the next column is beside the first"@1
+    (eq@l
+     (f 64)
+     (dot~3 next.0~4 x.0 0)110.0@3))
+   (let@4,H :three.0 . . seq.0.Ic7b86d1.uiame5ta1@w,1L,ui.nim
+    (call@D share.0.uiame5ta1~5
+     (call@5 rect.0.vecqnfc1h~4 0.0@1 0.0@6 320.0@B 40.0@I)3@U 10.0@X Rightward.0.uiame5ta1@d))
+   (call@6,I expect.0.~6 "three shares of a rectangle are three"@1
+    (eq@q
+     (i 64)
+     (call~5 len.3.Ikg422u.@1 three.0~5)3@3))
+   (call@6,J expect.0.~6 "they divide what is left after the gaps"@1
+    (and@K,1
+     (eq~9
+      (f 64)
+      (dot~7
+       (hderef~8
+        (call \5B\5D.7.Id4kd0t1. three.0 0@6))width.0 0)100.0@3)
+     (eq@F
+      (f 64)
+      (dot~3
+       (hderef~8
+        (call \5B\5D.7.Id4kd0t1. three.0 2@6))x.0 0)220.0@3)))))
+ (proc@,19 :checkGrid.0.@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (let@4 :g.0 . . Grid.0.uiame5ta1@w,1k,ui.nim
+    (call@8 grid.0.uiame5ta1~4
+     (call@5 vec2.0.vecqnfc1h~4 100.0@1 100.0@8)5@L 3@O 40.0@R 2.0@X))
+   (call@6,1 expect.0.~6 "a grid is as wide as its cells and its gaps"@1
+    (and@L,1
+     (eq~9
+      (f 64)
+      (dot~7
+       (call~3 bounds.0.uiame5ta1~6 g.0@1)width.0 0)208.0@3)
+     (eq@L
+      (f 64)
+      (dot~8
+       (call~3 bounds.0.uiame5ta1~6 g.0@1)height.0 0)124.0@3)))
+   (call@6,3 expect.0.~6 "a cell is where the arithmetic says"@1
+    (infix@C,1 ==.2.vecqnfc1h
+     (call~A cellAt.0.uiame5ta1~6 g.0@1 2@4 1@7)
+     (call@7 rect.0.vecqnfc1h~4 184.0@1 142.0@8 40.0@F 40.0@L)))
+   (call@6,5 expect.0.~6 "a block of cells spans the gaps inside it"@1
+    (eq@M,1
+     (f 64)
+     (dot~7
+      (call~F span.0.uiame5ta1~4 g.0@1 0@4 0@7 4@A 1@D)width.0 0)166.0@3))
+   (let@4,7 :inCell.0 . . Cell.0.uiame5ta1@O,2D,ui.nim
+    (call@I cellUnder.0.uiame5ta1~9 g.0@1
+     (call@8 vec2.0.vecqnfc1h~4 190.0@1 150.0@8)))
+   (call@6,8 expect.0.~6 "a point finds its cell"@1
+    (and@X,1
+     (and~N
+      (dot~8 inCell.0~6 inside.0 0)
+      (eq@I
+       (i 64)
+       (dot~8 inCell.0~6 column.0 0)2@3))
+     (eq@F
+      (i 64)
+      (dot~5 inCell.0~6 row.0 0)1@3)))
+   (call@6,A expect.0.~6 "a point in a gap is in no cell"@1
+    (not~4,1
+     (dot@a
+      (call~N cellUnder.0.uiame5ta1~9 g.0@1
+       (call@8 vec2.0.vecqnfc1h~4 141.0@1 150.0@8))inside.0 0)))
+   (call@6,C expect.0.~6 "a point off the grid is in no cell"@1
+    (not~4,1
+     (dot@a
+      (call~N cellUnder.0.uiame5ta1~9 g.0@1
+       (call@8 vec2.0.vecqnfc1h~4 600.0@1 150.0@8))inside.0 0)))
+   (call@6,E expect.0.~6 "a block that fits along the row fits"@1
+    (call@j fits.0.uiame5ta1~4 g.0@1 1@4 0@7 4@A 1@D))
+   (call@6,F expect.0.~6 "a block that runs off the edge does not"@1
+    (and@K,1
+     (not~O
+      (call@8 fits.0.uiame5ta1~4 g.0@1 2@4 0@7 4@A 1@D))
+     (not@4
+      (call@8 fits.0.uiame5ta1~4 g.0@1 0@4 2@7 1@A 2@D))))))
+ (proc@,1U :checkClipAndId.0.@5 . . .
+  (params@J). . .
+  (stmts@2,1
+   (call@6 settle.0.~6)
+   (let@4,1 :far.0 . . Rect.0.vecqnfc1h@W,2e,../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim
+    (call@A rect.0.vecqnfc1h~4 120.0@1 120.0@8 60.0@F 60.0@L))
+   (call@7,2 frameAt.0.~7 150.0@1 150.0@8
+    (false@F))
+   (call@6,3 expect.0.~6 "nothing is cropped to start with"@1
+    (call@f over.0.ui_8zfkc31~4 far.0@1))
+   (call@8,4 pushClip.0.ui_8zfkc31~8
+    (call@5 rect.0.vecqnfc1h~4 0.0@1 0.0@6 100.0@B 100.0@I))
+   (call@6,5 expect.0.~6 "a rectangle outside the clip cannot be touched"@1
+    (not@p
+     (call@8 over.0.ui_8zfkc31~4 far.0@1)))
+   (call@6,6 expect.0.~6 "and is not visible either"@1
+    (not@U
+     (call@B visible.0.ui_8zfkc31~7 far.0@1)))
+   (call@8,7 pushClip.0.ui_8zfkc31~8
+    (call@5 rect.0.vecqnfc1h~4 0.0@1 0.0@6 400.0@B 400.0@I))
+   (call@6,8 expect.0.~6 "a wider clip inside a narrower one does not widen it"@1
+    (not@v
+     (call@8 over.0.ui_8zfkc31~4 far.0@1)))
+   (call@7,9 popClip.0.ui_8zfkc31~7)
+   (call@7,A popClip.0.ui_8zfkc31~7)
+   (call@6,B expect.0.~6 "the clip comes back off"@1
+    (call@W over.0.ui_8zfkc31~4 far.0@1))
+   (call@6,D expect.0.~6 "a plain name is itself"@1
+    (infix@e ==.20.sysvq0asl
+     (call~9 here.0.ui_8zfkc31~4 "slot"@1)"slot"@3))
+   (call@6,E pushId.0.ui_8zfkc31~6 "bag"@1)
+   (call@6,F expect.0.~6 "a nested name carries its scope"@1
+    (infix@n ==.20.sysvq0asl
+     (call~9 here.0.ui_8zfkc31~4 "slot"@1)"bag/slot"@3))
+   (call@6,G pushId.1.ui_8zfkc31~6 2@1)
+   (call@6,H expect.0.~6 "an index is a scope like any other"@1
+    (infix@q ==.20.sysvq0asl
+     (call~9 here.0.ui_8zfkc31~4 "slot"@1)"bag/2/slot"@3))
+   (call@5,I popId.0.ui_8zfkc31~5)
+   (call@5,J popId.0.ui_8zfkc31~5)
+   (call@6,K expect.0.~6 "the scope comes back off"@1
+    (infix@g ==.20.sysvq0asl
+     (call~9 here.0.ui_8zfkc31~4 "slot"@1)"slot"@3))
+   (call@8,L endFrame.0.ui_8zfkc31~8)))
+ (proc@,1u :checkButton.0.@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (call@6 settle.0.~6)
+   (let@4,1 :box.0 . . Rect.0.vecqnfc1h@W,2e,../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim
+    (call@A rect.0.vecqnfc1h~4 100.0@1 100.0@8 120.0@F 40.0@M))
+   (call@7,3 frameAt.0.~7 150.0@1 120.0@8
+    (false@F))
+   (var@4,4 :t.0 . . Touch.0.ui_8zfkc31@P,6w,ui_floor.nim
+    (call@9 touch.0.ui_8zfkc31~5 "go"@1 box.0@7))
+   (call@8,5 endFrame.0.ui_8zfkc31~8)
+   (call@6,6 expect.0.~6 "hovering is not clicking"@1
+    (and@o
+     (and~F
+      (dot~5 t.0~1 hot.0 0)
+      (not@4
+       (dot@5 t.0~1 held.0 0)))
+     (not@4
+      (dot@5 t.0~1 clicked.0 0))))
+   (call@7,8 frameAt.0.~7 150.0@1 120.0@8
+    (true@F))
+   (asgn@2,9 t.0~2
+    (call@7 touch.0.ui_8zfkc31~5 "go"@1 box.0@7))
+   (call@8,A endFrame.0.ui_8zfkc31~8)
+   (call@6,B expect.0.~6 "a press grabs and does not yet click"@1
+    (and@H,1
+     (and~B
+      (dot~9 t.0~1 grabbed.0 0)
+      (dot@5 t.0~1 held.0 0))
+     (not@4
+      (dot@5 t.0~1 clicked.0 0))))
+   (call@7,E frameAt.0.~7 150.0@1 120.0@8
+    (true@F))
+   (asgn@2,F t.0~2
+    (call@7 touch.0.ui_8zfkc31~5 "go"@1 box.0@7))
+   (call@8,G endFrame.0.ui_8zfkc31~8)
+   (call@6,H expect.0.~6 "a held press is not grabbed again"@1
+    (and@j
+     (dot~6 t.0~1 held.0 0)
+     (not@4
+      (dot@5 t.0~1 grabbed.0 0))))
+   (call@7,J frameAt.0.~7 150.0@1 120.0@8
+    (false@F))
+   (asgn@2,K t.0~2
+    (call@7 touch.0.ui_8zfkc31~5 "go"@1 box.0@7))
+   (call@8,L endFrame.0.ui_8zfkc31~8)
+   (call@6,M expect.0.~6 "the click happens when the press comes up"@1
+    (dot@l t.0~1 clicked.0 0))
+   (call@7,O frameAt.0.~7 150.0@1 120.0@8
+    (false@F))
+   (asgn@2,P t.0~2
+    (call@7 touch.0.ui_8zfkc31~5 "go"@1 box.0@7))
+   (call@8,Q endFrame.0.ui_8zfkc31~8)
+   (call@6,R expect.0.~6 "and happens once"@1
+    (not@L
+     (dot@5 t.0~1 clicked.0 0)))))
+ (proc@,2O :checkPressLeaves.0.@5 . . .
+  (params@L). . .
+  (stmts@2,1
+   (call@6 settle.0.~6)
+   (let@4,1 :box.1 . . Rect.0.vecqnfc1h@W,2e,../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim
+    (call@A rect.0.vecqnfc1h~4 100.0@1 100.0@8 120.0@F 40.0@M))
+   (call@7,2 frameAt.0.~7 150.0@1 120.0@8
+    (false@F))
+   (discard@,3
+    (call@D touch.0.ui_8zfkc31~5 "go"@1 box.1@7))
+   (call@8,4 endFrame.0.ui_8zfkc31~8)
+   (call@7,5 frameAt.0.~7 150.0@1 120.0@8
+    (true@F))
+   (discard@,6
+    (call@D touch.0.ui_8zfkc31~5 "go"@1 box.1@7))
+   (call@8,7 endFrame.0.ui_8zfkc31~8)
+   (call@7,8 frameAt.0.~7 600.0@1 400.0@8
+    (true@F))
+   (var@4,9 :t.1 . . Touch.0.ui_8zfkc31@P,6w,ui_floor.nim
+    (call@9 touch.0.ui_8zfkc31~5 "go"@1 box.1@7))
+   (call@8,A endFrame.0.ui_8zfkc31~8)
+   (call@6,B expect.0.~6 "a press that wandered off is still held"@1
+    (dot@j t.1~1 held.0 0))
+   (call@7,C frameAt.0.~7 600.0@1 400.0@8
+    (false@F))
+   (asgn@2,D t.1~2
+    (call@7 touch.0.ui_8zfkc31~5 "go"@1 box.1@7))
+   (call@8,E endFrame.0.ui_8zfkc31~8)
+   (call@6,F expect.0.~6 "letting go somewhere else is not a click"@1
+    (not@j
+     (dot@5 t.1~1 clicked.0 0)))))
+ (proc@,2g :checkTopmost.0.@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (call@6 settle.0.~6)
+   (let@4,1 :under.0 . . Rect.0.vecqnfc1h@W,2e,../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim
+    (call@C rect.0.vecqnfc1h~4 100.0@1 100.0@8 200.0@F 200.0@M))
+   (let@4,2 :over2.0 . . Rect.0.vecqnfc1h@W,2e,../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim
+    (call@C rect.0.vecqnfc1h~4 150.0@1 150.0@8 100.0@F 100.0@M))
+   (call@7,3 frameAt.0.~7 180.0@1 180.0@8
+    (false@F))
+   (discard@,4
+    (call@D touch.0.ui_8zfkc31~5 "under"@1 under.0@A))
+   (discard@,5
+    (call@D touch.0.ui_8zfkc31~5 "over"@1 over2.0@9))
+   (call@8,6 endFrame.0.ui_8zfkc31~8)
+   (call@7,7 frameAt.0.~7 180.0@1 180.0@8
+    (false@F))
+   (let@4,8 :a.0 . . Touch.0.ui_8zfkc31@P,6w,ui_floor.nim
+    (call@9 touch.0.ui_8zfkc31~5 "under"@1 under.0@A))
+   (let@4,9 :b.0 . . Touch.0.ui_8zfkc31@P,6w,ui_floor.nim
+    (call@9 touch.0.ui_8zfkc31~5 "over"@1 over2.0@9))
+   (call@8,A endFrame.0.ui_8zfkc31~8)
+   (call@6,B expect.0.~6 "the one drawn later takes the pointer"@1
+    (and@m
+     (dot~5 b.0~1 hot.0 0)
+     (not@4
+      (dot@5 a.0~1 hot.0 0))))
+   (call@7,D frameAt.0.~7 180.0@1 180.0@8
+    (true@F))
+   (let@4,E :a2.0 . . Touch.0.ui_8zfkc31@P,6w,ui_floor.nim
+    (call@A touch.0.ui_8zfkc31~5 "under"@1 under.0@A))
+   (let@4,F :b2.0 . . Touch.0.ui_8zfkc31@P,6w,ui_floor.nim
+    (call@A touch.0.ui_8zfkc31~5 "over"@1 over2.0@9))
+   (call@8,G endFrame.0.ui_8zfkc31~8)
+   (call@6,H expect.0.~6 "and takes the press with it"@1
+    (and@h
+     (dot~9 b2.0~2 grabbed.0 0)
+     (not@4
+      (dot@6 a2.0~2 grabbed.0 0))))))
+ (proc@,30 :checkScopedNames.0.@5 . . .
+  (params@L). . .
+  (stmts@2,1
+   (call@6 settle.0.~6)
+   (let@4,1 :left.1 . . Rect.0.vecqnfc1h@W,2e,../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim
+    (call@B rect.0.vecqnfc1h~4 100.0@1 100.0@8 50.0@F 50.0@L))
+   (let@4,2 :right.1 . . Rect.0.vecqnfc1h@W,2e,../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim
+    (call@C rect.0.vecqnfc1h~4 300.0@1 100.0@8 50.0@F 50.0@L))
+   (call@7,3 frameAt.0.~7 120.0@1 120.0@8
+    (true@F))
+   (call@6,4 pushId.0.ui_8zfkc31~6 "left"@1)
+   (let@4,5 :one.0 . . Touch.0.ui_8zfkc31@P,6w,ui_floor.nim
+    (call@B touch.0.ui_8zfkc31~5 "cell"@1 left.1@9))
+   (call@5,6 popId.0.ui_8zfkc31~5)
+   (call@6,7 pushId.0.ui_8zfkc31~6 "right"@1)
+   (let@4,8 :two.0 . . Touch.0.ui_8zfkc31@P,6w,ui_floor.nim
+    (call@B touch.0.ui_8zfkc31~5 "cell"@1 right.1@9))
+   (call@5,9 popId.0.ui_8zfkc31~5)
+   (call@8,A endFrame.0.ui_8zfkc31~8)
+   (call@6,B expect.0.~6 "the same widget name in two scopes is two widgets"@1
+    (and@8,1
+     (dot~9 one.0~3 grabbed.0 0)
+     (not@4
+      (dot@7 two.0~3 grabbed.0 0))))))
+ (glet@4,3H :source.0. . . Rect.0.vecqnfc1h@W,2e,../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim
+  (call@D rect.0.vecqnfc1h~4 100.0@1 100.0@8 60.0@F 60.0@L))
+ (glet@4,3I :target.0. . . Rect.0.vecqnfc1h@W,2e,../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim
+  (call@D rect.0.vecqnfc1h~4 400.0@1 100.0@8 60.0@F 60.0@L))
+ (proc@,3K :bandage.0.@5 . . .
+  (params@C)Carry.0.ui_8zfkc31@4 . .
+  (stmts@O
+   (result@5 :result.0 . . Carry.0.ui_8zfkc31~P .)
+   (asgn@5 result.0
+    (call carry.0.ui_8zfkc31~5 "item"@1 "bandage"@9 2@K))
+   (ret~O result.0)))
+ (proc@,3M :checkDrag.0.@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (call@6 settle.0.~6)
+   (call@7,2 frameAt.0.~7 130.0@1 130.0@8
+    (false@F))
+   (var@4,3 :d.0 . . Drag.0.ui_8zfkc31@c,7h,ui_floor.nim
+    (call@8 drag.0.ui_8zfkc31~4 "item"@1 source.0.@9
+     (call@O bandage.0.~7)))
+   (var@4,4 :z.0 . . Drop.0.ui_8zfkc31@g,7z,ui_floor.nim
+    (call@C dropZone.0.ui_8zfkc31~8 "bin"@1 target.0.@8 "item"@G))
+   (call@8,5 endFrame.0.ui_8zfkc31~8)
+   (call@6,6 expect.0.~6 "hovering carries nothing"@1
+    (and@i
+     (not~F
+      (call@C carrying.0.ui_8zfkc31~8))
+     (not@4
+      (dot@5 d.0~1 dragging.0 0))))
+   (call@6,7 expect.0.~6 "a target that nothing is over is quiet"@1
+    (not@h
+     (dot@5 z.0~1 over.0 0)))
+   (call@7,9 frameAt.0.~7 130.0@1 130.0@8
+    (true@F))
+   (asgn@2,A d.0~2
+    (call@6 drag.0.ui_8zfkc31~4 "item"@1 source.0.@9
+     (call@O bandage.0.~7)))
+   (call@8,B endFrame.0.ui_8zfkc31~8)
+   (call@6,C expect.0.~6 "a press alone is not a drag"@1
+    (and@l
+     (not~F
+      (call@C carrying.0.ui_8zfkc31~8))
+     (not@4
+      (dot@5 d.0~1 dragging.0 0))))
+   (call@7,E frameAt.0.~7 200.0@1 130.0@8
+    (true@F))
+   (asgn@2,F d.0~2
+    (call@6 drag.0.ui_8zfkc31~4 "item"@1 source.0.@9
+     (call@O bandage.0.~7)))
+   (asgn@2,G z.0~2
+    (call@A dropZone.0.ui_8zfkc31~8 "bin"@1 target.0.@8 "item"@G))
+   (call@8,H endFrame.0.ui_8zfkc31~8)
+   (call@6,I expect.0.~6 "moving far enough picks it up"@1
+    (and@j
+     (dot~A d.0~1 dragging.0 0)
+     (call@C carrying.0.ui_8zfkc31~8)))
+   (call@6,J expect.0.~6 "of the kind it said"@1
+    (and@f
+     (call~9 carrying.1.ui_8zfkc31~8 "item"@1)
+     (not@4
+      (call@C carrying.1.ui_8zfkc31~8 "gun"@1))))
+   (call@6,K expect.0.~6 "carrying what it was given"@1
+    (and@M,1
+     (infix~D ==.20.sysvq0asl
+      (dot~4
+       (call~2 carried.0.ui_8zfkc31~7)id.0 0)"bandage"@3)
+     (eq@K
+      (i 64)
+      (dot~7
+       (call~2 carried.0.ui_8zfkc31~7)count.0 0)2@3)))
+   (call@6,M expect.0.~6 "and remembering where it was taken hold of"@1
+    (and@L,1
+     (eq~8
+      (f 64)
+      (dot~3
+       (dot~5
+        (call~2 carried.0.ui_8zfkc31~7)grip.0 0)x.0 0)30.0@3)
+     (eq@L
+      (f 64)
+      (dot~3
+       (dot~5
+        (call~2 carried.0.ui_8zfkc31~7)grip.0 0)y.0 0)30.0@3)))
+   (call@6,O expect.0.~6 "and how big it was"@1
+    (and@L,1
+     (eq~8
+      (f 64)
+      (dot~3
+       (dot~5
+        (call~2 carried.0.ui_8zfkc31~7)size.0 0)x.0 0)60.0@3)
+     (eq@L
+      (f 64)
+      (dot~3
+       (dot~5
+        (call~2 carried.0.ui_8zfkc31~7)size.0 0)y.0 0)60.0@3)))
+   (call@6,Q expect.0.~6 "and which source it left"@1
+    (infix@k ==.20.sysvq0asl
+     (dot~8
+      (call~2 carried.0.ui_8zfkc31~7)source.0 0)"item"@3))
+   (call@6,R expect.0.~6 "the ghost hangs under the pointer where it was picked up"@1
+    (and@J,1
+     (eq~9
+      (f 64)
+      (dot~3
+       (call~2 ghostRect.0.ui_8zfkc31~9)x.0 0)170.0@3)
+     (eq@I
+      (f 64)
+      (dot~3
+       (call~2 ghostRect.0.ui_8zfkc31~9)y.0 0)100.0@3)))
+   (call@7,U frameAt.0.~7 430.0@1 130.0@8
+    (true@F))
+   (asgn@2,V d.0~2
+    (call@6 drag.0.ui_8zfkc31~4 "item"@1 source.0.@9
+     (call@O bandage.0.~7)))
+   (asgn@2,W z.0~2
+    (call@A dropZone.0.ui_8zfkc31~8 "bin"@1 target.0.@8 "item"@G))
+   (call@8,X endFrame.0.ui_8zfkc31~8)
+   (call@6,Y expect.0.~6 "a target under a live drag lights up"@1
+    (and@m
+     (dot~6 z.0~1 over.0 0)
+     (not@4
+      (dot@5 z.0~1 dropped.0 0))))
+   (call@7,a frameAt.0.~7 430.0@1 130.0@8
+    (false@F))
+   (asgn@2,b d.0~2
+    (call@6 drag.0.ui_8zfkc31~4 "item"@1 source.0.@9
+     (call@O bandage.0.~7)))
+   (asgn@2,c z.0~2
+    (call@A dropZone.0.ui_8zfkc31~8 "bin"@1 target.0.@8 "item"@G))
+   (call@6,d expect.0.~6 "letting go over a target drops there"@1
+    (dot@g z.0~1 dropped.0 0))
+   (call@6,e expect.0.~6 "and hands over what was carried"@1
+    (and@J,1
+     (infix~D ==.20.sysvq0asl
+      (dot~4
+       (dot~5 z.0~1 load.0 0)id.0 0)"bandage"@3)
+     (eq@H
+      (i 64)
+      (dot~7
+       (dot~5 z.0~1 load.0 0)count.0 0)2@3)))
+   (call@8,g endFrame.0.ui_8zfkc31~8)
+   (call@7,i frameAt.0.~7 430.0@1 130.0@8
+    (false@F))
+   (let@4,j :where.0 . . Landing.0.ui_8zfkc31@4,7Y,ui_floor.nim
+    (call@F landing.0.ui_8zfkc31~7))
+   (call@6,k expect.0.~6 "the landing is announced the frame after"@1
+    (and@B,1
+     (dot~A where.0~5 happened.0 0)
+     (infix@H ==.20.sysvq0asl
+      (dot~8 where.0~5 target.0 0)"bin"@3)))
+   (call@6,m expect.0.~6 "with the load on it"@1
+    (infix@c ==.20.sysvq0asl
+     (dot~4
+      (dot~5 where.0~5 load.0 0)id.0 0)"bandage"@3))
+   (call@6,n expect.0.~6 "and nothing is carried any more"@1
+    (not@a
+     (call@C carrying.0.ui_8zfkc31~8)))
+   (call@8,o endFrame.0.ui_8zfkc31~8)
+   (call@7,q frameAt.0.~7 430.0@1 130.0@8
+    (false@F))
+   (call@6,r expect.0.~6 "the landing is announced once"@1
+    (not@Y
+     (dot@D
+      (call~2 landing.0.ui_8zfkc31~7)happened.0 0)))
+   (call@8,s endFrame.0.ui_8zfkc31~8)))
+ (proc@,4H :checkRefusedDrag.0.@5 . . .
+  (params@L). . .
+  (stmts@2,1
+   (call@6 settle.0.~6)
+   (call@7,1 frameAt.0.~7 130.0@1 130.0@8
+    (false@F))
+   (discard@,2
+    (call@C drag.0.ui_8zfkc31~4 "item"@1 source.0.@9
+     (call@O bandage.0.~7)))
+   (call@8,3 endFrame.0.ui_8zfkc31~8)
+   (call@7,4 frameAt.0.~7 130.0@1 130.0@8
+    (true@F))
+   (discard@,5
+    (call@C drag.0.ui_8zfkc31~4 "item"@1 source.0.@9
+     (call@O bandage.0.~7)))
+   (call@8,6 endFrame.0.ui_8zfkc31~8)
+   (call@7,7 frameAt.0.~7 430.0@1 130.0@8
+    (true@F))
+   (discard@,8
+    (call@C drag.0.ui_8zfkc31~4 "item"@1 source.0.@9
+     (call@O bandage.0.~7)))
+   (let@4,9 :z.1 . . Drop.0.ui_8zfkc31@g,7z,ui_floor.nim
+    (call@C dropZone.0.ui_8zfkc31~8 "guns"@1 target.0.@9 "gun"@H))
+   (call@8,A endFrame.0.ui_8zfkc31~8)
+   (call@6,B expect.0.~6 "a target that does not take this kind stays quiet"@1
+    (not@s
+     (dot@5 z.1~1 over.0 0)))
+   (call@7,D frameAt.0.~7 430.0@1 130.0@8
+    (false@F))
+   (let@4,E :z2.0 . . Drop.0.ui_8zfkc31@g,7z,ui_floor.nim
+    (call@D dropZone.0.ui_8zfkc31~8 "guns"@1 target.0.@9 "gun"@H))
+   (call@6,F expect.0.~6 "and does not catch it"@1
+    (not@Q
+     (dot@6 z2.0~2 dropped.0 0)))
+   (call@8,G endFrame.0.ui_8zfkc31~8)
+   (call@7,I frameAt.0.~7 430.0@1 130.0@8
+    (false@F))
+   (let@4,J :where.1 . . Landing.0.ui_8zfkc31@4,7Y,ui_floor.nim
+    (call@F landing.0.ui_8zfkc31~7))
+   (call@6,K expect.0.~6 "a drag nobody caught still lands, on nothing"@1
+    (and@B,1
+     (dot~A where.1~5 happened.0 0)
+     (eq@L
+      (i 64)
+      (call~5 len.4.sysvq0asl@1
+       (dot~7 where.1~5 target.0 0))0@3)))
+   (call@6,M expect.0.~6 "with the load still on it"@1
+    (infix@i ==.20.sysvq0asl
+     (dot~4
+      (dot~5 where.1~5 load.0 0)id.0 0)"bandage"@3))
+   (call@8,N endFrame.0.ui_8zfkc31~8)))
+ (proc@,4h :checkClickIsNotDrag.0.@5 . . .
+  (params@O). . .
+  (stmts@2,1
+   (call@6 settle.0.~6)
+   (call@7,1 frameAt.0.~7 130.0@1 130.0@8
+    (false@F))
+   (discard@,2
+    (call@C drag.0.ui_8zfkc31~4 "item"@1 source.0.@9
+     (call@O bandage.0.~7)))
+   (call@8,3 endFrame.0.ui_8zfkc31~8)
+   (call@7,4 frameAt.0.~7 130.0@1 130.0@8
+    (true@F))
+   (discard@,5
+    (call@C drag.0.ui_8zfkc31~4 "item"@1 source.0.@9
+     (call@O bandage.0.~7)))
+   (call@8,6 endFrame.0.ui_8zfkc31~8)
+   (call@7,7 frameAt.0.~7 131.0@1 130.0@8
+    (false@F))
+   (let@4,8 :d.1 . . Drag.0.ui_8zfkc31@c,7h,ui_floor.nim
+    (call@8 drag.0.ui_8zfkc31~4 "item"@1 source.0.@9
+     (call@O bandage.0.~7)))
+   (call@6,9 expect.0.~6 "a press that barely moved is a click and never a drag"@1
+    (and@6,1
+     (dot~9 d.1~1 clicked.0 0)
+     (not@4
+      (dot@5 d.1~1 dragging.0 0))))
+   (call@8,B endFrame.0.ui_8zfkc31~8)
+   (call@7,C frameAt.0.~7 131.0@1 130.0@8
+    (false@F))
+   (call@6,D expect.0.~6 "and never lands anything"@1
+    (not@T
+     (dot@D
+      (call~2 landing.0.ui_8zfkc31~7)happened.0 0)))
+   (call@8,E endFrame.0.ui_8zfkc31~8)))
+ (proc@,4y :checkCancel.0.@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (call@6 settle.0.~6)
+   (call@7,1 frameAt.0.~7 130.0@1 130.0@8
+    (false@F))
+   (discard@,2
+    (call@C drag.0.ui_8zfkc31~4 "item"@1 source.0.@9
+     (call@O bandage.0.~7)))
+   (call@8,3 endFrame.0.ui_8zfkc31~8)
+   (call@7,4 frameAt.0.~7 130.0@1 130.0@8
+    (true@F))
+   (discard@,5
+    (call@C drag.0.ui_8zfkc31~4 "item"@1 source.0.@9
+     (call@O bandage.0.~7)))
+   (call@8,6 endFrame.0.ui_8zfkc31~8)
+   (call@7,7 frameAt.0.~7 200.0@1 130.0@8
+    (true@F))
+   (discard@,8
+    (call@C drag.0.ui_8zfkc31~4 "item"@1 source.0.@9
+     (call@O bandage.0.~7)))
+   (call@6,9 expect.0.~6 "picked up before cancelling"@1
+    (call@e carrying.0.ui_8zfkc31~8))
+   (call@A,A cancelDrag.0.ui_8zfkc31~A)
+   (call@6,B expect.0.~6 "cancelling puts it down at once"@1
+    (not@a
+     (call@C carrying.0.ui_8zfkc31~8)))
+   (call@8,C endFrame.0.ui_8zfkc31~8)
+   (call@7,D frameAt.0.~7 200.0@1 130.0@8
+    (true@F))
+   (let@4,E :where.2 . . Landing.0.ui_8zfkc31@4,7Y,ui_floor.nim
+    (call@F landing.0.ui_8zfkc31~7))
+   (call@6,F expect.0.~6 "a cancelled drag lands on nothing"@1
+    (and@B,1
+     (dot~A where.2~5 happened.0 0)
+     (eq@L
+      (i 64)
+      (call~5 len.4.sysvq0asl@1
+       (dot~7 where.2~5 target.0 0))0@3)))
+   (call@8,H endFrame.0.ui_8zfkc31~8)))
+ (proc@,5I :checkTopmostTarget.0.@5 . . .
+  (params@N). . .
+  (stmts@2,1
+   (call@6 settle.0.~6)
+   (let@4,1 :wide.0 . . Rect.0.vecqnfc1h@W,2e,../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim
+    (call@B rect.0.vecqnfc1h~4 380.0@1 80.0@8 200.0@E 200.0@L))
+   (call@7,2 frameAt.0.~7 130.0@1 130.0@8
+    (false@F))
+   (discard@,3
+    (call@C drag.0.ui_8zfkc31~4 "item"@1 source.0.@9
+     (call@O bandage.0.~7)))
+   (call@8,4 endFrame.0.ui_8zfkc31~8)
+   (call@7,5 frameAt.0.~7 130.0@1 130.0@8
+    (true@F))
+   (discard@,6
+    (call@C drag.0.ui_8zfkc31~4 "item"@1 source.0.@9
+     (call@O bandage.0.~7)))
+   (call@8,7 endFrame.0.ui_8zfkc31~8)
+   (call@7,8 frameAt.0.~7 430.0@1 130.0@8
+    (true@F))
+   (discard@,9
+    (call@C drag.0.ui_8zfkc31~4 "item"@1 source.0.@9
+     (call@O bandage.0.~7)))
+   (discard@,A
+    (call@G dropZone.0.ui_8zfkc31~8 "wide"@1 wide.0@9 "item"@F))
+   (discard@,B
+    (call@G dropZone.0.ui_8zfkc31~8 "bin"@1 target.0.@8 "item"@G))
+   (call@8,C endFrame.0.ui_8zfkc31~8)
+   (call@7,D frameAt.0.~7 430.0@1 130.0@8
+    (true@F))
+   (discard@,E
+    (call@C drag.0.ui_8zfkc31~4 "item"@1 source.0.@9
+     (call@O bandage.0.~7)))
+   (let@4,F :big.0 . . Drop.0.ui_8zfkc31@g,7z,ui_floor.nim
+    (call@E dropZone.0.ui_8zfkc31~8 "wide"@1 wide.0@9 "item"@F))
+   (let@4,G :small.0 . . Drop.0.ui_8zfkc31@g,7z,ui_floor.nim
+    (call@G dropZone.0.ui_8zfkc31~8 "bin"@1 target.0.@8 "item"@G))
+   (call@8,H endFrame.0.ui_8zfkc31~8)
+   (call@6,I expect.0.~6 "the target drawn later takes the drag"@1
+    (and@7,1
+     (dot~6 small.0~5 over.0 0)
+     (not@4
+      (dot@7 big.0~3 over.0 0))))
+   (call@7,K frameAt.0.~7 430.0@1 130.0@8
+    (false@F))
+   (discard@,L
+    (call@G dropZone.0.ui_8zfkc31~8 "wide"@1 wide.0@9 "item"@F))
+   (discard@,M
+    (call@G dropZone.0.ui_8zfkc31~8 "bin"@1 target.0.@8 "item"@G))
+   (call@8,N endFrame.0.ui_8zfkc31~8)
+   (call@7,O frameAt.0.~7 430.0@1 130.0@8
+    (false@F))
+   (call@6,P expect.0.~6 "and catches it"@1
+    (infix@a ==.20.sysvq0asl
+     (dot~8
+      (call~2 landing.0.ui_8zfkc31~7)target.0 0)"bin"@3))
+   (call@8,Q endFrame.0.ui_8zfkc31~8)))
+ (proc@,5r :frameOfExample.0.@5 . . .
+  (params@J
+   (param@1 :at.0 . . Vec2.0.vecqnfc1h@4 .)
+   (param@B :down.2 . .
+    (bool@6).)). . .
+  (stmts@2,1
+   (call@A beginFrame.0.ui_8zfkc31~A at.0@1 down.2@5 area.0.@B 0.0@w,3d,ui_floor.nim)
+   (call@F,1 inventoryScreen.0.exaiduokl~F)
+   (call@8,2 endFrame.0.ui_8zfkc31~8)))
+ (proc@,5w :dragInExample.0.@5 . . .
+  (params@I
+   (param@1 :fromAt.0 . . Vec2.0.vecqnfc1h@E .)
+   (param@9 :toAt.0 . . Vec2.0.vecqnfc1h@6 .)). . .
+  (stmts@2,1
+   (call@E frameOfExample.0.~E fromAt.0@1
+    (false@9))
+   (call@E,1 frameOfExample.0.~E fromAt.0@1
+    (true@9))
+   (call@E,2 frameOfExample.0.~E
+    (call@5 vec2.0.vecqnfc1h~4
+     (add@A
+      (f 64)
+      (dot~3 fromAt.0~6 x.0 0)20.0@2)
+     (dot@O fromAt.0~6 y.0 0))
+    (true@Y))
+   (call@E,3 frameOfExample.0.~E toAt.0@1
+    (true@7))
+   (call@E,4 frameOfExample.0.~E toAt.0@1
+    (true@7))
+   (call@E,5 frameOfExample.0.~E toAt.0@1
+    (false@7))
+   (call@E,6 frameOfExample.0.~E toAt.0@1
+    (false@7))))
+ (proc@,65 :checkExample.0.@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (call@4 mute.0.ui_8zfkc31~4
+    (true@1))
+   (call@9,1 setUpBags.0.exaiduokl~9)
+   (call@6,2 expect.0.~6 "the example starts where it says it does"@1
+    (infix@A,1 ==.20.sysvq0asl
+     (call~3 arrangement.0.exaiduokl~B)"bandage\40stash\3A0,0 rifle\40stash\3A0,2 mag\40pouch\3A2,0"@3))
+   (let@4,5 :stash.0 . . Grid.0.uiame5ta1@w,1k,ui.nim
+    (call@D bagOf.0.exaiduokl~5 Stash.0.exaiduokl@1))
+   (let@4,6 :pouch.0 . . Grid.0.uiame5ta1@w,1k,ui.nim
+    (call@D bagOf.0.exaiduokl~5 Pouch.0.exaiduokl@1))
+   (call@6,7 settle.0.~6)
+   (call@D,8 dragInExample.0.~D
+    (call@7 centre.0.vecqnfc1h~6
+     (call@7 cellAt.0.uiame5ta1~6 stash.0@1 0@8 0@B))
+    (call@a centre.0.vecqnfc1h~6
+     (call@7 cellAt.0.uiame5ta1~6 pouch.0@1 1@8 1@B)))
+   (call@6,9 expect.0.~6 "dragging a thing between two bags moves it"@1
+    (infix@A,1 ==.20.sysvq0asl
+     (call~3 arrangement.0.exaiduokl~B)"bandage\40pouch\3A1,1 rifle\40stash\3A0,2 mag\40pouch\3A2,0"@3))
+   (call@6,C settle.0.~6)
+   (call@D,D dragInExample.0.~D
+    (call@7 centre.0.vecqnfc1h~6
+     (call@7 cellAt.0.uiame5ta1~6 pouch.0@1 1@8 1@B))
+    (call@a centre.0.vecqnfc1h~6
+     (call@7 cellAt.0.uiame5ta1~6 pouch.0@1 2@8 0@B)))
+   (call@6,E expect.0.~6 "dropping onto an occupied cell is refused and changes nothing"@1
+    (infix@A,1 ==.20.sysvq0asl
+     (call~3 arrangement.0.exaiduokl~B)"bandage\40pouch\3A1,1 rifle\40stash\3A0,2 mag\40pouch\3A2,0"@3))
+   (call@6,H settle.0.~6)
+   (call@D,I dragInExample.0.~D
+    (call@7 centre.0.vecqnfc1h~6
+     (call@7 cellAt.0.uiame5ta1~6 stash.0@1 1@8 2@B))
+    (call@a centre.0.vecqnfc1h~6
+     (call@7 cellAt.0.uiame5ta1~6 stash.0@1 4@8 4@B)))
+   (call@6,J expect.0.~6 "a four-wide thing is picked up anywhere along it and lands as a block"@1
+    (infix@A,1 ==.20.sysvq0asl
+     (call~3 arrangement.0.exaiduokl~B)"bandage\40pouch\3A1,1 rifle\40stash\3A4,4 mag\40pouch\3A2,0"@3))
+   (call@6,M settle.0.~6)
+   (call@D,N dragInExample.0.~D
+    (call@7 centre.0.vecqnfc1h~6
+     (call@7 cellAt.0.uiame5ta1~6 stash.0@1 4@8 4@B))
+    (call@a centre.0.vecqnfc1h~6
+     (call@7 cellAt.0.uiame5ta1~6 stash.0@1 6@8 4@B)))
+   (call@6,O expect.0.~6 "and is refused where it would hang off the edge"@1
+    (infix@A,1 ==.20.sysvq0asl
+     (call~3 arrangement.0.exaiduokl~B)"bandage\40pouch\3A1,1 rifle\40stash\3A4,4 mag\40pouch\3A2,0"@3))
+   (call@4,Q mute.0.ui_8zfkc31~4
+    (false@1))))
+ (proc@,6i :checkCaretMoves.0.@5 . . .
+  (params@K). . .
+  (stmts@2,1
+   (var@4 :e.0 . . Edit.0.texi40plu1@D,1K,textfield.nim
+    (call@C editable.0.texi40plu1~8 "hello world"@1))
+   (call@6,1 expect.0.~6 "a new field has the caret at the end"@1
+    (and@t
+     (eq~6
+      (i 64)
+      (dot~7 e.0~1 caret.0 0)11@3)
+     (not@4
+      (call@G hasSelection.0.texi40plu1~C e.0@1))))
+   (call@5,2 place.0.texi40plu1~5
+    (haddr@1 e.0)0@4
+    (false@h,45,textfield.nim))
+   (discard@,3
+    (call@D apply.0.texi40plu1~5
+     (haddr@1 e.0)
+     (call@A stroke.0.texi40plu1~6 RightArrow.0.inpl8nz921@1
+      (false@T,6m,textfield.nim)
+      (false@h,6m,textfield.nim))))
+   (call@6,4 expect.0.~6 "right goes one character"@1
+    (eq@b
+     (i 64)
+     (dot~7 e.0~1 caret.0 0)1@3))
+   (discard@,5
+    (call@D apply.0.texi40plu1~5
+     (haddr@1 e.0)
+     (call@A stroke.0.texi40plu1~6 RightArrow.0.inpl8nz921@1
+      (false@D)
+      (true@K))))
+   (call@6,6 expect.0.~6 "ctrl-right goes to the end of the word"@1
+    (eq@p
+     (i 64)
+     (dot~7 e.0~1 caret.0 0)5@3))
+   (discard@,7
+    (call@D apply.0.texi40plu1~5
+     (haddr@1 e.0)
+     (call@A stroke.0.texi40plu1~6 RightArrow.0.inpl8nz921@1
+      (false@D)
+      (true@K))))
+   (call@6,8 expect.0.~6 "and then past the next one"@1
+    (eq@d
+     (i 64)
+     (dot~7 e.0~1 caret.0 0)11@3))
+   (discard@,9
+    (call@D apply.0.texi40plu1~5
+     (haddr@1 e.0)
+     (call@A stroke.0.texi40plu1~6 LeftArrow.0.inpl8nz921@1
+      (false@C)
+      (true@J))))
+   (call@6,A expect.0.~6 "ctrl-left comes back to the start of the word"@1
+    (eq@w
+     (i 64)
+     (dot~7 e.0~1 caret.0 0)6@3))
+   (discard@,B
+    (call@D apply.0.texi40plu1~5
+     (haddr@1 e.0)
+     (call@A stroke.0.texi40plu1~6 Home.0.inpl8nz921@1
+      (false@T,6m,textfield.nim)
+      (false@h,6m,textfield.nim))))
+   (call@6,C expect.0.~6 "home is the start"@1
+    (eq@U
+     (i 64)
+     (dot~7 e.0~1 caret.0 0)0@3))
+   (discard@,D
+    (call@D apply.0.texi40plu1~5
+     (haddr@1 e.0)
+     (call@A stroke.0.texi40plu1~6 End.0.inpl8nz921@1
+      (false@T,6m,textfield.nim)
+      (false@h,6m,textfield.nim))))
+   (call@6,E expect.0.~6 "end is the end"@1
+    (eq@R
+     (i 64)
+     (dot~7 e.0~1 caret.0 0)11@3))))
+ (proc@,6z :checkSelection.0.@5 . . .
+  (params@J). . .
+  (stmts@2,1
+   (var@4 :e.1 . . Edit.0.texi40plu1@D,1K,textfield.nim
+    (call@C editable.0.texi40plu1~8 "hello world"@1))
+   (call@5,1 place.0.texi40plu1~5
+    (haddr@1 e.1)0@4
+    (false@h,45,textfield.nim))
+   (discard@,2
+    (call@D apply.0.texi40plu1~5
+     (haddr@1 e.1)
+     (call@A stroke.0.texi40plu1~6 RightArrow.0.inpl8nz921@1
+      (true@D)
+      (false@h,6m,textfield.nim))))
+   (discard@,3
+    (call@D apply.0.texi40plu1~5
+     (haddr@1 e.1)
+     (call@A stroke.0.texi40plu1~6 RightArrow.0.inpl8nz921@1
+      (true@D)
+      (false@h,6m,textfield.nim))))
+   (call@6,4 expect.0.~6 "shift-right selects as it goes"@1
+    (and@C,1
+     (call~4 hasSelection.0.texi40plu1~C e.1@1)
+     (infix@K ==.20.sysvq0asl
+      (call~4 selectedText.0.texi40plu1~C e.1@1)"he"@3)))
+   (discard@,6
+    (call@D apply.0.texi40plu1~5
+     (haddr@1 e.1)
+     (call@A stroke.0.texi40plu1~6 LeftArrow.0.inpl8nz921@1
+      (true@C)
+      (false@h,6m,textfield.nim))))
+   (call@6,7 expect.0.~6 "shift-left gives one back"@1
+    (infix@k ==.20.sysvq0asl
+     (call~4 selectedText.0.texi40plu1~C e.1@1)"h"@3))
+   (discard@,8
+    (call@D apply.0.texi40plu1~5
+     (haddr@1 e.1)
+     (call@A stroke.0.texi40plu1~6 RightArrow.0.inpl8nz921@1
+      (false@T,6m,textfield.nim)
+      (false@h,6m,textfield.nim))))
+   (call@6,9 expect.0.~6 "a plain right off a selection lands at its far end and clears it"@1
+    (and@9,1
+     (eq~5
+      (i 64)
+      (dot~7 e.1~1 caret.0 0)1@3)
+     (not@4
+      (call@G hasSelection.0.texi40plu1~C e.1@1))))
+   (discard@,B
+    (call@D apply.0.texi40plu1~5
+     (haddr@1 e.1)
+     (call@A stroke.0.texi40plu1~6 End.0.inpl8nz921@1
+      (true@6)
+      (true@C))))
+   (call@6,C expect.0.~6 "shift-ctrl-end takes the rest"@1
+    (infix@o ==.20.sysvq0asl
+     (call~4 selectedText.0.texi40plu1~C e.1@1)"ello world"@3))
+   (discard@,D
+    (call@D apply.0.texi40plu1~5
+     (haddr@1 e.1)
+     (call@A stroke.0.texi40plu1~6 A.0.inpl8nz921@1
+      (false@4)
+      (true@B))))
+   (call@6,E expect.0.~6 "ctrl-a takes all of it"@1
+    (infix@h ==.20.sysvq0asl
+     (call~4 selectedText.0.texi40plu1~C e.1@1)"hello world"@3))))
+ (proc@,7G :checkWords.0.@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (let@4 :line.0 . . string.0.sysvq0asl "one two, three"@7)
+   (let@4,1 :first.1 . . Span.0.texi40plu1@P,3i,textfield.nim
+    (call@I wordAround.0.texi40plu1~A line.0@1 1@7))
+   (call@6,2 expect.0.~6 "a double-click in a word takes the word"@1
+    (and@D,1
+     (eq~5
+      (i 64)
+      (dot~7 first.1~5 first.0 0)0@3)
+     (eq@F
+      (i 64)
+      (dot~6 first.1~5 last.0 0)3@3)))
+   (let@4,4 :comma.0 . . Span.0.texi40plu1@P,3i,textfield.nim
+    (call@I wordAround.0.texi40plu1~A line.0@1 7@7))
+   (call@6,5 expect.0.~6 "a double-click on punctuation takes the punctuation"@1
+    (and@D,1
+     (eq~5
+      (i 64)
+      (dot~7 comma.0~5 first.0 0)7@3)
+     (eq@F
+      (i 64)
+      (dot~6 comma.0~5 last.0 0)8@3)))
+   (let@4,7 :gap.0 . . Span.0.texi40plu1@P,3i,textfield.nim
+    (call@G wordAround.0.texi40plu1~A line.0@1 3@7))
+   (call@6,8 expect.0.~6 "a double-click in a gap takes the gap"@1
+    (and@B,1
+     (eq~5
+      (i 64)
+      (dot~7 gap.0~3 first.0 0)3@3)
+     (eq@D
+      (i 64)
+      (dot~6 gap.0~3 last.0 0)4@3)))))
+ (proc@,7S :checkEditing.0.@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (var@4 :e.2 . . Edit.0.texi40plu1@D,1K,textfield.nim
+    (call@C editable.0.texi40plu1~8 "hello world"@1))
+   (call@5,1 place.0.texi40plu1~5
+    (haddr@1 e.2)5@4
+    (false@h,45,textfield.nim))
+   (discard@,2
+    (call@D apply.0.texi40plu1~5
+     (haddr@1 e.2)
+     (call@A stroke.0.texi40plu1~6 Backspace.0.inpl8nz921@1
+      (false@T,6m,textfield.nim)
+      (false@h,6m,textfield.nim))))
+   (call@6,3 expect.0.~6 "backspace takes the character before the caret"@1
+    (infix@w ==.20.sysvq0asl
+     (dot~6 e.2~1 text.0 0)"hell world"@3))
+   (discard@,4
+    (call@D apply.0.texi40plu1~5
+     (haddr@1 e.2)
+     (call@A stroke.0.texi40plu1~6 Delete.0.inpl8nz921@1
+      (false@T,6m,textfield.nim)
+      (false@h,6m,textfield.nim))))
+   (call@6,5 expect.0.~6 "delete takes the one after"@1
+    (infix@c ==.20.sysvq0asl
+     (dot~6 e.2~1 text.0 0)"hellworld"@3))
+   (call@B,6 selectRange.0.texi40plu1~B
+    (haddr@1 e.2)0@4 4@7)
+   (discard@,7
+    (call@D apply.0.texi40plu1~5
+     (haddr@1 e.2)
+     (call@A stroke.0.texi40plu1~6 Backspace.0.inpl8nz921@1
+      (false@T,6m,textfield.nim)
+      (false@h,6m,textfield.nim))))
+   (call@6,8 expect.0.~6 "backspace over a selection takes the selection"@1
+    (and@E,1
+     (infix~B ==.20.sysvq0asl
+      (dot~6 e.2~1 text.0 0)"world"@3)
+     (eq@C
+      (i 64)
+      (dot~7 e.2~1 caret.0 0)0@3)))
+   (call@6,A insert.0.texi40plu1~6
+    (haddr@1 e.2)"hello "@4)
+   (call@6,B expect.0.~6 "a paste goes in at the caret"@1
+    (and@v
+     (infix~H ==.20.sysvq0asl
+      (dot~6 e.2~1 text.0 0)"hello world"@3)
+     (eq@C
+      (i 64)
+      (dot~7 e.2~1 caret.0 0)6@3)))
+   (call@9,C selectAll.0.texi40plu1~9
+    (haddr@1 e.2))
+   (call@6,D insert.0.texi40plu1~6
+    (haddr@1 e.2)"new"@4)
+   (call@6,E expect.0.~6 "a paste over a selection replaces it"@1
+    (infix@m ==.20.sysvq0asl
+     (dot~6 e.2~1 text.0 0)"new"@3))))
+ (proc@,7j :checkUndo.0.@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (var@4 :e.3 . . Edit.0.texi40plu1@D,1K,textfield.nim
+    (call@C editable.0.texi40plu1~8 ""@1))
+   (call@6,1 typeIn.0.texi40plu1~6
+    (haddr@1 e.3)"h"@4)
+   (call@6,2 typeIn.0.texi40plu1~6
+    (haddr@1 e.3)"i"@4)
+   (call@6,3 typeIn.0.texi40plu1~6
+    (haddr@1 e.3)"!"@4)
+   (call@6,4 expect.0.~6 "typing runs together"@1
+    (and@f
+     (infix~9 ==.20.sysvq0asl
+      (dot~6 e.3~1 text.0 0)"hi!"@3)
+     (eq@H
+      (i 64)
+      (call~4 undoDepth.0.texi40plu1~9 e.3@1)1@3)))
+   (discard@,5
+    (call@C undo.0.texi40plu1~4
+     (haddr@1 e.3)))
+   (call@6,6 expect.0.~6 "one undo takes the whole run, not one letter"@1
+    (infix@u ==.20.sysvq0asl
+     (dot~6 e.3~1 text.0 0)""@3))
+   (discard@,7
+    (call@C redo.0.texi40plu1~4
+     (haddr@1 e.3)))
+   (call@6,8 expect.0.~6 "redo puts it back"@1
+    (infix@T ==.20.sysvq0asl
+     (dot~6 e.3~1 text.0 0)"hi!"@3))
+   (call@5,9 place.0.texi40plu1~5
+    (haddr@1 e.3)0@4
+    (false@h,45,textfield.nim))
+   (call@6,A typeIn.0.texi40plu1~6
+    (haddr@1 e.3)"oh "@4)
+   (call@6,B expect.0.~6 "moving the caret starts a new run"@1
+    (eq@p
+     (i 64)
+     (call~4 undoDepth.0.texi40plu1~9 e.3@1)2@3))
+   (discard@,C
+    (call@C undo.0.texi40plu1~4
+     (haddr@1 e.3)))
+   (call@6,D expect.0.~6 "so undo takes only the second run"@1
+    (infix@j ==.20.sysvq0asl
+     (dot~6 e.3~1 text.0 0)"hi!"@3))
+   (discard@,E
+    (call@C undo.0.texi40plu1~4
+     (haddr@1 e.3)))
+   (call@6,F expect.0.~6 "and the next takes the first"@1
+    (infix@e ==.20.sysvq0asl
+     (dot~6 e.3~1 text.0 0)""@3))
+   (call@6,G expect.0.~6 "nothing left to undo"@1
+    (not@P
+     (call@8 undo.0.texi40plu1~4
+      (haddr@1 e.3))))))
+ (proc@,82 :checkUtf8.0.@5 . . .
+  (params@E). . .
+  (stmts@2,4
+   (var@4 :e.4 . . Edit.0.texi40plu1@D,1K,textfield.nim
+    (call@C editable.0.texi40plu1~8 "café"@1))
+   (call@6,1 expect.0.~6 "the string is five bytes"@1
+    (eq@e
+     (i 64)
+     (call~5 len.4.sysvq0asl@1
+      (dot~5 e.4~1 text.0 0))5@3))
+   (discard@,2
+    (call@D apply.0.texi40plu1~5
+     (haddr@1 e.4)
+     (call@A stroke.0.texi40plu1~6 Backspace.0.inpl8nz921@1
+      (false@T,6m,textfield.nim)
+      (false@h,6m,textfield.nim))))
+   (call@6,3 expect.0.~6 "backspace takes the whole accented character, both its bytes"@1
+    (infix@3,1 ==.20.sysvq0asl
+     (dot~6 e.4~1 text.0 0)"caf"@3))
+   (var@4,5 :d.2 . . Edit.0.texi40plu1@D,1K,textfield.nim
+    (call@C editable.0.texi40plu1~8 "café"@1))
+   (call@6,6 expect.0.~6 "a decomposed accent is six bytes"@1
+    (eq@m
+     (i 64)
+     (call~5 len.4.sysvq0asl@1
+      (dot~5 d.2~1 text.0 0))6@3))
+   (discard@,7
+    (call@D apply.0.texi40plu1~5
+     (haddr@1 d.2)
+     (call@A stroke.0.texi40plu1~6 Backspace.0.inpl8nz921@1
+      (false@T,6m,textfield.nim)
+      (false@h,6m,textfield.nim))))
+   (call@6,8 expect.0.~6 "backspace takes the letter and the mark that sits on it"@1
+    (infix@3,1 ==.20.sysvq0asl
+     (dot~6 d.2~1 text.0 0)"caf"@3))
+   (var@4,A :j.0 . . Edit.0.texi40plu1@D,1K,textfield.nim
+    (call@C editable.0.texi40plu1~8 "a✋‍🦺b"@1))
+   (call@5,B place.0.texi40plu1~5
+    (haddr@1 j.0)
+    (sub@F
+     (i 64)
+     (call~5 len.4.sysvq0asl@1
+      (dot~5 j.0~1 text.0 0))1@2)
+    (false@h,45,textfield.nim))
+   (discard@,C
+    (call@D apply.0.texi40plu1~5
+     (haddr@1 j.0)
+     (call@A stroke.0.texi40plu1~6 Backspace.0.inpl8nz921@1
+      (false@T,6m,textfield.nim)
+      (false@h,6m,textfield.nim))))
+   (call@6,D expect.0.~6 "a joined emoji is one backspace, not two"@1
+    (infix@q ==.20.sysvq0asl
+     (dot~6 j.0~1 text.0 0)"ab"@3))))
+ (proc@,8L :checkPasteIsOneStep.0.@5 . . .
+  (params@O). . .
+  (stmts@2,1
+   (var@4 :e.5 . . Edit.0.texi40plu1@D,1K,textfield.nim
+    (call@C editable.0.texi40plu1~8 ""@1))
+   (call@6,1 insert.0.texi40plu1~6
+    (haddr@1 e.5)"a line\0Aand another"@4)
+   (call@6,2 expect.0.~6 "a paste with newlines in it comes into one line as spaces"@1
+    (infix@3,1 ==.20.sysvq0asl
+     (dot~6 e.5~1 text.0 0)"a line and another"@3))
+   (discard@,4
+    (call@C undo.0.texi40plu1~4
+     (haddr@1 e.5)))
+   (call@6,5 expect.0.~6 "and undoes in one step"@1
+    (infix@Y ==.20.sysvq0asl
+     (dot~6 e.5~1 text.0 0)""@3))))
+ (proc@,8Y :checkFieldFocus.0.@5 . . .
+  (params@K). . .
+  (stmts@2,1
+   (var@4 :first.2 . . Edit.0.texi40plu1@D,1K,textfield.nim
+    (call@G editable.0.texi40plu1~8 "one"@1))
+   (var@4,1 :second.1 . . Edit.0.texi40plu1@D,1K,textfield.nim
+    (call@H editable.0.texi40plu1~8 "two"@1))
+   (let@4,2 :a.1 . . Rect.0.vecqnfc1h@W,2e,../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim
+    (call@8 rect.0.vecqnfc1h~4 10.0@1 10.0@7 200.0@D 24.0@K))
+   (let@4,3 :b.1 . . Rect.0.vecqnfc1h@W,2e,../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim
+    (call@8 rect.0.vecqnfc1h~4 10.0@1 40.0@7 200.0@D 24.0@K))
+   (call@6,4 settle.0.~6)
+   (call@A,5 focusField.0.texi40plu1~A ""@1)
+   (call@4,6 mute.0.ui_8zfkc31~4
+    (true@1))
+   (call@7,7 frameAt.0.~7 300.0@1 300.0@8
+    (false@F))
+   (discard@,8
+    (call@H textField.0.texi40plu1~9 "first"@1 a.1@A
+     (haddr@D first.2)""@11,96,textfield.nim))
+   (discard@,9
+    (call@H textField.0.texi40plu1~9 "second"@1 b.1@B
+     (haddr@E second.1)""@11,96,textfield.nim))
+   (call@8,A endFrame.0.ui_8zfkc31~8)
+   (call@6,B expect.0.~6 "nothing has the caret before anything is clicked"@1
+    (eq@F,1
+     (i 64)
+     (call~5 len.4.sysvq0asl@1
+      (call~2 focusedField.0.texi40plu1~C))0@3))
+   (call@7,D frameAt.0.~7 20.0@1 20.0@7
+    (true@D))
+   (discard@,E
+    (call@H textField.0.texi40plu1~9 "first"@1 a.1@A
+     (haddr@D first.2)""@11,96,textfield.nim))
+   (discard@,F
+    (call@H textField.0.texi40plu1~9 "second"@1 b.1@B
+     (haddr@E second.1)""@11,96,textfield.nim))
+   (call@8,G endFrame.0.ui_8zfkc31~8)
+   (call@6,H expect.0.~6 "clicking a field gives it the caret"@1
+    (infix@t ==.20.sysvq0asl
+     (call~3 focusedField.0.texi40plu1~C)"first"@3))
+   (call@7,I frameAt.0.~7 20.0@1 50.0@7
+    (false@D))
+   (discard@,J
+    (call@H textField.0.texi40plu1~9 "first"@1 a.1@A
+     (haddr@D first.2)""@11,96,textfield.nim))
+   (discard@,K
+    (call@H textField.0.texi40plu1~9 "second"@1 b.1@B
+     (haddr@E second.1)""@11,96,textfield.nim))
+   (call@8,L endFrame.0.ui_8zfkc31~8)
+   (call@7,M frameAt.0.~7 20.0@1 50.0@7
+    (true@D))
+   (discard@,N
+    (call@H textField.0.texi40plu1~9 "first"@1 a.1@A
+     (haddr@D first.2)""@11,96,textfield.nim))
+   (discard@,O
+    (call@H textField.0.texi40plu1~9 "second"@1 b.1@B
+     (haddr@E second.1)""@11,96,textfield.nim))
+   (call@8,P endFrame.0.ui_8zfkc31~8)
+   (call@6,Q expect.0.~6 "clicking the other one moves the caret to it"@1
+    (infix@B,1 ==.20.sysvq0asl
+     (call~3 focusedField.0.texi40plu1~C)"second"@3))
+   (call@7,S frameAt.0.~7 400.0@1 400.0@8
+    (false@F))
+   (discard@,T
+    (call@H textField.0.texi40plu1~9 "first"@1 a.1@A
+     (haddr@D first.2)""@11,96,textfield.nim))
+   (discard@,U
+    (call@H textField.0.texi40plu1~9 "second"@1 b.1@B
+     (haddr@E second.1)""@11,96,textfield.nim))
+   (call@8,V endFrame.0.ui_8zfkc31~8)
+   (call@7,W frameAt.0.~7 400.0@1 400.0@8
+    (true@F))
+   (discard@,X
+    (call@H textField.0.texi40plu1~9 "first"@1 a.1@A
+     (haddr@D first.2)""@11,96,textfield.nim))
+   (discard@,Y
+    (call@H textField.0.texi40plu1~9 "second"@1 b.1@B
+     (haddr@E second.1)""@11,96,textfield.nim))
+   (call@8,Z endFrame.0.ui_8zfkc31~8)
+   (call@6,a expect.0.~6 "clicking away from every field gives the caret up"@1
+    (eq@F,1
+     (i 64)
+     (call~5 len.4.sysvq0asl@1
+      (call~2 focusedField.0.texi40plu1~C))0@3))
+   (call@4,c mute.0.ui_8zfkc31~4
+    (false@1))
+   (call@A,d focusField.0.texi40plu1~A ""@1)
+   (call@6,e settle.0.~6)))
+ (proc@,9L :checkWheel.0.@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (call@4 mute.0.ui_8zfkc31~4
+    (true@1))
+   (call@6,1 settle.0.~6)
+   (let@4,2 :box.2 . . Rect.0.vecqnfc1h@W,2e,../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim
+    (call@A rect.0.vecqnfc1h~4 100.0@1 100.0@8 200.0@F 120.0@M))
+   (call@7,4 frameAt.0.~7 150.0@1 150.0@8
+    (false@F))
+   (var@4,5 :s.2 . . Scroll.0.uiame5ta1@q,3c,ui.nim
+    (call@F beginScroll.0.uiame5ta1~B "list"@1 box.2@9 600.0@E))
+   (call@9,6 endScroll.0.uiame5ta1~9 s.2@1)
+   (call@8,7 endFrame.0.ui_8zfkc31~8)
+   (call@6,8 expect.0.~6 "a region nobody turned the wheel over is at the top"@1
+    (eq@13
+     (f 64)
+     (dot~8 s.2~1 offset.0 0)0.0@3))
+   (call@7,A frameAt.1.~7 150.0@1 150.0@8
+    (false@F)-1.0@M)
+   (asgn@2,B s.2~2
+    (call@D beginScroll.0.uiame5ta1~B "list"@1 box.2@9 600.0@E))
+   (call@9,C endScroll.0.uiame5ta1~9 s.2@1)
+   (call@8,D endFrame.0.ui_8zfkc31~8)
+   (call@6,E expect.0.~6 "a notch towards you moves it down"@1
+    (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+     (lt@2,1
+      (f 64)0.0@v,9b,.jester/source/jester_mod_dae2e0425dd31985.nim
+      (dot@l,9b,.jester/source/jester_mod_dae2e0425dd31985.nim s.2~1 offset.0 0))))
+   (let@4,F :after.0 . .
+    (f@I,3R,ui.nim 64)
+    (dot@9 s.2~1 offset.0 0))
+   (call@7,H frameAt.1.~7 150.0@1 150.0@8
+    (false@F)1.0@M)
+   (asgn@2,I s.2~2
+    (call@D beginScroll.0.uiame5ta1~B "list"@1 box.2@9 600.0@E))
+   (call@9,J endScroll.0.uiame5ta1~9 s.2@1)
+   (call@8,K endFrame.0.ui_8zfkc31~8)
+   (call@6,L expect.0.~6 "a notch away from you moves it back the same distance"@1
+    (and@C,1
+     (eq~7
+      (f 64)
+      (dot~8 s.2~1 offset.0 0)0.0@3)
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (f 64)0.0@W,9j,.jester/source/jester_mod_dae2e0425dd31985.nim after.0@O,9j,.jester/source/jester_mod_dae2e0425dd31985.nim))))
+   (call@7,Q frameAt.1.~7 700.0@1 500.0@8
+    (false@F)-1.0@M)
+   (asgn@2,R s.2~2
+    (call@D beginScroll.0.uiame5ta1~B "list"@1 box.2@9 600.0@E))
+   (call@9,S endScroll.0.uiame5ta1~9 s.2@1)
+   (call@8,T endFrame.0.ui_8zfkc31~8)
+   (call@6,U expect.0.~6 "the wheel does not move a region the pointer is not over"@1
+    (eq@5,1
+     (f 64)
+     (dot~8 s.2~1 offset.0 0)0.0@3))
+   (call@7,X frameAt.1.~7 150.0@1 150.0@8
+    (false@F)-20.0@M)
+   (asgn@2,Y s.2~2
+    (call@D beginScroll.0.uiame5ta1~B "list"@1 box.2@9 600.0@E))
+   (call@9,Z endScroll.0.uiame5ta1~9 s.2@1)
+   (call@8,a endFrame.0.ui_8zfkc31~8)
+   (call@6,b expect.0.~6 "and never past the end of what there is to see"@1
+    (eq@5,1
+     (f 64)
+     (dot~8 s.2~1 offset.0 0)
+     (sub@9
+      (f 64)600.0~6
+      (dot@5 box.2~3 height.0 0))))
+   (call@4,d mute.0.ui_8zfkc31~4
+    (false@1))
+   (call@6,e settle.0.~6)))
+ (proc@,A6 :checkFieldScroll.0.@5 . . .
+  (params@L). . .
+  (stmts@2,1
+   (call@4 mute.0.ui_8zfkc31~4
+    (true@1))
+   (call@6,1 settle.0.~6)
+   (let@4,2 :box.3 . . Rect.0.vecqnfc1h@W,2e,../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim
+    (call@A rect.0.vecqnfc1h~4 100.0@1 300.0@8 120.0@F 30.0@M))
+   (var@4,3 :e.6 . . Edit.0.texi40plu1@D,1K,textfield.nim
+    (call@C editable.0.texi40plu1~8 "a line of text far wider than the box it is being typed into"@1))
+   (let@4,4 :id.0 . . string.0.sysvq0asl "wide"@5)
+   (call@A,6 focusField.0.texi40plu1~A ""@1)
+   (call@7,7 frameAt.0.~7 4.0@1 4.0@6
+    (false@B))
+   (discard@,8
+    (call@H textField.0.texi40plu1~9 id.0@1 box.3@5
+     (haddr@A e.6)""@11,96,textfield.nim))
+   (call@8,9 endFrame.0.ui_8zfkc31~8)
+   (call@6,A expect.0.~6 "a field nobody has clicked shows its start"@1
+    (eq@15
+     (f 64)
+     (call~C scrollOf.0.ui_8zfkc31~8
+      (infix@4 &.0.sysvq0asl id.0~3 "/x"@2))0.0@3))
+   (call@7,E frameAt.0.~7 150.0@1 315.0@8
+    (true@F))
+   (discard@,F
+    (call@H textField.0.texi40plu1~9 id.0@1 box.3@5
+     (haddr@A e.6)""@11,96,textfield.nim))
+   (call@8,G endFrame.0.ui_8zfkc31~8)
+   (call@6,H expect.0.~6 "clicking it takes the caret"@1
+    (infix@l ==.20.sysvq0asl
+     (call~3 focusedField.0.texi40plu1~C)id.0@3))
+   (call@5,J place.0.texi40plu1~5
+    (haddr@1 e.6)
+    (call@A len.4.sysvq0asl@1
+     (dot~5 e.6~1 text.0 0))
+    (false@h,45,textfield.nim))
+   (call@7,K frameAt.0.~7 150.0@1 315.0@8
+    (false@F))
+   (discard@,L
+    (call@H textField.0.texi40plu1~9 id.0@1 box.3@5
+     (haddr@A e.6)""@11,96,textfield.nim))
+   (call@8,M endFrame.0.ui_8zfkc31~8)
+   (let@4,N :slid.0 . .
+    (f@D,~9y 64)
+    (call@F scrollOf.0.ui_8zfkc31~8
+     (infix@4 &.0.sysvq0asl id.0~3 "/x"@2)))
+   (call@6,O expect.0.~6 "the caret at the end slides the text left"@1
+    (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+     (lt@2,1
+      (f 64)0.0@z,AW,.jester/source/jester_mod_dae2e0425dd31985.nim slid.0@s,AW,.jester/source/jester_mod_dae2e0425dd31985.nim)))
+   (let@4,P :inner.0 . . Rect.0.vecqnfc1h@W,2e,../../../../Packages/com.aoughwl.jester/ModSdk/vec.nim
+    (call@H inset.0.vecqnfc1h~5 box.3~9 6.0@1))
+   (call@6,Q expect.0.~6 "and slides it exactly far enough to keep the caret in view, no further"@1
+    (and@u,1
+     (le~F
+      (f 64)
+      (sub~7
+       (f 64)
+       (call~W caretX.0.texi40plu1~6
+        (dot@2 e.6~1 text.0 0)
+        (dot@A e.6~1 caret.0 0)
+        (dot@P
+         (call~2 style.0.ui_8zfkc31~5)text.0 0))slid.0@2)
+      (dot@8 inner.0~5 width.0 0))
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (f 64)
+       (sub@12,Aa,.jester/source/jester_mod_dae2e0425dd31985.nim
+        (f 64)
+        (dot~7 inner.0~5 width.0 0)4.0@2)
+       (sub@g,Aa,.jester/source/jester_mod_dae2e0425dd31985.nim
+        (f 64)
+        (call~W caretX.0.texi40plu1~6
+         (dot@2 e.6~1 text.0 0)
+         (dot@A e.6~1 caret.0 0)
+         (dot@P
+          (call~2 style.0.ui_8zfkc31~5)text.0 0))slid.0@2)))))
+   (call@5,U place.0.texi40plu1~5
+    (haddr@1 e.6)0@4
+    (false@h,45,textfield.nim))
+   (call@7,V frameAt.0.~7 150.0@1 315.0@8
+    (false@F))
+   (discard@,W
+    (call@H textField.0.texi40plu1~9 id.0@1 box.3@5
+     (haddr@A e.6)""@11,96,textfield.nim))
+   (call@8,X endFrame.0.ui_8zfkc31~8)
+   (call@6,Y expect.0.~6 "the caret back at the start slides it home again"@1
+    (eq@G,1
+     (f 64)
+     (call~C scrollOf.0.ui_8zfkc31~8
+      (infix@4 &.0.sysvq0asl id.0~3 "/x"@2))0.0@3))
+   (call@7,d setText.0.texi40plu1~7
+    (haddr@1 e.6)"short"@4)
+   (call@5,e place.0.texi40plu1~5
+    (haddr@1 e.6)5@4
+    (false@h,45,textfield.nim))
+   (call@7,f frameAt.0.~7 150.0@1 315.0@8
+    (false@F))
+   (discard@,g
+    (call@H textField.0.texi40plu1~9 id.0@1 box.3@5
+     (haddr@A e.6)""@11,96,textfield.nim))
+   (call@8,h endFrame.0.ui_8zfkc31~8)
+   (call@6,i expect.0.~6 "text that fits is never scrolled"@1
+    (eq@v
+     (f 64)
+     (call~C scrollOf.0.ui_8zfkc31~8
+      (infix@4 &.0.sysvq0asl id.0~3 "/x"@2))0.0@3))
+   (call@A,j focusField.0.texi40plu1~A ""@1)
+   (call@4,k mute.0.ui_8zfkc31~4
+    (false@1))
+   (call@6,l settle.0.~6)))
+ (gvar@4,B0 :showing.0. . .
+  (bool@C,h,../../../../../../nimony/lib/std/system/basic_types.nim)
+  (false@A))
+ (proc@,B2 :showExample.0.@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (call@9 setUpBags.0.exaiduokl~9)
+   (asgn@8,1 showing.0.~8
+    (true@2))))
+ (proc@,B6 :hideExample.0.@5 . . .
+  (params@G). . .
+  (stmts@L
+   (asgn@8 showing.0.~8
+    (false@2))))
+ (proc@,BE :focusCaption.0.@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (call@A setUpNotes.0.exaiduokl~A)
+   (call@A,1 focusField.0.texi40plu1~A "notes/caption"@1)
+   (call@5,2 place.0.texi40plu1~5
+    (haddr@1 caption.0.exaiduokl)
+    (call@M len.4.sysvq0asl@1
+     (dot~5 caption.0.exaiduokl~7 text.0 0))
+    (false@h,45,textfield.nim))))
+ (proc@,BJ :drawGui.0.@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (not showing.0.@4)
+     (stmts@D
+      (ret .))))
+   (call@A,1 beginFrame.1.ui_8zfkc31~A)
+   (call@F,2 inventoryScreen.0.exaiduokl~F)
+   (call@8,3 endFrame.0.ui_8zfkc31~8)))
+ (proc@,BR :sayArrangement.0.@5 . . .
+  (params@J). . .
+  (stmts@O
+   (call@3 log.0.jesaqohvh1~3
+    (infix@G &.0.sysvq0asl "ui example\3A "~F
+     (call@D arrangement.0.exaiduokl~B)))))
+ (proc@,BT :start.0.@5 . . .
+  (params@A). . .
+  (stmts@2,1
+   (call@B checkLayout.0.~B)
+   (call@9,1 checkGrid.0.~9)
+   (call@E,2 checkClipAndId.0.~E)
+   (call@B,3 checkButton.0.~B)
+   (call@G,4 checkPressLeaves.0.~G)
+   (call@C,5 checkTopmost.0.~C)
+   (call@G,6 checkScopedNames.0.~G)
+   (call@9,7 checkDrag.0.~9)
+   (call@G,8 checkRefusedDrag.0.~G)
+   (call@J,9 checkClickIsNotDrag.0.~J)
+   (call@B,A checkCancel.0.~B)
+   (call@I,B checkTopmostTarget.0.~I)
+   (call@C,C checkExample.0.~C)
+   (call@F,D checkCaretMoves.0.~F)
+   (call@E,E checkSelection.0.~E)
+   (call@A,F checkWords.0.~A)
+   (call@C,G checkEditing.0.~C)
+   (call@9,H checkUndo.0.~9)
+   (call@9,I checkUtf8.0.~9)
+   (call@J,J checkPasteIsOneStep.0.~J)
+   (call@F,K checkFieldFocus.0.~F)
+   (call@A,L checkWheel.0.~A)
+   (call@G,M checkFieldScroll.0.~G)
+   (call@6,N settle.0.~6)
+   (if@,O
+    (elif@3
+     (eq@9
+      (i 64)failures.0.~9 0@3)
+     (stmts~1,1
+      (call@3 log.0.jesaqohvh1~3
+       (infix@Z &.0.sysvq0asl
+        (infix~A &.0.sysvq0asl "ui self-check passed "~O
+         (prefix@2 $.1.sysvq0asl checks.0.@1))" checks"@2))))
+    (else@,2
+     (stmts@2,1
+      (call@3 log.0.jesaqohvh1~3
+       (infix@u &.0.sysvq0asl
+        (infix~A &.0.sysvq0asl
+         (infix~9 &.0.sysvq0asl
+          (infix~C &.0.sysvq0asl "ui self-check FAILED "~O
+           (prefix@2 $.1.sysvq0asl failures.0.@1))" of "@2)
+         (prefix@2 $.1.sysvq0asl checks.0.@1))" checks"@2)))))))
+ (proc@,Bx :stop.0.@5 . . .
+  (params@9). . .
+  (stmts@2,1
+   (discard .)))
+ (comment@U,Q bool.0.sysvq0asl float64.0.sysvq0asl~B,6 float64.0.sysvq0asl~B,6 bool.0.sysvq0asl@4,6 float64.0.sysvq0asl~B,9 float64.0.sysvq0asl~B,9 bool.0.sysvq0asl@4,9 float64.0.sysvq0asl@G,9 bool.0.sysvq0asl@6,5R false.0.sysvq0asl~A,F false.0.sysvq0asl~A,H false.0.sysvq0asl~6,17 false.0.sysvq0asl~6,1Y true.0.sysvq0asl~6,1d true.0.sysvq0asl~6,1j false.0.sysvq0asl~6,1o false.0.sysvq0asl~6,1t false.0.sysvq0asl~6,21 true.0.sysvq0asl~6,24 true.0.sysvq0asl~6,27 false.0.sysvq0asl~6,2B false.0.sysvq0asl~6,2K false.0.sysvq0asl~6,2O true.0.sysvq0asl~6,2U true.0.sysvq0asl~6,2e false.0.sysvq0asl~6,2z true.0.sysvq0asl~6,36 true.0.sysvq0asl~6,3B true.0.sysvq0asl~6,3R false.0.sysvq0asl~6,3X false.0.sysvq0asl~6,3f false.0.sysvq0asl~6,3n false.0.sysvq0asl~6,3t true.0.sysvq0asl~6,3w true.0.sysvq0asl~6,3z false.0.sysvq0asl~6,45 false.0.sysvq0asl~6,4A false.0.sysvq0asl~6,4J true.0.sysvq0asl~6,4M false.0.sysvq0asl~6,4P false.0.sysvq0asl~6,4U false.0.sysvq0asl~6,4a true.0.sysvq0asl~6,4d true.0.sysvq0asl~6,4g true.0.sysvq0asl~6,4m false.0.sysvq0asl~6,4v true.0.sysvq0asl~6,4y true.0.sysvq0asl~6,51 true.0.sysvq0asl~6,56 false.0.sysvq0asl~6,5D false.0.sysvq0asl~6,5H false.0.sysvq0asl~5,5X true.0.sysvq0asl~5,5Y true.0.sysvq0asl@K,5Z true.0.sysvq0asl~7,5a true.0.sysvq0asl~7,5b false.0.sysvq0asl~7,5c false.0.sysvq0asl~7,5d true.0.sysvq0asl~N,5g false.0.sysvq0asl~N,66 false.0.sysvq0asl@8,6O true.0.sysvq0asl@F,6O false.0.sysvq0asl@8,6Q true.0.sysvq0asl@F,6Q false.0.sysvq0asl@7,6S true.0.sysvq0asl@E,6S true.0.sysvq0asl@8,6c true.0.sysvq0asl@8,6d true.0.sysvq0asl@7,6g true.0.sysvq0asl@1,6l true.0.sysvq0asl@7,6l false.0.sysvq0asl~1,6n true.0.sysvq0asl@6,6n true.0.sysvq0asl~N,8F false.0.sysvq0asl~6,8G true.0.sysvq0asl~8,8M false.0.sysvq0asl~8,8R true.0.sysvq0asl~8,8V false.0.sysvq0asl~6,8b true.0.sysvq0asl~6,8f false.0.sysvq0asl~N,8l true.0.sysvq0asl~N,8w false.0.sysvq0asl~6,90 false.0.sysvq0asl~6,96 >.0.sysvq0asl@P,9A false.0.sysvq0asl~6,9D >.0.sysvq0asl@,9I false.0.sysvq0asl~6,9M false.0.sysvq0asl~6,9T false.0.sysvq0asl~N,9Z true.0.sysvq0asl~N,9h false.0.sysvq0asl~A,9o true.0.sysvq0asl~6,9v false.0.sysvq0asl~6,A1 >.0.sysvq0asl@T,A5 >=.0.sysvq0asl@J,A9 false.0.sysvq0asl~6,AC false.0.sysvq0asl~6,AM false.0.sysvq0asl~N,AR false.0.sysvq0asl~G,Aa true.0.sysvq0asl~I,Ae false.0.sysvq0asl@1,Ag)
+ (func@t,15 :len.3.Ikg422u. . .@,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at len.3.sysvq0asl Rect.0.vecqnfc1h@x,1L,ui.nim)
+  (params@C,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.3 . . seq.0.Ic7b86d1.@6 .))
+  (i@D,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim 64)
+  (pragmas@T,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (inline@2)).@,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,2a,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (result :result.1 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@1,1 result.1
+    (dot s.3~1 len.0 0 "x"))
+   (ret~2,~1 result.1)))
+ (func@4,17 :\5B\5D.7.Id4kd0t1. . .@,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at \5B\5D.7.sysvq0asl Rect.0.vecqnfc1h@x,1L,ui.nim)
+  (params@D,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.4 . . seq.0.Ic7b86d1.@6 .)
+   (param@C :i.1 . .
+    (i@3 64).))
+  (mut@L,2h,../../../../../../nimony/lib/std/system/seqimpl.nim Rect.0.vecqnfc1h@x,1L,ui.nim)
+  (pragmas@e,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (requires@2
+    (and@L
+     (lt~8
+      (i 64)i.1~2
+      (dot@3 s.4~1 len.0 0 "x"))
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)0@1A,2h,../../../../../../nimony/lib/std/system/seqimpl.nim i.1@15,2h,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+   (inline@a)).@,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@1P,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (result@6 :result.2 . .
+    (mut~1A Rect.0.vecqnfc1h@x,1L,ui.nim).)
+   (asgn@6 result.2
+    (haddr~5
+     (pat
+      (dot s.4~1 data.0 0 "x")i.1@6)))
+   (ret~1P result.2)))
+ (type@J,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim :seq.0.Ic7b86d1. .
+  (at seq.0.sysvq0asl Rect.0.vecqnfc1h@x,1L,ui.nim)
+  (pragmas~9,~2T
+   (destroy =destroy.1.I0fm14j1.)
+   (wasmoved =wasMoved.1.Igxmqra1.)
+   (dup =dup.1.Iqpbmjl.)
+   (copy =copy.1.I87raqj.))
+  (object~7,~2T .
+   (fld~8,1 :len.0 . .
+    (i@5 64).)
+   (fld~8,2 :data.0 . .
+    (ptr@6
+     (uarray@I Rect.0.vecqnfc1h@x,1L,ui.nim)
+     (unchecked)).)))
+ (func@,D,../../../../../../nimony/lib/std/system/seqimpl.nim :=destroy.1.I0fm14j1. . .
+  (at =destroy.1.sysvq0asl Rect.0.vecqnfc1h@x,1L,ui.nim)
+  (params@J
+   (param@1 :s.7 . . seq.0.Ic7b86d1.@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+      (not@,1
+       (eq@7
+        (ptr
+         (uarray Rect.0.vecqnfc1h@x,1L,ui.nim)
+         (unchecked))
+        (dot@6,E,../../../../../../nimony/lib/std/system/seqimpl.nim s.7~1 data.0 0 "x")
+        (nil@F,E,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+     (stmts~1,1
+      (var@4 :i.2 . .
+       (i@F,l,../../../../../../nimony/lib/std/system/arithmetics.nim 64)0@4)
+      (while@,1
+       (lt@8
+        (i 64)i.2~2
+        (dot@3 s.7~1 len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@2
+          (dot s.7~1 data.0 0 "x")i.2@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.2))))
+      (cmd@,4 dealloc.0.sysvq0asl
+       (hconv@9
+        (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+         (unchecked))
+        (hconv
+         (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (dot s.7~1 data.0 0 "x")))))))))
+ (func@,L,../../../../../../nimony/lib/std/system/seqimpl.nim :=wasMoved.1.Igxmqra1. . .
+  (at =wasMoved.1.sysvq0asl Rect.0.vecqnfc1h@x,1L,ui.nim)
+  (params@K
+   (param@1 :s.8 . .
+    (mut@3 seq.0.Ic7b86d1.@7).)).
+  (pragmas@a
+   (inline@2)).
+  (stmts@2,1
+   (asgn@6
+    (dot~5
+     (hderef~1 s.8)len.0 0 "x")0@2)
+   (asgn@7,1
+    (dot~6
+     (hderef~1 s.8)data.0 0 "x")
+    (nil@2))))
+ (func@,1U,../../../../../../nimony/lib/std/system/seqimpl.nim :=dup.1.Iqpbmjl. . .
+  (at =dup.1.sysvq0asl Rect.0.vecqnfc1h@x,1L,ui.nim)
+  (params@F
+   (param@1 :a.3 . . seq.0.Ic7b86d1.@6 .))seq.0.Ic7b86d1.@G
+  (pragmas@Z
+   (nodestroy@2)).
+  (stmts@2,1
+   (result@7 :result.3 . . seq.0.Ic7b86d1.@D,~1 .)
+   (asgn@7 result.3~7
+    (call@H newSeqUninit.0.Ixcv94t1.~F
+     (dot@2 a.3~1 len.0 0 "x")))
+   (var@4,1 :i.3 . .
+    (i@F,l,../../../../../../nimony/lib/std/system/arithmetics.nim 64)0@4)
+   (while@,2
+    (lt@8
+     (i 64)i.3~2
+     (dot@3 a.3~1 len.0 0 "x"))
+    (stmts@2,1
+     (asgn@H
+      (pat~A
+       (dot result.3~6 data.0 0 "x")i.3@6)
+      (dup@8
+       (pat@2
+        (dot a.3~1 data.0 0 "x")i.3@6)))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.3))))
+   (ret~2,~1 result.3)))
+ (func@,20,../../../../../../nimony/lib/std/system/seqimpl.nim :=copy.1.I87raqj. . .
+  (at =copy.1.sysvq0asl Rect.0.vecqnfc1h@x,1L,ui.nim)
+  (params@G
+   (param@1 :dest.1 . .
+    (mut@6 seq.0.Ic7b86d1.@7).)
+   (param@J :src.1 . . seq.0.Ic7b86d1.@8 .)).
+  (pragmas@m
+   (nodestroy@2)).
+  (stmts@2,1
+   (if
+    (elif@3
+     (eq@A
+      (ptr
+       (uarray Rect.0.vecqnfc1h@x,1L,ui.nim)
+       (unchecked))
+      (dot~6
+       (hderef~4 dest.1)data.0 0 "x")
+      (dot@6 src.1~3 data.0 0 "x"))
+     (stmts@N
+      (ret .))))
+   (if@,1
+    (elif@3
+     (lt@8
+      (i 64)
+      (dot~5 src.1~3 len.0 0 "x")
+      (dot@6
+       (hderef~4 dest.1)len.0 0 "x"))
+     (stmts~1,1
+      (var@4 :i.4 . .
+       (i@F,l,../../../../../../nimony/lib/std/system/arithmetics.nim 64)
+       (dot@7 src.1~3 len.0 0 "x"))
+      (while@,1
+       (lt@8
+        (i 64)i.4~2
+        (dot@6
+         (hderef~4 dest.1)len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@5
+          (dot
+           (hderef~4 dest.1)data.0 0 "x")i.4@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.4))))))
+    (elif@5,5
+     (lt@G
+      (i 64)
+      (call~C capInBytes.0.I819c4b1.@1
+       (hderef~4 dest.1))
+      (mul@A
+       (i 64)
+       (dot~5 src.1~3 len.0 0 "x")
+       (sizeof@8 Rect.0.vecqnfc1h@x,1L,ui.nim)))
+     (stmts~3,1
+      (let@4 :oldCap.0 . .
+       (i@F,l,../../../../../../nimony/lib/std/system/arithmetics.nim 64)
+       (div@P
+        (i 64)
+        (call~C capInBytes.0.I819c4b1.@1
+         (hderef~4 dest.1))
+        (sizeof@A Rect.0.vecqnfc1h@x,1L,ui.nim)))
+      (let@4,1 :newCap.0 . .
+       (i@F,l,../../../../../../nimony/lib/std/system/arithmetics.nim 64)
+       (call@I recalcCap.0.sysvq0asl~9 oldCap.0@1
+        (sub@H
+         (i 64)
+         (dot~5 src.1~3 len.0 0 "x")oldCap.0@2)))
+      (let@4,2 :memSize.0 . .
+       (i@F,l,../../../../../../nimony/lib/std/system/arithmetics.nim 64)
+       (call@R memSizeInBytes.0.Ir35zcr.~H newCap.0@1))
+      (asgn@A,3
+       (dot~6
+        (hderef~4 dest.1)data.0 0 "x")
+       (cast@2
+        (ptr@5
+         (uarray@I Rect.0.vecqnfc1h@x,1L,ui.nim)
+         (unchecked))
+        (call@Z realloc.0.sysvq0asl~7
+         (hconv@5
+          (pointer@H,1I,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (hconv
+           (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+            (unchecked))
+           (dot
+            (hderef~4 dest.1)data.0 0 "x")))memSize.0@C)))
+      (if@,4
+       (elif@3
+        (eq@A
+         (ptr
+          (uarray Rect.0.vecqnfc1h@x,1L,ui.nim)
+          (unchecked))
+         (dot~6
+          (hderef~4 dest.1)data.0 0 "x")
+         (nil@3))
+        (stmts~1,1
+         (asgn@9
+          (dot~5
+           (hderef~4 dest.1)len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.0@B)))
+         (ret@,3 .)))))))
+   (asgn@9,G
+    (dot~5
+     (hderef~4 dest.1)len.0 0 "x")
+    (dot@5 src.1~3 len.0 0 "x"))
+   (var@4,H :i.5 . .
+    (i@F,l,../../../../../../nimony/lib/std/system/arithmetics.nim 64)0@4)
+   (while@,I
+    (lt@8
+     (i 64)i.5~2
+     (dot@6
+      (hderef~4 dest.1)len.0 0 "x"))
+    (stmts@2,1
+     (stmts@2,Y,../../../../../../nimony/lib/std/system.nim
+      (asgn@7
+       (pat~6
+        (dot@8,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+         (hderef~4 dest.1)data.0 0 "x")i.5@E,2K,../../../../../../nimony/lib/std/system/seqimpl.nim)
+       (dup@P,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+        (pat@4
+         (dot src.1~3 data.0 0 "x")i.5@6))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.5))))))
+ (func@6,I,../../../../../../nimony/lib/std/system/seqimpl.nim :inc.1.Irn1g7r1. . .@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (at inc.1.sysvq0asl
+   (i@F,l,../../../../../../nimony/lib/std/system/arithmetics.nim 64))
+  (params@L,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (param@1 :x.3 . .
+    (mut@3
+     (i~A,X 64)).)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (pragmas@W,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (inline@2)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (stmts@2,F,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (asgn@2,1
+    (hderef~2 x.3)
+    (add@6
+     (i@5,V 64)
+     (hderef@1 x.3)
+     (conv@U,~F
+      (i~P,k 64)1@1)))))
+ (func@Q,1V,../../../../../../nimony/lib/std/system/seqimpl.nim :newSeqUninit.0.Ixcv94t1. . .~Q,~R
+  (at newSeqUninit.0.sysvq0asl Rect.0.vecqnfc1h@x,1L,ui.nim)
+  (params~5,~R
+   (param@1 :size.2 . .
+    (i@6 64).))seq.0.Ic7b86d1.~A,~R
+  (pragmas@F,~R
+   (nodestroy@2)
+   (inline@D)).~Q,~R
+  (stmts~O,~Q
+   (result :result.4 . . seq.0.Ic7b86d1.@E,~1 .)
+   (if@,1
+    (elif@3
+     (eq@5
+      (i 64)size.2~5 0@3)
+     (stmts~1,1
+      (asgn@7 result.4~7
+       (oconstr@8 seq.0.Ic7b86d1.uiame5ta1@w,1L,ui.nim
+        (kv@4 len.0~3 size.2@2)
+        (kv@G data.0~4
+         (nil@2))))))
+    (else@,2
+     (stmts@2,1
+      (let@4 :memSize.1 . .
+       (i@F,l,../../../../../../nimony/lib/std/system/arithmetics.nim 64)
+       (call@R memSizeInBytes.0.Ir35zcr.~H size.2@1))
+      (asgn@7,1 result.4~7
+       (oconstr@8 seq.0.Ic7b86d1.uiame5ta1@w,1L,ui.nim
+        (kv@4 len.0~3 size.2@2)
+        (kv@G data.0~4
+         (cast@2
+          (ptr@5
+           (uarray@I Rect.0.vecqnfc1h@x,1L,ui.nim)
+           (unchecked))
+          (call@X alloc.0.sysvq0asl~5 memSize.1@1)))))
+      (if@,2
+       (elif@3
+        (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+         (not@,1
+          (eq@7
+           (ptr
+            (uarray Rect.0.vecqnfc1h@x,1L,ui.nim)
+            (unchecked))
+           (dot@D,1B,../../../../../../nimony/lib/std/system/seqimpl.nim result.4~6 data.0 0 "x")
+           (nil@M,1B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+        (stmts~1,1
+         (discard "leave uninitialized"@8)))
+       (else@,2
+        (stmts@2,1
+         (asgn@B
+          (dot~5 result.4~6 len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.1@B)))))))))
+   (ret~2,~1 result.4)))
+ (func@B,27,../../../../../../nimony/lib/std/system/seqimpl.nim :capInBytes.0.I819c4b1. . .~B,~1x
+  (at capInBytes.0.sysvq0asl Rect.0.vecqnfc1h@x,1L,ui.nim)
+  (params@7,~1x
+   (param@1 :s.10 . . seq.0.Ic7b86d1.@6 .))
+  (i@2,~1x 64)
+  (pragmas@O,~1x
+   (inline@2)).~B,~1x
+  (stmts~9,~1w
+   (result@7 :result.5 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@7 result.5~7
+    (if@2
+     (elif@3
+      (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+       (not@,1
+        (eq@7
+         (ptr
+          (uarray Rect.0.vecqnfc1h@x,1L,ui.nim)
+          (unchecked))
+         (dot@F,B,../../../../../../nimony/lib/std/system/seqimpl.nim s.10~1 data.0 0 "x")
+         (nil@O,B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+      (expr@F
+       (call@D allocatedSize.0.sysvq0asl~D
+        (hconv@2
+         (pointer@N,1O,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (hconv
+          (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (dot s.10~1 data.0 0 "x"))))))
+     (else@e
+      (expr@6 0))))
+   (ret~2,~1 result.5)))
+ (func@Z,2A,../../../../../../nimony/lib/std/system/seqimpl.nim :memSizeInBytes.0.Ir35zcr. . .~Z,~1l
+  (at memSizeInBytes.0.sysvq0asl Rect.0.vecqnfc1h@x,1L,ui.nim)
+  (params~D,~1l
+   (param@1 :size.3 . .
+    (i@6 64).))
+  (i~M,~1l 64)
+  (pragmas@4,~1l
+   (inline@2)).~Z,~1l
+  (stmts~X,~1k
+   (result :result.6 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (pragmax
+    (pragmas
+     (keepOverflowFlag@2))
+    (stmts@2,1
+     (asgn@7 result.6~7
+      (mul@7
+       (i 64)size.3~5
+       (sizeof@8 Rect.0.vecqnfc1h@x,1L,ui.nim)))
+     (if@,1
+      (elif@3
+       (ovf@C)
+       (stmts~1,2
+        (asgn@7 result.6~7
+         (suf@6 9223372036854775807 "i64")))))))
+   (ret~2,~1 result.6))))(.index@,1,.jester/source/jester_mod_dae2e0425dd31985.nim
+ (h area.0. 595)
+ (h checks.0. 160)
+ (h failures.0. 39)
+ (h expect.0. 41)
+ (h frameAt.0. 450)
+ (h frameAt.1. 296)
+ (h settle.0. 322)
+ (h checkLayout.0. 242)
+ (h checkGrid.0. 2833)
+ (h checkClipAndId.0. 2019)
+ (h checkButton.0. 1926)
+ (h checkPressLeaves.0. 1851)
+ (h checkTopmost.0. 1157)
+ (h checkScopedNames.0. 1598)
+ (h source.0. 1082)
+ (h target.0. 165)
+ (h bandage.0. 165)
+ (h checkDrag.0. 230)
+ (h checkRefusedDrag.0. 4916)
+ (h checkClickIsNotDrag.0. 1798)
+ (h checkCancel.0. 1117)
+ (h checkTopmostTarget.0. 1319)
+ (h frameOfExample.0. 2096)
+ (h dragInExample.0. 322)
+ (h checkExample.0. 677)
+ (h checkCaretMoves.0. 2437)
+ (h checkSelection.0. 2214)
+ (h checkWords.0. 2183)
+ (h checkEditing.0. 1098)
+ (h checkUndo.0. 1930)
+ (h checkUtf8.0. 1718)
+ (h checkPasteIsOneStep.0. 1888)
+ (h checkFieldFocus.0. 606)
+ (h checkWheel.0. 3468)
+ (h checkFieldScroll.0. 2788)
+ (h showing.0. 4181)
+ (h showExample.0. 110)
+ (h hideExample.0. 144)
+ (h focusCaption.0. 105)
+ (h drawGui.0. 339)
+ (h sayArrangement.0. 260)
+ (h start.0. 187)
+ (h stop.0. 1448)
+ (h len.3.Ikg422u. 2373)
+ (h \5B\5D.7.Id4kd0t1. 696)
+ (h seq.0.Ic7b86d1. 1083)
+ (h =destroy.1.I0fm14j1. 433)
+ (h =wasMoved.1.Igxmqra1. 1236)
+ (h =dup.1.Iqpbmjl. 386)
+ (h =copy.1.I87raqj. 796)
+ (h inc.1.Irn1g7r1. 3725)
+ (h newSeqUninit.0.Ixcv94t1. 753)
+ (h capInBytes.0.I819c4b1. 1852)
+ (h memSizeInBytes.0.Ir35zcr. 1172))

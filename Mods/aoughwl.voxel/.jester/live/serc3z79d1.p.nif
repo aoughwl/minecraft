@@ -1,0 +1,93 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,../../../../Packages/com.aoughwl.jester/ModSdk/services.nim
+ (comment)
+ (import@,w jester@7)
+ (proc@,y hostServiceCall@5 . . .
+  (params@K
+   (param@1 service . . string@J .)
+   (param@A argument . . string@A .))string@T
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_service_call"@2)). .)
+ (proc@,10 hostServiceAvailable@5 . . .
+  (params@P
+   (param@1 service . . string@9 .))bool@J
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_service_available"@2)). .)
+ (proc@,12 hostServiceProblem@5 . . .
+  (params@N)string@4
+  (pragmas@Y
+   (kv@9 importc~7 "jester_service_problem"@2)). .)
+ (proc@,13 hostServiceName@5 . . .
+  (params@K)string@4
+  (pragmas@V
+   (kv@9 importc~7 "jester_service_name"@2)). .)
+ (proc@,14 hostServiceArgument@5 . . .
+  (params@O)string@4
+  (pragmas@Z
+   (kv@9 importc~7 "jester_service_argument"@2)). .)
+ (proc@,15 hostServiceCaller@5 . . .
+  (params@M)string@4
+  (pragmas@X
+   (kv@9 importc~7 "jester_service_caller"@2)). .)
+ (proc@,16 hostServiceAnswer@5 . . .
+  (params@M
+   (param@1 text . . string@6 .)).
+  (pragmas@b
+   (kv@9 importc~7 "jester_service_answer"@2)). .)
+ (comment@,18)
+ (const@D,1E ServiceKind~B x . . "aoughwl.service"@4)
+ (const@G,1F ServiceCatalog~E x . . "aoughwl.services"@4)
+ (comment@,1H)
+ (proc@,1P provideService@5 x . .
+  (params@K
+   (param@1 service . . string@9 .)
+   (param@I handler . . . "serveRequest"@A)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@b ==
+      (dot~5
+       (call~G catalogSignature~G ServiceCatalog@1)len@1)0@3)
+     (stmts~1,1
+      (call@H defineCatalogKind~H ServiceKind@1 "text"@E "A service name and the proc that answers it."~F,1)
+      (call@D,2 createCatalog~D ServiceCatalog@1 ServiceKind@H "Which mod answers which question."~B,1))))
+   (call@C,5 addToCatalog~C ServiceCatalog@1 service@H handler@Q)))
+ (comment@,1X)
+ (proc@,1a serves@5 x . .
+  (params@C
+   (param@1 service . . string@9 .))bool@J . .
+  (stmts@c
+   (call@K hostServiceAvailable~K service@1)))
+ (comment@,1c)
+ (proc@,1f callService@5 x . .
+  (params@H
+   (param@1 service . . string@J .)
+   (param@A argument . . string@A .))string@T . .
+  (stmts@2,1
+   (call@F hostServiceCall~F service@1 argument@A)))
+ (comment@,1i)
+ (proc@,1l serviceProblem@5 x . .
+  (params@K)string@4 . .
+  (stmts@X
+   (call@I hostServiceProblem~I)))
+ (comment@,1n)
+ (proc@,1t serviceName@5 x . .
+  (params@H)string@4 . .
+  (stmts@U
+   (call@F hostServiceName~F)))
+ (proc@,1u serviceArgument@5 x . .
+  (params@L)string@4 . .
+  (stmts@Y
+   (call@J hostServiceArgument~J)))
+ (proc@,1v serviceCaller@5 x . .
+  (params@J)string@4 . .
+  (stmts@W
+   (call@H hostServiceCaller~H)))
+ (comment@,1x)
+ (proc@,20 answerService@5 x . .
+  (params@J
+   (param@1 text . . string@6 .)). . .
+  (stmts@a
+   (call@H hostServiceAnswer~H text@1))))

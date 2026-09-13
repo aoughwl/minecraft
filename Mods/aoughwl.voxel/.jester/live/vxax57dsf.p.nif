@@ -1,0 +1,501 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,vxanim.nim
+ (comment)
+ (import@,l vxview@7)
+ (import@,m vxmodel@7)
+ (const@C,p WalkStride~A x . . BobStride@4)
+ (const@B,u DeathTime~9 x . . 1.0@4)
+ (const@B,x DeathTurn~9 x . . 90.0@4)
+ (const@A,z HurtTime~8 x . . 0.5@4)
+ (const@A,11 HurtLean~8 x . . 14.0@4)
+ (const@A,13 HurtGlow~8 x . . 0.6@4)
+ (const@A,15 FuseTime~8 x . . 1.5@4)
+ (const@B,17 SwellMost~9 x . . 0.3@4)
+ (const@B,19 FlashRate~9 x . . 9.0@4)
+ (const@A,1E IdleLean~8 x . . 1.6@4)
+ (const@C,1I IdlePeriod~A x . . 3.7@4)
+ (const@C,1M FlapPeriod~A x . . 0.22@4)
+ (const@D,1O CrawlSpread~B x . . 26.0@4)
+ (const@B,1R CrawlLift~9 x . . 22.0@4)
+ (const@G,1T HeadPitchLimit~E x . . 70.0@4)
+ (comment@,1f)
+ (proc@,1g strideAt@5 x . .
+  (params@E
+   (param@1 walked . . float@8 .)
+   (param@G stride . . . WalkStride@9))float@c . .
+  (stmts@2,1
+   (call@8 bobPhase~8 walked@1 stride@9)))
+ (comment@,1j)
+ (proc@,1l paceOf@5 x . .
+  (params@C
+   (param@1 speed . . float@C .)
+   (param@8 top . . float@5 .))float@L . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@4 <= top~4 0.0@3)
+     (stmts@C
+      (ret 0.0@7))))
+   (var@4,1 pace . . .
+    (infix@D / speed~6 top@2))
+   (if@,2
+    (elif@3
+     (infix@5 < pace~5 0.0@2)
+     (stmts@C
+      (asgn@5 pace~5
+       (prefix@2 \2D pace@1)))))
+   (if@,3
+    (elif@3
+     (infix@5 > pace~5 1.0@2)
+     (stmts@C
+      (asgn@5 pace~5 1.0@2))))pace@,4))
+ (comment@,1v)
+ (proc@,20 swingSign@5 x . .
+  (params@F
+   (param@1 role . . BoxRole@6 .))float@H . .
+  (stmts@2,1
+   (case role@5
+    (of@,1
+     (ranges RoleLegRight@3)
+     (stmts@H 1.0))
+    (of@,2
+     (ranges RoleArmLeft@3)
+     (stmts@G 1.0))
+    (of@,3
+     (ranges RoleLegLeft@3)
+     (stmts@G -1.0))
+    (of@,4
+     (ranges RoleArmRight@3)
+     (stmts@H -1.0))
+    (of@,5
+     (ranges RoleTail@3)
+     (stmts@D 1.0))
+    (else@,6
+     (stmts@6 0.0)))))
+ (comment@,29)
+ (proc@,2F limbPitch@5 x . .
+  (params@F
+   (param@1 b . . Box@3 .)
+   (param@9 phase . . float@D .)
+   (param@G pace . . float@6 .))float@U . .
+  (stmts@2,1
+   (let@4 sign . . .
+    (call@G swingSign~9
+     (dot@2 b~1 role@1)))
+   (if@,1
+    (elif@3
+     (infix@5 == sign~5 0.0@3)
+     (stmts@D
+      (ret
+       (dot@8 b~1 hold@1)))))
+   (infix@7,2 \2B
+    (dot~6 b~1 hold@1)
+    (infix@N *
+     (infix~7 *
+      (infix~7 *
+       (dot~6 b~1 turn@1)pace@2)sign@2)
+     (call@9 bobLike~7 phase@1)))))
+ (comment@,2K)
+ (proc@,2M tailYaw@5 x . .
+  (params@D
+   (param@1 b . . Box@3 .)
+   (param@9 phase . . float@D .)
+   (param@G pace . . float@6 .))float@U . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 !=
+      (dot~6 b~1 role@1)RoleTail@3)
+     (stmts@K
+      (ret 0.0@7))))
+   (infix@E,1 *
+    (infix~7 *
+     (dot~6 b~1 turn@1)pace@2)
+    (call@9 bobLike~7 phase@1))))
+ (comment@,2T)
+ (proc@,2a headYawOf@5 x . .
+  (params@F
+   (param@1 bodyYaw . . float@I .)
+   (param@A lookYaw . . float@9 .))float@R . .
+  (stmts@2,1
+   (var@4 turned . . .
+    (call@H headTurn~8 bodyYaw@1 lookYaw@A))
+   (if@,1
+    (elif@3
+     (infix@7 > turned~7 HeadTurnLimit@2)
+     (stmts@O
+      (asgn@7 turned~7 HeadTurnLimit@2))))
+   (if@,2
+    (elif@3
+     (infix@7 < turned~7
+      (prefix@2 \2D HeadTurnLimit@1))
+     (stmts@P
+      (asgn@7 turned~7
+       (prefix@2 \2D HeadTurnLimit@1)))))turned@,3))
+ (proc@,2g headPitchOf@5 x . .
+  (params@H
+   (param@1 pitch . . float@7 .))float@G . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 > pitch~6 HeadPitchLimit@2)
+     (stmts@O
+      (ret HeadPitchLimit@7))))
+   (if@,1
+    (elif@3
+     (infix@6 < pitch~6
+      (prefix@2 \2D HeadPitchLimit@1))
+     (stmts@P
+      (ret
+       (prefix@7 \2D HeadPitchLimit@1)))))pitch@,2))
+ (comment@,2r)
+ (proc@,2x idleLean@5 x . .
+  (params@E
+   (param@1 seconds . . float@N .)
+   (param@A offset . . float@E .)
+   (param@I pace . . float@6 .))float@W . .
+  (stmts@2,1
+   (var@4 rest . . .
+    (infix@B \2D 1.0~4 pace@2))
+   (if@,1
+    (elif@3
+     (infix@5 < rest~5 0.0@2)
+     (stmts@C
+      (asgn@5 rest~5 0.0@2))))
+   (infix@G,2 *
+    (infix~7 * IdleLean~9 rest@2)
+    (call@9 bobLike~7
+     (infix@V \2B
+      (call~M bobPhase~8 seconds@1 IdlePeriod@A)offset@2)))))
+ (comment@,32)
+ (proc@,34 wingFlap@5 x . .
+  (params@E
+   (param@1 b . . Box@3 .)
+   (param@9 seconds . . float@9 .)
+   (param@P falling . . bool@9 .))float@f . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@O and
+      (infix~H !=
+       (dot~6 b~1 role@1)RoleWingRight@3)
+      (infix@B !=
+       (dot~6 b~1 role@1)RoleWingLeft@3))
+     (stmts@q
+      (ret 0.0@7))))
+   (var@4,1 amount . . . 0.18@9)
+   (if@,2
+    (elif@3 falling
+     (stmts@9
+      (asgn@7 amount~7 1.0@2))))
+   (var@4,3 sign . . . 1.0@7)
+   (if@,4
+    (elif@3
+     (infix@7 ==
+      (dot~6 b~1 role@1)RoleWingLeft@3)
+     (stmts@O
+      (asgn@5 sign~5 -1.0@2))))
+   (infix@7,5 \2B
+    (dot~6 b~1 hold@1)
+    (infix@P *
+     (infix~9 *
+      (infix~9 * sign~5
+       (dot@3 b~1 turn@1))amount@2)
+     (call@9 bobLike~7
+      (call@9 bobPhase~8 seconds@1 FlapPeriod@A))))))
+ (comment@,3J)
+ (proc@,3P crawlBase@5 x . .
+  (params@F
+   (param@1 ring . . int@6 .))float@D . .
+  (stmts@2,1
+   (let@4 side . . .
+    (infix@C div ring~5 4@4))
+   (let@4,1 along . . .
+    (infix@Q \2D
+     (call~D float~5
+      (infix@6 mod ring~5 4@4))1.5@2))
+   (var@4,2 yaw . . .
+    (infix@C * along~6 CrawlSpread@2))
+   (if@,3
+    (elif@3
+     (infix@5 == side~5 1@3)
+     (stmts@B
+      (asgn@4 yaw~4
+       (prefix@2 \2D yaw@1)))))yaw@,4))
+ (comment@,3W)
+ (proc@,3b crawlYaw@5 x . .
+  (params@E
+   (param@1 ring . . int@6 .)
+   (param@C phase . . float@D .)
+   (param@J pace . . float@6 .))float@X . .
+  (stmts@2,1
+   (let@4 shift . . .
+    (infix@f *
+     (call~S float~5
+      (infix@L mod
+       (par~K
+        (infix@6 \2B ring~5
+         (infix@7 div ring~5 4@4)))2@4))0.5@2))
+   (infix@G,1 \2B
+    (call~7 crawlBase~9 ring@1)
+    (infix@R *
+     (infix~7 *
+      (infix~6 * CrawlSpread~C 0.5@2)pace@2)
+     (call@9 bobLike~7
+      (infix@7 \2B phase~6 shift@2))))))
+ (comment@,3f)
+ (proc@,3h crawlLift@5 x . .
+  (params@F
+   (param@1 ring . . int@6 .)
+   (param@C phase . . float@D .)
+   (param@J pace . . float@6 .))float@X . .
+  (stmts@2,1
+   (let@4 shift . . .
+    (infix@f *
+     (call~S float~5
+      (infix@L mod
+       (par~K
+        (infix@6 \2B ring~5
+         (infix@7 div ring~5 4@4)))2@4))0.5@2))
+   (var@4,1 sign . . . 1.0@7)
+   (if@,2
+    (elif@3
+     (infix@B ==
+      (infix~6 div ring~5 4@4)1@3)
+     (stmts@H
+      (asgn@5 sign~5 -1.0@2))))
+   (infix@O,3 *
+    (infix~7 *
+     (infix~C * sign~5 CrawlLift@2)pace@2)
+    (call@9 bobLike~7
+     (infix@F \2B
+      (infix~8 \2B phase~6 shift@2)0.25@2)))))
+ (comment@,3q)
+ (proc@,3y deathRoll@5 x . .
+  (params@F
+   (param@1 since . . float@7 .))float@G . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 <= since~6 0.0@3)
+     (stmts@E
+      (ret 0.0@7))))
+   (var@4,1 t . . .
+    (infix@A / since~6 DeathTime@2))
+   (if@,2
+    (elif@3
+     (infix@2 > t~2 1.0@2)
+     (stmts@9
+      (asgn@2 t~2 1.0@2))))
+   (if@,5
+    (elif@3
+     (infix@2 <= t~2 0.0@3)
+     (stmts@A
+      (ret 0.0@7))))
+   (var@4,6 guess . . .
+    (infix@C * 0.5~4
+     (par@2
+      (infix@3 \2B t~2 1.0@2))))
+   (var@4,7 step . . . 0@7)
+   (while@,8
+    (infix@B < step~5 6@2)
+    (stmts@2,1
+     (asgn@6 guess~6
+      (infix@6 * 0.5~4
+       (par@2
+        (infix@7 \2B guess~6
+         (infix@4 / t~2 guess@2)))))
+     (cmd@,1 inc step@4)))
+   (infix@A,B * DeathTurn~A guess@2)))
+ (comment@,4C)
+ (proc@,4E dying@5 x . .
+  (params@B
+   (param@1 since . . float@7 .))bool@G . .
+  (stmts@Y
+   (infix@D and
+    (infix~7 >= since~6 0.0@3)
+    (infix@A < since~6 DeathTime@2))))
+ (comment@,4G)
+ (proc@,4I hurtLean@5 x . .
+  (params@E
+   (param@1 since . . float@7 .))float@G . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@C or
+      (infix~6 < since~6 0.0@2)
+      (infix@9 >= since~6 HurtTime@3))
+     (stmts@Y
+      (ret 0.0@7))))
+   (let@4,1 t . . .
+    (infix@A / since~6 HurtTime@2))
+   (infix@L,2 *
+    (infix~C * HurtLean~9
+     (par@2
+      (infix@5 \2D 1.0~4 t@2)))
+    (call@9 bobLike~7
+     (infix@3 * t~2 0.5@2)))))
+ (comment@,4N)
+ (proc@,4O hurtGlow@5 x . .
+  (params@E
+   (param@1 since . . float@7 .))float@G . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@C or
+      (infix~6 < since~6 0.0@2)
+      (infix@9 >= since~6 HurtTime@3))
+     (stmts@Y
+      (ret 0.0@7))))
+   (let@4,1 t . . .
+    (infix@A / since~6 HurtTime@2))
+   (infix@9,2 * HurtGlow~9
+    (par@2
+     (infix@5 \2D 1.0~4 t@2)))))
+ (comment@,4W)
+ (proc@,4c creeperSwell@5 x . .
+  (params@I
+   (param@1 fuse . . float@6 .))float@F . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 <= fuse~5 0.0@3)
+     (stmts@D
+      (ret 1.0@7))))
+   (var@4,1 t . . .
+    (infix@9 / fuse~5 FuseTime@2))
+   (if@,2
+    (elif@3
+     (infix@2 > t~2 1.0@2)
+     (stmts@9
+      (asgn@2 t~2 1.0@2))))
+   (infix@4,3 \2B 1.0~4
+    (infix@G *
+     (infix~4 * SwellMost~A t@2)t@2))))
+ (comment@,4i)
+ (proc@,4n creeperFlash@5 x . .
+  (params@I
+   (param@1 fuse . . float@6 .))bool@F . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 <= fuse~5 0.0@3)
+     (stmts@D
+      (ret false@7))))
+   (let@4,1 ticks . . .
+    (call@B int~3
+     (infix@D *
+      (infix~7 * fuse~5 fuse@2)FlashRate@2)))
+   (infix@E,2 ==
+    (par~E
+     (infix@7 mod ticks~6 2@4))1@3)))
+ (comment@,4s)
+ (proc@,4u creeperGlow@5 x . .
+  (params@H
+   (param@1 fuse . . float@6 .))float@F . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@G creeperFlash~C fuse@1))
+     (stmts@O
+      (ret 0.0@7))))
+   (var@4,1 t . . .
+    (infix@9 / fuse~5 FuseTime@2))
+   (if@,2
+    (elif@3
+     (infix@2 > t~2 1.0@2)
+     (stmts@9
+      (asgn@2 t~2 1.0@2))))
+   (infix@5,3 \2B 0.35~5
+    (infix@7 * 0.65~5 t@2))))
+ (type@B,56 Pose~6 x . .
+  (object@2 .
+   (fld~6,5 pitch~5 x . float@G .)
+   (fld@,5 yaw~3 x . float@A .)
+   (fld@7,5 roll~4 x . float@3 .)))
+ (comment@,5D)
+ (proc@,5K poseOf@5 x . .
+  (params@C
+   (param@1 b . . Box@3 .)
+   (param@9 bodyYaw . . float@T .)
+   (param@I lookYaw . . float@K .)
+   (param@R lookPitch . . float@B .)
+   (param@1,1 phase . . float@U .)
+   (param@8,1 pace . . float@N .)
+   (param@E,1 seconds . . float@H .)
+   (param@N,1 offset . . float@8 .)
+   (param@1,2 falling . . . false@A))Pose@J,2 . .
+  (stmts@2,3
+   (asgn@7 result~7
+    (oconstr@6 Pose~4
+     (kv@6 pitch~5 0.0@2)
+     (kv@G yaw~3 bodyYaw@2)
+     (kv@V roll~4 0.0@2)))
+   (case@,1
+    (dot@6 b~1 role@1)
+    (of@,1
+     (ranges RoleHead@3)
+     (stmts@2,1
+      (asgn@B
+       (dot~5 result~6 yaw@1)
+       (infix@A \2B bodyYaw~8
+        (call@B headYawOf~9 bodyYaw@1 lookYaw@A)))
+      (asgn@D,1
+       (dot~7 result~6 pitch@1)
+       (call@D headPitchOf~B lookPitch@1))))
+    (of@,4
+     (ranges RoleArmRight@3 RoleArmLeft@H RoleLegRight@U RoleLegLeft@i)
+     (stmts@2,1
+      (asgn@D
+       (dot~7 result~6 pitch@1)
+       (infix@S \2B
+        (call~H limbPitch~9 b@1 phase@4 pace@B)
+        (call@A idleLean~8 seconds@1 offset@A pace@I)))))
+    (of@,6
+     (ranges RoleWingRight@3 RoleWingLeft@I)
+     (stmts@2,1
+      (asgn@C
+       (dot~6 result~6 roll@1)
+       (call@A wingFlap~8 b@1 seconds@4 falling@D))))
+    (of@,8
+     (ranges RoleCrawl@3)
+     (stmts@2,1
+      (let@4 ring . . .
+       (call@A int~3
+        (dot@2 b~1 turn@1)))
+      (asgn@B,1
+       (dot~5 result~6 yaw@1)
+       (infix@A \2B bodyYaw~8
+        (call@A crawlYaw~8 ring@1 phase@7 pace@E)))
+      (asgn@C,2
+       (dot~6 result~6 roll@1)
+       (call@B crawlLift~9 ring@1 phase@7 pace@E))))
+    (of@,C
+     (ranges RoleTail@3)
+     (stmts@2,1
+      (asgn@B
+       (dot~5 result~6 yaw@1)
+       (infix@A \2B bodyYaw~8
+        (call@9 tailYaw~7 b@1 phase@4 pace@B)))))
+    (of@,E
+     (ranges RoleStill@3)
+     (stmts@2,1
+      (asgn@D
+       (dot~7 result~6 pitch@1)
+       (dot@3 b~1 hold@1)))))result@,H))
+ (comment@,5g)
+ (proc@,5j bodyPose@5 x . .
+  (params@E
+   (param@1 bodyYaw . . float@R .)
+   (param@A deadFor . . float@I .)
+   (param@J hurtFor . . float@9 .))Pose@a . .
+  (stmts@2,1
+   (oconstr@4 Pose~4
+    (kv@6 pitch~5
+     (call@A hurtLean~8 hurtFor@1))
+    (kv@U yaw~3 bodyYaw@2)
+    (kv@j roll~4
+     (call@B deathRoll~9 deadFor@1))))))

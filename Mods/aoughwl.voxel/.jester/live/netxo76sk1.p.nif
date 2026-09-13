@@ -1,0 +1,798 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/deps/aoughwl_mcnet/netherd.nim
+ (comment)
+ (import@,g netentity@7)
+ (const@A,j IndexCap~8 x . . 65536@4)
+ (const@9,o Missing~7 x . . -1@4)
+ (type@9,r Beast~7 x . .
+  (object@2 .
+   (fld~5,1 id~2 x . int@3 .)
+   (fld~3,2 kind~4 x . int@3 .)
+   (fld~6,6 x~1 x . float@B .)
+   (fld~2,6 y~1 x . float@7 .)
+   (fld@2,6 z~1 x . float@3 .)
+   (fld~4,9 yaw~3 x . float@L .)
+   (fld@6,9 headYaw~7 x . float@B .)
+   (fld@E,9 pitch~5 x . float@3 .)
+   (fld@1,B onGround~8 x . bool@3 .)
+   (fld~3,G dead~4 x . bool@3 .)
+   (fld~2,H label~5 x . string@3 .)
+   (fld@2,I announced~9 x . bool@3 .)
+   (fld@,K changed~7 x . bool@3 .)
+   (fld@5,M stateChanged~C x . bool@3 .)
+   (fld~2,P hurts~5 x . int@3 .)))
+ (type@8,1L Herd~6 x . .
+  (object@2 .
+   (fld~2,1 list~4 x .
+    (at@6 seq~3 Beast@1).)
+   (fld~1,2 index~5 x .
+    (at@6 seq~3 int@1).)
+   (fld~2,5 gone~4 x .
+    (at@6 seq~3 int@1).)
+   (fld~2,9 mine~4 x . int@3 .)
+   (fld~2,D tick~4 x . int@3 .)
+   (fld@,G spawns~6 x . int@k .)
+   (fld@A,G removes~7 x . int@a .)
+   (fld@I,G moves~5 x . int@S .)
+   (fld@U,G hurtsSeen~9 x . int@G .)
+   (fld@h,G deathsSeen~A x . int@3 .)
+   (fld@,I newest~6 x . int@3 .)
+   (fld@1,P orphans~7 x . int@3 .)))
+ (proc@,1p emptyHerd@5 x . .
+  (params@F)Herd@4 . .
+  (stmts@2,1
+   (oconstr@4 Herd~4
+    (kv@5 list~4
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@H index~5
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@S gone~4
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@d mine~4 -1@2)
+    (kv@n tick~4 0@2)
+    (kv@7,1 spawns~6 0@2)
+    (kv@J,1 removes~7 0@2)
+    (kv@T,1 moves~5 0@2)
+    (kv@h,1 hurtsSeen~9 0@2)
+    (kv@w,1 deathsSeen~A 0@2)
+    (kv@7,2 newest~6 -1@2)
+    (kv@K,2 orphans~7 0@2))))
+ (proc@,1u beastCount@5 x . .
+  (params@G
+   (param@1 h . . Herd@3 .))int@B . .
+  (stmts@X
+   (dot@6
+    (dot~5 h~1 list@1)len@1)))
+ (proc@,1w ownEntity@5 x . .
+  (params@F
+   (param@1 h . .
+    (mut@3 Herd@4).)
+   (param@E id . . int@4 .)). . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,1
+    (dot~6 h~1 mine@1)id@2)))
+ (comment@,20)
+ (proc@,21 slotOf@5 x . .
+  (params@C
+   (param@1 h . . Herd@3 .)
+   (param@A id . . int@4 .))int@K . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 and
+      (infix~5 >= id~3 0@3)
+      (infix@7 < id~3
+       (dot@9
+        (dot~6 h~1 index@1)len@1)))
+     (stmts@U
+      (ret
+       (at@E
+        (dot~6 h~1 index@1)id@1)))))
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@8
+      (dot~5 h~1 list@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@D ==
+        (dot~4
+         (at~3
+          (dot~5 h~1 list@1)i@1)id@1)id@3)
+       (stmts@K
+        (ret i@7))))
+     (cmd@,1 inc i@4)))Missing@,7))
+ (proc@,2B noteIndex@5 . . .
+  (params@E
+   (param@1 h . .
+    (mut@3 Herd@4).)
+   (param@E id . . int@A .)
+   (param@I slot . . int@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 or
+      (infix~4 < id~3 0@2)
+      (infix@6 >= id~3 IndexCap@3))
+     (stmts@Q
+      (ret .))))
+   (while@,1
+    (infix@I <=
+     (dot~5
+      (dot~6 h~1 index@1)len@1)id@3)
+    (stmts@P
+     (cmd@7
+      (dot
+       (dot~6 h~1 index@1)add@1)Missing@5)))
+   (asgn@C,2
+    (at~5
+     (dot~6 h~1 index@1)id@1)slot@2)))
+ (proc@,2G dropIndex@5 . . .
+  (params@E
+   (param@1 h . .
+    (mut@3 Herd@4).)
+   (param@E id . . int@4 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 and
+      (infix~5 >= id~3 0@3)
+      (infix@7 < id~3
+       (dot@9
+        (dot~6 h~1 index@1)len@1)))
+     (stmts@U
+      (asgn@C
+       (at~5
+        (dot~6 h~1 index@1)id@1)Missing@2))))))
+ (comment@,2J)
+ (proc@,2M forget@5 x . .
+  (params@C
+   (param@1 h . .
+    (mut@3 Herd@4).)
+   (param@E id . . int@4 .)). . .
+  (stmts@2,1
+   (let@4 slot . . .
+    (call@D slotOf~6 h@1 id@4))
+   (if@,1
+    (elif@3
+     (infix@5 < slot~5 0@2)
+     (stmts@A
+      (ret .))))
+   (call@9,2 dropIndex~9 h@1 id@4)
+   (var@4,3 j . . . slot@4)
+   (while@,4
+    (infix@C <
+     (infix~4 \2B j~2 1@2)
+     (dot@8
+      (dot~5 h~1 list@1)len@1))
+    (stmts@2,3
+     (let@4 moved . . .
+      (at@E
+       (dot~5 h~1 list@1)
+       (infix@3 \2B j~2 1@2)))
+     (asgn@A,1
+      (at~4
+       (dot~5 h~1 list@1)j@1)moved@2)
+     (call@9,2 noteIndex~9 h@1
+      (dot@9 moved~5 id@1)j@E)
+     (cmd@,3 inc j@4)))
+   (call@D,B
+    (dot~7
+     (dot~5 h~1 list@1)setLen@1)
+    (infix@C \2D
+     (dot~5
+      (dot~5 h~1 list@1)len@1)1@2))
+   (if@,E
+    (elif@3
+     (infix@9 ==
+      (dot~8 h~1 newest@1)id@3)
+     (stmts@G
+      (asgn@9
+       (dot~8 h~1 newest@1)Missing@2))))
+   (cmd@6,F
+    (dot
+     (dot~5 h~1 gone@1)add@1)id@5)
+   (cmd@,G inc
+    (dot@5 h~1 removes@1))))
+ (proc@,2f forgetAll@5 x . .
+  (params@F
+   (param@1 h . .
+    (mut@3 Herd@4).)). . .
+  (stmts@2,1
+   (comment)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@8
+      (dot~5 h~1 list@1)len@1))
+    (stmts@2,1
+     (cmd@6
+      (dot
+       (dot~5 h~1 gone@1)add@1)
+      (dot@E
+       (at~3
+        (dot~5 h~1 list@1)i@1)id@1))
+     (cmd@,1 inc i@4)))
+   (call@D,6
+    (dot~7
+     (dot~5 h~1 list@1)setLen@1)0@1)
+   (call@E,7
+    (dot~7
+     (dot~6 h~1 index@1)setLen@1)0@1)))
+ (comment@,2p)
+ (proc@,2u slotFor@5 . . .
+  (params@C
+   (param@1 h . .
+    (mut@3 Herd@4).)
+   (param@E id . . int@4 .)
+   (param@N made . .
+    (mut@6 bool@4).))int@e . .
+  (stmts@2,1
+   (asgn@5 made~5 false@2)
+   (asgn@7,1 result~7
+    (call@8 slotOf~6 h@1 id@4))
+   (if@,2
+    (elif@3
+     (infix@7 >= result~7 0@3)
+     (stmts@D
+      (ret .))))
+   (asgn@5,3 made~5 true@2)
+   (cmd@6,4
+    (dot
+     (dot~5 h~1 list@1)add@1)
+    (oconstr@A Beast~5
+     (kv@3 id~2 id@2)
+     (kv@D kind~4 Missing@2)
+     (kv@P x~1 0.0@2)
+     (kv@X y~1 0.0@2)
+     (kv@f z~1 0.0@2)
+     (kv@4,1 yaw~3 0.0@2)
+     (kv@I,1 headYaw~7 0.0@2)
+     (kv@U,1 pitch~5 0.0@2)
+     (kv@j,1 onGround~8 true@2)
+     (kv@5,2 dead~4 false@2)
+     (kv@J,2 label~5 ""@2)
+     (kv@Y,2 announced~9 false@2)
+     (kv@o,2 changed~7 true@2)
+     (kv@D,3 stateChanged~C true@2)
+     (kv@Q,3 hurts~5 0@2)))
+   (asgn@7,8 result~7
+    (infix@D \2D
+     (dot~5
+      (dot~5 h~1 list@1)len@1)1@2))
+   (call@9,9 noteIndex~9 h@1 id@4 result@8)))
+ (proc@,39 onAdd@5 x . .
+  (params@B
+   (param@1 h . .
+    (mut@3 Herd@4).)
+   (param@E p . . SpawnEntityPacket@3 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@B ==
+      (dot~A p~1 entityId@1)
+      (dot@4 h~1 mine@1))
+     (stmts@M
+      (ret .))))
+   (var@4,1 made . . . false@7)
+   (let@4,2 slot . . .
+    (call@E slotFor~7 h@1
+     (dot@5 p~1 entityId@1)made@G))
+   (asgn@I,3
+    (dot~6
+     (at~6
+      (dot~5 h~1 list@1)slot@1)kind@1)
+    (dot@3 p~1 kind@1))
+   (asgn@F,4
+    (dot~3
+     (at~6
+      (dot~5 h~1 list@1)slot@1)x@1)
+    (dot@3 p~1 x@1))
+   (asgn@F,5
+    (dot~3
+     (at~6
+      (dot~5 h~1 list@1)slot@1)y@1)
+    (dot@3 p~1 y@1))
+   (asgn@F,6
+    (dot~3
+     (at~6
+      (dot~5 h~1 list@1)slot@1)z@1)
+    (dot@3 p~1 z@1))
+   (asgn@H,7
+    (dot~5
+     (at~6
+      (dot~5 h~1 list@1)slot@1)yaw@1)
+    (dot@3 p~1 yaw@1))
+   (asgn@L,8
+    (dot~9
+     (at~6
+      (dot~5 h~1 list@1)slot@1)headYaw@1)
+    (dot@3 p~1 headYaw@1))
+   (asgn@J,9
+    (dot~7
+     (at~6
+      (dot~5 h~1 list@1)slot@1)pitch@1)
+    (dot@3 p~1 pitch@1))
+   (asgn@I,A
+    (dot~6
+     (at~6
+      (dot~5 h~1 list@1)slot@1)dead@1)false@2)
+   (asgn@N,B
+    (dot~B
+     (at~6
+      (dot~5 h~1 list@1)slot@1)announced@1)false@2)
+   (asgn@L,C
+    (dot~9
+     (at~6
+      (dot~5 h~1 list@1)slot@1)changed@1)true@2)
+   (asgn@Q,D
+    (dot~E
+     (at~6
+      (dot~5 h~1 list@1)slot@1)stateChanged@1)true@2)
+   (asgn@9,E
+    (dot~8 h~1 newest@1)
+    (dot@3 p~1 entityId@1))
+   (cmd@,F inc
+    (dot@5 h~1 spawns@1))))
+ (proc@,3R onMove@5 x . .
+  (params@C
+   (param@1 h . .
+    (mut@3 Herd@4).)
+   (param@E p . . MovePacket@3 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@B ==
+      (dot~A p~1 entityId@1)
+      (dot@4 h~1 mine@1))
+     (stmts@M
+      (ret .))))
+   (var@4,1 made . . . false@7)
+   (let@4,2 slot . . .
+    (call@E slotFor~7 h@1
+     (dot@5 p~1 entityId@1)made@G))
+   (if@,3
+    (elif@3 made
+     (stmts@6
+      (cmd inc
+       (dot@5 h~1 orphans@1)))))
+   (asgn@F,4
+    (dot~3
+     (at~6
+      (dot~5 h~1 list@1)slot@1)x@1)
+    (infix@H \2B
+     (dot~3
+      (at~6
+       (dot~5 h~1 list@1)slot@1)x@1)
+     (dot@3 p~1 dx@1)))
+   (asgn@F,5
+    (dot~3
+     (at~6
+      (dot~5 h~1 list@1)slot@1)y@1)
+    (infix@H \2B
+     (dot~3
+      (at~6
+       (dot~5 h~1 list@1)slot@1)y@1)
+     (dot@3 p~1 dy@1)))
+   (asgn@F,6
+    (dot~3
+     (at~6
+      (dot~5 h~1 list@1)slot@1)z@1)
+    (infix@H \2B
+     (dot~3
+      (at~6
+       (dot~5 h~1 list@1)slot@1)z@1)
+     (dot@3 p~1 dz@1)))
+   (if@,7
+    (elif@3
+     (dot@1 p~1 hasRotation@1)
+     (stmts~1,1
+      (asgn@H
+       (dot~5
+        (at~6
+         (dot~5 h~1 list@1)slot@1)yaw@1)
+       (dot@3 p~1 yaw@1))
+      (asgn@J,1
+       (dot~7
+        (at~6
+         (dot~5 h~1 list@1)slot@1)pitch@1)
+       (dot@3 p~1 pitch@1)))))
+   (if@,A
+    (elif@3
+     (infix@M !=
+      (dot~A
+       (at~6
+        (dot~5 h~1 list@1)slot@1)onGround@1)
+      (dot@4 p~1 onGround@1))
+     (stmts~1,1
+      (asgn@M
+       (dot~A
+        (at~6
+         (dot~5 h~1 list@1)slot@1)onGround@1)
+       (dot@3 p~1 onGround@1))
+      (asgn@Q,1
+       (dot~E
+        (at~6
+         (dot~5 h~1 list@1)slot@1)stateChanged@1)true@2))))
+   (asgn@L,D
+    (dot~9
+     (at~6
+      (dot~5 h~1 list@1)slot@1)changed@1)true@2)
+   (cmd@,E inc
+    (dot@5 h~1 moves@1))))
+ (proc@,3i onRotate@5 x . .
+  (params@E
+   (param@1 h . .
+    (mut@3 Herd@4).)
+   (param@E p . . RotatePacket@3 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@B ==
+      (dot~A p~1 entityId@1)
+      (dot@4 h~1 mine@1))
+     (stmts@M
+      (ret .))))
+   (var@4,1 made . . . false@7)
+   (let@4,2 slot . . .
+    (call@E slotFor~7 h@1
+     (dot@5 p~1 entityId@1)made@G))
+   (if@,3
+    (elif@3 made
+     (stmts@6
+      (cmd inc
+       (dot@5 h~1 orphans@1)))))
+   (asgn@H,4
+    (dot~5
+     (at~6
+      (dot~5 h~1 list@1)slot@1)yaw@1)
+    (dot@3 p~1 yaw@1))
+   (asgn@J,5
+    (dot~7
+     (at~6
+      (dot~5 h~1 list@1)slot@1)pitch@1)
+    (dot@3 p~1 pitch@1))
+   (if@,6
+    (elif@3
+     (infix@M !=
+      (dot~A
+       (at~6
+        (dot~5 h~1 list@1)slot@1)onGround@1)
+      (dot@4 p~1 onGround@1))
+     (stmts~1,1
+      (asgn@M
+       (dot~A
+        (at~6
+         (dot~5 h~1 list@1)slot@1)onGround@1)
+       (dot@3 p~1 onGround@1))
+      (asgn@Q,1
+       (dot~E
+        (at~6
+         (dot~5 h~1 list@1)slot@1)stateChanged@1)true@2))))
+   (asgn@L,9
+    (dot~9
+     (at~6
+      (dot~5 h~1 list@1)slot@1)changed@1)true@2)))
+ (proc@,3u onHeadRotation@5 x . .
+  (params@K
+   (param@1 h . .
+    (mut@3 Herd@4).)
+   (param@E p . . HeadRotationPacket@3 .)). . .
+  (stmts@2,1
+   (comment)
+   (if@,2
+    (elif@3
+     (infix@B ==
+      (dot~A p~1 entityId@1)
+      (dot@4 h~1 mine@1))
+     (stmts@M
+      (ret .))))
+   (var@4,3 made . . . false@7)
+   (let@4,4 slot . . .
+    (call@E slotFor~7 h@1
+     (dot@5 p~1 entityId@1)made@G))
+   (if@,5
+    (elif@3 made
+     (stmts@6
+      (cmd inc
+       (dot@5 h~1 orphans@1)))))
+   (asgn@L,6
+    (dot~9
+     (at~6
+      (dot~5 h~1 list@1)slot@1)headYaw@1)
+    (dot@3 p~1 headYaw@1))
+   (asgn@L,7
+    (dot~9
+     (at~6
+      (dot~5 h~1 list@1)slot@1)changed@1)true@2)))
+ (proc@,44 onTeleport@5 x . .
+  (params@G
+   (param@1 h . .
+    (mut@3 Herd@4).)
+   (param@E p . . TeleportPacket@3 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@B ==
+      (dot~A p~1 entityId@1)
+      (dot@4 h~1 mine@1))
+     (stmts@M
+      (ret .))))
+   (var@4,1 made . . . false@7)
+   (let@4,2 slot . . .
+    (call@E slotFor~7 h@1
+     (dot@5 p~1 entityId@1)made@G))
+   (if@,3
+    (elif@3 made
+     (stmts@6
+      (cmd inc
+       (dot@5 h~1 orphans@1)))))
+   (asgn@F,4
+    (dot~3
+     (at~6
+      (dot~5 h~1 list@1)slot@1)x@1)
+    (dot@3 p~1 x@1))
+   (asgn@F,5
+    (dot~3
+     (at~6
+      (dot~5 h~1 list@1)slot@1)y@1)
+    (dot@3 p~1 y@1))
+   (asgn@F,6
+    (dot~3
+     (at~6
+      (dot~5 h~1 list@1)slot@1)z@1)
+    (dot@3 p~1 z@1))
+   (asgn@H,7
+    (dot~5
+     (at~6
+      (dot~5 h~1 list@1)slot@1)yaw@1)
+    (dot@3 p~1 yaw@1))
+   (asgn@J,8
+    (dot~7
+     (at~6
+      (dot~5 h~1 list@1)slot@1)pitch@1)
+    (dot@3 p~1 pitch@1))
+   (if@,9
+    (elif@3
+     (infix@M !=
+      (dot~A
+       (at~6
+        (dot~5 h~1 list@1)slot@1)onGround@1)
+      (dot@4 p~1 onGround@1))
+     (stmts~1,1
+      (asgn@M
+       (dot~A
+        (at~6
+         (dot~5 h~1 list@1)slot@1)onGround@1)
+       (dot@3 p~1 onGround@1))
+      (asgn@Q,1
+       (dot~E
+        (at~6
+         (dot~5 h~1 list@1)slot@1)stateChanged@1)true@2))))
+   (asgn@L,C
+    (dot~9
+     (at~6
+      (dot~5 h~1 list@1)slot@1)changed@1)true@2)))
+ (proc@,4J onSync@5 x . .
+  (params@C
+   (param@1 h . .
+    (mut@3 Herd@4).)
+   (param@E p . . SyncPositionPacket@3 .)). . .
+  (stmts@2,1
+   (comment)
+   (if@,3
+    (elif@3
+     (infix@B ==
+      (dot~A p~1 entityId@1)
+      (dot@4 h~1 mine@1))
+     (stmts@M
+      (ret .))))
+   (var@4,4 made . . . false@7)
+   (let@4,5 slot . . .
+    (call@E slotFor~7 h@1
+     (dot@5 p~1 entityId@1)made@G))
+   (if@,6
+    (elif@3 made
+     (stmts@6
+      (cmd inc
+       (dot@5 h~1 orphans@1)))))
+   (asgn@F,7
+    (dot~3
+     (at~6
+      (dot~5 h~1 list@1)slot@1)x@1)
+    (dot@3 p~1 x@1))
+   (asgn@F,8
+    (dot~3
+     (at~6
+      (dot~5 h~1 list@1)slot@1)y@1)
+    (dot@3 p~1 y@1))
+   (asgn@F,9
+    (dot~3
+     (at~6
+      (dot~5 h~1 list@1)slot@1)z@1)
+    (dot@3 p~1 z@1))
+   (asgn@H,A
+    (dot~5
+     (at~6
+      (dot~5 h~1 list@1)slot@1)yaw@1)
+    (dot@3 p~1 yaw@1))
+   (asgn@J,B
+    (dot~7
+     (at~6
+      (dot~5 h~1 list@1)slot@1)pitch@1)
+    (dot@3 p~1 pitch@1))
+   (if@,C
+    (elif@3
+     (infix@M !=
+      (dot~A
+       (at~6
+        (dot~5 h~1 list@1)slot@1)onGround@1)
+      (dot@4 p~1 onGround@1))
+     (stmts~1,1
+      (asgn@M
+       (dot~A
+        (at~6
+         (dot~5 h~1 list@1)slot@1)onGround@1)
+       (dot@3 p~1 onGround@1))
+      (asgn@Q,1
+       (dot~E
+        (at~6
+         (dot~5 h~1 list@1)slot@1)stateChanged@1)true@2))))
+   (asgn@L,F
+    (dot~9
+     (at~6
+      (dot~5 h~1 list@1)slot@1)changed@1)true@2)))
+ (proc@,4b onRemove@5 x . .
+  (params@E
+   (param@1 h . .
+    (mut@3 Herd@4).)
+   (param@E p . . RemoveEntitiesPacket@3 .)). . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@D
+      (dot~A p~1 entityIds@1)len@1))
+    (stmts@2,1
+     (call@6 forget~6 h@1
+      (at@F
+       (dot~A p~1 entityIds@1)i@1))
+     (cmd@,1 inc i@4)))))
+ (proc@,4h onHurt@5 x . .
+  (params@C
+   (param@1 h . .
+    (mut@3 Herd@4).)
+   (param@E id . . int@4 .)). . .
+  (stmts@2,1
+   (comment)
+   (if@,3
+    (elif@3
+     (infix@3 == id~3
+      (dot@4 h~1 mine@1))
+     (stmts@E
+      (ret .))))
+   (let@4,4 slot . . .
+    (call@D slotOf~6 h@1 id@4))
+   (if@,5
+    (elif@3
+     (infix@5 < slot~5 0@2)
+     (stmts@A
+      (ret .))))
+   (cmd@,6 inc
+    (dot@G
+     (at~6
+      (dot~5 h~1 list@1)slot@1)hurts@1))
+   (cmd@,7 inc
+    (dot@5 h~1 hurtsSeen@1))))
+ (const@D,4s StatusDeath~B x . . 3@4)
+ (proc@,4x onEvent@5 x . .
+  (params@D
+   (param@1 h . .
+    (mut@3 Herd@4).)
+   (param@E p . . EntityEventPacket@3 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@B ==
+      (dot~A p~1 entityId@1)
+      (dot@4 h~1 mine@1))
+     (stmts@M
+      (ret .))))
+   (let@4,1 slot . . .
+    (call@D slotOf~6 h@1
+     (dot@5 p~1 entityId@1)))
+   (if@,2
+    (elif@3
+     (infix@5 < slot~5 0@2)
+     (stmts@A
+      (ret .))))
+   (if@,3
+    (elif@3
+     (infix@O and
+      (infix~F ==
+       (dot~8 p~1 status@1)StatusDeath@3)
+      (prefix@4 not
+       (dot@G
+        (at~6
+         (dot~5 h~1 list@1)slot@1)dead@1)))
+     (stmts~1,1
+      (asgn@I
+       (dot~6
+        (at~6
+         (dot~5 h~1 list@1)slot@1)dead@1)true@2)
+      (asgn@Q,1
+       (dot~E
+        (at~6
+         (dot~5 h~1 list@1)slot@1)stateChanged@1)true@2)
+      (cmd@,2 inc
+       (dot@5 h~1 deathsSeen@1)))))))
+ (proc@,5M behind@5 x . .
+  (params@C
+   (param@1 h . . Herd@3 .)
+   (param@A since . . int@7 .))bool@N . .
+  (stmts@g
+   (infix@6 != since~6
+    (dot@4 h~1 tick@1))))
+ (proc@,5O dirty@5 x . .
+  (params@B
+   (param@1 h . . Herd@3 .)
+   (param@A slot . . int@6 .))bool@M . .
+  (stmts@2,1
+   (infix@P,1 or
+    (infix@P,~1 or
+     (infix~T or
+      (dot~9
+       (at~6
+        (dot~5 h~1 list@1)slot@1)changed@1)
+      (dot@F
+       (at~6
+        (dot~5 h~1 list@1)slot@1)stateChanged@1))
+     (infix~T,1 >
+      (dot~7
+       (at~6
+        (dot~5 h~1 list@1)slot@1)hurts@1)0@2))
+    (prefix@3 not
+     (dot@G
+      (at~6
+       (dot~5 h~1 list@1)slot@1)announced@1)))))
+ (comment@,5S)
+ (proc@,5U taken@5 x . .
+  (params@B
+   (param@1 h . .
+    (mut@3 Herd@4).)). . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@8
+      (dot~5 h~1 list@1)len@1))
+    (stmts@2,1
+     (asgn@K
+      (dot~B
+       (at~3
+        (dot~5 h~1 list@1)i@1)announced@1)true@2)
+     (asgn@I,1
+      (dot~9
+       (at~3
+        (dot~5 h~1 list@1)i@1)changed@1)false@2)
+     (asgn@N,2
+      (dot~E
+       (at~3
+        (dot~5 h~1 list@1)i@1)stateChanged@1)false@2)
+     (asgn@G,3
+      (dot~7
+       (at~3
+        (dot~5 h~1 list@1)i@1)hurts@1)0@2)
+     (cmd@,4 inc i@4)))
+   (call@D,7
+    (dot~7
+     (dot~5 h~1 gone@1)setLen@1)0@1)
+   (cmd@,8 inc
+    (dot@5 h~1 tick@1)))))

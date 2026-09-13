@@ -1,0 +1,1116 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/deps/aoughwl_ui/ui_floor.nim
+ (comment)
+ (import@,j jester@7)
+ (import@,k vec@7)
+ (import@,l color@7)
+ (import@,m input@7)
+ (import@,n draw@7)
+ (export@,o draw@7)
+ (type@B,s Look~6 x . .
+  (object@2 .
+   (fld~6,4 panel~5 x . Color@X .)
+   (fld@1,4 edge~4 x . Color@Q .)
+   (fld@7,4 ink~3 x . Color@K .)
+   (fld@F,4 faint~5 x . Color@C .)
+   (fld@O,4 accent~6 x . Color@3 .)
+   (fld~8,5 hot~3 x . Color@T .)
+   (fld@2,5 pressed~7 x . Color@J .)
+   (fld@9,5 slot~4 x . Color@C .)
+   (fld@I,5 filled~6 x . Color@3 .)
+   (fld~4,6 welcome~7 x . Color@K .)
+   (fld@5,6 refuse~6 x . Color@B .)
+   (fld@D,6 ghost~5 x . Color@3 .)
+   (fld~7,7 text~4 x . float64@N .)
+   (fld@1,7 small~5 x . float64@F .)
+   (fld@7,7 row~3 x . float64@9 .)
+   (fld@D,7 pad~3 x . float64@3 .)))
+ (proc@,11 darkLook@5 x . .
+  (params@E)Look@4 . .
+  (stmts@2,1
+   (oconstr@4 Look~4
+    (kv@3,1 panel~5
+     (call@5 rgb~3 0.07@1 0.08@7 0.11@D 0.94@J))
+    (kv@2,2 edge~4
+     (call@5 rgb~3 0.3@1 0.34@7 0.41@D 0.9@J))
+    (kv@1,3 ink~3
+     (call@5 rgb~3 0.93@1 0.95@7 0.98@D 1.0@J))
+    (kv@3,4 faint~5
+     (call@5 rgb~3 0.62@1 0.68@7 0.77@D 1.0@J))
+    (kv@4,5 accent~6
+     (call@5 rgb~3 0.35@1 0.62@7 0.95@D 1.0@J))
+    (kv@1,6 hot~3
+     (call@5 rgb~3 0.18@1 0.22@7 0.29@D 0.95@J))
+    (kv@5,7 pressed~7
+     (call@5 rgb~3 0.24@1 0.3@7 0.4@D 1.0@J))
+    (kv@2,8 slot~4
+     (call@5 rgb~3 0.11@1 0.13@7 0.17@D 0.85@J))
+    (kv@4,9 filled~6
+     (call@5 rgb~3 0.16@1 0.19@7 0.25@D 0.95@J))
+    (kv@5,A welcome~7
+     (call@5 rgb~3 0.35@1 0.8@7 0.48@D 0.85@J))
+    (kv@4,B refuse~6
+     (call@5 rgb~3 0.85@1 0.32@7 0.32@D 0.85@J))
+    (kv@3,C ghost~5
+     (call@5 rgb~3 1.0@1 1.0@6 1.0@B 0.75@G))
+    (kv@2,D text~4 15.0@2)
+    (kv@F,D small~5 13.0@2)
+    (kv@Q,D row~3 28.0@2)
+    (kv@b,D pad~3 8.0@2))))
+ (var@4,1H styling . . .
+  (call@I darkLook~8))
+ (comment@,1J)
+ (proc@,1R style@5 x . .
+  (params@B)Look@4 . .
+  (stmts@M styling))
+ (comment@,1T)
+ (proc@,1V restyle@5 x . .
+  (params@D
+   (param@1 l . . Look@3 .)). . .
+  (stmts@P
+   (asgn@8 styling~8 l@2)))
+ (comment@,1Z)
+ (proc@,1b overlap@5 x . .
+  (params@D
+   (param@1 a . . Rect@6 .)
+   (param@4 b . . Rect@3 .))Rect@E . .
+  (stmts@2,1
+   (var@4 x . . .
+    (dot@5 a~1 x@1))
+   (if@,1
+    (elif@3
+     (infix@4 >
+      (dot~3 b~1 x@1)x@2)
+     (stmts@9
+      (asgn@2 x~2
+       (dot@3 b~1 x@1)))))
+   (var@4,2 y . . .
+    (dot@5 a~1 y@1))
+   (if@,3
+    (elif@3
+     (infix@4 >
+      (dot~3 b~1 y@1)y@2)
+     (stmts@9
+      (asgn@2 y~2
+       (dot@3 b~1 y@1)))))
+   (var@4,4 right . . .
+    (infix@C \2B
+     (dot~3 a~1 x@1)
+     (dot@3 a~1 width@1)))
+   (if@,5
+    (elif@3
+     (infix@E <
+      (infix~A \2B
+       (dot~3 b~1 x@1)
+       (dot@3 b~1 width@1))right@2)
+     (stmts@N
+      (asgn@6 right~6
+       (infix@6 \2B
+        (dot~3 b~1 x@1)
+        (dot@3 b~1 width@1))))))
+   (var@4,6 bottom . . .
+    (infix@D \2B
+     (dot~3 a~1 y@1)
+     (dot@3 a~1 height@1)))
+   (if@,7
+    (elif@3
+     (infix@F <
+      (infix~B \2B
+       (dot~3 b~1 y@1)
+       (dot@3 b~1 height@1))bottom@2)
+     (stmts@P
+      (asgn@7 bottom~7
+       (infix@6 \2B
+        (dot~3 b~1 y@1)
+        (dot@3 b~1 height@1))))))
+   (if@,8
+    (elif@3
+     (infix@6 < right~6 x@2)
+     (stmts@B
+      (asgn@6 right~6 x@2))))
+   (if@,9
+    (elif@3
+     (infix@7 < bottom~7 y@2)
+     (stmts@C
+      (asgn@7 bottom~7 y@2))))
+   (call@4,A rect~4 x@1 y@4
+    (infix@D \2D right~6 x@2)
+    (infix@P \2D bottom~7 y@2))))
+ (proc@,1o empty@5 x . .
+  (params@B
+   (param@1 r . . Rect@3 .))bool@B . .
+  (stmts@T
+   (infix@F or
+    (infix~7 <=
+     (dot~7 r~1 width@1)0.0@3)
+    (infix@C <=
+     (dot~8 r~1 height@1)0.0@3))))
+ (comment@,1q)
+ (proc@,1r holds@5 x . .
+  (params@B
+   (param@1 outer . . Rect@E .)
+   (param@8 inner . . Rect@7 .))bool@M . .
+  (stmts@2,1
+   (infix@n,1 and
+    (infix~7,~1 and
+     (infix~N and
+      (infix~B >=
+       (dot~3 inner~5 x@1)
+       (dot@8 outer~5 x@1))
+      (infix@C >=
+       (dot~3 inner~5 y@1)
+       (dot@8 outer~5 y@1)))
+     (infix~I,1 <=
+      (infix~E \2B
+       (dot~3 inner~5 x@1)
+       (dot@7 inner~5 width@1))
+      (infix@B \2B
+       (dot~3 outer~5 x@1)
+       (dot@7 outer~5 width@1))))
+    (infix~O,1 <=
+     (infix~F \2B
+      (dot~3 inner~5 y@1)
+      (dot@7 inner~5 height@1))
+     (infix@B \2B
+      (dot~3 outer~5 y@1)
+      (dot@7 outer~5 height@1))))))
+ (type@C,1y Touch~7 x . .
+  (object@2 .
+   (fld~9,2 hot~3 x . bool@3 .)
+   (fld~5,4 grabbed~7 x . bool@3 .)
+   (fld~8,6 held~4 x . bool@3 .)
+   (fld~5,8 clicked~7 x . bool@3 .)))
+ (type@C,29 Carry~7 x . .
+  (object@2 .
+   (fld~8,3 kind~4 x . string@3 .)
+   (fld~A,4 id~2 x . string@3 .)
+   (fld~7,5 count~5 x . int64@3 .)
+   (fld~6,6 source~6 x . string@3 .)
+   (fld~8,8 grip~4 x . Vec2@3 .)
+   (fld~8,B size~4 x . Vec2@3 .)))
+ (proc@,2N carry@5 x . .
+  (params@B
+   (param@1 kind . . string@A .)
+   (param@7 id . . string@4 .)
+   (param@J count . . int64@7 1@F))Carry@c . .
+  (stmts@2,1
+   (oconstr@5 Carry~5
+    (kv@5 kind~4 kind@2)
+    (kv@F id~2 id@2)
+    (kv@Q count~5 count@2)
+    (kv@f source~6 ""@2)
+    (kv@1,1 grip~4
+     (call@6 vec2~4 0.0@1 0.0@6))
+    (kv@N,1 size~4
+     (call@6 vec2~4 0.0@1 0.0@6)))))
+ (type@B,2R Drag~6 x . .
+  (object@2 .
+   (fld~8,2 hot~3 x . bool@A .)
+   (fld~1,2 held~4 x . bool@3 .)
+   (fld~4,3 clicked~7 x . bool@3 .)
+   (fld~3,6 dragging~8 x . bool@3 .)))
+ (type@B,2a Drop~6 x . .
+  (object@2 .
+   (fld~7,2 over~4 x . bool@3 .)
+   (fld~4,4 dropped~7 x . bool@3 .)
+   (fld~7,6 load~4 x . Carry@3 .)))
+ (type@E,2i Landing~9 x . .
+  (object@2 .
+   (fld~6,4 happened~8 x . bool@3 .)
+   (fld~A,5 load~4 x . Carry@3 .)
+   (fld~8,6 target~6 x . string@3 .)))
+ (const@6,2r NoCarry . . .
+  (oconstr@F Carry~5
+   (kv@5 kind~4 ""@2)
+   (kv@D id~2 ""@2)
+   (kv@O count~5 0@2)
+   (kv@Z source~6 ""@2)
+   (kv~F,1 grip~4
+    (oconstr@6 Vec2~4
+     (kv@2 x~1 0.0@2)
+     (kv@A y~1 0.0@2)))
+   (kv@D,1 size~4
+    (oconstr@6 Vec2~4
+     (kv@2 x~1 0.0@2)
+     (kv@A y~1 0.0@2)))))
+ (const@J,2u DragThreshold~D x . . 4.0@4)
+ (var@2,2z pointerNow . . .
+  (call@H vec2~4 0.0@1 0.0@6))
+ (var@2,30 pointerWas . . .
+  (call@H vec2~4 0.0@1 0.0@6))
+ (var@2,31 downNow . . . false@A)
+ (var@2,32 downWas . . . false@A)
+ (var@2,33 pressedNow . . . false@D)
+ (var@2,34 releasedNow . . . false@E)
+ (var@2,35 surface . . .
+  (call@E rect~4 0.0@1 0.0@6 1280.0@B 720.0@J))
+ (var@2,36 inFrame . . . false@A)
+ (var@2,37 frameCount . . . 0@D)
+ (var@2,39 wheelNow . . . 0.0@B)
+ (var@2,3B clips . .
+  (at@A seq~3 Rect@1)
+  (prefix@J \40
+   (bracket@1)))
+ (var@2,3C clipDepth . . . 0@C)
+ (var@2,3D clipsSent . .
+  (at@E seq~3 bool@1)
+  (prefix@N \40
+   (bracket@1)))
+ (var@2,3E silent . . . false@9)
+ (var@2,3F ids . .
+  (at@8 seq~3 string@1)
+  (prefix@J \40
+   (bracket@1)))
+ (var@2,3G idDepth . . . 0@A)
+ (var@2,3I holder . . . ""@9)
+ (var@2,3J hotLast . . . ""@A)
+ (var@2,3K hotNext . . . ""@A)
+ (var@2,3M pressPoint . . .
+  (call@H vec2~4 0.0@1 0.0@6))
+ (var@2,3N loaded . . . NoCarry@9)
+ (var@2,3O carryLive . . . false@C)
+ (var@2,3P targetLast . . . ""@D)
+ (var@2,3Q targetNext . . . ""@D)
+ (var@2,3R landingNow . . .
+  (oconstr@K Landing~7
+   (kv@9 happened~8 false@2)
+   (kv@M load~4 NoCarry@2)
+   (kv@d target~6 ""@2)))
+ (var@2,3S landingNext . . .
+  (oconstr@L Landing~7
+   (kv@9 happened~8 false@2)
+   (kv@M load~4 NoCarry@2)
+   (kv@d target~6 ""@2)))
+ (var@2,3U scrollNames . .
+  (at@G seq~3 string@1)
+  (prefix@R \40
+   (bracket@1)))
+ (var@2,3V scrollOffsets . .
+  (at@I seq~3 float64@1)
+  (prefix@U \40
+   (bracket@1)))
+ (comment@,3Z)
+ (proc@,3c beginFrame@5 x . .
+  (params@G
+   (param@1 at . . Vec2@4 .)
+   (param@B down . . bool@6 .)
+   (param@N area . . Rect@6 .)
+   (param@Z turn . . . 0.0@7)). . .
+  (stmts@2,1
+   (asgn@9 wheelNow~9 turn@2)
+   (asgn@B,1 pointerWas~B pointerNow@2)
+   (asgn@B,2 pointerNow~B at@2)
+   (asgn@8,3 downWas~8 downNow@2)
+   (asgn@8,4 downNow~8 down@2)
+   (asgn@B,5 pressedNow~B
+    (infix@7 and down~5
+     (prefix@4 not downWas@4)))
+   (asgn@C,6 releasedNow~C
+    (infix@D and
+     (par~B
+      (prefix@1 not down@4))downWas@4))
+   (asgn@8,7 surface~8 area@2)
+   (asgn@8,8 inFrame~8 true@2)
+   (asgn@B,9 frameCount~B
+    (infix@D \2B frameCount~B 1@2))
+   (asgn@A,A clipDepth~A 0@2)
+   (asgn@8,B idDepth~8 0@2)
+   (asgn@8,C hotNext~8 ""@2)
+   (asgn@B,D targetNext~B ""@2)
+   (asgn@B,E landingNow~B landingNext@2)
+   (asgn@C,F landingNext~C
+    (oconstr@9 Landing~7
+     (kv@9 happened~8 false@2)
+     (kv@M load~4 NoCarry@2)
+     (kv@d target~6 ""@2)))
+   (if@,G
+    (elif@3 pressedNow
+     (stmts@C
+      (asgn@B pressPoint~B at@2))))))
+ (comment@,3v)
+ (proc@,3x beginFrame@5 x . .
+  (params@G). . .
+  (stmts@2,1
+   (call@A beginFrame~A
+    (call@8 pointer~7)
+    (call@G held~4 LeftButton@1)
+    (call@a screen~6)
+    (call@j wheel~5))))
+ (comment@,40)
+ (proc@,42 endFrame@5 x . .
+  (params@E). . .
+  (stmts@2,1
+   (if
+    (elif@3 releasedNow
+     (stmts~1,1
+      (if
+       (elif@3 carryLive
+        (stmts~1,1
+         (var@4 winner . . . targetLast@9)
+         (if@,1
+          (elif@3
+           (infix@B ==
+            (dot~5 winner~6 len@1)0@3)
+           (stmts@H
+            (asgn@7 winner~7 targetNext@2))))
+         (asgn@C,2 landingNext~C
+          (oconstr@9 Landing~7
+           (kv@9 happened~8 true@2)
+           (kv@L load~4 loaded@2)
+           (kv@b target~6 winner@2))))))
+      (asgn@7,4 loaded~7 NoCarry@2)
+      (asgn@A,5 carryLive~A false@2)
+      (asgn@7,6 holder~7 ""@2))))
+   (asgn@8,8 hotLast~8 hotNext@2)
+   (asgn@B,9 targetLast~B targetNext@2)
+   (asgn@8,A inFrame~8 false@2)))
+ (proc@,4F pointerAt@5 x . .
+  (params@F)Vec2@4 . .
+  (stmts@Q pointerNow))
+ (proc@,4G pointerMoved@5 x . .
+  (params@I)Vec2@4 . .
+  (stmts@T
+   (infix@B \2D pointerNow~B pointerWas@2)))
+ (proc@,4H pointerDown@5 x . .
+  (params@H)bool@4 . .
+  (stmts@S downNow))
+ (proc@,4I pointerPressed@5 x . .
+  (params@K)bool@4 . .
+  (stmts@V pressedNow))
+ (proc@,4J pointerReleased@5 x . .
+  (params@L)bool@4 . .
+  (stmts@W releasedNow))
+ (proc@,4K screenArea@5 x . .
+  (params@G)Rect@4 . .
+  (stmts@R surface))
+ (proc@,4L drawing@5 x . .
+  (params@D)bool@4 . .
+  (stmts@O inFrame))
+ (proc@,4M frames@5 x . .
+  (params@C)int@4 . .
+  (stmts@M frameCount))
+ (proc@,4Q clipRect@5 x . .
+  (params@E)Rect@4 . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A == clipDepth~A 0@3)
+     (stmts@G surface))
+    (else@R
+     (stmts@6
+      (at@5 clips~5
+       (infix@B \2D clipDepth~A 1@2)))))))
+ (comment@,4T)
+ (proc@,4g pushClip@5 x . .
+  (params@E
+   (param@1 r . . Rect@3 .)). . .
+  (stmts@2,1
+   (let@4 box . . .
+    (call@D overlap~7 r@1
+     (call@C clipRect~8)))
+   (if@,1
+    (elif@3
+     (infix@A < clipDepth~A
+      (dot@7 clips~5 len@1))
+     (stmts@N
+      (asgn@H
+       (at~C clips~5 clipDepth@1)box@2)))
+    (else@,1
+     (stmts@6
+      (cmd@5
+       (dot clips~5 add@1)box@5))))
+   (let@4,3 sent . . .
+    (prefix@7 not silent@4))
+   (if@,4
+    (elif@3
+     (infix@A < clipDepth~A
+      (dot@B clipsSent~9 len@1))
+     (stmts@R
+      (asgn@L
+       (at~C clipsSent~9 clipDepth@1)sent@2)))
+    (else@,1
+     (stmts@6
+      (cmd@9
+       (dot clipsSent~9 add@1)sent@5))))
+   (asgn@A,6 clipDepth~A
+    (infix@C \2B clipDepth~A 1@2))
+   (if@,7
+    (elif@3 sent
+     (stmts@6
+      (call@6 clipTo~6
+       (dot@4 box~3 x@1)
+       (dot@B box~3 y@1)
+       (dot@I box~3 width@1)
+       (dot@T box~3 height@1)))))))
+ (proc@,4q popClip@5 x . .
+  (params@D). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A > clipDepth~A 0@2)
+     (stmts~1,1
+      (asgn@A clipDepth~A
+       (infix@C \2D clipDepth~A 1@2))
+      (if@,1
+       (elif@3
+        (at@9 clipsSent~9 clipDepth@1)
+        (stmts@M
+         (call@6 unclip~6)))))))))
+ (proc@,4v visible@5 x . .
+  (params@D
+   (param@1 r . . Rect@3 .))bool@B . .
+  (stmts@V
+   (prefix not
+    (call@9 empty~5
+     (call@8 overlap~7 r@1
+      (call@C clipRect~8))))))
+ (comment@,4z)
+ (proc@,51 pushId@5 x . .
+  (params@C
+   (param@1 name . . string@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 < idDepth~8
+      (dot@5 ids~3 len@1))
+     (stmts@J
+      (asgn@D
+       (at~A ids~3 idDepth@1)name@2)))
+    (else@,1
+     (stmts@6
+      (cmd@3
+       (dot ids~3 add@1)name@5))))
+   (asgn@8,2 idDepth~8
+    (infix@A \2B idDepth~8 1@2))))
+ (proc@,56 pushId@5 x . .
+  (params@C
+   (param@1 index . . int@7 .)). . .
+  (stmts@R
+   (call@6 pushId~6
+    (prefix@1 $ index@1))))
+ (proc@,58 popId@5 x . .
+  (params@B). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 > idDepth~8 0@2)
+     (stmts@D
+      (asgn@8 idDepth~8
+       (infix@A \2D idDepth~8 1@2)))))))
+ (comment@,5B)
+ (proc@,5D here@5 x . .
+  (params@A
+   (param@1 name . . string@6 .))string@G . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2 idDepth@2)
+    (stmts@2,1
+     (asgn@7 result~7
+      (infix@I &
+       (infix~9 & result~7
+        (at@5 ids~3 i@1))"/"@2))
+     (asgn@2,1 i~2
+      (infix@4 \2B i~2 1@2))))
+   (asgn@7,5 result~7
+    (infix@9 & result~7 name@2))))
+ (comment@,5N)
+ (proc@,5S mute@5 x . .
+  (params@A
+   (param@1 on . . bool@4 .)). . .
+  (stmts@N
+   (asgn@7 silent~7 on@2)))
+ (proc@,5T muted@5 x . .
+  (params@B)bool@4 . .
+  (stmts@M silent))
+ (comment@,5V)
+ (proc@,5W paint@5 x . .
+  (params@B
+   (param@1 r . . Rect@3 .)
+   (param@A c . . Color@3 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3 silent
+     (stmts@8
+      (ret .))))
+   (let@4,1 box . . .
+    (call@D overlap~7 r@1
+     (call@C clipRect~8)))
+   (if@,2
+    (elif@3
+     (call@5 empty~5 box@1)
+     (stmts@C
+      (ret .))))
+   (call@4,3 fill~4
+    (dot@4 box~3 x@1)
+    (dot@B box~3 y@1)
+    (dot@I box~3 width@1)
+    (dot@T box~3 height@1)
+    (dot@d c~1 r@1)
+    (dot@i c~1 g@1)
+    (dot@n c~1 b@1)
+    (dot@s c~1 a@1))))
+ (comment@,5c)
+ (proc@,5k paint@5 x . .
+  (params@B
+   (param@1 text . . string@6 .)
+   (param@F within . . Rect@8 .)
+   (param@T size . . float64@6 .)
+   (param@i align . . Align@7 .)
+   (param@w c . . Color@3 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 or silent~7
+      (infix@C ==
+       (dot~5 text~4 len@1)0@3))
+     (stmts@P
+      (ret .))))
+   (let@4,1 clip . . .
+    (call@F clipRect~8))
+   (if@,2
+    (elif@3
+     (infix@Z or
+      (infix~A <=
+       (infix~G \2B
+        (dot~3 within~6 y@1)
+        (dot@8 within~6 height@1))
+       (dot@7 clip~4 y@1))
+      (infix@C >=
+       (dot~3 within~6 y@1)
+       (infix@A \2B
+        (dot~3 clip~4 y@1)
+        (dot@6 clip~4 height@1))))
+     (stmts@1A
+      (ret .))))
+   (if@,3
+    (elif@3
+     (infix@9 >=
+      (dot~3 within~6 x@1)
+      (infix@A \2B
+       (dot~3 clip~4 x@1)
+       (dot@6 clip~4 width@1)))
+     (stmts@X
+      (ret .))))
+   (call@7,4 writeIn~7 text@1
+    (dot@D within~6 x@1)
+    (dot@N within~6 y@1)
+    (dot@X within~6 width@1)
+    (dot@l within~6 height@1)size@u
+    (call~1,1 name~4 align@1)
+    (dot@9,1 c~1 r@1)
+    (dot@E,1 c~1 g@1)
+    (dot@J,1 c~1 b@1)
+    (dot@O,1 c~1 a@1))))
+ (comment@,5s)
+ (proc@,5x paintImage@5 x . .
+  (params@G
+   (param@1 file . . string@6 .)
+   (param@F within . . Rect@8 .)
+   (param@T c . . Color@3 .)
+   (param~C,1 fromU . . . 0.0@8)
+   (param@1,1 fromV . . . 0.0@8)
+   (param@E,1 toU . . . 1.0@6)
+   (param@P,1 toV . . . 1.0@6)). . .
+  (stmts@2,2
+   (if
+    (elif@3 silent
+     (stmts@8
+      (ret .))))
+   (let@4,1 box . . .
+    (call@D overlap~7 within@1
+     (call@H clipRect~8)))
+   (if@,2
+    (elif@3
+     (infix@Y or
+      (infix~N or
+       (call~6 empty~5 box@1)
+       (infix@G <=
+        (dot~7 within~6 width@1)0.0@3))
+      (infix@H <=
+       (dot~8 within~6 height@1)0.0@3))
+     (stmts@x
+      (ret .))))
+   (let@4,3 u0 . . .
+    (infix@B \2B fromU~6
+     (infix@G *
+      (par~E
+       (infix@5 \2D toU~4 fromU@2))
+      (par@2
+       (infix@K /
+        (par~J
+         (infix@7 \2D
+          (dot~3 box~3 x@1)
+          (dot@8 within~6 x@1)))
+        (dot@8 within~6 width@1))))))
+   (let@4,4 u1 . . .
+    (infix@B \2B fromU~6
+     (infix@G *
+      (par~E
+       (infix@5 \2D toU~4 fromU@2))
+      (par~T,1
+       (infix@W /
+        (par~V
+         (infix@J \2D
+          (infix~C \2B
+           (dot~3 box~3 x@1)
+           (dot@5 box~3 width@1))
+          (dot@8 within~6 x@1)))
+        (dot@8 within~6 width@1))))))
+   (let@4,6 v0 . . .
+    (infix@B \2B fromV~6
+     (infix@G *
+      (par~E
+       (infix@5 \2D toV~4 fromV@2))
+      (par@2
+       (infix@K /
+        (par~J
+         (infix@7 \2D
+          (dot~3 box~3 y@1)
+          (dot@8 within~6 y@1)))
+        (dot@8 within~6 height@1))))))
+   (let@4,7 v1 . . .
+    (infix@B \2B fromV~6
+     (infix@G *
+      (par~E
+       (infix@5 \2D toV~4 fromV@2))
+      (par~T,1
+       (infix@X /
+        (par~W
+         (infix@K \2D
+          (infix~D \2B
+           (dot~3 box~3 y@1)
+           (dot@5 box~3 height@1))
+          (dot@8 within~6 y@1)))
+        (dot@8 within~6 height@1))))))
+   (call@9,9 drawImage~9 file@1
+    (dot@A box~3 x@1)
+    (dot@H box~3 y@1)
+    (dot@O box~3 width@1)
+    (dot@Z box~3 height@1)u0@i v0@m u1@q v1@u
+    (dot~6,1 c~1 r@1)
+    (dot~1,1 c~1 g@1)
+    (dot@4,1 c~1 b@1)
+    (dot@9,1 c~1 a@1))))
+ (comment@,6B)
+ (proc@,6C border@5 x . .
+  (params@C
+   (param@1 r . . Rect@3 .)
+   (param@A thickness . . float64@B .)
+   (param@U c . . Color@3 .)). . .
+  (stmts@2,1
+   (call@5 paint~5
+    (call@5 rect~4
+     (dot@2 r~1 x@1)
+     (dot@7 r~1 y@1)
+     (dot@C r~1 width@1)thickness@K)c@b)
+   (call@5,1 paint~5
+    (call@5 rect~4
+     (dot@2 r~1 x@1)
+     (infix@L \2D
+      (infix~B \2B
+       (dot~3 r~1 y@1)
+       (dot@3 r~1 height@1))thickness@2)
+     (dot@Z r~1 width@1)thickness@h)c@y)
+   (call@5,2 paint~5
+    (call@5 rect~4
+     (dot@2 r~1 x@1)
+     (dot@7 r~1 y@1)thickness@B
+     (dot@N r~1 height@1))c@c)
+   (call@5,3 paint~5
+    (call@5 rect~4
+     (infix@F \2D
+      (infix~A \2B
+       (dot~3 r~1 x@1)
+       (dot@3 r~1 width@1))thickness@2)
+     (dot@T r~1 y@1)thickness@X
+     (dot@j r~1 height@1))c@y)))
+ (comment@,6I)
+ (proc@,6P fitted@5 x . .
+  (params@C
+   (param@1 text . . string@6 .)
+   (param@F width . . float64@D .)
+   (param@M size . . float64@6 .))string@c . .
+  (stmts@2,1
+   (if
+    (elif@3 silent
+     (stmts@8
+      (ret text@7))))
+   (if@,1
+    (elif@3
+     (infix@M <=
+      (call~D textWidth~9 text@1 size@7)width@3)
+     (stmts@W
+      (ret text@7))))
+   (let@4,2 tail . . . "..."@7)
+   (let@4,3 room . . .
+    (infix@D \2D width~6
+     (call@B textWidth~9 tail@1 size@7)))
+   (if@,4
+    (elif@3
+     (infix@5 <= room~5 0.0@3)
+     (stmts@D
+      (ret ""@7))))
+   (var@4,5 kept . . . ""@7)
+   (var@4,6 i . . . 0@4)
+   (while@,7
+    (infix@8 < i~2
+     (dot@6 text~4 len@1))
+    (stmts@2,1
+     (var@4 wider . . . kept@8)
+     (cmd@5,1
+      (dot wider~5 add@1)
+      (at@9 text~4 i@1))
+     (if@,2
+      (elif@3
+       (infix@N >
+        (call~E textWidth~9 wider@1 size@8)room@2)
+       (stmts@V
+        (break .))))
+     (asgn@5,3 kept~5 wider@2)
+     (asgn@2,4 i~2
+      (infix@4 \2B i~2 1@2))))
+   (asgn@7,D result~7
+    (infix@7 & kept~5 tail@2))))
+ (comment@,6h)
+ (proc@,6j over@5 x . .
+  (params@A
+   (param@1 r . . Rect@3 .))bool@B . .
+  (stmts@2,1
+   (let@4 box . . .
+    (call@D overlap~7 r@1
+     (call@C clipRect~8)))
+   (if@,1
+    (elif@3
+     (call@5 empty~5 box@1)
+     (stmts@C
+      (ret false@7))))
+   (infix@O,3 and
+    (infix@a,~1 and
+     (infix~c and
+      (infix~9 >=
+       (dot~3 pointerNow~A x@1)
+       (dot@6 box~3 x@1))
+      (infix@H <=
+       (dot~3 pointerNow~A x@1)
+       (infix@9 \2B
+        (dot~3 box~3 x@1)
+        (dot@5 box~3 width@1))))
+     (infix~j,1 >=
+      (dot~3 pointerNow~A y@1)
+      (dot@6 box~3 y@1)))
+    (infix@H <=
+     (dot~3 pointerNow~A y@1)
+     (infix@9 \2B
+      (dot~3 box~3 y@1)
+      (dot@5 box~3 height@1))))))
+ (comment@,6p)
+ (proc@,6v touch@5 x . .
+  (params@B
+   (param@1 name . . string@6 .)
+   (param@F r . . Rect@3 .))Touch@P . .
+  (stmts@2,1
+   (let@4 id . . .
+    (call@9 here~4 name@1))
+   (let@4,1 inside . . .
+    (call@D over~4 r@1))
+   (if@,2
+    (elif@3 inside
+     (stmts@8
+      (asgn@8 hotNext~8 id@2))))
+   (var@4,3 mine . . .
+    (infix@E and inside~7
+     (par@4
+      (infix@F or
+       (infix~6 == hotLast~8 id@3)
+       (infix@F ==
+        (dot~5 hotLast~7 len@1)0@3)))))
+   (if@,4
+    (elif@3
+     (infix@F and
+      (infix~4 >
+       (dot~5 holder~6 len@1)0@2)
+      (infix@B != holder~7 id@3))
+     (stmts@X
+      (asgn@5 mine~5 false@2))))
+   (asgn@7,5 result~7
+    (oconstr@7 Touch~5
+     (kv@4 hot~3 mine@2)
+     (kv@J grabbed~7 false@2)
+     (kv@W held~4 false@2)
+     (kv@m clicked~7 false@2)))
+   (if@,6
+    (elif@3
+     (infix@5 and mine~5 pressedNow@4)
+     (stmts~1,1
+      (asgn@7 holder~7 id@2)
+      (asgn@B,1 pressPoint~B pointerNow@2)
+      (asgn@F,2
+       (dot~9 result~6 grabbed@1)true@2))))
+   (if@,A
+    (elif@3
+     (infix@7 == holder~7 id@3)
+     (stmts~1,1
+      (asgn@C
+       (dot~6 result~6 held@1)downNow@2)
+      (if@,1
+       (elif@3
+        (infix@C and releasedNow~C inside@4)
+        (stmts@O
+         (asgn@F
+          (dot~9 result~6 clicked@1)true@2)))))))))
+ (proc@,7C carrying@5 x . .
+  (params@E)bool@4 . .
+  (stmts@P carryLive))
+ (proc@,7D carried@5 x . .
+  (params@D)Carry@4 . .
+  (stmts@P loaded))
+ (comment@,7E)
+ (proc@,7G carrying@5 x . .
+  (params@E
+   (param@1 kind . . string@6 .))bool@G . .
+  (stmts@b
+   (infix@A and carryLive~A
+    (infix@G ==
+     (dot~6 loaded~6 kind@1)kind@3))))
+ (comment@,7H)
+ (proc@,7J ghostRect@5 x . .
+  (params@F)Rect@4 . .
+  (stmts@2,1
+   (call@4 rect~4
+    (infix@E \2D
+     (dot~3 pointerNow~A x@1)
+     (dot@D
+      (dot~5 loaded~6 grip@1)x@1))
+    (infix@i \2D
+     (dot~3 pointerNow~A y@1)
+     (dot@D
+      (dot~5 loaded~6 grip@1)y@1))
+    (dot@9,1
+     (dot~5 loaded~6 size@1)x@1)
+    (dot@O,1
+     (dot~5 loaded~6 size@1)y@1))))
+ (comment@,7M)
+ (proc@,7O cancelDrag@5 x . .
+  (params@G). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not carryLive@4)
+     (stmts@F
+      (ret .))))
+   (asgn@C,1 landingNext~C
+    (oconstr@9 Landing~7
+     (kv@9 happened~8 true@2)
+     (kv@L load~4 loaded@2)
+     (kv@b target~6 ""@2)))
+   (asgn@7,2 loaded~7 NoCarry@2)
+   (asgn@A,3 carryLive~A false@2)
+   (asgn@7,4 holder~7 ""@2)))
+ (comment@,7V)
+ (proc@,7X landing@5 x . .
+  (params@D)Landing@4 . .
+  (stmts@R landingNow))
+ (comment@,7Z)
+ (proc@,7g drag@5 x . .
+  (params@A
+   (param@1 name . . string@6 .)
+   (param@F r . . Rect@3 .)
+   (param@O load . . Carry@6 .))Drag@c . .
+  (stmts@2,1
+   (let@4 id . . .
+    (call@9 here~4 name@1))
+   (let@4,1 t . . .
+    (call@9 touch~5 name@1 r@7))
+   (asgn@7,2 result~7
+    (oconstr@6 Drag~4
+     (kv@4 hot~3
+      (dot@3 t~1 hot@1))
+     (kv@H held~4
+      (dot@3 t~1 held@1))
+     (kv@Y clicked~7 false@2)
+     (kv@p dragging~8 false@2)))
+   (if@,3
+    (elif@3
+     (infix@A and
+      (dot~9 t~1 grabbed@1)
+      (prefix@4 not carryLive@4))
+     (stmts~1,1
+      (asgn@7 loaded~7 load@2)
+      (asgn@E,1
+       (dot~8 loaded~6 source@1)id@2)
+      (asgn@C,2
+       (dot~6 loaded~6 grip@1)
+       (call@6 vec2~4
+        (infix@E \2D
+         (dot~3 pointerNow~A x@1)
+         (dot@3 r~1 x@1))
+        (infix@Y \2D
+         (dot~3 pointerNow~A y@1)
+         (dot@3 r~1 y@1))))
+      (asgn@C,3
+       (dot~6 loaded~6 size@1)
+       (call@6 vec2~4
+        (dot@2 r~1 width@1)
+        (dot@B r~1 height@1))))))
+   (if@,8
+    (elif@3
+     (infix@P and
+      (infix~C and
+       (infix~6 == holder~7 id@3)downNow@4)
+      (prefix@4 not carryLive@4))
+     (stmts~1,1
+      (let@4 moved . . .
+       (infix@J \2D pointerNow~B pressPoint@2))
+      (if@,1
+       (elif@3
+        (infix@B >
+         (call~8 len~3 moved@1)DragThreshold@2)
+        (stmts@S
+         (asgn@A carryLive~A true@2)))))))
+   (if@,B
+    (elif@3
+     (infix@A and carryLive~A
+      (infix@I ==
+       (dot~8 loaded~6 source@1)id@3))
+     (stmts@Z
+      (asgn@G
+       (dot~A result~6 dragging@1)true@2))))
+   (if@,C
+    (elif@3
+     (infix@A and
+      (dot~9 t~1 clicked@1)
+      (prefix@4 not carryLive@4))
+     (stmts@T
+      (asgn@F
+       (dot~9 result~6 clicked@1)true@2))))))
+ (comment@,7v)
+ (proc@,7y dropZone@5 x . .
+  (params@E
+   (param@1 name . . string@6 .)
+   (param@F r . . Rect@3 .)
+   (param@O accepts . . string@9 .))Drop@g . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@6 Drop~4
+     (kv@5 over~4 false@2)
+     (kv@L dropped~7 false@2)
+     (kv@Y load~4 NoCarry@2)))
+   (if@,1
+    (elif@3
+     (prefix not carryLive@4)
+     (stmts@F
+      (ret .))))
+   (if@,2
+    (elif@3
+     (infix@G and
+      (infix~4 >
+       (dot~5 accepts~7 len@1)0@2)
+      (infix@C != accepts~8
+       (dot@9 loaded~6 kind@1)))
+     (stmts@i
+      (ret .))))
+   (let@4,3 id . . .
+    (call@9 here~4 name@1))
+   (let@4,4 inside . . .
+    (call@D over~4 r@1))
+   (if@,5
+    (elif@3 inside
+     (stmts@8
+      (asgn@B targetNext~B id@2))))
+   (if@,6
+    (elif@3
+     (infix@H or
+      (infix~6 == targetLast~B id@3)
+      (par@3
+       (infix@L and
+        (infix~5 ==
+         (dot~5 targetLast~A len@1)0@3)inside@4)))
+     (stmts@s
+      (asgn@C
+       (dot~6 result~6 over@1)true@2))))
+   (if@,7
+    (elif@3
+     (infix@C and
+      (dot~6 result~6 over@1)releasedNow@4)
+     (stmts~1,1
+      (asgn@F
+       (dot~9 result~6 dropped@1)true@2)
+      (asgn@C,1
+       (dot~6 result~6 load@1)loaded@2))))))
+ (comment@,8C)
+ (proc@,8F scrollOf@5 x . .
+  (params@E
+   (param@1 id . . string@4 .))float64@E . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@D scrollNames~B len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@F ==
+        (at~4 scrollNames~B i@1)id@3)
+       (stmts@M
+        (ret
+         (at@K scrollOffsets~D i@1)))))
+     (asgn@2,1 i~2
+      (infix@4 \2B i~2 1@2))))
+   (asgn@7,4 result~7 0.0@2)))
+ (proc@,8M setScroll@5 x . .
+  (params@F
+   (param@1 id . . string@4 .)
+   (param@D value . . float64@7 .)). . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@D scrollNames~B len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@F ==
+        (at~4 scrollNames~B i@1)id@3)
+       (stmts~1,1
+        (asgn@H
+         (at~4 scrollOffsets~D i@1)value@2)
+        (ret@,1 .))))
+     (asgn@2,3 i~2
+      (infix@4 \2B i~2 1@2))))
+   (cmd@B,6
+    (dot scrollNames~B add@1)id@5)
+   (cmd@D,7
+    (dot scrollOffsets~D add@1)value@5)))
+ (comment@,8W)
+ (proc@,8a wheelTurn@5 x . .
+  (params@F)float64@4 . .
+  (stmts@T wheelNow))
+ (comment@,8c)
+ (proc@,8g wheelOver@5 x . .
+  (params@F
+   (param@1 r . . Rect@3 .))float64@B . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 == wheelNow~9 0.0@3)
+     (stmts@H
+      (ret 0.0@7))))
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@8 over~4 r@1))
+     (stmts@D
+      (ret 0.0@7))))wheelNow@,2))
+ (comment@,8l)
+ (proc@,8o scrollBy@5 x . .
+  (params@E
+   (param@1 id . . string@4 .)
+   (param@D amount . . float64@8 .)). . .
+  (stmts@2,1
+   (call@9 setScroll~9 id@1
+    (infix@I \2B
+     (call~5 scrollOf~8 id@1)amount@2)))))

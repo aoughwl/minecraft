@@ -1,0 +1,1503 @@
+(.nif27)
+(.indexat 42190            )
+(stmts@,1,netproto.nim
+ (import
+  (kv sysvq0asl "../../../../../../nimony/lib/std/system.nim")
+  (kv netnjwj9g "netwire.nim"))
+ (const@G,d :StateHandshake.0.~E x .
+  (i@7,19 64)
+  (suf@4 0 "i64"))
+ (const@D,e :StateStatus.0.~B x .
+  (i@A,18 64)
+  (suf@4 1 "i64"))
+ (const@C,f :StateLogin.0.~A x .
+  (i@B,17 64)
+  (suf@4 2 "i64"))
+ (const@K,g :StateConfiguration.0.~I x .
+  (i@3,16 64)
+  (suf@4 3 "i64"))
+ (const@B,h :StatePlay.0.~9 x .
+  (i@C,15 64)
+  (suf@4 4 "i64"))
+ (const@D,i :StateClosed.0.~B x .
+  (i@A,14 64)
+  (suf@4 5 "i64"))
+ (const@A,k :ToServer.0.~8 x .
+  (i@D,12 64)
+  (suf@4 0 "i64"))
+ (const@A,l :ToClient.0.~8 x .
+  (i@D,11 64)
+  (suf@4 1 "i64"))
+ (const@E,n :IntentStatus.0.~C x .
+  (i@9,z 64)
+  (suf@4 1 "i64"))
+ (const@D,o :IntentLogin.0.~B x .
+  (i@A,y 64)
+  (suf@4 2 "i64"))
+ (const@G,p :IntentTransfer.0.~E x .
+  (i@7,x 64)
+  (suf@4 3 "i64"))
+ (const@H,r :ProtocolVersion.0.~F x .
+  (i@6,v 64)
+  (suf@4 774 "i64"))
+ (const@D,w :IdIntention.0.~B x .
+  (i@A,q 64)
+  (suf@4 0 "i64"))
+ (const@H,z :IdStatusRequest.0.~F x .
+  (i@6,n 64)
+  (suf@4 0 "i64"))
+ (const@F,10 :IdPingRequest.0.~D x .
+  (i@8,m 64)
+  (suf@4 1 "i64"))
+ (const@I,11 :IdStatusResponse.0.~G x .
+  (i@5,l 64)
+  (suf@4 0 "i64"))
+ (const@G,12 :IdPongResponse.0.~E x .
+  (i@7,k 64)
+  (suf@4 1 "i64"))
+ (const@9,15 :IdHello.0.~7 x .
+  (i@E,h 64)
+  (suf@4 0 "i64"))
+ (const@M,16 :IdEncryptionResponse.0.~K x .
+  (i@1,g 64)
+  (suf@4 1 "i64"))
+ (const@N,17 :IdLoginPluginResponse.0.~L x .
+  (i@,f 64)
+  (suf@4 2 "i64"))
+ (const@L,18 :IdLoginAcknowledged.0.~J x .
+  (i@2,e 64)
+  (suf@4 3 "i64"))
+ (const@N,19 :IdLoginCookieResponse.0.~L x .
+  (i@,d 64)
+  (suf@4 4 "i64"))
+ (const@J,1C :IdLoginDisconnect.0.~H x .
+  (i@4,a 64)
+  (suf@4 0 "i64"))
+ (const@L,1D :IdEncryptionRequest.0.~J x .
+  (i@2,Z 64)
+  (suf@4 1 "i64"))
+ (const@G,1E :IdLoginSuccess.0.~E x .
+  (i@7,Y 64)
+  (suf@4 2 "i64"))
+ (const@I,1F :IdSetCompression.0.~G x .
+  (i@5,X 64)
+  (suf@4 3 "i64"))
+ (const@M,1G :IdLoginPluginRequest.0.~K x .
+  (i@1,W 64)
+  (suf@4 4 "i64"))
+ (const@M,1H :IdLoginCookieRequest.0.~K x .
+  (i@1,V 64)
+  (suf@4 5 "i64"))
+ (const@L,1K :IdClientInformation.0.~J x .
+  (i@2,S 64)
+  (suf@4 0 "i64"))
+ (const@O,1L :IdConfigCookieResponse.0.~M x .
+  (i~1,R 64)
+  (suf@4 1 "i64"))
+ (const@N,1M :IdConfigPluginMessage.0.~L x .
+  (i@,Q 64)
+  (suf@4 2 "i64"))
+ (const@N,1N :IdFinishConfiguration.0.~L x .
+  (i@,P 64)
+  (suf@4 3 "i64"))
+ (const@J,1O :IdConfigKeepAlive.0.~H x .
+  (i@4,O 64)
+  (suf@4 4 "i64"))
+ (const@8,1P :IdPong.0.~6 x .
+  (i@F,N 64)
+  (suf@4 5 "i64"))
+ (const@O,1Q :IdResourcePackResponse.0.~M x .
+  (i~1,M 64)
+  (suf@4 6 "i64"))
+ (const@E,1R :IdKnownPacks.0.~C x .
+  (i@9,L 64)
+  (suf@4 7 "i64"))
+ (const@N,1U :IdConfigCookieRequest.0.~L x .
+  (i@,I 64)
+  (suf@4 0 "i64"))
+ (const@Q,1V :IdConfigPluginMessageOut.0.~O x .
+  (i~3,H 64)
+  (suf@4 1 "i64"))
+ (const@K,1W :IdConfigDisconnect.0.~I x .
+  (i@3,G 64)
+  (suf@4 2 "i64"))
+ (const@Q,1X :IdFinishConfigurationOut.0.~O x .
+  (i~3,F 64)
+  (suf@4 3 "i64"))
+ (const@M,1Y :IdConfigKeepAliveOut.0.~K x .
+  (i@1,E 64)
+  (suf@4 4 "i64"))
+ (const@8,1Z :IdPing.0.~6 x .
+  (i@F,D 64)
+  (suf@4 5 "i64"))
+ (const@D,1a :IdResetChat.0.~B x .
+  (i@A,C 64)
+  (suf@4 6 "i64"))
+ (const@G,1b :IdRegistryData.0.~E x .
+  (i@7,B 64)
+  (suf@4 7 "i64"))
+ (const@M,1c :IdRemoveResourcePack.0.~K x .
+  (i@1,A 64)
+  (suf@4 8 "i64"))
+ (const@J,1d :IdAddResourcePack.0.~H x .
+  (i@4,9 64)
+  (suf@4 9 "i64"))
+ (const@F,1e :IdStoreCookie.0.~D x .
+  (i@8,8 64)
+  (suf@4 10 "i64"))
+ (const@C,1f :IdTransfer.0.~A x .
+  (i@B,7 64)
+  (suf@4 11 "i64"))
+ (const@G,1g :IdFeatureFlags.0.~E x .
+  (i@7,6 64)
+  (suf@4 12 "i64"))
+ (const@E,1h :IdUpdateTags.0.~C x .
+  (i@9,5 64)
+  (suf@4 13 "i64"))
+ (const@H,1i :IdKnownPacksOut.0.~F x .
+  (i@6,4 64)
+  (suf@4 14 "i64"))
+ (type@9,1l :Entry.0.~7 x .
+  (pragmas
+   (destroy =destroy_SX45ntry0netzyj5xc.0.)
+   (wasmoved =wasmoved_SX45ntry0netzyj5xc.0.)
+   (dup =dup_SX45ntry0netzyj5xc.0.)
+   (copy =copy_SX45ntry0netzyj5xc.0.))
+  (object@2 .
+   (fld~2,1 :state.0~5 x .
+    (i@E 64).)
+   (fld@4,1 :dir.0~3 x .
+    (i@8 64).)
+   (fld@9,1 :id.0~2 x .
+    (i@3 64).)
+   (fld~3,2 :name.0~4 x . string.0.sysvq0asl@3 .)))
+ (type@9,1p :Table.0.~7 x .
+  (pragmas
+   (destroy =destroy_SX54able0netzyj5xc.0.)
+   (wasmoved =wasmoved_SX54able0netzyj5xc.0.)
+   (dup =dup_SX54able0netzyj5xc.0.)
+   (copy =copy_SX54able0netzyj5xc.0.))
+  (object@2 .
+   (fld@,1 :entries.0~7 x . seq.0.Irn26ob.@6 .)))
+ (type@E,1s :Connection.0.~C x .
+  (pragmas
+   (destroy =destroy_SX43onnection0netzyj5xc.0.)
+   (wasmoved =wasmoved_SX43onnection0netzyj5xc.0.)
+   (dup =dup_SX43onnection0netzyj5xc.0.)
+   (copy =copy_SX43onnection0netzyj5xc.0.))
+  (object@2 .
+   (fld~7,1 :state.0~5 x .
+    (i@3 64).)
+   (fld~3,2 :threshold.0~9 x .
+    (i@3 64).)
+   (fld@2,4 :loginSucceeded.0~E x .
+    (bool@3).)
+   (fld~4,5 :finished.0~8 x .
+    (bool@3).)
+   (fld~5,6 :problem.0~7 x . string.0.sysvq0asl@3 .)))
+ (proc@,20 :stateName.0.@5 x . .
+  (params@F
+   (param@1 :state.0 . .
+    (i@7 64).))string.0.sysvq0asl@E . .
+  (stmts@2,1
+   (result :result.0 . . string.0.sysvq0asl@9,~E .)
+   (asgn result.0
+    (if
+     (elif@3
+      (eq@6
+       (i 64)state.0~6 StateHandshake.0.@3)
+      (expr@P "handshake"))
+     (elif@5,1
+      (eq@6
+       (i 64)state.0~6 StateStatus.0.@3)
+      (expr@M "status"))
+     (elif@5,2
+      (eq@6
+       (i 64)state.0~6 StateLogin.0.@3)
+      (expr@L "login"))
+     (elif@5,3
+      (eq@6
+       (i 64)state.0~6 StateConfiguration.0.@3)
+      (expr@T "configuration"))
+     (elif@5,4
+      (eq@6
+       (i 64)state.0~6 StatePlay.0.@3)
+      (expr@K "play"))
+     (else@,5
+      (expr@6 "closed"))))
+   (ret~2,~1 result.0)))
+ (proc@,28 :emptyTable.0.@5 x . .
+  (params@G)Table.0.@4 . .
+  (stmts@2,1
+   (result@5 :result.1 . . Table.0.~3,~1 .)
+   (asgn@5 result.1
+    (oconstr Table.0.~3,~1
+     (kv@8 entries.0~7
+      (expr@2,32,../../../../../../nimony/lib/std/system/seqimpl.nim
+       (call@F,1 newSeqUninit.0.Iuwgm0y1.~F 0@1)))))
+   (ret~2,~1 result.1)))
+ (proc@,2B :declare.0.@5 x . .
+  (params@D
+   (param@1 :t.0 . .
+    (mut@3 Table.0.@4).)
+   (param@F :state.1 . .
+    (i@G 64).)
+   (param@M :dir.0 . .
+    (i@9 64).)
+   (param@R :id.0 . .
+    (i@4 64).)
+   (param@a :name.0 . . string.0.sysvq0asl@6 .)). . .
+  (stmts@2,1
+   (var@4,2 :i.0 . .
+    (i 64)0@4)
+   (while@,3
+    (lt@8
+     (i 64)i.0~2
+     (call@B len.3.Ispfxbs.@1
+      (dot~8
+       (hderef~1 t.0)entries.0 0)))
+    (stmts@2,1
+     (let@4 :e.0 . . Entry.0.@A,~Q
+      (hderef@5
+       (call \5B\5D.7.Iefx3g21.
+        (dot
+         (hderef~1 t.0)entries.0 0)i.0@9)))
+     (if@,1
+      (elif@3
+       (and@Y
+        (and~H
+         (eq~9
+          (i 64)
+          (dot~7 e.0~1 state.0 0)state.1@3)
+         (eq@A
+          (i 64)
+          (dot~5 e.0~1 dir.0 0)dir.0@3))
+        (eq@9
+         (i 64)
+         (dot~4 e.0~1 id.0 0)id.0@3))
+       (stmts~1,1
+        (call@1 \5B\5D=.7.Imlsjyo1.
+         (haddr
+          (dot
+           (hderef~1 t.0)entries.0 0))i.0@9
+         (oconstr@J Entry.0.~5
+          (kv@6 state.0~5 state.1@2)
+          (kv@I dir.0~3 dir.0@2)
+          (kv@R id.0~2 id.0@2)
+          (kv@b name.0~4 name.0@2)))
+        (ret@,1 .))))
+     (cmd@,4 inc.1.Irn1g7r1.
+      (haddr@4 i.0))))
+   (cmd@9,9 add.0.I8f2xbv1.@1
+    (haddr~8
+     (dot
+      (hderef~1 t.0)entries.0 0))
+    (oconstr@A Entry.0.@,~3
+     (kv@6 state.0~5 state.1@2)
+     (kv@I dir.0~3 dir.0@2)
+     (kv@R id.0~2 id.0@2)
+     (kv@b name.0~4 name.0@2)))))
+ (proc@,2N :nameOf.0.@5 x . .
+  (params@C
+   (param@1 :t.1 . . Table.0.@3 .)
+   (param@B :state.2 . .
+    (i@G 64).)
+   (param@I :dir.1 . .
+    (i@9 64).)
+   (param@N :id.1 . .
+    (i@4 64).))string.0.sysvq0asl@X . .
+  (stmts@2,1
+   (result@4 :result.2 . . string.0.sysvq0asl@5,~b .)
+   (var@4 :i.3 . .
+    (i 64)0@4)
+   (while@,1
+    (lt@8
+     (i 64)i.3~2
+     (call@B len.3.Ispfxbs.@1
+      (dot~8 t.1~1 entries.0 0)))
+    (stmts@2,1
+     (let@4 :e.1 . . Entry.0.@A,~a
+      (hderef@5
+       (call \5B\5D.7.Iefx3g21.
+        (dot t.1~1 entries.0 0)i.3@9)))
+     (if@,1
+      (elif@3
+       (and@Y
+        (and~H
+         (eq~9
+          (i 64)
+          (dot~7 e.1~1 state.0 0)state.2@3)
+         (eq@A
+          (i 64)
+          (dot~5 e.1~1 dir.0 0)dir.1@3))
+        (eq@9
+         (i 64)
+         (dot~4 e.1~1 id.0 0)id.1@3))
+       (stmts@o
+        (ret
+         (dot@8 e.1~1 name.0 0)))))
+     (cmd@,2 inc.1.Irn1g7r1.
+      (haddr@4 i.3))))
+   (asgn@7,5 result.2~7 "unknown"@2)
+   (ret~2,~1 result.2)))
+ (proc@,2V :idOf.0.@5 x . .
+  (params@A
+   (param@1 :t.2 . . Table.0.@3 .)
+   (param@B :state.3 . .
+    (i@C 64).)
+   (param@I :dir.2 . .
+    (i@5 64).)
+   (param@S :name.1 . . string.0.sysvq0asl@6 .))
+  (i@h 64). .
+  (stmts@2,1
+   (result :result.3 . .
+    (i@L,~k 64).)
+   (var@4,2 :i.4 . .
+    (i 64)0@4)
+   (while@,3
+    (lt@8
+     (i 64)i.4~2
+     (call@B len.3.Ispfxbs.@1
+      (dot~8 t.2~1 entries.0 0)))
+    (stmts@2,1
+     (let@4 :e.2 . . Entry.0.@A,~k
+      (hderef@5
+       (call \5B\5D.7.Iefx3g21.
+        (dot t.2~1 entries.0 0)i.4@9)))
+     (if@,1
+      (elif@3
+       (and@Y
+        (and~H
+         (eq~9
+          (i 64)
+          (dot~7 e.2~1 state.0 0)state.3@3)
+         (eq@A
+          (i 64)
+          (dot~5 e.2~1 dir.0 0)dir.2@3))
+        (infix@B ==.20.sysvq0asl
+         (dot~6 e.2~1 name.0 0)name.1@3))
+       (stmts@s
+        (ret
+         (dot@8 e.2~1 id.0 0)))))
+     (cmd@,2 inc.1.Irn1g7r1.
+      (haddr@4 i.4))))
+   (asgn@7,7 result.3~7 -1@2)
+   (ret~2,~1 result.3)))
+ (proc@,2f :knownTable.0.@5 x . .
+  (params@G)Table.0.@4 . .
+  (stmts@2,1
+   (result :result.4 . . Table.0.@2,~Y .)
+   (asgn@7,8 result.4~7
+    (call@C emptyTable.0.~A))
+   (call@7,9 declare.0.~7
+    (haddr@1 result.4)StateHandshake.0.@9 ToServer.0.@P IdIntention.0.@Z "minecraft\3Aintention"@m)
+   (call@7,B declare.0.~7
+    (haddr@1 result.4)StateStatus.0.@9 ToServer.0.@M IdStatusRequest.0.@W "minecraft\3Astatus_request"@n)
+   (call@7,C declare.0.~7
+    (haddr@1 result.4)StateStatus.0.@9 ToServer.0.@M IdPingRequest.0.@W "minecraft\3Aping_request"@l)
+   (call@7,D declare.0.~7
+    (haddr@1 result.4)StateStatus.0.@9 ToClient.0.@M IdStatusResponse.0.@W "minecraft\3Astatus_response"@o)
+   (call@7,E declare.0.~7
+    (haddr@1 result.4)StateStatus.0.@9 ToClient.0.@M IdPongResponse.0.@W "minecraft\3Apong_response"@m)
+   (call@7,G declare.0.~7
+    (haddr@1 result.4)StateLogin.0.@9 ToServer.0.@L IdHello.0.@V "minecraft\3Ahello"@e)
+   (call@7,H declare.0.~7
+    (haddr@1 result.4)StateLogin.0.@9 ToServer.0.@L IdEncryptionResponse.0.@V "minecraft\3Akey"@r)
+   (call@7,I declare.0.~7
+    (haddr@1 result.4)StateLogin.0.@9 ToServer.0.@L IdLoginPluginResponse.0.@V "minecraft\3Acustom_query_answer"@s)
+   (call@7,J declare.0.~7
+    (haddr@1 result.4)StateLogin.0.@9 ToServer.0.@L IdLoginAcknowledged.0.@V "minecraft\3Alogin_acknowledged"@q)
+   (call@7,K declare.0.~7
+    (haddr@1 result.4)StateLogin.0.@9 ToServer.0.@L IdLoginCookieResponse.0.@V "minecraft\3Acookie_response"@s)
+   (call@7,L declare.0.~7
+    (haddr@1 result.4)StateLogin.0.@9 ToClient.0.@L IdLoginDisconnect.0.@V "minecraft\3Alogin_disconnect"@o)
+   (call@7,M declare.0.~7
+    (haddr@1 result.4)StateLogin.0.@9 ToClient.0.@L IdEncryptionRequest.0.@V "minecraft\3Ahello"@q)
+   (call@7,N declare.0.~7
+    (haddr@1 result.4)StateLogin.0.@9 ToClient.0.@L IdLoginSuccess.0.@V "minecraft\3Alogin_finished"@l)
+   (call@7,O declare.0.~7
+    (haddr@1 result.4)StateLogin.0.@9 ToClient.0.@L IdSetCompression.0.@V "minecraft\3Alogin_compression"@n)
+   (call@7,P declare.0.~7
+    (haddr@1 result.4)StateLogin.0.@9 ToClient.0.@L IdLoginPluginRequest.0.@V "minecraft\3Acustom_query"@r)
+   (call@7,Q declare.0.~7
+    (haddr@1 result.4)StateLogin.0.@9 ToClient.0.@L IdLoginCookieRequest.0.@V "minecraft\3Acookie_request"@r)
+   (call@7,S declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToServer.0.@T IdClientInformation.0.@d "minecraft\3Aclient_information"@y)
+   (call@7,T declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToServer.0.@T IdConfigCookieResponse.0.@d "minecraft\3Acookie_response"@11)
+   (call@7,U declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToServer.0.@T IdConfigPluginMessage.0.@d "minecraft\3Acustom_payload"@10)
+   (call@7,V declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToServer.0.@T IdFinishConfiguration.0.@d "minecraft\3Afinish_configuration"@10)
+   (call@7,W declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToServer.0.@T IdConfigKeepAlive.0.@d "minecraft\3Akeep_alive"@w)
+   (call@7,X declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToServer.0.@T IdPong.0.@d "minecraft\3Apong"@l)
+   (call@7,Y declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToServer.0.@T IdResourcePackResponse.0.@d "minecraft\3Aresource_pack"@11)
+   (call@7,Z declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToServer.0.@T IdKnownPacks.0.@d "minecraft\3Aselect_known_packs"@r)
+   (call@7,a declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToClient.0.@T IdConfigCookieRequest.0.@d "minecraft\3Acookie_request"@10)
+   (call@7,b declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToClient.0.@T IdConfigPluginMessageOut.0.@d "minecraft\3Acustom_payload"@13)
+   (call@7,c declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToClient.0.@T IdConfigDisconnect.0.@d "minecraft\3Adisconnect"@x)
+   (call@7,d declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToClient.0.@T IdFinishConfigurationOut.0.@d "minecraft\3Afinish_configuration"@13)
+   (call@7,e declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToClient.0.@T IdConfigKeepAliveOut.0.@d "minecraft\3Akeep_alive"@z)
+   (call@7,f declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToClient.0.@T IdPing.0.@d "minecraft\3Aping"@l)
+   (call@7,g declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToClient.0.@T IdResetChat.0.@d "minecraft\3Areset_chat"@q)
+   (call@7,h declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToClient.0.@T IdRegistryData.0.@d "minecraft\3Aregistry_data"@t)
+   (call@7,i declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToClient.0.@T IdRemoveResourcePack.0.@d "minecraft\3Aresource_pack_pop"@z)
+   (call@7,j declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToClient.0.@T IdAddResourcePack.0.@d "minecraft\3Aresource_pack_push"@w)
+   (call@7,k declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToClient.0.@T IdStoreCookie.0.@d "minecraft\3Astore_cookie"@s)
+   (call@7,l declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToClient.0.@T IdTransfer.0.@d "minecraft\3Atransfer"@p)
+   (call@7,m declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToClient.0.@T IdFeatureFlags.0.@d "minecraft\3Aupdate_enabled_features"@t)
+   (call@7,n declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToClient.0.@T IdUpdateTags.0.@d "minecraft\3Aupdate_tags"@r)
+   (call@7,o declare.0.~7
+    (haddr@1 result.4)StateConfiguration.0.@9 ToClient.0.@T IdKnownPacksOut.0.@d "minecraft\3Aselect_known_packs"@u)
+   (ret~2,~1 result.4)))
+ (proc@,3W :connection.0.@5 x . .
+  (params@G)Connection.0.@4 . .
+  (stmts@2,1
+   (result@A :result.5 . . Connection.0.~8,~1 .)
+   (asgn@A result.5
+    (oconstr Connection.0.~8,~1
+     (kv@6 state.0~5 StateHandshake.0.@2)
+     (kv@X threshold.0~9 -1@2)
+     (kv@r loginSucceeded.0~E
+      (false@2))
+     (kv@9,1 finished.0~8
+      (false@2))
+     (kv@P,1 problem.0~7 ""@2)))
+   (ret~2,~1 result.5)))
+ (proc@,3a :note.0.@5 x . .
+  (params@A
+   (param@1 :c.0 . .
+    (mut@3 Connection.0.@4).)
+   (param@K :why.0 . . string.0.sysvq0asl@5 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (eq@E
+      (i 64)
+      (call~5 len.4.sysvq0asl@1
+       (dot~8
+        (hderef~1 c.0)problem.0 0))0@3)
+     (stmts@K
+      (asgn@A
+       (dot~9
+        (hderef~1 c.0)problem.0 0)why.0@2))))
+   (asgn@8,1
+    (dot~7
+     (hderef~1 c.0)state.0 0)StateClosed.0.@2)))
+ (proc@,3e :onPacket.0.@5 x . .
+  (params@E
+   (param@1 :c.1 . .
+    (mut@3 Connection.0.@4).)
+   (param@K :dir.3 . .
+    (i@9 64).)
+   (param@P :id.2 . .
+    (i@4 64).)
+   (param@Y :payload.0 . .
+    (mut@9 Reader.0.netnjwj9g@4).)). . .
+  (stmts@2,1
+   (if@,4
+    (elif@3
+     (eq@8
+      (i 64)
+      (dot~7
+       (hderef~1 c.1)state.0 0)StateClosed.0.@3)
+     (stmts@O
+      (ret .))))
+   (if@,6
+    (elif@3
+     (eq@8
+      (i 64)
+      (dot~7
+       (hderef~1 c.1)state.0 0)StateHandshake.0.@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (or@G
+         (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+          (not@,1
+           (eq@7
+            (i 64)dir.3@7,3n,netproto.nim ToServer.0.@E,3n,netproto.nim)))
+         (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+          (not@,1
+           (eq@7
+            (i 64)id.2@Q,3n,netproto.nim IdIntention.0.@W,3n,netproto.nim))))
+        (stmts~1,1
+         (call@4 note.0.~4 c.1@1 "the first packet was not an intention"@4)
+         (ret@,1 .))))
+      (discard@,3
+       (call@I readVarInt.0.netnjwj9g~A payload.0@1))
+      (discard@,4
+       (call@I readString.0.netnjwj9g~A payload.0@1))
+      (discard@,5
+       (call@I readUShort.0.netnjwj9g~A payload.0@1))
+      (let@4,6 :intent.0 . .
+       (i@F,~26 64)
+       (call@J readVarInt.0.netnjwj9g~A payload.0@1))
+      (if@,7
+       (elif@3
+        (not
+         (call@6 ok.0.netnjwj9g~2
+          (hderef@1 payload.0)))
+        (stmts~1,1
+         (call@4 note.0.~4 c.1@1 "a truncated intention"@4)
+         (ret@,1 .))))
+      (if@,A
+       (elif@3
+        (eq@7
+         (i 64)intent.0~7 IntentStatus.0.@3)
+        (stmts@O
+         (asgn@8
+          (dot~7
+           (hderef~1 c.1)state.0 0)StateStatus.0.@2)))
+       (elif@5,1
+        (or@M
+         (eq~F
+          (i 64)intent.0~7 IntentLogin.0.@3)
+         (eq@A
+          (i 64)intent.0~7 IntentTransfer.0.@3))
+        (stmts@p
+         (asgn@8
+          (dot~7
+           (hderef~1 c.1)state.0 0)StateLogin.0.@2)))
+       (else@,2
+        (stmts@6
+         (call@4 note.0.~4 c.1@1 "an intention this client does not know"@4))))
+      (ret@,D .))))
+   (if@,M
+    (elif@3
+     (eq@8
+      (i 64)
+      (dot~7
+       (hderef~1 c.1)state.0 0)StateStatus.0.@3)
+     (stmts~1,1
+      (ret .))))
+   (if@,P
+    (elif@3
+     (eq@8
+      (i 64)
+      (dot~7
+       (hderef~1 c.1)state.0 0)StateLogin.0.@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (and@G
+         (eq~C
+          (i 64)dir.3~4 ToClient.0.@3)
+         (eq@7
+          (i 64)id.2~3 IdSetCompression.0.@3))
+        (stmts~1,1
+         (let@4 :threshold.0 . .
+          (i@D,~2K 64)
+          (call@M readVarInt.0.netnjwj9g~A payload.0@1))
+         (if@,1
+          (elif@3
+           (not
+            (call@6 ok.0.netnjwj9g~2
+             (hderef@1 payload.0)))
+           (stmts~1,1
+            (call@4 note.0.~4 c.1@1 "a truncated set compression"@4)
+            (ret@,1 .))))
+         (asgn@C,6
+          (dot~B
+           (hderef~1 c.1)threshold.0 0)threshold.0@2)
+         (ret@,7 .))))
+      (if@,9
+       (elif@3
+        (and@G
+         (eq~C
+          (i 64)dir.3~4 ToClient.0.@3)
+         (eq@7
+          (i 64)id.2~3 IdLoginSuccess.0.@3))
+        (stmts~1,1
+         (asgn@H
+          (dot~G
+           (hderef~1 c.1)loginSucceeded.0 0)
+          (true@2))
+         (ret@,1 .))))
+      (if@,C
+       (elif@3
+        (and@G
+         (eq~C
+          (i 64)dir.3~4 ToServer.0.@3)
+         (eq@7
+          (i 64)id.2~3 IdLoginAcknowledged.0.@3))
+        (stmts~1,1
+         (if
+          (elif@3
+           (not
+            (dot@5
+             (hderef~1 c.1)loginSucceeded.0 0))
+           (stmts~1,1
+            (call@4 note.0.~4 c.1@1 "acknowledged a login that had not succeeded"@4)
+            (ret@,1 .))))
+         (asgn@8,3
+          (dot~7
+           (hderef~1 c.1)state.0 0)StateConfiguration.0.@2)
+         (ret@,4 .))))
+      (if@,I
+       (elif@3
+        (and@G
+         (eq~C
+          (i 64)dir.3~4 ToClient.0.@3)
+         (eq@7
+          (i 64)id.2~3 IdLoginDisconnect.0.@3))
+        (stmts~1,1
+         (call@4 note.0.~4 c.1@1 "the server refused the login"@4)
+         (ret@,1 .))))
+      (ret@,L .))))
+   (if@,n
+    (elif@3
+     (eq@8
+      (i 64)
+      (dot~7
+       (hderef~1 c.1)state.0 0)StateConfiguration.0.@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (and@G
+         (eq~C
+          (i 64)dir.3~4 ToServer.0.@3)
+         (eq@7
+          (i 64)id.2~3 IdFinishConfiguration.0.@3))
+        (stmts~1,1
+         (asgn@B
+          (dot~A
+           (hderef~1 c.1)finished.0 0)
+          (true@2))
+         (asgn@8,1
+          (dot~7
+           (hderef~1 c.1)state.0 0)StatePlay.0.@2)
+         (ret@,2 .))))
+      (if@,4
+       (elif@3
+        (and@G
+         (eq~C
+          (i 64)dir.3~4 ToClient.0.@3)
+         (eq@7
+          (i 64)id.2~3 IdConfigDisconnect.0.@3))
+        (stmts~1,1
+         (call@4 note.0.~4 c.1@1 "the server disconnected during configuration"@4)
+         (ret@,1 .))))
+      (ret@,7 .))))))
+ (comment@N,1m int.0.sysvq0asl int.0.sysvq0asl int.0.sysvq0asl int.0.sysvq0asl~B,7 int.0.sysvq0asl~7,8 bool.0.sysvq0asl~2,A bool.0.sysvq0asl~8,B int.0.sysvq0asl@,E int.0.sysvq0asl@L,P int.0.sysvq0asl@L,P int.0.sysvq0asl@L,P int.0.sysvq0asl@G,b int.0.sysvq0asl@G,b int.0.sysvq0asl@G,b int.0.sysvq0asl@A,j int.0.sysvq0asl@A,j int.0.sysvq0asl@K,j int.0.sysvq0asl@K,1s int.0.sysvq0asl@K,1s \40.1.sysvq0asl~6,N false.0.sysvq0asl@i,1l false.0.sysvq0asl@,1m !=.0.sysvq0asl~C,20 !=.0.sysvq0asl@6,20 true.0.sysvq0asl@2,2T true.0.sysvq0asl~4,2i)
+ (func@H,33,../../../../../../nimony/lib/std/system/seqimpl.nim :newSeqUninit.0.Iuwgm0y1. . .~H,~1z
+  (at newSeqUninit.0.sysvq0asl Entry.0.@I,1r,netproto.nim)
+  (params@4,~1z
+   (param@1 :size.1 . .
+    (i@6 64).))seq.0.Irn26ob.~1,~1z
+  (pragmas@O,~1z
+   (nodestroy@2)
+   (inline@D)).~H,~1z
+  (stmts~F,~1y
+   (result :result.6 . . seq.0.Irn26ob.@E,~1 .)
+   (if@,1
+    (elif@3
+     (eq@5
+      (i 64)size.1~5 0@3)
+     (stmts~1,1
+      (asgn@7 result.6~7
+       (oconstr@8 seq.0.Irn26ob.@H,1r,netproto.nim
+        (kv@4 len.0~3 size.1@2)
+        (kv@G data.0~4
+         (nil@2))))))
+    (else@,2
+     (stmts@2,1
+      (let@4 :memSize.0 . .
+       (i@N,1n,netproto.nim 64)
+       (call@R memSizeInBytes.0.I98wa2p1.~H size.1@1))
+      (asgn@7,1 result.6~7
+       (oconstr@8 seq.0.Irn26ob.@H,1r,netproto.nim
+        (kv@4 len.0~3 size.1@2)
+        (kv@G data.0~4
+         (cast@2
+          (ptr@5
+           (uarray@I Entry.0.@I,1r,netproto.nim)
+           (unchecked))
+          (call@X alloc.0.sysvq0asl~5 memSize.0@1)))))
+      (if@,2
+       (elif@3
+        (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+         (not@,1
+          (eq@7
+           (ptr
+            (uarray Entry.0.@I,1r,netproto.nim)
+            (unchecked))
+           (dot@D,1B,../../../../../../nimony/lib/std/system/seqimpl.nim result.6~6 data.0 0 "x")
+           (nil@M,1B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+        (stmts~1,1
+         (discard "leave uninitialized"@8)))
+       (else@,2
+        (stmts@2,1
+         (asgn@B
+          (dot~5 result.6~6 len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.0@B)))))))))
+   (ret~2,~1 result.6)))
+ (func@L,2F :len.3.Ispfxbs. . .@,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at len.3.sysvq0asl Entry.0.~3,~P)
+  (params@C,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.4 . . seq.0.Irn26ob.@6 .))
+  (i@D,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim 64)
+  (pragmas@T,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (inline@2)).@,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,2a,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (result :result.7 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@1,1 result.7
+    (dot s.4~1 len.0 0 "x"))
+   (ret~2,~1 result.7)))
+ (func@D,2G :\5B\5D.7.Iefx3g21. . .@,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at \5B\5D.7.sysvq0asl Entry.0.@5,~Q)
+  (params@D,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.5 . . seq.0.Irn26ob.@6 .)
+   (param@C :i.5 . .
+    (i@3 64).))
+  (mut@L,2h,../../../../../../nimony/lib/std/system/seqimpl.nim Entry.0.@I,1r,netproto.nim)
+  (pragmas@e,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (requires@2
+    (and@L
+     (lt~8
+      (i 64)i.5~2
+      (dot@3 s.5~1 len.0 0 "x"))
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)0@1A,2h,../../../../../../nimony/lib/std/system/seqimpl.nim i.5@15,2h,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+   (inline@a)).@,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@1P,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (result@6 :result.8 . .
+    (mut~1A Entry.0.@I,1r,netproto.nim).)
+   (asgn@6 result.8
+    (haddr~5
+     (pat
+      (dot s.5~1 data.0 0 "x")i.5@6)))
+   (ret~1P result.8)))
+ (func@7,2I :\5B\5D=.7.Imlsjyo1. . .@,2j,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at \5B\5D=.7.sysvq0asl Entry.0.@B,~S)
+  (params@E,2j,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.6 . .
+    (mut@3 seq.0.Irn26ob.@7).)
+   (param@G :i.6 . .
+    (i@3 64).)
+   (param@O :elem.2 . .
+    (sink~4,~M Entry.0.@I,1r,netproto.nim).)).@,2j,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (pragmas@q,2j,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (requires@2
+    (and@L
+     (lt~8
+      (i 64)i.6~2
+      (dot@3
+       (hderef~1 s.6)len.0 0 "x"))
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)0@1M,2j,../../../../../../nimony/lib/std/system/seqimpl.nim i.6@1H,2j,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+   (inline@a)
+   (pragma@i linear.0.sysvq0asl)).@,2j,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,2k,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (asgn@C
+    (pat~A
+     (dot
+      (hderef~1 s.6)data.0 0 "x")i.6@6)elem.2@2)))
+ (func@4,2K :inc.1.Irn1g7r1. . .@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (at inc.1.sysvq0asl
+   (i 64))
+  (params@L,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (param@1 :x.1 . .
+    (mut@3
+     (i 64)).)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (pragmas@W,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (inline@2)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (stmts@2,F,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (asgn@2,1
+    (hderef~2 x.1)
+    (add@6
+     (i 64)
+     (hderef@1 x.1)
+     (conv@U,~F
+      (i 64)1@1)))))
+ (func@B,2L :add.0.I8f2xbv1. . .@,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at add.0.sysvq0asl Entry.0.@7,~V)
+  (params@C,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.7 . .
+    (mut@3 seq.0.Irn26ob.@7).)
+   (param@G :elem.3 . .
+    (sink@6 Entry.0.@I,1r,netproto.nim).)).@,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (pragmas@g,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (inline@2)
+   (nodestroy@A)).@,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,2O,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (let@4,1 :L.0 . .
+    (i@N,1n,netproto.nim 64)
+    (dot@5
+     (hderef~1 s.7)len.0 0 "x"))
+   (if@,2
+    (elif@3
+     (lt@D
+      (i 64)
+      (call~C capInBytes.0.Imymocr.@1
+       (hderef~1 s.7))
+      (add@I
+       (i 64)
+       (mul~D
+        (i 64)L.0~2
+        (sizeof@8 Entry.0.@I,1r,netproto.nim))
+       (sizeof@8 Entry.0.@I,1r,netproto.nim)))
+     (stmts~1,1
+      (if
+       (elif@3
+        (not
+         (call@A resize.0.I0y09wc1.~6 s.7@1 1@4))
+        (stmts~1,3
+         (destroy@A elem.3@1)
+         (ret@,1 .)))))))
+   (cmd@,8 inc.1.Irn1g7r1.
+    (haddr@5
+     (dot
+      (hderef~1 s.7)len.0 0 "x")))
+   (asgn@C,9
+    (pat~A
+     (dot
+      (hderef~1 s.7)data.0 0 "x")L.0@6)elem.3@2)))
+ (func@Z,19,../../../../../../nimony/lib/std/system/seqimpl.nim :memSizeInBytes.0.I98wa2p1. . .~Z,~k
+  (at memSizeInBytes.0.sysvq0asl Entry.0.@I,1r,netproto.nim)
+  (params~D,~k
+   (param@1 :size.3 . .
+    (i@6 64).))
+  (i~M,~k 64)
+  (pragmas@4,~k
+   (inline@2)).~Z,~k
+  (stmts~X,~j
+   (result :result.9 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (pragmax
+    (pragmas
+     (keepOverflowFlag@2))
+    (stmts@2,1
+     (asgn@7 result.9~7
+      (mul@7
+       (i 64)size.3~5
+       (sizeof@8 Entry.0.@I,1r,netproto.nim)))
+     (if@,1
+      (elif@3
+       (ovf@C)
+       (stmts~1,2
+        (asgn@7 result.9~7
+         (suf@6 9223372036854775807 "i64")))))))
+   (ret~2,~1 result.9)))
+ (func@6,2Q,../../../../../../nimony/lib/std/system/seqimpl.nim :capInBytes.0.Imymocr. . .~6,~2G
+  (at capInBytes.0.sysvq0asl Entry.0.@I,1r,netproto.nim)
+  (params@C,~2G
+   (param@1 :s.9 . . seq.0.Irn26ob.@6 .))
+  (i@7,~2G 64)
+  (pragmas@T,~2G
+   (inline@2)).~6,~2G
+  (stmts~4,~2F
+   (result@7 :result.10 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@7 result.10~7
+    (if@2
+     (elif@3
+      (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+       (not@,1
+        (eq@7
+         (ptr
+          (uarray Entry.0.@I,1r,netproto.nim)
+          (unchecked))
+         (dot@F,B,../../../../../../nimony/lib/std/system/seqimpl.nim s.9~1 data.0 0 "x")
+         (nil@O,B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+      (expr@F
+       (call@D allocatedSize.0.sysvq0asl~D
+        (hconv@2
+         (pointer@N,1O,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (hconv
+          (pointer@D,1C,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (dot s.9~1 data.0 0 "x"))))))
+     (else@e
+      (expr@6 0))))
+   (ret~2,~1 result.10)))
+ (func@H,2R,../../../../../../nimony/lib/std/system/seqimpl.nim :resize.0.I0y09wc1. . .~H,~e
+  (at resize.0.sysvq0asl Entry.0.@I,1r,netproto.nim)
+  (params~3,~e
+   (param@1 :dest.1 . .
+    (mut@6 seq.0.Irn26ob.@7).)
+   (param@J :addedElements.1 . .
+    (i@F 64).))
+  (bool@N,~e)
+  (pragmas@g,~e
+   (nodestroy@2)).~H,~e
+  (stmts~F,~d
+   (result@4 :result.11 . .
+    (bool@2,g,../../../../../../nimony/lib/std/system/basic_types.nim).)
+   (let@4 :oldCap.0 . .
+    (i@N,1n,netproto.nim 64)
+    (div@P
+     (i 64)
+     (call~C capInBytes.0.Imymocr.@1
+      (hderef~4 dest.1))
+     (sizeof@A Entry.0.@I,1r,netproto.nim)))
+   (let@4,1 :newCap.0 . .
+    (i@N,1n,netproto.nim 64)
+    (call@I recalcCap.0.sysvq0asl~9 oldCap.0@1 addedElements.1@9))
+   (let@4,2 :memSize.1 . .
+    (i@N,1n,netproto.nim 64)
+    (call@R memSizeInBytes.0.I98wa2p1.~H newCap.0@1))
+   (asgn@A,3
+    (dot~6
+     (hderef~4 dest.1)data.0 0 "x")
+    (cast@2
+     (ptr@5
+      (uarray@I Entry.0.@I,1r,netproto.nim)
+      (unchecked))
+     (call@Z realloc.0.sysvq0asl~7
+      (hconv@5
+       (pointer@H,1I,../../../../../../nimony/lib/std/system/mimalloc.nim
+        (unchecked))
+       (hconv
+        (pointer@D,1C,../../../../../../nimony/lib/std/system/mimalloc.nim
+         (unchecked))
+        (dot
+         (hderef~4 dest.1)data.0 0 "x")))memSize.1@C)))
+   (if@,4
+    (elif@3
+     (eq@A
+      (ptr
+       (uarray Entry.0.@I,1r,netproto.nim)
+       (unchecked))
+      (dot~6
+       (hderef~4 dest.1)data.0 0 "x")
+      (nil@3))
+     (stmts~1,1
+      (asgn@9
+       (dot~5
+        (hderef~4 dest.1)len.0 0 "x")0@2)
+      (pragmax@,1
+       (pragmas
+        (cast@2
+         (pragmas
+          (noSideEffect@5))))
+       (stmts@2,1
+        (cmd oomHandler.0.sysvq0asl memSize.1@B)))
+      (asgn@7,3 result.11~7
+       (false@2))))
+    (else@,5
+     (stmts@2,1
+      (asgn@7 result.11~7
+       (true@2)))))
+   (ret~2,~1 result.11)))
+ (type@H,1q :seq.0.Irn26ob. .
+  (at seq.0.sysvq0asl Entry.0.@1)
+  (pragmas@A,6,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (destroy =destroy.1.Idkhluj1.)
+   (wasmoved =wasMoved.1.I8vvom51.)
+   (dup =dup.1.I4cgaut.)
+   (copy =copy.1.Ieqqbgo1.))
+  (object@C,6,../../../../../../nimony/lib/std/system/seqimpl.nim .
+   (fld~8,1 :len.0 . .
+    (i@5 64).)
+   (fld~8,2 :data.0 . .
+    (ptr@6
+     (uarray@I Entry.0.@I,1r,netproto.nim)
+     (unchecked)).)))
+ (func@,D,../../../../../../nimony/lib/std/system/seqimpl.nim :=destroy.1.Idkhluj1. . .
+  (at =destroy.1.sysvq0asl Entry.0.@I,1r,netproto.nim)
+  (params@J
+   (param@1 :s.12 . . seq.0.Irn26ob.@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+      (not@,1
+       (eq@7
+        (ptr
+         (uarray Entry.0.@I,1r,netproto.nim)
+         (unchecked))
+        (dot@6,E,../../../../../../nimony/lib/std/system/seqimpl.nim s.12~1 data.0 0 "x")
+        (nil@F,E,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+     (stmts~1,1
+      (var@4 :i.7 . .
+       (i@N,1n,netproto.nim 64)0@4)
+      (while@,1
+       (lt@8
+        (i 64)i.7~2
+        (dot@3 s.12~1 len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@2
+          (dot s.12~1 data.0 0 "x")i.7@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.7))))
+      (cmd@,4 dealloc.0.sysvq0asl
+       (hconv@9
+        (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+         (unchecked))
+        (hconv
+         (pointer@D,1C,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (dot s.12~1 data.0 0 "x")))))))))
+ (func@,L,../../../../../../nimony/lib/std/system/seqimpl.nim :=wasMoved.1.I8vvom51. . .
+  (at =wasMoved.1.sysvq0asl Entry.0.@I,1r,netproto.nim)
+  (params@K
+   (param@1 :s.13 . .
+    (mut@3 seq.0.Irn26ob.@7).)).
+  (pragmas@a
+   (inline@2)).
+  (stmts@2,1
+   (asgn@6
+    (dot~5
+     (hderef~1 s.13)len.0 0 "x")0@2)
+   (asgn@7,1
+    (dot~6
+     (hderef~1 s.13)data.0 0 "x")
+    (nil@2))))
+ (func@,1U,../../../../../../nimony/lib/std/system/seqimpl.nim :=dup.1.I4cgaut. . .
+  (at =dup.1.sysvq0asl Entry.0.@I,1r,netproto.nim)
+  (params@F
+   (param@1 :a.1 . . seq.0.Irn26ob.@6 .))seq.0.Irn26ob.@G
+  (pragmas@Z
+   (nodestroy@2)).
+  (stmts@2,1
+   (result@7 :result.12 . . seq.0.Irn26ob.@D,~1 .)
+   (asgn@7 result.12~7
+    (call@H newSeqUninit.0.Iuwgm0y1.~F
+     (dot@2 a.1~1 len.0 0 "x")))
+   (var@4,1 :i.8 . .
+    (i@N,1n,netproto.nim 64)0@4)
+   (while@,2
+    (lt@8
+     (i 64)i.8~2
+     (dot@3 a.1~1 len.0 0 "x"))
+    (stmts@2,1
+     (asgn@H
+      (pat~A
+       (dot result.12~6 data.0 0 "x")i.8@6)
+      (dup@8
+       (pat@2
+        (dot a.1~1 data.0 0 "x")i.8@6)))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.8))))
+   (ret~2,~1 result.12)))
+ (func@,20,../../../../../../nimony/lib/std/system/seqimpl.nim :=copy.1.Ieqqbgo1. . .
+  (at =copy.1.sysvq0asl Entry.0.@I,1r,netproto.nim)
+  (params@G
+   (param@1 :dest.3 . .
+    (mut@6 seq.0.Irn26ob.@7).)
+   (param@J :src.1 . . seq.0.Irn26ob.@8 .)).
+  (pragmas@m
+   (nodestroy@2)).
+  (stmts@2,1
+   (if
+    (elif@3
+     (eq@A
+      (ptr
+       (uarray Entry.0.@I,1r,netproto.nim)
+       (unchecked))
+      (dot~6
+       (hderef~4 dest.3)data.0 0 "x")
+      (dot@6 src.1~3 data.0 0 "x"))
+     (stmts@N
+      (ret .))))
+   (if@,1
+    (elif@3
+     (lt@8
+      (i 64)
+      (dot~5 src.1~3 len.0 0 "x")
+      (dot@6
+       (hderef~4 dest.3)len.0 0 "x"))
+     (stmts~1,1
+      (var@4 :i.9 . .
+       (i@N,1n,netproto.nim 64)
+       (dot@7 src.1~3 len.0 0 "x"))
+      (while@,1
+       (lt@8
+        (i 64)i.9~2
+        (dot@6
+         (hderef~4 dest.3)len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@5
+          (dot
+           (hderef~4 dest.3)data.0 0 "x")i.9@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.9))))))
+    (elif@5,5
+     (lt@G
+      (i 64)
+      (call~C capInBytes.0.Imymocr.@1
+       (hderef~4 dest.3))
+      (mul@A
+       (i 64)
+       (dot~5 src.1~3 len.0 0 "x")
+       (sizeof@8 Entry.0.@I,1r,netproto.nim)))
+     (stmts~3,1
+      (let@4 :oldCap.1 . .
+       (i@N,1n,netproto.nim 64)
+       (div@P
+        (i 64)
+        (call~C capInBytes.0.Imymocr.@1
+         (hderef~4 dest.3))
+        (sizeof@A Entry.0.@I,1r,netproto.nim)))
+      (let@4,1 :newCap.1 . .
+       (i@N,1n,netproto.nim 64)
+       (call@I recalcCap.0.sysvq0asl~9 oldCap.1@1
+        (sub@H
+         (i 64)
+         (dot~5 src.1~3 len.0 0 "x")oldCap.1@2)))
+      (let@4,2 :memSize.2 . .
+       (i@N,1n,netproto.nim 64)
+       (call@R memSizeInBytes.0.I98wa2p1.~H newCap.1@1))
+      (asgn@A,3
+       (dot~6
+        (hderef~4 dest.3)data.0 0 "x")
+       (cast@2
+        (ptr@5
+         (uarray@I Entry.0.@I,1r,netproto.nim)
+         (unchecked))
+        (call@Z realloc.0.sysvq0asl~7
+         (hconv@5
+          (pointer@H,1I,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (hconv
+           (pointer@D,1C,../../../../../../nimony/lib/std/system/mimalloc.nim
+            (unchecked))
+           (dot
+            (hderef~4 dest.3)data.0 0 "x")))memSize.2@C)))
+      (if@,4
+       (elif@3
+        (eq@A
+         (ptr
+          (uarray Entry.0.@I,1r,netproto.nim)
+          (unchecked))
+         (dot~6
+          (hderef~4 dest.3)data.0 0 "x")
+         (nil@3))
+        (stmts~1,1
+         (asgn@9
+          (dot~5
+           (hderef~4 dest.3)len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.2@B)))
+         (ret@,3 .)))))))
+   (asgn@9,G
+    (dot~5
+     (hderef~4 dest.3)len.0 0 "x")
+    (dot@5 src.1~3 len.0 0 "x"))
+   (var@4,H :i.10 . .
+    (i@N,1n,netproto.nim 64)0@4)
+   (while@,I
+    (lt@8
+     (i 64)i.10~2
+     (dot@6
+      (hderef~4 dest.3)len.0 0 "x"))
+    (stmts@2,1
+     (stmts@2,Y,../../../../../../nimony/lib/std/system.nim
+      (asgn@7
+       (pat~6
+        (dot@8,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+         (hderef~4 dest.3)data.0 0 "x")i.10@E,2K,../../../../../../nimony/lib/std/system/seqimpl.nim)
+       (dup@P,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+        (pat@4
+         (dot src.1~3 data.0 0 "x")i.10@6))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.10))))))
+ (proc@E,1s :=destroy_SX45ntry0netzyj5xc.0. . . .
+  (params
+   (param :dest.0 . . Entry.0.~5,~7 .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 name.0 0))))
+ (proc@E,1s :=wasmoved_SX45ntry0netzyj5xc.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut Entry.0.~5,~7).)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)name.0 0)))))
+ (proc@E,1s :=dup_SX45ntry0netzyj5xc.0. . . .
+  (params
+   (param :src.0 . . Entry.0.~5,~7 .))Entry.0.~5,~7
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (result :dest.0 .
+    (pragmas
+     (noinit))Entry.0.~5,~7 .)
+   (asgn
+    (dot dest.0 state.0 0)
+    (dot src.0 state.0 0))
+   (asgn
+    (dot dest.0 dir.0 0)
+    (dot src.0 dir.0 0))
+   (asgn
+    (dot dest.0 id.0 0)
+    (dot src.0 id.0 0))
+   (asgn
+    (dot dest.0 name.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 name.0 0)))
+   (ret dest.0)))
+ (proc@E,1s :=copy_SX45ntry0netzyj5xc.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut Entry.0.~5,~7).)
+   (param :src.0 . . Entry.0.~5,~7 .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (asgn
+    (dot
+     (hderef dest.0)state.0 0)
+    (dot src.0 state.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)dir.0 0)
+    (dot src.0 dir.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)id.0 0)
+    (dot src.0 id.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)name.0 0)
+    (dot src.0 name.0 0))))
+ (proc@E,1s :=destroy_SX54able0netzyj5xc.0. . . .
+  (params
+   (param :dest.0 . . Table.0.~5,~3 .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =destroy.1.Idkhluj1.
+    (dot dest.0 entries.0 0))))
+ (proc@E,1s :=wasmoved_SX54able0netzyj5xc.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut Table.0.~5,~3).)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =wasMoved.1.I8vvom51.
+    (haddr
+     (dot
+      (hderef dest.0)entries.0 0)))))
+ (proc@E,1s :=dup_SX54able0netzyj5xc.0. . . .
+  (params
+   (param :src.0 . . Table.0.~5,~3 .))Table.0.~5,~3
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (result :dest.0 .
+    (pragmas
+     (noinit))Table.0.~5,~3 .)
+   (asgn
+    (dot dest.0 entries.0 0)
+    (call =dup.1.I4cgaut.
+     (dot src.0 entries.0 0)))
+   (ret dest.0)))
+ (proc@E,1s :=copy_SX54able0netzyj5xc.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut Table.0.~5,~3).)
+   (param :src.0 . . Table.0.~5,~3 .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =copy.1.Ieqqbgo1.
+    (dot
+     (hderef dest.0)entries.0 0)
+    (dot src.0 entries.0 0))))
+ (proc@E,1s :=destroy_SX43onnection0netzyj5xc.0. . . .
+  (params
+   (param :dest.0 . . Connection.0. .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 problem.0 0))))
+ (proc@E,1s :=wasmoved_SX43onnection0netzyj5xc.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut Connection.0.).)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)problem.0 0)))))
+ (proc@E,1s :=dup_SX43onnection0netzyj5xc.0. . . .
+  (params
+   (param :src.0 . . Connection.0. .))Connection.0.
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (result :dest.0 .
+    (pragmas
+     (noinit))Connection.0. .)
+   (asgn
+    (dot dest.0 state.0 0)
+    (dot src.0 state.0 0))
+   (asgn
+    (dot dest.0 threshold.0 0)
+    (dot src.0 threshold.0 0))
+   (asgn
+    (dot dest.0 loginSucceeded.0 0)
+    (dot src.0 loginSucceeded.0 0))
+   (asgn
+    (dot dest.0 finished.0 0)
+    (dot src.0 finished.0 0))
+   (asgn
+    (dot dest.0 problem.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 problem.0 0)))
+   (ret dest.0)))
+ (proc@E,1s :=copy_SX43onnection0netzyj5xc.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut Connection.0.).)
+   (param :src.0 . . Connection.0. .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (asgn
+    (dot
+     (hderef dest.0)state.0 0)
+    (dot src.0 state.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)threshold.0 0)
+    (dot src.0 threshold.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)loginSucceeded.0 0)
+    (dot src.0 loginSucceeded.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)finished.0 0)
+    (dot src.0 finished.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)problem.0 0)
+    (dot src.0 problem.0 0)))))(.index@,1,netproto.nim
+ (x StateHandshake.0. 164)
+ (x StateStatus.0. 70)
+ (x StateLogin.0. 67)
+ (x StateConfiguration.0. 66)
+ (x StatePlay.0. 74)
+ (x StateClosed.0. 65)
+ (x ToServer.0. 67)
+ (x ToClient.0. 64)
+ (x IntentStatus.0. 64)
+ (x IntentLogin.0. 67)
+ (x IntentTransfer.0. 66)
+ (x ProtocolVersion.0. 69)
+ (x IdIntention.0. 72)
+ (x IdStatusRequest.0. 66)
+ (x IdPingRequest.0. 70)
+ (x IdStatusResponse.0. 69)
+ (x IdPongResponse.0. 72)
+ (x IdHello.0. 70)
+ (x IdEncryptionResponse.0. 63)
+ (x IdLoginPluginResponse.0. 76)
+ (x IdLoginAcknowledged.0. 76)
+ (x IdLoginCookieResponse.0. 75)
+ (x IdLoginDisconnect.0. 76)
+ (x IdEncryptionRequest.0. 73)
+ (x IdLoginSuccess.0. 75)
+ (x IdSetCompression.0. 70)
+ (x IdLoginPluginRequest.0. 72)
+ (x IdLoginCookieRequest.0. 76)
+ (x IdClientInformation.0. 76)
+ (x IdConfigCookieResponse.0. 75)
+ (x IdConfigPluginMessage.0. 78)
+ (x IdFinishConfiguration.0. 76)
+ (x IdConfigKeepAlive.0. 76)
+ (x IdPong.0. 73)
+ (x IdResourcePackResponse.0. 62)
+ (x IdKnownPacks.0. 78)
+ (x IdConfigCookieRequest.0. 68)
+ (x IdConfigPluginMessageOut.0. 76)
+ (x IdConfigDisconnect.0. 80)
+ (x IdFinishConfigurationOut.0. 74)
+ (x IdConfigKeepAliveOut.0. 80)
+ (x IdPing.0. 76)
+ (x IdResetChat.0. 62)
+ (x IdRegistryData.0. 67)
+ (x IdRemoveResourcePack.0. 70)
+ (x IdAddResourcePack.0. 76)
+ (x IdStoreCookie.0. 73)
+ (x IdTransfer.0. 70)
+ (x IdFeatureFlags.0. 67)
+ (x IdUpdateTags.0. 71)
+ (x IdKnownPacksOut.0. 69)
+ (x Entry.0. 72)
+ (x Table.0. 391)
+ (x Connection.0. 268)
+ (x stateName.0. 482)
+ (x emptyTable.0. 744)
+ (x declare.0. 335)
+ (x nameOf.0. 1460)
+ (x idOf.0. 1011)
+ (x knownTable.0. 999)
+ (x connection.0. 5529)
+ (x note.0. 401)
+ (x onPacket.0. 447)
+ (h newSeqUninit.0.Iuwgm0y1. 5561)
+ (h len.3.Ispfxbs. 1801)
+ (h \5B\5D.7.Iefx3g21. 680)
+ (h \5B\5D=.7.Imlsjyo1. 1063)
+ (h inc.1.Irn1g7r1. 1066)
+ (h add.0.I8f2xbv1. 630)
+ (h memSizeInBytes.0.I98wa2p1. 1297)
+ (h capInBytes.0.Imymocr. 713)
+ (h resize.0.I0y09wc1. 1166)
+ (h seq.0.Irn26ob. 1896)
+ (h =destroy.1.Idkhluj1. 461)
+ (h =wasMoved.1.I8vvom51. 1194)
+ (h =dup.1.I4cgaut. 386)
+ (h =copy.1.Ieqqbgo1. 753)
+ (h =destroy_SX45ntry0netzyj5xc.0. 3506)
+ (h =wasmoved_SX45ntry0netzyj5xc.0. 197)
+ (h =dup_SX45ntry0netzyj5xc.0. 235)
+ (h =copy_SX45ntry0netzyj5xc.0. 497)
+ (h =destroy_SX54able0netzyj5xc.0. 494)
+ (h =wasmoved_SX54able0netzyj5xc.0. 200)
+ (h =dup_SX54able0netzyj5xc.0. 238)
+ (h =copy_SX54able0netzyj5xc.0. 323)
+ (h =destroy_SX43onnection0netzyj5xc.0. 282)
+ (h =wasmoved_SX43onnection0netzyj5xc.0. 205)
+ (h =dup_SX43onnection0netzyj5xc.0. 243)
+ (h =copy_SX43onnection0netzyj5xc.0. 613))

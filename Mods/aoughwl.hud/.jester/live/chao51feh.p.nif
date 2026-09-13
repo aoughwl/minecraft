@@ -1,0 +1,689 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,../../../../Packages/com.aoughwl.jester/ModSdk/character.nim
+ (comment)
+ (import@,G jester@7)
+ (import@,H catalogs@7)
+ (import@,I vec@7)
+ (type@G,K Character~B x . .
+  (object@2 .
+   (fld~C,2 body~4 x . Entity@3 .)
+   (fld~D,3 eye~3 x . Entity@3 .)
+   (fld~A,5 height~6 x . float64@3 .)
+   (fld~A,6 radius~6 x . float64@3 .)
+   (fld~7,7 eyeHeight~9 x . float64@3 .)
+   (fld~6,9 forwardKey~A x . string@3 .)
+   (fld~9,A backKey~7 x . string@3 .)
+   (fld~9,B leftKey~7 x . string@3 .)
+   (fld~8,C rightKey~8 x . string@3 .)
+   (fld~9,D jumpKey~7 x . string@3 .)
+   (fld~A,E runKey~6 x . string@3 .)
+   (fld~7,G walkSpeed~9 x . float64@3 .)
+   (fld~8,H runSpeed~8 x . float64@3 .)
+   (fld~4,I acceleration~C x . float64@3 .)
+   (fld~1,J airAcceleration~F x . float64@3 .)
+   (fld~9,K gravity~7 x . float64@3 .)
+   (fld~6,L jumpHeight~A x . float64@3 .)
+   (fld~6,M coyoteTime~A x . float64@3 .)
+   (fld~6,N jumpBuffer~A x . float64@3 .)
+   (fld~5,O groundStick~B x . float64@3 .)
+   (fld~7,P lookSpeed~9 x . float64@3 .)
+   (fld~6,Q pitchLimit~A x . float64@3 .)
+   (fld~D,S yaw~3 x . float64@3 .)
+   (fld~B,T pitch~5 x . float64@3 .)
+   (fld~A,V speedX~6 x . float64@3 .)
+   (fld~A,W speedY~6 x . float64@3 .)
+   (fld~A,X speedZ~6 x . float64@3 .)
+   (fld~5,Y sinceGround~B x . float64@3 .)
+   (fld~7,Z sinceJump~9 x . float64@3 .)))
+ (comment@,v)
+ (proc@,x squareRoot@5 . . .
+  (params@F
+   (param@1 value . . float64@7 .))float64@I . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 <= value~6 0.0@3)
+     (stmts@E
+      (ret 0.0@7))))
+   (var@4,1 guess . . . value@8)
+   (var@4,2 step . . . 0@7)
+   (while@,3
+    (infix@B < step~5 16@2)
+    (stmts@2,1
+     (asgn@6 guess~6
+      (infix@6 * 0.5~4
+       (par@2
+        (infix@7 \2B guess~6
+         (infix@8 / value~6 guess@2)))))
+     (cmd@,1 inc step@4)))guess@,6))
+ (proc@,16 down@5 . . .
+  (params@9
+   (param@1 key . . string@5 .))bool@F . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 ==
+      (dot~5 key~3 len@1)0@3)
+     (stmts@E
+      (ret false@7))))
+   (call@4,1 held~4 key@1)))
+ (proc@,1A hit@5 . . .
+  (params@8
+   (param@1 key . . string@5 .))bool@F . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 ==
+      (dot~5 key~3 len@1)0@3)
+     (stmts@E
+      (ret false@7))))
+   (call@7,1 pressed~7 key@1)))
+ (comment@,1E)
+ (proc@,1G newCharacter@5 x . .
+  (params@I)Character@4 . .
+  (stmts@2,1
+   (oconstr@9 Character~9
+    (kv@5 body~4
+     (call@9 nothing~7))
+    (kv@L eye~3
+     (call@9 nothing~7)))))
+ (proc@,1J bindKey@5 x . .
+  (params@D
+   (param@1 c . .
+    (mut@3 Character@4).)
+   (param@J action . . string@D .)
+   (param@R key . . string@5 .)). . .
+  (stmts@2,1
+   (case action@5
+    (of@,1
+     (ranges "forward"@3)
+     (stmts@E
+      (asgn@D
+       (dot~C c~1 forwardKey@1)key@2)))
+    (of@,2
+     (ranges "back"@3)
+     (stmts@B
+      (asgn@A
+       (dot~9 c~1 backKey@1)key@2)))
+    (of@,3
+     (ranges "left"@3)
+     (stmts@B
+      (asgn@A
+       (dot~9 c~1 leftKey@1)key@2)))
+    (of@,4
+     (ranges "right"@3)
+     (stmts@C
+      (asgn@B
+       (dot~A c~1 rightKey@1)key@2)))
+    (of@,5
+     (ranges "jump"@3)
+     (stmts@B
+      (asgn@A
+       (dot~9 c~1 jumpKey@1)key@2)))
+    (of@,6
+     (ranges "run"@3)
+     (stmts@A
+      (asgn@9
+       (dot~8 c~1 runKey@1)key@2)))
+    (else@,7
+     (stmts@6
+      (call@3 log~3
+       (infix@T & "no such control to bind\3A "~S action@2)))))))
+ (proc@,1T tune@5 x . .
+  (params@A
+   (param@1 c . .
+    (mut@3 Character@4).)
+   (param@J setting . . string@9 .)
+   (param@a value . . float64@7 .)). . .
+  (stmts@2,1
+   (case setting@5
+    (of@,1
+     (ranges "height"@3)
+     (stmts@D
+      (asgn@9
+       (dot~8 c~1 height@1)value@2)))
+    (of@,2
+     (ranges "radius"@3)
+     (stmts@D
+      (asgn@9
+       (dot~8 c~1 radius@1)value@2)))
+    (of@,3
+     (ranges "eyeHeight"@3)
+     (stmts@G
+      (asgn@C
+       (dot~B c~1 eyeHeight@1)value@2)))
+    (of@,4
+     (ranges "walkSpeed"@3)
+     (stmts@G
+      (asgn@C
+       (dot~B c~1 walkSpeed@1)value@2)))
+    (of@,5
+     (ranges "runSpeed"@3)
+     (stmts@F
+      (asgn@B
+       (dot~A c~1 runSpeed@1)value@2)))
+    (of@,6
+     (ranges "acceleration"@3)
+     (stmts@J
+      (asgn@F
+       (dot~E c~1 acceleration@1)value@2)))
+    (of@,7
+     (ranges "airAcceleration"@3)
+     (stmts@M
+      (asgn@I
+       (dot~H c~1 airAcceleration@1)value@2)))
+    (of@,8
+     (ranges "gravity"@3)
+     (stmts@E
+      (asgn@A
+       (dot~9 c~1 gravity@1)value@2)))
+    (of@,9
+     (ranges "jumpHeight"@3)
+     (stmts@H
+      (asgn@D
+       (dot~C c~1 jumpHeight@1)value@2)))
+    (of@,A
+     (ranges "coyoteTime"@3)
+     (stmts@H
+      (asgn@D
+       (dot~C c~1 coyoteTime@1)value@2)))
+    (of@,B
+     (ranges "jumpBuffer"@3)
+     (stmts@H
+      (asgn@D
+       (dot~C c~1 jumpBuffer@1)value@2)))
+    (of@,C
+     (ranges "groundStick"@3)
+     (stmts@I
+      (asgn@E
+       (dot~D c~1 groundStick@1)value@2)))
+    (of@,D
+     (ranges "lookSpeed"@3)
+     (stmts@G
+      (asgn@C
+       (dot~B c~1 lookSpeed@1)value@2)))
+    (of@,E
+     (ranges "pitchLimit"@3)
+     (stmts@H
+      (asgn@D
+       (dot~C c~1 pitchLimit@1)value@2)))
+    (else@,F
+     (stmts@6
+      (call@3 log~3
+       (infix@T & "no such setting to tune\3A "~S setting@2)))))))
+ (comment@,1l)
+ (proc@,1n configure@5 x . .
+  (params@F
+   (param@1 c . .
+    (mut@3 Character@4).)
+   (param@J controls . . string@K .)
+   (param@T movement . . string@A .)). . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (call@E catalogCount~C controls@1))
+    (stmts@2,1
+     (call@9
+      (dot~8 c~1 bindKey@1)
+      (call@E catalogItemId~D controls@1 i@B)
+      (call@e catalogText~B controls@1 i@B))
+     (cmd@,1 inc i@4)))
+   (asgn@2,4 i~2 0@2)
+   (while@,5
+    (infix@8 < i~2
+     (call@E catalogCount~C movement@1))
+    (stmts@2,1
+     (call@6
+      (dot~5 c~1 tune@1)
+      (call@E catalogItemId~D movement@1 i@B)
+      (call@g catalogNumber~D movement@1 i@B))
+     (cmd@,1 inc i@4)))))
+ (comment@,1x)
+ (proc@,1y configure@5 x . .
+  (params@F
+   (param@1 c . .
+    (mut@3 Character@4).)
+   (param@J controls . . Catalog@K .)
+   (param@T movement . . Catalog@A .)). . .
+  (stmts@2,1
+   (call@B
+    (dot~A c~1 configure@1)
+    (call@7 string~6 controls@1)
+    (call@P string~6 movement@1))))
+ (proc@,21 lookFrom@5 x . .
+  (params@E
+   (param@1 c . . Character@3 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@F
+      (dot~A
+       (dot~4 c~1 eye@1)isNothing@1))
+     (stmts@J
+      (ret .))))
+   (call@E,1
+    (dot~9
+     (dot~4 c~1 eye@1)position@1)
+    (call@H
+     (dot~A
+      (dot~5 c~1 body@1)positionX@1))
+    (infix@e \2B
+     (call~3
+      (dot~A
+       (dot~5 c~1 body@1)positionY@1))
+     (dot@3 c~1 eyeHeight@1))
+    (call@4,1
+     (dot~A
+      (dot~5 c~1 body@1)positionZ@1)))
+   (call@E,3
+    (dot~9
+     (dot~4 c~1 eye@1)rotation@1)
+    (dot@2 c~1 pitch@1)
+    (dot@B c~1 yaw@1)0.0@H)))
+ (comment@,27)
+ (proc@,29 place@5 x . .
+  (params@B
+   (param@1 c . .
+    (mut@3 Character@4).)
+   (param@J name . . string@6 .)
+   (param@X x . . float64@9 .)
+   (param@a y . . float64@6 .)
+   (param@d z . . float64@3 .)
+   (param@p withEye . . . true@A)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 <=
+      (dot~8 c~1 height@1)0.0@3)
+     (stmts@H
+      (asgn@9
+       (dot~8 c~1 height@1)1.0@2))))
+   (if@,1
+    (elif@3
+     (infix@9 <=
+      (dot~8 c~1 radius@1)0.0@3)
+     (stmts@H
+      (asgn@9
+       (dot~8 c~1 radius@1)0.25@2))))
+   (asgn@7,2
+    (dot~6 c~1 body@1)
+    (call@6 body~4 name@1
+     (dot@8 c~1 height@1)
+     (dot@I c~1 radius@1)))
+   (call@F,3
+    (dot~9
+     (dot~5 c~1 body@1)position@1)x@1 y@4 z@7)
+   (call@F,4
+    (dot~9
+     (dot~5 c~1 body@1)rotation@1)0.0@1
+    (dot@7 c~1 yaw@1)0.0@D)
+   (if@,5
+    (elif@3 withEye
+     (stmts~1,1
+      (asgn@6
+       (dot~5 c~1 eye@1)
+       (call@8 camera~6
+        (infix@6 & name~5 " Eye"@2))))))
+   (asgn@E,7
+    (dot~D c~1 sinceGround@1)1000.0@2)
+   (asgn@C,8
+    (dot~B c~1 sinceJump@1)1000.0@2)
+   (call@A,9
+    (dot~9 c~1 lookFrom@1))))
+ (comment@,2L)
+ (proc@,2M look@5 x . .
+  (params@A
+   (param@1 c . .
+    (mut@3 Character@4).)). . .
+  (stmts@2,1
+   (asgn@6
+    (dot~5 c~1 yaw@1)
+    (infix@8 \2B
+     (dot~5 c~1 yaw@1)
+     (infix@A *
+      (call~3 lookX~5)
+      (dot@3 c~1 lookSpeed@1))))
+   (asgn@8,1
+    (dot~7 c~1 pitch@1)
+    (infix@A \2D
+     (dot~7 c~1 pitch@1)
+     (infix@A *
+      (call~3 lookY~5)
+      (dot@3 c~1 lookSpeed@1))))
+   (if@,2
+    (elif@3
+     (infix@D >
+      (dot~C c~1 pitchLimit@1)0.0@2)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@8 >
+         (dot~7 c~1 pitch@1)
+         (dot@3 c~1 pitchLimit@1))
+        (stmts@O
+         (asgn@8
+          (dot~7 c~1 pitch@1)
+          (dot@3 c~1 pitchLimit@1)))))
+      (if@,1
+       (elif@3
+        (infix@8 <
+         (dot~7 c~1 pitch@1)
+         (prefix@2 \2D
+          (dot@2 c~1 pitchLimit@1)))
+        (stmts@P
+         (asgn@8
+          (dot~7 c~1 pitch@1)
+          (prefix@2 \2D
+           (dot@2 c~1 pitchLimit@1)))))))))
+   (call@F,5
+    (dot~9
+     (dot~5 c~1 body@1)rotation@1)0.0@1
+    (dot@7 c~1 yaw@1)0.0@D)))
+ (comment@,2U)
+ (proc@,2a step@5 x . .
+  (params@A
+   (param@1 c . .
+    (mut@3 Character@4).)
+   (param@J turning . . . true@A)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@G
+      (dot~A
+       (dot~5 c~1 body@1)isNothing@1))
+     (stmts@K
+      (ret .))))
+   (let@4,1 seconds . . .
+    (call@J deltaTime~9))
+   (if@,2
+    (elif@3 turning
+     (stmts@9
+      (call@6
+       (dot~5 c~1 look@1)))))
+   (let@4,4 onGround . . .
+    (call@Q
+     (dot~9
+      (dot~5 c~1 body@1)grounded@1)))
+   (if@,5
+    (elif@3 onGround
+     (stmts~1,1
+      (asgn@E
+       (dot~D c~1 sinceGround@1)0.0@2)
+      (if@,1
+       (elif@3
+        (infix@9 <
+         (dot~8 c~1 speedY@1)0.0@2)
+        (stmts@G
+         (asgn@9
+          (dot~8 c~1 speedY@1)
+          (dot@3 c~1 groundStick@1)))))))
+    (else@,3
+     (stmts@2,1
+      (asgn@E
+       (dot~D c~1 sinceGround@1)
+       (infix@G \2B
+        (dot~D c~1 sinceGround@1)seconds@2)))))
+   (if@,B
+    (elif@3
+     (call@D
+      (dot~4
+       (dot~8 c~1 jumpKey@1)hit@1))
+     (stmts@H
+      (asgn@C
+       (dot~B c~1 sinceJump@1)0.0@2)))
+    (else@,1
+     (stmts@6
+      (asgn@C
+       (dot~B c~1 sinceJump@1)
+       (infix@E \2B
+        (dot~B c~1 sinceJump@1)seconds@2)))))
+   (if@,D
+    (elif@3
+     (infix@S and
+      (infix~G <=
+       (dot~B c~1 sinceJump@1)
+       (dot@4 c~1 jumpBuffer@1))
+      (infix@I <=
+       (dot~D c~1 sinceGround@1)
+       (dot@4 c~1 coyoteTime@1)))
+     (stmts~1,1
+      (asgn@9
+       (dot~8 c~1 speedY@1)
+       (call@C squareRoot~A
+        (infix@I *
+         (infix~D * 2.0~4
+          (prefix@2 \2D
+           (dot@2 c~1 gravity@1)))
+         (dot@3 c~1 jumpHeight@1))))
+      (asgn@C,1
+       (dot~B c~1 sinceJump@1)1000.0@2)
+      (asgn@E,2
+       (dot~D c~1 sinceGround@1)1000.0@2))))
+   (asgn@9,H
+    (dot~8 c~1 speedY@1)
+    (infix@B \2B
+     (dot~8 c~1 speedY@1)
+     (infix@C *
+      (dot~9 c~1 gravity@1)seconds@2)))
+   (var@4,J side . . . 0.0@7)
+   (if@,K
+    (elif@3
+     (call@F
+      (dot~5
+       (dot~9 c~1 rightKey@1)down@1))
+     (stmts@J
+      (asgn@5 side~5
+       (infix@7 \2B side~5 1.0@2)))))
+   (if@,L
+    (elif@3
+     (call@E
+      (dot~5
+       (dot~8 c~1 leftKey@1)down@1))
+     (stmts@I
+      (asgn@5 side~5
+       (infix@7 \2D side~5 1.0@2)))))
+   (var@4,M ahead . . . 0.0@8)
+   (if@,N
+    (elif@3
+     (call@H
+      (dot~5
+       (dot~B c~1 forwardKey@1)down@1))
+     (stmts@L
+      (asgn@6 ahead~6
+       (infix@8 \2B ahead~6 1.0@2)))))
+   (if@,O
+    (elif@3
+     (call@E
+      (dot~5
+       (dot~8 c~1 backKey@1)down@1))
+     (stmts@I
+      (asgn@6 ahead~6
+       (infix@8 \2D ahead~6 1.0@2)))))
+   (if@,P
+    (elif@3
+     (infix@C and
+      (infix~7 != side~5 0.0@3)
+      (infix@A != ahead~6 0.0@3))
+     (stmts~1,1
+      (asgn@5 side~5
+       (infix@7 * side~5 0.7071067811865476@2))
+      (asgn@6,1 ahead~6
+       (infix@8 * ahead~6 0.7071067811865476@2)))))
+   (var@4,T top . . .
+    (dot@7 c~1 walkSpeed@1))
+   (if@,U
+    (elif@3
+     (call@D
+      (dot~5
+       (dot~7 c~1 runKey@1)down@1))
+     (stmts@H
+      (asgn@4 top~4
+       (dot@3 c~1 runSpeed@1)))))
+   (let@4,X facingX . . .
+    (call@P
+     (dot~9
+      (dot~5 c~1 body@1)forwardX@1)))
+   (let@4,Y facingZ . . .
+    (call@P
+     (dot~9
+      (dot~5 c~1 body@1)forwardZ@1)))
+   (let@4,Z wantX . . .
+    (infix@h *
+     (par~Z
+      (infix@H \2B
+       (infix~8 * facingX~8 ahead@2)
+       (infix@A * facingZ~8 side@2)))top@2))
+   (let@4,a wantZ . . .
+    (infix@h *
+     (par~Z
+      (infix@H \2D
+       (infix~8 * facingZ~8 ahead@2)
+       (infix@A * facingX~8 side@2)))top@2))
+   (var@4,c grip . . .
+    (dot@8 c~1 acceleration@1))
+   (if@,d
+    (elif@3
+     (prefix not onGround@4)
+     (stmts@E
+      (asgn@5 grip~5
+       (dot@3 c~1 airAcceleration@1)))))
+   (var@4,e blend . . .
+    (infix@D * grip~5 seconds@2))
+   (if@,f
+    (elif@3
+     (infix@6 > blend~6 1.0@2)
+     (stmts@D
+      (asgn@6 blend~6 1.0@2))))
+   (asgn@9,g
+    (dot~8 c~1 speedX@1)
+    (infix@B \2B
+     (dot~8 c~1 speedX@1)
+     (infix@L *
+      (par~J
+       (infix@7 \2D wantX~6
+        (dot@3 c~1 speedX@1)))blend@2)))
+   (asgn@9,h
+    (dot~8 c~1 speedZ@1)
+    (infix@B \2B
+     (dot~8 c~1 speedZ@1)
+     (infix@L *
+      (par~J
+       (infix@7 \2D wantZ~6
+        (dot@3 c~1 speedZ@1)))blend@2)))
+   (call@B,j
+    (dot~5
+     (dot~5 c~1 body@1)move@1)
+    (infix@A *
+     (dot~8 c~1 speedX@1)seconds@2)
+    (infix@U *
+     (dot~8 c~1 speedY@1)seconds@2)
+    (infix@o *
+     (dot~8 c~1 speedZ@1)seconds@2))
+   (if@,m
+    (elif@3
+     (infix@K and
+      (call~3
+       (dot~B
+        (dot~5 c~1 body@1)hitCeiling@1))
+      (infix@D >
+       (dot~8 c~1 speedY@1)0.0@2))
+     (stmts@e
+      (asgn@9
+       (dot~8 c~1 speedY@1)0.0@2))))
+   (call@A,n
+    (dot~9 c~1 lookFrom@1))))
+ (comment@,3Q)
+ (proc@,3R teleport@5 x . .
+  (params@E
+   (param@1 c . .
+    (mut@3 Character@4).)
+   (param@J x . . float64@9 .)
+   (param@M y . . float64@6 .)
+   (param@P z . . float64@3 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@G
+      (dot~A
+       (dot~5 c~1 body@1)isNothing@1))
+     (stmts@K
+      (ret .))))
+   (call@F,1
+    (dot~9
+     (dot~5 c~1 body@1)position@1)x@1 y@4 z@7)
+   (asgn@9,2
+    (dot~8 c~1 speedX@1)0.0@2)
+   (asgn@9,3
+    (dot~8 c~1 speedY@1)0.0@2)
+   (asgn@9,4
+    (dot~8 c~1 speedZ@1)0.0@2)
+   (call@A,5
+    (dot~9 c~1 lookFrom@1))))
+ (comment@,3f)
+ (proc@,3g place@5 x . .
+  (params@B
+   (param@1 c . .
+    (mut@3 Character@4).)
+   (param@J name . . string@6 .)
+   (param@X at . . Vec3@4 .)
+   (param@h withEye . . . true@A)). . .
+  (stmts@2,1
+   (call@7
+    (dot~6 c~1 place@1)name@1
+    (dot@9 at~2 x@1)
+    (dot@F at~2 y@1)
+    (dot@L at~2 z@1)withEye@P)))
+ (comment@,3i)
+ (proc@,3j teleport@5 x . .
+  (params@E
+   (param@1 c . .
+    (mut@3 Character@4).)
+   (param@J at . . Vec3@4 .)). . .
+  (stmts@j
+   (call@A
+    (dot~9 c~1 teleport@1)
+    (dot@3 at~2 x@1)
+    (dot@9 at~2 y@1)
+    (dot@F at~2 z@1))))
+ (comment@,3k)
+ (proc@,3l speed@5 x . .
+  (params@B
+   (param@1 c . . Character@3 .))Vec3@G . .
+  (stmts@Y
+   (call@4 vec3~4
+    (dot@2 c~1 speedX@1)
+    (dot@C c~1 speedY@1)
+    (dot@M c~1 speedZ@1))))
+ (proc@,3m speed@5 x . .
+  (params@B
+   (param@1 c . .
+    (mut@3 Character@4).)
+   (param@J v . . Vec3@3 .)). . .
+  (stmts@2,1
+   (asgn@9
+    (dot~8 c~1 speedX@1)
+    (dot@3 v~1 x@1))
+   (asgn@9,1
+    (dot~8 c~1 speedY@1)
+    (dot@3 v~1 y@1))
+   (asgn@9,2
+    (dot~8 c~1 speedZ@1)
+    (dot@3 v~1 z@1))))
+ (comment@,3q)
+ (proc@,3r position@5 x . .
+  (params@E
+   (param@1 c . . Character@3 .))Vec3@G . .
+  (stmts@b
+   (call@F
+    (dot~9
+     (dot~5 c~1 body@1)position@1))))
+ (proc@,3s eyePosition@5 x . .
+  (params@H
+   (param@1 c . . Character@3 .))Vec3@G . .
+  (stmts@e
+   (call@E
+    (dot~9
+     (dot~4 c~1 eye@1)position@1)))))

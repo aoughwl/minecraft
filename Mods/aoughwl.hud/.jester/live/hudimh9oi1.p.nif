@@ -1,0 +1,634 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,huditems.nim
+ (comment)
+ (import@,S jester@7)
+ (import@,T catalogs@7)
+ (import@,U
+  (infix@J / aoughwl_grid~C gridspace@1))
+ (import@,V hudcore@7)
+ (import@,W hudrecipe@7)
+ (const@A,Z IconKind~8 x . . "aoughwl.hud.icon"@4)
+ (const@A,a FoodKind~8 x . . "aoughwl.hud.food"@4)
+ (const@G,b SaturationKind~E x . . "aoughwl.hud.saturation"@4)
+ (const@C,c ArmourKind~A x . . "aoughwl.hud.armour"@4)
+ (const@G,d ArmourPartKind~E x . . "aoughwl.hud.armourpart"@4)
+ (const@C,e RecipeKind~A x . . "aoughwl.hud.recipe"@4)
+ (const@C,g SourceKind~A x . . "aoughwl.hud.source"@4)
+ (const@B,i IconFacet~9 x . . ".icon"@4)
+ (const@B,j FoodFacet~9 x . . ".food"@4)
+ (const@H,k SaturationFacet~F x . . ".saturation"@4)
+ (const@D,l ArmourFacet~B x . . ".armour"@4)
+ (const@H,m ArmourPartFacet~F x . . ".armourpart"@4)
+ (const@F,o RecipeSources~D x . . "aoughwl.hud.recipes"@4)
+ (var@4,y kindsDeclared . . . false@G)
+ (comment@,10)
+ (proc@,1B declareHudKinds@5 x . .
+  (params@L). . .
+  (stmts@2,1
+   (if
+    (elif@3 kindsDeclared
+     (stmts@F
+      (ret .))))
+   (asgn@E,1 kindsDeclared~E true@2)
+   (call@G,2 declareGridKinds~G)
+   (if@,3
+    (elif@3
+     (infix@a >
+      (dot~5
+       (call~F catalogSignature~G RecipeSources@1)len@1)0@2)
+     (stmts@f
+      (ret .))))
+   (call@H,4 defineCatalogKind~H IconKind@1 "text"@B "What an item looks like\3A a cell of a sprite sheet, or a colour."~F,1)
+   (call@H,6 defineCatalogKind~H FoodKind@1 "integer"@B "How many half-haunches eating one of these restores."~F,1)
+   (call@H,8 defineCatalogKind~H SaturationKind@1 "number"@H "How much saturation eating one of these restores."~F,1)
+   (call@H,A defineCatalogKind~H ArmourKind@1 "integer"@D "How many armour points wearing this is worth, out of twenty."~F,1)
+   (call@H,C defineCatalogKind~H ArmourPartKind@1 "text"@H "Which armour slot a piece belongs in\3A head, chest, legs or feet."~F,1)
+   (call@H,E defineCatalogKind~H RecipeKind@1 "text"@D "One recipe\3A what goes on a bench and what comes off it."~F,1)
+   (call@H,G defineCatalogKind~H SourceKind@1 "text"@D "A catalog somebody published, and what is in it."~F,1)
+   (call@D,I createCatalog~D RecipeSources@1 SourceKind@G "Which catalogs hold recipes."~B,1)))
+ (proc@,1b present@5 . . .
+  (params@C
+   (param@1 id . . string@4 .))bool@E . .
+  (stmts@X
+   (infix@P >
+    (dot~5
+     (call~4 catalogSignature~G id@1)len@1)0@2)))
+ (type@A,1r Rows~5 . . .
+  (object@2 .
+   (fld~A,2 catalog . . string@9 .)
+   (fld~A,3 here . . bool@6 .)
+   (fld~A,4 names . . NameIndex@7 .)))
+ (proc@,1x readRows@5 . . .
+  (params@D
+   (param@1 catalog . . string@9 .))Rows@J . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@6 Rows~4
+     (kv@8 catalog~7 catalog@2)
+     (kv@N here~4 false@2)
+     (kv@b names~5
+      (call@9 noNames~7))))
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@B present~7 catalog@1))
+     (stmts@M
+      (ret result@7))))
+   (asgn@C,2
+    (dot~6 result~6 here@1)true@2)
+   (var@4,3 ids . .
+    (at@8 seq~3 string@1)
+    (prefix@J \40
+     (bracket@1)))
+   (let@4,4 n . . .
+    (call@G catalogCount~C catalog@1))
+   (var@4,5 i . . . 0@4)
+   (while@,6
+    (infix@8 < i~2 n@2)
+    (stmts@2,1
+     (cmd@3
+      (dot ids~3 add@1)
+      (call@I catalogItemId~D catalog@1 i@A))
+     (asgn@2,1 i~2
+      (infix@4 \2B i~2 1@2))))
+   (asgn@D,9
+    (dot~7 result~6 names@1)
+    (call@B namesFrom~9 ids@1))))
+ (proc@,29 rowAt@5 . . .
+  (params@A
+   (param@1 r . . Rows@3 .)
+   (param@A id . . string@4 .))int@N . .
+  (stmts@2,1
+   (comment)
+   (if@,2
+    (elif@3
+     (prefix not
+      (dot@5 r~1 here@1))
+     (stmts@C
+      (ret -1@7))))
+   (call@5,3 rowOf~5
+    (dot@2 r~1 names@1)id@A)))
+ (proc@,2F rowCount@5 . . .
+  (params@D
+   (param@1 r . . Rows@3 .))int@B . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (dot@5 r~1 here@1))
+     (stmts@C
+      (ret 0@7))))
+   (call@9,1 nameCount~9
+    (dot@2 r~1 names@1))))
+ (proc@,2J rowText@5 . . .
+  (params@C
+   (param@1 r . . Rows@3 .)
+   (param@A id . . string@E .)
+   (param@E fallback . . string@A .))string@X . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@A rowAt~5 r@1 id@4))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8 fallback))
+    (else@K
+     (stmts@6
+      (call@B catalogText~B
+       (dot@2 r~1 catalog@1)at@C))))))
+ (proc@,2N rowNumber@5 . . .
+  (params@E
+   (param@1 r . . Rows@3 .)
+   (param@A id . . string@4 .)
+   (param@M fallback . . float64@A .))float64@g . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@A rowAt~5 r@1 id@4))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8 fallback))
+    (else@K
+     (stmts@6
+      (call@D catalogNumber~D
+       (dot@2 r~1 catalog@1)at@C))))))
+ (proc@,2R rowInteger@5 . . .
+  (params@F
+   (param@1 r . . Rows@3 .)
+   (param@A id . . string@4 .)
+   (param@M fallback . . int@A .))int@c . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@A rowAt~5 r@1 id@4))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8 fallback))
+    (else@K
+     (stmts@6
+      (call@3 int~3
+       (call@F catalogInteger~E
+        (dot@2 r~1 catalog@1)at@C)))))))
+ (comment@,2V)
+ (proc@,2Y partName@5 x . .
+  (params@E
+   (param@1 p . . ArmourPart@3 .))string@H . .
+  (stmts@2,1
+   (case p@5
+    (of@,1
+     (ranges NotArmour@3)
+     (stmts@E ""))
+    (of@,2
+     (ranges Head@3)
+     (stmts@9 "head"))
+    (of@,3
+     (ranges Chest@3)
+     (stmts@A "chest"))
+    (of@,4
+     (ranges Legs@3)
+     (stmts@9 "legs"))
+    (of@,5
+     (ranges Feet@3)
+     (stmts@9 "feet")))))
+ (proc@,2g partNamed@5 x . .
+  (params@F
+   (param@1 word . . string@6 .))ArmourPart@G . .
+  (stmts@2,1
+   (case
+    (call@C trimmed~7 word@1)
+    (of@,1
+     (ranges "head"@3)
+     (stmts@B Head))
+    (of@,2
+     (ranges "chest"@3)
+     (stmts@C Chest))
+    (of@,3
+     (ranges "legs"@3)
+     (stmts@B Legs))
+    (of@,4
+     (ranges "feet"@3)
+     (stmts@B Feet))
+    (else@,5
+     (stmts@6 NotArmour)))))
+ (comment@,2s)
+ (proc@,2v hudItemCatalog@5 x . .
+  (params@K
+   (param@1 id . . string@4 .)
+   (param@D description . . . ""@E))Catalog@W . .
+  (stmts@2,1
+   (call@F declareHudKinds~F)
+   (let@4,1 c . . .
+    (call@F itemCatalog~B id@1 description@5))
+   (call@D,2 createCatalog~D
+    (infix@4 & id~3 IconFacet@2)IconKind@H
+    (infix@e & "Icons for "~D id@2))
+   (call@D,3 createCatalog~D
+    (infix@4 & id~3 FoodFacet@2)FoodKind@H
+    (infix@k & "Food values for "~J id@2))
+   (call@D,4 createCatalog~D
+    (infix@4 & id~3 SaturationFacet@2)SaturationKind@N
+    (infix@v & "Saturation for "~I id@2))
+   (call@D,5 createCatalog~D
+    (infix@4 & id~3 ArmourFacet@2)ArmourKind@J
+    (infix@q & "Armour points for "~L id@2))
+   (call@D,6 createCatalog~D
+    (infix@4 & id~3 ArmourPartFacet@2)ArmourPartKind@N
+    (infix@x & "Armour slots for "~K id@2))
+   (call@C,7 publishItems~C id@1)c@,8))
+ (comment@,36)
+ (proc@,37 defineHudItem@5 x . .
+  (params@J
+   (param@1 c . . Catalog@3 .)
+   (param@D id . . string@D .)
+   (param@H display . . string@9 .)
+   (param@Y stack . . . 64@8)
+   (param@k icon . . . ""@7)
+   (param~F,1 food . . . 0@7)
+   (param~5,1 saturation . . . 0.0@D)
+   (param@D,1 armour . . . 0@9)
+   (param@P,1 part . . . NotArmour@7)
+   (param@h,1 tags . . . ""@7)). . .
+  (stmts@2,2
+   (let@4 base . . .
+    (call@B name~4 c@1))
+   (call@A,1 defineItem~A c@1 id@4 display@8
+    (vv@N stack~6 stack@2)
+    (vv@b tags~5 tags@2))
+   (call@C,2 addToCatalog~C
+    (infix@6 & base~5 IconFacet@2)id@J icon@N)
+   (call@C,3 addToCatalog~C
+    (infix@6 & base~5 FoodFacet@2)id@J
+    (call@S int64~5 food@1))
+   (call@C,4 addToCatalog~C
+    (infix@6 & base~5 SaturationFacet@2)id@P saturation@T)
+   (call@C,5 addToCatalog~C
+    (infix@6 & base~5 ArmourFacet@2)id@L
+    (call@U int64~5 armour@1))
+   (call@C,6 addToCatalog~C
+    (infix@6 & base~5 ArmourPartFacet@2)id@P
+    (call@b partName~8 part@1))))
+ (comment@,3H)
+ (proc@,3I hudRecipeCatalog@5 x . .
+  (params@M
+   (param@1 id . . string@4 .)
+   (param@D description . . . ""@E))Catalog@W . .
+  (stmts@2,1
+   (call@F declareHudKinds~F)
+   (call@D,1 createCatalog~D id@1 RecipeKind@5 description@H)
+   (call@C,2 addToCatalog~C RecipeSources@1 id@G "recipes"@K)
+   (call@7,3 Catalog~7 id@1)))
+ (comment@,3O)
+ (proc@,3P defineRecipeText@5 x . .
+  (params@M
+   (param@1 c . . Catalog@3 .)
+   (param@D id . . string@A .)
+   (param@H text . . string@6 .)). . .
+  (stmts@2,1
+   (call@C addToCatalog~C
+    (call@5 name~4 c@1)id@A text@E)))
+ (comment@,3S)
+ (proc@,3V defineShaped@5 x . .
+  (params@I
+   (param@1 c . . Catalog@3 .)
+   (param@D id . . string@4 .)
+   (param@P rows . .
+    (at@9 seq~3 string@1).)
+   (param@i keys . . string@6 .)
+   (param~E,1 made . . string@6 .)
+   (param@,1 count . . . 1@8)). . .
+  (stmts@2,2
+   (var@4 wide . . . 0@7)
+   (if@,1
+    (elif@3
+     (infix@9 >
+      (dot~5 rows~4 len@1)0@2)
+     (stmts@E
+      (asgn@5 wide~5
+       (dot@9
+        (at~3 rows~4 0@1)len@1)))))
+   (var@4,2 shape . . . ""@8)
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@6 rows~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 > i~2 0@2)
+       (stmts@7
+        (cmd@5
+         (dot shape~5 add@1)"/"@5))))
+     (cmd@5,1
+      (dot shape~5 add@1)
+      (at@9 rows~4 i@1))
+     (asgn@2,2 i~2
+      (infix@4 \2B i~2 1@2))))
+   (call@G,8 defineRecipeText~G c@1 id@4
+    (infix@G,1 &
+     (infix~6 &
+      (infix~7 &
+       (infix~6 &
+        (infix~7 &
+         (infix@16,~1 &
+          (infix~8 &
+           (infix~6 &
+            (infix~C &
+             (infix~6 &
+              (infix~8 & "shaped|"~A
+               (prefix@2 $ wide@1))"x"@2)
+             (prefix@2 $
+              (dot@5 rows~4 len@1)))"|"@2)shape@2)"|"~1A,1)keys@2)"|"@2)made@2)"*"@2)
+     (prefix@2 $ count@1)))))
+ (proc@,3i defineShapeless@5 x . .
+  (params@L
+   (param@1 c . . Catalog@3 .)
+   (param@D id . . string@4 .)
+   (param@P needs . .
+    (at@A seq~3 string@1).)
+   (param~H,1 made . . string@6 .)
+   (param~3,1 count . . . 1@8)). . .
+  (stmts@2,2
+   (var@4 listed . . . ""@9)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@7 needs~5 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 > i~2 0@2)
+       (stmts@7
+        (cmd@6
+         (dot listed~6 add@1)","@5))))
+     (cmd@6,1
+      (dot listed~6 add@1)
+      (at@A needs~5 i@1))
+     (asgn@2,2 i~2
+      (infix@4 \2B i~2 1@2))))
+   (call@G,6 defineRecipeText~G c@1 id@4
+    (infix@n &
+     (infix~6 &
+      (infix~7 &
+       (infix~6 &
+        (infix~9 & "shapeless|"~D listed@2)"|"@2)made@2)"*"@2)
+     (prefix@2 $ count@1)))))
+ (comment@,3w)
+ (proc@,40 loadRegistry@5 x . .
+  (params@I)Registry@4 . .
+  (stmts@2,1
+   (call@F declareHudKinds~F)
+   (discard@,1
+    (call@M adoptPublished~E))
+   (asgn@7,2 result~7
+    (call@D newRegistry~B))
+   (if@,3
+    (elif@3
+     (prefix not
+      (call@B present~7 SourceCatalog@1))
+     (stmts@S
+      (ret result@7))))
+   (var@4,9 bases . .
+    (at@A seq~3 Rows@1)
+    (prefix@J \40
+     (bracket@1)))
+   (var@4,A stacks . .
+    (at@B seq~3 Rows@1)
+    (prefix@K \40
+     (bracket@1)))
+   (var@4,B icons . .
+    (at@A seq~3 Rows@1)
+    (prefix@J \40
+     (bracket@1)))
+   (var@4,C foods . .
+    (at@A seq~3 Rows@1)
+    (prefix@J \40
+     (bracket@1)))
+   (var@4,D sats . .
+    (at@9 seq~3 Rows@1)
+    (prefix@I \40
+     (bracket@1)))
+   (var@4,E armours . .
+    (at@C seq~3 Rows@1)
+    (prefix@L \40
+     (bracket@1)))
+   (var@4,F parts . .
+    (at@A seq~3 Rows@1)
+    (prefix@J \40
+     (bracket@1)))
+   (for@4,G
+    (call@E entries~7
+     (call@6 named~5 SourceCatalog@1))
+    (unpackflat
+     (let row . . ..))
+    (stmts~2,1
+     (if
+      (elif@3
+       (infix@9 !=
+        (dot~6 row~3 text@1)"items"@3)
+       (stmts@L
+        (continue .))))
+     (if@,1
+      (elif@3
+       (prefix not
+        (call@B present~7
+         (dot@4 row~3 id@1)))
+       (stmts@L
+        (continue .))))
+     (cmd@5,2
+      (dot bases~5 add@1)
+      (call@D readRows~8
+       (dot@4 row~3 id@1)))
+     (cmd@6,3
+      (dot stacks~6 add@1)
+      (call@D readRows~8
+       (infix@8 &
+        (dot~4 row~3 id@1)".stack"@2)))
+     (cmd@5,4
+      (dot icons~5 add@1)
+      (call@D readRows~8
+       (infix@8 &
+        (dot~4 row~3 id@1)IconFacet@2)))
+     (cmd@5,5
+      (dot foods~5 add@1)
+      (call@D readRows~8
+       (infix@8 &
+        (dot~4 row~3 id@1)FoodFacet@2)))
+     (cmd@4,6
+      (dot sats~4 add@1)
+      (call@D readRows~8
+       (infix@8 &
+        (dot~4 row~3 id@1)SaturationFacet@2)))
+     (cmd@7,7
+      (dot armours~7 add@1)
+      (call@D readRows~8
+       (infix@8 &
+        (dot~4 row~3 id@1)ArmourFacet@2)))
+     (cmd@5,8
+      (dot parts~5 add@1)
+      (call@D readRows~8
+       (infix@8 &
+        (dot~4 row~3 id@1)ArmourPartFacet@2)))))
+   (var@4,V k . . . 0@4)
+   (while@,W
+    (infix@8 < k~2
+     (dot@7 bases~5 len@1))
+    (stmts@2,1
+     (var@4 j . . . 0@4)
+     (while@,1
+      (infix@8 < j~2
+       (call@A rowCount~8
+        (at@6 bases~5 k@1)))
+      (stmts@2,1
+       (let@4 id . . .
+        (at@N
+         (dot~4
+          (dot~6
+           (at~3 bases~5 k@1)names@1)ids@1)j@1))
+       (if@,3
+        (elif@3
+         (infix@K !=
+          (call~F rowAt~5
+           (at@6 bases~5 k@1)id@B)j@3)
+         (stmts~1,1
+          (asgn@2 j~2
+           (infix@4 \2B j~2 1@2))
+          (continue@,1 .))))
+       (var@4,6 d . . .
+        (call@F unknownItem~B id@1))
+       (asgn@8,A
+        (dot~7 d~1 known@1)true@2)
+       (asgn@A,B
+        (dot~9 d~1 display@1)
+        (call@D catalogText~B
+         (dot@9
+          (at~3 bases~5 k@1)catalog@1)j@J))
+       (if@,C
+        (elif@3
+         (infix@E ==
+          (dot~5
+           (dot~8 d~1 display@1)len@1)0@3)
+         (stmts@K
+          (asgn@A
+           (dot~9 d~1 display@1)id@2))))
+       (asgn@8,I
+        (dot~7 d~1 stack@1)
+        (call@C rowInteger~A
+         (at@7 stacks~6 k@1)id@C 0@G))
+       (if@,J
+        (elif@3
+         (infix@8 <
+          (dot~7 d~1 stack@1)1@2)
+         (stmts@D
+          (asgn@8
+           (dot~7 d~1 stack@1)64@2))))
+       (asgn@7,K
+        (dot~6 d~1 icon@1)
+        (call@9 rowText~7
+         (at@6 icons~5 k@1)id@B ""@F))
+       (asgn@7,L
+        (dot~6 d~1 food@1)
+        (call@C rowInteger~A
+         (at@6 foods~5 k@1)id@B 0@F))
+       (asgn@D,M
+        (dot~C d~1 saturation@1)
+        (call@B rowNumber~9
+         (at@5 sats~4 k@1)id@A 0.0@E))
+       (asgn@9,N
+        (dot~8 d~1 armour@1)
+        (call@C rowInteger~A
+         (at@8 armours~7 k@1)id@D 0@H))
+       (asgn@7,O
+        (dot~6 d~1 part@1)
+        (call@B partNamed~9
+         (call@8 rowText~7
+          (at@6 parts~5 k@1)id@B ""@F)))
+       (call@6,R define~6 result@1 d@9)
+       (asgn@2,S j~2
+        (infix@4 \2B j~2 1@2))))
+     (asgn@2,V k~2
+      (infix@4 \2B k~2 1@2))))))
+ (comment@,55)
+ (proc@,58 loadRecipes@5 x . .
+  (params@H)
+  (at@7 seq~3 Recipe@1). .
+  (stmts@2,1
+   (call@F declareHudKinds~F)
+   (asgn@7,1 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (if@,2
+    (elif@3
+     (prefix not
+      (call@B present~7 RecipeSources@1))
+     (stmts@S
+      (ret result@7))))
+   (for@4,3
+    (call@H entries~7
+     (call@6 named~5 RecipeSources@1))
+    (unpackflat
+     (let source . . ..))
+    (stmts~2,1
+     (if
+      (elif@3
+       (infix@C !=
+        (dot~6 source~6 text@1)"recipes"@3)
+       (stmts@Q
+        (continue .))))
+     (if@,1
+      (elif@3
+       (prefix not
+        (call@B present~7
+         (dot@7 source~6 id@1)))
+       (stmts@O
+        (continue .))))
+     (for@4,2
+      (call@E entries~7
+       (call@6 named~5
+        (dot@7 source~6 id@1)))
+      (unpackflat
+       (let row . . ..))
+      (stmts~2,1
+       (let@4 r . . .
+        (call@F parseRecipe~B
+         (dot@4 row~3 id@1)
+         (dot@C row~3 text@1)))
+       (if@,1
+        (elif@3
+         (call@6 usable~6 r@1)
+         (stmts@B
+          (cmd@6
+           (dot result~6 add@1)r@5)))
+        (else@,1
+         (stmts@6
+          (call@3 log~3
+           (infix@n &
+            (infix~N &
+             (infix~9 & "aoughwl.hud\3A "~G
+              (dot@5 row~3 id@1))" is not a recipe\3A "@2)
+            (dot@3 r~1 problem@1))))))))))))
+ (comment@,5K)
+ (proc@,5M recipeCatalogCount@5 x . .
+  (params@O)int@4 . .
+  (stmts@2,1
+   (asgn@7 result~7 0@2)
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@B present~7 RecipeSources@1))
+     (stmts@S
+      (ret result@7))))
+   (for@4,2
+    (call@E entries~7
+     (call@6 named~5 RecipeSources@1))
+    (unpackflat
+     (let row . . ..))
+    (stmts~2,1
+     (if
+      (elif@3
+       (infix@9 ==
+        (dot~6 row~3 text@1)"recipes"@3)
+       (stmts@N
+        (asgn@7 result~7
+         (infix@9 \2B result~7 1@2))))))))))

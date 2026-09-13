@@ -1,0 +1,456 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,mcuinine.nim
+ (comment)
+ (import@,g mcuicore@7)
+ (const@A,j MaxQuads~8 x . . 4096@4)
+ (comment@,p)
+ (proc@,r tileRow@5 . . .
+  (params@C
+   (param@1 into . .
+    (mut@6
+     (at@7 seq~3 Quad@1)).)
+   (param@M x . . float@J .)
+   (param@P y . . float@G .)
+   (param@S run . . float@D .)
+   (param@X height . . float@8 .)
+   (param@1,1 sx . . float@K .)
+   (param@5,1 sy . . float@G .)
+   (param@9,1 srcW . . float@C .)
+   (param@F,1 srcH . . float@6 .)
+   (param@S,1 scale . . int@7 .)). . .
+  (stmts@2,2
+   (if
+    (elif@3
+     (infix@S or
+      (infix~H or
+       (infix~7 <= run~4 0.0@3)
+       (infix@A <= height~7 0.0@3))
+      (infix@8 <= srcW~5 0.0@3))
+     (stmts@i
+      (ret .))))
+   (let@4,1 step . . .
+    (infix@C * srcW~5
+     (call@7 float~5 scale@1)))
+   (var@4,2 at . . . 0.0@5)
+   (while@,3
+    (infix@F and
+     (infix~6 < at~3 run@2)
+     (infix@D <
+      (dot~5 into~4 len@1)MaxQuads@2))
+    (stmts@2,1
+     (var@4 wide . . . step@7)
+     (if@,1
+      (elif@3
+       (infix@A >
+        (infix~7 \2B at~3 wide@2)run@2)
+       (stmts@H
+        (asgn@5 wide~5
+         (infix@6 \2D run~4 at@2)))))
+     (cmd@4,2
+      (dot into~4 add@1)
+      (call@9 quad~4
+       (call@6 mrect~5
+        (infix@3 \2B x~2 at@2)y@9 wide@C height@I)
+       (call@6,1 mrect~5 sx@1 sy@5
+        (infix@E / wide~5
+         (call@7 float~5 scale@1))srcH@U)))
+     (asgn@3,4 at~3
+      (infix@5 \2B at~3 step@2))))))
+ (comment@,13)
+ (proc@,14 tileArea@5 . . .
+  (params@D
+   (param@1 into . .
+    (mut@6
+     (at@7 seq~3 Quad@1)).)
+   (param@M x . . float@I .)
+   (param@P y . . float@F .)
+   (param@S runX . . float@C .)
+   (param@Y runY . . float@6 .)
+   (param@1,1 sx . . float@K .)
+   (param@5,1 sy . . float@G .)
+   (param@9,1 srcW . . float@C .)
+   (param@F,1 srcH . . float@6 .)
+   (param@S,1 scale . . int@7 .)). . .
+  (stmts@2,2
+   (if
+    (elif@3
+     (infix@g or
+      (infix~F or
+       (infix~F or
+        (infix~7 <= runX~5 0.0@3)
+        (infix@8 <= runY~5 0.0@3))
+       (infix@8 <= srcW~5 0.0@3))
+      (infix@8 <= srcH~5 0.0@3))
+     (stmts@w
+      (ret .))))
+   (let@4,1 stepY . . .
+    (infix@D * srcH~5
+     (call@7 float~5 scale@1)))
+   (var@4,2 down . . . 0.0@7)
+   (while@,3
+    (infix@I and
+     (infix~7 < down~5 runY@2)
+     (infix@D <
+      (dot~5 into~4 len@1)MaxQuads@2))
+    (stmts@2,1
+     (var@4 tall . . . stepY@7)
+     (if@,1
+      (elif@3
+       (infix@C >
+        (infix~7 \2B down~5 tall@2)runY@2)
+       (stmts@K
+        (asgn@5 tall~5
+         (infix@7 \2D runY~5 down@2)))))
+     (call@7,2 tileRow~7 into@1 x@7
+      (infix@C \2B y~2 down@2)runX@K tall@Q sx@W sy@a srcW@e
+      (infix@p / tall~5
+       (call@7 float~5 scale@1))scale@15)
+     (asgn@5,3 down~5
+      (infix@7 \2B down~5 stepY@2))))))
+ (comment@,1F)
+ (proc@,1J plain@5 x . .
+  (params@B
+   (param@1 dest . . MRect@B .)
+   (param@7 src . . MRect@5 .))
+  (at@N seq~3 Quad@1). .
+  (stmts@2,1
+   (prefix \40
+    (bracket@1
+     (call@5 quad~4 dest@1 src@7)))))
+ (comment@,1M)
+ (proc@,1Q nineSlice@5 x . .
+  (params@F
+   (param@1 dest . . MRect@B .)
+   (param@7 src . . MRect@5 .)
+   (param@J left . . int@X .)
+   (param@P top . . int@R .)
+   (param@U right . . int@M .)
+   (param@b bottom . . int@F .)
+   (param@j scale . . int@7 .)
+   (param@1,1 tile . . . true@7))
+  (at@I,1 seq~3 Quad@1). .
+  (stmts@2,2
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (let@4,1 s . . .
+    (call@9 float~5 scale@1))
+   (let@4,2 l . . .
+    (infix@G *
+     (call~7 float~5 left@1)s@2))
+   (let@4,3 t . . .
+    (infix@F *
+     (call~6 float~5 top@1)s@2))
+   (let@4,4 r . . .
+    (infix@H *
+     (call~8 float~5 right@1)s@2))
+   (let@4,5 b . . .
+    (infix@I *
+     (call~9 float~5 bottom@1)s@2))
+   (var@4,A midW . . .
+    (infix@I \2D
+     (infix~4 \2D
+      (dot~3 dest~4 w@1)l@2)r@2))
+   (if@,B
+    (elif@3
+     (infix@5 < midW~5 0.0@2)
+     (stmts@C
+      (asgn@5 midW~5 0.0@2))))
+   (var@4,C midH . . .
+    (infix@I \2D
+     (infix~4 \2D
+      (dot~3 dest~4 h@1)t@2)b@2))
+   (if@,D
+    (elif@3
+     (infix@5 < midH~5 0.0@2)
+     (stmts@C
+      (asgn@5 midH~5 0.0@2))))
+   (let@4,E msw . . .
+    (infix@Q \2D
+     (infix~E \2D
+      (dot~3 src~3 w@1)
+      (call@7 float~5 left@1))
+     (call@7 float~5 right@1)))
+   (let@4,F msh . . .
+    (infix@P \2D
+     (infix~D \2D
+      (dot~3 src~3 h@1)
+      (call@7 float~5 top@1))
+     (call@7 float~5 bottom@1)))
+   (let@4,G x0 . . .
+    (dot@9 dest~4 x@1))
+   (let@4,H x1 . . .
+    (infix@C \2B
+     (dot~3 dest~4 x@1)l@2))
+   (let@4,I x2 . . .
+    (infix@G \2B
+     (infix~4 \2B
+      (dot~3 dest~4 x@1)l@2)midW@2))
+   (let@4,J y0 . . .
+    (dot@9 dest~4 y@1))
+   (let@4,K y1 . . .
+    (infix@C \2B
+     (dot~3 dest~4 y@1)t@2))
+   (let@4,L y2 . . .
+    (infix@G \2B
+     (infix~4 \2B
+      (dot~3 dest~4 y@1)t@2)midH@2))
+   (let@4,M u0 . . .
+    (dot@8 src~3 x@1))
+   (let@4,N u1 . . .
+    (infix@B \2B
+     (dot~3 src~3 x@1)
+     (call@7 float~5 left@1)))
+   (let@4,O u2 . . .
+    (infix@J \2D
+     (infix~8 \2B
+      (dot~3 src~3 x@1)
+      (dot@5 src~3 w@1))
+     (call@7 float~5 right@1)))
+   (let@4,P v0 . . .
+    (dot@8 src~3 y@1))
+   (let@4,Q v1 . . .
+    (infix@B \2B
+     (dot~3 src~3 y@1)
+     (call@7 float~5 top@1)))
+   (let@4,R v2 . . .
+    (infix@J \2D
+     (infix~8 \2B
+      (dot~3 src~3 y@1)
+      (dot@5 src~3 h@1))
+     (call@7 float~5 bottom@1)))
+   (cmd@6,U
+    (dot result~6 add@1)
+    (call@9 quad~4
+     (call@6 mrect~5 x0@1 y0@5 l@9 t@C)
+     (call@R mrect~5 u0@1 v0@5
+      (call@E float~5 left@1)
+      (call@R float~5 top@1))))
+   (cmd@6,V
+    (dot result~6 add@1)
+    (call@9 quad~4
+     (call@6 mrect~5 x2@1 y0@5 r@9 t@C)
+     (call@R mrect~5 u2@1 v0@5
+      (call@E float~5 right@1)
+      (call@S float~5 top@1))))
+   (cmd@6,W
+    (dot result~6 add@1)
+    (call@9 quad~4
+     (call@6 mrect~5 x0@1 y2@5 l@9 b@C)
+     (call@R mrect~5 u0@1 v2@5
+      (call@E float~5 left@1)
+      (call@R float~5 bottom@1))))
+   (cmd@6,X
+    (dot result~6 add@1)
+    (call@9 quad~4
+     (call@6 mrect~5 x2@1 y2@5 r@9 b@C)
+     (call@R mrect~5 u2@1 v2@5
+      (call@E float~5 right@1)
+      (call@S float~5 bottom@1))))
+   (if@,Z
+    (elif@3 tile
+     (stmts~1,1
+      (call@7 tileRow~7 result@1 x1@9 y0@D midW@H t@N u1@Q v0@U msw@Y
+       (call@i float~5 top@1)scale@p)
+      (call@7,1 tileRow~7 result@1 x1@9 y2@D midW@H b@N u1@Q v2@U msw@Y
+       (call@i float~5 bottom@1)scale@s)
+      (call@8,2 tileArea~8 result@1 x0@9 y1@D l@H midH@K u0@Q v1@U
+       (call@d float~5 left@1)msh@l scale@q)
+      (call@8,3 tileArea~8 result@1 x2@9 y1@D r@H midH@K u2@Q v1@U
+       (call@d float~5 right@1)msh@m scale@r)
+      (call@8,4 tileArea~8 result@1 x1@9 y1@D midW@H midH@N u1@T v1@X msw@b msh@g scale@l)))
+    (else@,6
+     (stmts@2,1
+      (if
+       (elif@3
+        (infix@5 > midW~5 0.0@2)
+        (stmts~1,1
+         (cmd@6
+          (dot result~6 add@1)
+          (call@9 quad~4
+           (call@6 mrect~5 x1@1 y0@5 midW@9 t@F)
+           (call@U mrect~5 u1@1 v0@5 msw@9
+            (call@J float~5 top@1))))
+         (cmd@6,1
+          (dot result~6 add@1)
+          (call@9 quad~4
+           (call@6 mrect~5 x1@1 y2@5 midW@9 b@F)
+           (call@U mrect~5 u1@1 v2@5 msw@9
+            (call@J float~5 bottom@1)))))))
+      (if@,3
+       (elif@3
+        (infix@5 > midH~5 0.0@2)
+        (stmts~1,1
+         (cmd@6
+          (dot result~6 add@1)
+          (call@9 quad~4
+           (call@6 mrect~5 x0@1 y1@5 l@9 midH@C)
+           (call@U mrect~5 u0@1 v1@5
+            (call@E float~5 left@1)msh@M)))
+         (cmd@6,1
+          (dot result~6 add@1)
+          (call@9 quad~4
+           (call@6 mrect~5 x2@1 y1@5 r@9 midH@C)
+           (call@U mrect~5 u2@1 v1@5
+            (call@E float~5 right@1)msh@N))))))
+      (if@,6
+       (elif@3
+        (infix@B and
+         (infix~6 > midW~5 0.0@2)
+         (infix@9 > midH~5 0.0@2))
+        (stmts~1,1
+         (cmd@6
+          (dot result~6 add@1)
+          (call@9 quad~4
+           (call@6 mrect~5 x1@1 y1@5 midW@9 midH@F)
+           (call@X mrect~5 u1@1 v1@5 msw@9 msh@E)))))))))))
+ (comment@,2H)
+ (proc@,2P twoSlice@5 x . .
+  (params@E
+   (param@1 dest . . MRect@B .)
+   (param@7 src . . MRect@5 .)
+   (param@J scale . . int@7 .))
+  (at@Z seq~3 Quad@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (let@4,1 s . . .
+    (call@9 float~5 scale@1))
+   (let@4,2 wide . . .
+    (call@A int~3
+     (infix@C \2B
+      (infix~4 /
+       (dot~3 dest~4 w@1)s@2)0.5@2)))
+   (if@,3
+    (elif@3
+     (infix@5 <= wide~5 0@3)
+     (stmts@B
+      (ret result@7))))
+   (let@4,4 leftGui . . .
+    (infix@F div wide~5 2@4))
+   (let@4,5 rightGui . . .
+    (infix@G \2D wide~5 leftGui@2))
+   (if@,6
+    (elif@3
+     (infix@C >
+      (call~7 float~5 wide@1)
+      (dot@5 src~3 w@1))
+     (stmts~1,3
+      (ret
+       (call@G nineSlice~9 dest@1 src@7 leftGui@C 0@L rightGui@O 0@Y scale@b true@i)))))
+   (cmd@6,A
+    (dot result~6 add@1)
+    (call@9 quad~4
+     (call@6 mrect~5
+      (dot@5 dest~4 x@1)
+      (dot@D dest~4 y@1)
+      (infix@W *
+       (call~A float~5 leftGui@1)s@2)
+      (dot@f dest~4 h@1))
+     (call@6,1 mrect~5
+      (dot@4 src~3 x@1)
+      (dot@B src~3 y@1)
+      (call@K float~5 leftGui@1)
+      (dot@Y src~3 h@1))))
+   (cmd@6,C
+    (dot result~6 add@1)
+    (call@9 quad~4
+     (call@6 mrect~5
+      (infix@8 \2B
+       (dot~3 dest~4 x@1)
+       (infix@H *
+        (call~A float~5 leftGui@1)s@2))
+      (dot@Y dest~4 y@1)
+      (infix@H,1 *
+       (call~B float~5 rightGui@1)s@2)
+      (dot@Q,1 dest~4 h@1))
+     (call@6,2 mrect~5
+      (infix@F \2D
+       (infix~8 \2B
+        (dot~3 src~3 x@1)
+        (dot@5 src~3 w@1))
+       (call@7 float~5 rightGui@1))
+      (dot@b src~3 y@1)
+      (call@6,1 float~5 rightGui@1)
+      (dot@L,1 src~3 h@1))))))
+ (comment@,2h)
+ (proc@,2k tiled@5 x . .
+  (params@B
+   (param@1 dest . . MRect@B .)
+   (param@7 src . . MRect@5 .)
+   (param@J tileGui . . int@G .)
+   (param@S scale . . int@7 .))
+  (at@i seq~3 Quad@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (if@,1
+    (elif@3
+     (infix@8 <= tileGui~8 0@3)
+     (stmts@E
+      (ret result@7))))
+   (let@4,2 step . . .
+    (infix@M *
+     (call~A float~5 tileGui@1)
+     (call@7 float~5 scale@1)))
+   (var@4,3 down . . . 0.0@7)
+   (while@,4
+    (infix@K and
+     (infix~9 < down~5
+      (dot@6 dest~4 h@1))
+     (infix@F <
+      (dot~5 result~6 len@1)MaxQuads@2))
+    (stmts@2,1
+     (var@4 tall . . . step@7)
+     (if@,1
+      (elif@3
+       (infix@C >
+        (infix~7 \2B down~5 tall@2)
+        (dot@6 dest~4 h@1))
+       (stmts@M
+        (asgn@5 tall~5
+         (infix@9 \2D
+          (dot~3 dest~4 h@1)down@2)))))
+     (var@4,2 across . . . 0.0@9)
+     (while@,3
+      (infix@M and
+       (infix~9 < across~7
+        (dot@6 dest~4 w@1))
+       (infix@F <
+        (dot~5 result~6 len@1)MaxQuads@2))
+      (stmts@2,1
+       (var@4 wide . . . step@7)
+       (if@,1
+        (elif@3
+         (infix@E >
+          (infix~7 \2B across~7 wide@2)
+          (dot@6 dest~4 w@1))
+         (stmts@O
+          (asgn@5 wide~5
+           (infix@9 \2D
+            (dot~3 dest~4 w@1)across@2)))))
+       (cmd@6,2
+        (dot result~6 add@1)
+        (call@9 quad~4
+         (call@6 mrect~5
+          (infix@8 \2B
+           (dot~3 dest~4 x@1)across@2)
+          (infix@P \2B
+           (dot~3 dest~4 y@1)down@2)wide@X tall@d)
+         (call@6,1 mrect~5
+          (dot@4 src~3 x@1)
+          (dot@B src~3 y@1)
+          (infix@S /
+           (infix~7 *
+            (dot~3 src~3 w@1)wide@2)step@2)
+          (infix@E,1 /
+           (infix~7 *
+            (dot~3 src~3 h@1)tall@2)step@2))))
+       (asgn@7,5 across~7
+        (infix@9 \2B across~7 step@2))))
+     (asgn@5,A down~5
+      (infix@7 \2B down~5 step@2)))))))

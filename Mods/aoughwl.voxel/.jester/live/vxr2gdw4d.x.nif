@@ -1,0 +1,631 @@
+(.nif27)
+(.indexat 13790            )
+(stmts@,1,vxray.nim
+ (const@9,L :FarAway.0.~7 .
+  (f@7,C 64)1E+30@4)
+ (type@8,O :Walk.0.~6 .
+  (object@2 .
+   (fld~5,2 :x.0~1 .
+    (i@B 64))
+   (fld~1,2 :y.0~1 .
+    (i@7 64))
+   (fld@3,2 :z.0~1 .
+    (i@3 64))
+   (fld~4,4 :nx.0~2 .
+    (i@D 64))
+   (fld@1,4 :ny.0~2 .
+    (i@8 64))
+   (fld@6,4 :nz.0~2 .
+    (i@3 64))
+   (fld@3,9 :travelled.0~9 .
+    (f@3 64))
+   (fld~6,B :stepX.0 .
+    (i@L 64))
+   (fld@1,B :stepY.0 .
+    (i@E 64))
+   (fld@8,B :stepZ.0 .
+    (i@7 64))
+   (fld~6,C :tMaxX.0 .
+    (f@L 64))
+   (fld@1,C :tMaxY.0 .
+    (f@E 64))
+   (fld@8,C :tMaxZ.0 .
+    (f@7 64))
+   (fld~6,D :tDeltaX.0 .
+    (f@R 64))
+   (fld@3,D :tDeltaY.0 .
+    (f@I 64))
+   (fld@C,D :tDeltaZ.0 .
+    (f@9 64))))
+ (proc@,d :cellOf.0.@5
+  (params@C
+   (param@1 :v.0 .
+    (f@3 64)))
+  (i@C 64)
+  (pragmas
+   (smry
+    (param 0 0 reads)result 0))
+  (stmts@2,1
+   (var@4 :result.0 .
+    (i@A,~E 64).)
+   (var@4 :t.0 .
+    (i@4 64)
+    (conv@7
+     (i~3 64)v.0@1))
+   (var@B,1 :`x.0 .
+    (bool).)
+   (if@B,1
+    (elif
+     (lt~6 v.0~2 0.0@2)
+     (stmts
+      (asgn@2,1m,../../../../../../nimony/lib/std/system/comparisons.nim `x.0
+       (not
+        (eq@7
+         (conv@M,g,vxray.nim
+          (f~5 64)t.0@1)v.0@T,g,vxray.nim)))))
+    (else
+     (stmts
+      (asgn `x.0
+       (false)))))
+   (if@,1
+    (elif@3 `x.0@8
+     (stmts@R
+      (stmts
+       (asgn result.0
+        (sub@9
+         (i 64)t.0~2 1@2))
+       (ret result.0)))))
+   (asgn@,2 result.0 t.0)
+   (ret~2,~1 result.0)))
+ (proc@,i :absOf.0.@5
+  (params@A
+   (param@1 :v.1 .
+    (f@3 64)))
+  (f@C 64)
+  (pragmas
+   (smry
+    (param 0 0 reads)result 0))
+  (stmts@2,1
+   (var :result.1 .
+    (f@E,~C 64).)
+   (if
+    (elif@3
+     (lt@2 v.1~2 0.0@2)
+     (stmts@9
+      (stmts
+       (asgn result.1
+        (neg@7
+         (f 64)v.1@1))
+       (ret result.1)))))
+   (asgn@,1 result.1 v.1)
+   (ret~2,~1 result.1)))
+ (proc@,o :firstCrossing.0.@5
+  (params@I
+   (param@1 :origin.0 .
+    (f@8 64))
+   (param@G :cell.0 .
+    (i@C 64))
+   (param@M :step.0 .
+    (i@6 64))
+   (param@X :delta.0 .
+    (f@7 64)))
+  (f@m 64)
+  (pragmas
+   (smry
+    (param 0 0 reads)
+    (param 1 1 reads)
+    (param 2 2 reads)
+    (param 3 3 reads)))
+  (stmts@2,1
+   (var :result.2 .
+    (f@E,~I 64).)
+   (if
+    (elif@3
+     (eq@5 step.0~5 0@3)
+     (stmts@B
+      (ret 1E+30~3,~U))))
+   (if@,1
+    (elif@3
+     (lt@4,1u,../../../../../../nimony/lib/std/system/comparisons.nim 0@C,r,vxray.nim step.0@5,r,vxray.nim)
+     (stmts@A
+      (stmts
+       (asgn result.2
+        (mul@Y
+         (f 64)
+         (sub~A
+          (f 64)
+          (conv~B
+           (f~B,~B 64)
+           (add@6
+            (i 64)cell.0~5 1@2))origin.0@2)delta.0@2))
+       (ret result.2)))))
+   (asgn@N,2 result.2
+    (mul
+     (f 64)
+     (sub~F
+      (f 64)origin.0~7
+      (conv@7
+       (f@,~C 64)cell.0@1))delta.0@2))
+   (ret~2,~1 result.2)))
+ (proc@,u :beginWalk.0.@5
+  (params@F
+   (param@1 :ox.0 .
+    (f@O 64))
+   (param@5 :oy.0 .
+    (f@K 64))
+   (param@9 :oz.0 .
+    (f@G 64))
+   (param@D :dx.0 .
+    (f@C 64))
+   (param@H :dy.0 .
+    (f@8 64))
+   (param@L :dz.0 .
+    (f@4 64)))Walk.0.@X
+  (pragmas
+   (smry writeGlobal readGlobal
+    (param 0 0 reads)
+    (param 1 1 reads)
+    (param 2 2 reads)
+    (param 3 3 reads)
+    (param 4 4 reads)
+    (param 5 5 reads)))
+  (stmts@2,1
+   (var@7 :result.3 . Walk.0.@O,~1 .)
+   (var@N :`x.1 .
+    (i~D,~I 64)
+    (call cellOf.0.~6 ox.0@1))
+   (var@c :`x.2 .
+    (i~S,~I 64)
+    (call cellOf.0.~6 oy.0@1))
+   (var@r :`x.3 .
+    (i~h,~I 64)
+    (call cellOf.0.~6 oz.0@1))
+   (asgn@7 result.3~7
+    (oconstr@6 Walk.0.@I,~1
+     (kv@2 x.0~1 `x.1@8)
+     (kv@H y.0~1 `x.2@8)
+     (kv@W z.0~1 `x.3@8)
+     (kv~9,1 nx.0~2 0@2)
+     (kv~2,1 ny.0~2 0@2)
+     (kv@5,1 nz.0~2 0@2)
+     (kv@J,1 travelled.0~9 0.0@2)
+     (kv~6,2 stepX.0~5 0@2)
+     (kv@4,2 stepY.0~5 0@2)
+     (kv@E,2 stepZ.0~5 0@2)
+     (kv~6,3 tMaxX.0~5 1E+30@4,~d)
+     (kv@A,3 tMaxY.0~5 1E+30~C,~d)
+     (kv@Q,3 tMaxZ.0~5 1E+30~S,~d)
+     (kv~4,4 tDeltaX.0~7 1E+30@2,~e)
+     (kv@E,4 tDeltaY.0~7 1E+30~G,~e)
+     (kv@W,4 tDeltaZ.0~7 1E+30~Y,~e)))
+   (if@,5
+    (elif@3
+     (lt@4,1u,../../../../../../nimony/lib/std/system/comparisons.nim 0.0@A,11,vxray.nim dx.0@5,11,vxray.nim)
+     (stmts@A
+      (asgn@D
+       (dot~7 result.3~6 stepX.0 0)1@2)))
+    (else
+     (stmts
+      (stmts
+       (stmts
+        (if
+         (elif@5,1
+          (lt@3 dx.0~3 0.0@2)
+          (stmts@A
+           (asgn@D
+            (dot~7 result.3~6 stepX.0 0)-1@2)))))))))
+   (if@,7
+    (elif@3
+     (lt@4,1u,../../../../../../nimony/lib/std/system/comparisons.nim 0.0@A,13,vxray.nim dy.0@5,13,vxray.nim)
+     (stmts@A
+      (asgn@D
+       (dot~7 result.3~6 stepY.0 0)1@2)))
+    (else
+     (stmts
+      (stmts
+       (stmts
+        (if
+         (elif@5,1
+          (lt@3 dy.0~3 0.0@2)
+          (stmts@A
+           (asgn@D
+            (dot~7 result.3~6 stepY.0 0)-1@2)))))))))
+   (if@,9
+    (elif@3
+     (lt@4,1u,../../../../../../nimony/lib/std/system/comparisons.nim 0.0@A,15,vxray.nim dz.0@5,15,vxray.nim)
+     (stmts@A
+      (asgn@D
+       (dot~7 result.3~6 stepZ.0 0)1@2)))
+    (else
+     (stmts
+      (stmts
+       (stmts
+        (if
+         (elif@5,1
+          (lt@3 dz.0~3 0.0@2)
+          (stmts@A
+           (asgn@D
+            (dot~7 result.3~6 stepZ.0 0)-1@2)))))))))
+   (if@,B
+    (elif@3
+     (not@2,1m,../../../../../../nimony/lib/std/system/comparisons.nim
+      (eq@7
+       (dot@B,17,vxray.nim result.3~6 stepX.0 0)0@L,17,vxray.nim))
+     (stmts@J
+      (var@S :`x.4 .
+       (f~e,~O 64)
+       (call absOf.0.~5 dx.0@1))
+      (asgn@F
+       (dot~9 result.3~6 tDeltaX.0 0)
+       (div@6
+        (f 64)1.0~4 `x.4@7)))))
+   (if@,C
+    (elif@3
+     (not@2,1m,../../../../../../nimony/lib/std/system/comparisons.nim
+      (eq@7
+       (dot@B,18,vxray.nim result.3~6 stepY.0 0)0@L,18,vxray.nim))
+     (stmts@J
+      (var@S :`x.5 .
+       (f~e,~P 64)
+       (call absOf.0.~5 dy.0@1))
+      (asgn@F
+       (dot~9 result.3~6 tDeltaY.0 0)
+       (div@6
+        (f 64)1.0~4 `x.5@7)))))
+   (if@,D
+    (elif@3
+     (not@2,1m,../../../../../../nimony/lib/std/system/comparisons.nim
+      (eq@7
+       (dot@B,19,vxray.nim result.3~6 stepZ.0 0)0@L,19,vxray.nim))
+     (stmts@J
+      (var@S :`x.6 .
+       (f~e,~Q 64)
+       (call absOf.0.~5 dz.0@1))
+      (asgn@F
+       (dot~9 result.3~6 tDeltaZ.0 0)
+       (div@6
+        (f 64)1.0~4 `x.6@7)))))
+   (var@S,E :`x.7 .
+    (f@I,~L 64)
+    (call firstCrossing.0.~D ox.0@1
+     (dot@B result.3~6 x.0 0)
+     (dot@L result.3~6 stepX.0 0)
+     (dot@Z result.3~6 tDeltaX.0 0)))
+   (asgn@D,E
+    (dot~7 result.3~6 tMaxX.0 0)`x.7@F)
+   (var@S,F :`x.8 .
+    (f@I,~M 64)
+    (call firstCrossing.0.~D oy.0@1
+     (dot@B result.3~6 y.0 0)
+     (dot@L result.3~6 stepY.0 0)
+     (dot@Z result.3~6 tDeltaY.0 0)))
+   (asgn@D,F
+    (dot~7 result.3~6 tMaxY.0 0)`x.8@F)
+   (var@S,G :`x.9 .
+    (f@I,~N 64)
+    (call firstCrossing.0.~D oz.0@1
+     (dot@B result.3~6 z.0 0)
+     (dot@L result.3~6 stepZ.0 0)
+     (dot@Z result.3~6 tDeltaZ.0 0)))
+   (asgn@D,G
+    (dot~7 result.3~6 tMaxZ.0 0)`x.9@F)
+   (ret~2,~1 result.3)))
+ (proc@,1H :stepOn.0.@5
+  (params@C
+   (param@1 :walk.0 .
+    (ptr@6 Walk.0.@4))).
+  (pragmas
+   (smry
+    (param 0 0 reads writes)))
+  (stmts@2,1
+   (var@d :`x.10 .
+    (bool).)
+   (var@J :`x.11 .
+    (bool).)
+   (if@J
+    (elif
+     (eq~5
+      (dot~7
+       (deref~4 walk.0)stepX.0 0)0@3)
+     (stmts
+      (asgn@F `x.11
+       (eq
+        (dot~7
+         (deref~4 walk.0)stepY.0 0)0@3))))
+    (else
+     (stmts
+      (asgn `x.11
+       (false)))))
+   (if@d
+    (elif `x.11~K
+     (stmts
+      (asgn@F `x.10
+       (eq
+        (dot~7
+         (deref~4 walk.0)stepZ.0 0)0@3))))
+    (else
+     (stmts
+      (asgn `x.10
+       (false)))))
+   (if
+    (elif@3 `x.10@a
+     (stmts~1,1
+      (asgn@F
+       (dot~B
+        (deref~4 walk.0)travelled.0 0)1E+30~6,~y)
+      (ret@,1 .))))
+   (var@S,3 :`x.12 .
+    (bool).)
+   (if@S,3
+    (elif
+     (le~E
+      (dot~7
+       (deref~4 walk.0)tMaxX.0 0)
+      (dot@7
+       (deref~4 walk.0)tMaxY.0 0))
+     (stmts
+      (asgn@F `x.12
+       (le
+        (dot~7
+         (deref~4 walk.0)tMaxX.0 0)
+        (dot@7
+         (deref~4 walk.0)tMaxZ.0 0)))))
+    (else
+     (stmts
+      (asgn `x.12
+       (false)))))
+   (if@,3
+    (elif@3 `x.12@P
+     (stmts~1,1
+      (asgn@F
+       (dot~B
+        (deref~4 walk.0)travelled.0 0)
+       (dot@6
+        (deref~4 walk.0)tMaxX.0 0))
+      (asgn@7,1
+       (dot~3
+        (deref~4 walk.0)x.0 0)
+       (add@9
+        (i 64)
+        (dot~3
+         (deref~4 walk.0)x.0 0)
+        (dot@6
+         (deref~4 walk.0)stepX.0 0)))
+      (asgn@B,2
+       (dot~7
+        (deref~4 walk.0)tMaxX.0 0)
+       (add@D
+        (f 64)
+        (dot~7
+         (deref~4 walk.0)tMaxX.0 0)
+        (dot@6
+         (deref~4 walk.0)tDeltaX.0 0)))
+      (asgn@8,3
+       (dot~4
+        (deref~4 walk.0)nx.0 0)
+       (neg@2
+        (i 64)
+        (dot@5
+         (deref~4 walk.0)stepX.0 0)))
+      (asgn@8,4
+       (dot~4
+        (deref~4 walk.0)ny.0 0)0@2)
+      (asgn@8,5
+       (dot~4
+        (deref~4 walk.0)nz.0 0)0@2)))
+    (else
+     (stmts
+      (stmts
+       (stmts
+        (if
+         (elif@5,7
+          (le@B
+           (dot~7
+            (deref~4 walk.0)tMaxY.0 0)
+           (dot@7
+            (deref~4 walk.0)tMaxZ.0 0))
+          (stmts~3,1
+           (asgn@F
+            (dot~B
+             (deref~4 walk.0)travelled.0 0)
+            (dot@6
+             (deref~4 walk.0)tMaxY.0 0))
+           (asgn@7,1
+            (dot~3
+             (deref~4 walk.0)y.0 0)
+            (add@9
+             (i 64)
+             (dot~3
+              (deref~4 walk.0)y.0 0)
+             (dot@6
+              (deref~4 walk.0)stepY.0 0)))
+           (asgn@B,2
+            (dot~7
+             (deref~4 walk.0)tMaxY.0 0)
+            (add@D
+             (f 64)
+             (dot~7
+              (deref~4 walk.0)tMaxY.0 0)
+             (dot@6
+              (deref~4 walk.0)tDeltaY.0 0)))
+           (asgn@8,3
+            (dot~4
+             (deref~4 walk.0)nx.0 0)0@2)
+           (asgn@8,4
+            (dot~4
+             (deref~4 walk.0)ny.0 0)
+            (neg@2
+             (i 64)
+             (dot@5
+              (deref~4 walk.0)stepY.0 0)))
+           (asgn@8,5
+            (dot~4
+             (deref~4 walk.0)nz.0 0)0@2)))
+         (else
+          (stmts
+           (stmts
+            (stmts
+             (stmts@2,F
+              (asgn@F
+               (dot~B
+                (deref~4 walk.0)travelled.0 0)
+               (dot@6
+                (deref~4 walk.0)tMaxZ.0 0))
+              (asgn@7,1
+               (dot~3
+                (deref~4 walk.0)z.0 0)
+               (add@9
+                (i 64)
+                (dot~3
+                 (deref~4 walk.0)z.0 0)
+                (dot@6
+                 (deref~4 walk.0)stepZ.0 0)))
+              (asgn@B,2
+               (dot~7
+                (deref~4 walk.0)tMaxZ.0 0)
+               (add@D
+                (f 64)
+                (dot~7
+                 (deref~4 walk.0)tMaxZ.0 0)
+                (dot@6
+                 (deref~4 walk.0)tDeltaZ.0 0)))
+              (asgn@8,3
+               (dot~4
+                (deref~4 walk.0)nx.0 0)0@2)
+              (asgn@8,4
+               (dot~4
+                (deref~4 walk.0)ny.0 0)0@2)
+              (asgn@8,5
+               (dot~4
+                (deref~4 walk.0)nz.0 0)
+               (neg@2
+                (i 64)
+                (dot@5
+                 (deref~4 walk.0)stepZ.0 0))))))))))))))))
+ (type@8,1i :Pick.0.~6 .
+  (object@2 .
+   (fld~1,4 :found.0~5 .
+    (bool@3))
+   (fld~5,5 :x.0~1 .
+    (i@B 64))
+   (fld~1,5 :y.0~1 .
+    (i@7 64))
+   (fld@3,5 :z.0~1 .
+    (i@3 64))
+   (fld@,6 :placeX.0~6 .
+    (i@L 64))
+   (fld@9,6 :placeY.0~6 .
+    (i@C 64))
+   (fld@I,6 :placeZ.0~6 .
+    (i@3 64))
+   (fld~4,7 :nx.0~2 .
+    (i@D 64))
+   (fld@1,7 :ny.0~2 .
+    (i@8 64))
+   (fld@6,7 :nz.0~2 .
+    (i@3 64))
+   (fld@2,8 :distance.0~8 .
+    (f@3 64))))
+ (proc@,1s :noPick.0.@5
+  (params@C)Pick.0.@4
+  (pragmas
+   (smry))
+  (stmts@2,1
+   (var@4 :result.4 . Pick.0.~2,~1 .)
+   (asgn@4 result.4
+    (oconstr Pick.0.~2,~1
+     (kv@6 found.0~5
+      (false@2))
+     (kv@G x.0~1 0@2)
+     (kv@M y.0~1 0@2)
+     (kv@S z.0~1 0@2)
+     (kv@d placeX.0~6 0@2)
+     (kv@o placeY.0~6 0@2)
+     (kv@z placeZ.0~6 0@2)
+     (kv@,1 nx.0~2 0@2)
+     (kv@7,1 ny.0~2 0@2)
+     (kv@E,1 nz.0~2 0@2)
+     (kv@R,1 distance.0~8 0.0@2)))
+   (ret~2,~1 result.4)))
+ (proc@,1x :pickAt.0.@5
+  (params@C
+   (param@1 :walk.1 .
+    (ptr@6 Walk.0.)))Pick.0.@E
+  (pragmas
+   (smry
+    (param 0 0 reads)))
+  (stmts@2,1
+   (var@4 :result.5 . Pick.0.~2,~6 .)
+   (asgn@4 result.5
+    (oconstr Pick.0.~2,~6
+     (kv@6 found.0~5
+      (true@2))
+     (kv@F x.0~1
+      (dot@6
+       (deref~4 walk.1)x.0 0))
+     (kv@Q y.0~1
+      (dot@6
+       (deref~4 walk.1)y.0 0))
+     (kv@b z.0~1
+      (dot@6
+       (deref~4 walk.1)z.0 0))
+     (kv@4,1 placeX.0~6
+      (add@9
+       (i 64)
+       (dot~3
+        (deref~4 walk.1)x.0 0)
+       (dot@6
+        (deref~4 walk.1)nx.0 0)))
+     (kv@U,1 placeY.0~6
+      (add@9
+       (i 64)
+       (dot~3
+        (deref~4 walk.1)y.0 0)
+       (dot@6
+        (deref~4 walk.1)ny.0 0)))
+     (kv@4,2 placeZ.0~6
+      (add@9
+       (i 64)
+       (dot~3
+        (deref~4 walk.1)z.0 0)
+       (dot@6
+        (deref~4 walk.1)nz.0 0)))
+     (kv@,3 nx.0~2
+      (dot@6
+       (deref~4 walk.1)nx.0 0))
+     (kv@D,3 ny.0~2
+      (dot@6
+       (deref~4 walk.1)ny.0 0))
+     (kv@Q,3 nz.0~2
+      (dot@6
+       (deref~4 walk.1)nz.0 0))
+     (kv@j,3 distance.0~8
+      (dot@6
+       (deref~4 walk.1)travelled.0 0))))
+   (ret~2,~1 result.5)))
+ (gvar :`iniGuard.0. .
+  (bool).)
+ (proc :`ini.0.
+  (params).
+  (pragmas
+   (smry callsUnknown))
+  (stmts
+   (if
+    (elif `iniGuard.0.
+     (stmts
+      (ret .))))
+   (asgn `iniGuard.0.
+    (true))
+   (call `ini.0.sysvq0asl))))(.index@,1,vxray.nim
+ (h FarAway.0. 57)
+ (h Walk.0. 49)
+ (x cellOf.0. 635)
+ (x absOf.0. 773)
+ (x firstCrossing.0. 389)
+ (x beginWalk.0. 985)
+ (x stepOn.0. 4200)
+ (h Pick.0. 4354)
+ (x noPick.0. 454)
+ (x pickAt.0. 484)
+ (h `iniGuard.0. 1181)
+ (x `ini.0. 34))

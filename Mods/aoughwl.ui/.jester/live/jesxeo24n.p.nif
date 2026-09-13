@@ -1,0 +1,1280 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/source/jester_mod_dae2e0425dd31985.nim
+ (comment)
+ (import@,E jester@7)
+ (import@,F vec@7)
+ (import@,G ui@7)
+ (import@,H example@7)
+ (import@,I textfield@7)
+ (let@4,K area . . .
+  (call@B rect~4 0.0@1 0.0@6 800.0@B 600.0@I))
+ (var@2,N checks . . . 0@9)
+ (var@2,O failures . . . 0@B)
+ (proc@,Q expect@5 . . .
+  (params@B
+   (param@1 what . . string@6 .)
+   (param@F ok . . bool@4 .)). . .
+  (stmts@2,1
+   (asgn@7 checks~7
+    (infix@9 \2B checks~7 1@2))
+   (if@,1
+    (elif@3
+     (prefix not ok@4)
+     (stmts~1,1
+      (asgn@9 failures~9
+       (infix@B \2B failures~9 1@2))
+      (call@3,1 log~3
+       (infix@Q & "ui self-check failed\3A "~P what@2)))))))
+ (proc@,W frameAt@5 . . .
+  (params@C
+   (param@1 x . . float64@6 .)
+   (param@4 y . . float64@3 .)
+   (param@G down . . bool@6 .)). . .
+  (stmts@2,1
+   (call@A beginFrame~A
+    (call@5 vec2~4 x@1 y@4)down@D area@J)))
+ (proc@,Z frameAt@5 . . .
+  (params@C
+   (param@1 x . . float64@6 .)
+   (param@4 y . . float64@3 .)
+   (param@G down . . bool@6 .)
+   (param@S turn . . float64@6 .)). . .
+  (stmts@2,1
+   (call@A beginFrame~A
+    (call@5 vec2~4 x@1 y@4)down@D area@J turn@P)))
+ (comment@,c)
+ (proc@,e settle@5 . . .
+  (params@B). . .
+  (stmts@2,1
+   (call@7 frameAt~7 4.0@1 4.0@6 false@B)
+   (call@8,1 endFrame~8)
+   (call@7,2 frameAt~7 4.0@1 4.0@6 false@B)
+   (call@8,3 endFrame~8)))
+ (proc@,m checkLayout@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (var@4 down . . .
+    (call@D column~6
+     (call@5 rect~4 10.0@1 20.0@7 200.0@D 400.0@K)5.0@X))
+   (let@4,1 first . . .
+    (call@H
+     (dot~5 down~4 take@1)30.0@1))
+   (let@4,2 second . . .
+    (call@I
+     (dot~5 down~4 take@1)40.0@1))
+   (call@6,3 expect~6 "a column starts at the top"@1
+    (infix@b,1 and
+     (infix~P and
+      (infix~8 ==
+       (dot~3 first~5 y@1)20.0@3)
+      (infix@H ==
+       (dot~8 first~5 height@1)30.0@3))
+     (infix@G ==
+      (dot~7 first~5 width@1)200.0@3)))
+   (call@6,5 expect~6 "the next row is under the first and the gap"@1
+    (infix@D,1 and
+     (infix~8 ==
+      (dot~3 second~6 y@1)55.0@3)
+     (infix@I ==
+      (dot~8 second~6 height@1)40.0@3)))
+   (call@6,7 expect~6 "what is left starts under both"@1
+    (infix@m ==
+     (dot~3
+      (call~6 rest~4 down@1)y@1)100.0@3))
+   (call@6,8 expect~6 "what was taken is as tall as the rows and the gap between them"@1
+    (infix@F,1 ==
+     (dot~8
+      (call~6 taken~5 down@1)height@1)75.0@3))
+   (var@4,B right . . .
+    (call@E across~6
+     (call@5 rect~4 0.0@1 0.0@6 300.0@B 40.0@I)10.0@U))
+   (let@4,C left . . .
+    (call@H
+     (dot~5 right~5 take@1)100.0@1))
+   (let@4,D next . . .
+    (call@H
+     (dot~5 right~5 take@1)50.0@1))
+   (call@6,E expect~6 "a row starts at the left"@1
+    (infix@h and
+     (infix~7 ==
+      (dot~3 left~4 x@1)0.0@3)
+     (infix@F ==
+      (dot~7 left~4 width@1)100.0@3)))
+   (call@6,F expect~6 "the next column is beside the first"@1
+    (infix@l ==
+     (dot~3 next~4 x@1)110.0@3))
+   (let@4,H three . . .
+    (call@D share~5
+     (call@5 rect~4 0.0@1 0.0@6 320.0@B 40.0@I)3@U 10.0@X Rightward@d))
+   (call@6,I expect~6 "three shares of a rectangle are three"@1
+    (infix@q ==
+     (dot~5 three~5 len@1)3@3))
+   (call@6,J expect~6 "they divide what is left after the gaps"@1
+    (infix@K,1 and
+     (infix~9 ==
+      (dot~7
+       (at~3 three~5 0@1)width@1)100.0@3)
+     (infix@F ==
+      (dot~3
+       (at~3 three~5 2@1)x@1)220.0@3)))))
+ (proc@,19 checkGrid@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (let@4 g . . .
+    (call@8 grid~4
+     (call@5 vec2~4 100.0@1 100.0@8)5@L 3@O 40.0@R 2.0@X))
+   (call@6,1 expect~6 "a grid is as wide as its cells and its gaps"@1
+    (infix@L,1 and
+     (infix~9 ==
+      (dot~7
+       (call~3 bounds~6 g@1)width@1)208.0@3)
+     (infix@L ==
+      (dot~8
+       (call~3 bounds~6 g@1)height@1)124.0@3)))
+   (call@6,3 expect~6 "a cell is where the arithmetic says"@1
+    (infix@C,1 ==
+     (call~A cellAt~6 g@1 2@4 1@7)
+     (call@7 rect~4 184.0@1 142.0@8 40.0@F 40.0@L)))
+   (call@6,5 expect~6 "a block of cells spans the gaps inside it"@1
+    (infix@M,1 ==
+     (dot~7
+      (call~F span~4 g@1 0@4 0@7 4@A 1@D)width@1)166.0@3))
+   (let@4,7 inCell . . .
+    (call@I cellUnder~9 g@1
+     (call@8 vec2~4 190.0@1 150.0@8)))
+   (call@6,8 expect~6 "a point finds its cell"@1
+    (infix@X,1 and
+     (infix~N and
+      (dot~8 inCell~6 inside@1)
+      (infix@I ==
+       (dot~8 inCell~6 column@1)2@3))
+     (infix@F ==
+      (dot~5 inCell~6 row@1)1@3)))
+   (call@6,A expect~6 "a point in a gap is in no cell"@1
+    (prefix~4,1 not
+     (dot@a
+      (call~N cellUnder~9 g@1
+       (call@8 vec2~4 141.0@1 150.0@8))inside@1)))
+   (call@6,C expect~6 "a point off the grid is in no cell"@1
+    (prefix~4,1 not
+     (dot@a
+      (call~N cellUnder~9 g@1
+       (call@8 vec2~4 600.0@1 150.0@8))inside@1)))
+   (call@6,E expect~6 "a block that fits along the row fits"@1
+    (call@j fits~4 g@1 1@4 0@7 4@A 1@D))
+   (call@6,F expect~6 "a block that runs off the edge does not"@1
+    (infix@K,1 and
+     (prefix~O not
+      (call@8 fits~4 g@1 2@4 0@7 4@A 1@D))
+     (prefix@4 not
+      (call@8 fits~4 g@1 0@4 2@7 1@A 2@D))))))
+ (proc@,1U checkClipAndId@5 . . .
+  (params@J). . .
+  (stmts@2,1
+   (call@6 settle~6)
+   (let@4,1 far . . .
+    (call@A rect~4 120.0@1 120.0@8 60.0@F 60.0@L))
+   (call@7,2 frameAt~7 150.0@1 150.0@8 false@F)
+   (call@6,3 expect~6 "nothing is cropped to start with"@1
+    (call@f over~4 far@1))
+   (call@8,4 pushClip~8
+    (call@5 rect~4 0.0@1 0.0@6 100.0@B 100.0@I))
+   (call@6,5 expect~6 "a rectangle outside the clip cannot be touched"@1
+    (prefix@p not
+     (call@8 over~4 far@1)))
+   (call@6,6 expect~6 "and is not visible either"@1
+    (prefix@U not
+     (call@B visible~7 far@1)))
+   (call@8,7 pushClip~8
+    (call@5 rect~4 0.0@1 0.0@6 400.0@B 400.0@I))
+   (call@6,8 expect~6 "a wider clip inside a narrower one does not widen it"@1
+    (prefix@v not
+     (call@8 over~4 far@1)))
+   (call@7,9 popClip~7)
+   (call@7,A popClip~7)
+   (call@6,B expect~6 "the clip comes back off"@1
+    (call@W over~4 far@1))
+   (call@6,D expect~6 "a plain name is itself"@1
+    (infix@e ==
+     (call~9 here~4 "slot"@1)"slot"@3))
+   (call@6,E pushId~6 "bag"@1)
+   (call@6,F expect~6 "a nested name carries its scope"@1
+    (infix@n ==
+     (call~9 here~4 "slot"@1)"bag/slot"@3))
+   (call@6,G pushId~6 2@1)
+   (call@6,H expect~6 "an index is a scope like any other"@1
+    (infix@q ==
+     (call~9 here~4 "slot"@1)"bag/2/slot"@3))
+   (call@5,I popId~5)
+   (call@5,J popId~5)
+   (call@6,K expect~6 "the scope comes back off"@1
+    (infix@g ==
+     (call~9 here~4 "slot"@1)"slot"@3))
+   (call@8,L endFrame~8)))
+ (proc@,1u checkButton@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (call@6 settle~6)
+   (let@4,1 box . . .
+    (call@A rect~4 100.0@1 100.0@8 120.0@F 40.0@M))
+   (call@7,3 frameAt~7 150.0@1 120.0@8 false@F)
+   (var@4,4 t . . .
+    (call@9 touch~5 "go"@1 box@7))
+   (call@8,5 endFrame~8)
+   (call@6,6 expect~6 "hovering is not clicking"@1
+    (infix@o and
+     (infix~F and
+      (dot~5 t~1 hot@1)
+      (prefix@4 not
+       (dot@5 t~1 held@1)))
+     (prefix@4 not
+      (dot@5 t~1 clicked@1))))
+   (call@7,8 frameAt~7 150.0@1 120.0@8 true@F)
+   (asgn@2,9 t~2
+    (call@7 touch~5 "go"@1 box@7))
+   (call@8,A endFrame~8)
+   (call@6,B expect~6 "a press grabs and does not yet click"@1
+    (infix@H,1 and
+     (infix~B and
+      (dot~9 t~1 grabbed@1)
+      (dot@5 t~1 held@1))
+     (prefix@4 not
+      (dot@5 t~1 clicked@1))))
+   (call@7,E frameAt~7 150.0@1 120.0@8 true@F)
+   (asgn@2,F t~2
+    (call@7 touch~5 "go"@1 box@7))
+   (call@8,G endFrame~8)
+   (call@6,H expect~6 "a held press is not grabbed again"@1
+    (infix@j and
+     (dot~6 t~1 held@1)
+     (prefix@4 not
+      (dot@5 t~1 grabbed@1))))
+   (call@7,J frameAt~7 150.0@1 120.0@8 false@F)
+   (asgn@2,K t~2
+    (call@7 touch~5 "go"@1 box@7))
+   (call@8,L endFrame~8)
+   (call@6,M expect~6 "the click happens when the press comes up"@1
+    (dot@l t~1 clicked@1))
+   (call@7,O frameAt~7 150.0@1 120.0@8 false@F)
+   (asgn@2,P t~2
+    (call@7 touch~5 "go"@1 box@7))
+   (call@8,Q endFrame~8)
+   (call@6,R expect~6 "and happens once"@1
+    (prefix@L not
+     (dot@5 t~1 clicked@1)))))
+ (proc@,2O checkPressLeaves@5 . . .
+  (params@L). . .
+  (stmts@2,1
+   (call@6 settle~6)
+   (let@4,1 box . . .
+    (call@A rect~4 100.0@1 100.0@8 120.0@F 40.0@M))
+   (call@7,2 frameAt~7 150.0@1 120.0@8 false@F)
+   (discard@,3
+    (call@D touch~5 "go"@1 box@7))
+   (call@8,4 endFrame~8)
+   (call@7,5 frameAt~7 150.0@1 120.0@8 true@F)
+   (discard@,6
+    (call@D touch~5 "go"@1 box@7))
+   (call@8,7 endFrame~8)
+   (call@7,8 frameAt~7 600.0@1 400.0@8 true@F)
+   (var@4,9 t . . .
+    (call@9 touch~5 "go"@1 box@7))
+   (call@8,A endFrame~8)
+   (call@6,B expect~6 "a press that wandered off is still held"@1
+    (dot@j t~1 held@1))
+   (call@7,C frameAt~7 600.0@1 400.0@8 false@F)
+   (asgn@2,D t~2
+    (call@7 touch~5 "go"@1 box@7))
+   (call@8,E endFrame~8)
+   (call@6,F expect~6 "letting go somewhere else is not a click"@1
+    (prefix@j not
+     (dot@5 t~1 clicked@1)))))
+ (proc@,2g checkTopmost@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (call@6 settle~6)
+   (let@4,1 under . . .
+    (call@C rect~4 100.0@1 100.0@8 200.0@F 200.0@M))
+   (let@4,2 over2 . . .
+    (call@C rect~4 150.0@1 150.0@8 100.0@F 100.0@M))
+   (call@7,3 frameAt~7 180.0@1 180.0@8 false@F)
+   (discard@,4
+    (call@D touch~5 "under"@1 under@A))
+   (discard@,5
+    (call@D touch~5 "over"@1 over2@9))
+   (call@8,6 endFrame~8)
+   (call@7,7 frameAt~7 180.0@1 180.0@8 false@F)
+   (let@4,8 a . . .
+    (call@9 touch~5 "under"@1 under@A))
+   (let@4,9 b . . .
+    (call@9 touch~5 "over"@1 over2@9))
+   (call@8,A endFrame~8)
+   (call@6,B expect~6 "the one drawn later takes the pointer"@1
+    (infix@m and
+     (dot~5 b~1 hot@1)
+     (prefix@4 not
+      (dot@5 a~1 hot@1))))
+   (call@7,D frameAt~7 180.0@1 180.0@8 true@F)
+   (let@4,E a2 . . .
+    (call@A touch~5 "under"@1 under@A))
+   (let@4,F b2 . . .
+    (call@A touch~5 "over"@1 over2@9))
+   (call@8,G endFrame~8)
+   (call@6,H expect~6 "and takes the press with it"@1
+    (infix@h and
+     (dot~9 b2~2 grabbed@1)
+     (prefix@4 not
+      (dot@6 a2~2 grabbed@1))))))
+ (proc@,30 checkScopedNames@5 . . .
+  (params@L). . .
+  (stmts@2,1
+   (call@6 settle~6)
+   (let@4,1 left . . .
+    (call@B rect~4 100.0@1 100.0@8 50.0@F 50.0@L))
+   (let@4,2 right . . .
+    (call@C rect~4 300.0@1 100.0@8 50.0@F 50.0@L))
+   (call@7,3 frameAt~7 120.0@1 120.0@8 true@F)
+   (call@6,4 pushId~6 "left"@1)
+   (let@4,5 one . . .
+    (call@B touch~5 "cell"@1 left@9))
+   (call@5,6 popId~5)
+   (call@6,7 pushId~6 "right"@1)
+   (let@4,8 two . . .
+    (call@B touch~5 "cell"@1 right@9))
+   (call@5,9 popId~5)
+   (call@8,A endFrame~8)
+   (call@6,B expect~6 "the same widget name in two scopes is two widgets"@1
+    (infix@8,1 and
+     (dot~9 one~3 grabbed@1)
+     (prefix@4 not
+      (dot@7 two~3 grabbed@1))))))
+ (let@4,3H source . . .
+  (call@D rect~4 100.0@1 100.0@8 60.0@F 60.0@L))
+ (let@4,3I target . . .
+  (call@D rect~4 400.0@1 100.0@8 60.0@F 60.0@L))
+ (proc@,3K bandage@5 . . .
+  (params@C)Carry@4 . .
+  (stmts@O
+   (call@5 carry~5 "item"@1 "bandage"@9 2@K)))
+ (proc@,3M checkDrag@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (call@6 settle~6)
+   (call@7,2 frameAt~7 130.0@1 130.0@8 false@F)
+   (var@4,3 d . . .
+    (call@8 drag~4 "item"@1 source@9
+     (call@O bandage~7)))
+   (var@4,4 z . . .
+    (call@C dropZone~8 "bin"@1 target@8 "item"@G))
+   (call@8,5 endFrame~8)
+   (call@6,6 expect~6 "hovering carries nothing"@1
+    (infix@i and
+     (prefix~F not
+      (call@C carrying~8))
+     (prefix@4 not
+      (dot@5 d~1 dragging@1))))
+   (call@6,7 expect~6 "a target that nothing is over is quiet"@1
+    (prefix@h not
+     (dot@5 z~1 over@1)))
+   (call@7,9 frameAt~7 130.0@1 130.0@8 true@F)
+   (asgn@2,A d~2
+    (call@6 drag~4 "item"@1 source@9
+     (call@O bandage~7)))
+   (call@8,B endFrame~8)
+   (call@6,C expect~6 "a press alone is not a drag"@1
+    (infix@l and
+     (prefix~F not
+      (call@C carrying~8))
+     (prefix@4 not
+      (dot@5 d~1 dragging@1))))
+   (call@7,E frameAt~7 200.0@1 130.0@8 true@F)
+   (asgn@2,F d~2
+    (call@6 drag~4 "item"@1 source@9
+     (call@O bandage~7)))
+   (asgn@2,G z~2
+    (call@A dropZone~8 "bin"@1 target@8 "item"@G))
+   (call@8,H endFrame~8)
+   (call@6,I expect~6 "moving far enough picks it up"@1
+    (infix@j and
+     (dot~A d~1 dragging@1)
+     (call@C carrying~8)))
+   (call@6,J expect~6 "of the kind it said"@1
+    (infix@f and
+     (call~9 carrying~8 "item"@1)
+     (prefix@4 not
+      (call@C carrying~8 "gun"@1))))
+   (call@6,K expect~6 "carrying what it was given"@1
+    (infix@M,1 and
+     (infix~D ==
+      (dot~4
+       (call~2 carried~7)id@1)"bandage"@3)
+     (infix@K ==
+      (dot~7
+       (call~2 carried~7)count@1)2@3)))
+   (call@6,M expect~6 "and remembering where it was taken hold of"@1
+    (infix@L,1 and
+     (infix~8 ==
+      (dot~3
+       (dot~5
+        (call~2 carried~7)grip@1)x@1)30.0@3)
+     (infix@L ==
+      (dot~3
+       (dot~5
+        (call~2 carried~7)grip@1)y@1)30.0@3)))
+   (call@6,O expect~6 "and how big it was"@1
+    (infix@L,1 and
+     (infix~8 ==
+      (dot~3
+       (dot~5
+        (call~2 carried~7)size@1)x@1)60.0@3)
+     (infix@L ==
+      (dot~3
+       (dot~5
+        (call~2 carried~7)size@1)y@1)60.0@3)))
+   (call@6,Q expect~6 "and which source it left"@1
+    (infix@k ==
+     (dot~8
+      (call~2 carried~7)source@1)"item"@3))
+   (call@6,R expect~6 "the ghost hangs under the pointer where it was picked up"@1
+    (infix@J,1 and
+     (infix~9 ==
+      (dot~3
+       (call~2 ghostRect~9)x@1)170.0@3)
+     (infix@I ==
+      (dot~3
+       (call~2 ghostRect~9)y@1)100.0@3)))
+   (call@7,U frameAt~7 430.0@1 130.0@8 true@F)
+   (asgn@2,V d~2
+    (call@6 drag~4 "item"@1 source@9
+     (call@O bandage~7)))
+   (asgn@2,W z~2
+    (call@A dropZone~8 "bin"@1 target@8 "item"@G))
+   (call@8,X endFrame~8)
+   (call@6,Y expect~6 "a target under a live drag lights up"@1
+    (infix@m and
+     (dot~6 z~1 over@1)
+     (prefix@4 not
+      (dot@5 z~1 dropped@1))))
+   (call@7,a frameAt~7 430.0@1 130.0@8 false@F)
+   (asgn@2,b d~2
+    (call@6 drag~4 "item"@1 source@9
+     (call@O bandage~7)))
+   (asgn@2,c z~2
+    (call@A dropZone~8 "bin"@1 target@8 "item"@G))
+   (call@6,d expect~6 "letting go over a target drops there"@1
+    (dot@g z~1 dropped@1))
+   (call@6,e expect~6 "and hands over what was carried"@1
+    (infix@J,1 and
+     (infix~D ==
+      (dot~4
+       (dot~5 z~1 load@1)id@1)"bandage"@3)
+     (infix@H ==
+      (dot~7
+       (dot~5 z~1 load@1)count@1)2@3)))
+   (call@8,g endFrame~8)
+   (call@7,i frameAt~7 430.0@1 130.0@8 false@F)
+   (let@4,j where . . .
+    (call@F landing~7))
+   (call@6,k expect~6 "the landing is announced the frame after"@1
+    (infix@B,1 and
+     (dot~A where~5 happened@1)
+     (infix@H ==
+      (dot~8 where~5 target@1)"bin"@3)))
+   (call@6,m expect~6 "with the load on it"@1
+    (infix@c ==
+     (dot~4
+      (dot~5 where~5 load@1)id@1)"bandage"@3))
+   (call@6,n expect~6 "and nothing is carried any more"@1
+    (prefix@a not
+     (call@C carrying~8)))
+   (call@8,o endFrame~8)
+   (call@7,q frameAt~7 430.0@1 130.0@8 false@F)
+   (call@6,r expect~6 "the landing is announced once"@1
+    (prefix@Y not
+     (dot@D
+      (call~2 landing~7)happened@1)))
+   (call@8,s endFrame~8)))
+ (proc@,4H checkRefusedDrag@5 . . .
+  (params@L). . .
+  (stmts@2,1
+   (call@6 settle~6)
+   (call@7,1 frameAt~7 130.0@1 130.0@8 false@F)
+   (discard@,2
+    (call@C drag~4 "item"@1 source@9
+     (call@O bandage~7)))
+   (call@8,3 endFrame~8)
+   (call@7,4 frameAt~7 130.0@1 130.0@8 true@F)
+   (discard@,5
+    (call@C drag~4 "item"@1 source@9
+     (call@O bandage~7)))
+   (call@8,6 endFrame~8)
+   (call@7,7 frameAt~7 430.0@1 130.0@8 true@F)
+   (discard@,8
+    (call@C drag~4 "item"@1 source@9
+     (call@O bandage~7)))
+   (let@4,9 z . . .
+    (call@C dropZone~8 "guns"@1 target@9 "gun"@H))
+   (call@8,A endFrame~8)
+   (call@6,B expect~6 "a target that does not take this kind stays quiet"@1
+    (prefix@s not
+     (dot@5 z~1 over@1)))
+   (call@7,D frameAt~7 430.0@1 130.0@8 false@F)
+   (let@4,E z2 . . .
+    (call@D dropZone~8 "guns"@1 target@9 "gun"@H))
+   (call@6,F expect~6 "and does not catch it"@1
+    (prefix@Q not
+     (dot@6 z2~2 dropped@1)))
+   (call@8,G endFrame~8)
+   (call@7,I frameAt~7 430.0@1 130.0@8 false@F)
+   (let@4,J where . . .
+    (call@F landing~7))
+   (call@6,K expect~6 "a drag nobody caught still lands, on nothing"@1
+    (infix@B,1 and
+     (dot~A where~5 happened@1)
+     (infix@L ==
+      (dot~5
+       (dot~7 where~5 target@1)len@1)0@3)))
+   (call@6,M expect~6 "with the load still on it"@1
+    (infix@i ==
+     (dot~4
+      (dot~5 where~5 load@1)id@1)"bandage"@3))
+   (call@8,N endFrame~8)))
+ (proc@,4h checkClickIsNotDrag@5 . . .
+  (params@O). . .
+  (stmts@2,1
+   (call@6 settle~6)
+   (call@7,1 frameAt~7 130.0@1 130.0@8 false@F)
+   (discard@,2
+    (call@C drag~4 "item"@1 source@9
+     (call@O bandage~7)))
+   (call@8,3 endFrame~8)
+   (call@7,4 frameAt~7 130.0@1 130.0@8 true@F)
+   (discard@,5
+    (call@C drag~4 "item"@1 source@9
+     (call@O bandage~7)))
+   (call@8,6 endFrame~8)
+   (call@7,7 frameAt~7 131.0@1 130.0@8 false@F)
+   (let@4,8 d . . .
+    (call@8 drag~4 "item"@1 source@9
+     (call@O bandage~7)))
+   (call@6,9 expect~6 "a press that barely moved is a click and never a drag"@1
+    (infix@6,1 and
+     (dot~9 d~1 clicked@1)
+     (prefix@4 not
+      (dot@5 d~1 dragging@1))))
+   (call@8,B endFrame~8)
+   (call@7,C frameAt~7 131.0@1 130.0@8 false@F)
+   (call@6,D expect~6 "and never lands anything"@1
+    (prefix@T not
+     (dot@D
+      (call~2 landing~7)happened@1)))
+   (call@8,E endFrame~8)))
+ (proc@,4y checkCancel@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (call@6 settle~6)
+   (call@7,1 frameAt~7 130.0@1 130.0@8 false@F)
+   (discard@,2
+    (call@C drag~4 "item"@1 source@9
+     (call@O bandage~7)))
+   (call@8,3 endFrame~8)
+   (call@7,4 frameAt~7 130.0@1 130.0@8 true@F)
+   (discard@,5
+    (call@C drag~4 "item"@1 source@9
+     (call@O bandage~7)))
+   (call@8,6 endFrame~8)
+   (call@7,7 frameAt~7 200.0@1 130.0@8 true@F)
+   (discard@,8
+    (call@C drag~4 "item"@1 source@9
+     (call@O bandage~7)))
+   (call@6,9 expect~6 "picked up before cancelling"@1
+    (call@e carrying~8))
+   (call@A,A cancelDrag~A)
+   (call@6,B expect~6 "cancelling puts it down at once"@1
+    (prefix@a not
+     (call@C carrying~8)))
+   (call@8,C endFrame~8)
+   (call@7,D frameAt~7 200.0@1 130.0@8 true@F)
+   (let@4,E where . . .
+    (call@F landing~7))
+   (call@6,F expect~6 "a cancelled drag lands on nothing"@1
+    (infix@B,1 and
+     (dot~A where~5 happened@1)
+     (infix@L ==
+      (dot~5
+       (dot~7 where~5 target@1)len@1)0@3)))
+   (call@8,H endFrame~8)))
+ (proc@,5I checkTopmostTarget@5 . . .
+  (params@N). . .
+  (stmts@2,1
+   (call@6 settle~6)
+   (let@4,1 wide . . .
+    (call@B rect~4 380.0@1 80.0@8 200.0@E 200.0@L))
+   (call@7,2 frameAt~7 130.0@1 130.0@8 false@F)
+   (discard@,3
+    (call@C drag~4 "item"@1 source@9
+     (call@O bandage~7)))
+   (call@8,4 endFrame~8)
+   (call@7,5 frameAt~7 130.0@1 130.0@8 true@F)
+   (discard@,6
+    (call@C drag~4 "item"@1 source@9
+     (call@O bandage~7)))
+   (call@8,7 endFrame~8)
+   (call@7,8 frameAt~7 430.0@1 130.0@8 true@F)
+   (discard@,9
+    (call@C drag~4 "item"@1 source@9
+     (call@O bandage~7)))
+   (discard@,A
+    (call@G dropZone~8 "wide"@1 wide@9 "item"@F))
+   (discard@,B
+    (call@G dropZone~8 "bin"@1 target@8 "item"@G))
+   (call@8,C endFrame~8)
+   (call@7,D frameAt~7 430.0@1 130.0@8 true@F)
+   (discard@,E
+    (call@C drag~4 "item"@1 source@9
+     (call@O bandage~7)))
+   (let@4,F big . . .
+    (call@E dropZone~8 "wide"@1 wide@9 "item"@F))
+   (let@4,G small . . .
+    (call@G dropZone~8 "bin"@1 target@8 "item"@G))
+   (call@8,H endFrame~8)
+   (call@6,I expect~6 "the target drawn later takes the drag"@1
+    (infix@7,1 and
+     (dot~6 small~5 over@1)
+     (prefix@4 not
+      (dot@7 big~3 over@1))))
+   (call@7,K frameAt~7 430.0@1 130.0@8 false@F)
+   (discard@,L
+    (call@G dropZone~8 "wide"@1 wide@9 "item"@F))
+   (discard@,M
+    (call@G dropZone~8 "bin"@1 target@8 "item"@G))
+   (call@8,N endFrame~8)
+   (call@7,O frameAt~7 430.0@1 130.0@8 false@F)
+   (call@6,P expect~6 "and catches it"@1
+    (infix@a ==
+     (dot~8
+      (call~2 landing~7)target@1)"bin"@3))
+   (call@8,Q endFrame~8)))
+ (comment@,5n)
+ (proc@,5r frameOfExample@5 . . .
+  (params@J
+   (param@1 at . . Vec2@4 .)
+   (param@B down . . bool@6 .)). . .
+  (stmts@2,1
+   (call@A beginFrame~A at@1 down@5 area@B)
+   (call@F,1 inventoryScreen~F)
+   (call@8,2 endFrame~8)))
+ (proc@,5w dragInExample@5 . . .
+  (params@I
+   (param@1 fromAt . . Vec2@E .)
+   (param@9 toAt . . Vec2@6 .)). . .
+  (stmts@2,1
+   (call@E frameOfExample~E fromAt@1 false@9)
+   (call@E,1 frameOfExample~E fromAt@1 true@9)
+   (call@E,2 frameOfExample~E
+    (call@5 vec2~4
+     (infix@A \2B
+      (dot~3 fromAt~6 x@1)20.0@2)
+     (dot@O fromAt~6 y@1))true@Y)
+   (call@E,3 frameOfExample~E toAt@1 true@7)
+   (call@E,4 frameOfExample~E toAt@1 true@7)
+   (call@E,5 frameOfExample~E toAt@1 false@7)
+   (call@E,6 frameOfExample~E toAt@1 false@7)))
+ (proc@,65 checkExample@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (call@4 mute~4 true@1)
+   (call@9,1 setUpBags~9)
+   (call@6,2 expect~6 "the example starts where it says it does"@1
+    (infix@A,1 ==
+     (call~3 arrangement~B)"bandage\40stash\3A0,0 rifle\40stash\3A0,2 mag\40pouch\3A2,0"@3))
+   (let@4,5 stash . . .
+    (call@D bagOf~5 Stash@1))
+   (let@4,6 pouch . . .
+    (call@D bagOf~5 Pouch@1))
+   (call@6,7 settle~6)
+   (call@D,8 dragInExample~D
+    (call@7 centre~6
+     (call@7 cellAt~6 stash@1 0@8 0@B))
+    (call@a centre~6
+     (call@7 cellAt~6 pouch@1 1@8 1@B)))
+   (call@6,9 expect~6 "dragging a thing between two bags moves it"@1
+    (infix@A,1 ==
+     (call~3 arrangement~B)"bandage\40pouch\3A1,1 rifle\40stash\3A0,2 mag\40pouch\3A2,0"@3))
+   (call@6,C settle~6)
+   (call@D,D dragInExample~D
+    (call@7 centre~6
+     (call@7 cellAt~6 pouch@1 1@8 1@B))
+    (call@a centre~6
+     (call@7 cellAt~6 pouch@1 2@8 0@B)))
+   (call@6,E expect~6 "dropping onto an occupied cell is refused and changes nothing"@1
+    (infix@A,1 ==
+     (call~3 arrangement~B)"bandage\40pouch\3A1,1 rifle\40stash\3A0,2 mag\40pouch\3A2,0"@3))
+   (call@6,H settle~6)
+   (call@D,I dragInExample~D
+    (call@7 centre~6
+     (call@7 cellAt~6 stash@1 1@8 2@B))
+    (call@a centre~6
+     (call@7 cellAt~6 stash@1 4@8 4@B)))
+   (call@6,J expect~6 "a four-wide thing is picked up anywhere along it and lands as a block"@1
+    (infix@A,1 ==
+     (call~3 arrangement~B)"bandage\40pouch\3A1,1 rifle\40stash\3A4,4 mag\40pouch\3A2,0"@3))
+   (call@6,M settle~6)
+   (call@D,N dragInExample~D
+    (call@7 centre~6
+     (call@7 cellAt~6 stash@1 4@8 4@B))
+    (call@a centre~6
+     (call@7 cellAt~6 stash@1 6@8 4@B)))
+   (call@6,O expect~6 "and is refused where it would hang off the edge"@1
+    (infix@A,1 ==
+     (call~3 arrangement~B)"bandage\40pouch\3A1,1 rifle\40stash\3A4,4 mag\40pouch\3A2,0"@3))
+   (call@4,Q mute~4 false@1)))
+ (proc@,6i checkCaretMoves@5 . . .
+  (params@K). . .
+  (stmts@2,1
+   (var@4 e . . .
+    (call@C editable~8 "hello world"@1))
+   (call@6,1 expect~6 "a new field has the caret at the end"@1
+    (infix@t and
+     (infix~6 ==
+      (dot~7 e~1 caret@1)11@3)
+     (prefix@4 not
+      (call@G hasSelection~C e@1))))
+   (call@5,2 place~5 e@1 0@4)
+   (discard@,3
+    (call@D apply~5 e@1
+     (call@A stroke~6 RightArrow@1)))
+   (call@6,4 expect~6 "right goes one character"@1
+    (infix@b ==
+     (dot~7 e~1 caret@1)1@3))
+   (discard@,5
+    (call@D apply~5 e@1
+     (call@A stroke~6 RightArrow@1 false@D true@K)))
+   (call@6,6 expect~6 "ctrl-right goes to the end of the word"@1
+    (infix@p ==
+     (dot~7 e~1 caret@1)5@3))
+   (discard@,7
+    (call@D apply~5 e@1
+     (call@A stroke~6 RightArrow@1 false@D true@K)))
+   (call@6,8 expect~6 "and then past the next one"@1
+    (infix@d ==
+     (dot~7 e~1 caret@1)11@3))
+   (discard@,9
+    (call@D apply~5 e@1
+     (call@A stroke~6 LeftArrow@1 false@C true@J)))
+   (call@6,A expect~6 "ctrl-left comes back to the start of the word"@1
+    (infix@w ==
+     (dot~7 e~1 caret@1)6@3))
+   (discard@,B
+    (call@D apply~5 e@1
+     (call@A stroke~6 Home@1)))
+   (call@6,C expect~6 "home is the start"@1
+    (infix@U ==
+     (dot~7 e~1 caret@1)0@3))
+   (discard@,D
+    (call@D apply~5 e@1
+     (call@A stroke~6 End@1)))
+   (call@6,E expect~6 "end is the end"@1
+    (infix@R ==
+     (dot~7 e~1 caret@1)11@3))))
+ (proc@,6z checkSelection@5 . . .
+  (params@J). . .
+  (stmts@2,1
+   (var@4 e . . .
+    (call@C editable~8 "hello world"@1))
+   (call@5,1 place~5 e@1 0@4)
+   (discard@,2
+    (call@D apply~5 e@1
+     (call@A stroke~6 RightArrow@1 true@D)))
+   (discard@,3
+    (call@D apply~5 e@1
+     (call@A stroke~6 RightArrow@1 true@D)))
+   (call@6,4 expect~6 "shift-right selects as it goes"@1
+    (infix@C,1 and
+     (call~4 hasSelection~C e@1)
+     (infix@K ==
+      (call~4 selectedText~C e@1)"he"@3)))
+   (discard@,6
+    (call@D apply~5 e@1
+     (call@A stroke~6 LeftArrow@1 true@C)))
+   (call@6,7 expect~6 "shift-left gives one back"@1
+    (infix@k ==
+     (call~4 selectedText~C e@1)"h"@3))
+   (discard@,8
+    (call@D apply~5 e@1
+     (call@A stroke~6 RightArrow@1)))
+   (call@6,9 expect~6 "a plain right off a selection lands at its far end and clears it"@1
+    (infix@9,1 and
+     (infix~5 ==
+      (dot~7 e~1 caret@1)1@3)
+     (prefix@4 not
+      (call@G hasSelection~C e@1))))
+   (discard@,B
+    (call@D apply~5 e@1
+     (call@A stroke~6 End@1 true@6 true@C)))
+   (call@6,C expect~6 "shift-ctrl-end takes the rest"@1
+    (infix@o ==
+     (call~4 selectedText~C e@1)"ello world"@3))
+   (discard@,D
+    (call@D apply~5 e@1
+     (call@A stroke~6 A@1 false@4 true@B)))
+   (call@6,E expect~6 "ctrl-a takes all of it"@1
+    (infix@h ==
+     (call~4 selectedText~C e@1)"hello world"@3))))
+ (proc@,7G checkWords@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (let@4 line . . . "one two, three"@7)
+   (let@4,1 first . . .
+    (call@I wordAround~A line@1 1@7))
+   (call@6,2 expect~6 "a double-click in a word takes the word"@1
+    (infix@D,1 and
+     (infix~5 ==
+      (dot~7 first~5 first@1)0@3)
+     (infix@F ==
+      (dot~6 first~5 last@1)3@3)))
+   (let@4,4 comma . . .
+    (call@I wordAround~A line@1 7@7))
+   (call@6,5 expect~6 "a double-click on punctuation takes the punctuation"@1
+    (infix@D,1 and
+     (infix~5 ==
+      (dot~7 comma~5 first@1)7@3)
+     (infix@F ==
+      (dot~6 comma~5 last@1)8@3)))
+   (let@4,7 gap . . .
+    (call@G wordAround~A line@1 3@7))
+   (call@6,8 expect~6 "a double-click in a gap takes the gap"@1
+    (infix@B,1 and
+     (infix~5 ==
+      (dot~7 gap~3 first@1)3@3)
+     (infix@D ==
+      (dot~6 gap~3 last@1)4@3)))))
+ (proc@,7S checkEditing@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (var@4 e . . .
+    (call@C editable~8 "hello world"@1))
+   (call@5,1 place~5 e@1 5@4)
+   (discard@,2
+    (call@D apply~5 e@1
+     (call@A stroke~6 Backspace@1)))
+   (call@6,3 expect~6 "backspace takes the character before the caret"@1
+    (infix@w ==
+     (dot~6 e~1 text@1)"hell world"@3))
+   (discard@,4
+    (call@D apply~5 e@1
+     (call@A stroke~6 Delete@1)))
+   (call@6,5 expect~6 "delete takes the one after"@1
+    (infix@c ==
+     (dot~6 e~1 text@1)"hellworld"@3))
+   (call@B,6 selectRange~B e@1 0@4 4@7)
+   (discard@,7
+    (call@D apply~5 e@1
+     (call@A stroke~6 Backspace@1)))
+   (call@6,8 expect~6 "backspace over a selection takes the selection"@1
+    (infix@E,1 and
+     (infix~B ==
+      (dot~6 e~1 text@1)"world"@3)
+     (infix@C ==
+      (dot~7 e~1 caret@1)0@3)))
+   (call@6,A insert~6 e@1 "hello "@4)
+   (call@6,B expect~6 "a paste goes in at the caret"@1
+    (infix@v and
+     (infix~H ==
+      (dot~6 e~1 text@1)"hello world"@3)
+     (infix@C ==
+      (dot~7 e~1 caret@1)6@3)))
+   (call@9,C selectAll~9 e@1)
+   (call@6,D insert~6 e@1 "new"@4)
+   (call@6,E expect~6 "a paste over a selection replaces it"@1
+    (infix@m ==
+     (dot~6 e~1 text@1)"new"@3))))
+ (proc@,7j checkUndo@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (var@4 e . . .
+    (call@C editable~8 ""@1))
+   (call@6,1 typeIn~6 e@1 "h"@4)
+   (call@6,2 typeIn~6 e@1 "i"@4)
+   (call@6,3 typeIn~6 e@1 "!"@4)
+   (call@6,4 expect~6 "typing runs together"@1
+    (infix@f and
+     (infix~9 ==
+      (dot~6 e~1 text@1)"hi!"@3)
+     (infix@H ==
+      (call~4 undoDepth~9 e@1)1@3)))
+   (discard@,5
+    (call@C undo~4 e@1))
+   (call@6,6 expect~6 "one undo takes the whole run, not one letter"@1
+    (infix@u ==
+     (dot~6 e~1 text@1)""@3))
+   (discard@,7
+    (call@C redo~4 e@1))
+   (call@6,8 expect~6 "redo puts it back"@1
+    (infix@T ==
+     (dot~6 e~1 text@1)"hi!"@3))
+   (call@5,9 place~5 e@1 0@4)
+   (call@6,A typeIn~6 e@1 "oh "@4)
+   (call@6,B expect~6 "moving the caret starts a new run"@1
+    (infix@p ==
+     (call~4 undoDepth~9 e@1)2@3))
+   (discard@,C
+    (call@C undo~4 e@1))
+   (call@6,D expect~6 "so undo takes only the second run"@1
+    (infix@j ==
+     (dot~6 e~1 text@1)"hi!"@3))
+   (discard@,E
+    (call@C undo~4 e@1))
+   (call@6,F expect~6 "and the next takes the first"@1
+    (infix@e ==
+     (dot~6 e~1 text@1)""@3))
+   (call@6,G expect~6 "nothing left to undo"@1
+    (prefix@P not
+     (call@8 undo~4 e@1)))))
+ (proc@,82 checkUtf8@5 . . .
+  (params@E). . .
+  (stmts@2,4
+   (var@4 e . . .
+    (call@C editable~8 "café"@1))
+   (call@6,1 expect~6 "the string is five bytes"@1
+    (infix@e ==
+     (dot~5
+      (dot~5 e~1 text@1)len@1)5@3))
+   (discard@,2
+    (call@D apply~5 e@1
+     (call@A stroke~6 Backspace@1)))
+   (call@6,3 expect~6 "backspace takes the whole accented character, both its bytes"@1
+    (infix@3,1 ==
+     (dot~6 e~1 text@1)"caf"@3))
+   (var@4,5 d . . .
+    (call@C editable~8 "café"@1))
+   (call@6,6 expect~6 "a decomposed accent is six bytes"@1
+    (infix@m ==
+     (dot~5
+      (dot~5 d~1 text@1)len@1)6@3))
+   (discard@,7
+    (call@D apply~5 d@1
+     (call@A stroke~6 Backspace@1)))
+   (call@6,8 expect~6 "backspace takes the letter and the mark that sits on it"@1
+    (infix@3,1 ==
+     (dot~6 d~1 text@1)"caf"@3))
+   (var@4,A j . . .
+    (call@C editable~8 "a✋‍🦺b"@1))
+   (call@5,B place~5 j@1
+    (infix@F \2D
+     (dot~5
+      (dot~5 j~1 text@1)len@1)1@2))
+   (discard@,C
+    (call@D apply~5 j@1
+     (call@A stroke~6 Backspace@1)))
+   (call@6,D expect~6 "a joined emoji is one backspace, not two"@1
+    (infix@q ==
+     (dot~6 j~1 text@1)"ab"@3))))
+ (proc@,8L checkPasteIsOneStep@5 . . .
+  (params@O). . .
+  (stmts@2,1
+   (var@4 e . . .
+    (call@C editable~8 ""@1))
+   (call@6,1 insert~6 e@1 "a line\0Aand another"@4)
+   (call@6,2 expect~6 "a paste with newlines in it comes into one line as spaces"@1
+    (infix@3,1 ==
+     (dot~6 e~1 text@1)"a line and another"@3))
+   (discard@,4
+    (call@C undo~4 e@1))
+   (call@6,5 expect~6 "and undoes in one step"@1
+    (infix@Y ==
+     (dot~6 e~1 text@1)""@3))))
+ (comment@,8T)
+ (proc@,8Y checkFieldFocus@5 . . .
+  (params@K). . .
+  (stmts@2,1
+   (var@4 first . . .
+    (call@G editable~8 "one"@1))
+   (var@4,1 second . . .
+    (call@H editable~8 "two"@1))
+   (let@4,2 a . . .
+    (call@8 rect~4 10.0@1 10.0@7 200.0@D 24.0@K))
+   (let@4,3 b . . .
+    (call@8 rect~4 10.0@1 40.0@7 200.0@D 24.0@K))
+   (call@6,4 settle~6)
+   (call@A,5 focusField~A ""@1)
+   (call@4,6 mute~4 true@1)
+   (call@7,7 frameAt~7 300.0@1 300.0@8 false@F)
+   (discard@,8
+    (call@H textField~9 "first"@1 a@A first@D))
+   (discard@,9
+    (call@H textField~9 "second"@1 b@B second@E))
+   (call@8,A endFrame~8)
+   (call@6,B expect~6 "nothing has the caret before anything is clicked"@1
+    (infix@F,1 ==
+     (dot~5
+      (call~2 focusedField~C)len@1)0@3))
+   (call@7,D frameAt~7 20.0@1 20.0@7 true@D)
+   (discard@,E
+    (call@H textField~9 "first"@1 a@A first@D))
+   (discard@,F
+    (call@H textField~9 "second"@1 b@B second@E))
+   (call@8,G endFrame~8)
+   (call@6,H expect~6 "clicking a field gives it the caret"@1
+    (infix@t ==
+     (call~3 focusedField~C)"first"@3))
+   (call@7,I frameAt~7 20.0@1 50.0@7 false@D)
+   (discard@,J
+    (call@H textField~9 "first"@1 a@A first@D))
+   (discard@,K
+    (call@H textField~9 "second"@1 b@B second@E))
+   (call@8,L endFrame~8)
+   (call@7,M frameAt~7 20.0@1 50.0@7 true@D)
+   (discard@,N
+    (call@H textField~9 "first"@1 a@A first@D))
+   (discard@,O
+    (call@H textField~9 "second"@1 b@B second@E))
+   (call@8,P endFrame~8)
+   (call@6,Q expect~6 "clicking the other one moves the caret to it"@1
+    (infix@B,1 ==
+     (call~3 focusedField~C)"second"@3))
+   (call@7,S frameAt~7 400.0@1 400.0@8 false@F)
+   (discard@,T
+    (call@H textField~9 "first"@1 a@A first@D))
+   (discard@,U
+    (call@H textField~9 "second"@1 b@B second@E))
+   (call@8,V endFrame~8)
+   (call@7,W frameAt~7 400.0@1 400.0@8 true@F)
+   (discard@,X
+    (call@H textField~9 "first"@1 a@A first@D))
+   (discard@,Y
+    (call@H textField~9 "second"@1 b@B second@E))
+   (call@8,Z endFrame~8)
+   (call@6,a expect~6 "clicking away from every field gives the caret up"@1
+    (infix@F,1 ==
+     (dot~5
+      (call~2 focusedField~C)len@1)0@3))
+   (call@4,c mute~4 false@1)
+   (call@A,d focusField~A ""@1)
+   (call@6,e settle~6)))
+ (proc@,9L checkWheel@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (call@4 mute~4 true@1)
+   (call@6,1 settle~6)
+   (let@4,2 box . . .
+    (call@A rect~4 100.0@1 100.0@8 200.0@F 120.0@M))
+   (call@7,4 frameAt~7 150.0@1 150.0@8 false@F)
+   (var@4,5 s . . .
+    (call@F beginScroll~B "list"@1 box@9 600.0@E))
+   (call@9,6 endScroll~9 s@1)
+   (call@8,7 endFrame~8)
+   (call@6,8 expect~6 "a region nobody turned the wheel over is at the top"@1
+    (infix@13 ==
+     (dot~8 s~1 offset@1)0.0@3))
+   (call@7,A frameAt~7 150.0@1 150.0@8 false@F -1.0@M)
+   (asgn@2,B s~2
+    (call@D beginScroll~B "list"@1 box@9 600.0@E))
+   (call@9,C endScroll~9 s@1)
+   (call@8,D endFrame~8)
+   (call@6,E expect~6 "a notch towards you moves it down"@1
+    (infix@l >
+     (dot~8 s~1 offset@1)0.0@2))
+   (let@4,F after . . .
+    (dot@9 s~1 offset@1))
+   (call@7,H frameAt~7 150.0@1 150.0@8 false@F 1.0@M)
+   (asgn@2,I s~2
+    (call@D beginScroll~B "list"@1 box@9 600.0@E))
+   (call@9,J endScroll~9 s@1)
+   (call@8,K endFrame~8)
+   (call@6,L expect~6 "a notch away from you moves it back the same distance"@1
+    (infix@C,1 and
+     (infix~7 ==
+      (dot~8 s~1 offset@1)0.0@3)
+     (infix@A > after~6 0.0@2)))
+   (call@7,Q frameAt~7 700.0@1 500.0@8 false@F -1.0@M)
+   (asgn@2,R s~2
+    (call@D beginScroll~B "list"@1 box@9 600.0@E))
+   (call@9,S endScroll~9 s@1)
+   (call@8,T endFrame~8)
+   (call@6,U expect~6 "the wheel does not move a region the pointer is not over"@1
+    (infix@5,1 ==
+     (dot~8 s~1 offset@1)0.0@3))
+   (call@7,X frameAt~7 150.0@1 150.0@8 false@F -20.0@M)
+   (asgn@2,Y s~2
+    (call@D beginScroll~B "list"@1 box@9 600.0@E))
+   (call@9,Z endScroll~9 s@1)
+   (call@8,a endFrame~8)
+   (call@6,b expect~6 "and never past the end of what there is to see"@1
+    (infix@5,1 ==
+     (dot~8 s~1 offset@1)
+     (infix@9 \2D 600.0~6
+      (dot@5 box~3 height@1))))
+   (call@4,d mute~4 false@1)
+   (call@6,e settle~6)))
+ (comment@,A2)
+ (proc@,A6 checkFieldScroll@5 . . .
+  (params@L). . .
+  (stmts@2,1
+   (call@4 mute~4 true@1)
+   (call@6,1 settle~6)
+   (let@4,2 box . . .
+    (call@A rect~4 100.0@1 300.0@8 120.0@F 30.0@M))
+   (var@4,3 e . . .
+    (call@C editable~8 "a line of text far wider than the box it is being typed into"@1))
+   (let@4,4 id . . . "wide"@5)
+   (call@A,6 focusField~A ""@1)
+   (call@7,7 frameAt~7 4.0@1 4.0@6 false@B)
+   (discard@,8
+    (call@H textField~9 id@1 box@5 e@A))
+   (call@8,9 endFrame~8)
+   (call@6,A expect~6 "a field nobody has clicked shows its start"@1
+    (infix@15 ==
+     (call~C scrollOf~8
+      (infix@4 & id~3 "/x"@2))0.0@3))
+   (call@7,E frameAt~7 150.0@1 315.0@8 true@F)
+   (discard@,F
+    (call@H textField~9 id@1 box@5 e@A))
+   (call@8,G endFrame~8)
+   (call@6,H expect~6 "clicking it takes the caret"@1
+    (infix@l ==
+     (call~3 focusedField~C)id@3))
+   (call@5,J place~5 e@1
+    (dot@A
+     (dot~5 e~1 text@1)len@1))
+   (call@7,K frameAt~7 150.0@1 315.0@8 false@F)
+   (discard@,L
+    (call@H textField~9 id@1 box@5 e@A))
+   (call@8,M endFrame~8)
+   (let@4,N slid . . .
+    (call@F scrollOf~8
+     (infix@4 & id~3 "/x"@2)))
+   (call@6,O expect~6 "the caret at the end slides the text left"@1
+    (infix@p > slid~5 0.0@2))
+   (let@4,P inner . . .
+    (call@H
+     (dot~6 box~3 inset@1)6.0@1))
+   (call@6,Q expect~6 "and slides it exactly far enough to keep the caret in view, no further"@1
+    (infix@u,1 and
+     (infix~F <=
+      (infix~7 \2D
+       (call~W caretX~6
+        (dot@2 e~1 text@1)
+        (dot@A e~1 caret@1)
+        (dot@P
+         (call~2 style~5)text@1))slid@2)
+      (dot@8 inner~5 width@1))
+     (infix~F,1 >=
+      (infix~7 \2D
+       (call~W caretX~6
+        (dot@2 e~1 text@1)
+        (dot@A e~1 caret@1)
+        (dot@P
+         (call~2 style~5)text@1))slid@2)
+      (infix@F \2D
+       (dot~7 inner~5 width@1)4.0@2))))
+   (call@5,U place~5 e@1 0@4)
+   (call@7,V frameAt~7 150.0@1 315.0@8 false@F)
+   (discard@,W
+    (call@H textField~9 id@1 box@5 e@A))
+   (call@8,X endFrame~8)
+   (call@6,Y expect~6 "the caret back at the start slides it home again"@1
+    (infix@G,1 ==
+     (call~C scrollOf~8
+      (infix@4 & id~3 "/x"@2))0.0@3))
+   (call@7,d setText~7 e@1 "short"@4)
+   (call@5,e place~5 e@1 5@4)
+   (call@7,f frameAt~7 150.0@1 315.0@8 false@F)
+   (discard@,g
+    (call@H textField~9 id@1 box@5 e@A))
+   (call@8,h endFrame~8)
+   (call@6,i expect~6 "text that fits is never scrolled"@1
+    (infix@v ==
+     (call~C scrollOf~8
+      (infix@4 & id~3 "/x"@2))0.0@3))
+   (call@A,j focusField~A ""@1)
+   (call@4,k mute~4 false@1)
+   (call@6,l settle~6)))
+ (comment@,Aw)
+ (var@4,B0 showing . . . false@A)
+ (proc@,B2 showExample@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (call@9 setUpBags~9)
+   (asgn@8,1 showing~8 true@2)))
+ (proc@,B6 hideExample@5 . . .
+  (params@G). . .
+  (stmts@L
+   (asgn@8 showing~8 false@2)))
+ (comment@,B8)
+ (proc@,BE focusCaption@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (call@A setUpNotes~A)
+   (call@A,1 focusField~A "notes/caption"@1)
+   (call@5,2 place~5 caption@1
+    (dot@M
+     (dot~5 caption~7 text@1)len@1))))
+ (proc@,BJ drawGui@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not showing@4)
+     (stmts@D
+      (ret .))))
+   (call@A,1 beginFrame~A)
+   (call@F,2 inventoryScreen~F)
+   (call@8,3 endFrame~8)))
+ (comment@,BP)
+ (proc@,BR sayArrangement@5 . . .
+  (params@J). . .
+  (stmts@O
+   (call@3 log~3
+    (infix@G & "ui example\3A "~F
+     (call@D arrangement~B)))))
+ (proc@,BT start@5 . . .
+  (params@A). . .
+  (stmts@2,1
+   (call@B checkLayout~B)
+   (call@9,1 checkGrid~9)
+   (call@E,2 checkClipAndId~E)
+   (call@B,3 checkButton~B)
+   (call@G,4 checkPressLeaves~G)
+   (call@C,5 checkTopmost~C)
+   (call@G,6 checkScopedNames~G)
+   (call@9,7 checkDrag~9)
+   (call@G,8 checkRefusedDrag~G)
+   (call@J,9 checkClickIsNotDrag~J)
+   (call@B,A checkCancel~B)
+   (call@I,B checkTopmostTarget~I)
+   (call@C,C checkExample~C)
+   (call@F,D checkCaretMoves~F)
+   (call@E,E checkSelection~E)
+   (call@A,F checkWords~A)
+   (call@C,G checkEditing~C)
+   (call@9,H checkUndo~9)
+   (call@9,I checkUtf8~9)
+   (call@J,J checkPasteIsOneStep~J)
+   (call@F,K checkFieldFocus~F)
+   (call@A,L checkWheel~A)
+   (call@G,M checkFieldScroll~G)
+   (call@6,N settle~6)
+   (if@,O
+    (elif@3
+     (infix@9 == failures~9 0@3)
+     (stmts~1,1
+      (call@3 log~3
+       (infix@Z &
+        (infix~A & "ui self-check passed "~O
+         (prefix@2 $ checks@1))" checks"@2))))
+    (else@,2
+     (stmts@2,1
+      (call@3 log~3
+       (infix@u &
+        (infix~A &
+         (infix~9 &
+          (infix~C & "ui self-check FAILED "~O
+           (prefix@2 $ failures@1))" of "@2)
+         (prefix@2 $ checks@1))" checks"@2)))))))
+ (proc@,Bx stop@5 . . .
+  (params@9). . .
+  (stmts@2,1
+   (discard .))))

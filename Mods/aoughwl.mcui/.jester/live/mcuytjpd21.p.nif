@@ -1,0 +1,399 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,mcuilist.nim
+ (comment)
+ (import@,b mcuicore@7)
+ (const@9,e ListTop~7 x . . 32@4)
+ (const@8,h TopPad~6 x . . 4@4)
+ (const@8,k RowGap~6 x . . 4@4)
+ (const@G,n ScrollbarWidth~E x . . 6@4)
+ (const@E,o ScrollbarGap~C x . . 4@4)
+ (const@A,q MinThumb~8 x . . 32@4)
+ (const@C,r ThumbInset~A x . . 8@4)
+ (const@G,u WorldRowHeight~E x . . 36@4)
+ (const@F,w PackRowHeight~D x . . 36@4)
+ (const@B,y ListWidth~9 x . . 220@4)
+ (const@H,10 PackColumnWidth~F x . . 200@4)
+ (type@B,15 ListBox~9 x . .
+  (object@2 .
+   (fld~6,2 top~3 x . int@C .)
+   (fld@3,2 bottom~6 x . int@3 .)
+   (fld~5,3 left~4 x . int@B .)
+   (fld@3,3 width~5 x . int@3 .)
+   (fld@,4 rowHeight~9 x . int@3 .)
+   (fld~5,5 rows~4 x . int@3 .)))
+ (proc@,1C listBox@5 x . .
+  (params@D
+   (param@1 top . . int@h .)
+   (param@6 bottom . . int@c .)
+   (param@E left . . int@U .)
+   (param@K width . . int@O .)
+   (param@R rowHeight . . int@H .)
+   (param@c rows . . int@6 .))ListBox@o . .
+  (stmts@2,1
+   (oconstr@7 ListBox~7
+    (kv@4 top~3 top@2)
+    (kv@H bottom~6 bottom@2)
+    (kv@V left~4 left@2)
+    (kv@i width~5 width@2)
+    (kv@A,1 rowHeight~9 rowHeight@2)
+    (kv@R,1 rows~4 rows@2))))
+ (comment@,1G)
+ (proc@,1H band@5 x . .
+  (params@A
+   (param@1 b . . ListBox@3 .))int@E . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 >
+      (dot~8 b~1 bottom@1)
+      (dot@3 b~1 top@1))
+     (stmts@I
+      (infix@9 \2D
+       (dot~8 b~1 bottom@1)
+       (dot@3 b~1 top@1))))
+    (else@c
+     (stmts@6 0)))))
+ (proc@,1K contentHeight@5 x . .
+  (params@J
+   (param@1 b . . ListBox@3 .))int@E . .
+  (stmts@d
+   (infix@7 *
+    (dot~6 b~1 rows@1)
+    (dot@3 b~1 rowHeight@1))))
+ (comment@,1M)
+ (proc@,1O maxScroll@5 x . .
+  (params@F
+   (param@1 b . . ListBox@3 .))int@E . .
+  (stmts@2,1
+   (let@4 over . . .
+    (infix@O \2D
+     (call~4 contentHeight~D b@1)
+     (call@6 band~4 b@1)))
+   (if@,1
+    (elif@3
+     (infix@5 > over~5 0@2)
+     (stmts@A over))
+    (else@I
+     (stmts@6 0)))))
+ (proc@,1S clampScroll@5 x . .
+  (params@H
+   (param@1 b . . ListBox@3 .)
+   (param@D scroll . . int@8 .))int@R . .
+  (stmts@2,1
+   (let@4 top . . .
+    (call@F maxScroll~9 b@1))
+   (if@,1
+    (elif@3
+     (infix@7 < scroll~7 0@2)
+     (stmts@C 0))
+    (elif@5,1
+     (infix@7 > scroll~7 top@2)
+     (stmts@E top))
+    (else@,2
+     (stmts@6 scroll)))))
+ (proc@,1Y scrollable@5 x . .
+  (params@G
+   (param@1 b . . ListBox@3 .))bool@E . .
+  (stmts@b
+   (infix@D >
+    (call~4 maxScroll~9 b@1)0@2)))
+ (comment@,1a)
+ (proc@,1c rowSlot@5 x . .
+  (params@D
+   (param@1 b . . ListBox@3 .)
+   (param@D i . . int@B .)
+   (param@G scroll . . int@8 .))MRect@U . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (dot@2 b~1 left@1))
+    (call@L float~5
+     (infix@P \2B
+      (infix~9 \2D
+       (infix~9 \2B
+        (dot~5 b~1 top@1)TopPad@2)scroll@2)
+      (infix@4 * i~2
+       (dot@3 b~1 rowHeight@1))))
+    (call@6,1 float~5
+     (dot@2 b~1 width@1))
+    (call@M,1 float~5
+     (dot@2 b~1 rowHeight@1)))))
+ (comment@,1g)
+ (proc@,1h rowRect@5 x . .
+  (params@D
+   (param@1 b . . ListBox@3 .)
+   (param@D i . . int@B .)
+   (param@G scroll . . int@8 .))MRect@U . .
+  (stmts@2,1
+   (let@4 s . . .
+    (call@B rowSlot~7 b@1 i@4 scroll@7))
+   (call@5,1 mrect~5
+    (dot@2 s~1 x@1)
+    (dot@7 s~1 y@1)
+    (dot@C s~1 w@1)
+    (infix@K \2D
+     (dot~3 s~1 h@1)
+     (call@7 float~5 RowGap@1)))))
+ (comment@,1l)
+ (proc@,1o rowUnder@5 x . .
+  (params@E
+   (param@1 b . . ListBox@3 .)
+   (param@D scroll . . int@8 .)
+   (param@Q x . . float@6 .)
+   (param@T y . . float@3 .))int@e . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@H or
+      (infix~F < y~2
+       (call@7 float~5
+        (dot@2 b~1 top@1)))
+      (infix@5 >= y~2
+       (call@8 float~5
+        (dot@2 b~1 bottom@1))))
+     (stmts@g
+      (ret -1@7))))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@3 b~1 rows@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (call@R
+        (dot~6
+         (call~E rowSlot~7 b@1 i@4 scroll@7)holds@1)x@1 y@4)
+       (stmts@Z
+        (ret i@7))))
+     (cmd@,1 inc i@4)))-1@,5))
+ (comment@,1w)
+ (proc@,1z visible@5 x . .
+  (params@D
+   (param@1 b . . ListBox@3 .)
+   (param@D scroll . . int@8 .))
+  (at@U seq~3 int@1). .
+  (stmts@2,1
+   (var@4 first . . .
+    (dot@9 b~1 rows@1))
+   (var@4,1 last . . . 0@7)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@3 b~1 rows@1))
+    (stmts@2,1
+     (let@4 s . . .
+      (call@B rowSlot~7 b@1 i@4 scroll@7))
+     (if@,1
+      (elif@3
+       (infix@O and
+        (infix~F >
+         (dot~8 s~1 bottom@1)
+         (call@7 float~5
+          (dot@2 b~1 top@1)))
+        (infix@8 <
+         (dot~3 s~1 y@1)
+         (call@7 float~5
+          (dot@2 b~1 bottom@1))))
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@2 < i~2 first@2)
+          (stmts@B
+           (asgn@6 first~6 i@2))))
+        (asgn@5,1 last~5
+         (infix@4 \2B i~2 1@2)))))
+     (cmd@,4 inc i@4)))
+   (if@,9
+    (elif@3
+     (infix@6 > first~6 last@2)
+     (stmts@E
+      (asgn@6 first~6 last@2))))
+   (prefix@,A \40
+    (bracket@1 first@1 last@8))))
+ (comment@,2F)
+ (proc@,2G scrollbar@5 x . .
+  (params@F
+   (param@1 b . . ListBox@3 .))MRect@E . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@I \2B
+      (infix~A \2B
+       (dot~6 b~1 left@1)
+       (dot@3 b~1 width@1))ScrollbarGap@2))
+    (call@k float~5
+     (dot@2 b~1 top@1))
+    (call@6,1 float~5 ScrollbarWidth@1)
+    (call@T,1 float~5
+     (call@5 band~4 b@1)))))
+ (comment@,2K)
+ (proc@,2L thumbHeight@5 x . .
+  (params@H
+   (param@1 b . . ListBox@3 .))int@E . .
+  (stmts@2,1
+   (let@4 h . . .
+    (call@8 band~4 b@1))
+   (let@4,1 content . . .
+    (call@N contentHeight~D b@1))
+   (if@,2
+    (elif@3
+     (infix@8 <= content~8 0@3)
+     (stmts@E
+      (ret h@7))))
+   (var@4,3 t . . .
+    (infix@A div
+     (infix~4 * h~2 h@2)content@4))
+   (let@4,4 ceiling . . .
+    (infix@C \2D h~2 ThumbInset@2))
+   (if@,5
+    (elif@3
+     (infix@2 < t~2 MinThumb@2)
+     (stmts@E
+      (asgn@2 t~2 MinThumb@2))))
+   (if@,6
+    (elif@3
+     (infix@2 > t~2 ceiling@2)
+     (stmts@D
+      (asgn@2 t~2 ceiling@2))))
+   (if@,7
+    (elif@3
+     (infix@2 < t~2 0@2)
+     (stmts@7
+      (asgn@2 t~2 0@2))))t@,8))
+ (comment@,2W)
+ (proc@,2Y thumb@5 x . .
+  (params@B
+   (param@1 b . . ListBox@3 .)
+   (param@D scroll . . int@8 .))MRect@R . .
+  (stmts@2,1
+   (let@4 range . . .
+    (call@H maxScroll~9 b@1))
+   (if@,1
+    (elif@3
+     (infix@6 <= range~6 0@3)
+     (stmts@C
+      (ret
+       (call@C mrect~5 0.0@1 0.0@6 0.0@B 0.0@G)))))
+   (let@4,2 t . . .
+    (call@F thumbHeight~B b@1))
+   (var@4,3 y . . .
+    (infix@r \2B
+     (infix~A div
+      (infix~G *
+       (call~C clampScroll~B b@1 scroll@4)
+       (par@2
+        (infix@9 \2D
+         (call~4 band~4 b@1)t@2)))range@4)
+     (dot@3 b~1 top@1)))
+   (if@,4
+    (elif@3
+     (infix@2 < y~2
+      (dot@3 b~1 top@1))
+     (stmts@B
+      (asgn@2 y~2
+       (dot@3 b~1 top@1)))))
+   (let@4,5 bar . . .
+    (call@F scrollbar~9 b@1))
+   (call@5,6 mrect~5
+    (dot@4 bar~3 x@1)
+    (call@D float~5 y@1)
+    (dot@L bar~3 w@1)
+    (call@U float~5 t@1))))
+ (comment@,2h)
+ (proc@,2k scrollForThumb@5 x . .
+  (params@K
+   (param@1 b . . ListBox@3 .)
+   (param@D y . . float@3 .))int@O . .
+  (stmts@2,1
+   (let@4 range . . .
+    (call@H maxScroll~9 b@1))
+   (if@,1
+    (elif@3
+     (infix@6 <= range~6 0@3)
+     (stmts@C
+      (ret 0@7))))
+   (let@4,2 travel . . .
+    (infix@H \2D
+     (call~4 band~4 b@1)
+     (call@D thumbHeight~B b@1)))
+   (if@,3
+    (elif@3
+     (infix@7 <= travel~7 0@3)
+     (stmts@D
+      (ret 0@7))))
+   (call@B,4 clampScroll~B b@1
+    (call@7 int~3
+     (infix@p \2B
+      (infix~G /
+       (infix~F *
+        (par~J
+         (infix@3 \2D y~2
+          (call@7 float~5
+           (dot@2 b~1 top@1))))
+        (call@7 float~5 range@1))
+       (call@7 float~5 travel@1))0.5@2)))))
+ (comment@,2r)
+ (proc@,2u scrollByNotches@5 x . .
+  (params@L
+   (param@1 b . . ListBox@3 .)
+   (param@D scroll . . int@H .)
+   (param@L notches . . int@9 .))int@a . .
+  (stmts@2,1
+   (call@B clampScroll~B b@1
+    (infix@B \2D scroll~7
+     (infix@A * notches~8
+      (dot@3 b~1 rowHeight@1))))))
+ (comment@,2x)
+ (proc@,2z scrollToShow@5 x . .
+  (params@I
+   (param@1 b . . ListBox@3 .)
+   (param@D scroll . . int@B .)
+   (param@L i . . int@3 .))int@U . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 or
+      (infix~4 < i~2 0@2)
+      (infix@5 >= i~2
+       (dot@4 b~1 rows@1)))
+     (stmts@M
+      (ret
+       (call@I clampScroll~B b@1 scroll@4)))))
+   (let@4,1 above . . .
+    (infix@A * i~2
+     (dot@3 b~1 rowHeight@1)))
+   (let@4,2 below . . .
+    (infix@E \2B above~6
+     (dot@3 b~1 rowHeight@1)))
+   (var@4,3 s . . .
+    (call@F clampScroll~B b@1 scroll@4))
+   (if@,4
+    (elif@3
+     (infix@6 < above~6 s@2)
+     (stmts@B
+      (asgn@2 s~2 above@2)))
+    (elif@5,1
+     (infix@6 > below~6
+      (infix@E \2D
+       (infix~A \2B s~2
+        (call@6 band~4 b@1))TopPad@2))
+     (stmts@U
+      (asgn@2 s~2
+       (infix@I \2B
+        (infix~A \2D below~6
+         (call@6 band~4 b@1))TopPad@2)))))
+   (call@B,6 clampScroll~B b@1 s@4)))
+ (const@F,3H TitleBaseline~D x . . 8@4)
+ (const@H,3L TwoRowFooterTop~F x . . 52@4)
+ (const@F,3N FooterRowStep~D x . . 24@4)
+ (const@J,3O ListBottomTwoRows~H x . . 64@4)
+ (proc@,3R footerRow@5 x . .
+  (params@F
+   (param@1 guiH . . int@B .)
+   (param@7 row . . int@5 .))int@I . .
+  (stmts@2,1
+   (infix@N \2B
+    (infix~I \2D guiH~5 TwoRowFooterTop@2)
+    (infix@6 * row~4 FooterRowStep@2)))))

@@ -1,0 +1,869 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/deps/aoughwl_mcnet/netslot.nim
+ (comment)
+ (import@,i netwire@7)
+ (import@,j netnbt@7)
+ (const@E,o ShapeUnknown~C x . . 0@4)
+ (const@B,p ShapeVoid~9 x . . 1@4)
+ (const@D,q ShapeVarInt~B x . . 2@4)
+ (const@D,r ShapeString~B x . . 3@4)
+ (const@B,s ShapeBool~9 x . . 4@4)
+ (const@C,t ShapeFloat~A x . . 5@4)
+ (const@A,u ShapeInt~8 x . . 6@4)
+ (const@B,v ShapeLong~9 x . . 7@4)
+ (const@B,w ShapeByte~9 x . . 8@4)
+ (const@A,x ShapeNbt~8 x . . 9@4)
+ (const@E,y ShapeNbtList~C x . . 10@4)
+ (const@B,z ShapeSlot~9 x . . 11@4)
+ (const@J,10 ShapeEnchantments~H x . . 12@4)
+ (const@P,11 ShapeAttributeModifiers~N x . . 13@4)
+ (const@F,12 ShapeSlotList~D x . . 14@4)
+ (const@H,13 ShapeBlockState~F x . . 15@4)
+ (const@L,14 ShapeTooltipDisplay~J x . . 16@4)
+ (const@M,15 ShapeCustomModelData~K x . . 17@4)
+ (const@F,17 MaxComponents~D x . . 256@4)
+ (const@G,1A MaxNestedSlots~E x . . 8@4)
+ (type@I,1G ComponentTable~G x . .
+  (object@2 .
+   (fld~B,2 names~5 x .
+    (at@6 seq~3 string@1).)))
+ (type@8,1K Span~6 x . .
+  (object@2 .
+   (fld@,1 typeId~6 x . int@3 .)
+   (fld~2,2 name~4 x . string@3 .)
+   (fld~4,3 at~2 x . int@9 .)
+   (fld@2,3 len~3 x . int@3 .)))
+ (type@C,1P SlotItem~A x . .
+  (object@2 .
+   (fld~5,1 empty~5 x . bool@3 .)
+   (fld~5,2 count~5 x . int@3 .)
+   (fld~4,3 itemId~6 x . int@3 .)
+   (fld~5,4 added~5 x .
+    (at@6 seq~3 Span@1).)
+   (fld~3,5 removed~7 x .
+    (at@6 seq~3 int@1).)))
+ (proc@,1W emptyComponents@5 x . .
+  (params@L)ComponentTable@4 . .
+  (stmts@2,1
+   (oconstr@E ComponentTable~E
+    (kv@6 names~5
+     (prefix@2 \40
+      (bracket@1))))))
+ (proc@,1Z declareComponent@5 x . .
+  (params@M
+   (param@1 t . .
+    (mut@3 ComponentTable@4).)
+   (param@O id . . int@4 .)
+   (param@X name . . string@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 or
+      (infix~4 < id~3 0@2)
+      (infix@6 > id~3 4096@2))
+     (stmts@L
+      (ret .))))
+   (while@,1
+    (infix@I <=
+     (dot~5
+      (dot~6 t~1 names@1)len@1)id@3)
+    (stmts@P
+     (cmd@7
+      (dot
+       (dot~6 t~1 names@1)add@1)""@5)))
+   (asgn@C,2
+    (at~5
+     (dot~6 t~1 names@1)id@1)name@2)))
+ (proc@,1e componentName@5 x . .
+  (params@J
+   (param@1 t . . ComponentTable@3 .)
+   (param@K id . . int@4 .))string@U . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 or
+      (infix~4 < id~3 0@2)
+      (infix@6 >= id~3
+       (dot@A
+        (dot~6 t~1 names@1)len@1)))
+     (stmts@T ""))
+    (else@Z
+     (stmts@6
+      (at@7
+       (dot~6 t~1 names@1)id@1))))))
+ (proc@,1h componentId@5 x . .
+  (params@H
+   (param@1 t . . ComponentTable@3 .)
+   (param@K name . . string@6 .))int@Z . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@9
+      (dot~6 t~1 names@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@B ==
+        (at~4
+         (dot~6 t~1 names@1)i@1)name@3)
+       (stmts@K
+        (ret i@7))))
+     (cmd@,1 inc i@4)))
+   (asgn@7,4 result~7 -1@2)))
+ (proc@,1o loaded@5 x . .
+  (params@C
+   (param@1 t . . ComponentTable@3 .))bool@L . .
+  (stmts@e
+   (infix@C >
+    (dot~5
+     (dot~6 t~1 names@1)len@1)0@2)))
+ (proc@,20 shapeOf@5 x . .
+  (params@D
+   (param@1 name . . string@6 .))int@G . .
+  (stmts@2,1
+   (case name@5
+    (of@,1
+     (ranges "minecraft\3Aunbreakable"@3 "minecraft\3Acreative_slot_lock"@S "minecraft\3Aintangible_projectile"@3,1 "minecraft\3Aglider"@c,1)
+     (stmts@2,2 ShapeVoid))
+    (of@,4
+     (ranges "minecraft\3Amax_stack_size"@3 "minecraft\3Amax_damage"@V "minecraft\3Adamage"@t "minecraft\3Ararity"@3,1 "minecraft\3Arepair_cost"@N,1 "minecraft\3Aenchantable"@m,1 "minecraft\3Amap_id"@3,2 "minecraft\3Amap_post_processing"@N,2 "minecraft\3Aominous_bottle_amplifier"@3,3 "minecraft\3Abase_color"@f,3 "minecraft\3Avillager/variant"@3,4 "minecraft\3Awolf/variant"@X,4 "minecraft\3Awolf/sound_variant"@3,5 "minecraft\3Awolf/collar"@Z,5 "minecraft\3Afox/variant"@3,6 "minecraft\3Asalmon/size"@S,6 "minecraft\3Aparrot/variant"@3,7 "minecraft\3Atropical_fish/pattern"@V,7 "minecraft\3Atropical_fish/base_color"@3,8 "minecraft\3Atropical_fish/pattern_color"@3,9 "minecraft\3Amooshroom/variant"@i,9 "minecraft\3Arabbit/variant"@3,A "minecraft\3Apig/variant"@V,A "minecraft\3Acow/variant"@3,B "minecraft\3Afrog/variant"@S,B "minecraft\3Ahorse/variant"@3,C "minecraft\3Allama/variant"@U,C "minecraft\3Aaxolotl/variant"@3,D "minecraft\3Acat/variant"@W,D "minecraft\3Acat/collar"@3,E "minecraft\3Asheep/color"@R,E "minecraft\3Ashulker/color"@3,F)
+     (stmts@2,G ShapeVarInt))
+    (of@,L
+     (ranges "minecraft\3Aitem_model"@3 "minecraft\3Adamage_resistant"@R "minecraft\3Atooltip_style"@3,1 "minecraft\3Aprovides_banner_patterns"@U,1 "minecraft\3Anote_block_sound"@3,2)
+     (stmts@2,3 ShapeString))
+    (of@,P
+     (ranges "minecraft\3Aenchantment_glint_override"@3)
+     (stmts@2,1 ShapeBool))
+    (of@,R
+     (ranges "minecraft\3Aminimum_attack_charge"@3 "minecraft\3Apotion_duration_scale"@c)
+     (stmts@2,1 ShapeFloat))
+    (of@,T
+     (ranges "minecraft\3Adyed_color"@3 "minecraft\3Amap_color"@R)
+     (stmts@2,1 ShapeInt))
+    (of@,V
+     (ranges "minecraft\3Acustom_data"@3 "minecraft\3Acustom_name"@S "minecraft\3Aitem_name"@r "minecraft\3Amap_decorations"@3,1 "minecraft\3Adebug_stick_state"@W,1 "minecraft\3Abucket_entity_data"@3,2 "minecraft\3Arecipes"@Z,2 "minecraft\3Alock"@u,2 "minecraft\3Acontainer_loot"@3,3)
+     (stmts@2,4 ShapeNbt))
+    (of@,a
+     (ranges "minecraft\3Alore"@3)
+     (stmts@2,1 ShapeNbtList))
+    (of@,c
+     (ranges "minecraft\3Ause_remainder"@3)
+     (stmts@2,1 ShapeSlot))
+    (of@,e
+     (ranges "minecraft\3Aenchantments"@3 "minecraft\3Astored_enchantments"@T)
+     (stmts@2,1 ShapeEnchantments))
+    (of@,g
+     (ranges "minecraft\3Aattribute_modifiers"@3)
+     (stmts@2,1 ShapeAttributeModifiers))
+    (of@,i
+     (ranges "minecraft\3Acharged_projectiles"@3 "minecraft\3Abundle_contents"@a "minecraft\3Acontainer"@3,1)
+     (stmts@2,2 ShapeSlotList))
+    (of@,l
+     (ranges "minecraft\3Ablock_state"@3)
+     (stmts@2,1 ShapeBlockState))
+    (of@,n
+     (ranges "minecraft\3Atooltip_display"@3)
+     (stmts@2,1 ShapeTooltipDisplay))
+    (of@,p
+     (ranges "minecraft\3Acustom_model_data"@3)
+     (stmts@2,1 ShapeCustomModelData))
+    (else@,r
+     (stmts@2,1 ShapeUnknown)))))
+ (proc@,2v refusalFor@5 x . .
+  (params@G
+   (param@1 name . . string@6 .))string@G . .
+  (stmts@2,1
+   (comment)
+   (if@,3
+    (elif@3
+     (infix@9 ==
+      (dot~5 name~4 len@1)0@3)
+     (stmts~1,1 "a component whose type is not in the loaded registry"))
+    (else@,2
+     (stmts@2,1
+      (infix@j & "no shape is implemented for the component "~j name@2))))))
+ (proc@,37 skipShape@5 . . .
+  (params@E
+   (param@1 r . .
+    (mut@3 Reader@4).)
+   (param@G t . . ComponentTable@3 .)
+   (param@Z shape . . int@E .)
+   (param@g depth . . int@7 .)). . . .)
+ (proc@,39 readSlotAt@5 . . .
+  (params@F
+   (param@1 r . .
+    (mut@3 Reader@4).)
+   (param@G t . . ComponentTable@3 .)
+   (param@Z depth . . int@7 .))SlotItem@m . . .)
+ (proc@,3B skipShape@5 . . .
+  (params@E
+   (param@1 r . .
+    (mut@3 Reader@4).)
+   (param@G t . . ComponentTable@3 .)
+   (param@Z shape . . int@E .)
+   (param@g depth . . int@7 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (case@,1 shape@5
+    (of@,1
+     (ranges ShapeVoid@3)
+     (stmts@2,1
+      (discard .)))
+    (of@,3
+     (ranges ShapeVarInt@3)
+     (stmts@2,1
+      (discard
+       (call@I readVarInt~A r@1))))
+    (of@,5
+     (ranges ShapeString@3)
+     (stmts@2,1
+      (discard
+       (call@I readString~A r@1))))
+    (of@,7
+     (ranges ShapeBool@3 ShapeByte@E)
+     (stmts@2,1
+      (discard
+       (call@G readByte~8 r@1))))
+    (of@,9
+     (ranges ShapeFloat@3 ShapeInt@F)
+     (stmts@2,1
+      (discard
+       (call@G readUInt~8 r@1))))
+    (of@,B
+     (ranges ShapeLong@3)
+     (stmts@2,1
+      (discard
+       (call@G readLong~8 r@1))))
+    (of@,D
+     (ranges ShapeNbt@3)
+     (stmts@2,1
+      (let@4 v . . .
+       (call@B readNbt~7 r@1))
+      (if@,1
+       (elif@3
+        (infix@E >
+         (dot~5
+          (dot~8 v~1 problem@1)len@1)0@2)
+        (stmts@J
+         (call@4 fail~4 r@1
+          (dot@5 v~1 problem@1)))))))
+    (of@,G
+     (ranges ShapeNbtList@3)
+     (stmts@2,1
+      (let@4 n . . .
+       (call@E readVarInt~A r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts@B
+         (ret .))))
+      (if@,2
+       (elif@3
+        (infix@6 or
+         (infix~4 < n~2 0@2)
+         (infix@5 > n~2 MaxComponents@2))
+        (stmts~1,1
+         (call@4 fail~4 r@1 "a component list length is out of range"@4)
+         (ret@,1 .))))
+      (var@4,5 i . . . 0@4)
+      (while@,6
+       (infix@8 < i~2 n@2)
+       (stmts@2,1
+        (let@4 v . . .
+         (call@B readNbt~7 r@1))
+        (if@,1
+         (elif@3
+          (infix@E >
+           (dot~5
+            (dot~8 v~1 problem@1)len@1)0@2)
+          (stmts~1,1
+           (call@4 fail~4 r@1
+            (dot@5 v~1 problem@1))
+           (ret@,1 .))))
+        (cmd@,4 inc i@4)))))
+    (of@,T
+     (ranges ShapeSlot@3)
+     (stmts@2,1
+      (discard
+       (call@I readSlotAt~A r@1 t@4
+        (infix@D \2B depth~6 1@2)))))
+    (of@,V
+     (ranges ShapeSlotList@3)
+     (stmts@2,1
+      (let@4 n . . .
+       (call@E readVarInt~A r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts@B
+         (ret .))))
+      (if@,2
+       (elif@3
+        (infix@6 or
+         (infix~4 < n~2 0@2)
+         (infix@5 > n~2 1024@2))
+        (stmts~1,1
+         (call@4 fail~4 r@1 "a nested stack list length is out of range"@4)
+         (ret@,1 .))))
+      (var@4,5 i . . . 0@4)
+      (while@,6
+       (infix@8 < i~2 n@2)
+       (stmts@2,1
+        (discard
+         (call@I readSlotAt~A r@1 t@4
+          (infix@D \2B depth~6 1@2)))
+        (if@,1
+         (elif@3
+          (prefix not
+           (call@6 ok~2 r@1))
+          (stmts@B
+           (ret .))))
+        (cmd@,2 inc i@4)))))
+    (of@,g
+     (ranges ShapeEnchantments@3)
+     (stmts@2,1
+      (let@4 n . . .
+       (call@E readVarInt~A r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts@B
+         (ret .))))
+      (if@,2
+       (elif@3
+        (infix@6 or
+         (infix~4 < n~2 0@2)
+         (infix@5 > n~2 1024@2))
+        (stmts~1,1
+         (call@4 fail~4 r@1 "an enchantment list length is out of range"@4)
+         (ret@,1 .))))
+      (var@4,5 i . . . 0@4)
+      (while@,6
+       (infix@8 < i~2 n@2)
+       (stmts@2,1
+        (discard
+         (call@I readVarInt~A r@1))
+        (discard@,1
+         (call@I readVarInt~A r@1))
+        (cmd@,2 inc i@4)))))
+    (of@,r
+     (ranges ShapeAttributeModifiers@3)
+     (stmts@2,1
+      (let@4 n . . .
+       (call@E readVarInt~A r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts@B
+         (ret .))))
+      (if@,2
+       (elif@3
+        (infix@6 or
+         (infix~4 < n~2 0@2)
+         (infix@5 > n~2 1024@2))
+        (stmts~1,1
+         (call@4 fail~4 r@1 "an attribute modifier list length is out of range"@4)
+         (ret@,1 .))))
+      (var@4,5 i . . . 0@4)
+      (while@,6
+       (infix@8 < i~2 n@2)
+       (stmts@2,1
+        (discard
+         (call@I readVarInt~A r@1))
+        (discard@,1
+         (call@I readString~A r@1))
+        (discard@,2
+         (call@G readLong~8 r@1))
+        (discard@,3
+         (call@I readVarInt~A r@1))
+        (discard@,4
+         (call@I readVarInt~A r@1))
+        (let@4,5 display . . .
+         (call@K readVarInt~A r@1))
+        (if@,6
+         (elif@3
+          (prefix not
+           (call@6 ok~2 r@1))
+          (stmts@B
+           (ret .))))
+        (if@,7
+         (elif@3
+          (infix@8 == display~8 2@3)
+          (stmts~1,1
+           (let@4 v . . .
+            (call@B readNbt~7 r@1))
+           (if@,1
+            (elif@3
+             (infix@E >
+              (dot~5
+               (dot~8 v~1 problem@1)len@1)0@2)
+             (stmts~1,1
+              (call@4 fail~4 r@1
+               (dot@5 v~1 problem@1))
+              (ret@,1 .)))))))
+        (cmd@,C inc i@4)))))
+    (of@,1C
+     (ranges ShapeBlockState@3)
+     (stmts@2,1
+      (let@4 n . . .
+       (call@E readVarInt~A r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts@B
+         (ret .))))
+      (if@,2
+       (elif@3
+        (infix@6 or
+         (infix~4 < n~2 0@2)
+         (infix@5 > n~2 1024@2))
+        (stmts~1,1
+         (call@4 fail~4 r@1 "a block state property list length is out of range"@4)
+         (ret@,1 .))))
+      (var@4,5 i . . . 0@4)
+      (while@,6
+       (infix@8 < i~2 n@2)
+       (stmts@2,1
+        (discard
+         (call@I readString~A r@1))
+        (discard@,1
+         (call@I readString~A r@1))
+        (cmd@,2 inc i@4)))))
+    (of@,1N
+     (ranges ShapeTooltipDisplay@3)
+     (stmts@2,1
+      (discard
+       (call@G readByte~8 r@1))
+      (let@4,1 n . . .
+       (call@E readVarInt~A r@1))
+      (if@,2
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts@B
+         (ret .))))
+      (if@,3
+       (elif@3
+        (infix@6 or
+         (infix~4 < n~2 0@2)
+         (infix@5 > n~2 1024@2))
+        (stmts~1,1
+         (call@4 fail~4 r@1 "a hidden component list length is out of range"@4)
+         (ret@,1 .))))
+      (var@4,6 i . . . 0@4)
+      (while@,7
+       (infix@8 < i~2 n@2)
+       (stmts@2,1
+        (discard
+         (call@I readVarInt~A r@1))
+        (cmd@,1 inc i@4)))))
+    (of@,1Y
+     (ranges ShapeCustomModelData@3)
+     (stmts@2,4
+      (var@4 k . . . 0@4)
+      (while@,1
+       (infix@8 < k~2 4@2)
+       (stmts@2,1
+        (let@4 n . . .
+         (call@E readVarInt~A r@1))
+        (if@,1
+         (elif@3
+          (prefix not
+           (call@6 ok~2 r@1))
+          (stmts@B
+           (ret .))))
+        (if@,2
+         (elif@3
+          (infix@6 or
+           (infix~4 < n~2 0@2)
+           (infix@5 > n~2 1024@2))
+          (stmts~1,1
+           (call@4 fail~4 r@1 "a custom model data array length is out of range"@4)
+           (ret@,1 .))))
+        (var@4,5 i . . . 0@4)
+        (while@,6
+         (infix@8 < i~2 n@2)
+         (stmts@2,1
+          (if
+           (elif@3
+            (infix@2 == k~2 0@3)
+            (stmts@8
+             (discard
+              (call@G readUInt~8 r@1))))
+           (elif@5,1
+            (infix@2 == k~2 1@3)
+            (stmts@8
+             (discard
+              (call@G readByte~8 r@1))))
+           (elif@5,2
+            (infix@2 == k~2 2@3)
+            (stmts@8
+             (discard
+              (call@I readString~A r@1))))
+           (else@,3
+            (stmts@6
+             (discard
+              (call@G readUInt~8 r@1)))))
+          (cmd@,4 inc i@4)))
+        (cmd@,C inc k@4)))))
+    (else@,1r
+     (stmts@2,1
+      (call@4 fail~4 r@1 "a component shape this reader does not know"@4))))))
+ (proc@,5A emptySlot@5 x . .
+  (params@F)SlotItem@4 . .
+  (stmts@2,1
+   (oconstr@8 SlotItem~8
+    (kv@6 empty~5 true@2)
+    (kv@J count~5 0@2)
+    (kv@U itemId~6 0@2)
+    (kv@e added~5
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@s removed~7
+     (prefix@2 \40
+      (bracket@1))))))
+ (proc@,5D readSlotAt@5 . . .
+  (params@F
+   (param@1 r . .
+    (mut@3 Reader@4).)
+   (param@G t . . ComponentTable@3 .)
+   (param@Z depth . . int@7 .))SlotItem@m . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@B emptySlot~9))
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (if@,2
+    (elif@3
+     (infix@6 > depth~6 MaxNestedSlots@2)
+     (stmts~1,1
+      (call@4 fail~4 r@1 "stacks nested deeper than this reader will follow"@4)
+      (ret@,1 .))))
+   (let@4,5 count . . .
+    (call@I readVarInt~A r@1))
+   (if@,6
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (if@,7
+    (elif@3
+     (infix@6 <= count~6 0@3)
+     (stmts~1,5
+      (asgn@D
+       (dot~7 result~6 empty@1)true@2)
+      (asgn@D,1
+       (dot~7 result~6 count@1)0@2)
+      (ret@,2 .))))
+   (asgn@D,F
+    (dot~7 result~6 empty@1)false@2)
+   (asgn@D,G
+    (dot~7 result~6 count@1)count@2)
+   (asgn@E,H
+    (dot~8 result~6 itemId@1)
+    (call@C readVarInt~A r@1))
+   (let@4,I addedCount . . .
+    (call@N readVarInt~A r@1))
+   (let@4,J removedCount . . .
+    (call@P readVarInt~A r@1))
+   (if@,K
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (if@,L
+    (elif@3
+     (infix@H,1 or
+      (infix@S,~1 or
+       (infix~U or
+        (infix~4 < addedCount~B 0@2)
+        (infix@E > addedCount~B MaxComponents@2))
+       (infix~W,1 < removedCount~D 0@2))
+      (infix@G > removedCount~D MaxComponents@2))
+     (stmts~1,2
+      (call@4 fail~4 r@1 "a component count is out of range"@4)
+      (ret@,1 .))))
+   (if@,P
+    (elif@3
+     (infix@b and
+      (par~b
+       (infix@G or
+        (infix~4 > addedCount~B 0@2)
+        (infix@G > removedCount~D 0@2)))
+      (prefix@4 not
+       (call@A loaded~6 t@1)))
+     (stmts~1,1
+      (call@4 fail~4 r@1 "a stack carries components and no component registry is loaded"@4)
+      (ret@,1 .))))
+   (var@4,S i . . . 0@4)
+   (while@,T
+    (infix@8 < i~2 addedCount@2)
+    (stmts@2,1
+     (let@4 typeId . . .
+      (call@J readVarInt~A r@1))
+     (if@,1
+      (elif@3
+       (prefix not
+        (call@6 ok~2 r@1))
+       (stmts@B
+        (ret .))))
+     (let@4,2 name . . .
+      (call@K componentName~D t@1 typeId@4))
+     (let@4,3 shape . . .
+      (call@F shapeOf~7 name@1))
+     (if@,4
+      (elif@3
+       (infix@6 == shape~6 ShapeUnknown@3)
+       (stmts~1,1
+        (call@4 fail~4 r@1
+         (call@E refusalFor~A name@1))
+        (ret@,1 .))))
+     (let@4,7 bodyAt . . .
+      (dot@A r~1 at@1))
+     (call@9,8 skipShape~9 r@1 t@4 shape@7 depth@E)
+     (if@,9
+      (elif@3
+       (prefix not
+        (call@6 ok~2 r@1))
+       (stmts@B
+        (ret .))))
+     (cmd@C,A
+      (dot
+       (dot~6 result~6 added@1)add@1)
+      (oconstr@9 Span~4
+       (kv@7 typeId~6 typeId@2)
+       (kv@L name~4 name@2)
+       (kv@V at~2 bodyAt@2)
+       (kv@4,1 len~3
+        (infix@7 \2D
+         (dot~4 r~1 at@1)bodyAt@2))))
+     (cmd@,C inc i@4)))
+   (asgn@2,h i~2 0@2)
+   (while@,i
+    (infix@8 < i~2 removedCount@2)
+    (stmts@2,1
+     (let@4 typeId . . .
+      (call@J readVarInt~A r@1))
+     (if@,1
+      (elif@3
+       (prefix not
+        (call@6 ok~2 r@1))
+       (stmts@B
+        (ret .))))
+     (cmd@E,2
+      (dot
+       (dot~8 result~6 removed@1)add@1)typeId@5)
+     (cmd@,3 inc i@4)))))
+ (proc@,62 readSlot@5 x . .
+  (params@E
+   (param@1 r . .
+    (mut@3 Reader@4).)
+   (param@G t . . ComponentTable@3 .))SlotItem@a . .
+  (stmts@2,1
+   (call@A readSlotAt~A r@1 t@4 0@7)))
+ (proc@,65 readUntrustedSlot@5 x . .
+  (params@N
+   (param@1 r . .
+    (mut@3 Reader@4).)
+   (param@G t . . ComponentTable@3 .))SlotItem@a . .
+  (stmts@2,1
+   (comment)
+   (call@A,3 readSlotAt~A r@1 t@4 0@7)))
+ (proc@,6B componentSpan@5 x . .
+  (params@J
+   (param@1 s . . SlotItem@3 .)
+   (param@E name . . string@6 .))int@T . .
+  (stmts@2,1
+   (comment)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@9
+      (dot~6 s~1 added@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@G ==
+        (dot~6
+         (at~3
+          (dot~6 s~1 added@1)i@1)name@1)name@3)
+       (stmts@P
+        (ret i@7))))
+     (cmd@,1 inc i@4)))
+   (asgn@7,5 result~7 -1@2)))
+ (proc@,6J spanReader@5 x . .
+  (params@G
+   (param@1 r . . Reader@3 .)
+   (param@C s . . Span@3 .))Reader@M . .
+  (stmts@2,1
+   (comment)
+   (call@A,2 readerFrom~A
+    (dot@2 r~1 data@1)
+    (dot@A s~1 at@1)
+    (infix@K \2B
+     (dot~4 s~1 at@1)
+     (dot@3 s~1 len@1)))))
+ (proc@,6T damageOf@5 x . .
+  (params@E
+   (param@1 r . . Reader@3 .)
+   (param@C s . . SlotItem@3 .))int@Q . .
+  (stmts@2,1
+   (comment)
+   (let@4,2 at . . .
+    (call@I componentSpan~D s@1 "minecraft\3Adamage"@4))
+   (if@,3
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret 0@7))))
+   (var@4,4 body . . .
+    (call@H spanReader~A r@1
+     (at@B
+      (dot~6 s~1 added@1)at@1)))
+   (let@4,5 v . . .
+    (call@E readVarInt~A body@1))
+   (if@,6
+    (elif@3
+     (call@2 ok~2 body@1)
+     (stmts@A v))
+    (else@F
+     (stmts@6 0)))))
+ (proc@,6c enchantmentCount@5 x . .
+  (params@M
+   (param@1 r . . Reader@3 .)
+   (param@C s . . SlotItem@3 .))int@Q . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@I componentSpan~D s@1 "minecraft\3Aenchantments"@4))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret 0@7))))
+   (var@4,2 body . . .
+    (call@H spanReader~A r@1
+     (at@B
+      (dot~6 s~1 added@1)at@1)))
+   (let@4,3 v . . .
+    (call@E readVarInt~A body@1))
+   (if@,4
+    (elif@3
+     (infix@9 and
+      (call~7 ok~2 body@1)
+      (infix@6 >= v~2 0@3))
+     (stmts@L v))
+    (else@Q
+     (stmts@6 0)))))
+ (proc@,6j enchantmentAt@5 x . .
+  (params@J
+   (param@1 r . . Reader@3 .)
+   (param@C s . . SlotItem@3 .)
+   (param@P index . . int@7 .)
+   (param@1,1 id . .
+    (mut@B int@4).)
+   (param@5,1 level . .
+    (mut@7 int@4).))bool@M,1 . .
+  (stmts@2,2
+   (asgn@3 id~3 0@2)
+   (asgn@6,1 level~6 0@2)
+   (let@4,2 at . . .
+    (call@I componentSpan~D s@1 "minecraft\3Aenchantments"@4))
+   (if@,3
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret false@7))))
+   (var@4,4 body . . .
+    (call@H spanReader~A r@1
+     (at@B
+      (dot~6 s~1 added@1)at@1)))
+   (let@4,5 n . . .
+    (call@E readVarInt~A body@1))
+   (if@,6
+    (elif@3
+     (infix@Q or
+      (infix~D or
+       (prefix~D not
+        (call@6 ok~2 body@1))
+       (infix@9 < index~6 0@2))
+      (infix@9 >= index~6 n@3))
+     (stmts@f
+      (ret false@7))))
+   (var@4,7 i . . . 0@4)
+   (while@,8
+    (infix@8 < i~2 index@2)
+    (stmts@2,1
+     (discard
+      (call@I readVarInt~A body@1))
+     (discard@,1
+      (call@I readVarInt~A body@1))
+     (cmd@,2 inc i@4)))
+   (asgn@3,C id~3
+    (call@C readVarInt~A body@1))
+   (asgn@6,D level~6
+    (call@C readVarInt~A body@1))
+   (call@2,E ok~2 body@1)))
+ (proc@,71 customNameOf@5 x . .
+  (params@I
+   (param@1 r . . Reader@3 .)
+   (param@C s . . SlotItem@3 .))string@Q . .
+  (stmts@2,1
+   (comment)
+   (let@4,2 at . . .
+    (call@I componentSpan~D s@1 "minecraft\3Acustom_name"@4))
+   (if@,3
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret ""@7))))
+   (var@4,4 body . . .
+    (call@H spanReader~A r@1
+     (at@B
+      (dot~6 s~1 added@1)at@1)))
+   (let@4,5 v . . .
+    (call@B readNbt~7 body@1))
+   (if@,6
+    (elif@3
+     (infix@E >
+      (dot~5
+       (dot~8 v~1 problem@1)len@1)0@2)
+     (stmts@J
+      (ret ""@7))))
+   (call@5,7 plain~5 v@1)))
+ (proc@,7E putSlotEmpty@5 x . .
+  (params@I
+   (param@1 w . .
+    (mut@3 Writer@4).)). . .
+  (stmts@2,1
+   (call@9 putVarInt~9 w@1 0@4)))
+ (proc@,7H putSlotSimple@5 x . .
+  (params@J
+   (param@1 w . .
+    (mut@3 Writer@4).)
+   (param@G itemId . . int@F .)
+   (param@O count . . int@7 .)). . .
+  (stmts@2,1
+   (comment)
+   (call@9,2 putVarInt~9 w@1 count@4)
+   (call@9,3 putVarInt~9 w@1 itemId@4)
+   (call@9,4 putVarInt~9 w@1 0@4)
+   (call@9,5 putVarInt~9 w@1 0@4))))

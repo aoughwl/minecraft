@@ -1,0 +1,1615 @@
+(.nif27)
+(.indexat 39770            )
+(stmts@,1,skyday.nim
+ (import
+  (kv sysvq0asl "../../../../../../nimony/lib/std/system.nim")
+  (kv mat7cnfv21 "../../../../../../nimony/lib/std/math.nim"))
+ (const@D,O :TicksPerDay.0.~B x .
+  (i@3,1J 64)
+  (suf@4 24000 "i64"))
+ (const@G,Q :TicksPerSecond.0.~E x .
+  (f@,X 64)20.0@4)
+ (const@F,R :SecondsPerDay.0.~D x .
+  (f@1,W 64)1200.0@4)
+ (const@A,U :DawnTick.0.~8 x .
+  (i@6,1D 64)
+  (suf@4 0 "i64"))
+ (const@A,V :NoonTick.0.~8 x .
+  (i@6,1C 64)
+  (suf@4 6000 "i64"))
+ (const@A,W :DuskTick.0.~8 x .
+  (i@6,1B 64)
+  (suf@4 12000 "i64"))
+ (const@E,X :MidnightTick.0.~C x .
+  (i@2,1A 64)
+  (suf@4 18000 "i64"))
+ (const@D,Z :MoonColumns.0.~B x .
+  (i@3,18 64)
+  (suf@4 4 "i64"))
+ (const@A,a :MoonRows.0.~8 x .
+  (i@6,17 64)
+  (suf@4 2 "i64"))
+ (const@C,b :MoonPhases.0.~A x .
+  (i@4,16 64)
+  (suf@4 8 "i64"))
+ (const@D,e :CloudHeight.0.~B x .
+  (f@3,J 64)192.0@4)
+ (const@K,g :CloudBlocksPerTick.0.~I x .
+  (f~4,H 64)0.03@4)
+ (const@H,i :CloudCellBlocks.0.~F x .
+  (f~1,F 64)12.0@4)
+ (const@I,k :CloudSheetPixels.0.~G x .
+  (f~2,D 64)256.0@4)
+ (const@A,m :StarSeed.0.~8 x .
+  (i@6,v 64)
+  (suf@4 10842 "i64"))
+ (const@E,n :StarAttempts.0.~C x .
+  (i@2,u 64)
+  (suf@4 1500 "i64"))
+ (const@C,q :StarRadius.0.~A x .
+  (f@4,7 64)100.0@4)
+ (const@D,s :SunriseBand.0.~B x .
+  (f@3,5 64)0.4@4)
+ (type@7,w :Rgb.0.~5 x .
+  (pragmas)
+  (object@2 .
+   (fld~4,1 :r.0~1 x .
+    (f@B 64).)
+   (fld@,1 :g.0~1 x .
+    (f@7 64).)
+   (fld@4,1 :b.0~1 x .
+    (f@3 64).)))
+ (type@8,z :Rgba.0.~6 x .
+  (pragmas)
+  (object@2 .
+   (fld~5,1 :r.0~1 x .
+    (f@F 64).)
+   (fld~1,1 :g.0~1 x .
+    (f@B 64).)
+   (fld@3,1 :b.0~1 x .
+    (f@7 64).)
+   (fld@7,1 :a.0~1 x .
+    (f@3 64).)))
+ (type@8,12 :Tile.0.~6 x .
+  (pragmas)
+  (object@2 .
+   (fld~4,3 :u0.0~2 x .
+    (f@I 64).)
+   (fld@1,3 :v0.0~2 x .
+    (f@D 64).)
+   (fld@6,3 :u1.0~2 x .
+    (f@8 64).)
+   (fld@B,3 :v1.0~2 x .
+    (f@3 64).)))
+ (type@7,17 :Dir.0.~5 x .
+  (pragmas)
+  (object@2 .
+   (fld~4,3 :x.0~1 x .
+    (f@B 64).)
+   (fld@,3 :y.0~1 x .
+    (f@7 64).)
+   (fld@4,3 :z.0~1 x .
+    (f@3 64).)))
+ (type@8,1C :Star.0.~6 x .
+  (pragmas)
+  (object@2 .
+   (fld~5,1 :x.0~1 x .
+    (f@B 64).)
+   (fld~1,1 :y.0~1 x .
+    (f@7 64).)
+   (fld@3,1 :z.0~1 x .
+    (f@3 64).)
+   (fld~2,2 :size.0~4 x .
+    (f@3 64).)))
+ (proc@,1J :clamp01.0.@5 x . .
+  (params@D
+   (param@1 :v.0 . .
+    (f@3 64).))
+  (f@C 64). .
+  (stmts@2,1
+   (result :result.0 . .
+    (f@E,~N 64).)
+   (asgn result.0
+    (if
+     (elif@3
+      (lt@2
+       (f 64)v.0~2 0.0@2)
+      (expr@9 0.0))
+     (elif@L
+      (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+       (lt@2,1
+        (f 64)1.0@R,1L,skyday.nim v.0@N,1L,skyday.nim))
+      (expr@9 1.0))
+     (else@Y
+      (expr@6 v.0))))
+   (ret~2,~1 result.0)))
+ (proc@,1M :clampTo.0.@5 x . .
+  (params@D
+   (param@1 :v.1 . .
+    (f@E 64).)
+   (param@4 :low.0 . .
+    (f@B 64).)
+   (param@9 :high.0 . .
+    (f@6 64).))
+  (f@N 64). .
+  (stmts@2,1
+   (result :result.1 . .
+    (f@E,~Q 64).)
+   (asgn result.1
+    (if
+     (elif@3
+      (lt@2
+       (f 64)v.1~2 low.0@2)
+      (expr@9 low.0))
+     (elif@L
+      (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+       (lt@2,1
+        (f 64)high.0@R,1O,skyday.nim v.1@N,1O,skyday.nim))
+      (expr@A high.0))
+     (else@a
+      (expr@6 v.1))))
+   (ret~2,~1 result.1)))
+ (proc@,1P :fract.0.@5 x . .
+  (params@B
+   (param@1 :v.2 . .
+    (f@3 64).))
+  (f@C 64). .
+  (stmts@2,1
+   (result :result.2 . .
+    (f@E,~T 64).)
+   (asgn@7,4 result.2~7
+    (sub@4
+     (f 64)v.2~2
+     (call@7 floor.1.mat7cnfv21~5 v.2@1)))
+   (ret~2,~1 result.2)))
+ (proc@,1W :wrapTicks.0.@5 x . .
+  (params@F
+   (param@1 :ticks.0 . .
+    (f@7 64).))
+  (f@G 64). .
+  (stmts@2,1
+   (result :result.3 . .
+    (f@E,~a 64).)
+   (asgn@7,1 result.3~7
+    (mul@a
+     (f 64)
+     (call~T fract.0.~5
+      (div@7
+       (f 64)ticks.0~6
+       (conv@7
+        (f~5 64)TicksPerDay.0.@1)))
+     (conv@7
+      (f~R 64)TicksPerDay.0.@1)))
+   (ret~2,~1 result.3)))
+ (proc@,1a :ticksAt.0.@5 x . .
+  (params@D
+   (param@1 :seconds.0 . .
+    (f@9 64).)
+   (param@H :startTick.0 . .
+    (f~5,~2 64)
+    (conv@H
+     (f~M,~2 64)DawnTick.0.@1))
+   (param@1,1 :dayLength.0 . .
+    (f@2,~e 64)SecondsPerDay.0.@C))
+  (f@T,1 64). .
+  (stmts@2,2
+   (result :result.4 . .
+    (f@E,~f 64).)
+   (asgn@7,3 result.4~7
+    (add@C
+     (f 64)startTick.0~A
+     (mul@A
+      (f 64)seconds.0~8
+      (div@M
+       (f 64)
+       (conv~E
+        (f~E,~7 64)TicksPerDay.0.@1)dayLength.0@2))))
+   (ret~2,~2 result.4)))
+ (proc@,1h :dayNumber.0.@5 x . .
+  (params@F
+   (param@1 :ticks.1 . .
+    (f@7 64).))
+  (i@G 64). .
+  (stmts@2,1
+   (result :result.5 . .
+    (i@E,~1 64).)
+   (asgn@7,2 result.5~7
+    (conv@5
+     (i~3 64)
+     (call@6 floor.1.mat7cnfv21~5
+      (div@7
+       (f 64)ticks.1~6
+       (conv@7
+        (f~9,~C 64)TicksPerDay.0.@1)))))
+   (ret~2,~1 result.5)))
+ (proc@,1m :dayFraction.0.@5 x . .
+  (params@H
+   (param@1 :ticks.2 . .
+    (f@7 64).))
+  (f@G 64). .
+  (stmts@2,1
+   (result :result.6 . .
+    (f@E,~q 64).)
+   (asgn@7,1 result.6~7
+    (call@7 fract.0.~5
+     (div@7
+      (f 64)ticks.2~6
+      (conv@7
+       (f~5,~G 64)TicksPerDay.0.@1))))
+   (ret~2,~1 result.6)))
+ (proc@,1t :celestialAngle.0.@5 x . .
+  (params@K
+   (param@1 :ticks.3 . .
+    (f@7 64).))
+  (f@G 64). .
+  (stmts@2,1
+   (result :result.7 . .
+    (f@E,~x 64).)
+   (let@4,6 :d0.0 . .
+    (f@A,~13 64)
+    (call@A fract.0.~5
+     (sub@S
+      (f 64)
+      (div~L
+       (f 64)ticks.3~6
+       (conv@7
+        (f~5,~S 64)TicksPerDay.0.@1))0.25@2)))
+   (let@4,7 :d1.0 . .
+    (f@A,~14 64)
+    (sub@9
+     (f 64)0.5~4
+     (div@F
+      (f 64)
+      (call~A cos.2.mat7cnfv21~3
+       (mul@4
+        (f 64)d0.0~3 PI.0.mat7cnfv21@2))2.0@2)))
+   (asgn@7,8 result.7~7
+    (div@I
+     (f 64)
+     (add~6
+      (f 64)
+      (mul~6
+       (f 64)d0.0~3 2.0@2)d1.0@2)3.0@2))
+   (ret~2,~1 result.7)))
+ (proc@,24 :skyDim.0.@5 x . .
+  (params@C
+   (param@1 :angle.0 . .
+    (f@7 64).))
+  (f@G 64). .
+  (stmts@2,1
+   (result :result.8 . .
+    (f@E,~18 64).)
+   (asgn@7,2 result.8~7
+    (call@9 clamp01.0.~7
+     (add@T
+      (f 64)
+      (mul~6
+       (f 64)
+       (call~J cos.2.mat7cnfv21~3
+        (mul@D
+         (f 64)
+         (mul~6
+          (f 64)angle.0~6 2.0@2)PI.0.mat7cnfv21@2))2.0@2)0.5@2)))
+   (ret~2,~1 result.8)))
+ (proc@,29 :starBrightness.0.@5 x . .
+  (params@K
+   (param@1 :angle.1 . .
+    (f@7 64).))
+  (f@G 64). .
+  (stmts@2,1
+   (result :result.9 . .
+    (f@E,~1D 64).)
+   (let@4,1 :f.0 . .
+    (f@A,~1E 64)
+    (call@B clamp01.0.~7
+     (sub@5
+      (f 64)1.0~4
+      (add@V
+       (f 64)
+       (mul~6
+        (f 64)
+        (call~J cos.2.mat7cnfv21~3
+         (mul@D
+          (f 64)
+          (mul~6
+           (f 64)angle.1~6 2.0@2)PI.0.mat7cnfv21@2))2.0@2)0.25@2))))
+   (asgn@7,2 result.9~7
+    (mul@8
+     (f 64)
+     (mul~4
+      (f 64)f.0~2 f.0@2)0.5@2))
+   (ret~2,~1 result.9)))
+ (proc@,2E :skyDarken.0.@5 x . .
+  (params@F
+   (param@1 :angle.2 . .
+    (f@7 64).))
+  (f@G 64). .
+  (stmts@2,1
+   (result :result.10 . .
+    (f@E,~1I 64).)
+   (asgn@7,2 result.10~7
+    (call@9 clamp01.0.~7
+     (sub@5
+      (f 64)1.0~4
+      (add@V
+       (f 64)
+       (mul~6
+        (f 64)
+        (call~J cos.2.mat7cnfv21~3
+         (mul@D
+          (f 64)
+          (mul~6
+           (f 64)angle.2~6 2.0@2)PI.0.mat7cnfv21@2))2.0@2)0.2@2))))
+   (ret~2,~1 result.10)))
+ (proc@,2J :skyLightLevel.0.@5 x . .
+  (params@J
+   (param@1 :angle.3 . .
+    (f@7 64).))
+  (i@G 64). .
+  (stmts@2,1
+   (result :result.11 . .
+    (i@E,~d 64).)
+   (asgn@7,1 result.11~7
+    (conv@5
+     (i~3,~b 64)
+     (add@X
+      (f 64)
+      (mul~7
+       (f 64)
+       (sub~K
+        (f 64)1.0~4
+        (call@B skyDarken.0.~9 angle.3@1))15.0@2)0.5@2)))
+   (ret~2,~1 result.11)))
+ (proc@,2Q :hsvToRgb.0.@5 x . .
+  (params@E
+   (param@1 :h.0 . .
+    (f@9 64).)
+   (param@4 :s.0 . .
+    (f@6 64).)
+   (param@7 :v.3 . .
+    (f@3 64).))Rgb.0.@I . .
+  (stmts@2,1
+   (result :result.12 . . Rgb.0.@G,~1 .)
+   (let@4,3 :sector.0 . .
+    (i@A,~n 64)
+    (mod@T
+     (i 64)
+     (conv~H
+      (i~7,~k 64)
+      (call@6 floor.1.mat7cnfv21~5
+       (mul@3
+        (f 64)h.0~2 6.0@2)))6@4))
+   (let@4,4 :f.1 . .
+    (f@A,~1Y 64)
+    (sub@C
+     (f 64)
+     (mul~6
+      (f 64)h.0~2 6.0@2)
+     (call@7 floor.1.mat7cnfv21~5
+      (mul@3
+       (f 64)h.0~2 6.0@2))))
+   (let@4,5 :p.0 . .
+    (f@A,~1Z 64)
+    (mul@6
+     (f 64)v.3~2
+     (sub@7
+      (f 64)1.0~4 s.0@2)))
+   (let@4,6 :q.0 . .
+    (f@A,~1a 64)
+    (mul@6
+     (f 64)v.3~2
+     (sub@7
+      (f 64)1.0~4
+      (mul@4
+       (f 64)s.0~2 f.1@2))))
+   (let@4,7 :t.0 . .
+    (f@A,~1b 64)
+    (mul@6
+     (f 64)v.3~2
+     (sub@7
+      (f 64)1.0~4
+      (mul@4
+       (f 64)s.0~2
+       (sub@7
+        (f 64)1.0~4 f.1@2)))))
+   (case@,8 sector.0@5
+    (of@,1
+     (ranges 0@3)
+     (stmts@6
+      (asgn@7 result.12~7
+       (oconstr@5 Rgb.0.~2,~A
+        (kv@2 r.0~1 v.3@2)
+        (kv@8 g.0~1 t.0@2)
+        (kv@E b.0~1 p.0@2)))))
+    (of@,2
+     (ranges 1@3)
+     (stmts@6
+      (asgn@7 result.12~7
+       (oconstr@5 Rgb.0.~2,~B
+        (kv@2 r.0~1 q.0@2)
+        (kv@8 g.0~1 v.3@2)
+        (kv@E b.0~1 p.0@2)))))
+    (of@,3
+     (ranges 2@3)
+     (stmts@6
+      (asgn@7 result.12~7
+       (oconstr@5 Rgb.0.~2,~C
+        (kv@2 r.0~1 p.0@2)
+        (kv@8 g.0~1 v.3@2)
+        (kv@E b.0~1 t.0@2)))))
+    (of@,4
+     (ranges 3@3)
+     (stmts@6
+      (asgn@7 result.12~7
+       (oconstr@5 Rgb.0.~2,~D
+        (kv@2 r.0~1 p.0@2)
+        (kv@8 g.0~1 q.0@2)
+        (kv@E b.0~1 v.3@2)))))
+    (of@,5
+     (ranges 4@3)
+     (stmts@6
+      (asgn@7 result.12~7
+       (oconstr@5 Rgb.0.~2,~E
+        (kv@2 r.0~1 t.0@2)
+        (kv@8 g.0~1 p.0@2)
+        (kv@E b.0~1 v.3@2)))))
+    (else@,6
+     (stmts@6
+      (asgn@7 result.12~7
+       (oconstr@5 Rgb.0.~2,~F
+        (kv@2 r.0~1 v.3@2)
+        (kv@8 g.0~1 p.0@2)
+        (kv@E b.0~1 q.0@2))))))
+   (ret~2,~1 result.12)))
+ (proc@,2h :biomeSky.0.@5 x . .
+  (params@E
+   (param@1 :temperature.0 . .
+    (f@D 64).))Rgb.0.@M . .
+  (stmts@2,1
+   (result :result.13 . . Rgb.0.@G,~I .)
+   (let@4,5 :f.2 . .
+    (f@A,~1q 64)
+    (call@B clampTo.0.~7
+     (div@D
+      (f 64)temperature.0~C 3.0@2)-1.0@K 1.0@Q))
+   (asgn@7,6 result.13~7
+    (call@A hsvToRgb.0.~8
+     (sub@C
+      (f 64)0.62222224~B
+      (mul@4
+       (f 64)f.2~2 0.05@2))
+     (add@S
+      (f 64)0.5~4
+      (mul@4
+       (f 64)f.2~2 0.1@2))1.0@d))
+   (ret~2,~1 result.13)))
+ (proc@,2q :skyColour.0.@5 x . .
+  (params@F
+   (param@1 :temperature.1 . .
+    (f@K 64).)
+   (param@E :ticks.4 . .
+    (f@7 64).))Rgb.0.@T . .
+  (stmts@2,1
+   (result :result.14 . . Rgb.0.@G,~R .)
+   (let@4,1 :angle.9 . .
+    (f@A,~1v 64)
+    (call@M celestialAngle.0.~E ticks.4@1))
+   (let@4,2 :dim.0 . .
+    (f@A,~1w 64)
+    (call@C skyDim.0.~6 angle.9@1))
+   (let@4,3 :base.0 . . Rgb.0.@C,~U
+    (call@F biomeSky.0.~8 temperature.1@1))
+   (asgn@7,4 result.14~7
+    (oconstr@5 Rgb.0.@4,~V
+     (kv@2 r.0~1
+      (mul@9
+       (f 64)
+       (dot~3 base.0~4 r.0 0)dim.0@2))
+     (kv@J g.0~1
+      (mul@9
+       (f 64)
+       (dot~3 base.0~4 g.0 0)dim.0@2))
+     (kv@a b.0~1
+      (mul@9
+       (f 64)
+       (dot~3 base.0~4 b.0 0)dim.0@2))))
+   (ret~2,~1 result.14)))
+ (proc@,2x :sunriseVisible.0.@5 x . .
+  (params@K
+   (param@1 :angle.4 . .
+    (f@7 64).))
+  (bool@G). .
+  (stmts@2,1
+   (result :result.15 . .
+    (bool@E,~1).)
+   (let@4,1 :f.3 . .
+    (f@A,~22 64)
+    (call@7 cos.2.mat7cnfv21~3
+     (mul@D
+      (f 64)
+      (mul~6
+       (f 64)angle.4~6 2.0@2)PI.0.mat7cnfv21@2)))
+   (asgn@7,2 result.15~7
+    (and@K
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (f 64)
+       (neg@G,31,skyday.nim
+        (f 64)SunriseBand.0.@1)f.3@B,31,skyday.nim))
+     (le@6
+      (f 64)f.3~2 SunriseBand.0.@3)))
+   (ret~2,~1 result.15)))
+ (proc@,32 :sunriseGlow.0.@5 x . .
+  (params@H
+   (param@1 :angle.5 . .
+    (f@7 64).))Rgba.0.@G . .
+  (stmts@2,1
+   (result :result.16 . . Rgba.0.@E,~1 .)
+   (if@,4
+    (elif@3
+     (not
+      (call@I sunriseVisible.0.~E angle.5@1))
+     (stmts~1,1
+      (ret
+       (oconstr@B Rgba.0.@1,~6
+        (kv@2 r.0~1 0.0@2)
+        (kv@A g.0~1 0.0@2)
+        (kv@I b.0~1 0.0@2)
+        (kv@Q a.0~1 0.0@2))))))
+   (let@4,6 :f.4 . .
+    (f@A,~2C 64)
+    (call@7 cos.2.mat7cnfv21~3
+     (mul@D
+      (f 64)
+      (mul~6
+       (f 64)angle.5~6 2.0@2)PI.0.mat7cnfv21@2)))
+   (let@4,7 :across.0 . .
+    (f@A,~2D 64)
+    (add@V
+     (f 64)
+     (mul~6
+      (f 64)
+      (div~E
+       (f 64)f.4~2 SunriseBand.0.@2)0.5@2)0.5@2))
+   (var@4,8 :alpha.0 . .
+    (f@A,~2E 64)
+    (sub@C
+     (f 64)1.0~4
+     (mul@R
+      (f 64)
+      (sub~K
+       (f 64)1.0~4
+       (call@5 sin.2.mat7cnfv21~3
+        (mul@8
+         (f 64)across.0~7 PI.0.mat7cnfv21@2)))0.99@2)))
+   (asgn@6,9 alpha.0~6
+    (mul@8
+     (f 64)alpha.0~6 alpha.0@2))
+   (asgn@7,A result.16~7
+    (oconstr@6 Rgba.0.@1,~B
+     (kv@2 r.0~1
+      (add@F
+       (f 64)
+       (mul~6
+        (f 64)across.0~7 0.3@2)0.7@2))
+     (kv@P g.0~1
+      (add@O
+       (f 64)
+       (mul~6
+        (f 64)
+        (mul~9
+         (f 64)across.0~7 across.0@2)0.7@2)0.2@2))
+     (kv@2,1 b.0~1 0.2@2)
+     (kv@A,1 a.0~1 alpha.0@2)))
+   (ret~2,~1 result.16)))
+ (proc@,3G :fogColour.0.@5 x . .
+  (params@F
+   (param@1 :temperature.2 . .
+    (f@K 64).)
+   (param@E :ticks.5 . .
+    (f@7 64).))Rgb.0.@T . .
+  (stmts@2,1
+   (result :result.17 . . Rgb.0.@G,~r .)
+   (let@4,4 :sky.0 . . Rgb.0.@C,~v
+    (call@F skyColour.0.~9 temperature.2@1 ticks.5@E))
+   (let@4,5 :lift.0 . .
+    (f@A,~2P 64)
+    (mul@C
+     (f 64)0.12~5
+     (call@8 skyDim.0.~6
+      (call@F celestialAngle.0.~E ticks.5@1))))
+   (asgn@7,6 result.17~7
+    (oconstr@5 Rgb.0.@4,~x
+     (kv@2 r.0~1
+      (add@8
+       (f 64)
+       (dot~3 sky.0~3 r.0 0)
+       (mul@G
+        (f 64)
+        (sub~9
+         (f 64)0.6~4
+         (dot@5 sky.0~3 r.0 0))lift.0@2)))
+     (kv@2,1 g.0~1
+      (add@8
+       (f 64)
+       (dot~3 sky.0~3 g.0 0)
+       (mul@G
+        (f 64)
+        (sub~9
+         (f 64)0.6~4
+         (dot@5 sky.0~3 g.0 0))lift.0@2)))
+     (kv@2,2 b.0~1
+      (add@8
+       (f 64)
+       (dot~3 sky.0~3 b.0 0)
+       (mul@G
+        (f 64)
+        (sub~9
+         (f 64)0.6~4
+         (dot@5 sky.0~3 b.0 0))lift.0@2)))))
+   (ret~2,~1 result.17)))
+ (proc@,3R :cloudColour.0.@5 x . .
+  (params@H
+   (param@1 :ticks.6 . .
+    (f@7 64).))Rgb.0.@G . .
+  (stmts@2,1
+   (result :result.18 . . Rgb.0.@G,~12 .)
+   (let@4,3 :dim.1 . .
+    (f@A,~2Y 64)
+    (call@C skyDim.0.~6
+     (call@F celestialAngle.0.~E ticks.6@1)))
+   (let@4,4 :v.4 . .
+    (f@A,~2Z 64)
+    (add@8
+     (f 64)0.1~4
+     (mul@6
+      (f 64)0.9~4 dim.1@2)))
+   (asgn@7,5 result.18~7
+    (oconstr@5 Rgb.0.@4,~17
+     (kv@2 r.0~1 v.4@2)
+     (kv@8 g.0~1 v.4@2)
+     (kv@E b.0~1 v.4@2)))
+   (ret~2,~1 result.18)))
+ (proc@,3c :celestialDegrees.0.@5 x . .
+  (params@M
+   (param@1 :angle.6 . .
+    (f@7 64).))
+  (f@G 64). .
+  (stmts@2,1
+   (result :result.19 . .
+    (f@E,~2g 64).)
+   (asgn@7,1 result.19~7
+    (mul@8
+     (f 64)angle.6~6 360.0@2))
+   (ret~2,~1 result.19)))
+ (proc@,3g :sunDirection.0.@5 x . .
+  (params@I
+   (param@1 :angle.7 . .
+    (f@7 64).))Dir.0.@G . .
+  (stmts@2,1
+   (result :result.20 . . Dir.0.@E,~1 .)
+   (let@4,3 :t.1 . .
+    (f@A,~2n 64)
+    (mul@G
+     (f 64)
+     (mul~6
+      (f 64)angle.7~6 2.0@2)PI.0.mat7cnfv21@2))
+   (asgn@7,4 result.20~7
+    (oconstr@5 Dir.0.@2,~5
+     (kv@2 x.0~1
+      (neg@2
+       (f 64)
+       (call@4 sin.2.mat7cnfv21~3 t.1@1)))
+     (kv@E y.0~1
+      (call@5 cos.2.mat7cnfv21~3 t.1@1))
+     (kv@P z.0~1 0.0@2)))
+   (ret~2,~1 result.20)))
+ (proc@,3n :moonDirection.0.@5 x . .
+  (params@J
+   (param@1 :angle.8 . .
+    (f@7 64).))Dir.0.@G . .
+  (stmts@2,1
+   (result :result.21 . . Dir.0.@E,~8 .)
+   (let@4,2 :s.1 . . Dir.0.@A,~A
+    (call@G sunDirection.0.~C angle.8@1))
+   (asgn@7,3 result.21~7
+    (oconstr@5 Dir.0.@2,~B
+     (kv@2 x.0~1
+      (neg@2
+       (f 64)
+       (dot@2 s.1~1 x.0 0)))
+     (kv@B y.0~1
+      (neg@2
+       (f 64)
+       (dot@2 s.1~1 y.0 0)))
+     (kv@K z.0~1
+      (neg@2
+       (f 64)
+       (dot@2 s.1~1 z.0 0)))))
+   (ret~2,~1 result.21)))
+ (proc@,3t :aboveHorizon.0.@5 x . .
+  (params@I
+   (param@1 :d.0 . . Dir.0.@3 .))
+  (bool@A). .
+  (stmts@Z
+   (result@4 :result.22 . .
+    (bool~N,~w).)
+   (asgn@4 result.22
+    (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+     (lt@2,1
+      (f 64)0.0@f,3u,skyday.nim
+      (dot@a,3u,skyday.nim d.0~1 y.0 0))))
+   (ret~Z result.22)))
+ (proc@,3v :moonPhase.0.@5 x . .
+  (params@F
+   (param@1 :ticks.7 . .
+    (f@7 64).))
+  (i@G 64). .
+  (stmts@2,1
+   (result :result.23 . .
+    (i@E,~2F 64).)
+   (var@4,3 :day.0 . .
+    (i@A,~2I 64)
+    (mod@N
+     (i 64)
+     (call~8 dayNumber.0.~9 ticks.7@1)MoonPhases.0.@4))
+   (if@,4
+    (elif@3
+     (lt@4
+      (i 64)day.0~4 0@2)
+     (stmts@9
+      (asgn@4 day.0~4
+       (add@6
+        (i 64)day.0~4 MoonPhases.0.@2)))))
+   (asgn@7,5 result.23~7 day.0@2)
+   (ret~2,~1 result.23)))
+ (proc@,43 :moonTile.0.@5 x . .
+  (params@E
+   (param@1 :phase.0 . .
+    (i@7 64).))Tile.0.@E . .
+  (stmts@2,1
+   (result :result.24 . . Tile.0.@C,~1 .)
+   (var@4,3 :p.1 . .
+    (i@A,~2Q 64)
+    (mod@A
+     (i 64)phase.0~6 MoonPhases.0.@4))
+   (if@,4
+    (elif@3
+     (lt@2
+      (i 64)p.1~2 0@2)
+     (stmts@7
+      (asgn@2 p.1~2
+       (add@4
+        (i 64)p.1~2 MoonPhases.0.@2)))))
+   (let@4,5 :col.0 . .
+    (i@A,~2S 64)
+    (mod@8
+     (i 64)p.1~2 MoonColumns.0.@4))
+   (let@4,6 :row.0 . .
+    (i@A,~2T 64)
+    (div@8
+     (i 64)p.1~2 MoonColumns.0.@4))
+   (asgn@7,7 result.24~7
+    (oconstr@6 Tile.0.~1,~8
+     (kv@3 u0.0~2
+      (div@D
+       (f 64)
+       (conv~6
+        (f@,~2d 64)col.0@1)
+       (conv@7
+        (f~D,~2d 64)MoonColumns.0.@1)))
+     (kv@3,1 v0.0~2
+      (div@D
+       (f 64)
+       (conv~6
+        (f@,~2e 64)row.0@1)
+       (conv@7
+        (f~D,~2e 64)MoonRows.0.@1)))
+     (kv@3,2 u1.0~2
+      (div@H
+       (f 64)
+       (conv~A
+        (f@,~2f 64)
+        (add@5
+         (i 64)col.0~4 1@2))
+       (conv@7
+        (f~H,~2f 64)MoonColumns.0.@1)))
+     (kv@3,3 v1.0~2
+      (div@H
+       (f 64)
+       (conv~A
+        (f@,~2g 64)
+        (add@5
+         (i 64)row.0~4 1@2))
+       (conv@7
+        (f~H,~2g 64)MoonRows.0.@1)))))
+   (ret~2,~1 result.24)))
+ (proc@,4G :moonBrightness.0.@5 x . .
+  (params@K
+   (param@1 :phase.1 . .
+    (i@7 64).))
+  (f@E 64). .
+  (stmts@2,1
+   (result :result.25 . .
+    (f@E,~3K 64).)
+   (var@4,2 :p.2 . .
+    (i@A,~2c 64)
+    (mod@A
+     (i 64)phase.1~6 MoonPhases.0.@4))
+   (if@,3
+    (elif@3
+     (lt@2
+      (i 64)p.2~2 0@2)
+     (stmts@7
+      (asgn@2 p.2~2
+       (add@4
+        (i 64)p.2~2 MoonPhases.0.@2)))))
+   (let@4,4 :away.0 . .
+    (i@A,~2e 64)
+    (if@7
+     (elif@3
+      (le@2
+       (i 64)p.2~2 4@3)
+      (expr@8 p.2))
+     (else@D
+      (expr@6
+       (sub@B
+        (i 64)MoonPhases.0.~B p.2@2)))))
+   (asgn@7,5 result.25~7
+    (sub@6
+     (f 64)1.0~4
+     (mul@E
+      (f 64)
+      (conv~7
+       (f@3,~2o 64)away.0@1)0.25@2)))
+   (ret~2,~1 result.25)))
+ (proc@,4R :cloudDrift.0.@5 x . .
+  (params@G
+   (param@1 :ticks.8 . .
+    (f@7 64).))
+  (f@G 64). .
+  (stmts@2,1
+   (result :result.26 . .
+    (f@E,~3V 64).)
+   (asgn@7,2 result.26~7
+    (mul@8
+     (f 64)ticks.8~6 CloudBlocksPerTick.0.@2))
+   (ret~2,~1 result.26)))
+ (proc@,4W :cloudUv.0.@5 x . .
+  (params@D
+   (param@1 :drift.0 . .
+    (f@7 64).))
+  (f@G 64). .
+  (stmts@2,1
+   (result :result.27 . .
+    (f@E,~3a 64).)
+   (asgn@7,3 result.27~7
+    (div@8
+     (f 64)drift.0~6
+     (mul@K
+      (f 64)CloudSheetPixels.0.~H CloudCellBlocks.0.@2)))
+   (ret~2,~1 result.27)))
+ (type@H,4f :JavaRandom.0.~C x .
+  (pragmas)
+  (object@2 .
+   (fld~C,1 :state.0~5 x .
+    (i@3 64).)))
+ (const@2,4j :LcgMultiplier.0. . .
+  (i@E,~32 64)
+  (suf@G 25214903917 "i64"))
+ (const@2,4k :LcgAddend.0. . .
+  (i@E,~33 64)
+  (suf@C 11 "i64"))
+ (const@2,4l :LcgMask.0. . .
+  (i@E,~34 64)
+  (suf@A 281474976710655 "i64"))
+ (proc@,4n :seeded.0.@5 x . .
+  (params@C
+   (param@1 :seed.0 . .
+    (i@6 64).))JavaRandom.0.@D . .
+  (stmts@2,1
+   (result@7 :result.28 . . JavaRandom.0.@4,~1 .)
+   (asgn@7 result.28~7
+    (oconstr@C JavaRandom.0.~8,~1
+     (kv@6 state.0~5
+      (bitand@R
+       (i 64)
+       (bitxor~J
+        (i 64)seed.0~5 LcgMultiplier.0.@4)LcgMask.0.@4))))
+   (ret~2,~1 result.28)))
+ (proc@,4q :nextBits.0.@5 x . .
+  (params@E
+   (param@1 :r.0 . .
+    (mut@3 JavaRandom.0.@4).)
+   (param@K :bits.0 . .
+    (i@6 64).))
+  (i@W 64). .
+  (stmts@2,1
+   (result :result.29 . .
+    (i@E,~3A 64).)
+   (let@4,8 :lo.0 . .
+    (i@A,~3I 64)
+    (bitand@D
+     (i 64)
+     (dot~7
+      (hderef~1 r.0)state.0 0)16777215@4))
+   (let@4,9 :hi.0 . .
+    (i@A,~3J 64)
+    (ashr@D
+     (i 64)
+     (dot~7
+      (hderef~1 r.0)state.0 0)24@4))
+   (let@4,A :low.1 . .
+    (i@A,~3K 64)
+    (add@P
+     (i 64)
+     (mul~G
+      (i 64)lo.0~3 LcgMultiplier.0.@2)LcgAddend.0.@2))
+   (let@4,B :high.1 . .
+    (i@A,~3L 64)
+    (bitand@S
+     (i 64)
+     (mul~H
+      (i 64)hi.0~3 LcgMultiplier.0.@2)16777215@4))
+   (asgn@8,C
+    (dot~7
+     (hderef~1 r.0)state.0 0)
+    (bitand@O
+     (i 64)
+     (add~7
+      (i 64)
+      (shl~8
+       (i 64)high.1~5 24@4)low.1@2)LcgMask.0.@4))
+   (asgn@7,D result.29~7
+    (ashr@A
+     (i 64)
+     (dot~7
+      (hderef~1 r.0)state.0 0)
+     (sub@8
+      (i 64)48~3 bits.0@2)))
+   (ret~2,~1 result.29)))
+ (proc@,56 :nextFloat.0.@5 x . .
+  (params@F
+   (param@1 :r.1 . .
+    (mut@3 JavaRandom.0.@4).))
+  (f@L 64). .
+  (stmts@2,1
+   (result :result.30 . .
+    (f@E,~4A 64).)
+   (asgn@7,4 result.30~7
+    (div@O
+     (f 64)
+     (conv~H
+      (f@9,~3d 64)
+      (call@B nextBits.0.~8 r.1~A 24@1))16777216.0@2))
+   (ret~2,~1 result.30)))
+ (proc@,5D :stars.0.@5 x . .
+  (params@B
+   (param@1 :count.0 . .
+    (i@4,~3W 64)StarAttempts.0.@8)
+   (param@N :radius.0 . .
+    (f~I,~4G 64)StarRadius.0.@9))seq.0.Iw6684o1.@m . .
+  (stmts@2,1
+   (result :result.31 . . seq.0.Iw6684o1.@k,~1 .)
+   (asgn@7,4 result.31~7
+    (expr@2,32,../../../../../../nimony/lib/std/system/seqimpl.nim
+     (call@F,1 newSeqUninit.0.Iai7y8h1.~F 0@1)))
+   (var@4,5 :r.2 . . JavaRandom.0.@7,~W
+    (call@A seeded.0.~6 StarSeed.0.@1))
+   (var@4,6 :i.0 . .
+    (i 64)0@4)
+   (while@,7
+    (lt@8
+     (i 64)i.0~2 count.0@2)
+    (stmts@2,1
+     (cmd inc.1.Irn1g7r1.
+      (haddr@4 i.0))
+     (let@4,1 :x.1 . .
+      (f@8,~4Q 64)
+      (sub@O
+       (f 64)
+       (mul~6
+        (f 64)
+        (call~3 nextFloat.0.~9
+         (haddr~B r.2))2.0@2)1.0@2))
+     (let@4,2 :y.0 . .
+      (f@8,~4R 64)
+      (sub@O
+       (f 64)
+       (mul~6
+        (f 64)
+        (call~3 nextFloat.0.~9
+         (haddr~B r.2))2.0@2)1.0@2))
+     (let@4,3 :z.0 . .
+      (f@8,~4S 64)
+      (sub@O
+       (f 64)
+       (mul~6
+        (f 64)
+        (call~3 nextFloat.0.~9
+         (haddr~B r.2))2.0@2)1.0@2))
+     (let@4,4 :size.1 . .
+      (f@8,~4T 64)
+      (add@C
+       (f 64)0.15~5
+       (mul@G
+        (f 64)
+        (call~3 nextFloat.0.~9
+         (haddr~B r.2))0.1@2)))
+     (let@4,5 :d.1 . .
+      (f@8,~4U 64)
+      (add@I
+       (f 64)
+       (add~8
+        (f 64)
+        (mul~4
+         (f 64)x.1~2 x.1@2)
+        (mul@4
+         (f 64)y.0~2 y.0@2))
+       (mul@4
+        (f 64)z.0~2 z.0@2)))
+     (if@,6
+      (elif@3
+       (and@8
+        (lt~6
+         (f 64)d.1~2 1.0@2)
+        (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+         (lt@2,1
+          (f 64)0.01@N,5T,skyday.nim d.1@J,5T,skyday.nim)))
+       (stmts~1,1
+        (let@4 :k.0 . .
+         (f@6,~4W 64)
+         (div@B
+          (f 64)radius.0~7
+          (call@6 sqrt.2.mat7cnfv21~4 d.1@1)))
+        (cmd@6,1 add.0.Ivq14i7.@1
+         (haddr~6 result.31)
+         (oconstr@9 Star.0.~4
+          (kv@2 x.0~1
+           (mul@4
+            (f 64)x.1~2 k.0@2))
+          (kv@C y.0~1
+           (mul@4
+            (f 64)y.0~2 k.0@2))
+          (kv@M z.0~1
+           (mul@4
+            (f 64)z.0~2 k.0@2))
+          (kv@Z size.0~4 size.1@2))))))))
+   (ret~2,~1 result.31)))
+ (comment@G,x float.0.sysvq0asl float.0.sysvq0asl float.0.sysvq0asl float.0.sysvq0asl@4,3 float.0.sysvq0asl@4,3 float.0.sysvq0asl@4,3 float.0.sysvq0asl@4,3 float.0.sysvq0asl@8,8 float.0.sysvq0asl@8,8 float.0.sysvq0asl@8,8 float.0.sysvq0asl@8,8 float.0.sysvq0asl@,D float.0.sysvq0asl@,D float.0.sysvq0asl@,D float.0.sysvq0asl@,G float.0.sysvq0asl@,G float.0.sysvq0asl@,G float.0.sysvq0asl~5,H float.0.sysvq0asl@1,M float.0.sysvq0asl~4,M float.0.sysvq0asl@C,P float.0.sysvq0asl@C,P float.0.sysvq0asl@C,P float.0.sysvq0asl@7,P float.0.sysvq0asl~1,S float.0.sysvq0asl~4,S float.0.sysvq0asl@7,Z float.0.sysvq0asl@,Z float.0.sysvq0asl@7,d float.0.sysvq0asl@D,e float.0.sysvq0asl@7,k int.0.sysvq0asl@,k float.0.sysvq0asl@9,p float.0.sysvq0asl@,p float.0.sysvq0asl@C,w float.0.sysvq0asl@,w float.0.sysvq0asl@4,17 float.0.sysvq0asl@,17 float.0.sysvq0asl@C,1C float.0.sysvq0asl@,1C float.0.sysvq0asl@7,1H float.0.sysvq0asl@,1H float.0.sysvq0asl@B,1M int.0.sysvq0asl@,1M float.0.sysvq0asl@8,1T float.0.sysvq0asl@8,1T float.0.sysvq0asl@8,1T float.0.sysvq0asl@C,1k float.0.sysvq0asl@K,1t float.0.sysvq0asl@K,1t float.0.sysvq0asl@C,20 bool.0.sysvq0asl@,20 float.0.sysvq0asl@9,25 float.0.sysvq0asl@K,2J float.0.sysvq0asl@K,2J float.0.sysvq0asl@9,2U float.0.sysvq0asl@E,2f float.0.sysvq0asl@,2f float.0.sysvq0asl@A,2j float.0.sysvq0asl@B,2q bool.0.sysvq0asl~6,2w float.0.sysvq0asl@7,2y int.0.sysvq0asl@,2y int.0.sysvq0asl@6,36 int.0.sysvq0asl@C,3J float.0.sysvq0asl~2,3J float.0.sysvq0asl@8,3U float.0.sysvq0asl@,3U float.0.sysvq0asl@5,3Z float.0.sysvq0asl@,3Z int.0.sysvq0asl~6,3j int.0.sysvq0asl@3,3q int.0.sysvq0asl@O,3t int.0.sysvq0asl@G,3t float.0.sysvq0asl@5,49 >.0.sysvq0asl@9,N >.0.sysvq0asl@9,Q float.0.sysvq0asl@9,b float.0.sysvq0asl@V,b float.0.sysvq0asl@Q,d float.0.sysvq0asl@I,i int.0.sysvq0asl~5,n float.0.sysvq0asl@D,n float.0.sysvq0asl@9,r float.0.sysvq0asl@9,13 int.0.sysvq0asl~5,1O int.0.sysvq0asl~1,1X >=.0.sysvq0asl~3,23 >.0.sysvq0asl@N,2w float.0.sysvq0asl@4,3E float.0.sysvq0asl@H,3E float.0.sysvq0asl@4,3F float.0.sysvq0asl@H,3F float.0.sysvq0asl@4,3G float.0.sysvq0asl@L,3G float.0.sysvq0asl@4,3H float.0.sysvq0asl@L,3H float.0.sysvq0asl@1,3P float.0.sysvq0asl~5,4E \40.1.sysvq0asl~5,4L >.0.sysvq0asl@5,4V)
+ (func@H,33,../../../../../../nimony/lib/std/system/seqimpl.nim :newSeqUninit.0.Iai7y8h1. . .~H,~1z
+  (at newSeqUninit.0.sysvq0asl Star.0.@n,5E,skyday.nim)
+  (params@4,~1z
+   (param@1 :size.2 . .
+    (i@6 64).))seq.0.Iw6684o1.~1,~1z
+  (pragmas@O,~1z
+   (nodestroy@2)
+   (inline@D)).~H,~1z
+  (stmts~F,~1y
+   (result :result.32 . . seq.0.Iw6684o1.@E,~1 .)
+   (if@,1
+    (elif@3
+     (eq@5
+      (i 64)size.2~5 0@3)
+     (stmts~1,1
+      (asgn@7 result.32~7
+       (oconstr@8 seq.0.Iw6684o1.@m,5E,skyday.nim
+        (kv@4 len.0~3 size.2@2)
+        (kv@G data.0~4
+         (nil@2))))))
+    (else@,2
+     (stmts@2,1
+      (let@4 :memSize.0 . .
+       (i@G,1i,skyday.nim 64)
+       (call@R memSizeInBytes.0.Ilm3acl1.~H size.2@1))
+      (asgn@7,1 result.32~7
+       (oconstr@8 seq.0.Iw6684o1.@m,5E,skyday.nim
+        (kv@4 len.0~3 size.2@2)
+        (kv@G data.0~4
+         (cast@2
+          (ptr@5
+           (uarray@I Star.0.@n,5E,skyday.nim)
+           (unchecked))
+          (call@X alloc.0.sysvq0asl~5 memSize.0@1)))))
+      (if@,2
+       (elif@3
+        (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+         (not@,1
+          (eq@7
+           (ptr
+            (uarray Star.0.@n,5E,skyday.nim)
+            (unchecked))
+           (dot@D,1B,../../../../../../nimony/lib/std/system/seqimpl.nim result.32~6 data.0 0 "x")
+           (nil@M,1B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+        (stmts~1,1
+         (discard "leave uninitialized"@8)))
+       (else@,2
+        (stmts@2,1
+         (asgn@B
+          (dot~5 result.32~6 len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.0@B)))))))))
+   (ret~2,~1 result.32)))
+ (func@4,5M :inc.1.Irn1g7r1. . .@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (at inc.1.sysvq0asl
+   (i 64))
+  (params@L,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (param@1 :x.2 . .
+    (mut@3
+     (i 64)).)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (pragmas@W,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (inline@2)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (stmts@2,F,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (asgn@2,1
+    (hderef~2 x.2)
+    (add@6
+     (i 64)
+     (hderef@1 x.2)
+     (conv@U,~F
+      (i 64)1@1)))))
+ (func@C,5U :add.0.Ivq14i7. . .@,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at add.0.sysvq0asl Star.0.@b,~H)
+  (params@C,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.3 . .
+    (mut@3 seq.0.Iw6684o1.@7).)
+   (param@G :elem.1 . .
+    (sink@6 Star.0.@n,5E,skyday.nim).)).@,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (pragmas@g,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (inline@2)
+   (nodestroy@A)).@,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,2O,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (let@4,1 :L.0 . .
+    (i@G,1i,skyday.nim 64)
+    (dot@5
+     (hderef~1 s.3)len.0 0 "x"))
+   (if@,2
+    (elif@3
+     (lt@D
+      (i 64)
+      (call~C capInBytes.0.Ifqqw6d1.@1
+       (hderef~1 s.3))
+      (add@I
+       (i 64)
+       (mul~D
+        (i 64)L.0~2
+        (sizeof@8 Star.0.@n,5E,skyday.nim))
+       (sizeof@8 Star.0.@n,5E,skyday.nim)))
+     (stmts~1,1
+      (if
+       (elif@3
+        (not
+         (call@A resize.0.I4jjiig1.~6 s.3@1 1@4))
+        (stmts~1,3
+         (destroy@A elem.1@1)
+         (ret@,1 .)))))))
+   (cmd@,8 inc.1.Irn1g7r1.
+    (haddr@5
+     (dot
+      (hderef~1 s.3)len.0 0 "x")))
+   (asgn@C,9
+    (pat~A
+     (dot
+      (hderef~1 s.3)data.0 0 "x")L.0@6)elem.1@2)))
+ (func@Z,19,../../../../../../nimony/lib/std/system/seqimpl.nim :memSizeInBytes.0.Ilm3acl1. . .~Z,~k
+  (at memSizeInBytes.0.sysvq0asl Star.0.@n,5E,skyday.nim)
+  (params~D,~k
+   (param@1 :size.4 . .
+    (i@6 64).))
+  (i~M,~k 64)
+  (pragmas@4,~k
+   (inline@2)).~Z,~k
+  (stmts~X,~j
+   (result :result.33 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (pragmax
+    (pragmas
+     (keepOverflowFlag@2))
+    (stmts@2,1
+     (asgn@7 result.33~7
+      (mul@7
+       (i 64)size.4~5
+       (sizeof@8 Star.0.@n,5E,skyday.nim)))
+     (if@,1
+      (elif@3
+       (ovf@C)
+       (stmts~1,2
+        (asgn@7 result.33~7
+         (suf@6 9223372036854775807 "i64")))))))
+   (ret~2,~1 result.33)))
+ (func@6,2Q,../../../../../../nimony/lib/std/system/seqimpl.nim :capInBytes.0.Ifqqw6d1. . .~6,~2G
+  (at capInBytes.0.sysvq0asl Star.0.@n,5E,skyday.nim)
+  (params@C,~2G
+   (param@1 :s.5 . . seq.0.Iw6684o1.@6 .))
+  (i@7,~2G 64)
+  (pragmas@T,~2G
+   (inline@2)).~6,~2G
+  (stmts~4,~2F
+   (result@7 :result.34 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@7 result.34~7
+    (if@2
+     (elif@3
+      (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+       (not@,1
+        (eq@7
+         (ptr
+          (uarray Star.0.@n,5E,skyday.nim)
+          (unchecked))
+         (dot@F,B,../../../../../../nimony/lib/std/system/seqimpl.nim s.5~1 data.0 0 "x")
+         (nil@O,B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+      (expr@F
+       (call@D allocatedSize.0.sysvq0asl~D
+        (hconv@2
+         (pointer@N,1O,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (hconv
+          (pointer@D,1C,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (dot s.5~1 data.0 0 "x"))))))
+     (else@e
+      (expr@6 0))))
+   (ret~2,~1 result.34)))
+ (func@H,2R,../../../../../../nimony/lib/std/system/seqimpl.nim :resize.0.I4jjiig1. . .~H,~e
+  (at resize.0.sysvq0asl Star.0.@n,5E,skyday.nim)
+  (params~3,~e
+   (param@1 :dest.1 . .
+    (mut@6 seq.0.Iw6684o1.@7).)
+   (param@J :addedElements.1 . .
+    (i@F 64).))
+  (bool@N,~e)
+  (pragmas@g,~e
+   (nodestroy@2)).~H,~e
+  (stmts~F,~d
+   (result@4 :result.35 . .
+    (bool@2,g,../../../../../../nimony/lib/std/system/basic_types.nim).)
+   (let@4 :oldCap.0 . .
+    (i@G,1i,skyday.nim 64)
+    (div@P
+     (i 64)
+     (call~C capInBytes.0.Ifqqw6d1.@1
+      (hderef~4 dest.1))
+     (sizeof@A Star.0.@n,5E,skyday.nim)))
+   (let@4,1 :newCap.0 . .
+    (i@G,1i,skyday.nim 64)
+    (call@I recalcCap.0.sysvq0asl~9 oldCap.0@1 addedElements.1@9))
+   (let@4,2 :memSize.1 . .
+    (i@G,1i,skyday.nim 64)
+    (call@R memSizeInBytes.0.Ilm3acl1.~H newCap.0@1))
+   (asgn@A,3
+    (dot~6
+     (hderef~4 dest.1)data.0 0 "x")
+    (cast@2
+     (ptr@5
+      (uarray@I Star.0.@n,5E,skyday.nim)
+      (unchecked))
+     (call@Z realloc.0.sysvq0asl~7
+      (hconv@5
+       (pointer@H,1I,../../../../../../nimony/lib/std/system/mimalloc.nim
+        (unchecked))
+       (hconv
+        (pointer@D,1C,../../../../../../nimony/lib/std/system/mimalloc.nim
+         (unchecked))
+        (dot
+         (hderef~4 dest.1)data.0 0 "x")))memSize.1@C)))
+   (if@,4
+    (elif@3
+     (eq@A
+      (ptr
+       (uarray Star.0.@n,5E,skyday.nim)
+       (unchecked))
+      (dot~6
+       (hderef~4 dest.1)data.0 0 "x")
+      (nil@3))
+     (stmts~1,1
+      (asgn@9
+       (dot~5
+        (hderef~4 dest.1)len.0 0 "x")0@2)
+      (pragmax@,1
+       (pragmas
+        (cast@2
+         (pragmas
+          (noSideEffect@5))))
+       (stmts@2,1
+        (cmd oomHandler.0.sysvq0asl memSize.1@B)))
+      (asgn@7,3 result.35~7
+       (false@2))))
+    (else@,5
+     (stmts@2,1
+      (asgn@7 result.35~7
+       (true@2)))))
+   (ret~2,~1 result.35)))
+ (type@m,5D :seq.0.Iw6684o1. .
+  (at seq.0.sysvq0asl Star.0.@1)
+  (pragmas@A,6,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (destroy =destroy.1.Iuvon8w.)
+   (wasmoved =wasMoved.1.Itvk8l61.)
+   (dup =dup.1.Ianry4a1.)
+   (copy =copy.1.I902xhc.))
+  (object@C,6,../../../../../../nimony/lib/std/system/seqimpl.nim .
+   (fld~8,1 :len.0 . .
+    (i@5 64).)
+   (fld~8,2 :data.0 . .
+    (ptr@6
+     (uarray@I Star.0.@n,5E,skyday.nim)
+     (unchecked)).)))
+ (func@,D,../../../../../../nimony/lib/std/system/seqimpl.nim :=destroy.1.Iuvon8w. . .
+  (at =destroy.1.sysvq0asl Star.0.@n,5E,skyday.nim)
+  (params@J
+   (param@1 :s.8 . . seq.0.Iw6684o1.@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+      (not@,1
+       (eq@7
+        (ptr
+         (uarray Star.0.@n,5E,skyday.nim)
+         (unchecked))
+        (dot@6,E,../../../../../../nimony/lib/std/system/seqimpl.nim s.8~1 data.0 0 "x")
+        (nil@F,E,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+     (stmts~1,1
+      (var@4 :i.1 . .
+       (i@G,1i,skyday.nim 64)0@4)
+      (while@,1
+       (lt@8
+        (i 64)i.1~2
+        (dot@3 s.8~1 len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@2
+          (dot s.8~1 data.0 0 "x")i.1@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.1))))
+      (cmd@,4 dealloc.0.sysvq0asl
+       (hconv@9
+        (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+         (unchecked))
+        (hconv
+         (pointer@D,1C,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (dot s.8~1 data.0 0 "x")))))))))
+ (func@,L,../../../../../../nimony/lib/std/system/seqimpl.nim :=wasMoved.1.Itvk8l61. . .
+  (at =wasMoved.1.sysvq0asl Star.0.@n,5E,skyday.nim)
+  (params@K
+   (param@1 :s.9 . .
+    (mut@3 seq.0.Iw6684o1.@7).)).
+  (pragmas@a
+   (inline@2)).
+  (stmts@2,1
+   (asgn@6
+    (dot~5
+     (hderef~1 s.9)len.0 0 "x")0@2)
+   (asgn@7,1
+    (dot~6
+     (hderef~1 s.9)data.0 0 "x")
+    (nil@2))))
+ (func@,1U,../../../../../../nimony/lib/std/system/seqimpl.nim :=dup.1.Ianry4a1. . .
+  (at =dup.1.sysvq0asl Star.0.@n,5E,skyday.nim)
+  (params@F
+   (param@1 :a.1 . . seq.0.Iw6684o1.@6 .))seq.0.Iw6684o1.@G
+  (pragmas@Z
+   (nodestroy@2)).
+  (stmts@2,1
+   (result@7 :result.36 . . seq.0.Iw6684o1.@D,~1 .)
+   (asgn@7 result.36~7
+    (call@H newSeqUninit.0.Iai7y8h1.~F
+     (dot@2 a.1~1 len.0 0 "x")))
+   (var@4,1 :i.2 . .
+    (i@G,1i,skyday.nim 64)0@4)
+   (while@,2
+    (lt@8
+     (i 64)i.2~2
+     (dot@3 a.1~1 len.0 0 "x"))
+    (stmts@2,1
+     (asgn@H
+      (pat~A
+       (dot result.36~6 data.0 0 "x")i.2@6)
+      (dup@8
+       (pat@2
+        (dot a.1~1 data.0 0 "x")i.2@6)))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.2))))
+   (ret~2,~1 result.36)))
+ (func@,20,../../../../../../nimony/lib/std/system/seqimpl.nim :=copy.1.I902xhc. . .
+  (at =copy.1.sysvq0asl Star.0.@n,5E,skyday.nim)
+  (params@G
+   (param@1 :dest.3 . .
+    (mut@6 seq.0.Iw6684o1.@7).)
+   (param@J :src.1 . . seq.0.Iw6684o1.@8 .)).
+  (pragmas@m
+   (nodestroy@2)).
+  (stmts@2,1
+   (if
+    (elif@3
+     (eq@A
+      (ptr
+       (uarray Star.0.@n,5E,skyday.nim)
+       (unchecked))
+      (dot~6
+       (hderef~4 dest.3)data.0 0 "x")
+      (dot@6 src.1~3 data.0 0 "x"))
+     (stmts@N
+      (ret .))))
+   (if@,1
+    (elif@3
+     (lt@8
+      (i 64)
+      (dot~5 src.1~3 len.0 0 "x")
+      (dot@6
+       (hderef~4 dest.3)len.0 0 "x"))
+     (stmts~1,1
+      (var@4 :i.3 . .
+       (i@G,1i,skyday.nim 64)
+       (dot@7 src.1~3 len.0 0 "x"))
+      (while@,1
+       (lt@8
+        (i 64)i.3~2
+        (dot@6
+         (hderef~4 dest.3)len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@5
+          (dot
+           (hderef~4 dest.3)data.0 0 "x")i.3@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.3))))))
+    (elif@5,5
+     (lt@G
+      (i 64)
+      (call~C capInBytes.0.Ifqqw6d1.@1
+       (hderef~4 dest.3))
+      (mul@A
+       (i 64)
+       (dot~5 src.1~3 len.0 0 "x")
+       (sizeof@8 Star.0.@n,5E,skyday.nim)))
+     (stmts~3,1
+      (let@4 :oldCap.1 . .
+       (i@G,1i,skyday.nim 64)
+       (div@P
+        (i 64)
+        (call~C capInBytes.0.Ifqqw6d1.@1
+         (hderef~4 dest.3))
+        (sizeof@A Star.0.@n,5E,skyday.nim)))
+      (let@4,1 :newCap.1 . .
+       (i@G,1i,skyday.nim 64)
+       (call@I recalcCap.0.sysvq0asl~9 oldCap.1@1
+        (sub@H
+         (i 64)
+         (dot~5 src.1~3 len.0 0 "x")oldCap.1@2)))
+      (let@4,2 :memSize.2 . .
+       (i@G,1i,skyday.nim 64)
+       (call@R memSizeInBytes.0.Ilm3acl1.~H newCap.1@1))
+      (asgn@A,3
+       (dot~6
+        (hderef~4 dest.3)data.0 0 "x")
+       (cast@2
+        (ptr@5
+         (uarray@I Star.0.@n,5E,skyday.nim)
+         (unchecked))
+        (call@Z realloc.0.sysvq0asl~7
+         (hconv@5
+          (pointer@H,1I,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (hconv
+           (pointer@D,1C,../../../../../../nimony/lib/std/system/mimalloc.nim
+            (unchecked))
+           (dot
+            (hderef~4 dest.3)data.0 0 "x")))memSize.2@C)))
+      (if@,4
+       (elif@3
+        (eq@A
+         (ptr
+          (uarray Star.0.@n,5E,skyday.nim)
+          (unchecked))
+         (dot~6
+          (hderef~4 dest.3)data.0 0 "x")
+         (nil@3))
+        (stmts~1,1
+         (asgn@9
+          (dot~5
+           (hderef~4 dest.3)len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.2@B)))
+         (ret@,3 .)))))))
+   (asgn@9,G
+    (dot~5
+     (hderef~4 dest.3)len.0 0 "x")
+    (dot@5 src.1~3 len.0 0 "x"))
+   (var@4,H :i.4 . .
+    (i@G,1i,skyday.nim 64)0@4)
+   (while@,I
+    (lt@8
+     (i 64)i.4~2
+     (dot@6
+      (hderef~4 dest.3)len.0 0 "x"))
+    (stmts@2,1
+     (stmts@2,Y,../../../../../../nimony/lib/std/system.nim
+      (asgn@7
+       (pat~6
+        (dot@8,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+         (hderef~4 dest.3)data.0 0 "x")i.4@E,2K,../../../../../../nimony/lib/std/system/seqimpl.nim)
+       (dup@P,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+        (pat@4
+         (dot src.1~3 data.0 0 "x")i.4@6))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.4)))))))(.index@,1,skyday.nim
+ (x TicksPerDay.0. 193)
+ (x TicksPerSecond.0. 71)
+ (x SecondsPerDay.0. 56)
+ (x DawnTick.0. 58)
+ (x NoonTick.0. 64)
+ (x DuskTick.0. 67)
+ (x MidnightTick.0. 68)
+ (x MoonColumns.0. 72)
+ (x MoonRows.0. 67)
+ (x MoonPhases.0. 64)
+ (x CloudHeight.0. 66)
+ (x CloudBlocksPerTick.0. 55)
+ (x CloudCellBlocks.0. 61)
+ (x CloudSheetPixels.0. 58)
+ (x StarSeed.0. 60)
+ (x StarAttempts.0. 67)
+ (x StarRadius.0. 70)
+ (x SunriseBand.0. 54)
+ (x Rgb.0. 53)
+ (x Rgba.0. 166)
+ (x Tile.0. 206)
+ (x Dir.0. 211)
+ (x Star.0. 167)
+ (x clamp01.0. 210)
+ (x clampTo.0. 484)
+ (x fract.0. 571)
+ (x wrapTicks.0. 268)
+ (x ticksAt.0. 386)
+ (x dayNumber.0. 530)
+ (x dayFraction.0. 357)
+ (x celestialAngle.0. 317)
+ (x skyDim.0. 685)
+ (x starBrightness.0. 427)
+ (x skyDarken.0. 581)
+ (x skyLightLevel.0. 473)
+ (x hsvToRgb.0. 385)
+ (x biomeSky.0. 2126)
+ (x skyColour.0. 513)
+ (x sunriseVisible.0. 769)
+ (x sunriseGlow.0. 611)
+ (x fogColour.0. 1388)
+ (x cloudColour.0. 1058)
+ (x celestialDegrees.0. 525)
+ (x sunDirection.0. 258)
+ (x moonDirection.0. 525)
+ (x aboveHorizon.0. 530)
+ (x moonPhase.0. 356)
+ (x moonTile.0. 488)
+ (x moonBrightness.0. 1285)
+ (x cloudDrift.0. 754)
+ (x cloudUv.0. 268)
+ (x JavaRandom.0. 309)
+ (h LcgMultiplier.0. 103)
+ (h LcgAddend.0. 79)
+ (h LcgMask.0. 66)
+ (x seeded.0. 77)
+ (x nextBits.0. 374)
+ (x nextFloat.0. 1026)
+ (x stars.0. 330)
+ (h newSeqUninit.0.Iai7y8h1. 4491)
+ (h inc.1.Irn1g7r1. 1796)
+ (h add.0.Ivq14i7. 630)
+ (h memSizeInBytes.0.Ilm3acl1. 1286)
+ (h capInBytes.0.Ifqqw6d1. 711)
+ (h resize.0.I4jjiig1. 1162)
+ (h seq.0.Iw6684o1. 1880)
+ (h =destroy.1.Iuvon8w. 457)
+ (h =wasMoved.1.Itvk8l61. 1181)
+ (h =dup.1.Ianry4a1. 381)
+ (h =copy.1.I902xhc. 752))

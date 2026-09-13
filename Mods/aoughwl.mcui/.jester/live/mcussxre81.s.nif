@@ -1,0 +1,197 @@
+(.nif27)
+(.indexat 4784             )
+(stmts@,1,mcuiscale.nim
+ (import
+  (kv sysvq0asl "../../../../../../nimony/lib/std/system.nim"))
+ (const@D,W :MinGuiWidth.0.~B x .
+  (i@H,B 64)
+  (suf@4 320 "i64"))
+ (const@E,Z :MinGuiHeight.0.~C x .
+  (i@G,8 64)
+  (suf@4 240 "i64"))
+ (const@D,a :MaxGuiScale.0.~B x .
+  (i@H,7 64)
+  (suf@4 4 "i64"))
+ (const@E,d :AutoGuiScale.0.~C x .
+  (i@G,4 64)
+  (suf@4 0 "i64"))
+ (proc@,h :guiScale.0.@5 x . .
+  (params@E
+   (param@1 :width.0 . .
+    (i@F 64).)
+   (param@8 :height.0 . .
+    (i@8 64).)
+   (param@L :setting.0 . .
+    (i~5 64)AutoGuiScale.0.@A))
+  (i@k 64). .
+  (stmts@2,1
+   (result@4 :result.0 . .
+    (i@O,~1 64).)
+   (var@4 :i.0 . .
+    (i 64)1@4)
+   (while@,1
+    (and@d,1
+     (and@9,~1
+      (and~F
+       (and~E
+        (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+         (not@,1
+          (eq@7
+           (i 64)i.0@8,k,mcuiscale.nim setting.0@D,k,mcuiscale.nim)))
+        (lt@6
+         (i 64)i.0~2 width.0@2))
+       (lt@6
+        (i 64)i.0~2 height.0@2))
+      (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+       (le@2,1
+        (i 64)MinGuiWidth.0.@T,l,mcuiscale.nim
+        (div@E,l,mcuiscale.nim
+         (i 64)width.0~6
+         (add@7
+          (i 64)i.0~2 1@2)))))
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)MinGuiHeight.0.@U,m,mcuiscale.nim
+       (div@F,m,mcuiscale.nim
+        (i 64)height.0~7
+        (add@7
+         (i 64)i.0~2 1@2)))))
+    (stmts@2,3
+     (cmd inc.1.Irn1g7r1.
+      (haddr@4 i.0))))
+   (asgn@,5 result.0 i.0)
+   (ret~2,~1 result.0)))
+ (proc@,s :guiWidth.0.@5 x . .
+  (params@E
+   (param@1 :width.1 . .
+    (i@E 64).)
+   (param@8 :scale.0 . .
+    (i@7 64).))
+  (i@L 64). .
+  (stmts@2,1
+   (result :result.1 . .
+    (i@S,~C 64).)
+   (asgn result.1
+    (if
+     (elif@3
+      (le@6
+       (i 64)scale.0~6 0@3)
+      (expr@C width.1))
+     (else@L
+      (expr@6
+       (div@6
+        (i 64)width.1~6 scale.0@4)))))
+   (ret~2,~1 result.1)))
+ (proc@,u :guiHeight.0.@5 x . .
+  (params@F
+   (param@1 :height.1 . .
+    (i@F 64).)
+   (param@9 :scale.1 . .
+    (i@7 64).))
+  (i@M 64). .
+  (stmts@2,1
+   (result :result.2 . .
+    (i@S,~E 64).)
+   (asgn result.2
+    (if
+     (elif@3
+      (le@6
+       (i 64)scale.1~6 0@3)
+      (expr@C height.1))
+     (else@M
+      (expr@6
+       (div@7
+        (i 64)height.1~7 scale.1@4)))))
+   (ret~2,~1 result.2)))
+ (proc@,10 :toGui.0.@5 x . .
+  (params@B
+   (param@1 :px.0 . .
+    (f@4 64).)
+   (param@C :scale.2 . .
+    (i@7 64).))
+  (f@P 64). .
+  (stmts@2,1
+   (result :result.3 . .
+    (f@E,~1 64).)
+   (asgn result.3
+    (if
+     (elif@3
+      (le@6
+       (i 64)scale.2~6 0@3)
+      (expr@C px.0))
+     (else@I
+      (expr@6
+       (div@3
+        (f 64)px.0~3
+        (conv@7
+         (f~5 64)scale.2@1))))))
+   (ret~2,~1 result.3)))
+ (proc@,15 :toScreen.0.@5 x . .
+  (params@E
+   (param@1 :gui.0 . .
+    (f@5 64).)
+   (param@D :scale.3 . .
+    (i@7 64).))
+  (f@Q 64). .
+  (stmts@m
+   (result@4 :result.4 . .
+    (f~a,~5 64).)
+   (asgn@4 result.4
+    (mul
+     (f 64)gui.0~4
+     (conv@7
+      (f~S,~4 64)scale.3@1)))
+   (ret~m result.4)))
+ (proc@,1A :snapped.0.@5 x . .
+  (params@D
+   (param@1 :guiValue.0 . .
+    (f@A 64).)
+   (param@I :scale.4 . .
+    (i@7 64).))
+  (bool@V). .
+  (stmts@2,1
+   (result@4 :result.5 . .
+    (bool@P,~1).)
+   (let@4 :px.1 . .
+    (f@A,~B 64)
+    (mul@E
+     (f 64)guiValue.0~9
+     (conv@7
+      (f@4,~A 64)scale.4@1)))
+   (asgn@3,1 result.5
+    (eq
+     (f 64)px.1~3
+     (conv@8
+      (f@I,~B 64)
+      (conv@4
+       (i~3 64)px.1@1))))
+   (ret~2,~1 result.5)))
+ (comment@U,h int.0.sysvq0asl int.0.sysvq0asl int.0.sysvq0asl@G int.0.sysvq0asl~1,B int.0.sysvq0asl~1,B int.0.sysvq0asl~9,B int.0.sysvq0asl@1,D int.0.sysvq0asl@1,D int.0.sysvq0asl~8,D float.0.sysvq0asl~E,J int.0.sysvq0asl@,J float.0.sysvq0asl~5,J float.0.sysvq0asl~A,O int.0.sysvq0asl@4,O float.0.sysvq0asl~4,O float.0.sysvq0asl~6,T int.0.sysvq0asl@8,T bool.0.sysvq0asl@1,T !=.0.sysvq0asl~K,2 >=.0.sysvq0asl~4,3 >=.0.sysvq0asl~3,4 float.0.sysvq0asl@1,K float.0.sysvq0asl@O,O float.0.sysvq0asl~8,U float.0.sysvq0asl~M,V int.0.sysvq0asl~G,V)
+ (func@4,m :inc.1.Irn1g7r1. . .@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (at inc.1.sysvq0asl
+   (i 64))
+  (params@L,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (param@1 :x.1 . .
+    (mut@3
+     (i 64)).)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (pragmas@W,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (inline@2)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (stmts@2,F,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (asgn@2,1
+    (hderef~2 x.1)
+    (add@6
+     (i 64)
+     (hderef@1 x.1)
+     (conv@U,~F
+      (i 64)1@1))))))(.index@,1,mcuiscale.nim
+ (x MinGuiWidth.0. 134)
+ (x MinGuiHeight.0. 68)
+ (x MaxGuiScale.0. 69)
+ (x AutoGuiScale.0. 66)
+ (x guiScale.0. 67)
+ (x guiWidth.0. 1214)
+ (x guiHeight.0. 402)
+ (x toGui.0. 406)
+ (x toScreen.0. 425)
+ (x snapped.0. 306)
+ (h inc.1.Irn1g7r1. 997))

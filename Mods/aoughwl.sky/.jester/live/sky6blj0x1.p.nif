@@ -1,0 +1,698 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,skyday.nim
+ (comment)
+ (import@,L
+  (infix@A / std~3 math@1))
+ (const@D,O TicksPerDay~B x . . 24000@4)
+ (const@G,Q TicksPerSecond~E x . . 20.0@4)
+ (const@F,R SecondsPerDay~D x . . 1200.0@4)
+ (const@A,U DawnTick~8 x . . 0@4)
+ (const@A,V NoonTick~8 x . . 6000@4)
+ (const@A,W DuskTick~8 x . . 12000@4)
+ (const@E,X MidnightTick~C x . . 18000@4)
+ (const@D,Z MoonColumns~B x . . 4@4)
+ (const@A,a MoonRows~8 x . . 2@4)
+ (const@C,b MoonPhases~A x . . 8@4)
+ (const@D,e CloudHeight~B x . . 192.0@4)
+ (const@K,g CloudBlocksPerTick~I x . . 0.03@4)
+ (const@H,i CloudCellBlocks~F x . . 12.0@4)
+ (const@I,k CloudSheetPixels~G x . . 256.0@4)
+ (const@A,m StarSeed~8 x . . 10842@4)
+ (const@E,n StarAttempts~C x . . 1500@4)
+ (const@C,q StarRadius~A x . . 100.0@4)
+ (const@D,s SunriseBand~B x . . 0.4@4)
+ (type@7,w Rgb~5 x . .
+  (object@2 .
+   (fld~4,1 r~1 x . float@B .)
+   (fld@,1 g~1 x . float@7 .)
+   (fld@4,1 b~1 x . float@3 .)))
+ (type@8,z Rgba~6 x . .
+  (object@2 .
+   (fld~5,1 r~1 x . float@F .)
+   (fld~1,1 g~1 x . float@B .)
+   (fld@3,1 b~1 x . float@7 .)
+   (fld@7,1 a~1 x . float@3 .)))
+ (type@8,12 Tile~6 x . .
+  (object@2 .
+   (fld~4,3 u0~2 x . float@I .)
+   (fld@1,3 v0~2 x . float@D .)
+   (fld@6,3 u1~2 x . float@8 .)
+   (fld@B,3 v1~2 x . float@3 .)))
+ (type@7,17 Dir~5 x . .
+  (object@2 .
+   (fld~4,3 x~1 x . float@B .)
+   (fld@,3 y~1 x . float@7 .)
+   (fld@4,3 z~1 x . float@3 .)))
+ (type@8,1C Star~6 x . .
+  (object@2 .
+   (fld~5,1 x~1 x . float@B .)
+   (fld~1,1 y~1 x . float@7 .)
+   (fld@3,1 z~1 x . float@3 .)
+   (fld~2,2 size~4 x . float@3 .)))
+ (proc@,1J clamp01@5 x . .
+  (params@D
+   (param@1 v . . float@3 .))float@C . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@2 < v~2 0.0@2)
+     (stmts@9 0.0))
+    (elif@L
+     (infix@2 > v~2 1.0@2)
+     (stmts@9 1.0))
+    (else@Y
+     (stmts@6 v)))))
+ (proc@,1M clampTo@5 x . .
+  (params@D
+   (param@1 v . . float@E .)
+   (param@4 low . . float@B .)
+   (param@9 high . . float@6 .))float@N . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@2 < v~2 low@2)
+     (stmts@9 low))
+    (elif@L
+     (infix@2 > v~2 high@2)
+     (stmts@A high))
+    (else@a
+     (stmts@6 v)))))
+ (proc@,1P fract@5 x . .
+  (params@B
+   (param@1 v . . float@3 .))float@C . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,4 result~7
+    (infix@4 \2D v~2
+     (call@7 floor~5 v@1)))))
+ (proc@,1W wrapTicks@5 x . .
+  (params@F
+   (param@1 ticks . . float@7 .))float@G . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,1 result~7
+    (infix@a *
+     (call~T fract~5
+      (infix@7 / ticks~6
+       (call@7 float~5 TicksPerDay@1)))
+     (call@7 float~5 TicksPerDay@1)))))
+ (proc@,1a ticksAt@5 x . .
+  (params@D
+   (param@1 seconds . . float@9 .)
+   (param@H startTick . . .
+    (call@H float~5 DawnTick@1))
+   (param@1,1 dayLength . . . SecondsPerDay@C))float@T,1 . .
+  (stmts@2,2
+   (comment)
+   (asgn@7,3 result~7
+    (infix@C \2B startTick~A
+     (infix@A * seconds~8
+      (par@2
+       (infix@K /
+        (call~E float~5 TicksPerDay@1)dayLength@2)))))))
+ (proc@,1h dayNumber@5 x . .
+  (params@F
+   (param@1 ticks . . float@7 .))int@G . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,2 result~7
+    (call@5 int~3
+     (call@6 floor~5
+      (infix@7 / ticks~6
+       (call@7 float~5 TicksPerDay@1)))))))
+ (proc@,1m dayFraction@5 x . .
+  (params@H
+   (param@1 ticks . . float@7 .))float@G . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,1 result~7
+    (call@7 fract~5
+     (infix@7 / ticks~6
+      (call@7 float~5 TicksPerDay@1))))))
+ (proc@,1t celestialAngle@5 x . .
+  (params@K
+   (param@1 ticks . . float@7 .))float@G . .
+  (stmts@2,1
+   (comment)
+   (let@4,6 d0 . . .
+    (call@A fract~5
+     (infix@S \2D
+      (infix~L / ticks~6
+       (call@7 float~5 TicksPerDay@1))0.25@2)))
+   (let@4,7 d1 . . .
+    (infix@9 \2D 0.5~4
+     (infix@F /
+      (call~A cos~3
+       (infix@4 * d0~3 PI@2))2.0@2)))
+   (asgn@7,8 result~7
+    (infix@I /
+     (par~G
+      (infix@A \2B
+       (infix~6 * d0~3 2.0@2)d1@2))3.0@2))))
+ (proc@,24 skyDim@5 x . .
+  (params@C
+   (param@1 angle . . float@7 .))float@G . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,2 result~7
+    (call@9 clamp01~7
+     (infix@T \2B
+      (infix~6 *
+       (call~J cos~3
+        (infix@D *
+         (infix~6 * angle~6 2.0@2)PI@2))2.0@2)0.5@2)))))
+ (proc@,29 starBrightness@5 x . .
+  (params@K
+   (param@1 angle . . float@7 .))float@G . .
+  (stmts@2,1
+   (comment)
+   (let@4,1 f . . .
+    (call@B clamp01~7
+     (infix@5 \2D 1.0~4
+      (par@2
+       (infix@T \2B
+        (infix~6 *
+         (call~J cos~3
+          (infix@D *
+           (infix~6 * angle~6 2.0@2)PI@2))2.0@2)0.25@2)))))
+   (asgn@7,2 result~7
+    (infix@8 *
+     (infix~4 * f~2 f@2)0.5@2))))
+ (proc@,2E skyDarken@5 x . .
+  (params@F
+   (param@1 angle . . float@7 .))float@G . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,2 result~7
+    (call@9 clamp01~7
+     (infix@5 \2D 1.0~4
+      (par@2
+       (infix@T \2B
+        (infix~6 *
+         (call~J cos~3
+          (infix@D *
+           (infix~6 * angle~6 2.0@2)PI@2))2.0@2)0.2@2)))))))
+ (proc@,2J skyLightLevel@5 x . .
+  (params@J
+   (param@1 angle . . float@7 .))int@G . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,1 result~7
+    (call@5 int~3
+     (infix@X \2B
+      (infix~7 *
+       (par~P
+        (infix@5 \2D 1.0~4
+         (call@B skyDarken~9 angle@1)))15.0@2)0.5@2)))))
+ (proc@,2Q hsvToRgb@5 x . .
+  (params@E
+   (param@1 h . . float@9 .)
+   (param@4 s . . float@6 .)
+   (param@7 v . . float@3 .))Rgb@I . .
+  (stmts@2,1
+   (comment)
+   (let@4,3 sector . . .
+    (infix@T mod
+     (call~H int~3
+      (call@6 floor~5
+       (infix@3 * h~2 6.0@2)))6@4))
+   (let@4,4 f . . .
+    (infix@C \2D
+     (infix~6 * h~2 6.0@2)
+     (call@7 floor~5
+      (infix@3 * h~2 6.0@2))))
+   (let@4,5 p . . .
+    (infix@6 * v~2
+     (par@2
+      (infix@5 \2D 1.0~4 s@2))))
+   (let@4,6 q . . .
+    (infix@6 * v~2
+     (par@2
+      (infix@5 \2D 1.0~4
+       (infix@4 * s~2 f@2)))))
+   (let@4,7 t . . .
+    (infix@6 * v~2
+     (par@2
+      (infix@5 \2D 1.0~4
+       (infix@4 * s~2
+        (par@2
+         (infix@5 \2D 1.0~4 f@2)))))))
+   (case@,8 sector@5
+    (of@,1
+     (ranges 0@3)
+     (stmts@6
+      (asgn@7 result~7
+       (oconstr@5 Rgb~3
+        (kv@2 r~1 v@2)
+        (kv@8 g~1 t@2)
+        (kv@E b~1 p@2)))))
+    (of@,2
+     (ranges 1@3)
+     (stmts@6
+      (asgn@7 result~7
+       (oconstr@5 Rgb~3
+        (kv@2 r~1 q@2)
+        (kv@8 g~1 v@2)
+        (kv@E b~1 p@2)))))
+    (of@,3
+     (ranges 2@3)
+     (stmts@6
+      (asgn@7 result~7
+       (oconstr@5 Rgb~3
+        (kv@2 r~1 p@2)
+        (kv@8 g~1 v@2)
+        (kv@E b~1 t@2)))))
+    (of@,4
+     (ranges 3@3)
+     (stmts@6
+      (asgn@7 result~7
+       (oconstr@5 Rgb~3
+        (kv@2 r~1 p@2)
+        (kv@8 g~1 q@2)
+        (kv@E b~1 v@2)))))
+    (of@,5
+     (ranges 4@3)
+     (stmts@6
+      (asgn@7 result~7
+       (oconstr@5 Rgb~3
+        (kv@2 r~1 t@2)
+        (kv@8 g~1 p@2)
+        (kv@E b~1 v@2)))))
+    (else@,6
+     (stmts@6
+      (asgn@7 result~7
+       (oconstr@5 Rgb~3
+        (kv@2 r~1 v@2)
+        (kv@8 g~1 p@2)
+        (kv@E b~1 q@2))))))))
+ (proc@,2h biomeSky@5 x . .
+  (params@E
+   (param@1 temperature . . float@D .))Rgb@M . .
+  (stmts@2,1
+   (comment)
+   (let@4,5 f . . .
+    (call@B clampTo~7
+     (infix@D / temperature~C 3.0@2)-1.0@K 1.0@Q))
+   (asgn@7,6 result~7
+    (call@A hsvToRgb~8
+     (infix@C \2D 0.62222224~B
+      (infix@4 * f~2 0.05@2))
+     (infix@S \2B 0.5~4
+      (infix@4 * f~2 0.1@2))1.0@d))))
+ (proc@,2q skyColour@5 x . .
+  (params@F
+   (param@1 temperature . . float@K .)
+   (param@E ticks . . float@7 .))Rgb@T . .
+  (stmts@2,1
+   (comment)
+   (let@4,1 angle . . .
+    (call@M celestialAngle~E ticks@1))
+   (let@4,2 dim . . .
+    (call@C skyDim~6 angle@1))
+   (let@4,3 base . . .
+    (call@F biomeSky~8 temperature@1))
+   (asgn@7,4 result~7
+    (oconstr@5 Rgb~3
+     (kv@2 r~1
+      (infix@9 *
+       (dot~3 base~4 r@1)dim@2))
+     (kv@J g~1
+      (infix@9 *
+       (dot~3 base~4 g@1)dim@2))
+     (kv@a b~1
+      (infix@9 *
+       (dot~3 base~4 b@1)dim@2))))))
+ (proc@,2x sunriseVisible@5 x . .
+  (params@K
+   (param@1 angle . . float@7 .))bool@G . .
+  (stmts@2,1
+   (comment)
+   (let@4,1 f . . .
+    (call@7 cos~3
+     (infix@D *
+      (infix~6 * angle~6 2.0@2)PI@2)))
+   (asgn@7,2 result~7
+    (infix@K and
+     (infix~G >= f~2
+      (prefix@3 \2D SunriseBand@1))
+     (infix@6 <= f~2 SunriseBand@3)))))
+ (proc@,32 sunriseGlow@5 x . .
+  (params@H
+   (param@1 angle . . float@7 .))Rgba@G . .
+  (stmts@2,1
+   (comment)
+   (if@,4
+    (elif@3
+     (prefix not
+      (call@I sunriseVisible~E angle@1))
+     (stmts~1,1
+      (ret
+       (oconstr@B Rgba~4
+        (kv@2 r~1 0.0@2)
+        (kv@A g~1 0.0@2)
+        (kv@I b~1 0.0@2)
+        (kv@Q a~1 0.0@2))))))
+   (let@4,6 f . . .
+    (call@7 cos~3
+     (infix@D *
+      (infix~6 * angle~6 2.0@2)PI@2)))
+   (let@4,7 across . . .
+    (infix@V \2B
+     (infix~6 *
+      (infix~E / f~2 SunriseBand@2)0.5@2)0.5@2))
+   (var@4,8 alpha . . .
+    (infix@C \2D 1.0~4
+     (infix@R *
+      (par~P
+       (infix@5 \2D 1.0~4
+        (call@5 sin~3
+         (infix@8 * across~7 PI@2))))0.99@2)))
+   (asgn@6,9 alpha~6
+    (infix@8 * alpha~6 alpha@2))
+   (asgn@7,A result~7
+    (oconstr@6 Rgba~4
+     (kv@2 r~1
+      (infix@F \2B
+       (infix~6 * across~7 0.3@2)0.7@2))
+     (kv@P g~1
+      (infix@O \2B
+       (infix~6 *
+        (infix~9 * across~7 across@2)0.7@2)0.2@2))
+     (kv@2,1 b~1 0.2@2)
+     (kv@A,1 a~1 alpha@2)))))
+ (proc@,3G fogColour@5 x . .
+  (params@F
+   (param@1 temperature . . float@K .)
+   (param@E ticks . . float@7 .))Rgb@T . .
+  (stmts@2,1
+   (comment)
+   (let@4,4 sky . . .
+    (call@F skyColour~9 temperature@1 ticks@E))
+   (let@4,5 lift . . .
+    (infix@C * 0.12~5
+     (call@8 skyDim~6
+      (call@F celestialAngle~E ticks@1))))
+   (asgn@7,6 result~7
+    (oconstr@5 Rgb~3
+     (kv@2 r~1
+      (infix@8 \2B
+       (dot~3 sky~3 r@1)
+       (infix@G *
+        (par~E
+         (infix@5 \2D 0.6~4
+          (dot@5 sky~3 r@1)))lift@2)))
+     (kv@2,1 g~1
+      (infix@8 \2B
+       (dot~3 sky~3 g@1)
+       (infix@G *
+        (par~E
+         (infix@5 \2D 0.6~4
+          (dot@5 sky~3 g@1)))lift@2)))
+     (kv@2,2 b~1
+      (infix@8 \2B
+       (dot~3 sky~3 b@1)
+       (infix@G *
+        (par~E
+         (infix@5 \2D 0.6~4
+          (dot@5 sky~3 b@1)))lift@2)))))))
+ (proc@,3R cloudColour@5 x . .
+  (params@H
+   (param@1 ticks . . float@7 .))Rgb@G . .
+  (stmts@2,1
+   (comment)
+   (let@4,3 dim . . .
+    (call@C skyDim~6
+     (call@F celestialAngle~E ticks@1)))
+   (let@4,4 v . . .
+    (infix@8 \2B 0.1~4
+     (infix@6 * 0.9~4 dim@2)))
+   (asgn@7,5 result~7
+    (oconstr@5 Rgb~3
+     (kv@2 r~1 v@2)
+     (kv@8 g~1 v@2)
+     (kv@E b~1 v@2)))))
+ (proc@,3c celestialDegrees@5 x . .
+  (params@M
+   (param@1 angle . . float@7 .))float@G . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,1 result~7
+    (infix@8 * angle~6 360.0@2))))
+ (proc@,3g sunDirection@5 x . .
+  (params@I
+   (param@1 angle . . float@7 .))Dir@G . .
+  (stmts@2,1
+   (comment)
+   (let@4,3 t . . .
+    (infix@G *
+     (infix~6 * angle~6 2.0@2)PI@2))
+   (asgn@7,4 result~7
+    (oconstr@5 Dir~3
+     (kv@2 x~1
+      (prefix@2 \2D
+       (call@4 sin~3 t@1)))
+     (kv@E y~1
+      (call@5 cos~3 t@1))
+     (kv@P z~1 0.0@2)))))
+ (proc@,3n moonDirection@5 x . .
+  (params@J
+   (param@1 angle . . float@7 .))Dir@G . .
+  (stmts@2,1
+   (comment)
+   (let@4,2 s . . .
+    (call@G sunDirection~C angle@1))
+   (asgn@7,3 result~7
+    (oconstr@5 Dir~3
+     (kv@2 x~1
+      (prefix@2 \2D
+       (dot@2 s~1 x@1)))
+     (kv@B y~1
+      (prefix@2 \2D
+       (dot@2 s~1 y@1)))
+     (kv@K z~1
+      (prefix@2 \2D
+       (dot@2 s~1 z@1)))))))
+ (proc@,3t aboveHorizon@5 x . .
+  (params@I
+   (param@1 d . . Dir@3 .))bool@A . .
+  (stmts@Z
+   (infix@4 >
+    (dot~3 d~1 y@1)0.0@2)))
+ (proc@,3v moonPhase@5 x . .
+  (params@F
+   (param@1 ticks . . float@7 .))int@G . .
+  (stmts@2,1
+   (comment)
+   (var@4,3 day . . .
+    (infix@N mod
+     (call~8 dayNumber~9 ticks@1)MoonPhases@4))
+   (if@,4
+    (elif@3
+     (infix@4 < day~4 0@2)
+     (stmts@9
+      (asgn@4 day~4
+       (infix@6 \2B day~4 MoonPhases@2)))))
+   (asgn@7,5 result~7 day@2)))
+ (proc@,43 moonTile@5 x . .
+  (params@E
+   (param@1 phase . . int@7 .))Tile@E . .
+  (stmts@2,1
+   (comment)
+   (var@4,3 p . . .
+    (infix@A mod phase~6 MoonPhases@4))
+   (if@,4
+    (elif@3
+     (infix@2 < p~2 0@2)
+     (stmts@7
+      (asgn@2 p~2
+       (infix@4 \2B p~2 MoonPhases@2)))))
+   (let@4,5 col . . .
+    (infix@8 mod p~2 MoonColumns@4))
+   (let@4,6 row . . .
+    (infix@8 div p~2 MoonColumns@4))
+   (asgn@7,7 result~7
+    (oconstr@6 Tile~4
+     (kv@3 u0~2
+      (infix@D /
+       (call~6 float~5 col@1)
+       (call@7 float~5 MoonColumns@1)))
+     (kv@3,1 v0~2
+      (infix@D /
+       (call~6 float~5 row@1)
+       (call@7 float~5 MoonRows@1)))
+     (kv@3,2 u1~2
+      (infix@H /
+       (call~A float~5
+        (infix@5 \2B col~4 1@2))
+       (call@7 float~5 MoonColumns@1)))
+     (kv@3,3 v1~2
+      (infix@H /
+       (call~A float~5
+        (infix@5 \2B row~4 1@2))
+       (call@7 float~5 MoonRows@1)))))))
+ (proc@,4G moonBrightness@5 x . .
+  (params@K
+   (param@1 phase . . int@7 .))float@E . .
+  (stmts@2,1
+   (comment)
+   (var@4,2 p . . .
+    (infix@A mod phase~6 MoonPhases@4))
+   (if@,3
+    (elif@3
+     (infix@2 < p~2 0@2)
+     (stmts@7
+      (asgn@2 p~2
+       (infix@4 \2B p~2 MoonPhases@2)))))
+   (let@4,4 away . . .
+    (if@7
+     (elif@3
+      (infix@2 <= p~2 4@3)
+      (stmts@8 p))
+     (else@D
+      (stmts@6
+       (infix@B \2D MoonPhases~B p@2)))))
+   (asgn@7,5 result~7
+    (infix@6 \2D 1.0~4
+     (infix@E *
+      (call~7 float~5 away@1)0.25@2)))))
+ (proc@,4R cloudDrift@5 x . .
+  (params@G
+   (param@1 ticks . . float@7 .))float@G . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,2 result~7
+    (infix@8 * ticks~6 CloudBlocksPerTick@2))))
+ (proc@,4W cloudUv@5 x . .
+  (params@D
+   (param@1 drift . . float@7 .))float@G . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,3 result~7
+    (infix@8 / drift~6
+     (par@2
+      (infix@I * CloudSheetPixels~H CloudCellBlocks@2))))))
+ (type@H,4f JavaRandom~C x . .
+  (object@2 .
+   (fld~C,1 state~5 x . int@3 .)))
+ (const@2,4j LcgMultiplier . . .
+  (suf@G 25214903917 "i64"))
+ (const@2,4k LcgAddend . . . 11@C)
+ (const@2,4l LcgMask . . .
+  (suf@A 281474976710655 "i64"))
+ (proc@,4n seeded@5 x . .
+  (params@C
+   (param@1 seed . . int@6 .))JavaRandom@D . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@C JavaRandom~A
+     (kv@6 state~5
+      (infix@R and
+       (par~P
+        (infix@6 xor seed~5 LcgMultiplier@4))LcgMask@4))))))
+ (proc@,4q nextBits@5 x . .
+  (params@E
+   (param@1 r . .
+    (mut@3 JavaRandom@4).)
+   (param@K bits . . int@6 .))int@W . .
+  (stmts@2,1
+   (comment)
+   (let@4,8 lo . . .
+    (infix@D and
+     (dot~7 r~1 state@1)16777215@4))
+   (let@4,9 hi . . .
+    (infix@D shr
+     (dot~7 r~1 state@1)24@4))
+   (let@4,A low . . .
+    (infix@P \2B
+     (infix~G * lo~3 LcgMultiplier@2)LcgAddend@2))
+   (let@4,B high . . .
+    (infix@S and
+     (par~L
+      (infix@4 * hi~3 LcgMultiplier@2))16777215@4))
+   (asgn@8,C
+    (dot~7 r~1 state@1)
+    (infix@O and
+     (par~M
+      (infix@F \2B
+       (par~E
+        (infix@6 shl high~5 24@4))low@2))LcgMask@4))
+   (asgn@7,D result~7
+    (infix@A shr
+     (dot~7 r~1 state@1)
+     (par@4
+      (infix@4 \2D 48~3 bits@2))))))
+ (proc@,56 nextFloat@5 x . .
+  (params@F
+   (param@1 r . .
+    (mut@3 JavaRandom@4).))float@L . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,4 result~7
+    (infix@O /
+     (call~H float~5
+      (call@B
+       (dot~9 r~1 nextBits@1)24@1))16777216.0@2))))
+ (proc@,5D stars@5 x . .
+  (params@B
+   (param@1 count . . . StarAttempts@8)
+   (param@N radius . . . StarRadius@9))
+  (at@m seq~3 Star@1). .
+  (stmts@2,1
+   (comment)
+   (asgn@7,4 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,5 r . . .
+    (call@A seeded~6 StarSeed@1))
+   (var@4,6 i . . . 0@4)
+   (while@,7
+    (infix@8 < i~2 count@2)
+    (stmts@2,1
+     (cmd inc i@4)
+     (let@4,1 x . . .
+      (infix@O \2D
+       (infix~6 *
+        (call~3
+         (dot~A r~1 nextFloat@1))2.0@2)1.0@2))
+     (let@4,2 y . . .
+      (infix@O \2D
+       (infix~6 *
+        (call~3
+         (dot~A r~1 nextFloat@1))2.0@2)1.0@2))
+     (let@4,3 z . . .
+      (infix@O \2D
+       (infix~6 *
+        (call~3
+         (dot~A r~1 nextFloat@1))2.0@2)1.0@2))
+     (let@4,4 size . . .
+      (infix@C \2B 0.15~5
+       (infix@G *
+        (call~3
+         (dot~A r~1 nextFloat@1))0.1@2)))
+     (let@4,5 d . . .
+      (infix@I \2B
+       (infix~8 \2B
+        (infix~4 * x~2 x@2)
+        (infix@4 * y~2 y@2))
+       (infix@4 * z~2 z@2)))
+     (if@,6
+      (elif@3
+       (infix@8 and
+        (infix~6 < d~2 1.0@2)
+        (infix@6 > d~2 0.01@2))
+       (stmts~1,1
+        (let@4 k . . .
+         (infix@B / radius~7
+          (call@6 sqrt~4 d@1)))
+        (cmd@6,1
+         (dot result~6 add@1)
+         (oconstr@9 Star~4
+          (kv@2 x~1
+           (infix@4 * x~2 k@2))
+          (kv@C y~1
+           (infix@4 * y~2 k@2))
+          (kv@M z~1
+           (infix@4 * z~2 k@2))
+          (kv@Z size~4 size@2)))))))))))

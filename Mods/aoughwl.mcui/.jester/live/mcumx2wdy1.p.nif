@@ -1,0 +1,287 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,mcuicore.nim
+ (comment)
+ (type@9,I MRect~7 x . .
+  (object@2 .
+   (fld~6,1 x~1 x . float@F .)
+   (fld~2,1 y~1 x . float@B .)
+   (fld@2,1 w~1 x . float@7 .)
+   (fld@6,1 h~1 x . float@3 .)))
+ (type@8,L Quad~6 x . .
+  (object@2 .
+   (fld~2,1 dest~4 x . MRect@3 .)
+   (fld~3,2 src~3 x . MRect@3 .)))
+ (proc@,P mrect@5 x . .
+  (params@B
+   (param@1 x . . float@C .)
+   (param@4 y . . float@9 .)
+   (param@7 w . . float@6 .)
+   (param@A h . . float@3 .))MRect@L . .
+  (stmts@2,1
+   (oconstr@5 MRect~5
+    (kv@2 x~1 x@2)
+    (kv@8 y~1 y@2)
+    (kv@E w~1 w@2)
+    (kv@K h~1 h@2))))
+ (proc@,S quad@5 x . .
+  (params@A
+   (param@1 dest . . MRect@B .)
+   (param@7 src . . MRect@5 .))Quad@K . .
+  (stmts@2,1
+   (oconstr@4 Quad~4
+    (kv@5 dest~4 dest@2)
+    (kv@G src~3 src@2))))
+ (proc@,V right@5 x . .
+  (params@B
+   (param@1 r . . MRect@3 .))float@C . .
+  (stmts@V
+   (infix@4 \2B
+    (dot~3 r~1 x@1)
+    (dot@3 r~1 w@1))))
+ (proc@,W bottom@5 x . .
+  (params@C
+   (param@1 r . . MRect@3 .))float@C . .
+  (stmts@W
+   (infix@4 \2B
+    (dot~3 r~1 y@1)
+    (dot@3 r~1 h@1))))
+ (proc@,Y holds@5 x . .
+  (params@B
+   (param@1 r . . MRect@3 .)
+   (param@B x . . float@6 .)
+   (param@E y . . float@3 .))bool@P . .
+  (stmts@2,1
+   (infix@e and
+    (infix~D and
+     (infix~I and
+      (infix~7 >= x~2
+       (dot@4 r~1 x@1))
+      (infix@6 < x~2
+       (infix@6 \2B
+        (dot~3 r~1 x@1)
+        (dot@3 r~1 w@1))))
+     (infix@6 >= y~2
+      (dot@4 r~1 y@1)))
+    (infix@6 < y~2
+     (infix@6 \2B
+      (dot~3 r~1 y@1)
+      (dot@3 r~1 h@1))))))
+ (proc@,b absf@5 x . .
+  (params@A
+   (param@1 x . . float@3 .))float@C . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@2 < x~2 0.0@2)
+     (stmts@9
+      (prefix \2D x@1)))
+    (else@F
+     (stmts@6 x)))))
+ (comment@,e)
+ (proc@,g floorf@5 x . .
+  (params@C
+   (param@1 x . . float@3 .))float@C . .
+  (stmts@2,1
+   (let@4 whole . . .
+    (call@D float~5
+     (call@4 int~3 x@1)))
+   (if@,1
+    (elif@3
+     (infix@8 and
+      (infix~6 < x~2 0.0@2)
+      (infix@A != whole~6 x@3))
+     (stmts@O
+      (infix@6 \2D whole~6 1.0@2)))
+    (else@d
+     (stmts@6 whole)))))
+ (const@8,k Pi~2 x . . 3.141592653589793@4)
+ (comment@,m)
+ (proc@,10 sine@5 x . .
+  (params@A
+   (param@1 x . . float@3 .))float@C . .
+  (stmts@2,1
+   (let@4 turn . . .
+    (infix@A * Pi~3 2.0@2))
+   (var@4,1 t . . .
+    (infix@6 \2D x~2
+     (infix@J *
+      (call~B floorf~6
+       (infix@3 / x~2 turn@2))turn@2)))
+   (if@,2
+    (elif@3
+     (infix@2 > t~2 Pi@2)
+     (stmts@8
+      (asgn@2 t~2
+       (infix@4 \2D t~2 turn@2)))))
+   (if@,3
+    (elif@3
+     (infix@2 > t~2
+      (infix@5 * Pi~3 0.5@2))
+     (stmts@E
+      (asgn@2 t~2
+       (infix@5 \2D Pi~3 t@2))))
+    (elif@5,1
+     (infix@2 < t~2
+      (infix@6 *
+       (prefix~4 \2D Pi@1)0.5@2))
+     (stmts@F
+      (asgn@2 t~2
+       (infix@6 \2D
+        (prefix~4 \2D Pi@1)t@2)))))
+   (let@4,5 s . . .
+    (infix@6 * t~2 t@2))
+   (infix@2,6 * t~2
+    (par@2
+     (infix@5 \2D 1.0~4
+      (infix@A *
+       (infix~6 / s~2 6.0@2)
+       (par@2
+        (infix@5 \2D 1.0~4
+         (infix@B *
+          (infix~7 / s~2 20.0@2)
+          (par@2
+           (infix@5 \2D 1.0~4
+            (infix@B *
+             (infix~7 / s~2 42.0@2)
+             (par~r,1
+              (infix@5 \2D 1.0~4
+               (infix@B *
+                (infix~7 / s~2 72.0@2)
+                (par@2
+                 (infix@5 \2D 1.0~4
+                  (infix@4 / s~2 110.0@2))))))))))))))))))
+ (proc@,1A cosine@5 x . .
+  (params@C
+   (param@1 x . . float@3 .))float@C . .
+  (stmts@W
+   (call@4 sine~4
+    (infix@3 \2B x~2
+     (infix@5 * Pi~3 0.5@2)))))
+ (comment@,1K)
+ (proc@,1M quadAt@5 x . .
+  (params@C
+   (param@1 quads . .
+    (at@A seq~3 Quad@1).)
+   (param@J x . . float@6 .)
+   (param@M y . . float@3 .))int@X . .
+  (stmts@2,1
+   (asgn@7 result~7 -1@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@7 quads~5 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (call@J
+        (dot~6
+         (dot~5
+          (at~3 quads~5 i@1)dest@1)holds@1)x@1 y@4)
+       (stmts@R
+        (asgn@7 result~7 i@2))))
+     (cmd@,1 inc i@4)))))
+ (comment@,1T)
+ (proc@,1V sampleAt@5 x . .
+  (params@E
+   (param@1 quads . .
+    (at@A seq~3 Quad@1).)
+   (param@J x . . float@6 .)
+   (param@M y . . float@3 .)
+   (param@W outside . . . -1.0@A))MRect@n . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@A quadAt~6 quads@1 x@8 y@B))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret
+       (call@C mrect~5 outside@1 outside@A 0.0@J 0.0@O)))))
+   (let@4,2 q . . .
+    (at@9 quads~5 i@1))
+   (call@5,3 mrect~5
+    (infix@9 \2B
+     (dot~3
+      (dot~4 q~1 src@1)x@1)
+     (infix@S *
+      (infix~B /
+       (par~F
+        (infix@3 \2D x~2
+         (dot@8
+          (dot~5 q~1 dest@1)x@1)))
+       (dot@8
+        (dot~5 q~1 dest@1)w@1))
+      (dot@7
+       (dot~4 q~1 src@1)w@1)))
+    (infix@9,1 \2B
+     (dot~3
+      (dot~4 q~1 src@1)y@1)
+     (infix@S *
+      (infix~B /
+       (par~F
+        (infix@3 \2D y~2
+         (dot@8
+          (dot~5 q~1 dest@1)y@1)))
+       (dot@8
+        (dot~5 q~1 dest@1)h@1))
+      (dot@7
+       (dot~4 q~1 src@1)h@1)))0.0@m,1 0.0@r,1)))
+ (comment@,1c)
+ (proc@,1h densityAt@5 x . .
+  (params@F
+   (param@1 quads . .
+    (at@A seq~3 Quad@1).)
+   (param@J x . . float@6 .)
+   (param@M y . . float@3 .))float@X . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@A quadAt~6 quads@1 x@8 y@B))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret 0.0@7))))
+   (infix@F,2 /
+    (dot~3
+     (dot~4
+      (at~3 quads~5 i@1)src@1)w@1)
+    (dot@F
+     (dot~5
+      (at~3 quads~5 i@1)dest@1)w@1))))
+ (comment@,1m)
+ (proc@,1p stretchedSample@5 x . .
+  (params@L
+   (param@1 dest . . MRect@B .)
+   (param@7 src . . MRect@5 .)
+   (param@J x . . float@6 .)
+   (param@M y . . float@3 .))MRect@X . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (infix@7 \2B
+     (dot~3 src~3 x@1)
+     (infix@O *
+      (infix~9 /
+       (par~D
+        (infix@3 \2D x~2
+         (dot@6 dest~4 x@1)))
+       (dot@6 dest~4 w@1))
+      (dot@5 src~3 w@1)))
+    (infix@7,1 \2B
+     (dot~3 src~3 y@1)
+     (infix@O *
+      (infix~9 /
+       (par~D
+        (infix@3 \2D y~2
+         (dot@6 dest~4 y@1)))
+       (dot@6 dest~4 h@1))
+      (dot@5 src~3 h@1)))0.0@e,1 0.0@j,1)))
+ (proc@,1t stretchedDensity@5 x . .
+  (params@M
+   (param@1 dest . . MRect@B .)
+   (param@7 src . . MRect@5 .))float@K . .
+  (stmts@o
+   (infix@6 /
+    (dot~3 src~3 w@1)
+    (dot@6 dest~4 w@1)))))

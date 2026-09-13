@@ -1,0 +1,381 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,netframe.nim
+ (comment)
+ (import@,f netwire@7)
+ (const@G,i MaxPacketBytes~E x . . 2097151@4)
+ (const@M,m MaxUncompressedBytes~K x . . 8388608@4)
+ (const@F,p NoCompression~D x . . -1@4)
+ (const@B,r FrameNone~9 x . . 0@4)
+ (const@C,s FramePlain~A x . . 1@4)
+ (const@F,t FrameDeflated~D x . . 2@4)
+ (const@D,u FrameBroken~B x . . 3@4)
+ (type@B,x Framing~9 x . .
+  (object@2 .
+   (fld@,1 threshold~9 x . int@3 .)
+   (fld~6,3 buf~3 x .
+    (at@6 seq~3 int@1).)
+   (fld~7,4 at~2 x . int@3 .)
+   (fld~2,5 problem~7 x . string@3 .)))
+ (type@9,14 Frame~7 x . .
+  (object@2 .
+   (fld~3,1 kind~4 x . int@3 .)
+   (fld~3,2 data~4 x .
+    (at@6 seq~3 int@1).)
+   (fld@8,3 uncompressedLen~F x . int@3 .)))
+ (proc@,19 framing@5 x . .
+  (params@D)Framing@4 . .
+  (stmts@2,1
+   (oconstr@7 Framing~7
+    (kv@A threshold~9 NoCompression@2)
+    (kv@U buf~3
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@d at~2 0@2)
+    (kv@p problem~7 ""@2))))
+ (proc@,1C compressing@5 x . .
+  (params@H
+   (param@1 f . . Framing@3 .))bool@E . .
+  (stmts@c
+   (infix@C >=
+    (dot~B f~1 threshold@1)0@3)))
+ (proc@,1E setCompression@5 x . .
+  (params@K
+   (param@1 f . .
+    (mut@3 Framing@4).)
+   (param@H threshold . . int@B .)). . .
+  (stmts@2,1
+   (comment)
+   (asgn@C,2
+    (dot~B f~1 threshold@1)threshold@2)))
+ (proc@,1J feed@5 x . .
+  (params@A
+   (param@1 f . .
+    (mut@3 Framing@4).)
+   (param@H bytes . .
+    (at@A seq~3 int@1).)). . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@7 bytes~5 len@1))
+    (stmts@2,1
+     (cmd@5
+      (dot
+       (dot~4 f~1 buf@1)add@1)
+      (at@A bytes~5 i@1))
+     (cmd@,1 inc i@4)))))
+ (proc@,1P compact@5 x . .
+  (params@D
+   (param@1 f . .
+    (mut@3 Framing@4).)). . .
+  (stmts@2,1
+   (comment)
+   (if@,3
+    (elif@3
+     (infix@5 ==
+      (dot~4 f~1 at@1)0@3)
+     (stmts@B
+      (ret .))))
+   (var@4,4 rest . .
+    (at@9 seq~3 int@1)
+    (prefix@H \40
+     (bracket@1)))
+   (var@4,5 i . . .
+    (dot@5 f~1 at@1))
+   (while@,6
+    (infix@8 < i~2
+     (dot@7
+      (dot~4 f~1 buf@1)len@1))
+    (stmts@2,1
+     (cmd@4
+      (dot rest~4 add@1)
+      (at@A
+       (dot~4 f~1 buf@1)i@1))
+     (cmd@,1 inc i@4)))
+   (asgn@6,9
+    (dot~5 f~1 buf@1)rest@2)
+   (asgn@5,A
+    (dot~4 f~1 at@1)0@2)))
+ (proc@,1c pending@5 x . .
+  (params@D
+   (param@1 f . . Framing@3 .))int@E . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 >=
+      (dot~4 f~1 at@1)
+      (dot@8
+       (dot~4 f~1 buf@1)len@1))
+     (stmts@J 0))
+    (else@O
+     (stmts@6
+      (infix@A \2D
+       (dot~5
+        (dot~4 f~1 buf@1)len@1)
+       (dot@3 f~1 at@1)))))))
+ (proc@,1f peekVarInt@5 . . .
+  (params@F
+   (param@1 f . . Framing@3 .)
+   (param@D from0 . . int@7 .)
+   (param@P value . .
+    (mut@7 int@4).)
+   (param@f size . .
+    (mut@6 int@4).))int@v . .
+  (stmts@2,1
+   (comment)
+   (asgn@6,2 value~6 0@2)
+   (asgn@5,3 size~5 0@2)
+   (var@4,4 count . . . 0@8)
+   (var@4,5 acc . . . 0@6)
+   (var@4,6 i . . . from0@4)
+   (while@,7 true@6
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 >= i~2
+        (dot@8
+         (dot~4 f~1 buf@1)len@1))
+       (stmts@G
+        (ret 0@7))))
+     (let@4,1 b . . .
+      (infix@D and
+       (at~4
+        (dot~4 f~1 buf@1)i@1)255@4))
+     (cmd@,2 inc i@4)
+     (asgn@4,3 acc~4
+      (infix@6 or acc~4
+       (par@3
+        (infix@E shl
+         (par~D
+          (infix@3 and b~2 127@4))
+         (par@4
+          (infix@3 * 7~2 count@2))))))
+     (cmd@,4 inc count@4)
+     (if@,5
+      (elif@3
+       (infix@D ==
+        (par~D
+         (infix@3 and b~2 128@4))0@3)
+       (stmts~1,1
+        (asgn@4 acc~4
+         (infix@6 and acc~4
+          (suf@4 4294967295 "i64")))
+        (if@,1
+         (elif@3
+          (infix@L !=
+           (par~L
+            (infix@5 and acc~4
+             (suf@4 2147483648 "i64")))0@3)
+          (stmts@R
+           (asgn@4 acc~4
+            (infix@6 \2D acc~4
+             (suf@2 4294967296 "i64"))))))
+        (asgn@6,2 value~6 acc@2)
+        (asgn@5,3 size~5 count@2)
+        (ret@,4 1@7))))
+     (if@,B
+      (elif@3
+       (infix@6 >= count~6 MaxVarIntBytes@3)
+       (stmts@P
+        (ret -1@7))))))))
+ (proc@,21 nextFrame@5 x . .
+  (params@F
+   (param@1 f . .
+    (mut@3 Framing@4).))Frame@I . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,1 result~7
+    (oconstr@7 Frame~5
+     (kv@5 kind~4 FrameNone@2)
+     (kv@M data~4
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@i uncompressedLen~F 0@2)))
+   (if@,2
+    (elif@3
+     (infix@E >
+      (dot~5
+       (dot~8 f~1 problem@1)len@1)0@2)
+     (stmts~1,1
+      (asgn@C
+       (dot~6 result~6 kind@1)FrameBroken@2)
+      (ret@,1 .))))
+   (var@4,6 length . . . 0@9)
+   (var@4,7 lengthSize . . . 0@D)
+   (let@4,8 got . . .
+    (call@G peekVarInt~A f@1
+     (dot@5 f~1 at@1)length@A lengthSize@I))
+   (if@,9
+    (elif@3
+     (infix@4 == got~4 0@3)
+     (stmts@A
+      (ret .))))
+   (if@,A
+    (elif@3
+     (infix@4 < got~4 0@2)
+     (stmts~1,1
+      (asgn@A
+       (dot~9 f~1 problem@1)"the length prefix is not a VarInt"@2)
+      (asgn@C,1
+       (dot~6 result~6 kind@1)FrameBroken@2)
+      (ret@,2 .))))
+   (if@,E
+    (elif@3
+     (infix@C or
+      (infix~5 <= length~7 0@3)
+      (infix@A > length~7 MaxPacketBytes@2))
+     (stmts~1,1
+      (asgn@A
+       (dot~9 f~1 problem@1)"packet length out of range"@2)
+      (asgn@C,1
+       (dot~6 result~6 kind@1)FrameBroken@2)
+      (ret@,2 .))))
+   (let@4,J bodyAt . . .
+    (infix@E \2B
+     (dot~4 f~1 at@1)lengthSize@2))
+   (if@,K
+    (elif@3
+     (infix@J <
+      (infix~9 \2D
+       (dot~5
+        (dot~4 f~1 buf@1)len@1)bodyAt@2)length@2)
+     (stmts@T
+      (ret .))))
+   (let@4,L bodyEnd . . .
+    (infix@H \2B bodyAt~7 length@2))
+   (if@,N
+    (elif@3
+     (prefix not
+      (call@F compressing~B f@1))
+     (stmts~1,1
+      (asgn@C
+       (dot~6 result~6 kind@1)FramePlain@2)
+      (var@4,1 i . . . bodyAt@4)
+      (while@,2
+       (infix@8 < i~2 bodyEnd@2)
+       (stmts@2,1
+        (cmd@B
+         (dot
+          (dot~5 result~6 data@1)add@1)
+         (at@A
+          (dot~4 f~1 buf@1)i@1))
+        (cmd@,1 inc i@4)))
+      (asgn@5,5
+       (dot~4 f~1 at@1)bodyEnd@2)
+      (call@7,6 compact~7 f@1)
+      (ret@,7 .))))
+   (var@4,X claimed . . . 0@A)
+   (var@4,Y claimedSize . . . 0@E)
+   (let@4,Z gotClaim . . .
+    (call@L peekVarInt~A f@1 bodyAt@4 claimed@C claimedSize@L))
+   (if@,a
+    (elif@3
+     (infix@9 <= gotClaim~9 0@3)
+     (stmts~1,1
+      (asgn@A
+       (dot~9 f~1 problem@1)"the uncompressed length is not a VarInt"@2)
+      (asgn@C,1
+       (dot~6 result~6 kind@1)FrameBroken@2)
+      (ret@,2 .))))
+   (let@4,e payloadAt . . .
+    (infix@J \2B bodyAt~7 claimedSize@2))
+   (if@,f
+    (elif@3
+     (infix@A > payloadAt~A bodyEnd@2)
+     (stmts~1,1
+      (asgn@A
+       (dot~9 f~1 problem@1)"the uncompressed length overran its own packet"@2)
+      (asgn@C,1
+       (dot~6 result~6 kind@1)FrameBroken@2)
+      (ret@,2 .))))
+   (if@,k
+    (elif@3
+     (infix@8 == claimed~8 0@3)
+     (stmts~1,1
+      (asgn@C
+       (dot~6 result~6 kind@1)FramePlain@2)))
+    (else@,2
+     (stmts@2,1
+      (if
+       (elif@3
+        (infix@8 < claimed~8
+         (dot@3 f~1 threshold@1))
+        (stmts~1,4
+         (asgn@A
+          (dot~9 f~1 problem@1)"compressed below the announced threshold"@2)
+         (asgn@C,1
+          (dot~6 result~6 kind@1)FrameBroken@2)
+         (ret@,2 .))))
+      (if@,7
+       (elif@3
+        (infix@8 > claimed~8 MaxUncompressedBytes@2)
+        (stmts~1,1
+         (asgn@A
+          (dot~9 f~1 problem@1)"uncompressed length past the cap"@2)
+         (asgn@C,1
+          (dot~6 result~6 kind@1)FrameBroken@2)
+         (ret@,2 .))))
+      (asgn@C,B
+       (dot~6 result~6 kind@1)FrameDeflated@2)
+      (asgn@N,C
+       (dot~H result~6 uncompressedLen@1)claimed@2))))
+   (var@4,11 i . . . payloadAt@4)
+   (while@,12
+    (infix@8 < i~2 bodyEnd@2)
+    (stmts@2,1
+     (cmd@B
+      (dot
+       (dot~5 result~6 data@1)add@1)
+      (at@A
+       (dot~4 f~1 buf@1)i@1))
+     (cmd@,1 inc i@4)))
+   (asgn@5,15
+    (dot~4 f~1 at@1)bodyEnd@2)
+   (call@7,16 compact~7 f@1)))
+ (proc@,3E frameOut@5 x . .
+  (params@E
+   (param@1 f . . Framing@3 .)
+   (param@D body . .
+    (at@9 seq~3 int@1).))
+  (at@X seq~3 int@1). .
+  (stmts@2,1
+   (comment)
+   (var@4,4 inner . . .
+    (call@E writer~6))
+   (if@,5
+    (elif@3
+     (call@B compressing~B f@1)
+     (stmts~1,1
+      (call@9 putVarInt~9 inner@1 0@8))))
+   (call@8,7 putBytes~8 inner@1 body@8)
+   (var@4,8 w . . .
+    (call@A writer~6))
+   (call@9,9 putVarInt~9 w@1
+    (dot@E
+     (dot~5 inner~5 data@1)len@1))
+   (call@8,A putBytes~8 w@1
+    (dot@9 inner~5 data@1))
+   (asgn@7,B result~7
+    (dot@3 w~1 data@1))))
+ (proc@,3S frameDeflatedOut@5 x . .
+  (params@M
+   (param@1 deflated . .
+    (at@D seq~3 int@1).)
+   (param@L uncompressedLen . . int@H .))
+  (at@l seq~3 int@1). .
+  (stmts@2,1
+   (var@4 inner . . .
+    (call@E writer~6))
+   (call@9,1 putVarInt~9 inner@1 uncompressedLen@8)
+   (call@8,2 putBytes~8 inner@1 deflated@8)
+   (var@4,3 w . . .
+    (call@A writer~6))
+   (call@9,4 putVarInt~9 w@1
+    (dot@E
+     (dot~5 inner~5 data@1)len@1))
+   (call@8,5 putBytes~8 w@1
+    (dot@9 inner~5 data@1))
+   (asgn@7,6 result~7
+    (dot@3 w~1 data@1)))))

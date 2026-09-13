@@ -1,0 +1,2504 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/deps/aoughwl_grid/gridspace.nim
+ (comment)
+ (import@,c jester@7)
+ (import@,d catalogs@7)
+ (import@,e
+  (infix@O / aoughwl_inventory~H inventory@1))
+ (export@,f inventory@7)
+ (const@F,m ItemHoldsKind~D x . . "aoughwl.item.holds"@4)
+ (const@J,p ContainerGridKind~H x . . "aoughwl.container.grid"@4)
+ (const@C,r SourceKind~A x . . "aoughwl.inventory.source"@4)
+ (const@C,v HoldsFacet~A x . . ".holds"@4)
+ (const@B,w GridFacet~9 x . . ".grid"@4)
+ (const@F,x SourceCatalog~D x . . "aoughwl.inventory.sources"@4)
+ (var@4,11 extrasDeclared . . . false@H)
+ (comment@,13)
+ (proc@,16 declareGridKinds@5 x . .
+  (params@M). . .
+  (stmts@2,1
+   (if
+    (elif@3 extrasDeclared
+     (stmts@G
+      (ret .))))
+   (asgn@F,1 extrasDeclared~F true@2)
+   (call@L,2 declareInventoryKinds~L)
+   (if@,3
+    (elif@3
+     (infix@a >
+      (dot~5
+       (call~F catalogSignature~G SourceCatalog@1)len@1)0@2)
+     (stmts@f
+      (ret .))))
+   (call@H,4 defineCatalogKind~H ItemHoldsKind@1 "text"@G "The container definition an item opens when it is stowed."~F,1)
+   (call@H,6 defineCatalogKind~H ContainerGridKind@1 "text"@K "How many cells a container has, as wide by tall."~F,1)
+   (call@H,8 defineCatalogKind~H SourceKind@1 "text"@D "A catalog of inventory definitions, and which half it holds."~F,1)
+   (call@D,A createCatalog~D SourceCatalog@1 SourceKind@G "Every catalog of item or container definitions anybody published."~B,1)))
+ (proc@,1U publishItems@5 x . .
+  (params@I
+   (param@1 catalog . . string@9 .)). . .
+  (stmts@2,1
+   (comment)
+   (call@G,2 declareGridKinds~G)
+   (call@8,3 useItems~8 catalog@1)
+   (call@C,4 addToCatalog~C SourceCatalog@1 catalog@G "items"@P)))
+ (proc@,1b publishContainers@5 x . .
+  (params@N
+   (param@1 catalog . . string@9 .)). . .
+  (stmts@2,1
+   (call@G declareGridKinds~G)
+   (call@D,1 useContainers~D catalog@1)
+   (call@C,2 addToCatalog~C SourceCatalog@1 catalog@G "containers"@P)))
+ (comment@,1g)
+ (proc@,1j adoptPublished@5 x . .
+  (params@K)int@4 . .
+  (stmts@2,1
+   (call@G declareGridKinds~G)
+   (asgn@7,1 result~7 0@2)
+   (if@,2
+    (elif@3
+     (infix@a ==
+      (dot~5
+       (call~F catalogSignature~G SourceCatalog@1)len@1)0@3)
+     (stmts@g
+      (ret .))))
+   (for@4,3
+    (call@E entries~7
+     (call@6 named~5 SourceCatalog@1))
+    (unpackflat
+     (let row . . ..))
+    (stmts~2,1
+     (if
+      (elif@3
+       (infix@9 ==
+        (dot~6 row~3 text@1)"items"@3)
+       (stmts@L
+        (call@8 useItems~8
+         (dot@4 row~3 id@1))))
+      (else@,1
+       (stmts@6
+        (call@D useContainers~D
+         (dot@4 row~3 id@1)))))
+     (asgn@7,2 result~7
+      (infix@9 \2B result~7 1@2))))))
+ (comment@,1s)
+ (proc@,1u publishedItems@5 x . .
+  (params@K)
+  (at@7 seq~3 string@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (if@,1
+    (elif@3
+     (infix@a ==
+      (dot~5
+       (call~F catalogSignature~G SourceCatalog@1)len@1)0@3)
+     (stmts@g
+      (ret result@7))))
+   (for@4,2
+    (call@E entries~7
+     (call@6 named~5 SourceCatalog@1))
+    (unpackflat
+     (let row . . ..))
+    (stmts~2,1
+     (if
+      (elif@3
+       (infix@9 !=
+        (dot~6 row~3 text@1)"items"@3)
+       (stmts@L
+        (continue .))))
+     (if@,1
+      (elif@3
+       (infix@T ==
+        (dot~5
+         (call~8 catalogSignature~G
+          (dot@4 row~3 id@1))len@1)0@3)
+       (stmts@Z
+        (continue .))))
+     (for@4,2
+      (call@E entries~7
+       (call@6 named~5
+        (dot@4 row~3 id@1)))
+      (unpackflat
+       (let one . . ..))
+      (stmts~2,1
+       (var@4 already . . . false@A)
+       (var@4,1 i . . . 0@4)
+       (while@,2
+        (infix@8 < i~2
+         (dot@8 result~6 len@1))
+        (stmts@2,1
+         (if
+          (elif@3
+           (infix@A ==
+            (at~4 result~6 i@1)
+            (dot@6 one~3 id@1))
+           (stmts@L
+            (asgn@8 already~8 true@2))))
+         (asgn@2,1 i~2
+          (infix@4 \2B i~2 1@2))))
+       (if@,5
+        (elif@3
+         (prefix not already@4)
+         (stmts@D
+          (cmd@6
+           (dot result~6 add@1)
+           (dot@8 one~3 id@1)))))))))))
+ (type@G,2C Footprint~B x . .
+  (object@2 .
+   (fld~C,3 wide~4 x . int@A .)
+   (fld~5,3 tall~4 x . int@3 .)))
+ (proc@,2H footprint@5 x . .
+  (params@F
+   (param@1 wide . . int@C .)
+   (param@7 tall . . int@6 .))Footprint@J . .
+  (stmts@2,1
+   (oconstr@9 Footprint~9
+    (kv@5 wide~4
+     (expr
+      (stmts@2)
+      (if@1
+       (elif@3
+        (infix@5 < wide~5 1@2)1@A)
+       (else@F wide@6))))
+    (kv~3,1 tall~4
+     (expr
+      (stmts@2)
+      (if@1
+       (elif@3
+        (infix@5 < tall~5 1@2)1@A)
+       (else@F tall@6)))))))
+ (comment@,2L)
+ (proc@,2P readFootprint@5 x . .
+  (params@J
+   (param@1 token . . string@7 .))Footprint@H . .
+  (stmts@2,1
+   (var@4 wide . . . 0@7)
+   (var@4,1 tall . . . 0@7)
+   (var@4,2 seenX . . . false@8)
+   (var@4,3 digits . . . 0@9)
+   (var@4,4 i . . . 0@4)
+   (while@,5
+    (infix@8 < i~2
+     (dot@7 token~5 len@1))
+    (stmts@2,1
+     (let@4 c . . .
+      (at@9 token~5 i@1))
+     (if@,1
+      (elif@3
+       (infix@9 and
+        (infix~7 >= c~2 '0'@3)
+        (infix@6 <= c~2 '9'@3))
+       (stmts~1,1
+        (let@4 d . . .
+         (infix@B \2D
+          (call~4 ord~3 c@1)48@2))
+        (if@,1
+         (elif@3 seenX
+          (stmts@7
+           (asgn@5 tall~5
+            (infix@C \2B
+             (infix~5 * tall~5 10@2)d@2))))
+         (else@,1
+          (stmts@6
+           (asgn@5 wide~5
+            (infix@C \2B
+             (infix~5 * wide~5 10@2)d@2)))))
+        (asgn@7,3 digits~7
+         (infix@9 \2B digits~7 1@2))))
+      (elif@5,5
+       (infix@b and
+        (infix~E and
+         (par~N
+          (infix@A or
+           (infix~7 == c~2 'x'@3)
+           (infix@5 == c~2 'X'@3)))
+         (prefix@4 not seenX@4))
+        (infix@B > digits~7 0@2))
+       (stmts~3,1
+        (asgn@6 seenX~6 true@2)
+        (asgn@7,1 digits~7 0@2)))
+      (else@,8
+       (stmts@2,1
+        (ret
+         (call@G footprint~9 1@1 1@4)))))
+     (asgn@2,B i~2
+      (infix@4 \2B i~2 1@2))))
+   (if@,I
+    (elif@3
+     (infix@A or
+      (prefix~A not seenX@4)
+      (infix@A == digits~7 0@3))
+     (stmts@Q
+      (ret
+       (call@G footprint~9 1@1 1@4)))))
+   (call@9,J footprint~9 wide@1 tall@7)))
+ (comment@,2l)
+ (proc@,2m footprintOf@5 x . .
+  (params@H
+   (param@1 item . . string@6 .))Footprint@G . .
+  (stmts@2,1
+   (call@D readFootprint~D
+    (dot@D
+     (call~6 itemOf~6 item@1)shape@1))))
+ (comment@,2p)
+ (proc@,2q turned@5 x . .
+  (params@C
+   (param@1 f . . Footprint@3 .))Footprint@G . .
+  (stmts@e
+   (call@9 footprint~9
+    (dot@2 f~1 tall@1)
+    (dot@A f~1 wide@1))))
+ (comment@,2s)
+ (proc@,2u turnable@5 x . .
+  (params@E
+   (param@1 f . . Footprint@3 .))bool@G . .
+  (stmts@b
+   (infix@7 !=
+    (dot~6 f~1 wide@1)
+    (dot@4 f~1 tall@1))))
+ (proc@,2w cells@5 x . .
+  (params@B
+   (param@1 f . . Footprint@3 .))int@G . .
+  (stmts@X
+   (infix@7 *
+    (dot~6 f~1 wide@1)
+    (dot@3 f~1 tall@1))))
+ (type@7,33 Bag~5 x . .
+  (distinct@2 int@9))
+ (type@9,37 Entry~7 x . .
+  (object@2 .
+   (fld~4,3 key~3 x . int@3 .)
+   (fld~3,7 item~4 x . string@3 .)
+   (fld~2,8 count~5 x . int@3 .)
+   (fld~1,9 column~6 x . int@9 .)
+   (fld@5,9 row~3 x . int@3 .)
+   (fld@,A rotated~7 x . bool@3 .)
+   (fld~2,B inner~5 x . Bag@3 .)))
+ (const@D,3L NoEntry~7 x . .
+  (oconstr@9 Entry~5
+   (kv@4 key~3 0@2)
+   (kv@D item~4 ""@2)
+   (kv@O count~5 0@2)
+   (kv@Z column~6 -1@2)
+   (kv@i row~3 -1@2)
+   (kv~D,1 rotated~7 false@2)
+   (kv@1,1 inner~5
+    (call@5 Bag~3 0@1))))
+ (type@A,3O Held~5 . . .
+  (object@2 .
+   (fld~A,1 live . . bool@6 .)
+   (fld~A,2 label . . string@7 .)
+   (fld~A,3 definition . . string@C .)
+   (fld~A,4 wide . . int@C .)
+   (fld~4,4 tall . . int@6 .)
+   (fld~A,5 entries . .
+    (at@C seq~3 Entry@1).)
+   (fld~A,6 mirror . . Container@8 .)
+   (fld~A,7 parent . . Bag@8 .)
+   (fld~A,8 parentKey . . int@B .)))
+ (var@2,3Z bags . .
+  (at@9 seq~3 Held@1).)
+ (var@2,3a nextKey . . . 0@A)
+ (proc@,3c isNothing@5 x . .
+  (params@F
+   (param@1 s . . Bag@3 .))bool@A . .
+  (stmts@W
+   (infix@7 ==
+    (call~4 int~3 s@1)0@3)))
+ (proc@,3d isSame@5 x . .
+  (params@C
+   (param@1 a . . Bag@6 .)
+   (param@4 b . . Bag@3 .))bool@D . .
+  (stmts@W
+   (infix@7 ==
+    (call~4 int~3 a@1)
+    (call@6 int~3 b@1))))
+ (proc@,3e nowhereBag@5 x . .
+  (params@G)Bag@4 . .
+  (stmts@Q
+   (call@3 Bag~3 0@1)))
+ (proc@,3g at@5 . . .
+  (params@7
+   (param@1 s . . Bag@3 .))int@A . .
+  (stmts@2,1
+   (let@4 i . . .
+    (infix@B \2D
+     (call~4 int~3 s@1)1@2))
+   (if@,1
+    (elif@3
+     (infix@6 or
+      (infix~4 < i~2 0@2)
+      (infix@5 >= i~2
+       (dot@7 bags~4 len@1)))
+     (stmts@O
+      (ret -1@7))))
+   (if@,2
+    (elif@3
+     (prefix not
+      (dot@B
+       (at~3 bags~4 i@1)live@1))
+     (stmts@I
+      (ret -1@7))))i@,3))
+ (proc@,3m ok@5 . . .
+  (params@7
+   (param@1 moved . . int@C .)
+   (param@8 key . . int@5 .))Outcome@J . .
+  (stmts@2,1
+   (oconstr@7 Outcome~7
+    (kv@8 trouble~7 NoTrouble@2)
+    (kv@Q moved~5 moved@2)
+    (kv@d slot~4 key@2)
+    (kv@o note~4 ""@2))))
+ (comment@,3p)
+ (proc@,3v no@5 . . .
+  (params@7
+   (param@1 t . . Trouble@3 .)
+   (param@D note . . string@6 .))Outcome@S . .
+  (stmts@2,1
+   (oconstr@7 Outcome~7
+    (kv@8 trouble~7 t@2)
+    (kv@I moved~5 0@2)
+    (kv@R slot~4 0@2)
+    (kv~1,1 note~4
+     (expr
+      (stmts@2)
+      (if@1
+       (elif@3
+        (infix@9 >
+         (dot~5 note~4 len@1)0@2)note@E)
+       (else@M
+        (call@A name~4 t@1))))))))
+ (proc@,43 facetOf@5 . . .
+  (params@C
+   (param@1 base . . string@H .)
+   (param@7 facet . . string@B .)
+   (param@E id . . string@4 .))string@R . .
+  (stmts@2,1
+   (let@4 cat . . .
+    (infix@B & base~5 facet@2))
+   (if@,1
+    (elif@3
+     (infix@Q ==
+      (dot~5
+       (call~5 catalogSignature~G cat@1)len@1)0@3)
+     (stmts@W
+      (ret ""@7))))
+   (let@4,2 row . . .
+    (call@L
+     (dot~5
+      (call~5 named~5 cat@1)find@1)id@1))
+   (if@,3
+    (elif@3
+     (prefix not
+      (dot@7 row~3 exists@1))
+     (stmts@G
+      (ret ""@7))))
+   (dot@3,4 row~3 text@1)))
+ (comment@,4A)
+ (proc@,4B gridIn@5 x . .
+  (params@C
+   (param@1 catalog . . string@L .)
+   (param@A definition . . string@C .))Footprint@V . .
+  (stmts@2,1
+   (let@4 token . . .
+    (call@F facetOf~7 catalog@1 GridFacet@A definition@L))
+   (if@,1
+    (elif@3
+     (infix@A ==
+      (dot~5 token~5 len@1)0@3)
+     (stmts@G
+      (ret
+       (call@G footprint~9 1@1 1@4)))))
+   (call@D,2 readFootprint~D token@1)))
+ (var@4,4G gridCatalogs . .
+  (at@H seq~3 string@1).)
+ (proc@,4I rememberGrid@5 . . .
+  (params@H
+   (param@1 catalog . . string@9 .)). . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@E gridCatalogs~C len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@G ==
+        (at~4 gridCatalogs~C i@1)catalog@3)
+       (stmts@S
+        (ret .))))
+     (asgn@2,1 i~2
+      (infix@4 \2B i~2 1@2))))
+   (cmd@C,4
+    (dot gridCatalogs~C add@1)catalog@5)))
+ (comment@,4P)
+ (proc@,4S gridOf@5 x . .
+  (params@C
+   (param@1 definition . . string@C .))Footprint@M . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@B footprint~9 1@1 1@4))
+   (var@4,1 i . . .
+    (infix@L \2D
+     (dot~5 gridCatalogs~C len@1)1@2))
+   (while@,2
+    (infix@8 >= i~2 0@3)
+    (stmts@2,1
+     (let@4 token . . .
+      (call@F facetOf~7
+       (at@D gridCatalogs~C i@1)GridFacet@I definition@T))
+     (if@,1
+      (elif@3
+       (infix@A >
+        (dot~5 token~5 len@1)0@2)
+       (stmts@F
+        (ret
+         (call@K readFootprint~D token@1)))))
+     (asgn@2,2 i~2
+      (infix@4 \2D i~2 1@2))))
+   (if@,6
+    (elif@3
+     (infix@a ==
+      (dot~5
+       (call~F catalogSignature~G SourceCatalog@1)len@1)0@3)
+     (stmts@g
+      (ret result@7))))
+   (for@4,7
+    (call@E entries~7
+     (call@6 named~5 SourceCatalog@1))
+    (unpackflat
+     (let row . . ..))
+    (stmts~2,1
+     (if
+      (elif@3
+       (infix@9 !=
+        (dot~6 row~3 text@1)"containers"@3)
+       (stmts@Q
+        (continue .))))
+     (let@4,1 token . . .
+      (call@F facetOf~7
+       (dot@4 row~3 id@1)GridFacet@9 definition@K))
+     (if@,2
+      (elif@3
+       (infix@A >
+        (dot~5 token~5 len@1)0@2)
+       (stmts@F
+        (ret
+         (call@K readFootprint~D token@1)))))))))
+ (comment@,4f)
+ (proc@,4g holdsOf@5 x . .
+  (params@D
+   (param@1 item . . string@6 .))string@G . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (if@,1
+    (elif@3
+     (infix@a ==
+      (dot~5
+       (call~F catalogSignature~G SourceCatalog@1)len@1)0@3)
+     (stmts@g
+      (ret result@7))))
+   (for@4,2
+    (call@E entries~7
+     (call@6 named~5 SourceCatalog@1))
+    (unpackflat
+     (let row . . ..))
+    (stmts~2,1
+     (if
+      (elif@3
+       (infix@9 !=
+        (dot~6 row~3 text@1)"items"@3)
+       (stmts@L
+        (continue .))))
+     (let@4,1 token . . .
+      (call@F facetOf~7
+       (dot@4 row~3 id@1)HoldsFacet@9 item@L))
+     (if@,2
+      (elif@3
+       (infix@A >
+        (dot~5 token~5 len@1)0@2)
+       (stmts@F
+        (asgn@7 result~7 token@2))))))))
+ (comment@,4s)
+ (proc@,4u gridItemCatalog@5 x . .
+  (params@L
+   (param@1 id . . string@4 .)
+   (param@D description . . . ""@E))Catalog@W . .
+  (stmts@2,1
+   (call@G declareGridKinds~G)
+   (let@4,1 c . . .
+    (call@F itemCatalog~B id@1 description@5))
+   (call@D,2 createCatalog~D
+    (infix@4 & id~3 HoldsFacet@2)ItemHoldsKind@I
+    (infix@k &
+     (infix~5 & "What "~8 id@2)" opens"@2))
+   (call@C,3 publishItems~C id@1)c@,4))
+ (proc@,51 gridContainerCatalog@5 x . .
+  (params@Q
+   (param@1 id . . string@4 .)
+   (param@D description . . . ""@E))Catalog@W . .
+  (stmts@2,1
+   (call@G declareGridKinds~G)
+   (let@4,1 c . . .
+    (call@K containerCatalog~G id@1 description@5))
+   (call@D,2 createCatalog~D
+    (infix@4 & id~3 GridFacet@2)ContainerGridKind@H
+    (infix@n & "Cells for "~D id@2))
+   (call@C,3 rememberGrid~C id@1)
+   (call@H,4 publishContainers~H id@1)c@,5))
+ (comment@,59)
+ (proc@,5B defineThing@5 x . .
+  (params@H
+   (param@1 c . . Catalog@3 .)
+   (param@D id . . string@D .)
+   (param@H display . . string@9 .)
+   (param@Y shape . . . "1x1"@8)
+   (param@n stack . . . 1@8)
+   (param~D,1 weight . . . 0.0@9)
+   (param@1,1 bulk . . . 1.0@7)
+   (param@D,1 tags . . . ""@7)
+   (param@O,1 holds . . . ""@8)). . .
+  (stmts@2,2
+   (call@A defineItem~A c@1 id@4 display@8
+    (vv@N stack~6 stack@2)
+    (vv@b bulk~5 bulk@2)
+    (vv@q weight~7 weight@2)
+    (vv~2,1 shape~6 shape@2)
+    (vv@C,1 tags~5 tags@2))
+   (call@C,2 addToCatalog~C
+    (infix@9 &
+     (call~4 name~4 c@1)HoldsFacet@2)id@N holds@R)))
+ (comment@,5H)
+ (proc@,5I defineBag@5 x . .
+  (params@F
+   (param@1 c . . Catalog@3 .)
+   (param@D id . . string@D .)
+   (param@H display . . string@9 .)
+   (param@Y grid . . . "1x1"@7)
+   (param~B,1 load . . . -1.0@7)
+   (param@2,1 capacity . . . -1.0@B)
+   (param@J,1 accepts . . . ""@A)
+   (param@X,1 rejects . . . ""@A)). . .
+  (stmts@2,2
+   (call@F defineContainer~F c@1 id@4 display@8
+    (vv@N slots~6 -1@2)
+    (vv@c capacity~9 capacity@2)
+    (vv@t load~5 load@2)
+    (vv~5,1 accepts~8 accepts@2)
+    (vv@E,1 rejects~8 rejects@2))
+   (call@C,2 addToCatalog~C
+    (infix@9 &
+     (call~4 name~4 c@1)GridFacet@2)id@M grid@Q)
+   (call@C,3 rememberGrid~C
+    (call@5 name~4 c@1))))
+ (proc@,5T openIn@5 . . .
+  (params@B
+   (param@1 d . . Holder@3 .)
+   (param@C wide . . int@C .)
+   (param@I tall . . int@6 .)
+   (param@T label . . string@7 .)
+   (param@i parent . . Bag@8 .)
+   (param~7,1 parentKey . . int@B .))Bag@A,1 . .
+  (stmts@2,2
+   (let@4 mirror . . .
+    (call@J openHolder~A d@1 label@4))
+   (cmd@4,1
+    (dot bags~4 add@1)
+    (oconstr@9 Held~4
+     (kv@5 live~4 true@2)
+     (kv@I label~5
+      (expr
+       (stmts@2)
+       (if@1
+        (elif@3
+         (infix@A >
+          (dot~5 label~5 len@1)0@2)label@F)
+        (else@O
+         (dot@7 d~1 display@1)))))
+     (kv~1,1 definition~A
+      (dot@3 d~1 id@1))
+     (kv@B,1 wide~4 wide@2)
+     (kv@N,1 tall~4 tall@2)
+     (kv@c,1 entries~7
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@p,1 mirror~6 mirror@2)
+     (kv~5,2 parent~6 parent@2)
+     (kv@E,2 parentKey~9 parentKey@2)))
+   (call@3,4 Bag~3
+    (dot@5 bags~4 len@1))))
+ (comment@,5b)
+ (proc@,5c openBag@5 x . .
+  (params@D
+   (param@1 definition . . string@C .)
+   (param@L label . . . ""@8))Bag@Y . .
+  (stmts@2,1
+   (call@G declareGridKinds~G)
+   (let@4,1 d . . .
+    (call@C holderOf~8 definition@1))
+   (if@,2
+    (elif@3
+     (prefix not
+      (dot@5 d~1 known@1))
+     (stmts@D
+      (ret
+       (call@A Bag~3 0@1)))))
+   (let@4,3 f . . .
+    (call@A gridOf~6 definition@1))
+   (call@6,4 openIn~6 d@1
+    (dot@5 f~1 wide@1)
+    (dot@D f~1 tall@1)label@K
+    (call@U Bag~3 0@1)0@Z)))
+ (comment@,5j)
+ (proc@,5l openGrid@5 x . .
+  (params@E
+   (param@1 d . . Holder@3 .)
+   (param@C wide . . int@C .)
+   (param@I tall . . int@6 .)
+   (param@T label . . . ""@8))Bag@g . .
+  (stmts@2,1
+   (call@G declareGridKinds~G)
+   (call@6,1 openIn~6 d@1 wide@4 tall@A label@G
+    (call@Q Bag~3 0@1)0@V)))
+ (proc@,5p bagLive@5 x . .
+  (params@D
+   (param@1 s . . Bag@3 .))bool@A . .
+  (stmts@U
+   (infix@6 >=
+    (call~4 at~2 s@1)0@3)))
+ (proc@,5r bagWide@5 x . .
+  (params@D
+   (param@1 s . . Bag@3 .))int@A . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret 0@7))))
+   (dot@7,2
+    (at~3 bags~4 i@1)wide@1)))
+ (proc@,5w bagTall@5 x . .
+  (params@D
+   (param@1 s . . Bag@3 .))int@A . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret 0@7))))
+   (dot@7,2
+    (at~3 bags~4 i@1)tall@1)))
+ (proc@,61 bagLabel@5 x . .
+  (params@E
+   (param@1 s . . Bag@3 .))string@A . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret ""@7))))
+   (dot@7,2
+    (at~3 bags~4 i@1)label@1)))
+ (proc@,66 bagDefinition@5 x . .
+  (params@J
+   (param@1 s . . Bag@3 .))string@A . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret ""@7))))
+   (dot@7,2
+    (at~3 bags~4 i@1)definition@1)))
+ (comment@,6B)
+ (proc@,6C bagContainer@5 x . .
+  (params@I
+   (param@1 s . . Bag@3 .))Container@A . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret
+       (call@N nothingContainer~G)))))
+   (dot@7,2
+    (at~3 bags~4 i@1)mirror@1)))
+ (proc@,6H bagParent@5 x . .
+  (params@F
+   (param@1 s . . Bag@3 .))Bag@A . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret
+       (call@A Bag~3 0@1)))))
+   (dot@7,2
+    (at~3 bags~4 i@1)parent@1)))
+ (proc@,6M entryCount@5 x . .
+  (params@G
+   (param@1 s . . Bag@3 .))int@A . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret 0@7))))
+   (dot@F,2
+    (dot~8
+     (at~3 bags~4 i@1)entries@1)len@1)))
+ (proc@,6R entryAt@5 x . .
+  (params@D
+   (param@1 s . . Bag@3 .)
+   (param@9 index . . int@7 .))Entry@M . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret NoEntry@7))))
+   (if@,2
+    (elif@3
+     (infix@A or
+      (infix~4 < index~6 0@2)
+      (infix@9 >= index~6
+       (dot@I
+        (dot~8
+         (at~3 bags~4 i@1)entries@1)len@1)))
+     (stmts@h
+      (ret NoEntry@7))))
+   (at@F,3
+    (dot~8
+     (at~3 bags~4 i@1)entries@1)index@1)))
+ (proc@,6X indexOfKey@5 . . .
+  (params@F
+   (param@1 i . . int@3 .)
+   (param@9 key . . int@5 .))int@K . .
+  (stmts@2,1
+   (asgn@7 result~7 -1@2)
+   (var@4,1 j . . . 0@4)
+   (while@,2
+    (infix@8 < j~2
+     (dot@H
+      (dot~8
+       (at~3 bags~4 i@1)entries@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@N ==
+        (dot~5
+         (at~3
+          (dot~8
+           (at~3 bags~4 i@1)entries@1)j@1)key@1)key@3)
+       (stmts@V
+        (asgn@7 result~7 j@2))))
+     (asgn@2,1 j~2
+      (infix@4 \2B j~2 1@2))))))
+ (comment@,6e)
+ (proc@,6f entryOf@5 x . .
+  (params@D
+   (param@1 s . . Bag@3 .)
+   (param@9 key . . int@5 .))Entry@K . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret NoEntry@7))))
+   (let@4,2 j . . .
+    (call@E indexOfKey~A i@1 key@4))
+   (if@,3
+    (elif@3
+     (infix@2 < j~2 0@2)
+     (stmts@7
+      (ret NoEntry@7))))
+   (at@F,4
+    (dot~8
+     (at~3 bags~4 i@1)entries@1)j@1)))
+ (comment@,6m)
+ (proc@,6n footprintOn@5 x . .
+  (params@H
+   (param@1 e . . Entry@3 .))Footprint@C . .
+  (stmts@2,1
+   (let@4 f . . .
+    (call@F footprintOf~B
+     (dot@2 e~1 item@1)))
+   (if@,1
+    (elif@3
+     (dot@1 e~1 rotated@1)
+     (stmts@B
+      (call@6 turned~6 f@1)))
+    (else@O
+     (stmts@6 f)))))
+ (comment@,6v)
+ (proc@,6y within@5 x . .
+  (params@C
+   (param@1 inner . . Bag@E .)
+   (param@8 outer . . Bag@7 .))bool@L . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@H or
+      (call~8 isNothing~9 inner@1)
+      (call@C isNothing~9 outer@1))
+     (stmts@c
+      (ret false@7))))
+   (var@4,1 walk . . . inner@7)
+   (var@4,2 guard . . . 0@8)
+   (while@,3
+    (infix@Q and
+     (prefix~K not
+      (call@D isNothing~9 walk@1))
+     (infix@A < guard~6 64@2))
+    (stmts@2,1
+     (if
+      (elif@3
+       (call@6 isSame~6 walk@1 outer@7)
+       (stmts@L
+        (ret true@7))))
+     (asgn@5,1 walk~5
+      (call@B bagParent~9 walk@1))
+     (asgn@6,2 guard~6
+      (infix@8 \2B guard~6 1@2))))false@,7))
+ (comment@,78)
+ (proc@,7C weightIn@5 x . .
+  (params@E
+   (param@1 s . . Bag@3 .))float64@A . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (asgn@7,1 result~7 0.0@2)
+   (if@,2
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret result@7))))
+   (var@4,3 j . . . 0@4)
+   (while@,4
+    (infix@8 < j~2
+     (dot@H
+      (dot~8
+       (at~3 bags~4 i@1)entries@1)len@1))
+    (stmts@2,1
+     (let@4 e . . .
+      (at@J
+       (dot~8
+        (at~3 bags~4 i@1)entries@1)j@1))
+     (asgn@7,1 result~7
+      (infix@9 \2B result~7
+       (infix@O *
+        (dot~8
+         (call~8 itemOf~6
+          (dot@2 e~1 item@1))weight@1)
+        (call@9 float64~7
+         (dot@2 e~1 count@1)))))
+     (if@,2
+      (elif@3
+       (prefix not
+        (call@D isNothing~9
+         (dot@2 e~1 inner@1)))
+       (stmts@O
+        (asgn@7 result~7
+         (infix@9 \2B result~7
+          (call@A weightIn~8
+           (dot@2 e~1 inner@1)))))))
+     (asgn@2,3 j~2
+      (infix@4 \2B j~2 1@2))))))
+ (proc@,7N cellsTotal@5 x . .
+  (params@G
+   (param@1 s . . Bag@3 .))int@A . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret 0@7))))
+   (infix@D,2 *
+    (dot~6
+     (at~3 bags~4 i@1)wide@1)
+    (dot@9
+     (at~3 bags~4 i@1)tall@1))))
+ (proc@,7S bulkIn@5 x . .
+  (params@C
+   (param@1 s . . Bag@3 .))float64@A . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (asgn@7,1 result~7 0.0@2)
+   (if@,2
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret result@7))))
+   (var@4,3 j . . . 0@4)
+   (while@,4
+    (infix@8 < j~2
+     (dot@H
+      (dot~8
+       (at~3 bags~4 i@1)entries@1)len@1))
+    (stmts@2,1
+     (let@4 e . . .
+      (at@J
+       (dot~8
+        (at~3 bags~4 i@1)entries@1)j@1))
+     (asgn@7,1 result~7
+      (infix@9 \2B result~7
+       (infix@M *
+        (dot~6
+         (call~8 itemOf~6
+          (dot@2 e~1 item@1))bulk@1)
+        (call@9 float64~7
+         (dot@2 e~1 count@1)))))
+     (if@,2
+      (elif@3
+       (prefix not
+        (call@D isNothing~9
+         (dot@2 e~1 inner@1)))
+       (stmts@O
+        (asgn@7 result~7
+         (infix@9 \2B result~7
+          (call@8 bulkIn~6
+           (dot@2 e~1 inner@1)))))))
+     (asgn@2,3 j~2
+      (infix@4 \2B j~2 1@2))))))
+ (comment@,7d)
+ (proc@,7e cellsUsed@5 x . .
+  (params@F
+   (param@1 s . . Bag@3 .))int@A . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (asgn@7,1 result~7 0@2)
+   (if@,2
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret result@7))))
+   (var@4,3 j . . . 0@4)
+   (while@,4
+    (infix@8 < j~2
+     (dot@H
+      (dot~8
+       (at~3 bags~4 i@1)entries@1)len@1))
+    (stmts@2,1
+     (asgn@7 result~7
+      (infix@9 \2B result~7
+       (call@7 cells~5
+        (call@C footprintOn~B
+         (at@G
+          (dot~8
+           (at~3 bags~4 i@1)entries@1)j@1)))))
+     (asgn@2,1 j~2
+      (infix@4 \2B j~2 1@2))))))
+ (proc@,7r onGrid@5 . . .
+  (params@B
+   (param@1 i . . int@3 .)
+   (param@9 column . . int@P .)
+   (param@H row . . int@H .)
+   (param@M wide . . int@C .)
+   (param@S tall . . int@6 .))bool@e . .
+  (stmts@2,1
+   (infix@x and
+    (infix~Y and
+     (infix~D and
+      (infix~5 >= column~7 0@3)
+      (infix@8 >= row~4 0@3))
+     (infix@I <=
+      (infix~7 \2B column~7 wide@2)
+      (dot@A
+       (at~3 bags~4 i@1)wide@1)))
+    (infix~k,1 <=
+     (infix~7 \2B row~4 tall@2)
+     (dot@A
+      (at~3 bags~4 i@1)tall@1)))))
+ (proc@,7v overlapping@5 . . .
+  (params@G
+   (param@1 i . . int@3 .)
+   (param@9 column . . int@X .)
+   (param@H row . . int@P .)
+   (param@M wide . . int@K .)
+   (param@S tall . . int@E .)
+   (param@Y ignore . . int@8 .))bool@m . .
+  (stmts@2,1
+   (asgn@7 result~7 false@2)
+   (var@4,1 j . . . 0@4)
+   (while@,2
+    (infix@8 < j~2
+     (dot@H
+      (dot~8
+       (at~3 bags~4 i@1)entries@1)len@1))
+    (stmts@2,1
+     (let@4 e . . .
+      (at@J
+       (dot~8
+        (at~3 bags~4 i@1)entries@1)j@1))
+     (if@,1
+      (elif@3
+       (infix@6 !=
+        (dot~5 e~1 key@1)ignore@3)
+       (stmts~1,1
+        (let@4 f . . .
+         (call@F footprintOn~B e@1))
+        (let@4,1 apart . . .
+         (infix@I,1 or
+          (infix@l,~1 or
+           (infix~V or
+            (infix~C <=
+             (infix~7 \2B column~7 wide@2)
+             (dot@4 e~1 column@1))
+            (infix@L <=
+             (infix~9 \2B
+              (dot~8 e~1 column@1)
+              (dot@3 f~1 wide@1))column@3))
+           (infix~u,1 <=
+            (infix~7 \2B row~4 tall@2)
+            (dot@4 e~1 row@1)))
+          (infix@I <=
+           (infix~9 \2B
+            (dot~5 e~1 row@1)
+            (dot@3 f~1 tall@1))row@3)))
+        (if@,3
+         (elif@3
+          (prefix not apart@4)
+          (stmts@B
+           (asgn@7 result~7 true@2)))))))
+     (asgn@2,6 j~2
+      (infix@4 \2B j~2 1@2))))))
+ (comment@,87)
+ (proc@,8B roomAt@5 x . .
+  (params@C
+   (param@1 s . . Bag@3 .)
+   (param@9 column . . int@P .)
+   (param@H row . . int@H .)
+   (param@M wide . . int@C .)
+   (param@S tall . . int@6 .)
+   (param@d ignore . . . 0@9))bool@q . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret false@7))))
+   (if@,2
+    (elif@3
+     (prefix not
+      (call@A onGrid~6 i@1 column@4 row@C wide@H tall@N))
+     (stmts@e
+      (ret false@7))))
+   (prefix@,3 not
+    (call@F overlapping~B i@1 column@4 row@C wide@H tall@N ignore@T))))
+ (type@B,8H Spot~6 x . .
+  (object@2 .
+   (fld~5,3 column~6 x . int@9 .)
+   (fld@1,3 row~3 x . int@3 .)
+   (fld~4,4 rotated~7 x . bool@3 .)
+   (fld~6,5 found~5 x . bool@3 .)))
+ (const@C,8O NoSpot~6 x . .
+  (oconstr@8 Spot~4
+   (kv@7 column~6 -1@2)
+   (kv@G row~3 -1@2)
+   (kv@T rotated~7 false@2)
+   (kv@h found~5 false@2)))
+ (comment@,8Q)
+ (proc@,8T spotFor@5 x . .
+  (params@D
+   (param@1 s . . Bag@3 .)
+   (param@9 f . . Footprint@3 .)
+   (param@N ignore . . . 0@9))Spot@a . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (asgn@7,1 result~7 NoSpot@2)
+   (if@,2
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret result@7))))
+   (var@4,3 turn . . . 0@7)
+   (while@,4
+    (infix@B < turn~5 2@2)
+    (stmts@2,1
+     (var@4 shape . . . f@8)
+     (if@,1
+      (elif@3
+       (infix@5 == turn~5 1@3)
+       (stmts@B
+        (asgn@6 shape~6
+         (call@8 turned~6 f@1)))))
+     (if@,2
+      (elif@3
+       (infix@A or
+        (infix~5 == turn~5 0@3)
+        (call@B turnable~8 f@1))
+       (stmts~1,1
+        (var@4 r . . . 0@4)
+        (while@,1
+         (infix@L <=
+          (infix~D \2B r~2
+           (dot@7 shape~5 tall@1))
+          (dot@A
+           (at~3 bags~4 i@1)tall@1))
+         (stmts@2,1
+          (var@4 c . . . 0@4)
+          (while@,1
+           (infix@L <=
+            (infix~D \2B c~2
+             (dot@7 shape~5 wide@1))
+            (dot@A
+             (at~3 bags~4 i@1)wide@1))
+           (stmts@2,1
+            (if
+             (elif@3
+              (prefix not
+               (call@F overlapping~B i@1 c@4 r@7
+                (dot@F shape~5 wide@1)
+                (dot@R shape~5 tall@1)ignore@Y))
+              (stmts~1,1
+               (ret
+                (oconstr@B Spot~4
+                 (kv@7 column~6 c@2)
+                 (kv@F row~3 r@2)
+                 (kv@R rotated~7
+                  (infix@7 == turn~5 1@3))
+                 (kv@j found~5 true@2))))))
+            (asgn@2,2 c~2
+             (infix@4 \2B c~2 1@2))))
+          (asgn@2,5 r~2
+           (infix@4 \2B r~2 1@2)))))))
+     (asgn@5,B turn~5
+      (infix@7 \2B turn~5 1@2))))))
+ (comment@,8m)
+ (proc@,8n keyAtCell@5 x . .
+  (params@F
+   (param@1 s . . Bag@3 .)
+   (param@9 column . . int@D .)
+   (param@H row . . int@5 .))int@S . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (asgn@7,1 result~7 0@2)
+   (if@,2
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret result@7))))
+   (var@4,3 j . . . 0@4)
+   (while@,4
+    (infix@8 < j~2
+     (dot@H
+      (dot~8
+       (at~3 bags~4 i@1)entries@1)len@1))
+    (stmts@2,1
+     (let@4 e . . .
+      (at@J
+       (dot~8
+        (at~3 bags~4 i@1)entries@1)j@1))
+     (let@4,1 f . . .
+      (call@F footprintOn~B e@1))
+     (if@,2
+      (elif@3
+       (infix@D,1 and
+        (infix@b,~1 and
+         (infix~V and
+          (infix~C >= column~7
+           (dot@4 e~1 column@1))
+          (infix@B < column~7
+           (infix@B \2B
+            (dot~8 e~1 column@1)
+            (dot@3 f~1 wide@1))))
+         (infix~k,1 >= row~4
+          (dot@4 e~1 row@1)))
+        (infix@8 < row~4
+         (infix@8 \2B
+          (dot~5 e~1 row@1)
+          (dot@3 f~1 tall@1))))
+       (stmts@d,1
+        (asgn@7 result~7
+         (dot@3 e~1 key@1)))))
+     (asgn@2,4 j~2
+      (infix@4 \2B j~2 1@2))))))
+ (comment@,93)
+ (proc@,9A troubleTaking@5 x . .
+  (params@J
+   (param@1 s . . Bag@3 .)
+   (param@9 item . . string@6 .)
+   (param@N count . . int@7 .)
+   (param~F,1 extraWeight . . . 0.0@E)
+   (param@4,1 extraBulk . . . 0.0@C))Trouble@M,1 . .
+  (stmts@2,2
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret NoSuchContainer@7))))
+   (let@4,2 flat . . .
+    (call@I troubleWith~B
+     (dot@8
+      (at~3 bags~4 i@1)mirror@1)item@H count@N))
+   (if@,3
+    (elif@3
+     (infix@5 != flat~5 NoTrouble@3)
+     (stmts@J
+      (ret flat@7))))
+   (let@4,4 d . . .
+    (call@N containerDefinition~J
+     (dot@8
+      (at~3 bags~4 i@1)mirror@1)))
+   (let@4,5 it . . .
+    (call@B itemOf~6 item@1))
+   (if@,6
+    (elif@3
+     (infix@7 >=
+      (dot~6 d~1 load@1)0.0@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@t >
+         (infix~E \2B
+          (infix~T \2B
+           (call~4 weightIn~8 s@1)
+           (infix@C *
+            (dot~8 it~2 weight@1)
+            (call@9 float64~7 count@1)))extraWeight@2)
+         (dot@3 d~1 load@1))
+        (stmts~1,1
+         (ret TooHeavy@7)))))))
+   (if@,9
+    (elif@3
+     (infix@B >=
+      (dot~A d~1 capacity@1)0.0@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@n >
+         (infix~C \2B
+          (infix~R \2B
+           (call~4 bulkIn~6 s@1)
+           (infix@A *
+            (dot~6 it~2 bulk@1)
+            (call@9 float64~7 count@1)))extraBulk@2)
+         (dot@3 d~1 capacity@1))
+        (stmts~1,1
+         (ret NoRoom@7)))))))NoTrouble@,C))
+ (proc@,9Q roomFor@5 x . .
+  (params@D
+   (param@1 s . . Bag@3 .)
+   (param@9 item . . string@6 .)
+   (param@N count . . . 1@8))bool@Z . .
+  (stmts@2,1
+   (infix@U ==
+    (call~H troubleTaking~D s@1 item@4 count@A)NoTrouble@3)))
+ (proc@,9X openInner@5 . . .
+  (params@E
+   (param@1 item . . string@6 .)
+   (param@F parent . . Bag@8 .)
+   (param@S key . . int@5 .))Bag@d . .
+  (stmts@2,1
+   (comment)
+   (let@4,2 definition . . .
+    (call@K holdsOf~7 item@1))
+   (if@,3
+    (elif@3
+     (infix@F ==
+      (dot~5 definition~A len@1)0@3)
+     (stmts@L
+      (ret
+       (call@A Bag~3 0@1)))))
+   (let@4,4 d . . .
+    (call@C holderOf~8 definition@1))
+   (if@,5
+    (elif@3
+     (prefix not
+      (dot@5 d~1 known@1))
+     (stmts@D
+      (ret
+       (call@A Bag~3 0@1)))))
+   (let@4,6 f . . .
+    (call@A gridOf~6 definition@1))
+   (call@6,7 openIn~6 d@1
+    (dot@5 f~1 wide@1)
+    (dot@D f~1 tall@1)
+    (dot@L d~1 display@1)parent@V key@d)))
+ (proc@,9h reparent@5 . . .
+  (params@D
+   (param@1 s . . Bag@3 .)
+   (param@9 parent . . Bag@8 .)
+   (param@M key . . int@5 .)). . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret .))))
+   (var@4,2 b . . .
+    (at@8 bags~4 i@1))
+   (asgn@9,3
+    (dot~8 b~1 parent@1)parent@2)
+   (asgn@C,4
+    (dot~B b~1 parentKey@1)key@2)
+   (asgn@8,5
+    (at~4 bags~4 i@1)b@2)))
+ (comment@,9p)
+ (proc@,9s stowAt@5 x . .
+  (params@C
+   (param@1 s . . Bag@3 .)
+   (param@9 item . . string@6 .)
+   (param@N count . . int@7 .)
+   (param@Z column . . int@D .)
+   (param@h row . . int@5 .)
+   (param~8,1 rotated . . . false@A))Outcome@A,1 . .
+  (stmts@2,2
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret
+       (call@9 no~2 NoSuchContainer@1 ""@I)))))
+   (if@,2
+    (elif@3
+     (infix@6 < count~6 1@2)
+     (stmts@B
+      (ret
+       (call@9 no~2 BadCount@1 ""@B)))))
+   (let@4,3 why . . .
+    (call@J troubleTaking~D s@1 item@4 count@A))
+   (if@,4
+    (elif@3
+     (infix@4 != why~4 NoTrouble@3)
+     (stmts@I
+      (ret
+       (call@9 no~2 why@1 ""@6)))))
+   (var@4,5 f . . .
+    (call@F footprintOf~B item@1))
+   (if@,6
+    (elif@3 rotated
+     (stmts@9
+      (asgn@2 f~2
+       (call@8 turned~6 f@1)))))
+   (if@,7
+    (elif@3
+     (prefix not
+      (call@A onGrid~6 i@1 column@4 row@C
+       (dot@I f~1 wide@1)
+       (dot@Q f~1 tall@1)))
+     (stmts~1,1
+      (ret
+       (call@9 no~2 NoRoom@1
+        (infix@L,2 &
+         (infix~6 &
+          (infix~A &
+           (infix@v,~1 &
+            (infix~G &
+             (infix~9 &
+              (infix~G &
+               (infix@M,~1 &
+                (infix~A &
+                 (infix~9 &
+                  (infix~A & "a "~5
+                   (prefix@2 $
+                    (dot@2 f~1 wide@1)))" by "@2)
+                 (prefix@2 $
+                  (dot@2 f~1 tall@1)))" thing does not fit on a "~o,1)
+               (prefix@2 $
+                (dot@8
+                 (at~3 bags~4 i@1)wide@1)))" by "@2)
+             (prefix@2 $
+              (dot@8
+               (at~3 bags~4 i@1)tall@1)))" grid at "~17,1)
+           (prefix@2 $ column@1))","@2)
+         (prefix@2 $ row@1)))))))
+   (if@,B
+    (elif@3
+     (call@B overlapping~B i@1 column@4 row@C
+      (dot@I f~1 wide@1)
+      (dot@Q f~1 tall@1)0@X)
+     (stmts~1,1
+      (ret
+       (call@9 no~2 NoRoom@1 "something is already there"@9)))))
+   (let@4,D put0 . . .
+    (call@A put~3
+     (dot@8
+      (at~3 bags~4 i@1)mirror@1)item@H count@N))
+   (if@,E
+    (elif@3
+     (prefix not
+      (call@8 went~4 put0@1))
+     (stmts@G
+      (ret
+       (call@9 no~2
+        (dot@5 put0~4 trouble@1)
+        (dot@J put0~4 note@1))))))
+   (asgn@8,F nextKey~8
+    (infix@A \2B nextKey~8 1@2))
+   (let@4,G key . . . nextKey@6)
+   (var@4,H b . . .
+    (at@8 bags~4 i@1))
+   (cmd@9,I
+    (dot
+     (dot~8 b~1 entries@1)add@1)
+    (oconstr@A Entry~5
+     (kv@4 key~3 key@2)
+     (kv@F item~4 item@2)
+     (kv@S count~5 count@2)
+     (kv@h column~6 column@2)
+     (kv~E,1 row~3 row@2)
+     (kv@,1 rotated~7 rotated@2)
+     (kv@G,1 inner~5
+      (call@5 Bag~3 0@1))))
+   (asgn@8,K
+    (at~4 bags~4 i@1)b@2)
+   (let@4,L inner . . .
+    (call@H openInner~9 item@1 s@7 key@A))
+   (if@,M
+    (elif@3
+     (prefix not
+      (call@D isNothing~9 inner@1))
+     (stmts~1,1
+      (let@4 j . . .
+       (call@E indexOfKey~A i@1 key@4))
+      (var@4,1 b2 . . .
+       (at@9 bags~4 i@1))
+      (var@4,2 e . . .
+       (at@E
+        (dot~8 b2~2 entries@1)j@1))
+      (asgn@8,3
+       (dot~7 e~1 inner@1)inner@2)
+      (asgn@E,4
+       (at~4
+        (dot~8 b2~2 entries@1)j@1)e@2)
+      (asgn@8,5
+       (at~4 bags~4 i@1)b2@2))))
+   (call@2,T ok~2 count@1 key@8)))
+ (comment@,AP)
+ (proc@,AQ stow@5 x . .
+  (params@A
+   (param@1 s . . Bag@3 .)
+   (param@9 item . . string@6 .)
+   (param@N count . . . 1@8))Outcome@Z . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret
+       (call@9 no~2 NoSuchContainer@1 ""@I)))))
+   (if@,2
+    (elif@3
+     (infix@6 < count~6 1@2)
+     (stmts@B
+      (ret
+       (call@9 no~2 BadCount@1 ""@B)))))
+   (let@4,3 why . . .
+    (call@J troubleTaking~D s@1 item@4 count@A))
+   (if@,4
+    (elif@3
+     (infix@4 != why~4 NoTrouble@3)
+     (stmts@I
+      (ret
+       (call@9 no~2 why@1 ""@6)))))
+   (let@4,5 spot . . .
+    (call@E spotFor~7 s@1
+     (call@F footprintOf~B item@1)))
+   (if@,6
+    (elif@3
+     (prefix not
+      (dot@8 spot~4 found@1))
+     (stmts~1,1
+      (ret
+       (call@9 no~2 NoRoom@1
+        (infix@9,1 &
+         (infix@l,~1 &
+          (infix~N & "no hole the shape of "~O
+           (dot@E
+            (call~6 itemOf~6 item@1)display@1))" anywhere in "~11,1)
+         (dot@9
+          (at~3 bags~4 i@1)label@1)))))))
+   (call@6,9 stowAt~6 s@1 item@4 count@A
+    (dot@L spot~4 column@1)
+    (dot@Y spot~4 row@1)
+    (dot@i spot~4 rotated@1))))
+ (proc@,Ac dropEntry@5 . . .
+  (params@E
+   (param@1 i . . int@6 .)
+   (param@4 j . . int@3 .)). . .
+  (stmts@2,1
+   (var@4 b . . .
+    (at@8 bags~4 i@1))
+   (var@4,1 k . . . j@4)
+   (while@,2
+    (infix@C <
+     (infix~4 \2B k~2 1@2)
+     (dot@B
+      (dot~8 b~1 entries@1)len@1))
+    (stmts@2,1
+     (let@4 next . . .
+      (at@G
+       (dot~8 b~1 entries@1)
+       (infix@3 \2B k~2 1@2)))
+     (asgn@D,1
+      (at~4
+       (dot~8 b~1 entries@1)k@1)next@2)
+     (asgn@2,2 k~2
+      (infix@4 \2B k~2 1@2))))
+   (call@G,6
+    (dot~7
+     (dot~8 b~1 entries@1)setLen@1)
+    (infix@F \2D
+     (dot~5
+      (dot~8 b~1 entries@1)len@1)1@2))
+   (asgn@8,7
+    (at~4 bags~4 i@1)b@2)))
+ (comment@,Am)
+ (proc@,Ao closeBag@5 x . .
+  (params@E
+   (param@1 s . . Bag@3 .))Outcome@A . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret
+       (call@9 no~2 NoSuchContainer@1 ""@I)))))
+   (let@4,2 held . . .
+    (dot@M
+     (dot~8
+      (at~3 bags~4 i@1)entries@1)len@1))
+   (var@4,3 j . . . 0@4)
+   (while@,4
+    (infix@8 < j~2
+     (dot@H
+      (dot~8
+       (at~3 bags~4 i@1)entries@1)len@1))
+    (stmts@2,1
+     (let@4 inner . . .
+      (dot@Q
+       (at~3
+        (dot~8
+         (at~3 bags~4 i@1)entries@1)j@1)inner@1))
+     (if@,1
+      (elif@3
+       (prefix not
+        (call@D isNothing~9 inner@1))
+       (stmts@M
+        (discard
+         (call@G closeBag~8 inner@1)))))
+     (asgn@2,2 j~2
+      (infix@4 \2B j~2 1@2))))
+   (var@4,8 b . . .
+    (at@8 bags~4 i@1))
+   (asgn@7,9
+    (dot~6 b~1 live@1)false@2)
+   (asgn@A,A
+    (dot~9 b~1 entries@1)
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@8,B
+    (at~4 bags~4 i@1)b@2)
+   (discard@,C
+    (call@M closeContainer~E
+     (dot@2 b~1 mirror@1)))
+   (call@2,D ok~2 held@1 0@7)))
+ (comment@,B4)
+ (proc@,B7 lift@5 x . .
+  (params@A
+   (param@1 s . . Bag@3 .)
+   (param@9 key . . int@5 .))Outcome@K . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret
+       (call@9 no~2 NoSuchContainer@1 ""@I)))))
+   (let@4,2 j . . .
+    (call@E indexOfKey~A i@1 key@4))
+   (if@,3
+    (elif@3
+     (infix@2 < j~2 0@2)
+     (stmts@7
+      (ret
+       (call@9 no~2 NoSuchStack@1 "nothing here has that key"@E)))))
+   (let@4,4 e . . .
+    (at@J
+     (dot~8
+      (at~3 bags~4 i@1)entries@1)j@1))
+   (discard@,5
+    (call@C take~4
+     (dot@8
+      (at~3 bags~4 i@1)mirror@1)
+     (dot@I e~1 item@1)
+     (dot@Q e~1 count@1)))
+   (if@,6
+    (elif@3
+     (prefix not
+      (call@D isNothing~9
+       (dot@2 e~1 inner@1)))
+     (stmts@O
+      (discard
+       (call@G closeBag~8
+        (dot@2 e~1 inner@1))))))
+   (call@9,7 dropEntry~9 i@1 j@4)
+   (call@2,8 ok~2
+    (dot@2 e~1 count@1)key@A)))
+ (comment@,BI)
+ (proc@,BL turn@5 x . .
+  (params@A
+   (param@1 s . . Bag@3 .)
+   (param@9 key . . int@5 .))Outcome@K . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret
+       (call@9 no~2 NoSuchContainer@1 ""@I)))))
+   (let@4,2 j . . .
+    (call@E indexOfKey~A i@1 key@4))
+   (if@,3
+    (elif@3
+     (infix@2 < j~2 0@2)
+     (stmts@7
+      (ret
+       (call@9 no~2 NoSuchStack@1 "nothing here has that key"@E)))))
+   (var@4,4 e . . .
+    (at@J
+     (dot~8
+      (at~3 bags~4 i@1)entries@1)j@1))
+   (let@4,5 f . . .
+    (call@F footprintOf~B
+     (dot@2 e~1 item@1)))
+   (if@,6
+    (elif@3
+     (prefix not
+      (call@C turnable~8 f@1))
+     (stmts@H
+      (ret
+       (call@9 no~2 Nowhere@1 "a square thing has one way up"@A)))))
+   (var@4,7 next . . . f@7)
+   (if@,8
+    (elif@3
+     (prefix not
+      (dot@5 e~1 rotated@1))
+     (stmts@F
+      (asgn@5 next~5
+       (call@8 turned~6 f@1)))))
+   (if@,9
+    (elif@3
+     (prefix not
+      (call@A onGrid~6 i@1
+       (dot@5 e~1 column@1)
+       (dot@F e~1 row@1)
+       (dot@P next~4 wide@1)
+       (dot@a next~4 tall@1)))
+     (stmts~1,1
+      (ret
+       (call@9 no~2 NoRoom@1 "turning it would put it off the grid"@9)))))
+   (if@,B
+    (elif@3
+     (call@B overlapping~B i@1
+      (dot@5 e~1 column@1)
+      (dot@F e~1 row@1)
+      (dot@P next~4 wide@1)
+      (dot@a next~4 tall@1)key@h)
+     (stmts~1,1
+      (ret
+       (call@9 no~2 NoRoom@1 "something is in the way of turning it"@9)))))
+   (asgn@A,D
+    (dot~9 e~1 rotated@1)
+    (prefix@2 not
+     (dot@5 e~1 rotated@1)))
+   (var@4,E b . . .
+    (at@8 bags~4 i@1))
+   (asgn@D,F
+    (at~4
+     (dot~8 b~1 entries@1)j@1)e@2)
+   (asgn@8,G
+    (at~4 bags~4 i@1)b@2)
+   (call@2,H ok~2
+    (dot@2 e~1 count@1)key@A)))
+ (comment@,Bf)
+ (proc@,Bn moveTo@5 x . .
+  (params@C
+   (param@1 source . . Bag@8 .)
+   (param@E key . . int@5 .)
+   (param@O target . . Bag@8 .)
+   (param@b column . . int@D .)
+   (param@j row . . int@5 .)
+   (param~8,1 rotated . . . false@A))Outcome@A,1 . .
+  (stmts@2,2
+   (let@4 from0 . . .
+    (call@A at~2 source@1))
+   (let@4,1 to0 . . .
+    (call@8 at~2 target@1))
+   (if@,2
+    (elif@3
+     (infix@A or
+      (infix~4 < from0~6 0@2)
+      (infix@7 < to0~4 0@2))
+     (stmts@M
+      (ret
+       (call@9 no~2 NoSuchContainer@1 ""@I)))))
+   (let@4,3 j . . .
+    (call@E indexOfKey~A from0@1 key@8))
+   (if@,4
+    (elif@3
+     (infix@2 < j~2 0@2)
+     (stmts@7
+      (ret
+       (call@9 no~2 NoSuchStack@1 "nothing here has that key"@E)))))
+   (let@4,5 e . . .
+    (at@N
+     (dot~8
+      (at~7 bags~4 from0@1)entries@1)j@1))
+   (if@,6
+    (elif@3
+     (prefix not
+      (call@D isNothing~9
+       (dot@2 e~1 inner@1)))
+     (stmts~1,1
+      (if
+       (elif@3
+        (call@6 within~6 target@1
+         (dot@A e~1 inner@1))
+        (stmts~1,1
+         (ret
+          (call@9 no~2 Nowhere@1
+           (infix@X &
+            (dot~9
+             (call~8 itemOf~6
+              (dot@2 e~1 item@1))display@1)" cannot be put inside itself"~e,1)))))))))
+   (var@4,A f . . .
+    (call@F footprintOf~B
+     (dot@2 e~1 item@1)))
+   (if@,B
+    (elif@3 rotated
+     (stmts@9
+      (asgn@2 f~2
+       (call@8 turned~6 f@1)))))
+   (let@4,C sameSpace . . .
+    (infix@I == from0~6 to0@3))
+   (if@,D
+    (elif@3
+     (prefix not sameSpace@4)
+     (stmts~1,1
+      (let@4 carriedWeight . . .
+       (expr
+        (stmts@G)
+        (if@1
+         (elif@3
+          (call@9 isNothing~9
+           (dot@2 e~1 inner@1))0.0@K)
+         (else@R
+          (call@E weightIn~8
+           (dot@2 e~1 inner@1))))))
+      (let@4,1 carriedBulk . . .
+       (expr
+        (stmts@E)
+        (if@1
+         (elif@3
+          (call@9 isNothing~9
+           (dot@2 e~1 inner@1))0.0@K)
+         (else@R
+          (call@C bulkIn~6
+           (dot@2 e~1 inner@1))))))
+      (let@4,2 why . . .
+       (call@J troubleTaking~D target@1
+        (dot@A e~1 item@1)
+        (dot@I e~1 count@1)carriedWeight@Q carriedBulk@f))
+      (if@,3
+       (elif@3
+        (infix@4 != why~4 NoTrouble@3)
+        (stmts@I
+         (ret
+          (call@9 no~2 why@1 ""@6))))))))
+   (if@,I
+    (elif@3
+     (prefix not
+      (call@A onGrid~6 to0@1 column@6 row@E
+       (dot@K f~1 wide@1)
+       (dot@S f~1 tall@1)))
+     (stmts~1,1
+      (ret
+       (call@9 no~2 NoRoom@1
+        (infix@d,2 &
+         (infix~6 &
+          (infix~A &
+           (infix~E &
+            (infix@d,~1 &
+             (infix~9 &
+              (infix~I &
+               (infix@M,~1 &
+                (infix~A &
+                 (infix~9 &
+                  (infix~A & "a "~5
+                   (prefix@2 $
+                    (dot@2 f~1 wide@1)))" by "@2)
+                 (prefix@2 $
+                  (dot@2 f~1 tall@1)))" thing does not fit on a "~o,1)
+               (prefix@2 $
+                (dot@A
+                 (at~5 bags~4 to0@1)wide@1)))" by "@2)
+             (prefix~t,1 $
+              (dot@A
+               (at~5 bags~4 to0@1)tall@1)))" grid at "@2)
+           (prefix@2 $ column@1))","@2)
+         (prefix@2 $ row@1)))))))
+   (if@,M
+    (elif@3
+     (call@B overlapping~B to0@1 column@6 row@E
+      (dot@K f~1 wide@1)
+      (dot@S f~1 tall@1)key@Z)
+     (stmts~1,1
+      (ret
+       (call@9 no~2 NoRoom@1 "something is already there"@9)))))
+   (if@,O
+    (elif@3 sameSpace
+     (stmts~1,1
+      (var@4 b . . .
+       (at@8 bags~4 from0@1))
+      (var@4,1 moved . . .
+       (at@H
+        (dot~8 b~1 entries@1)j@1))
+      (asgn@D,2
+       (dot~8 moved~5 column@1)column@2)
+      (asgn@A,3
+       (dot~5 moved~5 row@1)row@2)
+      (asgn@E,4
+       (dot~9 moved~5 rotated@1)rotated@2)
+      (asgn@D,5
+       (at~4
+        (dot~8 b~1 entries@1)j@1)moved@2)
+      (asgn@C,6
+       (at~8 bags~4 from0@1)b@2)
+      (ret@,7
+       (call@9 ok~2
+        (dot@2 e~1 count@1)key@A)))))
+   (discard@,X
+    (call@C take~4
+     (dot@C
+      (at~7 bags~4 from0@1)mirror@1)
+     (dot@M e~1 item@1)
+     (dot@U e~1 count@1)))
+   (call@9,Y dropEntry~9 from0@1 j@8)
+   (let@4,Z landed . . .
+    (call@C put~3
+     (dot@A
+      (at~5 bags~4 to0@1)mirror@1)
+     (dot@K e~1 item@1)
+     (dot@S e~1 count@1)))
+   (if@,a
+    (elif@3
+     (prefix not
+      (call@8 went~4 landed@1))
+     (stmts~1,4
+      (discard
+       (call@B put~3
+        (dot@C
+         (at~7 bags~4 from0@1)mirror@1)
+        (dot@M e~1 item@1)
+        (dot@U e~1 count@1)))
+      (var@4,1 back . . .
+       (at@B bags~4 from0@1))
+      (cmd@C,2
+       (dot
+        (dot~8 back~4 entries@1)add@1)e@5)
+      (asgn@C,3
+       (at~8 bags~4 from0@1)back@2)
+      (ret@,4
+       (call@9 no~2
+        (dot@7 landed~6 trouble@1)
+        (dot@N landed~6 note@1))))))
+   (var@4,j moved . . . e@8)
+   (asgn@D,k
+    (dot~8 moved~5 column@1)column@2)
+   (asgn@A,l
+    (dot~5 moved~5 row@1)row@2)
+   (asgn@E,m
+    (dot~9 moved~5 rotated@1)rotated@2)
+   (var@4,n b . . .
+    (at@8 bags~4 to0@1))
+   (cmd@9,o
+    (dot
+     (dot~8 b~1 entries@1)add@1)moved@5)
+   (asgn@A,p
+    (at~6 bags~4 to0@1)b@2)
+   (if@,q
+    (elif@3
+     (prefix not
+      (call@D isNothing~9
+       (dot@6 moved~5 inner@1)))
+     (stmts@S
+      (call@8 reparent~8
+       (dot@6 moved~5 inner@1)target@E key@M))))
+   (call@2,r ok~2
+    (dot@2 e~1 count@1)key@A)))
+ (comment@,Ci)
+ (proc@,Ck sendTo@5 x . .
+  (params@C
+   (param@1 source . . Bag@8 .)
+   (param@E key . . int@5 .)
+   (param@O target . . Bag@8 .))Outcome@c . .
+  (stmts@2,1
+   (let@4 from0 . . .
+    (call@A at~2 source@1))
+   (if@,1
+    (elif@3
+     (infix@6 < from0~6 0@2)
+     (stmts@B
+      (ret
+       (call@9 no~2 NoSuchContainer@1 ""@I)))))
+   (let@4,2 j . . .
+    (call@E indexOfKey~A from0@1 key@8))
+   (if@,3
+    (elif@3
+     (infix@2 < j~2 0@2)
+     (stmts@7
+      (ret
+       (call@9 no~2 NoSuchStack@1 "nothing here has that key"@E)))))
+   (let@4,4 e . . .
+    (at@N
+     (dot~8
+      (at~7 bags~4 from0@1)entries@1)j@1))
+   (let@4,5 ignore . . .
+    (expr
+     (stmts@9)
+     (if@1
+      (elif@3
+       (call@6 isSame~6 source@1 target@9)key@O)
+      (else@V 0@6))))
+   (let@4,6 spot . . .
+    (call@E spotFor~7 target@1
+     (call@K footprintOf~B
+      (dot@2 e~1 item@1))ignore@U))
+   (if@,7
+    (elif@3
+     (prefix not
+      (dot@8 spot~4 found@1))
+     (stmts~1,1
+      (ret
+       (call@9 no~2 NoRoom@1
+        (infix@,1 &
+         (infix@w,~1 &
+          (infix~P & "no hole the shape of "~O
+           (dot@G
+            (call~8 itemOf~6
+             (dot@2 e~1 item@1))display@1))" in "~13,1)
+         (call@A bagLabel~8 target@1)))))))
+   (call@6,A moveTo~6 source@1 key@9 target@E
+    (dot@Q spot~4 column@1)
+    (dot@d spot~4 row@1)
+    (dot@n spot~4 rotated@1))))
+ (comment@,Cx)
+ (proc@,D0 splitOff@5 x . .
+  (params@E
+   (param@1 s . . Bag@3 .)
+   (param@9 key . . int@C .)
+   (param@E count . . int@7 .))Outcome@R . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret
+       (call@9 no~2 NoSuchContainer@1 ""@I)))))
+   (if@,2
+    (elif@3
+     (infix@6 < count~6 1@2)
+     (stmts@B
+      (ret
+       (call@9 no~2 BadCount@1 ""@B)))))
+   (let@4,3 j . . .
+    (call@E indexOfKey~A i@1 key@4))
+   (if@,4
+    (elif@3
+     (infix@2 < j~2 0@2)
+     (stmts@7
+      (ret
+       (call@9 no~2 NoSuchStack@1 "nothing here has that key"@E)))))
+   (var@4,5 e . . .
+    (at@J
+     (dot~8
+      (at~3 bags~4 i@1)entries@1)j@1))
+   (if@,6
+    (elif@3
+     (prefix not
+      (call@D isNothing~9
+       (dot@2 e~1 inner@1)))
+     (stmts~1,1
+      (ret
+       (call@9 no~2 Nowhere@1 "a container is one thing and does not split"@A)))))
+   (if@,8
+    (elif@3
+     (infix@6 >= count~6
+      (dot@4 e~1 count@1))
+     (stmts@I
+      (ret
+       (call@9 no~2 NotEnough@1 "a split has to leave something behind"@C)))))
+   (let@4,9 spot . . .
+    (call@E spotFor~7 s@1
+     (call@F footprintOf~B
+      (dot@2 e~1 item@1))0@P))
+   (if@,A
+    (elif@3
+     (prefix not
+      (dot@8 spot~4 found@1))
+     (stmts@G
+      (ret
+       (call@9 no~2 NoRoom@1 "nowhere to put the other half"@9)))))
+   (asgn@8,B
+    (dot~7 e~1 count@1)
+    (infix@A \2D
+     (dot~7 e~1 count@1)count@2))
+   (var@4,C b . . .
+    (at@8 bags~4 i@1))
+   (asgn@D,D
+    (at~4
+     (dot~8 b~1 entries@1)j@1)e@2)
+   (asgn@8,E
+    (at~4 bags~4 i@1)b@2)
+   (asgn@8,F nextKey~8
+    (infix@A \2B nextKey~8 1@2))
+   (let@4,G fresh . . . nextKey@8)
+   (var@4,H b2 . . .
+    (at@9 bags~4 i@1))
+   (cmd@A,I
+    (dot
+     (dot~8 b2~2 entries@1)add@1)
+    (oconstr@A Entry~5
+     (kv@4 key~3 fresh@2)
+     (kv@H item~4
+      (dot@3 e~1 item@1))
+     (kv@W count~5 count@2)
+     (kv~C,1 column~6
+      (dot@6 spot~4 column@1))
+     (kv@6,1 row~3
+      (dot@6 spot~4 row@1))
+     (kv@P,1 rotated~7
+      (dot@6 spot~4 rotated@1))
+     (kv~D,2 inner~5
+      (call@5 Bag~3 0@1))))
+   (asgn@8,L
+    (at~4 bags~4 i@1)b2@2)
+   (call@2,M ok~2 count@1 fresh@8)))
+ (comment@,DP)
+ (proc@,DS mergeInto@5 x . .
+  (params@F
+   (param@1 s . . Bag@3 .)
+   (param@9 key . . int@B .)
+   (param@E onto . . int@6 .))Outcome@Q . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret
+       (call@9 no~2 NoSuchContainer@1 ""@I)))))
+   (if@,2
+    (elif@3
+     (infix@4 == key~4 onto@3)
+     (stmts@D
+      (ret
+       (call@9 no~2 Nowhere@1 ""@A)))))
+   (let@4,3 a . . .
+    (call@E indexOfKey~A i@1 key@4))
+   (let@4,4 b0 . . .
+    (call@F indexOfKey~A i@1 onto@4))
+   (if@,5
+    (elif@3
+     (infix@6 or
+      (infix~4 < a~2 0@2)
+      (infix@6 < b0~3 0@2))
+     (stmts@H
+      (ret
+       (call@9 no~2 NoSuchStack@1 "nothing here has that key"@E)))))
+   (var@4,6 source . . .
+    (at@O
+     (dot~8
+      (at~3 bags~4 i@1)entries@1)a@1))
+   (var@4,7 target . . .
+    (at@O
+     (dot~8
+      (at~3 bags~4 i@1)entries@1)b0@1))
+   (if@,8
+    (elif@3
+     (infix@C !=
+      (dot~6 source~6 item@1)
+      (dot@9 target~6 item@1))
+     (stmts~1,1
+      (ret
+       (call@9 no~2 NotAccepted@1 "those are not the same thing"@E)))))
+   (if@,A
+    (elif@3
+     (infix@S or
+      (prefix~S not
+       (call@D isNothing~9
+        (dot@7 source~6 inner@1)))
+      (prefix@3 not
+       (call@D isNothing~9
+        (dot@7 target~6 inner@1))))
+     (stmts~1,1
+      (ret
+       (call@9 no~2 Nowhere@1 "two containers do not pour into one another"@A)))))
+   (let@4,C it . . .
+    (call@B itemOf~6
+     (dot@7 source~6 item@1)))
+   (let@4,D per . . .
+    (expr
+     (stmts@6)
+     (if@1
+      (elif@3
+       (infix@9 <
+        (dot~7 it~2 stack@1)1@2)1@E)
+      (else@J
+       (dot@8 it~2 stack@1)))))
+   (let@4,E room . . .
+    (infix@B \2D per~4
+     (dot@8 target~6 count@1)))
+   (if@,F
+    (elif@3
+     (infix@5 < room~5 1@2)
+     (stmts@A
+      (ret
+       (call@9 no~2 NoRoom@1 "that stack is already full"@9)))))
+   (var@4,G moved . . . room@8)
+   (if@,H
+    (elif@3
+     (infix@D <
+      (dot~7 source~6 count@1)moved@2)
+     (stmts@M
+      (asgn@6 moved~6
+       (dot@8 source~6 count@1)))))
+   (asgn@D,I
+    (dot~7 target~6 count@1)
+    (infix@F \2B
+     (dot~7 target~6 count@1)moved@2))
+   (asgn@D,J
+    (dot~7 source~6 count@1)
+    (infix@F \2D
+     (dot~7 source~6 count@1)moved@2))
+   (var@4,K bag . . .
+    (at@A bags~4 i@1))
+   (asgn@G,L
+    (at~5
+     (dot~8 bag~3 entries@1)b0@1)target@2)
+   (if@,M
+    (elif@3
+     (infix@D <
+      (dot~7 source~6 count@1)1@2)
+     (stmts~1,1
+      (asgn@F
+       (at~4
+        (dot~8 bag~3 entries@1)a@1)source@2)
+      (asgn@8,1
+       (at~4 bags~4 i@1)bag@2)
+      (call@9,2 dropEntry~9 i@1 a@4)))
+    (else@,4
+     (stmts@2,1
+      (asgn@F
+       (at~4
+        (dot~8 bag~3 entries@1)a@1)source@2)
+      (asgn@8,1
+       (at~4 bags~4 i@1)bag@2))))
+   (call@2,T ok~2 moved@1 onto@8)))
+ (comment@,Dy)
+ (proc@,E2 pourOnto@5 x . .
+  (params@E
+   (param@1 source . . Bag@8 .)
+   (param@E key . . int@5 .)
+   (param@O target . . Bag@8 .)
+   (param@b onto . . int@6 .))Outcome@n . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@6 isSame~6 source@1 target@9)
+     (stmts@O
+      (ret
+       (call@G mergeInto~9 source@1 key@9 onto@E)))))
+   (let@4,1 from0 . . .
+    (call@A at~2 source@1))
+   (let@4,2 to0 . . .
+    (call@8 at~2 target@1))
+   (if@,3
+    (elif@3
+     (infix@A or
+      (infix~4 < from0~6 0@2)
+      (infix@7 < to0~4 0@2))
+     (stmts@M
+      (ret
+       (call@9 no~2 NoSuchContainer@1 ""@I)))))
+   (let@4,4 a . . .
+    (call@E indexOfKey~A from0@1 key@8))
+   (let@4,5 b0 . . .
+    (call@F indexOfKey~A to0@1 onto@6))
+   (if@,6
+    (elif@3
+     (infix@6 or
+      (infix~4 < a~2 0@2)
+      (infix@6 < b0~3 0@2))
+     (stmts@H
+      (ret
+       (call@9 no~2 NoSuchStack@1 "nothing here has that key"@E)))))
+   (var@4,7 give . . .
+    (at@Q
+     (dot~8
+      (at~7 bags~4 from0@1)entries@1)a@1))
+   (var@4,8 takeOn . . .
+    (at@Q
+     (dot~8
+      (at~5 bags~4 to0@1)entries@1)b0@1))
+   (if@,9
+    (elif@3
+     (infix@A !=
+      (dot~6 give~4 item@1)
+      (dot@9 takeOn~6 item@1))
+     (stmts~1,1
+      (ret
+       (call@9 no~2 NotAccepted@1 "those are not the same thing"@E)))))
+   (if@,B
+    (elif@3
+     (infix@Q or
+      (prefix~Q not
+       (call@D isNothing~9
+        (dot@5 give~4 inner@1)))
+      (prefix@3 not
+       (call@D isNothing~9
+        (dot@7 takeOn~6 inner@1))))
+     (stmts~1,1
+      (ret
+       (call@9 no~2 Nowhere@1 "two containers do not pour into one another"@A)))))
+   (let@4,D it . . .
+    (call@B itemOf~6
+     (dot@5 give~4 item@1)))
+   (let@4,E per . . .
+    (expr
+     (stmts@6)
+     (if@1
+      (elif@3
+       (infix@9 <
+        (dot~7 it~2 stack@1)1@2)1@E)
+      (else@J
+       (dot@8 it~2 stack@1)))))
+   (let@4,F room . . .
+    (infix@B \2D per~4
+     (dot@8 takeOn~6 count@1)))
+   (if@,G
+    (elif@3
+     (infix@5 < room~5 1@2)
+     (stmts@A
+      (ret
+       (call@9 no~2 NoRoom@1 "that stack is already full"@9)))))
+   (var@4,H moved . . . room@8)
+   (if@,I
+    (elif@3
+     (infix@B <
+      (dot~7 give~4 count@1)moved@2)
+     (stmts@K
+      (asgn@6 moved~6
+       (dot@6 give~4 count@1)))))
+   (let@4,J why . . .
+    (call@J troubleTaking~D target@1
+     (dot@D give~4 item@1)moved@K))
+   (if@,K
+    (elif@3
+     (infix@4 != why~4 NoTrouble@3)
+     (stmts@I
+      (ret
+       (call@9 no~2 why@1 ""@6)))))
+   (discard@,L
+    (call@C take~4
+     (dot@C
+      (at~7 bags~4 from0@1)mirror@1)
+     (dot@P give~4 item@1)moved@W))
+   (let@4,M landed . . .
+    (call@C put~3
+     (dot@A
+      (at~5 bags~4 to0@1)mirror@1)
+     (dot@N give~4 item@1)moved@U))
+   (if@,N
+    (elif@3
+     (prefix not
+      (call@8 went~4 landed@1))
+     (stmts~1,1
+      (discard
+       (call@B put~3
+        (dot@C
+         (at~7 bags~4 from0@1)mirror@1)
+        (dot@P give~4 item@1)moved@W))
+      (ret@,1
+       (call@9 no~2
+        (dot@7 landed~6 trouble@1)
+        (dot@N landed~6 note@1))))))
+   (asgn@D,Q
+    (dot~7 takeOn~6 count@1)
+    (infix@F \2B
+     (dot~7 takeOn~6 count@1)moved@2))
+   (asgn@B,R
+    (dot~7 give~4 count@1)
+    (infix@D \2D
+     (dot~7 give~4 count@1)moved@2))
+   (var@4,S bagTo . . .
+    (at@C bags~4 to0@1))
+   (asgn@I,T
+    (at~5
+     (dot~8 bagTo~5 entries@1)b0@1)takeOn@2)
+   (asgn@A,U
+    (at~6 bags~4 to0@1)bagTo@2)
+   (var@4,V bagFrom . . .
+    (at@E bags~4 from0@1))
+   (asgn@J,W
+    (at~4
+     (dot~8 bagFrom~7 entries@1)a@1)give@2)
+   (asgn@C,X
+    (at~8 bags~4 from0@1)bagFrom@2)
+   (if@,Y
+    (elif@3
+     (infix@B <
+      (dot~7 give~4 count@1)1@2)
+     (stmts@G
+      (call@9 dropEntry~9 from0@1 a@8))))
+   (call@2,Z ok~2 moved@1 onto@8)))
+ (comment@,Ee)
+ (iterator@,Ef contentsOf@9 x . .
+  (params@K
+   (param@1 s . . Bag@3 .))Entry@A
+  (pragmas@a sideEffect@2).
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (if@,1
+    (elif@3
+     (infix@2 >= i~2 0@3)
+     (stmts~1,1
+      (var@4 j . . . 0@4)
+      (while@,1
+       (infix@8 < j~2
+        (dot@H
+         (dot~8
+          (at~3 bags~4 i@1)entries@1)len@1))
+       (stmts@2,1
+        (yld
+         (at@L
+          (dot~8
+           (at~3 bags~4 i@1)entries@1)j@1))
+        (asgn@2,1 j~2
+         (infix@4 \2B j~2 1@2)))))))))
+ (comment@,En)
+ (proc@,Ep arrangementOf@5 x . .
+  (params@J
+   (param@1 s . . Bag@3 .))string@A . .
+  (stmts@2,1
+   (let@4 i . . .
+    (call@6 at~2 s@1))
+   (asgn@7,1 result~7 ""@2)
+   (if@,2
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret result@7))))
+   (var@4,3 j . . . 0@4)
+   (while@,4
+    (infix@8 < j~2
+     (dot@H
+      (dot~8
+       (at~3 bags~4 i@1)entries@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 > j~2 0@2)
+       (stmts@7
+        (asgn@7 result~7
+         (infix@9 & result~7 " "@2)))))
+     (let@4,1 e . . .
+      (at@J
+       (dot~8
+        (at~3 bags~4 i@1)entries@1)j@1))
+     (asgn@7,2 result~7
+      (infix@g &
+       (infix~6 &
+        (infix~C &
+         (infix~6 &
+          (infix~9 & result~7
+           (dot@3 e~1 item@1))"\40"@2)
+         (prefix@2 $
+          (dot@2 e~1 column@1)))","@2)
+       (prefix@2 $
+        (dot@2 e~1 row@1))))
+     (let@4,3 f . . .
+      (call@F footprintOn~B e@1))
+     (asgn@7,4 result~7
+      (infix@V &
+       (infix~6 &
+        (infix~A &
+         (infix~6 & result~7 "/"@2)
+         (prefix@2 $
+          (dot@2 f~1 wide@1)))"x"@2)
+       (prefix@2 $
+        (dot@2 f~1 tall@1))))
+     (if@,5
+      (elif@3
+       (infix@8 >
+        (dot~7 e~1 count@1)1@2)
+       (stmts@D
+        (asgn@7 result~7
+         (infix@F &
+          (infix~6 & result~7 "*"@2)
+          (prefix@2 $
+           (dot@2 e~1 count@1)))))))
+     (if@,6
+      (elif@3
+       (prefix not
+        (call@D isNothing~9
+         (dot@2 e~1 inner@1)))
+       (stmts~1,1
+        (asgn@7 result~7
+         (infix@e &
+          (infix~P &
+           (infix~6 & result~7 "\5B"@2)
+           (call@F arrangementOf~D
+            (dot@2 e~1 inner@1)))"\5D"@2)))))
+     (asgn@2,8 j~2
+      (infix@4 \2B j~2 1@2)))))))

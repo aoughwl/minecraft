@@ -1,0 +1,873 @@
+(.nif27)
+(.indexat 21494            )
+(stmts@,1,../../../../Packages/com.aoughwl.jester/ModSdk/color.nim
+ (const@G,1S :strlit.0.I6105018409752412263. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 16)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "0123456789abcdef")))
+ (type@C,I :Color.0.~7 .
+  (object@2 .
+   (fld~B,1 :r.0~1 .
+    (f@F 64))
+   (fld~7,1 :g.0~1 .
+    (f@B 64))
+   (fld~3,1 :b.0~1 .
+    (f@7 64))
+   (fld@1,1 :a.0~1 .
+    (f@3 64))))
+ (proc@,L :rgb.0.@5
+  (params@9
+   (param@1 :r.0 .
+    (f@9 64))
+   (param@4 :g.0 .
+    (f@6 64))
+   (param@7 :b.0 .
+    (f@3 64))
+   (param@J :a.0 .
+    (f~A,~2 64)))Color.0.@T
+  (pragmas
+   (smry
+    (param 0 0 reads)
+    (param 1 1 reads)
+    (param 2 2 reads)
+    (param 3 3 reads)))
+  (stmts@k
+   (var@5 :result.0 . Color.0.~M .)
+   (asgn@5 result.0
+    (oconstr Color.0.~M
+     (kv@2 r.0~1 r.0@2)
+     (kv@8 g.0~1 g.0@2)
+     (kv@E b.0~1 b.0@2)
+     (kv@K a.0~1 a.0@2)))
+   (ret~k result.0)))
+ (proc@,N :grey.0.@5
+  (params@A
+   (param@1 :level.0 .
+    (f@7 64))
+   (param@H :a.1 .
+    (f~9,~4 64)))Color.0.@R
+  (pragmas
+   (smry
+    (param 0 0 reads)
+    (param 1 1 reads)))
+  (stmts@j
+   (var@5 :result.1 . Color.0.~L,~2 .)
+   (asgn@5 result.1
+    (oconstr Color.0.~L,~2
+     (kv@2 r.0~1 level.0@2)
+     (kv@C g.0~1 level.0@2)
+     (kv@M b.0~1 level.0@2)
+     (kv@W a.0~1 a.1@2)))
+   (ret~j result.1)))
+ (const@7,Q :White.0.~5 . Color.0.@M,~5
+  (oconstr@9 Color.0.@D,~5
+   (kv@2 r.0~1 1.0@2)
+   (kv@A g.0~1 1.0@2)
+   (kv@I b.0~1 1.0@2)
+   (kv@Q a.0~1 1.0@2)))
+ (const@7,R :Black.0.~5 . Color.0.@M,~6
+  (oconstr@9 Color.0.@D,~6
+   (kv@2 r.0~1 0.0@2)
+   (kv@A g.0~1 0.0@2)
+   (kv@I b.0~1 0.0@2)
+   (kv@Q a.0~1 1.0@2)))
+ (const@7,S :Clear.0.~5 . Color.0.@M,~7
+  (oconstr@9 Color.0.@D,~7
+   (kv@2 r.0~1 0.0@2)
+   (kv@A g.0~1 0.0@2)
+   (kv@I b.0~1 0.0@2)
+   (kv@Q a.0~1 0.0@2)))
+ (proc@,U :==.0.@5
+  (params@A
+   (param@1 :a.2 .
+    (ptr@6 Color.0.))
+   (param@4 :b.1 .
+    (ptr@3 Color.0.)))
+  (bool@F)
+  (pragmas
+   (smry
+    (param 0 0 reads)
+    (param 1 1 reads)))
+  (stmts@2,1
+   (var@f :result.2 .
+    (bool~S,~1).)
+   (var@f :`x.3 .
+    (bool).)
+   (var@Q :`x.4 .
+    (bool).)
+   (var@B :`x.5 .
+    (bool).)
+   (if@B
+    (elif
+     (eq~7
+      (dot~3
+       (deref~1 a.2)r.0 0)
+      (dot@4
+       (deref~1 b.1)r.0 0))
+     (stmts
+      (asgn@8 `x.5
+       (eq
+        (dot~3
+         (deref~1 a.2)g.0 0)
+        (dot@4
+         (deref~1 b.1)g.0 0)))))
+    (else
+     (stmts
+      (asgn `x.5
+       (false)))))
+   (if@Q
+    (elif `x.5~F
+     (stmts
+      (asgn@8 `x.4
+       (eq
+        (dot~3
+         (deref~1 a.2)b.0 0)
+        (dot@4
+         (deref~1 b.1)b.0 0)))))
+    (else
+     (stmts
+      (asgn `x.4
+       (false)))))
+   (if@f
+    (elif `x.4~F
+     (stmts
+      (asgn@8 `x.3
+       (eq
+        (dot~3
+         (deref~1 a.2)a.0 0)
+        (dot@4
+         (deref~1 b.1)a.0 0)))))
+    (else
+     (stmts
+      (asgn `x.3
+       (false)))))
+   (asgn@f result.2 `x.3)
+   (ret~2,~1 result.2)))
+ (proc@,X :withAlpha.0.@5
+  (params@F
+   (param@1 :c.0 .
+    (ptr@3 Color.0.))
+   (param@B :a.3 .
+    (f@3 64)))Color.0.@O
+  (pragmas
+   (smry
+    (param 0 0 reads)
+    (param 1 1 reads)))
+  (stmts@l
+   (var@5 :result.3 . Color.0.~N,~C .)
+   (asgn@5 result.3
+    (oconstr Color.0.~N,~C
+     (kv@2 r.0~1
+      (dot@3
+       (deref~1 c.0)r.0 0))
+     (kv@A g.0~1
+      (dot@3
+       (deref~1 c.0)g.0 0))
+     (kv@I b.0~1
+      (dot@3
+       (deref~1 c.0)b.0 0))
+     (kv@Q a.0~1 a.3@2)))
+   (ret~l result.3)))
+ (proc@,Z :dimmed.0.@5
+  (params@C
+   (param@1 :c.1 .
+    (ptr@3 Color.0.))
+   (param@B :by.0 .
+    (f@4 64)))Color.0.@P
+  (pragmas
+   (smry
+    (param 0 0 reads)
+    (param 1 1 reads)))
+  (stmts@2,1
+   (var@5 :result.4 . Color.0.@M,~F .)
+   (asgn@5 result.4
+    (oconstr Color.0.@M,~F
+     (kv@2 r.0~1
+      (mul@6
+       (f 64)
+       (dot~3
+        (deref~1 c.1)r.0 0)by.0@2))
+     (kv@F g.0~1
+      (mul@6
+       (f 64)
+       (dot~3
+        (deref~1 c.1)g.0 0)by.0@2))
+     (kv@S b.0~1
+      (mul@6
+       (f 64)
+       (dot~3
+        (deref~1 c.1)b.0 0)by.0@2))
+     (kv@f a.0~1
+      (dot@3
+       (deref~1 c.1)a.0 0))))
+   (ret~2,~1 result.4)))
+ (proc@,b :lerp.0.@5
+  (params@A
+   (param@1 :a.4 .
+    (ptr@6 Color.0.))
+   (param@4 :b.2 .
+    (ptr@3 Color.0.))
+   (param@E :t.0 .
+    (f@3 64)))Color.0.@R
+  (pragmas
+   (smry
+    (param 0 0 reads)
+    (param 1 1 reads)
+    (param 2 2 reads)))
+  (stmts@2,1
+   (var@5 :result.5 . Color.0.@M,~H .)
+   (asgn@5 result.5
+    (oconstr Color.0.@M,~H
+     (kv@2 r.0~1
+      (add@6
+       (f 64)
+       (dot~3
+        (deref~1 a.4)r.0 0)
+       (mul@E
+        (f 64)
+        (sub~7
+         (f 64)
+         (dot~3
+          (deref~1 b.2)r.0 0)
+         (dot@3
+          (deref~1 a.4)r.0 0))t.0@2)))
+     (kv@S g.0~1
+      (add@6
+       (f 64)
+       (dot~3
+        (deref~1 a.4)g.0 0)
+       (mul@E
+        (f 64)
+        (sub~7
+         (f 64)
+         (dot~3
+          (deref~1 b.2)g.0 0)
+         (dot@3
+          (deref~1 a.4)g.0 0))t.0@2)))
+     (kv~2,1 b.0~1
+      (add@6
+       (f 64)
+       (dot~3
+        (deref~1 a.4)b.0 0)
+       (mul@E
+        (f 64)
+        (sub~7
+         (f 64)
+         (dot~3
+          (deref~1 b.2)b.0 0)
+         (dot@3
+          (deref~1 a.4)b.0 0))t.0@2)))
+     (kv@O,1 a.0~1
+      (add@6
+       (f 64)
+       (dot~3
+        (deref~1 a.4)a.0 0)
+       (mul@E
+        (f 64)
+        (sub~7
+         (f 64)
+         (dot~3
+          (deref~1 b.2)a.0 0)
+         (dot@3
+          (deref~1 a.4)a.0 0))t.0@2)))))
+   (ret~2,~1 result.5)))
+ (proc@,f :nibble.0.@5
+  (params@B
+   (param@1 :c.2 .
+    (c@3 8)))
+  (i@B 64)
+  (pragmas
+   (smry
+    (param 0 0 reads)))
+  (stmts@2,1
+   (var :result.6 .
+    (i@9,~1 64).)
+   (var :`x.0 .
+    (i 64).)
+   (case c.2@5
+    (of@,1
+     (ranges@3 '0')
+     (stmts@,~1
+      (asgn@8,1 `x.0 0)))
+    (of@,2
+     (ranges@3 '1')
+     (stmts@,~2
+      (asgn@8,2 `x.0 1)))
+    (of@,3
+     (ranges@3 '2')
+     (stmts@,~3
+      (asgn@8,3 `x.0 2)))
+    (of@,4
+     (ranges@3 '3')
+     (stmts@,~4
+      (asgn@8,4 `x.0 3)))
+    (of@,5
+     (ranges@3 '4')
+     (stmts@,~5
+      (asgn@8,5 `x.0 4)))
+    (of@,6
+     (ranges@3 '5')
+     (stmts@,~6
+      (asgn@8,6 `x.0 5)))
+    (of@,7
+     (ranges@3 '6')
+     (stmts@,~7
+      (asgn@8,7 `x.0 6)))
+    (of@,8
+     (ranges@3 '7')
+     (stmts@,~8
+      (asgn@8,8 `x.0 7)))
+    (of@,9
+     (ranges@3 '8')
+     (stmts@,~9
+      (asgn@8,9 `x.0 8)))
+    (of@,A
+     (ranges@3 '9')
+     (stmts@,~A
+      (asgn@8,A `x.0 9)))
+    (of@,B
+     (ranges@3 'a' 'A'@5)
+     (stmts@,~B
+      (asgn@D,B `x.0 10)))
+    (of@,C
+     (ranges@3 'b' 'B'@5)
+     (stmts@,~C
+      (asgn@D,C `x.0 11)))
+    (of@,D
+     (ranges@3 'c' 'C'@5)
+     (stmts@,~D
+      (asgn@D,D `x.0 12)))
+    (of@,E
+     (ranges@3 'd' 'D'@5)
+     (stmts@,~E
+      (asgn@D,E `x.0 13)))
+    (of@,F
+     (ranges@3 'e' 'E'@5)
+     (stmts@,~F
+      (asgn@D,F `x.0 14)))
+    (of@,G
+     (ranges@3 'f' 'F'@5)
+     (stmts@,~G
+      (asgn@D,G `x.0 15)))
+    (else@,H
+     (stmts@,~H
+      (asgn@6,H `x.0 -1))))
+   (asgn result.6 `x.0)
+   (ret~2,~1 result.6)))
+ (proc@,z :byteAt.0.@5
+  (params@B
+   (param@1 :text.0 . string.0.sysvq0asl@6)
+   (param@F :index.0 .
+    (i@7 64)))
+  (f@S 64)
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads writes escapes)
+    (param 1 0 reads writes escapes)))
+  (stmts@2,1
+   (var@4 :result.7 .
+    (f@C,~h 64).)
+   (var@G :`x.6 .
+    (c@L,6V,../../../../../../nimony/lib/std/system/stringimpl.nim 8)
+    (call \5B\5D.9.sysvq0asl text.0 index.0@5))
+   (var@4 :hi.0 .
+    (i@5,~L 64)
+    (call@B nibble.0.~6 `x.6@1))
+   (var@G,1 :`x.7 .
+    (c@L,6V,../../../../../../nimony/lib/std/system/stringimpl.nim 8)
+    (call \5B\5D.9.sysvq0asl text.0
+     (add@B
+      (i 64)index.0~6 1@2)))
+   (var@4,1 :lo.0 .
+    (i@5,~M 64)
+    (call@B nibble.0.~6 `x.7@1))
+   (var@,2 :`x.1 .
+    (f 64).)
+   (var@A,2 :`x.8 .
+    (bool).)
+   (if@A,2
+    (elif
+     (lt~4 hi.0~3 0@2)
+     (stmts
+      (asgn `x.8
+       (true))))
+    (else
+     (stmts
+      (asgn@6 `x.8
+       (lt lo.0~3 0@2)))))
+   (if@,2
+    (elif@3 `x.8@7
+     (stmts
+      (asgn@I `x.1 0.0)))
+    (else
+     (stmts
+      (stmts
+       (stmts
+        (stmts@,1
+         (asgn@6 `x.1
+          (div@M
+           (f 64)
+           (conv~F
+            (f~7 64)
+            (add@9
+             (i 64)
+             (mul~5
+              (i 64)hi.0~3 16@2)lo.0@2))255.0@2))))))))
+   (asgn@,2 result.7 `x.1)
+   (ret~2,~1 result.7)))
+ (proc@,18 :hex.0.@5
+  (params@9
+   (param@1 :text.1 . string.0.sysvq0asl@6))Color.0.@G
+  (pragmas
+   (smry writeGlobal readGlobal callsUnknown
+    (param 0 0 reads writes escapes)))
+  (stmts@2,1
+   (var@4 :result.8 . Color.0.@N,~o .)
+   (var@4 :body.0 . string.0.sysvq0asl@A,~1
+    (call@7 =dup.2.sysvq0asl text.1))
+   (var@G,1 :`x.9 .
+    (bool).)
+   (var@7,1 :`x.10 .
+    (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+    (call len.4.sysvq0asl@1 body.0~4))
+   (if@G,1
+    (elif
+     (lt@4,1u,../../../../../../nimony/lib/std/system/comparisons.nim 0@G,1B,../../../../Packages/com.aoughwl.jester/ModSdk/color.nim `x.10@9,1B,../../../../Packages/com.aoughwl.jester/ModSdk/color.nim)
+     (stmts
+      (var@4 :`x.11 .
+       (c@L,6V,../../../../../../nimony/lib/std/system/stringimpl.nim 8)
+       (call \5B\5D.9.sysvq0asl body.0 0@5))
+      (asgn@C `x.9
+       (eq `x.11~8 '\23'@3))))
+    (else
+     (stmts
+      (asgn `x.9
+       (false)))))
+   (if@,1
+    (elif@3 `x.9@D
+     (stmts~1,1
+      (var@4 :trimmed.0 . string.0.sysvq0asl
+       (oconstr@A string.0.sysvq0asl
+        (kv bytes.0 0u)
+        (kv more.0
+         (nil))))
+      (var@4,1 :i.0 .
+       (i 64)1@4)
+      (scope@,2
+       (stmts
+        (while
+         (true)
+         (stmts
+          (var@E :`x.12 .
+           (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+           (call len.4.sysvq0asl@1 body.0~4))
+          (if
+           (elif
+            (lt@8 i.0~2 `x.12@6)
+            (stmts@2,1
+             (var@C :`x.13 .
+              (c@L,6V,../../../../../../nimony/lib/std/system/stringimpl.nim 8)
+              (call \5B\5D.9.sysvq0asl body.0 i.0@5))
+             (call@7 add.1.sysvq0asl@1
+              (addr~7 trimmed.0)`x.13@5)
+             (call@,1 inc.1.Irn1g7r1.
+              (addr@4 i.0))))
+           (else
+            (stmts
+             (break))))))))
+      (lab@,2 :whileStmtLabel.0)
+      (call@,5 =destroy.2.sysvq0asl body.0)
+      (asgn@5,5 body.0~5 trimmed.0@2)
+      (call@7,5 =wasMoved.2.sysvq0asl
+       (addr trimmed.0))
+      (call =destroy.2.sysvq0asl trimmed.0))))
+   (var@,8 :`x.2 . Color.0.@R,~w .)
+   (var@7,8 :`x.14 .
+    (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+    (call len.4.sysvq0asl@1 body.0~4))
+   (if@,8
+    (elif@3
+     (le@4,1q,../../../../../../nimony/lib/std/system/comparisons.nim 8@H,1I,../../../../Packages/com.aoughwl.jester/ModSdk/color.nim `x.14@9,1I,../../../../Packages/com.aoughwl.jester/ModSdk/color.nim)
+     (stmts
+      (var@9,1 :`x.15 .
+       (f@E,~J 64)
+       (call byteAt.0.~6 body.0@1 0@7))
+      (var@Q,1 :`x.16 .
+       (f~3,~J 64)
+       (call byteAt.0.~6 body.0@1 2@7))
+      (var@h,1 :`x.17 .
+       (f~K,~J 64)
+       (call byteAt.0.~6 body.0@1 4@7))
+      (var@y,1 :`x.18 .
+       (f~b,~J 64)
+       (call byteAt.0.~6 body.0@1 6@7))
+      (var@2,1 :`x.19 . Color.0.@M,~x
+       (call rgb.0.~3 `x.15@7 `x.16@O `x.17@f `x.18@w))
+      (asgn~1,1 `x.2 `x.19@3)))
+    (else
+     (stmts
+      (stmts
+       (stmts
+        (var@9,2 :`x.20 .
+         (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+         (call len.4.sysvq0asl@1 body.0~4))
+        (if
+         (elif@5,2
+          (le@4,1q,../../../../../../nimony/lib/std/system/comparisons.nim 6@J,1K,../../../../Packages/com.aoughwl.jester/ModSdk/color.nim `x.20@B,1K,../../../../Packages/com.aoughwl.jester/ModSdk/color.nim)
+          (stmts
+           (var@7,1 :`x.21 .
+            (f@E,~L 64)
+            (call byteAt.0.~6 body.0@1 0@7))
+           (var@O,1 :`x.22 .
+            (f~3,~L 64)
+            (call byteAt.0.~6 body.0@1 2@7))
+           (var@f,1 :`x.23 .
+            (f~K,~L 64)
+            (call byteAt.0.~6 body.0@1 4@7))
+           (var@,1 :`x.24 . Color.0.@M,~z
+            (call rgb.0.~3 `x.21@7 `x.22@O `x.23@f 1.0@P,~z))
+           (asgn~3,1 `x.2 `x.24@3)))
+         (else
+          (stmts
+           (stmts
+            (stmts
+             (stmts@,4
+              (asgn@2,1 `x.2 Black.0.))))))))))))
+   (asgn@,8 result.8 `x.2)
+   (call =destroy.2.sysvq0asl body.0)
+   (ret~2,~1 result.8)
+   (call =destroy.2.sysvq0asl body.0)
+   (ret result.8)))
+ (proc@,1O :digits.0.@5
+  (params@B
+   (param@1 :value.0 .
+    (f@7 64)))string.0.sysvq0asl@I
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads)))
+  (stmts@2,1
+   (var@4 :result.9 . string.0.sysvq0asl@C,~Q .)
+   (call@4 =wasMoved.2.sysvq0asl
+    (addr result.9))
+   (var@4 :v.0 .
+    (i@4 64)
+    (conv@7
+     (i~3 64)
+     (add@F
+      (f 64)
+      (mul~8
+       (f 64)value.0~6 255.0@2)0.5@2)))
+   (if@,1
+    (elif@3
+     (lt@2 v.0~2 0@2)
+     (stmts@7
+      (asgn@2 v.0~2 0@2))))
+   (if@,2
+    (elif@3
+     (lt@4,1u,../../../../../../nimony/lib/std/system/comparisons.nim 255@9,1S,../../../../Packages/com.aoughwl.jester/ModSdk/color.nim v.0@5,1S,../../../../Packages/com.aoughwl.jester/ModSdk/color.nim)
+     (stmts@9
+      (asgn@2 v.0~2 255@2))))
+   (const@6,3 :marks.0 . string.0.sysvq0asl
+    (oconstr@8 string.0.sysvq0asl
+     (kv bytes.0 3906085646303834366u)
+     (kv more.0
+      (addr strlit.0.I6105018409752412263.))))
+   (var@4,4 :out2.0 . string.0.sysvq0asl
+    (oconstr@7 string.0.sysvq0asl
+     (kv bytes.0 0u)
+     (kv more.0
+      (nil))))
+   (var@9,5 :`x.25 .
+    (c@L,6V,../../../../../../nimony/lib/std/system/stringimpl.nim 8)
+    (call \5B\5D.9.sysvq0asl
+     (oconstr@5,~2 string.0.sysvq0asl
+      (kv bytes.0 3906085646303834366u)
+      (kv more.0
+       (addr strlit.0.I6105018409752412263.)))
+     (div@8
+      (i 64)v.0~2 16@4)))
+   (call@4,5 add.1.sysvq0asl@1
+    (addr~4 out2.0)`x.25@5)
+   (var@9,6 :`x.26 .
+    (c@L,6V,../../../../../../nimony/lib/std/system/stringimpl.nim 8)
+    (call \5B\5D.9.sysvq0asl
+     (oconstr@5,~3 string.0.sysvq0asl
+      (kv bytes.0 3906085646303834366u)
+      (kv more.0
+       (addr strlit.0.I6105018409752412263.)))
+     (mod@8
+      (i 64)v.0~2 16@4)))
+   (call@4,6 add.1.sysvq0asl@1
+    (addr~4 out2.0)`x.26@5)
+   (call@,7 =destroy.2.sysvq0asl result.9)
+   (asgn@,7 result.9 out2.0)
+   (call@,7 =wasMoved.2.sysvq0asl
+    (addr out2.0))
+   (call =destroy.2.sysvq0asl out2.0)
+   (ret~2,~1 result.9)
+   (call =destroy.2.sysvq0asl out2.0)
+   (ret result.9)))
+ (proc@,1Z :$.0.@5
+  (params@9
+   (param@1 :c.3 .
+    (ptr@3 Color.0.)))string.0.sysvq0asl@C
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads writes escapes)))
+  (stmts@2,1
+   (var@k :result.10 . string.0.sysvq0asl~U,~b .)
+   (call@k =wasMoved.2.sysvq0asl
+    (addr result.10))
+   (var@C :`desugar.0 . string.0.sysvq0asl
+    (call digits.0.~6
+     (dot@2
+      (deref~1 c.3)r.0 0)))
+   (var@Q :`desugar.1 . string.0.sysvq0asl
+    (call digits.0.~6
+     (dot@2
+      (deref~1 c.3)g.0 0)))
+   (var@e :`desugar.2 . string.0.sysvq0asl
+    (call digits.0.~6
+     (dot@2
+      (deref~1 c.3)b.0 0)))
+   (var@s :`desugar.3 . string.0.sysvq0asl
+    (call digits.0.~6
+     (dot@2
+      (deref~1 c.3)a.0 0)))
+   (var@k :`x.27 .
+    (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+    (call len.4.sysvq0asl
+     (oconstr~k string.0.sysvq0asl
+      (kv bytes.0 8961u)
+      (kv more.0
+       (nil)))))
+   (var@k :`x.28 .
+    (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+    (call len.4.sysvq0asl `desugar.0~Y))
+   (var@k :`x.29 .
+    (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+    (call len.4.sysvq0asl `desugar.1~K))
+   (var@k :`x.30 .
+    (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+    (call len.4.sysvq0asl `desugar.2~6))
+   (var@k :`x.31 .
+    (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+    (call len.4.sysvq0asl `desugar.3@8))
+   (var@k :`desugar.4 . string.0.sysvq0asl
+    (call newStringOfCap.0.sysvq0asl
+     (add
+      (i -1)
+      (add
+       (i -1)
+       (add
+        (i -1)
+        (add
+         (i -1)`x.27 `x.28)`x.29)`x.30)`x.31)))
+   (call@k add.2.sysvq0asl
+    (addr `desugar.4)
+    (oconstr~k string.0.sysvq0asl
+     (kv bytes.0 8961u)
+     (kv more.0
+      (nil))))
+   (call@k add.2.sysvq0asl
+    (addr `desugar.4)`desugar.0~Y)
+   (call@k add.2.sysvq0asl
+    (addr `desugar.4)`desugar.1~K)
+   (call@k add.2.sysvq0asl
+    (addr `desugar.4)`desugar.2~6)
+   (call@k add.2.sysvq0asl
+    (addr `desugar.4)`desugar.3@8)
+   (call@k =destroy.2.sysvq0asl result.10)
+   (asgn@k result.10 `desugar.4)
+   (call@k =wasMoved.2.sysvq0asl
+    (addr `desugar.4))
+   (call =destroy.2.sysvq0asl `desugar.4)
+   (call =destroy.2.sysvq0asl `desugar.3)
+   (call =destroy.2.sysvq0asl `desugar.2)
+   (call =destroy.2.sysvq0asl `desugar.1)
+   (call =destroy.2.sysvq0asl `desugar.0)
+   (ret~2,~1 result.10)
+   (call =destroy.2.sysvq0asl `desugar.4)
+   (call =destroy.2.sysvq0asl `desugar.3)
+   (call =destroy.2.sysvq0asl `desugar.2)
+   (call =destroy.2.sysvq0asl `desugar.1)
+   (call =destroy.2.sysvq0asl `desugar.0)
+   (ret result.10)))
+ (type@E,1d :Surface.0.~9 .
+  (object@2 .
+   (fld~9,1 :metal.0~5 .
+    (f@B 64))
+   (fld~1,1 :gloss.0~5 .
+    (f@3 64))))
+ (proc@,1g :surface.0.@5
+  (params@D
+   (param@1 :metal.0 .
+    (f@4,~1N 64))
+   (param@E :gloss.0 .
+    (f~9,~1N 64)))Surface.0.@S
+  (pragmas
+   (smry
+    (param 0 0 reads)
+    (param 1 1 reads)))
+  (stmts@p
+   (var@7 :result.11 . Surface.0.~U .)
+   (asgn@7 result.11
+    (oconstr Surface.0.~U
+     (kv@6 metal.0~5 metal.0@2)
+     (kv@K gloss.0~5 gloss.0@2)))
+   (ret~p result.11)))
+ (const@7,1i :Matte.0.~5 . Surface.0.@L,~2
+  (oconstr@B Surface.0.@A,~2
+   (kv@6 metal.0~5 0.0@2)
+   (kv@I gloss.0~5 0.15@2)))
+ (const@9,1j :Plastic.0.~7 . Surface.0.@J,~3
+  (oconstr@B Surface.0.@8,~3
+   (kv@6 metal.0~5 0.0@2)
+   (kv@I gloss.0~5 0.5@2)))
+ (const@7,1k :Metal.0.~5 . Surface.0.@L,~4
+  (oconstr@B Surface.0.@A,~4
+   (kv@6 metal.0~5 0.9@2)
+   (kv@I gloss.0~5 0.7@2)))
+ (proc@,1p :color.1.@5
+  (params@B
+   (param@1 :entity.0 .
+    (i@O,3,../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim 64)))Color.0.@I
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads writes escapes)))
+  (stmts@2,1
+   (var@5 :result.12 . Color.0.@M,~1V .)
+   (var@J :`x.32 .
+    (f@I,79,../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim 64)
+    (call red.0.jesaqohvh1~3 entity.0~A))
+   (var@c :`x.33 .
+    (f@I,7A,../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim 64)
+    (call green.0.jesaqohvh1~5 entity.0~C))
+   (var@u :`x.34 .
+    (f@I,7B,../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim 64)
+    (call blue.0.jesaqohvh1~4 entity.0~B))
+   (var@1F :`x.35 .
+    (f@I,7C,../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim 64)
+    (call opacity.0.jesaqohvh1~7 entity.0~E))
+   (asgn@5 result.12
+    (oconstr Color.0.@M,~1V
+     (kv@2 r.0~1 `x.32@C)
+     (kv@J g.0~1 `x.33@E)
+     (kv@c b.0~1 `x.34@D)
+     (kv@u a.0~1 `x.35@G)))
+   (ret~2,~1 result.12)))
+ (proc@,1s :color.2.@5
+  (params@B
+   (param@1 :entity.1 .
+    (i@O,3,../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim 64))
+   (param@H :c.4 .
+    (ptr@3 Color.0.))).
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads writes escapes)
+    (param 1 1 reads writes escapes)))
+  (stmts@e
+   (call@C color.0.jesaqohvh1~5 entity.1~C
+    (dot@2
+     (deref~1 c.4)r.0 0)
+    (dot@7
+     (deref~1 c.4)g.0 0)
+    (dot@C
+     (deref~1 c.4)b.0 0)
+    (dot@H
+     (deref~1 c.4)a.0 0))))
+ (proc@,1u :surface.1.@5
+  (params@D
+   (param@1 :entity.2 .
+    (i@O,3,../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim 64)))Surface.0.@I
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads writes escapes)))
+  (stmts@2,1
+   (var@7 :result.13 . Surface.0.@J,~F .)
+   (var@V :`x.36 .
+    (f@I,7E,../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim 64)
+    (call metalness.0.jesaqohvh1~9 entity.2~G))
+   (var@x :`x.37 .
+    (f@I,7F,../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim 64)
+    (call glossiness.0.jesaqohvh1~A entity.2~H))
+   (asgn@7 result.13
+    (oconstr Surface.0.@J,~F
+     (kv@6 metal.0~5 `x.36@I)
+     (kv@X gloss.0~5 `x.37@J)))
+   (ret~2,~1 result.13)))
+ (proc@,1w :surface.2.@5
+  (params@D
+   (param@1 :entity.3 .
+    (i@O,3,../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim 64))
+   (param@H :s.0 . Surface.0.@3)).
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads writes escapes)
+    (param 1 1 reads writes escapes)))
+  (stmts@i
+   (call@C shine.0.jesaqohvh1~5 entity.3~C
+    (dot@2 s.0~1 metal.0 0)
+    (dot@B s.0~1 gloss.0 0))))
+ (proc@6,1F :inc.1.Irn1g7r1.
+  (params@L,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (param@1 :x.1 .
+    (ptr@3
+     (i 64)))).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (pragmas@W,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (inline 0 20)
+   (smry@6,1G,../../../../Packages/com.aoughwl.jester/ModSdk/color.nim
+    (param 0 0 reads writes)))
+  (stmts@2,F,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (asgn@2,1
+    (deref~2 x.1)
+    (add@6
+     (i 64)
+     (deref@1 x.1)
+     (conv@U,~F
+      (i 64)1@1)))))
+ (gvar :`iniGuard.0. .
+  (bool).)
+ (proc :`ini.0.
+  (params).
+  (pragmas
+   (smry callsUnknown))
+  (stmts
+   (if
+    (elif `iniGuard.0.
+     (stmts
+      (ret .))))
+   (asgn `iniGuard.0.
+    (true))
+   (call `ini.0.sysvq0asl)
+   (call `ini.0.jesaqohvh1))))(.index@,1,../../../../Packages/com.aoughwl.jester/ModSdk/color.nim
+ (h strlit.0.I6105018409752412263. 104)
+ (h Color.0. 196)
+ (x rgb.0. 181)
+ (x grey.0. 499)
+ (h White.0. 412)
+ (h Black.0. 157)
+ (h Clear.0. 157)
+ (x ==.0. 157)
+ (x withAlpha.0. 1127)
+ (x dimmed.0. 508)
+ (x lerp.0. 653)
+ (x nibble.0. 1365)
+ (x byteAt.0. 1534)
+ (x hex.0. 1350)
+ (x digits.0. 4143)
+ (x $.0. 2025)
+ (h Surface.0. 2636)
+ (x surface.0. 122)
+ (h Matte.0. 384)
+ (h Plastic.0. 127)
+ (h Metal.0. 128)
+ (x color.1. 126)
+ (x color.2. 999)
+ (x surface.1. 486)
+ (x surface.2. 696)
+ (x inc.1.Irn1g7r1. 392)
+ (h `iniGuard.0. 573)
+ (x `ini.0. 34))

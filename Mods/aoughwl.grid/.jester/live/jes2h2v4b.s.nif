@@ -1,0 +1,1155 @@
+(.nif27)
+(.indexat 43474            )
+(stmts@,1,.jester/source/jester_mod_f223686efff1dc21.nim
+ (import
+  (kv sysvq0asl "../../../../../../nimony/lib/std/system.nim")
+  (kv jesaqohvh1 "../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim")
+  (kv gripd5tre1 "gridspace.nim")
+  (kv invuity7x ".jester/deps/aoughwl_inventory/inventory.nim"))
+ (const@2,I :Items.0. . . string.0.sysvq0asl@G,7 "aoughwl.grid.selfcheck.items"@8)
+ (const@2,J :Bags.0. . . string.0.sysvq0asl@G,6 "aoughwl.grid.selfcheck.bags"@7)
+ (gvar@2,M :checks.0. . .
+  (i 64)0@9)
+ (gvar@2,N :failures.0. . .
+  (i 64)0@B)
+ (proc@,P :expect.0.@5 . . .
+  (params@B
+   (param@1 :what.0 . . string.0.sysvq0asl@6 .)
+   (param@F :okay.0 . .
+    (bool@6).)). . .
+  (stmts@2,1
+   (asgn@7 checks.0.~7
+    (add@9
+     (i 64)checks.0.~7 1@2))
+   (if@,1
+    (elif@3
+     (not okay.0@4)
+     (stmts~1,1
+      (asgn@9 failures.0.~9
+       (add@B
+        (i 64)failures.0.~9 1@2))
+      (call@3,1 log.0.jesaqohvh1~3
+       (infix@S &.0.sysvq0asl "grid self-check failed\3A "~R what.0@2)))))))
+ (proc@,V :defineEverything.0.@5 . . .
+  (params@L). . .
+  (stmts@2,1
+   (let@4 :kit.0 . . Catalog.0.catbyu542@W,4v,gridspace.nim
+    (call@L gridItemCatalog.0.gripd5tre1~F Items.0.@1 "Things to carry, for the self-check"@8))
+   (call@B,1 defineThing.0.gripd5tre1~B kit.0@1 "bandage"@6 "Bandage"@H "1x1"@a 4@p 0.1@,1 1.0@P,5D,gridspace.nim "medical small"@C,1 ""@n,5D,gridspace.nim)
+   (call@B,3 defineThing.0.gripd5tre1~B kit.0@1 "rifle"@6 "Rifle"@F "5x1"@W 1@1C,5C,gridspace.nim 3.5@m 1.0@P,5D,gridspace.nim "gun big"~2,1 ""@n,5D,gridspace.nim)
+   (call@B,5 defineThing.0.gripd5tre1~B kit.0@1 "mag"@6 "Magazine"@D "1x2"@X 60@m 0.4@z 1.0@P,5D,gridspace.nim "ammo"~2,1 ""@n,5D,gridspace.nim)
+   (call@B,7 defineThing.0.gripd5tre1~B kit.0@1 "rig"@6 "Chest rig"@D "2x2"@Y 1@1C,5C,gridspace.nim 1.0@o 1.0@P,5D,gridspace.nim "gear"~2,1 "rigbag"@E,1)
+   (call@B,9 defineThing.0.gripd5tre1~B kit.0@1 "lump"@6 "Lump"@E "pistol"@U 1@1C,5C,gridspace.nim 0.0@D,5D,gridspace.nim 1.0@P,5D,gridspace.nim "junk"@l ""@n,5D,gridspace.nim)
+   (let@4,B :bags.0 . . Catalog.0.catbyu542@W,4v,gridspace.nim
+    (call@R gridContainerCatalog.0.gripd5tre1~K Bags.0.@1 "Things to carry in, for the self-check"@7))
+   (call@9,C defineBag.0.gripd5tre1~9 bags.0@1 "stash"@7 "Stash"@G "4x6"@W -1.0@B,5K,gridspace.nim -1.0@S,5K,gridspace.nim ""@i,5K,gridspace.nim ""@w,5K,gridspace.nim)
+   (call@9,D defineBag.0.gripd5tre1~9 bags.0@1 "pouch"@7 "Medical pouch"@G "3x3"@e -1.0@B,5K,gridspace.nim -1.0@S,5K,gridspace.nim "medical"@v ""@w,5K,gridspace.nim)
+   (call@9,E defineBag.0.gripd5tre1~9 bags.0@1 "rigbag"@7 "Rig pockets"@H "2x3"@d -1.0@B,5K,gridspace.nim -1.0@S,5K,gridspace.nim ""@i,5K,gridspace.nim ""@w,5K,gridspace.nim)
+   (call@9,F defineBag.0.gripd5tre1~9 bags.0@1 "light"@7 "Light satchel"@G "6x6"@e 1.2@s -1.0@S,5K,gridspace.nim ""@i,5K,gridspace.nim ""@w,5K,gridspace.nim)))
+ (proc@,n :anywhere.0.@5 . . .
+  (params@D)Holder.0.invuity7x@4 . .
+  (stmts@2,1
+   (result :result.0 . . Holder.0.invuity7x@2,~1 .)
+   (asgn@6,1 result.0
+    (oconstr Holder.0.invuity7x~4,~2
+     (kv@3 id.0~2 "ground"@2)
+     (kv@M display.0~7 "Ground"@2)
+     (kv@d slots.0~5 -1@2)
+     (kv@r capacity.0~8 -1.0@2)
+     (kv@,1 load.0~4 -1.0@2)
+     (kv@F,1 accepts.0~7 ""@2)
+     (kv@S,1 rejects.0~7 ""@2)
+     (kv@d,1 known.0~5
+      (true@2))))
+   (ret~2,~1 result.0)))
+ (proc@,u :checkFootprints.0.@5 . . .
+  (params@K). . .
+  (stmts@2,1
+   (call@6 expect.0.~6 "a shape token reads as wide by tall"@1
+    (and@R,1
+     (eq~5
+      (i 64)
+      (dot~6
+       (call~7 readFootprint.0.gripd5tre1~D "5x1"@1)wide.0 0)5@3)
+     (eq@U
+      (i 64)
+      (dot~6
+       (call~7 readFootprint.0.gripd5tre1~D "5x1"@1)tall.0 0)1@3)))
+   (call@6,2 expect.0.~6 "two digits either side read"@1
+    (and@U,1
+     (eq~6
+      (i 64)
+      (dot~6
+       (call~9 readFootprint.0.gripd5tre1~D "12x10"@1)wide.0 0)12@3)
+     (eq@W
+      (i 64)
+      (dot~6
+       (call~9 readFootprint.0.gripd5tre1~D "12x10"@1)tall.0 0)10@3)))
+   (call@6,4 expect.0.~6 "a token this layer cannot read is one cell"@1
+    (and@U,1
+     (eq~5
+      (i 64)
+      (dot~6
+       (call~A readFootprint.0.gripd5tre1~D "pistol"@1)wide.0 0)1@3)
+     (eq@X
+      (i 64)
+      (dot~6
+       (call~A readFootprint.0.gripd5tre1~D "pistol"@1)tall.0 0)1@3)))
+   (call@6,6 expect.0.~6 "no token at all is one cell"@1
+    (eq@t
+     (i 64)
+     (dot~6
+      (call~4 readFootprint.0.gripd5tre1~D ""@1)wide.0 0)1@3))
+   (call@6,7 expect.0.~6 "turning swaps the sides"@1
+    (and@U,1
+     (eq~5
+      (i 64)
+      (dot~6
+       (call~H turned.0.gripd5tre1~6
+        (call@A footprint.0.gripd5tre1~9 5@1 1@4))wide.0 0)1@3)
+     (eq@X
+      (i 64)
+      (dot~6
+       (call~H turned.0.gripd5tre1~6
+        (call@A footprint.0.gripd5tre1~9 5@1 1@4))tall.0 0)5@3)))
+   (call@6,9 expect.0.~6 "a square thing has one way up"@1
+    (not@Y
+     (call@C turnable.0.gripd5tre1~8
+      (call@A footprint.0.gripd5tre1~9 2@1 2@4))))
+   (call@6,A expect.0.~6 "an oblong has two"@1
+    (call@U turnable.0.gripd5tre1~8
+     (call@A footprint.0.gripd5tre1~9 5@1 1@4)))
+   (call@6,B expect.0.~6 "an item with a shape nobody can read is still one cell"@1
+    (eq@L,1
+     (i 64)
+     (dot~6
+      (call~8 footprintOf.0.gripd5tre1~B "lump"@1)wide.0 0)1@3))))
+ (proc@,1B :checkPacking.0.@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (let@4 :stash.0 . . Bag.0.gripd5tre1@Y,5d,gridspace.nim
+    (call@F openBag.0.gripd5tre1~7 "stash"@1 "stash"@A))
+   (call@6,1 expect.0.~6 "a container opened from a catalog is live"@1
+    (call@r bagLive.0.gripd5tre1~7 stash.0@1))
+   (call@6,2 expect.0.~6 "its cells come from the grid facet"@1
+    (and@G,1
+     (eq~5
+      (i 64)
+      (call~8 bagWide.0.gripd5tre1~7 stash.0@1)4@3)
+     (eq@J
+      (i 64)
+      (call~8 bagTall.0.gripd5tre1~7 stash.0@1)6@3)))
+   (let@4,5 :flat.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@D stowAt.0.gripd5tre1~6 stash.0@1 "rifle"@8 1@H 0@K 0@N
+     (false@Q)))
+   (call@6,6 expect.0.~6 "a five-wide rifle is refused by a four-wide bag"@1
+    (not@q
+     (call@8 went.0.invuity7x~4 flat.0@1)))
+   (call@6,7 expect.0.~6 "and the refusal says why, in cells"@1
+    (and@J,1
+     (eq~A Trouble.0.invuity7x
+      (dot~9 flat.0~4 trouble.0 0)NoRoom.0.invuity7x@3)
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)10@l,1L,.jester/source/jester_mod_f223686efff1dc21.nim
+       (call@e,1L,.jester/source/jester_mod_f223686efff1dc21.nim len.4.sysvq0asl@1
+        (dot~5 flat.0~4 note.0 0))))))
+   (call@6,9 expect.0.~6 "a refused stow leaves the bag empty"@1
+    (eq@w
+     (i 64)
+     (call~8 entryCount.0.gripd5tre1~A stash.0@1)0@3))
+   (let@4,B :turnedIn.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@H stowAt.0.gripd5tre1~6 stash.0@1 "rifle"@8 1@H 0@K 0@N
+     (true@Q)))
+   (call@6,C expect.0.~6 "the same rifle on its side fits"@1
+    (call@e went.0.invuity7x~4 turnedIn.0@1))
+   (call@6,D expect.0.~6 "and it is one cell wide and five tall"@1
+    (and@n,1
+     (eq~5
+      (i 64)
+      (dot~6
+       (call~V footprintOn.0.gripd5tre1~B
+        (call@8 entryOf.0.gripd5tre1~7 stash.0@1
+         (dot@G turnedIn.0~8 slot.0 0)))wide.0 0)1@3)
+     (eq~5,1
+      (i 64)
+      (dot~6
+       (call~V footprintOn.0.gripd5tre1~B
+        (call@8 entryOf.0.gripd5tre1~7 stash.0@1
+         (dot@G turnedIn.0~8 slot.0 0)))tall.0 0)5@3)))
+   (call@6,G expect.0.~6 "it covers the cells under it"@1
+    (and@a,1
+     (eq~H
+      (i 64)
+      (call~E keyAtCell.0.gripd5tre1~9 stash.0@1 0@8 4@B)
+      (dot@B turnedIn.0~8 slot.0 0))
+     (eq@R
+      (i 64)
+      (call~E keyAtCell.0.gripd5tre1~9 stash.0@1 0@8 5@B)0@3)))
+   (let@4,J :onTop.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@E stowAt.0.gripd5tre1~6 stash.0@1 "bandage"@8 1@J 0@M 2@P
+     (false@S)))
+   (call@6,K expect.0.~6 "nothing goes where something already is"@1
+    (not@i
+     (call@8 went.0.invuity7x~4 onTop.0@1)))
+   (call@6,L expect.0.~6 "and that is a refusal about room"@1
+    (eq@p Trouble.0.invuity7x
+     (dot~9 onTop.0~5 trouble.0 0)NoRoom.0.invuity7x@3))
+   (let@4,N :beside.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@F stowAt.0.gripd5tre1~6 stash.0@1 "bandage"@8 1@J 1@M 0@P
+     (false@S)))
+   (call@6,O expect.0.~6 "beside it is fine"@1
+    (call@Q went.0.invuity7x~4 beside.0@1))
+   (let@4,Q :auto.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@B stow.0.gripd5tre1~4 stash.0@1 "mag"@8 30@F))
+   (call@6,R expect.0.~6 "a stack put in with no cell named finds one"@1
+    (call@q went.0.invuity7x~4 auto.0@1))
+   (call@6,S expect.0.~6 "and it landed on the grid"@1
+    (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+     (le@2,1
+      (i 64)0@e,1g,.jester/source/jester_mod_f223686efff1dc21.nim
+      (dot@T,1g,.jester/source/jester_mod_f223686efff1dc21.nim
+       (call~I entryOf.0.gripd5tre1~7 stash.0@1
+        (dot@C auto.0~4 slot.0 0))column.0 0))))
+   (call@6,V expect.0.~6 "cells used is the sum of the footprints"@1
+    (eq@D,1
+     (i 64)
+     (call~8 cellsUsed.0.gripd5tre1~9 stash.0@1)
+     (add@9
+      (i 64)
+      (add~4
+       (i 64)5~2 1@2)2@2)))
+   (call@6,X expect.0.~6 "cells there are is the whole grid"@1
+    (eq@u
+     (i 64)
+     (call~8 cellsTotal.0.gripd5tre1~A stash.0@1)24@3))
+   (let@4,a :narrow.0 . . Bag.0.gripd5tre1@Y,5d,gridspace.nim
+    (call@H openGrid.0.gripd5tre1~8
+     (call@9 anywhere.0.~8)1@D 6@G "chimney"@J))
+   (let@4,b :squeezed.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@F stow.0.gripd5tre1~4 narrow.0@1 "rifle"@9 1@I))
+   (call@6,c expect.0.~6 "a rifle goes into a one-wide bag by turning"@1
+    (call@q went.0.invuity7x~4 squeezed.0@1))
+   (call@6,d expect.0.~6 "and it went in on its side"@1
+    (dot@Q,1
+     (call~N entryOf.0.gripd5tre1~7 narrow.0@1
+      (dot@H squeezed.0~8 slot.0 0))rotated.0 0))
+   (let@4,g :turnBack.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@F turn.0.gripd5tre1~4 narrow.0@1
+     (dot@H squeezed.0~8 slot.0 0)))
+   (call@6,h expect.0.~6 "turning it back would put it off the grid"@1
+    (not@k
+     (call@8 went.0.invuity7x~4 turnBack.0@1)))
+   (call@6,i expect.0.~6 "and it did not move"@1
+    (dot@s
+     (call~N entryOf.0.gripd5tre1~7 narrow.0@1
+      (dot@H squeezed.0~8 slot.0 0))rotated.0 0))
+   (discard@,k
+    (call@G closeBag.0.gripd5tre1~8 narrow.0@1))
+   (discard@,l
+    (call@G closeBag.0.gripd5tre1~8 stash.0@1))))
+ (proc@,21 :checkTags.0.@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (let@4 :pouch.0 . . Bag.0.gripd5tre1@Y,5d,gridspace.nim
+    (call@F openBag.0.gripd5tre1~7 "pouch"@1 "pouch"@A))
+   (let@4,1 :ground.0 . . Bag.0.gripd5tre1@Y,5d,gridspace.nim
+    (call@H openGrid.0.gripd5tre1~8
+     (call@9 anywhere.0.~8)6@D 6@G "ground"@J))
+   (discard@,2
+    (call@C stow.0.gripd5tre1~4 ground.0@1 "rifle"@9 1@I))
+   (let@4,3 :rifleKey.0 . .
+    (i@A,3B,gridspace.nim 64)
+    (dot@T
+     (call~B entryAt.0.gripd5tre1~7 ground.0@1 0@9)key.0 0))
+   (let@4,5 :before.0 . . string.0.sysvq0asl@C,~1i
+    (call@M arrangementOf.0.gripd5tre1~D ground.0@1))
+   (let@4,6 :refused.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@G moveTo.0.gripd5tre1~6 ground.0@1 rifleKey.0@9 pouch.0@J 0@Q 0@T
+     (false@W)))
+   (call@6,7 expect.0.~6 "a medical pouch refuses a rifle"@1
+    (not@a
+     (call@8 went.0.invuity7x~4 refused.0@1)))
+   (call@6,8 expect.0.~6 "and says it was the tags"@1
+    (eq@j Trouble.0.invuity7x
+     (dot~9 refused.0~7 trouble.0 0)NotAccepted.0.invuity7x@3))
+   (call@6,9 expect.0.~6 "the source is untouched by a refused move"@1
+    (infix@I,1 ==.20.sysvq0asl
+     (call~9 arrangementOf.0.gripd5tre1~D ground.0@1)before.0@3))
+   (call@6,B expect.0.~6 "and so is the target"@1
+    (eq@h
+     (i 64)
+     (call~8 entryCount.0.gripd5tre1~A pouch.0@1)0@3))
+   (let@4,D :welcome.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@E stow.0.gripd5tre1~4 pouch.0@1 "bandage"@8 1@J))
+   (call@6,E expect.0.~6 "the pouch takes what it is for"@1
+    (call@d went.0.invuity7x~4 welcome.0@1))
+   (discard@,F
+    (call@G closeBag.0.gripd5tre1~8 pouch.0@1))
+   (discard@,G
+    (call@G closeBag.0.gripd5tre1~8 ground.0@1))))
+ (proc@,2M :checkNesting.0.@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (let@4 :ground.1 . . Bag.0.gripd5tre1@Y,5d,gridspace.nim
+    (call@H openGrid.0.gripd5tre1~8
+     (call@9 anywhere.0.~8)6@D 6@G "ground"@J))
+   (let@4,1 :put0.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@B stow.0.gripd5tre1~4 ground.1@1 "rig"@9 1@G))
+   (call@6,2 expect.0.~6 "a rig goes on the ground"@1
+    (call@X went.0.invuity7x~4 put0.0@1))
+   (let@4,3 :rigKey.0 . .
+    (i@B,35,.jester/deps/aoughwl_inventory/inventory.nim 64)
+    (dot@D put0.0~4 slot.0 0))
+   (let@4,4 :inside.0 . . Bag.0.gripd5tre1@C,3J,gridspace.nim
+    (dot@W
+     (call~G entryOf.0.gripd5tre1~7 ground.1@1 rigKey.0@9)inner.0 0))
+   (call@6,5 expect.0.~6 "an item that names a container opens one"@1
+    (call@q bagLive.0.gripd5tre1~7 inside.0@1))
+   (call@6,6 expect.0.~6 "its cells come from that definition"@1
+    (and@H,1
+     (eq~5
+      (i 64)
+      (call~9 bagWide.0.gripd5tre1~7 inside.0@1)2@3)
+     (eq@K
+      (i 64)
+      (call~9 bagTall.0.gripd5tre1~7 inside.0@1)3@3)))
+   (call@6,8 expect.0.~6 "and its parent is the bag the rig is in"@1
+    (call@2,1 isSame.0.gripd5tre1~6
+     (call@A bagParent.0.gripd5tre1~9 inside.0@1)ground.1@K))
+   (call@6,B expect.0.~6 "filling it works like any bag"@1
+    (call@c went.0.invuity7x~4
+     (call@5 stow.0.gripd5tre1~4 inside.0@1 "bandage"@9 4@K)))
+   (call@6,C expect.0.~6 "which is one stack of four"@1
+    (eq@o
+     (i 64)
+     (call~9 entryCount.0.gripd5tre1~A inside.0@1)1@3))
+   (let@4,E :itself.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@F moveTo.0.gripd5tre1~6 ground.1@1 rigKey.0@9 inside.0@H 0@P 0@S
+     (false@V)))
+   (call@6,F expect.0.~6 "a container cannot be put inside itself"@1
+    (not@i
+     (call@8 went.0.invuity7x~4 itself.0@1)))
+   (call@6,G expect.0.~6 "and the refusal says so"@1
+    (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+     (lt@2,1
+      (i 64)10@s,2e,.jester/source/jester_mod_f223686efff1dc21.nim
+      (call@l,2e,.jester/source/jester_mod_f223686efff1dc21.nim len.4.sysvq0asl@1
+       (dot~5 itself.0~6 note.0 0)))))
+   (call@6,H expect.0.~6 "the rig is still on the ground"@1
+    (eq@s
+     (i 64)
+     (call~9 entryCount.0.gripd5tre1~A ground.1@1)1@3))
+   (call@6,I expect.0.~6 "and still holds what it held"@1
+    (eq@q
+     (i 64)
+     (call~9 entryCount.0.gripd5tre1~A inside.0@1)1@3))
+   (let@4,L :second.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@D stow.0.gripd5tre1~4 ground.1@1 "rig"@9 1@G))
+   (let@4,M :secondInner.0 . . Bag.0.gripd5tre1@C,3J,gridspace.nim
+    (dot@g
+     (call~L entryOf.0.gripd5tre1~7 ground.1@1
+      (dot@F second.0~6 slot.0 0))inner.0 0))
+   (call@6,N expect.0.~6 "a second rig opens a second space"@1
+    (call@j bagLive.0.gripd5tre1~7 secondInner.0@1))
+   (call@6,O expect.0.~6 "a rig goes inside another rig"@1
+    (call@,1 went.0.invuity7x~4
+     (call@7 moveTo.0.gripd5tre1~6 ground.1@1
+      (dot@F second.0~6 slot.0 0)inside.0@M 0@U 1@X
+      (false@a))))
+   (call@6,Q expect.0.~6 "and the ground is down to one thing"@1
+    (eq@x
+     (i 64)
+     (call~9 entryCount.0.gripd5tre1~A ground.1@1)1@3))
+   (let@4,R :nowhereToGo.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@K moveTo.0.gripd5tre1~6 inside.0@1 rigKey.0@9 secondInner.0@H 0@U 0@X
+     (false@a)))
+   (call@6,S expect.0.~6 "moving the outer rig into its grandchild is refused"@1
+    (not~4,1
+     (call@8 went.0.invuity7x~4 nowhereToGo.0@1)))
+   (call@6,U expect.0.~6 "because that rig is not even there"@1
+    (eq@G,1 Trouble.0.invuity7x
+     (dot~9 nowhereToGo.0~B trouble.0 0)NoSuchStack.0.invuity7x@3))
+   (let@4,W :deeper.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@F moveTo.0.gripd5tre1~6 ground.1@1 rigKey.0@9 secondInner.0@H 0@U 0@X
+     (false@a)))
+   (call@6,X expect.0.~6 "nor from where it really is"@1
+    (not@W
+     (call@8 went.0.invuity7x~4 deeper.0@1)))
+   (call@6,Y expect.0.~6 "and that one is refused as self-containment"@1
+    (eq@B,1 Trouble.0.invuity7x
+     (dot~9 deeper.0~6 trouble.0 0)Nowhere.0.invuity7x@3))
+   (discard@,b
+    (call@G closeBag.0.gripd5tre1~8 ground.1@1))))
+ (proc@,30 :checkMovingFull.0.@5 . . .
+  (params@K). . .
+  (stmts@2,1
+   (let@4 :ground.2 . . Bag.0.gripd5tre1@Y,5d,gridspace.nim
+    (call@H openGrid.0.gripd5tre1~8
+     (call@9 anywhere.0.~8)6@D 6@G "ground"@J))
+   (let@4,1 :stash.1 . . Bag.0.gripd5tre1@Y,5d,gridspace.nim
+    (call@G openGrid.0.gripd5tre1~8
+     (call@9 anywhere.0.~8)6@D 6@G "stash"@J))
+   (let@4,2 :rig.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@A stow.0.gripd5tre1~4 ground.2@1 "rig"@9 1@G))
+   (let@4,3 :inside.1 . . Bag.0.gripd5tre1@C,3J,gridspace.nim
+    (dot@Y
+     (call~I entryOf.0.gripd5tre1~7 ground.2@1
+      (dot@C rig.0~3 slot.0 0))inner.0 0))
+   (discard@,4
+    (call@C stow.0.gripd5tre1~4 inside.1@1 "bandage"@9 4@K))
+   (discard@,5
+    (call@C stow.0.gripd5tre1~4 inside.1@1 "mag"@9 60@G))
+   (let@4,6 :held.0 . . string.0.sysvq0asl@C,~2i
+    (call@K arrangementOf.0.gripd5tre1~D inside.1@1))
+   (call@6,7 expect.0.~6 "the rig has two things in it"@1
+    (eq@q
+     (i 64)
+     (call~9 entryCount.0.gripd5tre1~A inside.1@1)2@3))
+   (let@4,9 :moved.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@E moveTo.0.gripd5tre1~6 ground.2@1
+     (dot@C rig.0~3 slot.0 0)stash.1@J 2@Q 2@T
+     (false@W)))
+   (call@6,A expect.0.~6 "a full rig moves"@1
+    (call@P went.0.invuity7x~4 moved.0@1))
+   (call@6,B expect.0.~6 "the ground is empty"@1
+    (eq@h
+     (i 64)
+     (call~9 entryCount.0.gripd5tre1~A ground.2@1)0@3))
+   (call@6,C expect.0.~6 "the stash has it"@1
+    (eq@d
+     (i 64)
+     (call~8 entryCount.0.gripd5tre1~A stash.1@1)1@3))
+   (call@6,D expect.0.~6 "at the cell it was put at"@1
+    (and@Q,1
+     (eq~5
+      (i 64)
+      (dot~8
+       (call~A entryAt.0.gripd5tre1~7 stash.1@1 0@8)column.0 0)2@3)
+     (eq@Q
+      (i 64)
+      (dot~5
+       (call~A entryAt.0.gripd5tre1~7 stash.1@1 0@8)row.0 0)2@3)))
+   (call@6,F expect.0.~6 "its contents came with it"@1
+    (eq@n
+     (i 64)
+     (call~9 entryCount.0.gripd5tre1~A inside.1@1)2@3))
+   (call@6,G expect.0.~6 "unmoved, cell for cell"@1
+    (infix@n ==.20.sysvq0asl
+     (call~9 arrangementOf.0.gripd5tre1~D inside.1@1)held.0@3))
+   (call@6,H expect.0.~6 "and it is the same space, not a copy"@1
+    (call@2,1 isSame.0.gripd5tre1~6
+     (dot@I
+      (call~A entryAt.0.gripd5tre1~7 stash.1@1 0@8)inner.0 0)inside.1@Q))
+   (call@6,J expect.0.~6 "whose parent is now the stash"@1
+    (call@2,1 isSame.0.gripd5tre1~6
+     (call@A bagParent.0.gripd5tre1~9 inside.1@1)stash.1@K))
+   (call@6,L expect.0.~6 "and the arrangement says what is inside what"@1
+    (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+     (lt@2,1
+      (i 64)
+      (call@Z,3O,.jester/source/jester_mod_f223686efff1dc21.nim len.4.sysvq0asl@1 held.0~4)
+      (call@O,3O,.jester/source/jester_mod_f223686efff1dc21.nim len.4.sysvq0asl@1
+       (call~7 arrangementOf.0.gripd5tre1~D stash.1@1)))))
+   (discard@,O
+    (call@G closeBag.0.gripd5tre1~8 ground.2@1))
+   (discard@,P
+    (call@G closeBag.0.gripd5tre1~8 stash.1@1))))
+ (proc@,3S :checkRecursiveWeight.0.@5 . . .
+  (params@P). . .
+  (stmts@2,1
+   (let@4 :ground.3 . . Bag.0.gripd5tre1@Y,5d,gridspace.nim
+    (call@H openGrid.0.gripd5tre1~8
+     (call@9 anywhere.0.~8)6@D 6@G "ground"@J))
+   (let@4,1 :rig.1 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@A stow.0.gripd5tre1~4 ground.3@1 "rig"@9 1@G))
+   (let@4,2 :inside.2 . . Bag.0.gripd5tre1@C,3J,gridspace.nim
+    (dot@Y
+     (call~I entryOf.0.gripd5tre1~7 ground.3@1
+      (dot@C rig.1~3 slot.0 0))inner.0 0))
+   (call@6,3 expect.0.~6 "an empty rig weighs what a rig weighs"@1
+    (eq@x
+     (f 64)
+     (call~9 weightIn.0.gripd5tre1~8 ground.3@1)1.0@3))
+   (discard@,4
+    (call@C stow.0.gripd5tre1~4 inside.2@1 "bandage"@9 4@K))
+   (call@6,5 expect.0.~6 "a full one weighs more"@1
+    (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+     (lt@2,1
+      (f 64)1.39@s,3Z,.jester/source/jester_mod_f223686efff1dc21.nim
+      (call@h,3Z,.jester/source/jester_mod_f223686efff1dc21.nim weightIn.0.gripd5tre1~8 ground.3@1))))
+   (call@6,6 expect.0.~6 "and it is the contents that made the difference"@1
+    (and@K,1
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (f 64)0.39@N,3b,.jester/source/jester_mod_f223686efff1dc21.nim
+       (call@C,3b,.jester/source/jester_mod_f223686efff1dc21.nim weightIn.0.gripd5tre1~8 inside.2@1)))
+     (lt@L
+      (f 64)
+      (call~9 weightIn.0.gripd5tre1~8 inside.2@1)0.41@2)))
+   (let@4,9 :light.0 . . Bag.0.gripd5tre1@Y,5d,gridspace.nim
+    (call@F openBag.0.gripd5tre1~7 "light"@1 "satchel"@A))
+   (call@6,A expect.0.~6 "the satchel would take the rig on its own"@1
+    (eq@R,1 Trouble.0.invuity7x
+     (call~I troubleTaking.0.gripd5tre1~D light.0@1 "rig"@8 1@F 0.0@I,9C,gridspace.nim 0.0@Z,9C,gridspace.nim)NoTrouble.0.invuity7x@3))
+   (let@4,C :heavy.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@E moveTo.0.gripd5tre1~6 ground.3@1
+     (dot@C rig.1~3 slot.0 0)light.0@J 0@Q 0@T
+     (false@W)))
+   (call@6,D expect.0.~6 "but not the rig with four bandages in it"@1
+    (not@j
+     (call@8 went.0.invuity7x~4 heavy.0@1)))
+   (call@6,E expect.0.~6 "and the reason is the weight"@1
+    (eq@l Trouble.0.invuity7x
+     (dot~9 heavy.0~5 trouble.0 0)TooHeavy.0.invuity7x@3))
+   (call@6,F expect.0.~6 "nothing moved"@1
+    (and@f
+     (eq~5
+      (i 64)
+      (call~8 entryCount.0.gripd5tre1~A light.0@1)0@3)
+     (eq@N
+      (i 64)
+      (call~9 entryCount.0.gripd5tre1~A ground.3@1)1@3)))
+   (discard@,H
+    (call@C lift.0.gripd5tre1~4 inside.2@1
+     (dot@R
+      (call~B entryAt.0.gripd5tre1~7 inside.2@1 0@9)key.0 0)))
+   (call@6,I expect.0.~6 "emptied, it goes in"@1
+    (call@,1 went.0.invuity7x~4
+     (call@7 moveTo.0.gripd5tre1~6 ground.3@1
+      (dot@C rig.1~3 slot.0 0)light.0@J 0@Q 0@T
+      (false@W))))
+   (discard@,L
+    (call@G closeBag.0.gripd5tre1~8 light.0@1))
+   (discard@,M
+    (call@G closeBag.0.gripd5tre1~8 ground.3@1))))
+ (proc@,3r :checkLifting.0.@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (let@4 :ground.4 . . Bag.0.gripd5tre1@Y,5d,gridspace.nim
+    (call@H openGrid.0.gripd5tre1~8
+     (call@9 anywhere.0.~8)6@D 6@G "ground"@J))
+   (let@4,1 :rig.2 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@A stow.0.gripd5tre1~4 ground.4@1 "rig"@9 1@G))
+   (let@4,2 :inside.3 . . Bag.0.gripd5tre1@C,3J,gridspace.nim
+    (dot@Y
+     (call~I entryOf.0.gripd5tre1~7 ground.4@1
+      (dot@C rig.2~3 slot.0 0))inner.0 0))
+   (discard@,3
+    (call@C stow.0.gripd5tre1~4 inside.3@1 "bandage"@9 4@K))
+   (call@6,4 expect.0.~6 "a rig on the ground is live"@1
+    (call@d bagLive.0.gripd5tre1~7 inside.3@1))
+   (discard@,5
+    (call@C lift.0.gripd5tre1~4 ground.4@1
+     (dot@C rig.2~3 slot.0 0)))
+   (call@6,6 expect.0.~6 "lifting it away takes it off the grid"@1
+    (eq@z
+     (i 64)
+     (call~9 entryCount.0.gripd5tre1~A ground.4@1)0@3))
+   (call@6,7 expect.0.~6 "and its space goes with it"@1
+    (not@V
+     (call@B bagLive.0.gripd5tre1~7 inside.3@1)))
+   (call@6,8 expect.0.~6 "a stale handle is a refusal, not somebody else\27s bag"@1
+    (eq@V,1 Trouble.0.invuity7x
+     (dot~9
+      (call~M stow.0.gripd5tre1~4 inside.3@1 "bandage"@9 1@K)trouble.0 0)NoSuchContainer.0.invuity7x@3))
+   (discard@,A
+    (call@G closeBag.0.gripd5tre1~8 ground.4@1))))
+ (proc@,46 :checkStacks.0.@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (let@4 :ground.5 . . Bag.0.gripd5tre1@Y,5d,gridspace.nim
+    (call@H openGrid.0.gripd5tre1~8
+     (call@9 anywhere.0.~8)6@D 6@G "ground"@J))
+   (let@4,1 :first.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@C stow.0.gripd5tre1~4 ground.5@1 "mag"@9 40@G))
+   (call@6,2 expect.0.~6 "forty rounds go in as one stack"@1
+    (eq@t
+     (i 64)
+     (call~9 entryCount.0.gripd5tre1~A ground.5@1)1@3))
+   (let@4,3 :cut.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@E splitOff.0.gripd5tre1~8 ground.5@1
+     (dot@E first.0~5 slot.0 0)15@L))
+   (call@6,4 expect.0.~6 "a stack splits"@1
+    (call@N went.0.invuity7x~4 cut.0@1))
+   (call@6,5 expect.0.~6 "into two"@1
+    (eq@W
+     (i 64)
+     (call~9 entryCount.0.gripd5tre1~A ground.5@1)2@3))
+   (call@6,6 expect.0.~6 "and the halves add up"@1
+    (and@a,1
+     (eq~6
+      (i 64)
+      (dot~7
+       (call~K entryOf.0.gripd5tre1~7 ground.5@1
+        (dot@E first.0~5 slot.0 0))count.0 0)25@3)
+     (eq~8,1
+      (i 64)
+      (dot~7
+       (call~I entryOf.0.gripd5tre1~7 ground.5@1
+        (dot@C cut.0~3 slot.0 0))count.0 0)15@3)))
+   (call@6,9 expect.0.~6 "a split that leaves nothing behind is a move, and is refused"@1
+    (not~4,1
+     (call@8 went.0.invuity7x~4
+      (call@9 splitOff.0.gripd5tre1~8 ground.5@1
+       (dot@C cut.0~3 slot.0 0)15@J))))
+   (let@4,C :poured.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@I mergeInto.0.gripd5tre1~9 ground.5@1
+     (dot@C cut.0~3 slot.0 0)
+     (dot@O first.0~5 slot.0 0)))
+   (call@6,D expect.0.~6 "they pour back together"@1
+    (call@W went.0.invuity7x~4 poured.0@1))
+   (call@6,E expect.0.~6 "into one stack again"@1
+    (eq@i
+     (i 64)
+     (call~9 entryCount.0.gripd5tre1~A ground.5@1)1@3))
+   (call@6,F expect.0.~6 "of forty"@1
+    (eq@l
+     (i 64)
+     (dot~7
+      (call~K entryOf.0.gripd5tre1~7 ground.5@1
+       (dot@E first.0~5 slot.0 0))count.0 0)40@3))
+   (discard@,H
+    (call@C stow.0.gripd5tre1~4 ground.5@1 "bandage"@9 1@K))
+   (let@4,I :mixed.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@H mergeInto.0.gripd5tre1~9 ground.5@1
+     (dot@R
+      (call~B entryAt.0.gripd5tre1~7 ground.5@1 1@9)key.0 0)
+     (dot@c first.0~5 slot.0 0)))
+   (call@6,J expect.0.~6 "two different things do not pour together"@1
+    (not@k
+     (call@8 went.0.invuity7x~4 mixed.0@1)))
+   (call@6,K expect.0.~6 "a container does not split"@1
+    (not~4,1
+     (call@8 went.0.invuity7x~4
+      (call@9 splitOff.0.gripd5tre1~8 ground.5@1
+       (dot@V
+        (call~I stow.0.gripd5tre1~4 ground.5@1 "rig"@9 1@G)slot.0 0)1@c))))
+   (let@4,O :other.0 . . Bag.0.gripd5tre1@Y,5d,gridspace.nim
+    (call@G openGrid.0.gripd5tre1~8
+     (call@9 anywhere.0.~8)4@D 4@G "other"@J))
+   (let@4,P :spare.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@C stow.0.gripd5tre1~4 other.0@1 "mag"@8 10@F))
+   (let@4,Q :poured2.0 . . Outcome.0.invuity7x@A,9u,gridspace.nim
+    (call@I pourOnto.0.gripd5tre1~8 other.0@1
+     (dot@D spare.0~5 slot.0 0)ground.5@K
+     (dot@X first.0~5 slot.0 0)))
+   (call@6,R expect.0.~6 "a stack pours into one in another bag"@1
+    (call@k went.0.invuity7x~4 poured2.0@1))
+   (call@6,S expect.0.~6 "as much of it as the stack size allows"@1
+    (eq@v
+     (i 64)
+     (dot~7 poured2.0~7 moved.0 0)10@3))
+   (call@6,T expect.0.~6 "the emptied stack is gone from where it was"@1
+    (eq@E,1
+     (i 64)
+     (call~8 entryCount.0.gripd5tre1~A other.0@1)0@3))
+   (call@6,V expect.0.~6 "and the one it went into has both"@1
+    (eq@U,1
+     (i 64)
+     (dot~7
+      (call~K entryOf.0.gripd5tre1~7 ground.5@1
+       (dot@E first.0~5 slot.0 0))count.0 0)50@3))
+   (discard@,X
+    (call@G closeBag.0.gripd5tre1~8 other.0@1))
+   (discard@,Y
+    (call@G closeBag.0.gripd5tre1~8 ground.5@1))))
+ (proc@,4j :checkPublished.0.@5 . . .
+  (params@J). . .
+  (stmts@2,1
+   (let@4 :mine.0 . . seq.0.Ixdx2fh1.gripd5tre1@7,1v,gridspace.nim
+    (call@L publishedItems.0.gripd5tre1~E))
+   (var@4,1 :sawRifle.0 . .
+    (bool@C,h,../../../../../../nimony/lib/std/system/basic_types.nim)
+    (false@B))
+   (var@4,2 :i.0 . .
+    (i 64)0@4)
+   (while@,3
+    (lt@8
+     (i 64)i.0~2
+     (call@6 len.3.Ixq6taz.@1 mine.0~4))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@8 ==.20.sysvq0asl
+        (hderef~8
+         (call \5B\5D.7.Ir6d0tw. mine.0 i.0@5))"rifle"@3)
+       (stmts@K
+        (asgn@9 sawRifle.0~9
+         (true@2)))))
+     (asgn@2,1 i.0~2
+      (add@4
+       (i 64)i.0~2 1@2))))
+   (call@6,6 expect.0.~6 "a published catalog can be walked by a mod that did not write it"@1 sawRifle.0~4,1)
+   (call@6,8 expect.0.~6 "and it found every item this mod defined"@1
+    (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+     (le@2,1
+      (i 64)5@13,4t,.jester/source/jester_mod_f223686efff1dc21.nim
+      (dot@v,4t,.jester/source/jester_mod_f223686efff1dc21.nim mine.0~4 len.0 0 "x"))))
+   (call@6,9 expect.0.~6 "adopting what is published takes up at least the two here"@1
+    (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+     (le@2,1
+      (i 64)2@O,4v,.jester/source/jester_mod_f223686efff1dc21.nim
+      (call@I,4v,.jester/source/jester_mod_f223686efff1dc21.nim adoptPublished.0.gripd5tre1~E))))))
+ (proc@,58 :selfCheck.0.@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (call@G defineEverything.0.~G)
+   (call@F,1 checkFootprints.0.~F)
+   (call@C,2 checkPacking.0.~C)
+   (call@9,3 checkTags.0.~9)
+   (call@C,4 checkNesting.0.~C)
+   (call@F,5 checkMovingFull.0.~F)
+   (call@K,6 checkRecursiveWeight.0.~K)
+   (call@C,7 checkLifting.0.~C)
+   (call@B,8 checkStacks.0.~B)
+   (call@E,9 checkPublished.0.~E)
+   (if@,A
+    (elif@3
+     (eq@9
+      (i 64)failures.0.~9 0@3)
+     (stmts~1,1
+      (call@3 log.0.jesaqohvh1~3
+       (infix@b &.0.sysvq0asl
+        (infix~A &.0.sysvq0asl "grid self-check passed "~Q
+         (prefix@2 $.1.sysvq0asl checks.0.@1))" checks"@2))))
+    (else@,2
+     (stmts@2,1
+      (call@3 log.0.jesaqohvh1~3
+       (infix@w &.0.sysvq0asl
+        (infix~A &.0.sysvq0asl
+         (infix~9 &.0.sysvq0asl
+          (infix~C &.0.sysvq0asl "grid self-check FAILED "~Q
+           (prefix@2 $.1.sysvq0asl failures.0.@1))" of "@2)
+         (prefix@2 $.1.sysvq0asl checks.0.@1))" checks"@2)))))))
+ (proc@,5O :start.0.@5 . . .
+  (params@A). . .
+  (stmts@2,1
+   (call@G declareGridKinds.0.gripd5tre1~G)))
+ (proc@,5R :stop.0.@5 . . .
+  (params@9). . .
+  (stmts@E
+   (discard .)))
+ (comment@W,P bool.0.sysvq0asl true.0.sysvq0asl@H,R false.0.sysvq0asl@D,s >.0.sysvq0asl@D,v true.0.sysvq0asl@H,y false.0.sysvq0asl@G,16 false.0.sysvq0asl@H,1A >=.0.sysvq0asl@5,1G false.0.sysvq0asl@M,1j false.0.sysvq0asl@K,2C >.0.sysvq0asl@K,2E false.0.sysvq0asl@J,2N false.0.sysvq0asl@U,2P false.0.sysvq0asl@P,2U false.0.sysvq0asl@K,2l >.0.sysvq0asl~3,2y >.0.sysvq0asl@K,39 >.0.sysvq0asl~B,3B false.0.sysvq0asl@K,3G false.0.sysvq0asl@F,3N false.0.sysvq0asl~F,4M true.0.sysvq0asl@6,4P >=.0.sysvq0asl@U,4T >=.0.sysvq0asl~B,4V)
+ (func@G,4n :len.3.Ixq6taz. . .@,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at len.3.sysvq0asl string.0.sysvq0asl@8,1v,gridspace.nim)
+  (params@C,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.2 . . seq.0.Ixdx2fh1.@6 .))
+  (i@D,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim 64)
+  (pragmas@T,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (inline@2)).@,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,2a,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (result :result.1 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@1,1 result.1
+    (dot s.2~1 len.0 0 "x"))
+   (ret~2,~1 result.1)))
+ (func@7,4o :\5B\5D.7.Ir6d0tw. . .@,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at \5B\5D.7.sysvq0asl string.0.sysvq0asl@8,1v,gridspace.nim)
+  (params@D,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.3 . . seq.0.Ixdx2fh1.@6 .)
+   (param@C :i.2 . .
+    (i@3 64).))
+  (mut@L,2h,../../../../../../nimony/lib/std/system/seqimpl.nim string.0.sysvq0asl@8,1v,gridspace.nim)
+  (pragmas@e,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (requires@2
+    (and@L
+     (lt~8
+      (i 64)i.2~2
+      (dot@3 s.3~1 len.0 0 "x"))
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)0@1A,2h,../../../../../../nimony/lib/std/system/seqimpl.nim i.2@15,2h,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+   (inline@a)).@,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@1P,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (result@6 :result.2 . .
+    (mut~1A string.0.sysvq0asl@8,1v,gridspace.nim).)
+   (asgn@6 result.2
+    (haddr~5
+     (pat
+      (dot s.3~1 data.0 0 "x")i.2@6)))
+   (ret~1P result.2)))
+ (type@J,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim :seq.0.Ixdx2fh1. .
+  (at seq.0.sysvq0asl string.0.sysvq0asl@8,1v,gridspace.nim)
+  (pragmas~9,~2T
+   (destroy =destroy.1.Ivioh0a.)
+   (wasmoved =wasMoved.1.I5vdnla.)
+   (dup =dup.1.Imq0s4c.)
+   (copy =copy.1.Iiwrt4i1.))
+  (object~7,~2T .
+   (fld~8,1 :len.0 . .
+    (i@5 64).)
+   (fld~8,2 :data.0 . .
+    (ptr@6
+     (uarray@I string.0.sysvq0asl@8,1v,gridspace.nim)
+     (unchecked)).)))
+ (func@,D,../../../../../../nimony/lib/std/system/seqimpl.nim :=destroy.1.Ivioh0a. . .
+  (at =destroy.1.sysvq0asl string.0.sysvq0asl@8,1v,gridspace.nim)
+  (params@J
+   (param@1 :s.6 . . seq.0.Ixdx2fh1.@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+      (not@,1
+       (eq@7
+        (ptr
+         (uarray string.0.sysvq0asl@8,1v,gridspace.nim)
+         (unchecked))
+        (dot@6,E,../../../../../../nimony/lib/std/system/seqimpl.nim s.6~1 data.0 0 "x")
+        (nil@F,E,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+     (stmts~1,1
+      (var@4 :i.3 . .
+       (i@F,l,../../../../../../nimony/lib/std/system/arithmetics.nim 64)0@4)
+      (while@,1
+       (lt@8
+        (i 64)i.3~2
+        (dot@3 s.6~1 len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@2
+          (dot s.6~1 data.0 0 "x")i.3@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.3))))
+      (cmd@,4 dealloc.0.sysvq0asl
+       (hconv@9
+        (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+         (unchecked))
+        (hconv
+         (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (dot s.6~1 data.0 0 "x")))))))))
+ (func@,L,../../../../../../nimony/lib/std/system/seqimpl.nim :=wasMoved.1.I5vdnla. . .
+  (at =wasMoved.1.sysvq0asl string.0.sysvq0asl@8,1v,gridspace.nim)
+  (params@K
+   (param@1 :s.7 . .
+    (mut@3 seq.0.Ixdx2fh1.@7).)).
+  (pragmas@a
+   (inline@2)).
+  (stmts@2,1
+   (asgn@6
+    (dot~5
+     (hderef~1 s.7)len.0 0 "x")0@2)
+   (asgn@7,1
+    (dot~6
+     (hderef~1 s.7)data.0 0 "x")
+    (nil@2))))
+ (func@,1U,../../../../../../nimony/lib/std/system/seqimpl.nim :=dup.1.Imq0s4c. . .
+  (at =dup.1.sysvq0asl string.0.sysvq0asl@8,1v,gridspace.nim)
+  (params@F
+   (param@1 :a.1 . . seq.0.Ixdx2fh1.@6 .))seq.0.Ixdx2fh1.@G
+  (pragmas@Z
+   (nodestroy@2)).
+  (stmts@2,1
+   (result@7 :result.3 . . seq.0.Ixdx2fh1.@D,~1 .)
+   (asgn@7 result.3~7
+    (call@H newSeqUninit.0.Im3cqd9.~F
+     (dot@2 a.1~1 len.0 0 "x")))
+   (var@4,1 :i.4 . .
+    (i@F,l,../../../../../../nimony/lib/std/system/arithmetics.nim 64)0@4)
+   (while@,2
+    (lt@8
+     (i 64)i.4~2
+     (dot@3 a.1~1 len.0 0 "x"))
+    (stmts@2,1
+     (asgn@H
+      (pat~A
+       (dot result.3~6 data.0 0 "x")i.4@6)
+      (dup@8
+       (pat@2
+        (dot a.1~1 data.0 0 "x")i.4@6)))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.4))))
+   (ret~2,~1 result.3)))
+ (func@,20,../../../../../../nimony/lib/std/system/seqimpl.nim :=copy.1.Iiwrt4i1. . .
+  (at =copy.1.sysvq0asl string.0.sysvq0asl@8,1v,gridspace.nim)
+  (params@G
+   (param@1 :dest.1 . .
+    (mut@6 seq.0.Ixdx2fh1.@7).)
+   (param@J :src.1 . . seq.0.Ixdx2fh1.@8 .)).
+  (pragmas@m
+   (nodestroy@2)).
+  (stmts@2,1
+   (if
+    (elif@3
+     (eq@A
+      (ptr
+       (uarray string.0.sysvq0asl@8,1v,gridspace.nim)
+       (unchecked))
+      (dot~6
+       (hderef~4 dest.1)data.0 0 "x")
+      (dot@6 src.1~3 data.0 0 "x"))
+     (stmts@N
+      (ret .))))
+   (if@,1
+    (elif@3
+     (lt@8
+      (i 64)
+      (dot~5 src.1~3 len.0 0 "x")
+      (dot@6
+       (hderef~4 dest.1)len.0 0 "x"))
+     (stmts~1,1
+      (var@4 :i.5 . .
+       (i@F,l,../../../../../../nimony/lib/std/system/arithmetics.nim 64)
+       (dot@7 src.1~3 len.0 0 "x"))
+      (while@,1
+       (lt@8
+        (i 64)i.5~2
+        (dot@6
+         (hderef~4 dest.1)len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@5
+          (dot
+           (hderef~4 dest.1)data.0 0 "x")i.5@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.5))))))
+    (elif@5,5
+     (lt@G
+      (i 64)
+      (call~C capInBytes.0.Ih2sbn01.@1
+       (hderef~4 dest.1))
+      (mul@A
+       (i 64)
+       (dot~5 src.1~3 len.0 0 "x")
+       (sizeof@8 string.0.sysvq0asl@8,1v,gridspace.nim)))
+     (stmts~3,1
+      (let@4 :oldCap.0 . .
+       (i@F,l,../../../../../../nimony/lib/std/system/arithmetics.nim 64)
+       (div@P
+        (i 64)
+        (call~C capInBytes.0.Ih2sbn01.@1
+         (hderef~4 dest.1))
+        (sizeof@A string.0.sysvq0asl@8,1v,gridspace.nim)))
+      (let@4,1 :newCap.0 . .
+       (i@F,l,../../../../../../nimony/lib/std/system/arithmetics.nim 64)
+       (call@I recalcCap.0.sysvq0asl~9 oldCap.0@1
+        (sub@H
+         (i 64)
+         (dot~5 src.1~3 len.0 0 "x")oldCap.0@2)))
+      (let@4,2 :memSize.0 . .
+       (i@F,l,../../../../../../nimony/lib/std/system/arithmetics.nim 64)
+       (call@R memSizeInBytes.0.I7me00i.~H newCap.0@1))
+      (asgn@A,3
+       (dot~6
+        (hderef~4 dest.1)data.0 0 "x")
+       (cast@2
+        (ptr@5
+         (uarray@I string.0.sysvq0asl@8,1v,gridspace.nim)
+         (unchecked))
+        (call@Z realloc.0.sysvq0asl~7
+         (hconv@5
+          (pointer@H,1I,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (hconv
+           (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+            (unchecked))
+           (dot
+            (hderef~4 dest.1)data.0 0 "x")))memSize.0@C)))
+      (if@,4
+       (elif@3
+        (eq@A
+         (ptr
+          (uarray string.0.sysvq0asl@8,1v,gridspace.nim)
+          (unchecked))
+         (dot~6
+          (hderef~4 dest.1)data.0 0 "x")
+         (nil@3))
+        (stmts~1,1
+         (asgn@9
+          (dot~5
+           (hderef~4 dest.1)len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.0@B)))
+         (ret@,3 .)))))))
+   (asgn@9,G
+    (dot~5
+     (hderef~4 dest.1)len.0 0 "x")
+    (dot@5 src.1~3 len.0 0 "x"))
+   (var@4,H :i.6 . .
+    (i@F,l,../../../../../../nimony/lib/std/system/arithmetics.nim 64)0@4)
+   (while@,I
+    (lt@8
+     (i 64)i.6~2
+     (dot@6
+      (hderef~4 dest.1)len.0 0 "x"))
+    (stmts@2,1
+     (stmts@2,Y,../../../../../../nimony/lib/std/system.nim
+      (asgn@7
+       (pat~6
+        (dot@8,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+         (hderef~4 dest.1)data.0 0 "x")i.6@E,2K,../../../../../../nimony/lib/std/system/seqimpl.nim)
+       (dup@P,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+        (pat@4
+         (dot src.1~3 data.0 0 "x")i.6@6))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.6))))))
+ (func@6,I,../../../../../../nimony/lib/std/system/seqimpl.nim :inc.1.Irn1g7r1. . .@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (at inc.1.sysvq0asl
+   (i@F,l,../../../../../../nimony/lib/std/system/arithmetics.nim 64))
+  (params@L,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (param@1 :x.1 . .
+    (mut@3
+     (i~A,X 64)).)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (pragmas@W,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (inline@2)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (stmts@2,F,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (asgn@2,1
+    (hderef~2 x.1)
+    (add@6
+     (i@5,V 64)
+     (hderef@1 x.1)
+     (conv@U,~F
+      (i~P,k 64)1@1)))))
+ (func@Q,1V,../../../../../../nimony/lib/std/system/seqimpl.nim :newSeqUninit.0.Im3cqd9. . .~Q,~R
+  (at newSeqUninit.0.sysvq0asl string.0.sysvq0asl@8,1v,gridspace.nim)
+  (params~5,~R
+   (param@1 :size.2 . .
+    (i@6 64).))seq.0.Ixdx2fh1.~A,~R
+  (pragmas@F,~R
+   (nodestroy@2)
+   (inline@D)).~Q,~R
+  (stmts~O,~Q
+   (result :result.4 . . seq.0.Ixdx2fh1.@E,~1 .)
+   (if@,1
+    (elif@3
+     (eq@5
+      (i 64)size.2~5 0@3)
+     (stmts~1,1
+      (asgn@7 result.4~7
+       (oconstr@8 seq.0.Ixdx2fh1.gripd5tre1@7,1v,gridspace.nim
+        (kv@4 len.0~3 size.2@2)
+        (kv@G data.0~4
+         (nil@2))))))
+    (else@,2
+     (stmts@2,1
+      (let@4 :memSize.1 . .
+       (i@F,l,../../../../../../nimony/lib/std/system/arithmetics.nim 64)
+       (call@R memSizeInBytes.0.I7me00i.~H size.2@1))
+      (asgn@7,1 result.4~7
+       (oconstr@8 seq.0.Ixdx2fh1.gripd5tre1@7,1v,gridspace.nim
+        (kv@4 len.0~3 size.2@2)
+        (kv@G data.0~4
+         (cast@2
+          (ptr@5
+           (uarray@I string.0.sysvq0asl@8,1v,gridspace.nim)
+           (unchecked))
+          (call@X alloc.0.sysvq0asl~5 memSize.1@1)))))
+      (if@,2
+       (elif@3
+        (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+         (not@,1
+          (eq@7
+           (ptr
+            (uarray string.0.sysvq0asl@8,1v,gridspace.nim)
+            (unchecked))
+           (dot@D,1B,../../../../../../nimony/lib/std/system/seqimpl.nim result.4~6 data.0 0 "x")
+           (nil@M,1B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+        (stmts~1,1
+         (discard "leave uninitialized"@8)))
+       (else@,2
+        (stmts@2,1
+         (asgn@B
+          (dot~5 result.4~6 len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.1@B)))))))))
+   (ret~2,~1 result.4)))
+ (func@B,27,../../../../../../nimony/lib/std/system/seqimpl.nim :capInBytes.0.Ih2sbn01. . .~B,~1x
+  (at capInBytes.0.sysvq0asl string.0.sysvq0asl@8,1v,gridspace.nim)
+  (params@7,~1x
+   (param@1 :s.9 . . seq.0.Ixdx2fh1.@6 .))
+  (i@2,~1x 64)
+  (pragmas@O,~1x
+   (inline@2)).~B,~1x
+  (stmts~9,~1w
+   (result@7 :result.5 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@7 result.5~7
+    (if@2
+     (elif@3
+      (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+       (not@,1
+        (eq@7
+         (ptr
+          (uarray string.0.sysvq0asl@8,1v,gridspace.nim)
+          (unchecked))
+         (dot@F,B,../../../../../../nimony/lib/std/system/seqimpl.nim s.9~1 data.0 0 "x")
+         (nil@O,B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+      (expr@F
+       (call@D allocatedSize.0.sysvq0asl~D
+        (hconv@2
+         (pointer@N,1O,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (hconv
+          (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (dot s.9~1 data.0 0 "x"))))))
+     (else@e
+      (expr@6 0))))
+   (ret~2,~1 result.5)))
+ (func@Z,2A,../../../../../../nimony/lib/std/system/seqimpl.nim :memSizeInBytes.0.I7me00i. . .~Z,~1l
+  (at memSizeInBytes.0.sysvq0asl string.0.sysvq0asl@8,1v,gridspace.nim)
+  (params~D,~1l
+   (param@1 :size.3 . .
+    (i@6 64).))
+  (i~M,~1l 64)
+  (pragmas@4,~1l
+   (inline@2)).~Z,~1l
+  (stmts~X,~1k
+   (result :result.6 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (pragmax
+    (pragmas
+     (keepOverflowFlag@2))
+    (stmts@2,1
+     (asgn@7 result.6~7
+      (mul@7
+       (i 64)size.3~5
+       (sizeof@8 string.0.sysvq0asl@8,1v,gridspace.nim)))
+     (if@,1
+      (elif@3
+       (ovf@C)
+       (stmts~1,2
+        (asgn@7 result.6~7
+         (suf@6 9223372036854775807 "i64")))))))
+   (ret~2,~1 result.6))))(.index@,1,.jester/source/jester_mod_f223686efff1dc21.nim
+ (h Items.0. 343)
+ (h Bags.0. 83)
+ (h checks.0. 81)
+ (h failures.0. 39)
+ (h expect.0. 41)
+ (h defineEverything.0. 456)
+ (h anywhere.0. 1858)
+ (h checkFootprints.0. 473)
+ (h checkPacking.0. 1911)
+ (h checkTags.0. 5108)
+ (h checkNesting.0. 1716)
+ (h checkMovingFull.0. 4118)
+ (h checkRecursiveWeight.0. 2972)
+ (h checkLifting.0. 2938)
+ (h checkStacks.0. 1325)
+ (h checkPublished.0. 3793)
+ (h selfCheck.0. 1441)
+ (h start.0. 1003)
+ (h stop.0. 106)
+ (h len.3.Ixq6taz. 599)
+ (h \5B\5D.7.Ir6d0tw. 705)
+ (h seq.0.Ixdx2fh1. 1109)
+ (h =destroy.1.Ivioh0a. 450)
+ (h =wasMoved.1.I5vdnla. 1253)
+ (h =dup.1.Imq0s4c. 394)
+ (h =copy.1.Iiwrt4i1. 804)
+ (h inc.1.Irn1g7r1. 3780)
+ (h newSeqUninit.0.Im3cqd9. 753)
+ (h capInBytes.0.Ih2sbn01. 1894)
+ (h memSizeInBytes.0.I7me00i. 1187))

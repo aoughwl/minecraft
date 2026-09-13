@@ -1,0 +1,258 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,../../../../Packages/com.aoughwl.jester/ModSdk/draw.nim
+ (comment)
+ (import@,G jester@7)
+ (import@,H vec@7)
+ (import@,I color@7)
+ (type@C,K Align~7 x . .
+  (enum@2 .
+   (efld~C,1 AlignLeft . . . .)
+   (efld~1,1 AlignCentre . . . .)
+   (efld@C,1 AlignRight . . . .)))
+ (comment@,N)
+ (const@A,U FontBody~8 x . .
+  (suf@4 0 "i64"))
+ (const@C,V FontHeader~A x . .
+  (suf@4 1 "i64"))
+ (const@B,W FontTitle~9 x . .
+  (suf@4 2 "i64"))
+ (proc@,Y name@5 x . .
+  (params@A
+   (param@1 a . . Align@3 .))string@C . .
+  (stmts@2,1
+   (case a@5
+    (of@,1
+     (ranges AlignLeft@3)
+     (stmts@E "left"))
+    (of@,2
+     (ranges AlignCentre@3)
+     (stmts@G "centre"))
+    (of@,3
+     (ranges AlignRight@3)
+     (stmts@F "right")))))
+ (comment@,g)
+ (proc@,h fill@5 x . .
+  (params@A
+   (param@1 r . . Rect@3 .)
+   (param@A c . . Color@3 .)). . .
+  (stmts@2,1
+   (call@4 fill~4
+    (dot@2 r~1 x@1)
+    (dot@7 r~1 y@1)
+    (dot@C r~1 width@1)
+    (dot@L r~1 height@1)
+    (dot@V c~1 r@1)
+    (dot@a c~1 g@1)
+    (dot@f c~1 b@1)
+    (dot@k c~1 a@1))))
+ (comment@,j)
+ (proc@,k outline@5 x . .
+  (params@D
+   (param@1 r . . Rect@3 .)
+   (param@A c . . Color@3 .)
+   (param@K thickness . . . 1.0@C)). . .
+  (stmts@2,1
+   (call@7 outline~7
+    (dot@2 r~1 x@1)
+    (dot@7 r~1 y@1)
+    (dot@C r~1 width@1)
+    (dot@L r~1 height@1)thickness@U
+    (dot@g c~1 r@1)
+    (dot@l c~1 g@1)
+    (dot@q c~1 b@1)
+    (dot@v c~1 a@1))))
+ (comment@,m)
+ (proc@,y writeAt@5 x . .
+  (params@D
+   (param@1 text . . string@6 .)
+   (param@F at . . Vec2@4 .)
+   (param@P size . . . 16.0@7)
+   (param@c c . . . White@4)
+   (param@n font . . . FontBody@7)). . .
+  (stmts@2,1
+   (call@7 writeIn~7 text@1
+    (dot@9 at~2 x@1)
+    (dot@F at~2 y@1)0.0@J
+    (infix@T * size~5 1.55@2)size@b "left"@h
+    (dot@q c~1 r@1)
+    (dot@v c~1 g@1)
+    (dot@10 c~1 b@1)
+    (dot@15 c~1 a@1)font~5,1)))
+ (comment@,11)
+ (proc@,12 writeIn@5 x . .
+  (params@D
+   (param@1 text . . string@6 .)
+   (param@F within . . Rect@8 .)
+   (param@T size . . . 16.0@7)
+   (param@g align . . . AlignLeft@8)
+   (param~9,1 c . . . White@4)
+   (param@2,1 font . . . FontBody@7)). . .
+  (stmts@2,2
+   (call@7 writeIn~7 text@1
+    (dot@D within~6 x@1)
+    (dot@N within~6 y@1)
+    (dot@X within~6 width@1)
+    (dot@l within~6 height@1)size@u
+    (call~1,1 name~4 align@1)
+    (dot@9,1 c~1 r@1)
+    (dot@E,1 c~1 g@1)
+    (dot@J,1 c~1 b@1)
+    (dot@O,1 c~1 a@1)font@S,1)))
+ (comment@,16)
+ (proc@,17 textSize@5 x . .
+  (params@E
+   (param@1 text . . string@6 .)
+   (param@F size . . . 16.0@7))Vec2@T . .
+  (stmts@2,1
+   (call@4 vec2~4
+    (call@A textWidth~9 text@1 size@7)
+    (infix@T * size~5 1.35@2))))
+ (comment@,1A)
+ (proc@,1C clipTo@5 x . .
+  (params@C
+   (param@1 r . . Rect@3 .)). . .
+  (stmts@O
+   (call@6 clipTo~6
+    (dot@2 r~1 x@1)
+    (dot@7 r~1 y@1)
+    (dot@C r~1 width@1)
+    (dot@L r~1 height@1))))
+ (comment@,1G)
+ (proc@,1I cursor@5 x . .
+  (params@C)Rect@4 . .
+  (stmts@N
+   (call@4 rect~4
+    (call@7 panelX~6)
+    (call@H panelY~6)
+    (call@U panelSpan~9)0.0@Y)))
+ (comment@,1J)
+ (proc@,1L row@5 x . .
+  (params@9
+   (param@1 height . . float64@8 .))Rect@J . .
+  (stmts@2,1
+   (let@4 x . . .
+    (call@A panelX~6))
+   (let@4,1 width . . .
+    (call@H panelSpan~9))
+   (let@4,2 y . . .
+    (call@B takeRow~7 height@1))
+   (call@4,3 rect~4 x@1 y@4 width@7 height@E)))
+ (comment@,1Q)
+ (proc@,1S moveTo@5 x . .
+  (params@C
+   (param@1 at . . Vec2@4 .)
+   (param@B width . . float64@7 .)). . .
+  (stmts@f
+   (call@6 moveTo~6
+    (dot@3 at~2 x@1)
+    (dot@9 at~2 y@1)width@D)))
+ (comment@,1T)
+ (proc@,1U hovering@5 x . .
+  (params@E
+   (param@1 r . . Rect@3 .))bool@B . .
+  (stmts@W
+   (call@8 hovering~8
+    (dot@2 r~1 x@1)
+    (dot@7 r~1 y@1)
+    (dot@C r~1 width@1)
+    (dot@L r~1 height@1))))
+ (comment@,1V)
+ (proc@,1W button@5 x . .
+  (params@C
+   (param@1 text . . string@6 .)
+   (param@F within . . Rect@8 .))bool@U . .
+  (stmts@2,1
+   (call@8 buttonAt~8 text@1
+    (dot@D within~6 x@1)
+    (dot@N within~6 y@1)
+    (dot@X within~6 width@1)
+    (dot@l within~6 height@1))))
+ (comment@,1Z)
+ (proc@,1a openMenu@5 x . .
+  (params@E
+   (param@1 title . . string@7 .)
+   (param@G width . . . 460.0@8)). . .
+  (stmts@l
+   (call@9 beginMenu~9 title@1 width@8)))
+ (comment@,1b)
+ (proc@,1c openPanel@5 x . .
+  (params@F
+   (param@1 r . . Rect@3 .)
+   (param@A backdrop . . . true@B)). . .
+  (stmts@2,1
+   (call@A beginPanel~A
+    (dot@2 r~1 x@1)
+    (dot@7 r~1 y@1)
+    (dot@C r~1 width@1)
+    (dot@L r~1 height@1)backdrop@U)))
+ (comment@,1e)
+ (proc@,1f closeMenu@5 x . .
+  (params@F). . .
+  (stmts@K
+   (call@7 endMenu~7)))
+ (comment@,1h)
+ (proc@,1k columns@5 x . .
+  (params@D
+   (param@1 r . . Rect@3 .)
+   (param@A count . . int@7 .)
+   (param@M gap . . . 16.0@6))
+  (at@c seq~3 Rect@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (if@,1
+    (elif@3
+     (infix@6 <= count~6 0@3)
+     (stmts@C
+      (ret result@7))))
+   (let@4,2 width . . .
+    (infix@j /
+     (par~b
+      (infix@9 \2D
+       (dot~7 r~1 width@1)
+       (infix@6 * gap~4
+        (call@9 float64~7
+         (infix@7 \2D count~6 1@2)))))
+     (call@9 float64~7 count@1)))
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2 count@2)
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (call@9 rect~4
+       (infix@5 \2B
+        (dot~3 r~1 x@1)
+        (infix@G *
+         (par~E
+          (infix@7 \2B width~6 gap@2))
+         (call@9 float64~7 i@1)))
+       (dot@a r~1 y@1)width@e
+       (dot@m r~1 height@1)))
+     (cmd@,1 inc i@4)))))
+ (comment@,1s)
+ (proc@,1t startColumn@5 x . .
+  (params@H
+   (param@1 c . . Rect@3 .)). . .
+  (stmts@T
+   (call@6 moveTo~6
+    (dot@2 c~1 x@1)
+    (dot@7 c~1 y@1)
+    (dot@C c~1 width@1))))
+ (comment@,1u)
+ (proc@,1v columnBottom@5 x . .
+  (params@I)float64@4 . .
+  (stmts@W
+   (call@6 panelY~6)))
+ (comment@,1w)
+ (proc@,1y endColumns@5 x . .
+  (params@G
+   (param@1 area . . Rect@6 .)
+   (param@D bottom . . float64@8 .)). . .
+  (stmts@m
+   (call@6 moveTo~6
+    (dot@5 area~4 x@1)bottom@9
+    (dot@L area~4 width@1)))))

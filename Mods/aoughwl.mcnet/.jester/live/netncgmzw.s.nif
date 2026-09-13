@@ -1,0 +1,1394 @@
+(.nif27)
+(.indexat 39512            )
+(stmts@,1,netchat.nim
+ (import
+  (kv sysvq0asl "../../../../../../nimony/lib/std/system.nim")
+  (kv netnjwj9g "netwire.nim")
+  (kv net0w87ek "netnbt.nim"))
+ (const@G,e :SignatureBytes.0.~E x .
+  (i@1,M 64)
+  (suf@4 256 "i64"))
+ (const@J,h :AcknowledgedBytes.0.~H x .
+  (i~2,J 64)
+  (suf@4 3 "i64"))
+ (const@L,j :MaxPreviousMessages.0.~J x .
+  (i~4,H 64)
+  (suf@4 20 "i64"))
+ (const@J,m :FilterPassThrough.0.~H x .
+  (i~2,E 64)
+  (suf@4 0 "i64"))
+ (const@L,n :FilterFullyFiltered.0.~J x .
+  (i~4,D 64)
+  (suf@4 1 "i64"))
+ (const@P,o :FilterPartiallyFiltered.0.~N x .
+  (i~8,C 64)
+  (suf@4 2 "i64"))
+ (type@K,r :SystemChatPacket.0.~I x .
+  (pragmas
+   (destroy =destroy_SX53ystemX43hatX50acket0netncgmzw.0.)
+   (wasmoved =wasmoved_SX53ystemX43hatX50acket0netncgmzw.0.)
+   (dup =dup_SX53ystemX43hatX50acket0netncgmzw.0.)
+   (copy =copy_SX53ystemX43hatX50acket0netncgmzw.0.))
+  (object@2 .
+   (fld~B,1 :content.0~7 x . Nbt.0.net0w87ek@3 .)
+   (fld~9,2 :actionBar.0~9 x .
+    (bool@3).)))
+ (type@N,v :DisguisedChatPacket.0.~L x .
+  (pragmas
+   (destroy =destroy_SX44isguisedX43hatX50acket0netncgmzw.0.)
+   (wasmoved =wasmoved_SX44isguisedX43hatX50acket0netncgmzw.0.)
+   (dup =dup_SX44isguisedX43hatX50acket0netncgmzw.0.)
+   (copy =copy_SX44isguisedX43hatX50acket0netncgmzw.0.))
+  (object@2 .
+   (fld~E,4 :message.0~7 x . Nbt.0.net0w87ek@3 .)
+   (fld~B,5 :chatTypeId.0~A x .
+    (i@3 64).)
+   (fld~7,6 :inlineChatType.0~E x .
+    (bool@3).)
+   (fld~B,7 :senderName.0~A x . Nbt.0.net0w87ek@3 .)
+   (fld~C,8 :hasTarget.0~9 x .
+    (bool@3).)
+   (fld~B,9 :targetName.0~A x . Nbt.0.net0w87ek@3 .)))
+ (type@K,16 :PlayerChatPacket.0.~I x .
+  (pragmas
+   (destroy =destroy_SX50layerX43hatX50acket0netncgmzw.0.)
+   (wasmoved =wasmoved_SX50layerX43hatX50acket0netncgmzw.0.)
+   (dup =dup_SX50layerX43hatX50acket0netncgmzw.0.)
+   (copy =copy_SX50layerX43hatX50acket0netncgmzw.0.))
+  (object@2 .
+   (fld~7,1 :globalIndex.0~B x .
+    (i@3 64).)
+   (fld~C,2 :sender.0~6 x . Uuid.0.netnjwj9g@3 .)
+   (fld~D,3 :index.0~5 x .
+    (i@3 64).)
+   (fld~6,4 :hasSignature.0~C x .
+    (bool@3).)
+   (fld~D,5 :plain.0~5 x . string.0.sysvq0asl@3 .)
+   (fld~9,6 :timestamp.0~9 x .
+    (i@3 64).)
+   (fld~E,7 :salt.0~4 x .
+    (i@3 64).)
+   (fld~5,8 :previousCount.0~D x .
+    (i@3 64).)
+   (fld~7,9 :hasUnsigned.0~B x .
+    (bool@3).)
+   (fld~A,A :unsigned.0~8 x . Nbt.0.net0w87ek@3 .)
+   (fld~8,B :filterType.0~A x .
+    (i@3 64).)
+   (fld~8,C :chatTypeId.0~A x .
+    (i@3 64).)
+   (fld~4,D :inlineChatType.0~E x .
+    (bool@3).)
+   (fld~8,E :senderName.0~A x . Nbt.0.net0w87ek@3 .)
+   (fld~9,F :hasTarget.0~9 x .
+    (bool@3).)
+   (fld~8,G :targetName.0~A x . Nbt.0.net0w87ek@3 .)))
+ (proc@,1O :readSystemChatPacket.0.@5 x . .
+  (params@Q
+   (param@1 :r.0 . .
+    (mut@3 Reader.0.netnjwj9g@4).))SystemChatPacket.0.@H . .
+  (stmts@2,1
+   (result@7 :result.0 . . SystemChatPacket.0.@8,~1 .)
+   (asgn@7 result.0~7
+    (oconstr@I SystemChatPacket.0.~A,~1
+     (kv@8 content.0~7
+      (call@A emptyNbt.0.net0w87ek~8))
+     (kv@V actionBar.0~9
+      (false@2))))
+   (asgn@F,1
+    (dot~9 result.0~6 content.0 0)
+    (call@9 readNbt.0.net0w87ek~7 r.0@1))
+   (if@,2
+    (elif@3
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)0@Y,1S,netchat.nim
+       (call@R,1S,netchat.nim len.4.sysvq0asl@1
+        (dot~8
+         (dot~8 result.0~6 content.0 0)problem.0 0))))
+     (stmts~1,1
+      (call@4 fail.0.netnjwj9g~4 r.0@1
+       (dot@I
+        (dot~8 result.0~6 content.0 0)problem.0 0))
+      (ret@,1 result.0))))
+   (asgn@H,5
+    (dot~B result.0~6 actionBar.0 0)
+    (call@A readBool.0.netnjwj9g~8 r.0@1))
+   (ret~2,~1 result.0)))
+ (proc@,1W :readChatTypeHolder.0.@5 . . .
+  (params@N
+   (param@1 :r.1 . .
+    (mut@3 Reader.0.netnjwj9g@4).)
+   (param@G :id.0 . .
+    (mut@4
+     (i@4 64)).)
+   (param@T :inline0.0 . .
+    (mut@9
+     (bool@4)).)). . .
+  (stmts@2,1
+   (asgn@3,4
+    (hderef~3 id.0)0@2)
+   (asgn@8,5
+    (hderef~8 inline0.0)
+    (false@2))
+   (let@4,6 :tag.0 . .
+    (i@B,~d 64)
+    (call@G readVarInt.0.netnjwj9g~A r.1@1))
+   (if@,7
+    (elif@3
+     (not
+      (call@6 ok.0.netnjwj9g~2
+       (hderef@1 r.1)))
+     (stmts@B
+      (ret .))))
+   (if@,8
+    (elif@3
+     (eq@4
+      (i 64)tag.0~4 0@3)
+     (stmts~1,1
+      (asgn@8
+       (hderef~8 inline0.0)
+       (true@2))
+      (call@4,1 fail.0.netnjwj9g~4 r.1@1 "an inline chat type definition, which this build does not read"@4)))
+    (else@,3
+     (stmts@2,1
+      (asgn@3
+       (hderef~3 id.0)
+       (sub@6
+        (i 64)tag.0~4 1@2)))))))
+ (proc@,1l :readDisguisedChatPacket.0.@5 x . .
+  (params@T
+   (param@1 :r.2 . .
+    (mut@3 Reader.0.netnjwj9g@4).))DisguisedChatPacket.0.@H . .
+  (stmts@2,1
+   (result@7 :result.1 . . DisguisedChatPacket.0.@8,~1 .)
+   (asgn@7 result.1~7
+    (oconstr@L DisguisedChatPacket.0.~D,~1
+     (kv@8 message.0~7
+      (call@A emptyNbt.0.net0w87ek~8))
+     (kv@W chatTypeId.0~A 0@2)
+     (kv@F,1 inlineChatType.0~E
+      (false@2))
+     (kv@Y,1 senderName.0~A
+      (call@A emptyNbt.0.net0w87ek~8))
+     (kv@A,2 hasTarget.0~9
+      (false@2))
+     (kv@T,2 targetName.0~A
+      (call@A emptyNbt.0.net0w87ek~8))))
+   (asgn@F,3
+    (dot~9 result.1~6 message.0 0)
+    (call@9 readNbt.0.net0w87ek~7 r.2@1))
+   (if@,4
+    (elif@3
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)0@Y,1r,netchat.nim
+       (call@R,1r,netchat.nim len.4.sysvq0asl@1
+        (dot~8
+         (dot~8 result.1~6 message.0 0)problem.0 0))))
+     (stmts~1,1
+      (call@4 fail.0.netnjwj9g~4 r.2@1
+       (dot@I
+        (dot~8 result.1~6 message.0 0)problem.0 0))
+      (ret@,1 result.1))))
+   (call@I,7 readChatTypeHolder.0.~I r.2@1
+    (haddr@A
+     (dot result.1~6 chatTypeId.0 0))
+    (haddr@T
+     (dot result.1~6 inlineChatType.0 0)))
+   (if@,8
+    (elif@3
+     (not
+      (call@6 ok.0.netnjwj9g~2
+       (hderef@1 r.2)))
+     (stmts@B
+      (ret result.1))))
+   (asgn@I,9
+    (dot~C result.1~6 senderName.0 0)
+    (call@9 readNbt.0.net0w87ek~7 r.2@1))
+   (if@,A
+    (elif@3
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)0@b,1x,netchat.nim
+       (call@U,1x,netchat.nim len.4.sysvq0asl@1
+        (dot~8
+         (dot~B result.1~6 senderName.0 0)problem.0 0))))
+     (stmts~1,1
+      (call@4 fail.0.netnjwj9g~4 r.2@1
+       (dot@L
+        (dot~B result.1~6 senderName.0 0)problem.0 0))
+      (ret@,1 result.1))))
+   (asgn@H,D
+    (dot~B result.1~6 hasTarget.0 0)
+    (call@A readBool.0.netnjwj9g~8 r.2@1))
+   (if@,E
+    (elif@3
+     (and@H
+      (dot~B result.1~6 hasTarget.0 0)
+      (call@6 ok.0.netnjwj9g~2
+       (hderef@1 r.2)))
+     (stmts~1,1
+      (asgn@I
+       (dot~C result.1~6 targetName.0 0)
+       (call@9 readNbt.0.net0w87ek~7 r.2@1))
+      (if@,1
+       (elif@3
+        (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+         (lt@2,1
+          (i 64)0@d,23,netchat.nim
+          (call@W,23,netchat.nim len.4.sysvq0asl@1
+           (dot~8
+            (dot~B result.1~6 targetName.0 0)problem.0 0))))
+        (stmts@Z
+         (call@4 fail.0.netnjwj9g~4 r.2@1
+          (dot@L
+           (dot~B result.1~6 targetName.0 0)problem.0 0))))))))
+   (ret~2,~1 result.1)))
+ (proc@,24 :readPreviousMessages.0.@5 . . .
+  (params@P
+   (param@1 :r.3 . .
+    (mut@3 Reader.0.netnjwj9g@4).)
+   (param@G :count.0 . .
+    (mut@7
+     (i@4 64)).)). . .
+  (stmts@2,1
+   (asgn@6,5
+    (hderef~6 count.0)0@2)
+   (let@4,6 :n.0 . .
+    (i@B,~1B 64)
+    (call@E readVarInt.0.netnjwj9g~A r.3@1))
+   (if@,7
+    (elif@3
+     (not
+      (call@6 ok.0.netnjwj9g~2
+       (hderef@1 r.3)))
+     (stmts@B
+      (ret .))))
+   (if@,8
+    (elif@3
+     (or@6
+      (lt~4
+       (i 64)n.0~2 0@2)
+      (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+       (lt@2,1
+        (i 64)MaxPreviousMessages.0.@I,2E,netchat.nim n.0@E,2E,netchat.nim)))
+     (stmts~1,1
+      (call@4 fail.0.netnjwj9g~4 r.3@1 "an acknowledged-message list longer than the window"@4)
+      (ret@,1 .))))
+   (asgn@6,B
+    (hderef~6 count.0)n.0@2)
+   (var@4,C :i.0 . .
+    (i 64)0@4)
+   (while@,D
+    (lt@8
+     (i 64)i.0~2 n.0@2)
+    (stmts@2,1
+     (let@4 :id.1 . .
+      (i@9,~1J 64)
+      (call@F readVarInt.0.netnjwj9g~A r.3@1))
+     (if@,1
+      (elif@3
+       (not
+        (call@6 ok.0.netnjwj9g~2
+         (hderef@1 r.3)))
+       (stmts@B
+        (ret .))))
+     (if@,2
+      (elif@3
+       (eq@3
+        (i 64)id.1~3 0@3)
+       (stmts~1,1
+        (if
+         (elif@3
+          (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+           (lt@2,1
+            (i 64)
+            (call@Z,2N,netchat.nim remaining.0.netnjwj9g~9
+             (hderef@1 r.3))SignatureBytes.0.@9,2N,netchat.nim))
+          (stmts~1,1
+           (call@4 fail.0.netnjwj9g~4 r.3@1 "a previous-message signature runs past the end"@4)
+           (ret@,1 .))))
+        (asgn@5,3
+         (dot~4
+          (hderef~1 r.3)at.0 0)
+         (add@7
+          (i 64)
+          (dot~4
+           (hderef~1 r.3)at.0 0)SignatureBytes.0.@2)))))
+     (cmd@,7 inc.1.Irn1g7r1.
+      (haddr@4 i.0))))))
+ (proc@,2S :readPlayerChatPacket.0.@5 x . .
+  (params@Q
+   (param@1 :r.4 . .
+    (mut@3 Reader.0.netnjwj9g@4).))PlayerChatPacket.0.@H . .
+  (stmts@2,1
+   (result@7 :result.2 . . PlayerChatPacket.0.@8,~1 .)
+   (asgn@7 result.2~7
+    (oconstr@I PlayerChatPacket.0.~A,~1
+     (kv@C globalIndex.0~B 0@2)
+     (kv@N sender.0~6
+      (oconstr@6 Uuid.0.netnjwj9g~h,~1L
+       (kv@3 hi.0~2 0@2)
+       (kv@A lo.0~2 0@2)))
+     (kv@6,1 index.0~5 0@2)
+     (kv@N,1 hasSignature.0~C
+      (false@2))
+     (kv@b,1 plain.0~5 ""@2)
+     (kv@A,2 timestamp.0~9 0@2)
+     (kv@J,2 salt.0~4 0@2)
+     (kv@b,2 previousCount.0~D 0@2)
+     (kv@C,3 hasUnsigned.0~B
+      (false@2))
+     (kv@T,3 unsigned.0~8
+      (call@A emptyNbt.0.net0w87ek~8))
+     (kv@B,4 filterType.0~A 0@2)
+     (kv@Q,4 chatTypeId.0~A 0@2)
+     (kv@F,5 inlineChatType.0~E
+      (false@2))
+     (kv@Y,5 senderName.0~A
+      (call@A emptyNbt.0.net0w87ek~8))
+     (kv@A,6 hasTarget.0~9
+      (false@2))
+     (kv@T,6 targetName.0~A
+      (call@A emptyNbt.0.net0w87ek~8))))
+   (asgn@J,7
+    (dot~D result.2~6 globalIndex.0 0)
+    (call@C readVarInt.0.netnjwj9g~A r.4@1))
+   (asgn@E,8
+    (dot~8 result.2~6 sender.0 0)
+    (call@A readUuid.0.netnjwj9g~8 r.4@1))
+   (asgn@D,9
+    (dot~7 result.2~6 index.0 0)
+    (call@C readVarInt.0.netnjwj9g~A r.4@1))
+   (asgn@K,A
+    (dot~E result.2~6 hasSignature.0 0)
+    (call@A readBool.0.netnjwj9g~8 r.4@1))
+   (if@,B
+    (elif@3
+     (and@K
+      (dot~E result.2~6 hasSignature.0 0)
+      (call@6 ok.0.netnjwj9g~2
+       (hderef@1 r.4)))
+     (stmts~1,1
+      (if
+       (elif@3
+        (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+         (lt@2,1
+          (i 64)
+          (call@X,2g,netchat.nim remaining.0.netnjwj9g~9
+           (hderef@1 r.4))SignatureBytes.0.@7,2g,netchat.nim))
+        (stmts~1,1
+         (call@4 fail.0.netnjwj9g~4 r.4@1 "a chat signature runs past the end"@4)
+         (ret@,1 result.2))))
+      (asgn@5,3
+       (dot~4
+        (hderef~1 r.4)at.0 0)
+       (add@7
+        (i 64)
+        (dot~4
+         (hderef~1 r.4)at.0 0)SignatureBytes.0.@2)))))
+   (asgn@D,G
+    (dot~7 result.2~6 plain.0 0)
+    (call@C readString.0.netnjwj9g~A r.4@1))
+   (asgn@H,H
+    (dot~B result.2~6 timestamp.0 0)
+    (call@A readLong.0.netnjwj9g~8 r.4@1))
+   (asgn@C,I
+    (dot~6 result.2~6 salt.0 0)
+    (call@A readLong.0.netnjwj9g~8 r.4@1))
+   (call@K,J readPreviousMessages.0.~K r.4@1
+    (haddr@A
+     (dot result.2~6 previousCount.0 0)))
+   (if@,K
+    (elif@3
+     (not
+      (call@6 ok.0.netnjwj9g~2
+       (hderef@1 r.4)))
+     (stmts@B
+      (ret result.2))))
+   (asgn@J,L
+    (dot~D result.2~6 hasUnsigned.0 0)
+    (call@A readBool.0.netnjwj9g~8 r.4@1))
+   (if@,M
+    (elif@3
+     (and@J
+      (dot~D result.2~6 hasUnsigned.0 0)
+      (call@6 ok.0.netnjwj9g~2
+       (hderef@1 r.4)))
+     (stmts~1,1
+      (asgn@G
+       (dot~A result.2~6 unsigned.0 0)
+       (call@9 readNbt.0.net0w87ek~7 r.4@1))
+      (if@,1
+       (elif@3
+        (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+         (lt@2,1
+          (i 64)0@b,2s,netchat.nim
+          (call@U,2s,netchat.nim len.4.sysvq0asl@1
+           (dot~8
+            (dot~9 result.2~6 unsigned.0 0)problem.0 0))))
+        (stmts~1,1
+         (call@4 fail.0.netnjwj9g~4 r.4@1
+          (dot@J
+           (dot~9 result.2~6 unsigned.0 0)problem.0 0))
+         (ret@,1 result.2)))))))
+   (asgn@I,R
+    (dot~C result.2~6 filterType.0 0)
+    (call@C readVarInt.0.netnjwj9g~A r.4@1))
+   (if@,S
+    (elif@3
+     (and@j
+      (eq~R
+       (i 64)
+       (dot~C result.2~6 filterType.0 0)FilterPartiallyFiltered.0.@3)
+      (call@6 ok.0.netnjwj9g~2
+       (hderef@1 r.4)))
+     (stmts~1,2
+      (let@4 :n.1 . .
+       (i@9,~1x 64)
+       (call@E readVarInt.0.netnjwj9g~A r.4@1))
+      (if@,1
+       (elif@3
+        (not
+         (call@6 ok.0.netnjwj9g~2
+          (hderef@1 r.4)))
+        (stmts@B
+         (ret result.2))))
+      (if@,2
+       (elif@3
+        (or@6
+         (lt~4
+          (i 64)n.1~2 0@2)
+         (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+          (lt@2,1
+           (i 64)64@K,30,netchat.nim n.1@G,30,netchat.nim)))
+        (stmts~1,1
+         (call@4 fail.0.netnjwj9g~4 r.4@1 "a filter mask longer than any message"@4)
+         (ret@,1 result.2))))
+      (var@4,5 :i.1 . .
+       (i 64)0@4)
+      (while@,6
+       (lt@8
+        (i 64)i.1~2 n.1@2)
+       (stmts@2,1
+        (discard
+         (call@G readLong.0.netnjwj9g~8 r.4@1))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.1)))))))
+   (call@I,d readChatTypeHolder.0.~I r.4@1
+    (haddr@A
+     (dot result.2~6 chatTypeId.0 0))
+    (haddr@T
+     (dot result.2~6 inlineChatType.0 0)))
+   (if@,e
+    (elif@3
+     (not
+      (call@6 ok.0.netnjwj9g~2
+       (hderef@1 r.4)))
+     (stmts@B
+      (ret result.2))))
+   (asgn@I,f
+    (dot~C result.2~6 senderName.0 0)
+    (call@9 readNbt.0.net0w87ek~7 r.4@1))
+   (if@,g
+    (elif@3
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)0@b,3A,netchat.nim
+       (call@U,3A,netchat.nim len.4.sysvq0asl@1
+        (dot~8
+         (dot~B result.2~6 senderName.0 0)problem.0 0))))
+     (stmts~1,1
+      (call@4 fail.0.netnjwj9g~4 r.4@1
+       (dot@L
+        (dot~B result.2~6 senderName.0 0)problem.0 0))
+      (ret@,1 result.2))))
+   (asgn@H,j
+    (dot~B result.2~6 hasTarget.0 0)
+    (call@A readBool.0.netnjwj9g~8 r.4@1))
+   (if@,k
+    (elif@3
+     (and@H
+      (dot~B result.2~6 hasTarget.0 0)
+      (call@6 ok.0.netnjwj9g~2
+       (hderef@1 r.4)))
+     (stmts~1,1
+      (asgn@I
+       (dot~C result.2~6 targetName.0 0)
+       (call@9 readNbt.0.net0w87ek~7 r.4@1))
+      (if@,1
+       (elif@3
+        (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+         (lt@2,1
+          (i 64)0@d,3G,netchat.nim
+          (call@W,3G,netchat.nim len.4.sysvq0asl@1
+           (dot~8
+            (dot~B result.2~6 targetName.0 0)problem.0 0))))
+        (stmts@Z
+         (call@4 fail.0.netnjwj9g~4 r.4@1
+          (dot@L
+           (dot~B result.2~6 targetName.0 0)problem.0 0))))))))
+   (ret~2,~1 result.2)))
+ (proc@,3H :saidBy.0.@5 x . .
+  (params@C
+   (param@1 :p.0 . . PlayerChatPacket.0.@3 .))string.0.sysvq0asl@N . .
+  (stmts@2,1
+   (result :result.3 . . string.0.sysvq0asl@A,~27 .)
+   (asgn@5,1 result.3
+    (call plain.0.net0w87ek~5
+     (dot@2 p.0~1 senderName.0 0)))
+   (ret~2,~1 result.3)))
+ (proc@,3O :bodyChatAck.0.@5 x . .
+  (params@H
+   (param@1 :count.1 . .
+    (i@7 64).))seq.0.Iotb7mc.@H . .
+  (stmts@2,1
+   (result :result.4 . . seq.0.Iotb7mc.@F,~1 .)
+   (var@4,3 :w.0 . . Writer.0.netnjwj9g@4,1A,netwire.nim
+    (call@A writer.0.netnjwj9g~6))
+   (call@9,4 putVarInt.0.netnjwj9g~9
+    (haddr@1 w.0)count.1@4)
+   (asgn@1,5 result.4
+    (dot w.0~1 data.0 0))
+   (ret~2,~1 result.4)))
+ (proc@,3W :bodyChatUnsigned.0.@5 x . .
+  (params@M
+   (param@1 :message.0 . . string.0.sysvq0asl@9 .)
+   (param@I :timestamp.0 . .
+    (i@P 64).)
+   (param@T :salt.0 . .
+    (i@E 64).)
+   (param@Z :offset.0 . .
+    (i@8 64).)
+   (param@1,1 :acknowledged.0 . . seq.0.Iotb7mc.@H .)
+   (param@P,1 :checksum.0 . .
+    (i@A 64).))seq.0.Iotb7mc.@i,1 . .
+  (stmts@2,2
+   (result :result.5 . . seq.0.Iotb7mc.@F,~A .)
+   (var@4,4 :w.1 . . Writer.0.netnjwj9g@4,1A,netwire.nim
+    (call@A writer.0.netnjwj9g~6))
+   (call@9,5 putString.0.netnjwj9g~9
+    (haddr@1 w.1)message.0@4)
+   (call@7,6 putLong.0.netnjwj9g~7
+    (haddr@1 w.1)timestamp.0@4)
+   (call@7,7 putLong.0.netnjwj9g~7
+    (haddr@1 w.1)salt.0@4)
+   (call@7,8 putBool.0.netnjwj9g~7
+    (haddr@1 w.1)
+    (false@4))
+   (call@9,9 putVarInt.0.netnjwj9g~9
+    (haddr@1 w.1)offset.0@4)
+   (var@4,A :i.2 . .
+    (i 64)0@4)
+   (while@,B
+    (lt@8
+     (i 64)i.2~2 AcknowledgedBytes.0.@2)
+    (stmts@2,1
+     (if
+      (elif@3
+       (lt@2
+        (i 64)i.2~2
+        (call@E len.3.I12oavy1.@1 acknowledged.0~C))
+       (stmts@M
+        (call@7 putByte.0.netnjwj9g~7
+         (haddr@1 w.1)
+         (hderef@4
+          (call \5B\5D.7.Ite3z0o. acknowledged.0 i.2@D)))))
+      (else@r
+       (stmts@6
+        (call@7 putByte.0.netnjwj9g~7
+         (haddr@1 w.1)0@4))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.2))))
+   (call@7,E putByte.0.netnjwj9g~7
+    (haddr@1 w.1)checksum.0@4)
+   (asgn@1,F result.5
+    (dot w.1~1 data.0 0))
+   (ret~2,~2 result.5)))
+ (proc@,3p :bodyChatCommand.0.@5 x . .
+  (params@L
+   (param@1 :command.0 . . string.0.sysvq0asl@9 .))seq.0.Iotb7mc.@M . .
+  (stmts@2,1
+   (result :result.6 . . seq.0.Iotb7mc.@F,~S .)
+   (var@4,4 :w.2 . . Writer.0.netnjwj9g@4,1A,netwire.nim
+    (call@A writer.0.netnjwj9g~6))
+   (call@9,5 putString.0.netnjwj9g~9
+    (haddr@1 w.2)command.0@4)
+   (asgn@1,6 result.6
+    (dot w.2~1 data.0 0))
+   (ret~2,~1 result.6)))
+ (comment@G,t bool.0.sysvq0asl int.0.sysvq0asl@1,7 bool.0.sysvq0asl@5,8 bool.0.sysvq0asl@,A int.0.sysvq0asl@2,E int.0.sysvq0asl~4,G bool.0.sysvq0asl@3,H int.0.sysvq0asl@,J int.0.sysvq0asl~5,K int.0.sysvq0asl@4,L bool.0.sysvq0asl@2,M int.0.sysvq0asl@1,O int.0.sysvq0asl@1,P bool.0.sysvq0asl@5,Q bool.0.sysvq0asl@,S int.0.sysvq0asl@V,d bool.0.sysvq0asl@n,d int.0.sysvq0asl@a,1B int.0.sysvq0asl@9,2V int.0.sysvq0asl@2,2V int.0.sysvq0asl@n,2d int.0.sysvq0asl@n,2d int.0.sysvq0asl@n,2d int.0.sysvq0asl@P,2e int.0.sysvq0asl@f,2e int.0.sysvq0asl@T,2e int.0.sysvq0asl@7,2w false.0.sysvq0asl@i,W >.0.sysvq0asl@G,Y false.0.sysvq0asl~4,j true.0.sysvq0asl~2,n false.0.sysvq0asl@V,u false.0.sysvq0asl@Q,v >.0.sysvq0asl@G,x >.0.sysvq0asl@J,13 >.0.sysvq0asl@L,19 >.0.sysvq0asl@,1K >.0.sysvq0asl@8,1T false.0.sysvq0asl@a,1b false.0.sysvq0asl@P,1d false.0.sysvq0asl@S,1f false.0.sysvq0asl@N,1g >.0.sysvq0asl@6,1m >.0.sysvq0asl@J,1y >.0.sysvq0asl@2,26 >.0.sysvq0asl@J,2G >.0.sysvq0asl@L,2M false.0.sysvq0asl~3,2n)
+ (func@4,2Q :inc.1.Irn1g7r1. . .@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (at inc.1.sysvq0asl
+   (i 64))
+  (params@L,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (param@1 :x.1 . .
+    (mut@3
+     (i 64)).)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (pragmas@W,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (inline@2)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (stmts@2,F,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (asgn@2,1
+    (hderef~2 x.1)
+    (add@6
+     (i 64)
+     (hderef@1 x.1)
+     (conv@U,~F
+      (i 64)1@1)))))
+ (func@N,3k :len.3.I12oavy1. . .@,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at len.3.sysvq0asl
+   (i~5,~M 64))
+  (params@C,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.2 . . seq.0.Iotb7mc.@6 .))
+  (i@D,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim 64)
+  (pragmas@T,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (inline@2)).@,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,2a,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (result :result.7 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@1,1 result.7
+    (dot s.2~1 len.0 0 "x"))
+   (ret~2,~1 result.7)))
+ (func@e,3k :\5B\5D.7.Ite3z0o. . .@,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at \5B\5D.7.sysvq0asl
+   (i~M,~M 64))
+  (params@D,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.3 . . seq.0.Iotb7mc.@6 .)
+   (param@C :i.4 . .
+    (i@3 64).))
+  (mut@L,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (i@I,3P,netchat.nim 64))
+  (pragmas@e,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (requires@2
+    (and@L
+     (lt~8
+      (i 64)i.4~2
+      (dot@3 s.3~1 len.0 0 "x"))
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)0@1A,2h,../../../../../../nimony/lib/std/system/seqimpl.nim i.4@15,2h,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+   (inline@a)).@,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@1P,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (result@6 :result.8 . .
+    (mut~1A
+     (i@I,3P,netchat.nim 64)).)
+   (asgn@6 result.8
+    (haddr~5
+     (pat
+      (dot s.3~1 data.0 0 "x")i.4@6)))
+   (ret~1P result.8)))
+ (type@H,3O :seq.0.Iotb7mc. .
+  (at seq.0.sysvq0asl
+   (i@1 64))
+  (pragmas@A,6,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (destroy =destroy.1.Iez2nr5.)
+   (wasmoved =wasMoved.1.Ia0kll01.)
+   (dup =dup.1.Is27omc.)
+   (copy =copy.1.Iw71th7.))
+  (object@C,6,../../../../../../nimony/lib/std/system/seqimpl.nim .
+   (fld~8,1 :len.0 . .
+    (i@5 64).)
+   (fld~8,2 :data.0 . .
+    (ptr@6
+     (uarray@I
+      (i@I,3P,netchat.nim 64))
+     (unchecked)).)))
+ (func@,D,../../../../../../nimony/lib/std/system/seqimpl.nim :=destroy.1.Iez2nr5. . .
+  (at =destroy.1.sysvq0asl
+   (i@I,3P,netchat.nim 64))
+  (params@J
+   (param@1 :s.6 . . seq.0.Iotb7mc.@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+      (not@,1
+       (eq@7
+        (ptr
+         (uarray
+          (i@I,3P,netchat.nim 64))
+         (unchecked))
+        (dot@6,E,../../../../../../nimony/lib/std/system/seqimpl.nim s.6~1 data.0 0 "x")
+        (nil@F,E,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+     (stmts~1,1
+      (var@4 :i.5 . .
+       (i@H,11,netchat.nim 64)0@4)
+      (while@,1
+       (lt@8
+        (i 64)i.5~2
+        (dot@3 s.6~1 len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@2
+          (dot s.6~1 data.0 0 "x")i.5@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.5))))
+      (cmd@,4 dealloc.0.sysvq0asl
+       (hconv@9
+        (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+         (unchecked))
+        (hconv
+         (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (dot s.6~1 data.0 0 "x")))))))))
+ (func@,L,../../../../../../nimony/lib/std/system/seqimpl.nim :=wasMoved.1.Ia0kll01. . .
+  (at =wasMoved.1.sysvq0asl
+   (i@I,3P,netchat.nim 64))
+  (params@K
+   (param@1 :s.7 . .
+    (mut@3 seq.0.Iotb7mc.@7).)).
+  (pragmas@a
+   (inline@2)).
+  (stmts@2,1
+   (asgn@6
+    (dot~5
+     (hderef~1 s.7)len.0 0 "x")0@2)
+   (asgn@7,1
+    (dot~6
+     (hderef~1 s.7)data.0 0 "x")
+    (nil@2))))
+ (func@,1U,../../../../../../nimony/lib/std/system/seqimpl.nim :=dup.1.Is27omc. . .
+  (at =dup.1.sysvq0asl
+   (i@I,3P,netchat.nim 64))
+  (params@F
+   (param@1 :a.1 . . seq.0.Iotb7mc.@6 .))seq.0.Iotb7mc.@G
+  (pragmas@Z
+   (nodestroy@2)).
+  (stmts@2,1
+   (result@7 :result.9 . . seq.0.Iotb7mc.@D,~1 .)
+   (asgn@7 result.9~7
+    (call@H newSeqUninit.0.I7whkjh1.~F
+     (dot@2 a.1~1 len.0 0 "x")))
+   (var@4,1 :i.6 . .
+    (i@H,11,netchat.nim 64)0@4)
+   (while@,2
+    (lt@8
+     (i 64)i.6~2
+     (dot@3 a.1~1 len.0 0 "x"))
+    (stmts@2,1
+     (asgn@H
+      (pat~A
+       (dot result.9~6 data.0 0 "x")i.6@6)
+      (dup@8
+       (pat@2
+        (dot a.1~1 data.0 0 "x")i.6@6)))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.6))))
+   (ret~2,~1 result.9)))
+ (func@,20,../../../../../../nimony/lib/std/system/seqimpl.nim :=copy.1.Iw71th7. . .
+  (at =copy.1.sysvq0asl
+   (i@I,3P,netchat.nim 64))
+  (params@G
+   (param@1 :dest.1 . .
+    (mut@6 seq.0.Iotb7mc.@7).)
+   (param@J :src.1 . . seq.0.Iotb7mc.@8 .)).
+  (pragmas@m
+   (nodestroy@2)).
+  (stmts@2,1
+   (if
+    (elif@3
+     (eq@A
+      (ptr
+       (uarray
+        (i@I,3P,netchat.nim 64))
+       (unchecked))
+      (dot~6
+       (hderef~4 dest.1)data.0 0 "x")
+      (dot@6 src.1~3 data.0 0 "x"))
+     (stmts@N
+      (ret .))))
+   (if@,1
+    (elif@3
+     (lt@8
+      (i 64)
+      (dot~5 src.1~3 len.0 0 "x")
+      (dot@6
+       (hderef~4 dest.1)len.0 0 "x"))
+     (stmts~1,1
+      (var@4 :i.7 . .
+       (i@H,11,netchat.nim 64)
+       (dot@7 src.1~3 len.0 0 "x"))
+      (while@,1
+       (lt@8
+        (i 64)i.7~2
+        (dot@6
+         (hderef~4 dest.1)len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@5
+          (dot
+           (hderef~4 dest.1)data.0 0 "x")i.7@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.7))))))
+    (elif@5,5
+     (lt@G
+      (i 64)
+      (call~C capInBytes.0.Ilkynur1.@1
+       (hderef~4 dest.1))
+      (mul@A
+       (i 64)
+       (dot~5 src.1~3 len.0 0 "x")
+       (sizeof@8
+        (i@I,3P,netchat.nim 64))))
+     (stmts~3,1
+      (let@4 :oldCap.0 . .
+       (i@H,11,netchat.nim 64)
+       (div@P
+        (i 64)
+        (call~C capInBytes.0.Ilkynur1.@1
+         (hderef~4 dest.1))
+        (sizeof@A
+         (i@I,3P,netchat.nim 64))))
+      (let@4,1 :newCap.0 . .
+       (i@H,11,netchat.nim 64)
+       (call@I recalcCap.0.sysvq0asl~9 oldCap.0@1
+        (sub@H
+         (i 64)
+         (dot~5 src.1~3 len.0 0 "x")oldCap.0@2)))
+      (let@4,2 :memSize.0 . .
+       (i@H,11,netchat.nim 64)
+       (call@R memSizeInBytes.0.Iqj0wsf.~H newCap.0@1))
+      (asgn@A,3
+       (dot~6
+        (hderef~4 dest.1)data.0 0 "x")
+       (cast@2
+        (ptr@5
+         (uarray@I
+          (i@I,3P,netchat.nim 64))
+         (unchecked))
+        (call@Z realloc.0.sysvq0asl~7
+         (hconv@5
+          (pointer@H,1I,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (hconv
+           (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+            (unchecked))
+           (dot
+            (hderef~4 dest.1)data.0 0 "x")))memSize.0@C)))
+      (if@,4
+       (elif@3
+        (eq@A
+         (ptr
+          (uarray
+           (i@I,3P,netchat.nim 64))
+          (unchecked))
+         (dot~6
+          (hderef~4 dest.1)data.0 0 "x")
+         (nil@3))
+        (stmts~1,1
+         (asgn@9
+          (dot~5
+           (hderef~4 dest.1)len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.0@B)))
+         (ret@,3 .)))))))
+   (asgn@9,G
+    (dot~5
+     (hderef~4 dest.1)len.0 0 "x")
+    (dot@5 src.1~3 len.0 0 "x"))
+   (var@4,H :i.8 . .
+    (i@H,11,netchat.nim 64)0@4)
+   (while@,I
+    (lt@8
+     (i 64)i.8~2
+     (dot@6
+      (hderef~4 dest.1)len.0 0 "x"))
+    (stmts@2,1
+     (stmts@2,Y,../../../../../../nimony/lib/std/system.nim
+      (asgn@7
+       (pat~6
+        (dot@8,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+         (hderef~4 dest.1)data.0 0 "x")i.8@E,2K,../../../../../../nimony/lib/std/system/seqimpl.nim)
+       (dup@P,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+        (pat@4
+         (dot src.1~3 data.0 0 "x")i.8@6))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.8))))))
+ (func@Q,1V,../../../../../../nimony/lib/std/system/seqimpl.nim :newSeqUninit.0.I7whkjh1. . .~Q,~R
+  (at newSeqUninit.0.sysvq0asl
+   (i@I,3P,netchat.nim 64))
+  (params~5,~R
+   (param@1 :size.2 . .
+    (i@6 64).))seq.0.Iotb7mc.~A,~R
+  (pragmas@F,~R
+   (nodestroy@2)
+   (inline@D)).~Q,~R
+  (stmts~O,~Q
+   (result :result.10 . . seq.0.Iotb7mc.@E,~1 .)
+   (if@,1
+    (elif@3
+     (eq@5
+      (i 64)size.2~5 0@3)
+     (stmts~1,1
+      (asgn@7 result.10~7
+       (oconstr@8 seq.0.Iotb7mc.@H,3P,netchat.nim
+        (kv@4 len.0~3 size.2@2)
+        (kv@G data.0~4
+         (nil@2))))))
+    (else@,2
+     (stmts@2,1
+      (let@4 :memSize.1 . .
+       (i@H,11,netchat.nim 64)
+       (call@R memSizeInBytes.0.Iqj0wsf.~H size.2@1))
+      (asgn@7,1 result.10~7
+       (oconstr@8 seq.0.Iotb7mc.@H,3P,netchat.nim
+        (kv@4 len.0~3 size.2@2)
+        (kv@G data.0~4
+         (cast@2
+          (ptr@5
+           (uarray@I
+            (i@I,3P,netchat.nim 64))
+           (unchecked))
+          (call@X alloc.0.sysvq0asl~5 memSize.1@1)))))
+      (if@,2
+       (elif@3
+        (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+         (not@,1
+          (eq@7
+           (ptr
+            (uarray
+             (i@I,3P,netchat.nim 64))
+            (unchecked))
+           (dot@D,1B,../../../../../../nimony/lib/std/system/seqimpl.nim result.10~6 data.0 0 "x")
+           (nil@M,1B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+        (stmts~1,1
+         (discard "leave uninitialized"@8)))
+       (else@,2
+        (stmts@2,1
+         (asgn@B
+          (dot~5 result.10~6 len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.1@B)))))))))
+   (ret~2,~1 result.10)))
+ (func@B,27,../../../../../../nimony/lib/std/system/seqimpl.nim :capInBytes.0.Ilkynur1. . .~B,~1x
+  (at capInBytes.0.sysvq0asl
+   (i@I,3P,netchat.nim 64))
+  (params@7,~1x
+   (param@1 :s.9 . . seq.0.Iotb7mc.@6 .))
+  (i@2,~1x 64)
+  (pragmas@O,~1x
+   (inline@2)).~B,~1x
+  (stmts~9,~1w
+   (result@7 :result.11 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@7 result.11~7
+    (if@2
+     (elif@3
+      (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+       (not@,1
+        (eq@7
+         (ptr
+          (uarray
+           (i@I,3P,netchat.nim 64))
+          (unchecked))
+         (dot@F,B,../../../../../../nimony/lib/std/system/seqimpl.nim s.9~1 data.0 0 "x")
+         (nil@O,B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+      (expr@F
+       (call@D allocatedSize.0.sysvq0asl~D
+        (hconv@2
+         (pointer@N,1O,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (hconv
+          (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (dot s.9~1 data.0 0 "x"))))))
+     (else@e
+      (expr@6 0))))
+   (ret~2,~1 result.11)))
+ (func@Z,2A,../../../../../../nimony/lib/std/system/seqimpl.nim :memSizeInBytes.0.Iqj0wsf. . .~Z,~1l
+  (at memSizeInBytes.0.sysvq0asl
+   (i@I,3P,netchat.nim 64))
+  (params~D,~1l
+   (param@1 :size.3 . .
+    (i@6 64).))
+  (i~M,~1l 64)
+  (pragmas@4,~1l
+   (inline@2)).~Z,~1l
+  (stmts~X,~1k
+   (result :result.12 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (pragmax
+    (pragmas
+     (keepOverflowFlag@2))
+    (stmts@2,1
+     (asgn@7 result.12~7
+      (mul@7
+       (i 64)size.3~5
+       (sizeof@8
+        (i@I,3P,netchat.nim 64))))
+     (if@,1
+      (elif@3
+       (ovf@C)
+       (stmts~1,2
+        (asgn@7 result.12~7
+         (suf@6 9223372036854775807 "i64")))))))
+   (ret~2,~1 result.12)))
+ (proc@K,16 :=destroy_SX53ystemX43hatX50acket0netncgmzw.0. . . .
+  (params
+   (param :dest.0 . . SystemChatPacket.0.@,~F .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =destroy_SX4ebt0net0w87ek.0.net0w87ek
+    (dot dest.0 content.0 0))))
+ (proc@K,16 :=wasmoved_SX53ystemX43hatX50acket0netncgmzw.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut SystemChatPacket.0.@,~F).)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =wasmoved_SX4ebt0net0w87ek.0.net0w87ek
+    (haddr
+     (dot
+      (hderef dest.0)content.0 0)))))
+ (proc@K,16 :=dup_SX53ystemX43hatX50acket0netncgmzw.0. . . .
+  (params
+   (param :src.0 . . SystemChatPacket.0.@,~F .))SystemChatPacket.0.@,~F
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (result :dest.0 .
+    (pragmas
+     (noinit))SystemChatPacket.0.@,~F .)
+   (asgn
+    (dot dest.0 content.0 0)
+    (call =dup_SX4ebt0net0w87ek.0.net0w87ek
+     (dot src.0 content.0 0)))
+   (asgn
+    (dot dest.0 actionBar.0 0)
+    (dot src.0 actionBar.0 0))
+   (ret dest.0)))
+ (proc@K,16 :=copy_SX53ystemX43hatX50acket0netncgmzw.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut SystemChatPacket.0.@,~F).)
+   (param :src.0 . . SystemChatPacket.0.@,~F .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =copy_SX4ebt0net0w87ek.0.net0w87ek
+    (dot
+     (hderef dest.0)content.0 0)
+    (dot src.0 content.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)actionBar.0 0)
+    (dot src.0 actionBar.0 0))))
+ (proc@K,16 :=destroy_SX44isguisedX43hatX50acket0netncgmzw.0. . . .
+  (params
+   (param :dest.0 . . DisguisedChatPacket.0.@3,~B .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =destroy_SX4ebt0net0w87ek.0.net0w87ek
+    (dot dest.0 targetName.0 0))
+   (call =destroy_SX4ebt0net0w87ek.0.net0w87ek
+    (dot dest.0 senderName.0 0))
+   (call =destroy_SX4ebt0net0w87ek.0.net0w87ek
+    (dot dest.0 message.0 0))))
+ (proc@K,16 :=wasmoved_SX44isguisedX43hatX50acket0netncgmzw.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut DisguisedChatPacket.0.@3,~B).)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =wasmoved_SX4ebt0net0w87ek.0.net0w87ek
+    (haddr
+     (dot
+      (hderef dest.0)message.0 0)))
+   (call =wasmoved_SX4ebt0net0w87ek.0.net0w87ek
+    (haddr
+     (dot
+      (hderef dest.0)senderName.0 0)))
+   (call =wasmoved_SX4ebt0net0w87ek.0.net0w87ek
+    (haddr
+     (dot
+      (hderef dest.0)targetName.0 0)))))
+ (proc@K,16 :=dup_SX44isguisedX43hatX50acket0netncgmzw.0. . . .
+  (params
+   (param :src.0 . . DisguisedChatPacket.0.@3,~B .))DisguisedChatPacket.0.@3,~B
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (result :dest.0 .
+    (pragmas
+     (noinit))DisguisedChatPacket.0.@3,~B .)
+   (asgn
+    (dot dest.0 message.0 0)
+    (call =dup_SX4ebt0net0w87ek.0.net0w87ek
+     (dot src.0 message.0 0)))
+   (asgn
+    (dot dest.0 chatTypeId.0 0)
+    (dot src.0 chatTypeId.0 0))
+   (asgn
+    (dot dest.0 inlineChatType.0 0)
+    (dot src.0 inlineChatType.0 0))
+   (asgn
+    (dot dest.0 senderName.0 0)
+    (call =dup_SX4ebt0net0w87ek.0.net0w87ek
+     (dot src.0 senderName.0 0)))
+   (asgn
+    (dot dest.0 hasTarget.0 0)
+    (dot src.0 hasTarget.0 0))
+   (asgn
+    (dot dest.0 targetName.0 0)
+    (call =dup_SX4ebt0net0w87ek.0.net0w87ek
+     (dot src.0 targetName.0 0)))
+   (ret dest.0)))
+ (proc@K,16 :=copy_SX44isguisedX43hatX50acket0netncgmzw.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut DisguisedChatPacket.0.@3,~B).)
+   (param :src.0 . . DisguisedChatPacket.0.@3,~B .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =copy_SX4ebt0net0w87ek.0.net0w87ek
+    (dot
+     (hderef dest.0)message.0 0)
+    (dot src.0 message.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)chatTypeId.0 0)
+    (dot src.0 chatTypeId.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)inlineChatType.0 0)
+    (dot src.0 inlineChatType.0 0))
+   (call =copy_SX4ebt0net0w87ek.0.net0w87ek
+    (dot
+     (hderef dest.0)senderName.0 0)
+    (dot src.0 senderName.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)hasTarget.0 0)
+    (dot src.0 hasTarget.0 0))
+   (call =copy_SX4ebt0net0w87ek.0.net0w87ek
+    (dot
+     (hderef dest.0)targetName.0 0)
+    (dot src.0 targetName.0 0))))
+ (proc@K,16 :=destroy_SX50layerX43hatX50acket0netncgmzw.0. . . .
+  (params
+   (param :dest.0 . . PlayerChatPacket.0. .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =destroy_SX4ebt0net0w87ek.0.net0w87ek
+    (dot dest.0 targetName.0 0))
+   (call =destroy_SX4ebt0net0w87ek.0.net0w87ek
+    (dot dest.0 senderName.0 0))
+   (call =destroy_SX4ebt0net0w87ek.0.net0w87ek
+    (dot dest.0 unsigned.0 0))
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 plain.0 0))))
+ (proc@K,16 :=wasmoved_SX50layerX43hatX50acket0netncgmzw.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut PlayerChatPacket.0.).)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)plain.0 0)))
+   (call =wasmoved_SX4ebt0net0w87ek.0.net0w87ek
+    (haddr
+     (dot
+      (hderef dest.0)unsigned.0 0)))
+   (call =wasmoved_SX4ebt0net0w87ek.0.net0w87ek
+    (haddr
+     (dot
+      (hderef dest.0)senderName.0 0)))
+   (call =wasmoved_SX4ebt0net0w87ek.0.net0w87ek
+    (haddr
+     (dot
+      (hderef dest.0)targetName.0 0)))))
+ (proc@K,16 :=dup_SX50layerX43hatX50acket0netncgmzw.0. . . .
+  (params
+   (param :src.0 . . PlayerChatPacket.0. .))PlayerChatPacket.0.
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (result :dest.0 .
+    (pragmas
+     (noinit))PlayerChatPacket.0. .)
+   (asgn
+    (dot dest.0 globalIndex.0 0)
+    (dot src.0 globalIndex.0 0))
+   (asgn
+    (dot dest.0 sender.0 0)
+    (dot src.0 sender.0 0))
+   (asgn
+    (dot dest.0 index.0 0)
+    (dot src.0 index.0 0))
+   (asgn
+    (dot dest.0 hasSignature.0 0)
+    (dot src.0 hasSignature.0 0))
+   (asgn
+    (dot dest.0 plain.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 plain.0 0)))
+   (asgn
+    (dot dest.0 timestamp.0 0)
+    (dot src.0 timestamp.0 0))
+   (asgn
+    (dot dest.0 salt.0 0)
+    (dot src.0 salt.0 0))
+   (asgn
+    (dot dest.0 previousCount.0 0)
+    (dot src.0 previousCount.0 0))
+   (asgn
+    (dot dest.0 hasUnsigned.0 0)
+    (dot src.0 hasUnsigned.0 0))
+   (asgn
+    (dot dest.0 unsigned.0 0)
+    (call =dup_SX4ebt0net0w87ek.0.net0w87ek
+     (dot src.0 unsigned.0 0)))
+   (asgn
+    (dot dest.0 filterType.0 0)
+    (dot src.0 filterType.0 0))
+   (asgn
+    (dot dest.0 chatTypeId.0 0)
+    (dot src.0 chatTypeId.0 0))
+   (asgn
+    (dot dest.0 inlineChatType.0 0)
+    (dot src.0 inlineChatType.0 0))
+   (asgn
+    (dot dest.0 senderName.0 0)
+    (call =dup_SX4ebt0net0w87ek.0.net0w87ek
+     (dot src.0 senderName.0 0)))
+   (asgn
+    (dot dest.0 hasTarget.0 0)
+    (dot src.0 hasTarget.0 0))
+   (asgn
+    (dot dest.0 targetName.0 0)
+    (call =dup_SX4ebt0net0w87ek.0.net0w87ek
+     (dot src.0 targetName.0 0)))
+   (ret dest.0)))
+ (proc@K,16 :=copy_SX50layerX43hatX50acket0netncgmzw.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut PlayerChatPacket.0.).)
+   (param :src.0 . . PlayerChatPacket.0. .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (asgn
+    (dot
+     (hderef dest.0)globalIndex.0 0)
+    (dot src.0 globalIndex.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)sender.0 0)
+    (dot src.0 sender.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)index.0 0)
+    (dot src.0 index.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)hasSignature.0 0)
+    (dot src.0 hasSignature.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)plain.0 0)
+    (dot src.0 plain.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)timestamp.0 0)
+    (dot src.0 timestamp.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)salt.0 0)
+    (dot src.0 salt.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)previousCount.0 0)
+    (dot src.0 previousCount.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)hasUnsigned.0 0)
+    (dot src.0 hasUnsigned.0 0))
+   (call =copy_SX4ebt0net0w87ek.0.net0w87ek
+    (dot
+     (hderef dest.0)unsigned.0 0)
+    (dot src.0 unsigned.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)filterType.0 0)
+    (dot src.0 filterType.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)chatTypeId.0 0)
+    (dot src.0 chatTypeId.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)inlineChatType.0 0)
+    (dot src.0 inlineChatType.0 0))
+   (call =copy_SX4ebt0net0w87ek.0.net0w87ek
+    (dot
+     (hderef dest.0)senderName.0 0)
+    (dot src.0 senderName.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)hasTarget.0 0)
+    (dot src.0 hasTarget.0 0))
+   (call =copy_SX4ebt0net0w87ek.0.net0w87ek
+    (dot
+     (hderef dest.0)targetName.0 0)
+    (dot src.0 targetName.0 0)))))(.index@,1,netchat.nim
+ (x SignatureBytes.0. 193)
+ (x AcknowledgedBytes.0. 71)
+ (x MaxPreviousMessages.0. 72)
+ (x FilterPassThrough.0. 75)
+ (x FilterFullyFiltered.0. 72)
+ (x FilterPartiallyFiltered.0. 74)
+ (x SystemChatPacket.0. 78)
+ (x DisguisedChatPacket.0. 386)
+ (x PlayerChatPacket.0. 605)
+ (x readSystemChatPacket.0. 1064)
+ (h readChatTypeHolder.0. 988)
+ (x readDisguisedChatPacket.0. 883)
+ (h readPreviousMessages.0. 2665)
+ (x readPlayerChatPacket.0. 1872)
+ (x saidBy.0. 6085)
+ (x bodyChatAck.0. 292)
+ (x bodyChatUnsigned.0. 399)
+ (x bodyChatCommand.0. 1501)
+ (h inc.1.Irn1g7r1. 1412)
+ (h len.3.I12oavy1. 630)
+ (h \5B\5D.7.Ite3z0o. 682)
+ (h seq.0.Iotb7mc. 1065)
+ (h =destroy.1.Iez2nr5. 463)
+ (h =wasMoved.1.Ia0kll01. 1194)
+ (h =dup.1.Is27omc. 383)
+ (h =copy.1.Iw71th7. 748)
+ (h newSeqUninit.0.I7whkjh1. 3527)
+ (h capInBytes.0.Ilkynur1. 1816)
+ (h memSizeInBytes.0.Iqj0wsf. 1175)
+ (h =destroy_SX53ystemX43hatX50acket0netncgmzw.0. 727)
+ (h =wasmoved_SX53ystemX43hatX50acket0netncgmzw.0. 242)
+ (h =dup_SX53ystemX43hatX50acket0netncgmzw.0. 280)
+ (h =copy_SX53ystemX43hatX50acket0netncgmzw.0. 457)
+ (h =destroy_SX44isguisedX43hatX50acket0netncgmzw.0. 418)
+ (h =wasmoved_SX44isguisedX43hatX50acket0netncgmzw.0. 409)
+ (h =dup_SX44isguisedX43hatX50acket0netncgmzw.0. 503)
+ (h =copy_SX44isguisedX43hatX50acket0netncgmzw.0. 864)
+ (h =destroy_SX50layerX43hatX50acket0netncgmzw.0. 851)
+ (h =wasmoved_SX50layerX43hatX50acket0netncgmzw.0. 457)
+ (h =dup_SX50layerX43hatX50acket0netncgmzw.0. 579)
+ (h =copy_SX50layerX43hatX50acket0netncgmzw.0. 1570))

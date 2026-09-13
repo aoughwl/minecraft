@@ -1,0 +1,537 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/source/jester_mod_6de31c3d2924debe.nim
+ (comment)
+ (import@,f jester@7)
+ (import@,g netwire@7)
+ (import@,h netframe@7)
+ (import@,i netproto@7)
+ (import@,j netchunk@7)
+ (import@,k netnbt@7)
+ (import@,l netslot@7)
+ (import@,m netplay@7)
+ (import@,n netentity@7)
+ (import@,o netherd@7)
+ (import@,p netinv@7)
+ (import@,q netchat@7)
+ (const@2,t Iterations . . . 100000@D)
+ (const@2,u SectionCount . . . 24@F)
+ (const@2,w TypicalPacked . . . 12@G)
+ (const@2,z TypicalBits . . . 5@E)
+ (const@2,10 TypicalPalette . . . 24@H)
+ (const@2,11 WorstBits . . . 15@C)
+ (var@4,14 sink . . . 0@7)
+ (var@4,15 typicalBytes . .
+  (at@H seq~3 int@1)
+  (prefix@P \40
+   (bracket@1)))
+ (var@4,16 worstBytes . .
+  (at@F seq~3 int@1)
+  (prefix@N \40
+   (bracket@1)))
+ (var@4,17 proxyBytes . .
+  (at@F seq~3 int@1)
+  (prefix@N \40
+   (bracket@1)))
+ (var@4,18 ready . . . false@8)
+ (proc@,1A airSection@5 . . .
+  (params@F
+   (param@1 w . .
+    (mut@3 Writer@4).)). . .
+  (stmts@2,1
+   (call@8 putShort~8 w@1 0@4)
+   (call@B,1 writeSingle~B w@1 0@4 true@7)
+   (call@B,2 writeSingle~B w@1 1@4 true@7)))
+ (proc@,1F packedSection@5 . . .
+  (params@I
+   (param@1 w . .
+    (mut@3 Writer@4).)
+   (param@G salt . . int@P .)
+   (param@M bits . . int@J .)
+   (param@S paletteSize . . int@D .)). . .
+  (stmts@2,1
+   (call@8 putShort~8 w@1 4096@4)
+   (var@4,1 palette . .
+    (at@C seq~3 int@1)
+    (prefix@K \40
+     (bracket@1)))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2 paletteSize@2)
+    (stmts@2,1
+     (cmd@7
+      (dot palette~7 add@1)
+      (infix@F \2B
+       (infix~8 \2B 1~2
+        (infix@4 * i~2 7@2))salt@2))
+     (cmd@,1 inc i@4)))
+   (var@4,6 indices . . .
+    (call@L
+     (at~5 newSeq~6 int@1)SectionBlocks@1))
+   (asgn@2,7 i~2 0@2)
+   (while@,8
+    (infix@8 < i~2 SectionBlocks@2)
+    (stmts@2,1
+     (asgn@B
+      (at~4 indices~7 i@1)
+      (infix@N mod
+       (par~L
+        (infix@8 \2B
+         (infix~5 * i~2 31@2)
+         (infix@7 * salt~5 17@2)))paletteSize@4))
+     (cmd@,1 inc i@4)))
+   (call@D,B writeIndirect~D w@1 palette@4 indices@D bits@M true@S)
+   (var@4,C biomeIndices . . .
+    (call@Q
+     (at~5 newSeq~6 int@1)SectionBiomes@1))
+   (asgn@2,D i~2 0@2)
+   (while@,E
+    (infix@8 < i~2 SectionBiomes@2)
+    (stmts@2,1
+     (asgn@G
+      (at~4 biomeIndices~C i@1)
+      (infix@4 mod i~2 3@4))
+     (cmd@,1 inc i@4)))
+   (call@D,H writeIndirect~D w@1
+    (prefix@4 \40
+     (bracket@1 1@1 2@4 3@7))biomeIndices@G 2@U true@X)))
+ (proc@,1Z directSection@5 . . .
+  (params@I
+   (param@1 w . .
+    (mut@3 Writer@4).)
+   (param@G salt . . int@6 .)). . .
+  (stmts@2,1
+   (call@8 putShort~8 w@1 4096@4)
+   (var@4,1 values . . .
+    (call@K
+     (at~5 newSeq~6 int@1)SectionBlocks@1))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2 SectionBlocks@2)
+    (stmts@2,1
+     (asgn@A
+      (at~4 values~6 i@1)
+      (infix@I and
+       (par~G
+        (infix@8 \2B
+         (infix~5 * i~2 13@2)salt@2))32767@4))
+     (cmd@,1 inc i@4)))
+   (call@B,6 writeDirect~B w@1 values@4 WorstBits@C true@N)
+   (var@4,7 biomes . . .
+    (call@K
+     (at~5 newSeq~6 int@1)SectionBiomes@1))
+   (asgn@2,8 i~2 0@2)
+   (while@,9
+    (infix@8 < i~2 SectionBiomes@2)
+    (stmts@2,1
+     (asgn@A
+      (at~4 biomes~6 i@1)
+      (infix@A and
+       (par~8
+        (infix@3 * i~2 5@2))255@4))
+     (cmd@,1 inc i@4)))
+   (call@B,C writeDirect~B w@1 biomes@4 8@C true@F)))
+ (proc@,1o prepare@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (comment)
+   (var@4,1 a . . .
+    (call@A writer~6))
+   (var@4,2 s . . . 0@4)
+   (while@,3
+    (infix@8 < s~2 SectionCount@2)
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 < s~2 TypicalPacked@2)
+       (stmts@J
+        (call@D packedSection~D a@1 s@4 TypicalBits@7 TypicalPalette@K)))
+      (else@,1
+       (stmts@6
+        (call@A airSection~A a@1))))
+     (cmd@,2 inc s@4)))
+   (asgn@D,7 typicalBytes~D
+    (dot@3 a~1 data@1))
+   (var@4,9 b . . .
+    (call@A writer~6))
+   (asgn@2,A s~2 0@2)
+   (while@,B
+    (infix@8 < s~2 SectionCount@2)
+    (stmts@2,1
+     (call@D directSection~D b@1 s@4)
+     (cmd@,1 inc s@4)))
+   (asgn@B,E worstBytes~B
+    (dot@3 b~1 data@1))
+   (var@4,H c . .
+    (at@6 seq~3 int@1)
+    (prefix@E \40
+     (bracket@1)))
+   (var@4,I i . . . 0@4)
+   (while@,J
+    (infix@8 < i~2 61440@2)
+    (stmts@2,1
+     (cmd@1
+      (dot c~1 add@1)
+      (infix@E and
+       (par~9
+        (infix@3 * i~2 37@2))255@4))
+     (cmd@,1 inc i@4)))
+   (asgn@B,M proxyBytes~B c@2)
+   (asgn@6,N ready~6 true@2)))
+ (comment@,2E)
+ (proc@,2H emptyLoop@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (var@4 acc . . . 0@6)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2 Iterations@2)
+    (stmts@2,1
+     (asgn@4 acc~4
+      (infix@6 \2B acc~4 i@2))
+     (asgn@2,1 i~2
+      (infix@4 \2B i~2 1@2))))
+   (asgn@5,5 sink~5 acc@2)))
+ (proc@,2P seqRead@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not ready@4)
+     (stmts@B
+      (call@7 prepare~7))))
+   (var@4,1 acc . . . 0@6)
+   (var@4,2 i . . . 0@4)
+   (let@4,3 n . . .
+    (dot@E proxyBytes~A len@1))
+   (while@,4
+    (infix@8 < i~2 Iterations@2)
+    (stmts@2,1
+     (asgn@4 acc~4
+      (infix@6 \2B acc~4
+       (at@C proxyBytes~A
+        (infix@3 mod i~2 n@4))))
+     (asgn@2,1 i~2
+      (infix@4 \2B i~2 1@2))))
+   (asgn@5,7 sink~5 acc@2)))
+ (proc@,2Z onePlusOne@5 . . .
+  (params@F
+   (param@1 x . . int@3 .))int@A . .
+  (stmts@V
+   (infix@2 \2B x~2 1@2)))
+ (proc@,2b procCall@5 . . .
+  (params@D). . .
+  (stmts@2,1
+   (var@4 acc . . . 0@6)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2 Iterations@2)
+    (stmts@2,1
+     (asgn@4 acc~4
+      (call@C onePlusOne~A acc@1))
+     (asgn@2,1 i~2
+      (infix@4 \2B i~2 1@2))))
+   (asgn@5,5 sink~5 acc@2)))
+ (comment@,2j)
+ (proc@,2l decodeTypical@5 . . .
+  (params@I). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not ready@4)
+     (stmts@B
+      (call@7 prepare~7))))
+   (let@4,1 column . . .
+    (call@L readSections~C typicalBytes@1 SectionCount@F true@T))
+   (var@4,2 acc . . . 0@6)
+   (var@4,3 s . . . 0@4)
+   (while@,4
+    (infix@8 < s~2
+     (dot@H
+      (dot~9 column~6 sections@1)len@1))
+    (stmts@2,1
+     (asgn@4 acc~4
+      (infix@6 \2B acc~4
+       (dot@Y
+        (dot~7
+         (dot~7
+          (at~3
+           (dot~9 column~6 sections@1)s@1)blocks@1)values@1)len@1)))
+     (cmd@,1 inc s@4)))
+   (asgn@5,7 sink~5
+    (infix@6 \2B acc~4
+     (dot@G
+      (dot~8 column~6 problem@1)len@1)))))
+ (proc@,2v decodeWorst@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not ready@4)
+     (stmts@B
+      (call@7 prepare~7))))
+   (let@4,1 column . . .
+    (call@L readSections~C worstBytes@1 SectionCount@D true@R))
+   (var@4,2 acc . . . 0@6)
+   (var@4,3 s . . . 0@4)
+   (while@,4
+    (infix@8 < s~2
+     (dot@H
+      (dot~9 column~6 sections@1)len@1))
+    (stmts@2,1
+     (asgn@4 acc~4
+      (infix@6 \2B acc~4
+       (dot@Y
+        (dot~7
+         (dot~7
+          (at~3
+           (dot~9 column~6 sections@1)s@1)blocks@1)values@1)len@1)))
+     (cmd@,1 inc s@4)))
+   (asgn@5,7 sink~5
+    (infix@6 \2B acc~4
+     (dot@G
+      (dot~8 column~6 problem@1)len@1)))))
+ (comment@,35)
+ (proc@,3F bitProxy@5 . . .
+  (params@D). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not ready@4)
+     (stmts@B
+      (call@7 prepare~7))))
+   (var@4,1 at . . . 0@5)
+   (var@4,2 bit . . . 0@6)
+   (var@4,3 acc . . . 0@6)
+   (let@4,4 n . . .
+    (dot@E proxyBytes~A len@1))
+   (while@,5
+    (infix@9 < at~3 n@2)
+    (stmts@2,1
+     (asgn@4 acc~4
+      (infix@6 \2B acc~4
+       (par@2
+        (infix@Q and
+         (par~P
+          (infix@G shr
+           (at~5 proxyBytes~A at@1)bit@4))1@4))))
+     (asgn@4,1 bit~4
+      (infix@6 \2B bit~4 1@2))
+     (if@,2
+      (elif@3
+       (infix@4 == bit~4 8@3)
+       (stmts~1,1
+        (asgn@4 bit~4 0@2)
+        (asgn@3,1 at~3
+         (infix@5 \2B at~3 1@2)))))))
+   (asgn@5,B sink~5 acc@2)))
+ (comment@,3T)
+ (proc@,3a lazyProbe@5 . . .
+  (params@E). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not ready@4)
+     (stmts@B
+      (call@7 prepare~7))))
+   (var@4,4 at . . .
+    (infix@B \2B
+     (infix~4 \2B 2~2 1@2)1@2))
+   (var@4,5 e . . . 0@4)
+   (while@,6
+    (infix@8 < e~2 TypicalPalette@2)
+    (stmts@2,1
+     (asgn@3 at~3
+      (infix@5 \2B at~3
+       (call@C varIntSize~A
+        (infix@3 \2B 1~2
+         (infix@4 * e~2 7@2)))))
+     (cmd@,1 inc e@4)))
+   (asgn@3,9 at~3
+    (infix@5 \2B at~3
+     (call@C varIntSize~A
+      (call@9 longsFor~8 SectionBlocks@1 TypicalBits@G))))
+   (let@4,A mask . . .
+    (infix@R \2D
+     (par~K
+      (infix@3 shl 1~2 TypicalBits@4))1@2))
+   (let@4,B perLong . . .
+    (infix@D div 64~3 TypicalBits@4))
+   (var@4,C acc . . . 0@6)
+   (var@4,D i . . . 0@4)
+   (while@,E
+    (infix@8 < i~2 SectionBlocks@2)
+    (stmts@2,1
+     (let@4 li . . .
+      (infix@7 div i~2 perLong@4))
+     (let@4,1 j . . .
+      (infix@K *
+       (par~G
+        (infix@3 mod i~2 perLong@4))TypicalBits@2))
+     (let@4,2 p . . .
+      (infix@7 \2B at~3
+       (infix@5 * li~3 8@2)))
+     (let@4,3 hi32 . . .
+      (infix@Z,1 or
+       (infix@T,~1 or
+        (infix~W or
+         (par~P
+          (infix@H shl
+           (at~4 typicalBytes~C p@1)24@4))
+         (par@3
+          (infix@L shl
+           (at~8 typicalBytes~C
+            (infix@3 \2B p~2 1@2))16@4)))
+        (par~v,1
+         (infix@L shl
+          (at~8 typicalBytes~C
+           (infix@3 \2B p~2 2@2))8@4)))
+       (at@F typicalBytes~C
+        (infix@3 \2B p~2 3@2))))
+     (let@4,5 lo32 . . .
+      (infix@Z,1 or
+       (infix@X,~1 or
+        (infix~W or
+         (par~T
+          (infix@L shl
+           (at~8 typicalBytes~C
+            (infix@3 \2B p~2 4@2))24@4))
+         (par@3
+          (infix@L shl
+           (at~8 typicalBytes~C
+            (infix@3 \2B p~2 5@2))16@4)))
+        (par~z,1
+         (infix@L shl
+          (at~8 typicalBytes~C
+           (infix@3 \2B p~2 6@2))8@4)))
+       (at@F typicalBytes~C
+        (infix@3 \2B p~2 7@2))))
+     (var@4,7 v . . . 0@4)
+     (if@,8
+      (elif@3
+       (infix@G <=
+        (infix~E \2B j~2 TypicalBits@2)32@3)
+       (stmts@N
+        (asgn@2 v~2
+         (infix@F and
+          (par~D
+           (infix@6 shr lo32~5 j@4))mask@4))))
+      (elif@5,1
+       (infix@2 >= j~2 32@3)
+       (stmts@9
+        (asgn@2 v~2
+         (infix@M and
+          (par~K
+           (infix@6 shr hi32~5
+            (par@4
+             (infix@3 \2D j~2 32@2))))mask@4))))
+      (else@,2
+       (stmts@6
+        (asgn@2 v~2
+         (infix@e and
+          (par~c
+           (infix@E or
+            (par~D
+             (infix@6 shr lo32~5 j@4))
+            (par@3
+             (infix@6 shl hi32~5
+              (par@4
+               (infix@4 \2D 32~3 j@2))))))mask@4)))))
+     (asgn@4,B acc~4
+      (infix@6 \2B acc~4 v@2))
+     (asgn@2,C i~2
+      (infix@4 \2B i~2 1@2))))
+   (asgn@5,S sink~5 acc@2)))
+ (comment@,45)
+ (proc@,48 decodeTypicalControl@5 . . .
+  (params@P). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not ready@4)
+     (stmts@B
+      (call@7 prepare~7))))
+   (var@4,1 acc . . . 0@6)
+   (var@4,2 i . . . 0@4)
+   (let@4,3 n . . .
+    (dot@G typicalBytes~C len@1))
+   (while@,4
+    (infix@8 < i~2 n@2)
+    (stmts@2,1
+     (asgn@4 acc~4
+      (infix@6 \2B acc~4
+       (at@E typicalBytes~C i@1)))
+     (asgn@2,1 i~2
+      (infix@4 \2B i~2 1@2))))
+   (asgn@5,7 sink~5 acc@2)))
+ (proc@,4I decodeWorstControl@5 . . .
+  (params@N). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not ready@4)
+     (stmts@B
+      (call@7 prepare~7))))
+   (var@4,1 acc . . . 0@6)
+   (var@4,2 i . . . 0@4)
+   (let@4,3 n . . .
+    (dot@E worstBytes~A len@1))
+   (while@,4
+    (infix@8 < i~2 n@2)
+    (stmts@2,1
+     (asgn@4 acc~4
+      (infix@6 \2B acc~4
+       (at@C worstBytes~A i@1)))
+     (asgn@2,1 i~2
+      (infix@4 \2B i~2 1@2))))
+   (asgn@5,7 sink~5 acc@2)))
+ (proc@,4S start@5 . . .
+  (params@A). . .
+  (stmts@2,4
+   (var@4 probe . . .
+    (call@G emptyNbt~8))
+   (var@4,1 components . . .
+    (call@S emptyComponents~F))
+   (var@4,2 session . . .
+    (call@L playSession~B))
+   (var@4,3 layout . . .
+    (call@L layoutFor774~C))
+   (var@4,4 windows . . .
+    (call@K containers~A))
+   (var@4,5 others . . .
+    (call@I emptyHerd~9))
+   (call@3,6 log~3
+    (infix@Y,5 &
+     (infix~M &
+      (infix@o,~1 &
+       (infix~I &
+        (infix~N &
+         (infix@Y,~1 &
+          (infix~T &
+           (infix~K &
+            (infix@u,~1 &
+             (infix~G &
+              (infix~N &
+               (infix@e,~1 &
+                (infix~H &
+                 (infix~I &
+                  (infix@P,~1 &
+                   (infix~J & "aoughwl.mcnet ready\3A protocol "~X
+                    (prefix@2 $ ProtocolVersion@1))", play packets by name, "~q,1)
+                  (prefix@2 $
+                   (dot@B
+                    (dot~5 probe~5 kind@1)len@1)))" nbt nodes, "@2)
+                (prefix~10,1 $
+                 (dot@H
+                  (dot~6 components~A names@1)len@1)))" components, live "@2)
+              (prefix@2 $
+               (dot@8 session~7 live@1)))", "~z,1)
+            (prefix@2 $
+             (dot@D
+              (dot~6 layout~6 shape@1)len@1)))" metadata types, window "@2)
+          (prefix~s,1 $
+           (dot@8 windows~7 openWindow@1)))", chat signatures "@2)
+        (prefix@2 $ SignatureBytes@1))" bytes, "~z,1)
+      (prefix@2 $
+       (call@B beastCount~A others@1)))" entities tracked"@2)))))

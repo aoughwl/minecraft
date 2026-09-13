@@ -1,0 +1,269 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,../../../../Packages/com.aoughwl.jester/ModSdk/textures.nim
+ (comment)
+ (import@,P jester@7)
+ (proc@,R hostSurfaceTexture@5 . . .
+  (params@N
+   (param@1 entity . . int64@8 .)
+   (param@G slot . . int64@6 .)
+   (param@T file . . string@6 .)).
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_surface_texture"@2)). .)
+ (proc@,T hostImagePresent@5 . . .
+  (params@L
+   (param@1 file . . string@6 .))bool@G
+  (pragmas@g
+   (kv@9 importc~7 "jester_image_present"@2)). .)
+ (proc@,U hostModelFilePresent@5 . . .
+  (params@P
+   (param@1 uri . . string@5 .))bool@F
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_model_file_present"@2)). .)
+ (proc@,W hostModelTexture@5 . . .
+  (params@L
+   (param@1 slot . . int64@6 .)
+   (param@E uri . . string@5 .)).
+  (pragmas@m
+   (kv@9 importc~7 "jester_model_texture"@2)). .)
+ (proc@,X hostModelTextureRange@5 . . .
+  (params@Q
+   (param@1 slot . . int64@T .)
+   (param@7 bytes . . int64@N .)
+   (param@E offset . . int64@G .)
+   (param@M length . . int64@8 .)).
+  (pragmas@2,1
+   (kv@9 importc~7 "jester_model_texture_range"@2)). .)
+ (const@A,b ColorMap~8 x . . 0@4)
+ (const@9,c BumpMap~7 x . . 1@4)
+ (const@A,d ShineMap~8 x . . 2@4)
+ (const@9,e GlowMap~7 x . . 3@4)
+ (comment@,g)
+ (proc@,h texture@5 x . .
+  (params@D
+   (param@1 thing . . Entity@7 .)
+   (param@G file . . string@6 .)). . .
+  (stmts@2,1
+   (call@I hostSurfaceTexture~I
+    (call@6 int64~5 thing@1)
+    (call@K int64~5 ColorMap@1)file@W)))
+ (comment@,j)
+ (proc@,l bumps@5 x . .
+  (params@B
+   (param@1 thing . . Entity@7 .)
+   (param@G file . . string@6 .)). . .
+  (stmts@2,1
+   (call@I hostSurfaceTexture~I
+    (call@6 int64~5 thing@1)
+    (call@K int64~5 BumpMap@1)file@V)))
+ (comment@,n)
+ (proc@,p shine@5 x . .
+  (params@B
+   (param@1 thing . . Entity@7 .)
+   (param@G file . . string@6 .)). . .
+  (stmts@2,1
+   (call@I hostSurfaceTexture~I
+    (call@6 int64~5 thing@1)
+    (call@K int64~5 ShineMap@1)file@W)))
+ (comment@,r)
+ (proc@,s glow@5 x . .
+  (params@A
+   (param@1 thing . . Entity@7 .)
+   (param@G file . . string@6 .)). . .
+  (stmts@2,1
+   (call@I hostSurfaceTexture~I
+    (call@6 int64~5 thing@1)
+    (call@K int64~5 GlowMap@1)file@V)))
+ (comment@,v)
+ (proc@,x hasImage@5 x . .
+  (params@E
+   (param@1 file . . string@6 .))bool@G . .
+  (stmts@b
+   (call@G hostImagePresent~G file@1)))
+ (comment@,z)
+ (proc@,14 hasModelFile@5 x . .
+  (params@I
+   (param@1 uri . . string@5 .))bool@F . .
+  (stmts@e
+   (call@K hostModelFilePresent~K uri@1)))
+ (comment@,16)
+ (proc@,1A dress@5 x . .
+  (params@B
+   (param@1 thing . . Entity@7 .)
+   (param@G base . . string@6 .)). . .
+  (stmts@2,1
+   (let@4 colour . . .
+    (infix@E & base~5 "_diff.png"@2))
+   (if@,1
+    (elif@3
+     (call@8 hasImage~8 colour@1)
+     (stmts@I
+      (call@D
+       (dot~8 thing~5 texture@1)colour@1))))
+   (let@4,2 bump . . .
+    (infix@C & base~5 "_nrm.png"@2))
+   (if@,3
+    (elif@3
+     (call@8 hasImage~8 bump@1)
+     (stmts@G
+      (call@B
+       (dot~6 thing~5 bumps@1)bump@1))))
+   (let@4,4 gloss . . .
+    (infix@D & base~5 "_gloss.png"@2))
+   (if@,5
+    (elif@3
+     (call@8 hasImage~8 gloss@1)
+     (stmts@H
+      (call@B
+       (dot~6 thing~5 shine@1)gloss@1))))))
+ (comment@,1I)
+ (proc@,1M useTexture@5 x . .
+  (params@G
+   (param@1 uri . . string@5 .)). . .
+  (stmts@W
+   (call@G hostModelTexture~G
+    (call@6 int64~5 ColorMap@1)uri@I)))
+ (proc@,1N useBumps@5 x . .
+  (params@E
+   (param@1 uri . . string@5 .)). . .
+  (stmts@U
+   (call@G hostModelTexture~G
+    (call@6 int64~5 BumpMap@1)uri@H)))
+ (proc@,1O useShineMap@5 x . .
+  (params@H
+   (param@1 uri . . string@5 .)). . .
+  (stmts@X
+   (call@G hostModelTexture~G
+    (call@6 int64~5 ShineMap@1)uri@I)))
+ (proc@,1P useGlow@5 x . .
+  (params@D
+   (param@1 uri . . string@5 .)). . .
+  (stmts@T
+   (call@G hostModelTexture~G
+    (call@6 int64~5 GlowMap@1)uri@H)))
+ (comment@,1R)
+ (proc@,1T useTexture@5 x . .
+  (params@G
+   (param@1 bytes . . int@N .)
+   (param@8 offset . . int@G .)
+   (param@G length . . int@8 .)). . .
+  (stmts@2,1
+   (call@L hostModelTextureRange~L
+    (call@6 int64~5 ColorMap@1)
+    (call@N int64~5 bytes@1)
+    (call@b int64~5 offset@1)
+    (call@q int64~5 length@1))))
+ (proc@,1V useBumps@5 x . .
+  (params@E
+   (param@1 bytes . . int@N .)
+   (param@8 offset . . int@G .)
+   (param@G length . . int@8 .)). . .
+  (stmts@2,1
+   (call@L hostModelTextureRange~L
+    (call@6 int64~5 BumpMap@1)
+    (call@M int64~5 bytes@1)
+    (call@a int64~5 offset@1)
+    (call@p int64~5 length@1))))
+ (proc@,1X useShineMap@5 x . .
+  (params@H
+   (param@1 bytes . . int@N .)
+   (param@8 offset . . int@G .)
+   (param@G length . . int@8 .)). . .
+  (stmts@2,1
+   (call@L hostModelTextureRange~L
+    (call@6 int64~5 ShineMap@1)
+    (call@N int64~5 bytes@1)
+    (call@b int64~5 offset@1)
+    (call@q int64~5 length@1))))
+ (proc@,1Z useGlow@5 x . .
+  (params@D
+   (param@1 bytes . . int@N .)
+   (param@8 offset . . int@G .)
+   (param@G length . . int@8 .)). . .
+  (stmts@2,1
+   (call@L hostModelTextureRange~L
+    (call@6 int64~5 GlowMap@1)
+    (call@M int64~5 bytes@1)
+    (call@a int64~5 offset@1)
+    (call@p int64~5 length@1))))
+ (const@D,2H PictureKind~B x . . "aoughwl.picture"@4)
+ (const@G,2I PictureCatalog~E x . . "aoughwl.pictures"@4)
+ (const@D,2J IconPicture~B x . . "icon"@4)
+ (comment@,2Q)
+ (proc@,2W publishPicture@5 x . .
+  (params@K
+   (param@1 name . . string@C .)
+   (param@7 file . . string@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@b ==
+      (dot~5
+       (call~G catalogSignature~G PictureCatalog@1)len@1)0@3)
+     (stmts~1,1
+      (call@H defineCatalogKind~H PictureKind@1 "text"@E "A public name and the file inside the publishing mod that it names."~F,1)
+      (call@D,2 createCatalog~D PictureCatalog@1 PictureKind@H "Pictures mods have offered to each other."~B,1))))
+   (call@C,5 addToCatalog~C PictureCatalog@1 name@H file@N)))
+ (comment@,2e)
+ (proc@,2f publishIcon@5 x . .
+  (params@H
+   (param@1 file . . string@6 .)). . .
+  (stmts@Y
+   (call@E publishPicture~E IconPicture@1 file@E)))
+ (comment@,2h)
+ (proc@,2n pictureUri@5 x . .
+  (params@G
+   (param@1 provider . . string@G .)
+   (param@B name . . string@6 .))string@Q . .
+  (stmts@2,1
+   (infix@U &
+    (infix~6 &
+     (infix~B & "published\3A"~D provider@2)"/"@2)name@2)))
+ (comment@,2q)
+ (proc@,2s texture@5 x . .
+  (params@D
+   (param@1 thing . . Entity@7 .)
+   (param@G provider . . string@G .)
+   (param@Q name . . string@6 .)). . .
+  (stmts@2,1
+   (call@D
+    (dot~8 thing~5 texture@1)
+    (call@B pictureUri~A provider@1 name@B))))
+ (proc@,2u bumps@5 x . .
+  (params@B
+   (param@1 thing . . Entity@7 .)
+   (param@G provider . . string@G .)
+   (param@Q name . . string@6 .)). . .
+  (stmts@2,1
+   (call@B
+    (dot~6 thing~5 bumps@1)
+    (call@B pictureUri~A provider@1 name@B))))
+ (comment@,2x)
+ (proc@,2z drawPicture@5 x . .
+  (params@H
+   (param@1 provider . . string@G .)
+   (param@B name . . string@6 .)
+   (param@P x . . float64@L .)
+   (param@S y . . float64@I .)
+   (param@V width . . float64@F .)
+   (param@c height . . float64@8 .)
+   (param~D,1 u0 . . . 0.0@5)
+   (param~3,1 v0 . . . 0.0@5)
+   (param@7,1 u1 . . . 1.0@5)
+   (param@H,1 v1 . . . 1.0@5)
+   (param~D,2 red . . . 1.0@6)
+   (param~2,2 green . . . 1.0@8)
+   (param@B,2 blue . . . 1.0@7)
+   (param@N,2 alpha . . . 1.0@8)). . .
+  (stmts@2,3
+   (call@9 drawImage~9
+    (call@B pictureUri~A provider@1 name@B)x@T y@W width@Z height@g u0@o v0@s u1@w v1@10 red~7,1 green~2,1 blue@5,1 alpha@B,1)))
+ (comment@,35)
+ (proc@,3E hasPicture@5 x . .
+  (params@G
+   (param@1 provider . . string@G .)
+   (param@B name . . string@6 .))bool@Q . .
+  (stmts@2,1
+   (call@8 hasImage~8
+    (call@B pictureUri~A provider@1 name@B)))))

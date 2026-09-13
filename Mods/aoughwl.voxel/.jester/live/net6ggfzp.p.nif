@@ -1,0 +1,2722 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/deps/aoughwl_mcnet/netplay.nim
+ (comment)
+ (import@,b netwire@7)
+ (import@,c netnbt@7)
+ (import@,d netproto@7)
+ (const@B,p PlayLogin~9 x . . "minecraft\3Alogin"@4)
+ (const@D,q PlayRespawn~B x . . "minecraft\3Arespawn"@4)
+ (const@K,r PlayPlayerPosition~I x . . "minecraft\3Aplayer_position"@4)
+ (const@K,s PlayPlayerRotation~I x . . "minecraft\3Aplayer_rotation"@4)
+ (const@F,t PlayKeepAlive~D x . . "minecraft\3Akeep_alive"@4)
+ (const@A,u PlayPing~8 x . . "minecraft\3Aping"@4)
+ (const@G,v PlayDisconnect~E x . . "minecraft\3Adisconnect"@4)
+ (const@D,w PlaySetTime~B x . . "minecraft\3Aset_time"@4)
+ (const@T,x PlaySetDefaultSpawnPosition~R x . . "minecraft\3Aset_default_spawn_position"@4)
+ (const@F,y PlayGameEvent~D x . . "minecraft\3Agame_event"@4)
+ (const@P,z PlaySetChunkCacheCenter~N x . . "minecraft\3Aset_chunk_cache_center"@4)
+ (const@P,10 PlaySetChunkCacheRadius~N x . . "minecraft\3Aset_chunk_cache_radius"@4)
+ (const@R,11 PlaySetSimulationDistance~P x . . "minecraft\3Aset_simulation_distance"@4)
+ (const@P,12 PlayLevelChunkWithLight~N x . . "minecraft\3Alevel_chunk_with_light"@4)
+ (const@M,13 PlayForgetLevelChunk~K x . . "minecraft\3Aforget_level_chunk"@4)
+ (const@L,14 PlayChunkBatchStart~J x . . "minecraft\3Achunk_batch_start"@4)
+ (const@O,15 PlayChunkBatchFinished~M x . . "minecraft\3Achunk_batch_finished"@4)
+ (const@I,16 PlayChunksBiomes~G x . . "minecraft\3Achunks_biomes"@4)
+ (const@O,17 PlayStartConfiguration~M x . . "minecraft\3Astart_configuration"@4)
+ (const@H,1A PlayBlockUpdate~F x . . "minecraft\3Ablock_update"@4)
+ (const@P,1B PlaySectionBlocksUpdate~N x . . "minecraft\3Asection_blocks_update"@4)
+ (const@L,1C PlayBlockEntityData~J x . . "minecraft\3Ablock_entity_data"@4)
+ (const@L,1D PlayBlockChangedAck~J x . . "minecraft\3Ablock_changed_ack"@4)
+ (const@M,1E PlayBlockDestruction~K x . . "minecraft\3Ablock_destruction"@4)
+ (const@G,1F PlayBlockEvent~E x . . "minecraft\3Ablock_event"@4)
+ (const@B,1G PlaySound~9 x . . "minecraft\3Asound"@4)
+ (const@H,1H PlaySoundEntity~F x . . "minecraft\3Asound_entity"@4)
+ (const@G,1I PlayLevelEvent~E x . . "minecraft\3Alevel_event"@4)
+ (const@F,1L PlaySetHealth~D x . . "minecraft\3Aset_health"@4)
+ (const@J,1M PlaySetExperience~H x . . "minecraft\3Aset_experience"@4)
+ (const@H,1N PlayDamageEvent~F x . . "minecraft\3Adamage_event"@4)
+ (const@J,1O PlayHurtAnimation~H x . . "minecraft\3Ahurt_animation"@4)
+ (const@M,1P PlayPlayerCombatKill~K x . . "minecraft\3Aplayer_combat_kill"@4)
+ (const@H,1Q PlaySetHeldSlot~F x . . "minecraft\3Aset_held_slot"@4)
+ (const@L,1R PlayPlayerAbilities~J x . . "minecraft\3Aplayer_abilities"@4)
+ (const@F,1U PlayAddEntity~D x . . "minecraft\3Aadd_entity"@4)
+ (const@K,1V PlayRemoveEntities~I x . . "minecraft\3Aremove_entities"@4)
+ (const@J,1W PlayMoveEntityPos~H x . . "minecraft\3Amove_entity_pos"@4)
+ (const@M,1X PlayMoveEntityPosRot~K x . . "minecraft\3Amove_entity_pos_rot"@4)
+ (const@J,1Y PlayMoveEntityRot~H x . . "minecraft\3Amove_entity_rot"@4)
+ (const@K,1Z PlayTeleportEntity~I x . . "minecraft\3Ateleport_entity"@4)
+ (const@O,1a PlayEntityPositionSync~M x . . "minecraft\3Aentity_position_sync"@4)
+ (const@L,1b PlaySetEntityMotion~J x . . "minecraft\3Aset_entity_motion"@4)
+ (const@J,1c PlaySetEntityData~H x . . "minecraft\3Aset_entity_data"@4)
+ (const@I,1d PlaySetEquipment~G x . . "minecraft\3Aset_equipment"@4)
+ (const@D,1e PlayAnimate~B x . . "minecraft\3Aanimate"@4)
+ (const@H,1f PlayEntityEvent~F x . . "minecraft\3Aentity_event"@4)
+ (const@J,1g PlaySetEntityLink~H x . . "minecraft\3Aset_entity_link"@4)
+ (const@J,1h PlaySetPassengers~H x . . "minecraft\3Aset_passengers"@4)
+ (const@G,1i PlayRotateHead~E x . . "minecraft\3Arotate_head"@4)
+ (const@K,1j PlayTakeItemEntity~I x . . "minecraft\3Atake_item_entity"@4)
+ (const@M,1m PlayContainerSetSlot~K x . . "minecraft\3Acontainer_set_slot"@4)
+ (const@P,1n PlayContainerSetContent~N x . . "minecraft\3Acontainer_set_content"@4)
+ (const@M,1o PlayContainerSetData~K x . . "minecraft\3Acontainer_set_data"@4)
+ (const@G,1p PlayOpenScreen~E x . . "minecraft\3Aopen_screen"@4)
+ (const@K,1q PlayContainerClose~I x . . "minecraft\3Acontainer_close"@4)
+ (const@J,1r PlaySetCursorItem~H x . . "minecraft\3Aset_cursor_item"@4)
+ (const@O,1s PlaySetPlayerInventory~M x . . "minecraft\3Aset_player_inventory"@4)
+ (const@G,1v PlaySystemChat~E x . . "minecraft\3Asystem_chat"@4)
+ (const@G,1w PlayPlayerChat~E x . . "minecraft\3Aplayer_chat"@4)
+ (const@J,1x PlayDisguisedChat~H x . . "minecraft\3Adisguised_chat"@4)
+ (const@P,20 PlayAcceptTeleportation~N x . . "minecraft\3Aaccept_teleportation"@4)
+ (const@I,21 PlayKeepAliveOut~G x . . "minecraft\3Akeep_alive"@4)
+ (const@D,22 PlayPongOut~B x . . "minecraft\3Apong"@4)
+ (const@J,23 PlayMovePlayerPos~H x . . "minecraft\3Amove_player_pos"@4)
+ (const@M,24 PlayMovePlayerPosRot~K x . . "minecraft\3Amove_player_pos_rot"@4)
+ (const@J,25 PlayMovePlayerRot~H x . . "minecraft\3Amove_player_rot"@4)
+ (const@Q,26 PlayMovePlayerStatusOnly~O x . . "minecraft\3Amove_player_status_only"@4)
+ (const@O,27 PlayChunkBatchReceived~M x . . "minecraft\3Achunk_batch_received"@4)
+ (const@I,28 PlayPlayerLoaded~G x . . "minecraft\3Aplayer_loaded"@4)
+ (const@J,29 PlayClientTickEnd~H x . . "minecraft\3Aclient_tick_end"@4)
+ (const@J,2A PlayClientCommand~H x . . "minecraft\3Aclient_command"@4)
+ (const@I,2B PlayPlayerAction~G x . . "minecraft\3Aplayer_action"@4)
+ (const@F,2C PlayUseItemOn~D x . . "minecraft\3Ause_item_on"@4)
+ (const@D,2D PlayUseItem~B x . . "minecraft\3Ause_item"@4)
+ (const@B,2E PlaySwing~9 x . . "minecraft\3Aswing"@4)
+ (const@K,2F PlaySetCarriedItem~I x . . "minecraft\3Aset_carried_item"@4)
+ (const@J,2G PlayPlayerCommand~H x . . "minecraft\3Aplayer_command"@4)
+ (const@H,2H PlayPlayerInput~F x . . "minecraft\3Aplayer_input"@4)
+ (const@E,2I PlayInteract~C x . . "minecraft\3Ainteract"@4)
+ (const@N,2J PlayContainerClickOut~L x . . "minecraft\3Acontainer_click"@4)
+ (const@N,2K PlayContainerCloseOut~L x . . "minecraft\3Acontainer_close"@4)
+ (const@P,2L PlaySetCreativeModeSlot~N x . . "minecraft\3Aset_creative_mode_slot"@4)
+ (const@D,2M PlayChatOut~B x . . "minecraft\3Achat"@4)
+ (const@K,2N PlayChatCommandOut~I x . . "minecraft\3Achat_command"@4)
+ (const@G,2O PlayChatAckOut~E x . . "minecraft\3Achat_ack"@4)
+ (const@6,2W RelX~4 x . . 0@4)
+ (const@6,2X RelY~4 x . . 1@4)
+ (const@6,2Y RelZ~4 x . . 2@4)
+ (const@8,2Z RelYaw~6 x . . 3@4)
+ (const@A,2a RelPitch~8 x . . 4@4)
+ (const@B,2b RelDeltaX~9 x . . 5@4)
+ (const@B,2c RelDeltaY~9 x . . 6@4)
+ (const@B,2d RelDeltaZ~9 x . . 7@4)
+ (const@D,2e RelYawDelta~B x . . 8@4)
+ (const@E,2h MoveOnGround~C x . . 1@4)
+ (const@P,2i MoveHorizontalCollision~N x . . 2@4)
+ (const@A,2l DigStart~8 x . . 0@4)
+ (const@B,2m DigCancel~9 x . . 1@4)
+ (const@B,2n DigFinish~9 x . . 2@4)
+ (const@B,2o DropStack~9 x . . 3@4)
+ (const@9,2p DropOne~7 x . . 4@4)
+ (const@C,2q ShootOrEat~A x . . 5@4)
+ (const@B,2r SwapHands~9 x . . 6@4)
+ (const@G,2u CommandRespawn~E x . . 0@4)
+ (const@L,2v CommandRequestStats~J x . . 1@4)
+ (const@L,2y EventNoRespawnBlock~J x . . 0@4)
+ (const@J,2z EventStartRaining~H x . . 1@4)
+ (const@I,30 EventStopRaining~G x . . 2@4)
+ (const@L,31 EventChangeGameMode~J x . . 3@4)
+ (const@E,32 EventWinGame~C x . . 4@4)
+ (const@G,33 EventRainLevel~E x . . 7@4)
+ (const@J,34 EventThunderLevel~H x . . 8@4)
+ (const@O,35 EventLevelChunksLoaded~M x . . 13@4)
+ (proc@,39 declarePlayFrom@5 x . .
+  (params@L
+   (param@1 t . .
+    (mut@3 Table@4).)
+   (param@F dir . . int@9 .)
+   (param@K id . . int@4 .)
+   (param@T name . . string@6 .)). . .
+  (stmts@2,1
+   (comment)
+   (call@7,3 declare~7 t@1 StatePlay@4 dir@F id@K name@O)))
+ (proc@,3F playName@5 x . .
+  (params@E
+   (param@1 t . . Table@3 .)
+   (param@B dir . . int@9 .)
+   (param@G id . . int@4 .))string@Q . .
+  (stmts@2,1
+   (call@6 nameOf~6 t@1 StatePlay@4 dir@F id@K)))
+ (proc@,3I playId@5 x . .
+  (params@C
+   (param@1 t . . Table@3 .)
+   (param@B dir . . int@5 .)
+   (param@L name . . string@6 .))int@a . .
+  (stmts@2,1
+   (call@4 idOf~4 t@1 StatePlay@4 dir@F name@K)))
+ (type@D,3V GlobalPos~B x . .
+  (object@2 .
+   (fld~2,1 dimension~9 x . string@3 .)
+   (fld~9,2 at~2 x . BlockPos@3 .)))
+ (type@D,3Z SpawnInfo~B x . .
+  (object@2 .
+   (fld~2,3 dimension~9 x . int@3 .)
+   (fld~2,4 worldName~9 x . string@3 .)
+   (fld~1,5 hashedSeed~A x . int@3 .)
+   (fld~3,6 gamemode~8 x . int@3 .)
+   (fld@5,7 previousGamemode~G x . int@3 .)
+   (fld~4,8 isDebug~7 x . bool@C .)
+   (fld@5,8 isFlat~6 x . bool@3 .)
+   (fld~3,9 hasDeath~8 x . bool@3 .)
+   (fld~6,A death~5 x . GlobalPos@3 .)
+   (fld@3,B portalCooldown~E x . int@3 .)
+   (fld~3,C seaLevel~8 x . int@3 .)))
+ (type@F,3n LoginPacket~D x . .
+  (object@2 .
+   (fld~5,1 entityId~8 x . int@3 .)
+   (fld~5,2 hardcore~8 x . bool@3 .)
+   (fld~3,3 worldNames~A x .
+    (at@6 seq~3 string@1).)
+   (fld~3,4 maxPlayers~A x . int@3 .)
+   (fld~1,5 viewDistance~C x . int@3 .)
+   (fld@5,6 simulationDistance~I x . int@3 .)
+   (fld@3,7 reducedDebugInfo~G x . bool@3 .)
+   (fld@,8 respawnScreen~D x . bool@3 .)
+   (fld@2,9 limitedCrafting~F x . bool@3 .)
+   (fld~8,A world~5 x . SpawnInfo@3 .)
+   (fld@5,B enforcesSecureChat~I x . bool@3 .)))
+ (type@H,40 RespawnPacket~F x . .
+  (object@2 .
+   (fld~A,1 world~5 x . SpawnInfo@3 .)
+   (fld~3,2 copyMetadata~C x . int@3 .)))
+ (type@I,44 PositionPacket~G x . .
+  (object@2 .
+   (fld~6,4 teleportId~A x . int@3 .)
+   (fld~F,5 x~1 x . float@B .)
+   (fld~B,5 y~1 x . float@7 .)
+   (fld~7,5 z~1 x . float@3 .)
+   (fld~E,6 dx~2 x . float@D .)
+   (fld~9,6 dy~2 x . float@8 .)
+   (fld~4,6 dz~2 x . float@3 .)
+   (fld~D,7 yaw~3 x . float@B .)
+   (fld~5,7 pitch~5 x . float@3 .)
+   (fld~B,8 flags~5 x . int@3 .)))
+ (type@I,4E RotationPacket~G x . .
+  (object@2 .
+   (fld~D,1 yaw~3 x . float@3 .)
+   (fld~5,2 relativeYaw~B x . bool@3 .)
+   (fld~B,3 pitch~5 x . float@3 .)
+   (fld~3,4 relativePitch~D x . bool@3 .)))
+ (type@E,4K TimePacket~C x . .
+  (object@2 .
+   (fld~9,1 age~3 x . int@3 .)
+   (fld~8,2 time~4 x . int@3 .)
+   (fld~1,3 tickDayTime~B x . bool@3 .)))
+ (type@N,4P SpawnPositionPacket~L x . .
+  (object@2 .
+   (fld~J,3 at~2 x . GlobalPos@3 .)
+   (fld~I,4 yaw~3 x . float@B .)
+   (fld~A,4 pitch~5 x . float@3 .)))
+ (type@J,4V GameEventPacket~H x . .
+  (object@2 .
+   (fld~B,1 reason~6 x . int@3 .)
+   (fld~C,2 value~5 x . float@3 .)))
+ (type@L,4Z ChunkCenterPacket~J x . .
+  (object@2 .
+   (fld~D,1 chunkX~6 x . int@C .)
+   (fld~4,1 chunkZ~6 x . int@3 .)))
+ (type@L,4c ForgetChunkPacket~J x . .
+  (object@2 .
+   (fld~D,1 chunkX~6 x . int@C .)
+   (fld~4,1 chunkZ~6 x . int@3 .)))
+ (type@F,4f ChunkHeader~D x . .
+  (object@2 .
+   (fld~7,6 chunkX~6 x . int@C .)
+   (fld@2,6 chunkZ~6 x . int@3 .)
+   (fld@1,7 heightmapKinds~E x .
+    (at@6 seq~3 int@1).)
+   (fld@1,8 heightmapLongs~E x .
+    (at@6 seq~3 int@1).)
+   (fld@1,9 heightmapFirst~E x .
+    (at@6 seq~3 int@1).)
+   (fld@1,A heightmapCount~E x .
+    (at@6 seq~3 int@1).)
+   (fld~3,B sectionsAt~A x . int@H .)
+   (fld@B,B sectionsLen~B x . int@3 .)))
+ (type@K,4s BlockEntityEntry~I x . .
+  (object@2 .
+   (fld~H,1 x~1 x . int@B .)
+   (fld~D,1 y~1 x . int@7 .)
+   (fld~9,1 z~1 x . int@3 .)
+   (fld~E,2 kind~4 x . int@3 .)
+   (fld~E,3 data~4 x . Nbt@3 .)))
+ (type@L,4x BlockUpdatePacket~J x . .
+  (object@2 .
+   (fld~H,1 at~2 x . BlockPos@3 .)
+   (fld~E,2 state~5 x . int@3 .)))
+ (type@N,51 SectionBlocksPacket~L x . .
+  (object@2 .
+   (fld~D,4 sectionX~8 x . int@P .)
+   (fld~2,4 sectionY~8 x . int@E .)
+   (fld@9,4 sectionZ~8 x . int@3 .)
+   (fld~C,5 positions~9 x .
+    (at@6 seq~3 BlockPos@1).)
+   (fld~F,6 states~6 x .
+    (at@6 seq~3 int@1).)))
+ (type@L,59 BlockEntityPacket~J x . .
+  (object@2 .
+   (fld~H,1 at~2 x . BlockPos@3 .)
+   (fld~F,2 kind~4 x . int@3 .)
+   (fld~F,3 data~4 x . Nbt@3 .)))
+ (type@Q,5E BlockDestructionPacket~O x . .
+  (object@2 .
+   (fld~G,1 entityId~8 x . int@3 .)
+   (fld~M,2 at~2 x . BlockPos@3 .)
+   (fld~J,3 stage~5 x . int@3 .)))
+ (type@K,5J BlockEventPacket~I x . .
+  (object@2 .
+   (fld~G,1 at~2 x . BlockPos@3 .)
+   (fld~A,2 actionId~8 x . int@H .)
+   (fld@4,2 actionParam~B x . int@3 .)
+   (fld~9,3 blockType~9 x . int@3 .)))
+ (type@F,5O SoundPacket~D x . .
+  (object@2 .
+   (fld~2,5 inlineSound~B x . bool@3 .)
+   (fld~6,6 soundId~7 x . int@3 .)
+   (fld~4,7 soundName~9 x . string@3 .)
+   (fld@,8 hasFixedRange~D x . bool@3 .)
+   (fld~3,9 fixedRange~A x . float@3 .)
+   (fld~5,A category~8 x . int@3 .)
+   (fld~C,B x~1 x . float@B .)
+   (fld~8,B y~1 x . float@7 .)
+   (fld~4,B z~1 x . float@3 .)
+   (fld~7,C volume~6 x . float@B .)
+   (fld@1,C pitch~5 x . float@3 .)
+   (fld~9,D seed~4 x . int@3 .)))
+ (type@L,5d EntitySoundPacket~J x . .
+  (object@2 .
+   (fld~8,1 inlineSound~B x . bool@3 .)
+   (fld~C,2 soundId~7 x . int@3 .)
+   (fld~A,3 soundName~9 x . string@3 .)
+   (fld~6,4 hasFixedRange~D x . bool@3 .)
+   (fld~9,5 fixedRange~A x . float@3 .)
+   (fld~B,6 category~8 x . int@3 .)
+   (fld~B,7 entityId~8 x . int@3 .)
+   (fld~D,8 volume~6 x . float@B .)
+   (fld~5,8 pitch~5 x . float@3 .)
+   (fld~F,9 seed~4 x . int@3 .)))
+ (type@K,5o LevelEventPacket~I x . .
+  (object@2 .
+   (fld~A,1 effectId~8 x . int@3 .)
+   (fld~G,2 at~2 x . BlockPos@3 .)
+   (fld~E,3 data~4 x . int@3 .)
+   (fld~C,4 global~6 x . bool@3 .)))
+ (type@G,5u HealthPacket~E x . .
+  (object@2 .
+   (fld~8,1 health~6 x . float@3 .)
+   (fld~A,2 food~4 x . int@3 .)
+   (fld~4,3 saturation~A x . float@3 .)))
+ (type@K,5z ExperiencePacket~I x . .
+  (object@2 .
+   (fld~A,1 progress~8 x . float@3 .)
+   (fld~D,2 level~5 x . int@3 .)
+   (fld~D,3 total~5 x . int@3 .)))
+ (type@L,64 DamageEventPacket~J x . .
+  (object@2 .
+   (fld~B,1 entityId~8 x . int@3 .)
+   (fld~9,2 sourceType~A x . int@3 .)
+   (fld~8,3 sourceCause~B x . int@3 .)
+   (fld~7,4 sourceDirect~C x . int@3 .)
+   (fld~8,5 hasPosition~B x . bool@3 .)
+   (fld~I,6 x~1 x . float@B .)
+   (fld~E,6 y~1 x . float@7 .)
+   (fld~A,6 z~1 x . float@3 .)))
+ (type@K,6C CombatKillPacket~I x . .
+  (object@2 .
+   (fld~A,1 playerId~8 x . int@3 .)
+   (fld~B,2 message~7 x . Nbt@3 .)))
+ (proc@,6O readGlobalPos@5 x . .
+  (params@J
+   (param@1 r . .
+    (mut@3 Reader@4).))GlobalPos@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@B GlobalPos~9
+     (kv@A dimension~9 ""@2)
+     (kv@I at~2
+      (oconstr@A BlockPos~8
+       (kv@2 x~1 0@2)
+       (kv@8 y~1 0@2)
+       (kv@E z~1 0@2)))))
+   (asgn@H,1
+    (dot~B result~6 dimension@1)
+    (call@C readString~A r@1))
+   (asgn@A,2
+    (dot~4 result~6 at@1)
+    (call@E readPosition~C r@1))))
+ (proc@,6T readSpawnInfo@5 x . .
+  (params@J
+   (param@1 r . .
+    (mut@3 Reader@4).))SpawnInfo@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@B SpawnInfo~9
+     (kv@A dimension~9 0@2)
+     (kv@O worldName~9 ""@2)
+     (kv@e hashedSeed~A 0@2)
+     (kv@r gamemode~8 0@2)
+     (kv@H,1 previousGamemode~G 0@2)
+     (kv@T,1 isDebug~7 false@2)
+     (kv@i,1 isFlat~6 false@2)
+     (kv@9,2 hasDeath~8 false@2)
+     (kv@6,3 death~5
+      (oconstr@B GlobalPos~9
+       (kv@A dimension~9 ""@2)
+       (kv@3,1 at~2
+        (oconstr@A BlockPos~8
+         (kv@2 x~1 0@2)
+         (kv@8 y~1 0@2)
+         (kv@E z~1 0@2)))))
+     (kv@F,5 portalCooldown~E 0@2)
+     (kv@S,5 seaLevel~8 0@2)))
+   (asgn@H,6
+    (dot~B result~6 dimension@1)
+    (call@C readVarInt~A r@1))
+   (asgn@H,7
+    (dot~B result~6 worldName@1)
+    (call@C readString~A r@1))
+   (asgn@I,8
+    (dot~C result~6 hashedSeed@1)
+    (call@A readLong~8 r@1))
+   (asgn@G,9
+    (dot~A result~6 gamemode@1)
+    (call@B readSByte~9 r@1))
+   (asgn@O,A
+    (dot~I result~6 previousGamemode@1)
+    (call@A readByte~8 r@1))
+   (asgn@F,B
+    (dot~9 result~6 isDebug@1)
+    (call@A readBool~8 r@1))
+   (asgn@E,C
+    (dot~8 result~6 isFlat@1)
+    (call@A readBool~8 r@1))
+   (asgn@G,D
+    (dot~A result~6 hasDeath@1)
+    (call@A readBool~8 r@1))
+   (if@,E
+    (elif@3
+     (infix@G and
+      (dot~A result~6 hasDeath@1)
+      (call@6 ok~2 r@1))
+     (stmts~1,1
+      (asgn@D
+       (dot~7 result~6 death@1)
+       (call@F readGlobalPos~D r@1)))))
+   (asgn@M,G
+    (dot~G result~6 portalCooldown@1)
+    (call@C readVarInt~A r@1))
+   (asgn@G,H
+    (dot~A result~6 seaLevel@1)
+    (call@C readVarInt~A r@1))))
+ (proc@,6n readLoginPacket@5 x . .
+  (params@L
+   (param@1 r . .
+    (mut@3 Reader@4).))LoginPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@D LoginPacket~B
+     (kv@9 entityId~8 0@2)
+     (kv@M hardcore~8 false@2)
+     (kv@f worldNames~A
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@B,1 maxPlayers~A 0@2)
+     (kv@S,1 viewDistance~C 0@2)
+     (kv@p,1 simulationDistance~I 0@2)
+     (kv@H,2 reducedDebugInfo~G false@2)
+     (kv@d,2 respawnScreen~D false@2)
+     (kv@G,3 limitedCrafting~F false@2)
+     (kv@U,3 world~5
+      (call@B SpawnInfo~9))
+     (kv@J,4 enforcesSecureChat~I false@2)))
+   (asgn@G,5
+    (dot~A result~6 entityId@1)
+    (call@9 readInt~7 r@1))
+   (asgn@G,6
+    (dot~A result~6 hardcore@1)
+    (call@A readBool~8 r@1))
+   (let@4,7 worlds . . .
+    (call@J readVarInt~A r@1))
+   (if@,8
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (if@,9
+    (elif@3
+     (infix@B or
+      (infix~4 < worlds~7 0@2)
+      (infix@A > worlds~7 4096@2))
+     (stmts~1,1
+      (call@4 fail~4 r@1 "the world list length is out of range"@4)
+      (ret@,1 .))))
+   (var@4,C i . . . 0@4)
+   (while@,D
+    (infix@8 < i~2 worlds@2)
+    (stmts@2,1
+     (cmd@H
+      (dot
+       (dot~B result~6 worldNames@1)add@1)
+      (call@F readString~A r@1))
+     (if@,1
+      (elif@3
+       (prefix not
+        (call@6 ok~2 r@1))
+       (stmts@B
+        (ret .))))
+     (cmd@,2 inc i@4)))
+   (asgn@I,H
+    (dot~C result~6 maxPlayers@1)
+    (call@C readVarInt~A r@1))
+   (asgn@K,I
+    (dot~E result~6 viewDistance@1)
+    (call@C readVarInt~A r@1))
+   (asgn@Q,J
+    (dot~K result~6 simulationDistance@1)
+    (call@C readVarInt~A r@1))
+   (asgn@O,K
+    (dot~I result~6 reducedDebugInfo@1)
+    (call@A readBool~8 r@1))
+   (asgn@L,L
+    (dot~F result~6 respawnScreen@1)
+    (call@A readBool~8 r@1))
+   (asgn@N,M
+    (dot~H result~6 limitedCrafting@1)
+    (call@A readBool~8 r@1))
+   (asgn@D,N
+    (dot~7 result~6 world@1)
+    (call@F readSpawnInfo~D r@1))
+   (asgn@Q,O
+    (dot~K result~6 enforcesSecureChat@1)
+    (call@A readBool~8 r@1))))
+ (proc@,7E readRespawnPacket@5 x . .
+  (params@N
+   (param@1 r . .
+    (mut@3 Reader@4).))RespawnPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@F RespawnPacket~D
+     (kv@6 world~5
+      (call@B SpawnInfo~9))
+     (kv@X copyMetadata~C 0@2)))
+   (asgn@D,1
+    (dot~7 result~6 world@1)
+    (call@F readSpawnInfo~D r@1))
+   (asgn@K,2
+    (dot~E result~6 copyMetadata@1)
+    (call@A readByte~8 r@1))))
+ (proc@,7J readPositionPacket@5 x . .
+  (params@O
+   (param@1 r . .
+    (mut@3 Reader@4).))PositionPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@G PositionPacket~E
+     (kv@B teleportId~A 0@2)
+     (kv@H x~1 0.0@2)
+     (kv@P y~1 0.0@2)
+     (kv@X z~1 0.0@2)
+     (kv@g dx~2 0.0@2)
+     (kv@3,1 dy~2 0.0@2)
+     (kv@C,1 dz~2 0.0@2)
+     (kv@M,1 yaw~3 0.0@2)
+     (kv@Y,1 pitch~5 0.0@2)
+     (kv@k,1 flags~5 0@2)))
+   (asgn@I,2
+    (dot~C result~6 teleportId@1)
+    (call@C readVarInt~A r@1))
+   (asgn@9,3
+    (dot~3 result~6 x@1)
+    (call@C readDouble~A r@1))
+   (asgn@9,4
+    (dot~3 result~6 y@1)
+    (call@C readDouble~A r@1))
+   (asgn@9,5
+    (dot~3 result~6 z@1)
+    (call@C readDouble~A r@1))
+   (asgn@A,6
+    (dot~4 result~6 dx@1)
+    (call@C readDouble~A r@1))
+   (asgn@A,7
+    (dot~4 result~6 dy@1)
+    (call@C readDouble~A r@1))
+   (asgn@A,8
+    (dot~4 result~6 dz@1)
+    (call@C readDouble~A r@1))
+   (asgn@B,9
+    (dot~5 result~6 yaw@1)
+    (call@B readFloat~9 r@1))
+   (asgn@D,A
+    (dot~7 result~6 pitch@1)
+    (call@B readFloat~9 r@1))
+   (asgn@D,E
+    (dot~7 result~6 flags@1)
+    (call@A readUInt~8 r@1))))
+ (proc@,7a relative@5 x . .
+  (params@E
+   (param@1 p . . PositionPacket@3 .)
+   (param@K bit . . int@5 .))bool@V . .
+  (stmts@2,1
+   (infix@O !=
+    (par~O
+     (infix@H and
+      (infix~8 shr
+       (dot~7 p~1 flags@1)bit@4)1@4))0@3)))
+ (proc@,7d readRotationPacket@5 x . .
+  (params@O
+   (param@1 r . .
+    (mut@3 Reader@4).))RotationPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@G RotationPacket~E
+     (kv@4 yaw~3 0.0@2)
+     (kv@M relativeYaw~B false@2)
+     (kv@a pitch~5 0.0@2)
+     (kv@E,1 relativePitch~D false@2)))
+   (asgn@B,2
+    (dot~5 result~6 yaw@1)
+    (call@B readFloat~9 r@1))
+   (asgn@J,3
+    (dot~D result~6 relativeYaw@1)
+    (call@A readBool~8 r@1))
+   (asgn@D,4
+    (dot~7 result~6 pitch@1)
+    (call@B readFloat~9 r@1))
+   (asgn@L,5
+    (dot~F result~6 relativePitch@1)
+    (call@A readBool~8 r@1))))
+ (proc@,7l readTimePacket@5 x . .
+  (params@K
+   (param@1 r . .
+    (mut@3 Reader@4).))TimePacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@C TimePacket~A
+     (kv@4 age~3 0@2)
+     (kv@D time~4 0@2)
+     (kv@T tickDayTime~B false@2)))
+   (asgn@B,1
+    (dot~5 result~6 age@1)
+    (call@A readLong~8 r@1))
+   (asgn@C,2
+    (dot~6 result~6 time@1)
+    (call@A readLong~8 r@1))
+   (asgn@J,3
+    (dot~D result~6 tickDayTime@1)
+    (call@A readBool~8 r@1))))
+ (proc@,7r readSpawnPositionPacket@5 x . .
+  (params@T
+   (param@1 r . .
+    (mut@3 Reader@4).))SpawnPositionPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@L SpawnPositionPacket~J
+     (kv~O,1 at~2
+      (oconstr@B GlobalPos~9
+       (kv@A dimension~9 ""@2)
+       (kv@I at~2
+        (oconstr@A BlockPos~8
+         (kv@2 x~1 0@2)
+         (kv@8 y~1 0@2)
+         (kv@E z~1 0@2)))))
+     (kv~N,2 yaw~3 0.0@2)
+     (kv~B,2 pitch~5 0.0@2)))
+   (asgn@A,3
+    (dot~4 result~6 at@1)
+    (call@F readGlobalPos~D r@1))
+   (asgn@B,4
+    (dot~5 result~6 yaw@1)
+    (call@B readFloat~9 r@1))
+   (asgn@D,5
+    (dot~7 result~6 pitch@1)
+    (call@B readFloat~9 r@1))))
+ (proc@,7z readGameEventPacket@5 x . .
+  (params@P
+   (param@1 r . .
+    (mut@3 Reader@4).))GameEventPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@H GameEventPacket~F
+     (kv@7 reason~6 0@2)
+     (kv@H value~5 0.0@2)))
+   (asgn@E,1
+    (dot~8 result~6 reason@1)
+    (call@A readByte~8 r@1))
+   (asgn@D,2
+    (dot~7 result~6 value@1)
+    (call@B readFloat~9 r@1))))
+ (proc@,84 readChunkCenterPacket@5 x . .
+  (params@R
+   (param@1 r . .
+    (mut@3 Reader@4).))ChunkCenterPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@J ChunkCenterPacket~H
+     (kv@7 chunkX~6 0@2)
+     (kv@I chunkZ~6 0@2)))
+   (asgn@E,1
+    (dot~8 result~6 chunkX@1)
+    (call@C readVarInt~A r@1))
+   (asgn@E,2
+    (dot~8 result~6 chunkZ@1)
+    (call@C readVarInt~A r@1))))
+ (proc@,89 readForgetChunkPacket@5 x . .
+  (params@R
+   (param@1 r . .
+    (mut@3 Reader@4).))ForgetChunkPacket@H . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,5 result~7
+    (oconstr@J ForgetChunkPacket~H
+     (kv@7 chunkX~6 0@2)
+     (kv@I chunkZ~6 0@2)))
+   (asgn@E,6
+    (dot~8 result~6 chunkZ@1)
+    (call@9 readInt~7 r@1))
+   (asgn@E,7
+    (dot~8 result~6 chunkX@1)
+    (call@9 readInt~7 r@1))))
+ (proc@,8J readChunkHeader@5 x . .
+  (params@L
+   (param@1 r . .
+    (mut@3 Reader@4).))ChunkHeader@H . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,3 result~7
+    (oconstr@D ChunkHeader~B
+     (kv@7 chunkX~6 0@2)
+     (kv@I chunkZ~6 0@2)
+     (kv@b heightmapKinds~E
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@F,1 heightmapLongs~E
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@a,1 heightmapFirst~E
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@F,2 heightmapCount~E
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@W,2 sectionsAt~A 0@2)
+     (kv@m,2 sectionsLen~B 0@2)))
+   (asgn@E,6
+    (dot~8 result~6 chunkX@1)
+    (call@9 readInt~7 r@1))
+   (asgn@E,7
+    (dot~8 result~6 chunkZ@1)
+    (call@9 readInt~7 r@1))
+   (let@4,8 maps . . .
+    (call@H readVarInt~A r@1))
+   (if@,9
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (if@,A
+    (elif@3
+     (infix@9 or
+      (infix~4 < maps~5 0@2)
+      (infix@8 > maps~5 64@2))
+     (stmts~1,1
+      (call@4 fail~4 r@1 "the heightmap count is out of range"@4)
+      (ret@,1 .))))
+   (var@4,D m . . . 0@4)
+   (while@,E
+    (infix@8 < m~2 maps@2)
+    (stmts@2,1
+     (let@4 kind . . .
+      (call@H readVarInt~A r@1))
+     (let@4,1 longs . . .
+      (call@I readVarInt~A r@1))
+     (if@,2
+      (elif@3
+       (prefix not
+        (call@6 ok~2 r@1))
+       (stmts@B
+        (ret .))))
+     (if@,3
+      (elif@3
+       (infix@A or
+        (infix~4 < longs~6 0@2)
+        (infix@9 > longs~6 4096@2))
+       (stmts~1,1
+        (call@4 fail~4 r@1 "a heightmap length is out of range"@4)
+        (ret@,1 .))))
+     (cmd@L,6
+      (dot
+       (dot~F result~6 heightmapKinds@1)add@1)kind@5)
+     (cmd@L,7
+      (dot
+       (dot~F result~6 heightmapFirst@1)add@1)
+      (dot@Q
+       (dot~F result~6 heightmapLongs@1)len@1))
+     (cmd@L,8
+      (dot
+       (dot~F result~6 heightmapCount@1)add@1)longs@5)
+     (var@4,9 i . . . 0@4)
+     (while@,A
+      (infix@8 < i~2 longs@2)
+      (stmts@2,1
+       (cmd@L
+        (dot
+         (dot~F result~6 heightmapLongs@1)add@1)
+        (call@D readLong~8 r@1))
+       (cmd@,1 inc i@4)))
+     (if@,D
+      (elif@3
+       (prefix not
+        (call@6 ok~2 r@1))
+       (stmts@B
+        (ret .))))
+     (cmd@,E inc m@4)))
+   (let@4,U size . . .
+    (call@H readVarInt~A r@1))
+   (if@,V
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (if@,W
+    (elif@3
+     (infix@9 or
+      (infix~4 < size~5 0@2)
+      (infix@8 > size~5
+       (call@B remaining~9 r@1)))
+     (stmts~1,1
+      (call@4 fail~4 r@1 "the chunk section array length is out of range"@4)
+      (ret@,1 .))))
+   (asgn@I,Z
+    (dot~C result~6 sectionsAt@1)
+    (dot@3 r~1 at@1))
+   (asgn@J,a
+    (dot~D result~6 sectionsLen@1)size@2)
+   (asgn@5,b
+    (dot~4 r~1 at@1)
+    (infix@7 \2B
+     (dot~4 r~1 at@1)size@2))))
+ (proc@,8x readBlockEntities@5 x . .
+  (params@N
+   (param@1 r . .
+    (mut@3 Reader@4).)
+   (param@G header . . ChunkHeader@8 .)
+   (param@1,1 out0 . .
+    (mut@6
+     (at@7 seq~3 BlockEntityEntry@1)).)). . .
+  (stmts@2,2
+   (comment)
+   (asgn@5,8 out0~5
+    (prefix@2 \40
+     (bracket@1)))
+   (let@4,9 count . . .
+    (call@I readVarInt~A r@1))
+   (if@,A
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (if@,B
+    (elif@3
+     (infix@A or
+      (infix~4 < count~6 0@2)
+      (infix@9 > count~6 4096@2))
+     (stmts~1,1
+      (call@4 fail~4 r@1 "the block entity count is out of range"@4)
+      (ret@,1 .))))
+   (var@4,E i . . . 0@4)
+   (while@,F
+    (infix@8 < i~2 count@2)
+    (stmts@2,1
+     (let@4 packed . . .
+      (call@H readByte~8 r@1))
+     (let@4,1 y . . .
+      (call@D readShort~9 r@1))
+     (let@4,2 kind . . .
+      (call@H readVarInt~A r@1))
+     (if@,3
+      (elif@3
+       (prefix not
+        (call@6 ok~2 r@1))
+       (stmts@B
+        (ret .))))
+     (let@4,4 data . . .
+      (call@E readNbt~7 r@1))
+     (if@,5
+      (elif@3
+       (infix@H >
+        (dot~5
+         (dot~8 data~4 problem@1)len@1)0@2)
+       (stmts~1,1
+        (call@4 fail~4 r@1
+         (dot@8 data~4 problem@1))
+        (ret@,1 .))))
+     (cmd@4,8
+      (dot out0~4 add@1)
+      (oconstr@L BlockEntityEntry~G
+       (kv@2 x~1
+        (infix@L \2B
+         (infix~5 *
+          (dot~8 header~6 chunkX@1)16@2)
+         (par@2
+          (infix@E and
+           (infix~6 shr packed~7 4@4)15@4))))
+       (kv@2,1 y~1 y@2)
+       (kv@2,2 z~1
+        (infix@L \2B
+         (infix~5 *
+          (dot~8 header~6 chunkZ@1)16@2)
+         (par@2
+          (infix@8 and packed~7 15@4))))
+       (kv@5,3 kind~4 kind@2)
+       (kv@H,3 data~4 data@2)))
+     (cmd@,C inc i@4)))))
+ (type@D,9U LightData~B x . .
+  (object@2 .
+   (fld~4,8 skyMask~7 x .
+    (at@I seq~3 int@1).)
+   (fld@8,8 blockMask~9 x .
+    (at@6 seq~3 int@1).)
+   (fld@1,9 emptySkyMask~C x .
+    (at@N seq~3 int@1).)
+   (fld@I,9 emptyBlockMask~E x .
+    (at@6 seq~3 int@1).)
+   (fld~2,A skyArrays~9 x . int@H .)
+   (fld@C,A blockArrays~B x . int@3 .)
+   (fld~3,B skyBytes~8 x . int@G .)
+   (fld@A,B blockBytes~A x . int@3 .)))
+ (proc@,9h readLongArray@5 . . .
+  (params@I
+   (param@1 r . .
+    (mut@3 Reader@4).)
+   (param@G out0 . .
+    (mut@6
+     (at@7 seq~3 int@1)).)). . .
+  (stmts@2,1
+   (asgn@5 out0~5
+    (prefix@2 \40
+     (bracket@1)))
+   (let@4,1 n . . .
+    (call@E readVarInt~A r@1))
+   (if@,2
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (if@,3
+    (elif@3
+     (infix@6 or
+      (infix~4 < n~2 0@2)
+      (infix@5 > n~2 64@2))
+     (stmts~1,1
+      (call@4 fail~4 r@1 "a light mask is longer than any world is tall"@4)
+      (ret@,1 .))))
+   (var@4,6 i . . . 0@4)
+   (while@,7
+    (infix@8 < i~2 n@2)
+    (stmts@2,1
+     (cmd@4
+      (dot out0~4 add@1)
+      (call@D readLong~8 r@1))
+     (cmd@,1 inc i@4)))))
+ (proc@,9t readLightArrays@5 . . .
+  (params@K
+   (param@1 r . .
+    (mut@3 Reader@4).)
+   (param@G count . .
+    (mut@E int@4).)
+   (param@N bytes . .
+    (mut@7 int@4).)). . .
+  (stmts@2,1
+   (asgn@6 count~6 0@2)
+   (asgn@6,1 bytes~6 0@2)
+   (let@4,2 n . . .
+    (call@E readVarInt~A r@1))
+   (if@,3
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (if@,4
+    (elif@3
+     (infix@6 or
+      (infix~4 < n~2 0@2)
+      (infix@5 > n~2 64@2))
+     (stmts~1,1
+      (call@4 fail~4 r@1 "more light arrays than a column can have"@4)
+      (ret@,1 .))))
+   (var@4,7 i . . . 0@4)
+   (while@,8
+    (infix@8 < i~2 n@2)
+    (stmts@2,1
+     (let@4 size . . .
+      (call@H readVarInt~A r@1))
+     (if@,1
+      (elif@3
+       (prefix not
+        (call@6 ok~2 r@1))
+       (stmts@B
+        (ret .))))
+     (if@,2
+      (elif@3
+       (infix@9 or
+        (infix~4 < size~5 0@2)
+        (infix@8 > size~5
+         (call@B remaining~9 r@1)))
+       (stmts~1,1
+        (call@4 fail~4 r@1 "a light array runs past the end"@4)
+        (ret@,1 .))))
+     (asgn@5,9
+      (dot~4 r~1 at@1)
+      (infix@7 \2B
+       (dot~4 r~1 at@1)size@2))
+     (asgn@6,A bytes~6
+      (infix@8 \2B bytes~6 size@2))
+     (cmd@,B inc count@4)
+     (cmd@,C inc i@4)))))
+ (proc@,AH readLightData@5 x . .
+  (params@J
+   (param@1 r . .
+    (mut@3 Reader@4).))LightData@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@B LightData~9
+     (kv@8 skyMask~7
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@O blockMask~9
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@h emptySkyMask~C
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@F,1 emptyBlockMask~E
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@V,1 skyArrays~9 0@2)
+     (kv@l,1 blockArrays~B 0@2)
+     (kv@9,2 skyBytes~8 0@2)
+     (kv@O,2 blockBytes~A 0@2)))
+   (call@D,3 readLongArray~D r@1
+    (dot@A result~6 skyMask@1))
+   (call@D,4 readLongArray~D r@1
+    (dot@A result~6 blockMask@1))
+   (call@D,5 readLongArray~D r@1
+    (dot@A result~6 emptySkyMask@1))
+   (call@D,6 readLongArray~D r@1
+    (dot@A result~6 emptyBlockMask@1))
+   (call@F,7 readLightArrays~F r@1
+    (dot@A result~6 skyArrays@1)
+    (dot@S result~6 skyBytes@1))
+   (call@F,8 readLightArrays~F r@1
+    (dot@A result~6 blockArrays@1)
+    (dot@U result~6 blockBytes@1))))
+ (proc@,AS readBlockUpdatePacket@5 x . .
+  (params@R
+   (param@1 r . .
+    (mut@3 Reader@4).))BlockUpdatePacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@J BlockUpdatePacket~H
+     (kv@3 at~2
+      (oconstr@A BlockPos~8
+       (kv@2 x~1 0@2)
+       (kv@8 y~1 0@2)
+       (kv@E z~1 0@2)))
+     (kv@c state~5 0@2)))
+   (asgn@A,1
+    (dot~4 result~6 at@1)
+    (call@E readPosition~C r@1))
+   (asgn@D,2
+    (dot~7 result~6 state@1)
+    (call@C readVarInt~A r@1))))
+ (proc@,AX readSectionBlocksPacket@5 x . .
+  (params@T
+   (param@1 r . .
+    (mut@3 Reader@4).))SectionBlocksPacket@H . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,5 result~7
+    (oconstr@L SectionBlocksPacket~J
+     (kv@9 sectionX~8 0@2)
+     (kv@M sectionY~8 0@2)
+     (kv@Z sectionZ~8 0@2)
+     (kv@A,1 positions~9
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@N,1 states~6
+      (prefix@2 \40
+       (bracket@1)))))
+   (let@4,7 packed . . .
+    (call@H readLong~8 r@1))
+   (if@,8
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (asgn@G,9
+    (dot~A result~6 sectionX@1)
+    (call@C signExtend~A
+     (infix@8 shr packed~7 42@4)22@G))
+   (asgn@G,A
+    (dot~A result~6 sectionZ@1)
+    (call@C signExtend~A
+     (infix@8 shr packed~7 20@4)22@G))
+   (asgn@G,B
+    (dot~A result~6 sectionY@1)
+    (call@C signExtend~A packed@1 20@9))
+   (let@4,C count . . .
+    (call@I readVarInt~A r@1))
+   (if@,D
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (if@,E
+    (elif@3
+     (infix@A or
+      (infix~4 < count~6 0@2)
+      (infix@9 > count~6 4096@2))
+     (stmts~1,1
+      (call@4 fail~4 r@1 "the block record count is out of range"@4)
+      (ret@,1 .))))
+   (var@4,H i . . . 0@4)
+   (while@,I
+    (infix@8 < i~2 count@2)
+    (stmts@2,1
+     (let@4 record . . .
+      (call@K readVarLong~B r@1))
+     (if@,1
+      (elif@3
+       (prefix not
+        (call@6 ok~2 r@1))
+       (stmts@B
+        (ret .))))
+     (let@4,2 local . . .
+      (infix@F and record~7 4095@4))
+     (cmd@D,3
+      (dot
+       (dot~7 result~6 states@1)add@1)
+      (infix@L and
+       (par~G
+        (infix@8 shr record~7 12@4))
+       (suf@4 2251799813685247 "i64")))
+     (cmd@G,4
+      (dot
+       (dot~A result~6 positions@1)add@1)
+      (oconstr@D BlockPos~8
+       (kv~Q,1 x~1
+        (infix@N \2B
+         (infix~5 *
+          (dot~A result~6 sectionX@1)16@2)
+         (par@2
+          (infix@F and
+           (par~E
+            (infix@7 shr local~6 8@4))15@4))))
+       (kv~Q,2 y~1
+        (infix@N \2B
+         (infix~5 *
+          (dot~A result~6 sectionY@1)16@2)
+         (par@2
+          (infix@7 and local~6 15@4))))
+       (kv~Q,3 z~1
+        (infix@N \2B
+         (infix~5 *
+          (dot~A result~6 sectionZ@1)16@2)
+         (par@2
+          (infix@F and
+           (par~E
+            (infix@7 shr local~6 4@4))15@4))))))
+     (cmd@,8 inc i@4)))))
+ (proc@,B1 readBlockEntityPacket@5 x . .
+  (params@R
+   (param@1 r . .
+    (mut@3 Reader@4).))BlockEntityPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@J BlockEntityPacket~H
+     (kv@3 at~2
+      (oconstr@A BlockPos~8
+       (kv@2 x~1 0@2)
+       (kv@8 y~1 0@2)
+       (kv@E z~1 0@2)))
+     (kv@b kind~4 0@2)
+     (kv@5,1 data~4
+      (call@A emptyNbt~8))))
+   (asgn@A,2
+    (dot~4 result~6 at@1)
+    (call@E readPosition~C r@1))
+   (asgn@C,3
+    (dot~6 result~6 kind@1)
+    (call@C readVarInt~A r@1))
+   (asgn@C,4
+    (dot~6 result~6 data@1)
+    (call@9 readNbt~7 r@1))
+   (if@,5
+    (elif@3
+     (infix@O >
+      (dot~5
+       (dot~8
+        (dot~5 result~6 data@1)problem@1)len@1)0@2)
+     (stmts@T
+      (call@4 fail~4 r@1
+       (dot@F
+        (dot~5 result~6 data@1)problem@1)))))))
+ (proc@,B9 readBlockDestructionPacket@5 x . .
+  (params@W
+   (param@1 r . .
+    (mut@3 Reader@4).))BlockDestructionPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@O BlockDestructionPacket~M
+     (kv@9 entityId~8 0@2)
+     (kv@G at~2
+      (oconstr@A BlockPos~8
+       (kv@2 x~1 0@2)
+       (kv@8 y~1 0@2)
+       (kv@E z~1 0@2)))
+     (kv@6,1 stage~5 0@2)))
+   (asgn@G,2
+    (dot~A result~6 entityId@1)
+    (call@C readVarInt~A r@1))
+   (asgn@A,3
+    (dot~4 result~6 at@1)
+    (call@E readPosition~C r@1))
+   (asgn@D,4
+    (dot~7 result~6 stage@1)
+    (call@B readSByte~9 r@1))))
+ (proc@,BG readBlockEventPacket@5 x . .
+  (params@Q
+   (param@1 r . .
+    (mut@3 Reader@4).))BlockEventPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@I BlockEventPacket~G
+     (kv@3 at~2
+      (oconstr@A BlockPos~8
+       (kv@2 x~1 0@2)
+       (kv@8 y~1 0@2)
+       (kv@E z~1 0@2)))
+     (kv@f actionId~8 0@2)
+     (kv@C,1 actionParam~B 0@2)
+     (kv@Q,1 blockType~9 0@2)))
+   (asgn@A,2
+    (dot~4 result~6 at@1)
+    (call@E readPosition~C r@1))
+   (asgn@G,3
+    (dot~A result~6 actionId@1)
+    (call@A readByte~8 r@1))
+   (asgn@J,4
+    (dot~D result~6 actionParam@1)
+    (call@A readByte~8 r@1))
+   (asgn@H,5
+    (dot~B result~6 blockType@1)
+    (call@C readVarInt~A r@1))))
+ (proc@,BO readSoundHolder@5 . . .
+  (params@K
+   (param@1 r . .
+    (mut@3 Reader@4).)
+   (param@G inlineSound . .
+    (mut@D bool@4).)
+   (param@d soundId . .
+    (mut@9 int@4).)
+   (param@1,1 soundName . .
+    (mut@B string@4).)
+   (param@O,1 hasRange . .
+    (mut@A bool@4).)
+   (param@1,2 fixedRange . .
+    (mut@C float@4).)). . .
+  (stmts@2,3
+   (asgn@C inlineSound~C false@2)
+   (asgn@8,1 soundId~8 0@2)
+   (asgn@A,2 soundName~A ""@2)
+   (asgn@9,3 hasRange~9 false@2)
+   (asgn@B,4 fixedRange~B 0.0@2)
+   (let@4,5 tag . . .
+    (call@G readVarInt~A r@1))
+   (if@,6
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (if@,7
+    (elif@3
+     (infix@4 == tag~4 0@3)
+     (stmts~1,1
+      (asgn@C inlineSound~C true@2)
+      (asgn@A,1 soundName~A
+       (call@C readString~A r@1))
+      (asgn@9,2 hasRange~9
+       (call@A readBool~8 r@1))
+      (if@,3
+       (elif@3
+        (infix@9 and hasRange~9
+         (call@6 ok~2 r@1))
+        (stmts@K
+         (asgn@B fixedRange~B
+          (call@B readFloat~9 r@1)))))))
+    (else@,5
+     (stmts@2,1
+      (asgn@8 soundId~8
+       (infix@6 \2D tag~4 1@2)))))))
+ (proc@,Bg readSoundPacket@5 x . .
+  (params@L
+   (param@1 r . .
+    (mut@3 Reader@4).))SoundPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@D SoundPacket~B
+     (kv@C inlineSound~B false@2)
+     (kv@S soundId~7 0@2)
+     (kv@g soundName~9 ""@2)
+     (kv@E,1 hasFixedRange~D false@2)
+     (kv@X,1 fixedRange~A 0.0@2)
+     (kv@m,1 category~8 0@2)
+     (kv@2,2 x~1 0.0@2)
+     (kv@A,2 y~1 0.0@2)
+     (kv@I,2 z~1 0.0@2)
+     (kv@V,2 volume~6 0.0@2)
+     (kv@h,2 pitch~5 0.0@2)
+     (kv@s,2 seed~4 0@2)))
+   (call@F,3 readSoundHolder~F r@1
+    (dot@A result~6 inlineSound@1)
+    (dot@U result~6 soundId@1)
+    (dot@k result~6 soundName@1)
+    (dot@7,1 result~6 hasFixedRange@1)
+    (dot@T,1 result~6 fixedRange@1))
+   (asgn@G,5
+    (dot~A result~6 category@1)
+    (call@C readVarInt~A r@1))
+   (asgn@9,8
+    (dot~3 result~6 x@1)
+    (infix@K /
+     (call~D float~5
+      (call@8 readInt~7 r@1))8.0@2))
+   (asgn@9,9
+    (dot~3 result~6 y@1)
+    (infix@K /
+     (call~D float~5
+      (call@8 readInt~7 r@1))8.0@2))
+   (asgn@9,A
+    (dot~3 result~6 z@1)
+    (infix@K /
+     (call~D float~5
+      (call@8 readInt~7 r@1))8.0@2))
+   (asgn@E,B
+    (dot~8 result~6 volume@1)
+    (call@B readFloat~9 r@1))
+   (asgn@D,C
+    (dot~7 result~6 pitch@1)
+    (call@B readFloat~9 r@1))
+   (asgn@C,D
+    (dot~6 result~6 seed@1)
+    (call@A readLong~8 r@1))))
+ (proc@,Bw readEntitySoundPacket@5 x . .
+  (params@R
+   (param@1 r . .
+    (mut@3 Reader@4).))EntitySoundPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@J EntitySoundPacket~H
+     (kv@C inlineSound~B false@2)
+     (kv@S soundId~7 0@2)
+     (kv@g soundName~9 ""@2)
+     (kv@E,1 hasFixedRange~D false@2)
+     (kv@X,1 fixedRange~A 0.0@2)
+     (kv@9,2 category~8 0@2)
+     (kv@M,2 entityId~8 0@2)
+     (kv@X,2 volume~6 0.0@2)
+     (kv@6,3 pitch~5 0.0@2)
+     (kv@H,3 seed~4 0@2)))
+   (call@F,4 readSoundHolder~F r@1
+    (dot@A result~6 inlineSound@1)
+    (dot@U result~6 soundId@1)
+    (dot@k result~6 soundName@1)
+    (dot@7,1 result~6 hasFixedRange@1)
+    (dot@T,1 result~6 fixedRange@1))
+   (asgn@G,6
+    (dot~A result~6 category@1)
+    (call@C readVarInt~A r@1))
+   (asgn@G,7
+    (dot~A result~6 entityId@1)
+    (call@C readVarInt~A r@1))
+   (asgn@E,8
+    (dot~8 result~6 volume@1)
+    (call@B readFloat~9 r@1))
+   (asgn@D,9
+    (dot~7 result~6 pitch@1)
+    (call@B readFloat~9 r@1))
+   (asgn@C,A
+    (dot~6 result~6 seed@1)
+    (call@A readLong~8 r@1))))
+ (proc@,C9 readLevelEventPacket@5 x . .
+  (params@Q
+   (param@1 r . .
+    (mut@3 Reader@4).))LevelEventPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@I LevelEventPacket~G
+     (kv@9 effectId~8 0@2)
+     (kv@G at~2
+      (oconstr@A BlockPos~8
+       (kv@2 x~1 0@2)
+       (kv@8 y~1 0@2)
+       (kv@E z~1 0@2)))
+     (kv@5,1 data~4 0@2)
+     (kv@G,1 global~6 false@2)))
+   (asgn@G,2
+    (dot~A result~6 effectId@1)
+    (call@9 readInt~7 r@1))
+   (asgn@A,3
+    (dot~4 result~6 at@1)
+    (call@E readPosition~C r@1))
+   (asgn@C,4
+    (dot~6 result~6 data@1)
+    (call@9 readInt~7 r@1))
+   (asgn@E,5
+    (dot~8 result~6 global@1)
+    (call@A readBool~8 r@1))))
+ (proc@,CH readHealthPacket@5 x . .
+  (params@M
+   (param@1 r . .
+    (mut@3 Reader@4).))HealthPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@E HealthPacket~C
+     (kv@7 health~6 0.0@2)
+     (kv@I food~4 0@2)
+     (kv@X saturation~A 0.0@2)))
+   (asgn@E,1
+    (dot~8 result~6 health@1)
+    (call@B readFloat~9 r@1))
+   (asgn@C,2
+    (dot~6 result~6 food@1)
+    (call@C readVarInt~A r@1))
+   (asgn@I,3
+    (dot~C result~6 saturation@1)
+    (call@B readFloat~9 r@1))))
+ (proc@,CN readExperiencePacket@5 x . .
+  (params@Q
+   (param@1 r . .
+    (mut@3 Reader@4).))ExperiencePacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@I ExperiencePacket~G
+     (kv@9 progress~8 0.0@2)
+     (kv@L level~5 0@2)
+     (kv@V total~5 0@2)))
+   (asgn@G,1
+    (dot~A result~6 progress@1)
+    (call@B readFloat~9 r@1))
+   (asgn@D,2
+    (dot~7 result~6 level@1)
+    (call@C readVarInt~A r@1))
+   (asgn@D,3
+    (dot~7 result~6 total@1)
+    (call@C readVarInt~A r@1))))
+ (proc@,CT readDamageEventPacket@5 x . .
+  (params@R
+   (param@1 r . .
+    (mut@3 Reader@4).))DamageEventPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@J DamageEventPacket~H
+     (kv@9 entityId~8 0@2)
+     (kv@O sourceType~A 0@2)
+     (kv@e sourceCause~B 0@2)
+     (kv@D,1 sourceDirect~C 0@2)
+     (kv@T,1 hasPosition~B false@2)
+     (kv@d,1 x~1 0.0@2)
+     (kv@2,2 y~1 0.0@2)
+     (kv@A,2 z~1 0.0@2)))
+   (asgn@G,3
+    (dot~A result~6 entityId@1)
+    (call@C readVarInt~A r@1))
+   (asgn@I,4
+    (dot~C result~6 sourceType@1)
+    (call@C readVarInt~A r@1))
+   (asgn@J,8
+    (dot~D result~6 sourceCause@1)
+    (infix@G \2D
+     (call~4 readVarInt~A r@1)1@2))
+   (asgn@K,9
+    (dot~E result~6 sourceDirect@1)
+    (infix@G \2D
+     (call~4 readVarInt~A r@1)1@2))
+   (asgn@J,A
+    (dot~D result~6 hasPosition@1)
+    (call@A readBool~8 r@1))
+   (if@,B
+    (elif@3
+     (infix@J and
+      (dot~D result~6 hasPosition@1)
+      (call@6 ok~2 r@1))
+     (stmts~1,1
+      (asgn@9
+       (dot~3 result~6 x@1)
+       (call@C readDouble~A r@1))
+      (asgn@9,1
+       (dot~3 result~6 y@1)
+       (call@C readDouble~A r@1))
+      (asgn@9,2
+       (dot~3 result~6 z@1)
+       (call@C readDouble~A r@1)))))))
+ (proc@,Ck readCombatKillPacket@5 x . .
+  (params@Q
+   (param@1 r . .
+    (mut@3 Reader@4).))CombatKillPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@I CombatKillPacket~G
+     (kv@9 playerId~8 0@2)
+     (kv@L message~7
+      (call@A emptyNbt~8))))
+   (asgn@G,1
+    (dot~A result~6 playerId@1)
+    (call@C readVarInt~A r@1))
+   (asgn@F,2
+    (dot~9 result~6 message@1)
+    (call@9 readNbt~7 r@1))
+   (if@,3
+    (elif@3
+     (infix@R >
+      (dot~5
+       (dot~8
+        (dot~8 result~6 message@1)problem@1)len@1)0@2)
+     (stmts@W
+      (call@4 fail~4 r@1
+       (dot@I
+        (dot~8 result~6 message@1)problem@1)))))))
+ (proc@,Cw bodyAcceptTeleportation@5 x . .
+  (params@T
+   (param@1 teleportId . . int@C .))
+  (at@M seq~3 int@1). .
+  (stmts@2,1
+   (var@4 w . . .
+    (call@A writer~6))
+   (call@9,1 putVarInt~9 w@1 teleportId@4)
+   (dot@1,2 w~1 data@1)))
+ (proc@,D1 bodyKeepAlive@5 x . .
+  (params@J
+   (param@1 id . . int@4 .))
+  (at@E seq~3 int@1). .
+  (stmts@2,1
+   (var@4 w . . .
+    (call@A writer~6))
+   (call@7,1 putLong~7 w@1 id@4)
+   (dot@1,2 w~1 data@1)))
+ (proc@,D6 bodyPong@5 x . .
+  (params@E
+   (param@1 id . . int@4 .))
+  (at@E seq~3 int@1). .
+  (stmts@2,1
+   (var@4 w . . .
+    (call@A writer~6))
+   (call@6,1 putInt~6 w@1 id@4)
+   (dot@1,2 w~1 data@1)))
+ (proc@,DB moveFlags@5 x . .
+  (params@F
+   (param@1 onGround . . bool@V .)
+   (param@B horizontalCollision . . bool@L .))int@d . .
+  (stmts@2,1
+   (asgn@7 result~7 0@2)
+   (if@,1
+    (elif@3 onGround
+     (stmts@A
+      (asgn@7 result~7
+       (infix@9 or result~7 MoveOnGround@3)))))
+   (if@,2
+    (elif@3 horizontalCollision
+     (stmts@L
+      (asgn@7 result~7
+       (infix@9 or result~7 MoveHorizontalCollision@3)))))))
+ (proc@,DG bodyMovePlayerPos@5 x . .
+  (params@N
+   (param@1 x . . float@9 .)
+   (param@4 y . . float@6 .)
+   (param@7 z . . float@3 .)
+   (param@H onGround . . bool@K .)
+   (param@R collided . . bool@A .))
+  (at@l seq~3 int@1). .
+  (stmts@2,1
+   (var@4 w . . .
+    (call@A writer~6))
+   (call@9,1 putDouble~9 w@1 x@4)
+   (call@9,2 putDouble~9 w@1 y@4)
+   (call@9,3 putDouble~9 w@1 z@4)
+   (call@7,4 putByte~7 w@1
+    (call@D moveFlags~9 onGround@1 collided@B))
+   (dot@1,5 w~1 data@1)))
+ (proc@,DO bodyMovePlayerPosRot@5 x . .
+  (params@Q
+   (param@1 x . . float@L .)
+   (param@4 y . . float@I .)
+   (param@7 z . . float@F .)
+   (param@A yaw . . float@C .)
+   (param@F pitch . . float@7 .)
+   (param@1,1 onGround . . bool@K .)
+   (param@B,1 collided . . bool@A .))
+  (at@V,1 seq~3 int@1). .
+  (stmts@2,2
+   (var@4 w . . .
+    (call@A writer~6))
+   (call@9,1 putDouble~9 w@1 x@4)
+   (call@9,2 putDouble~9 w@1 y@4)
+   (call@9,3 putDouble~9 w@1 z@4)
+   (call@8,4 putFloat~8 w@1 yaw@4)
+   (call@8,5 putFloat~8 w@1 pitch@4)
+   (call@7,6 putByte~7 w@1
+    (call@D moveFlags~9 onGround@1 collided@B))
+   (dot@1,7 w~1 data@1)))
+ (proc@,DZ bodyMovePlayerRot@5 x . .
+  (params@N
+   (param@1 yaw . . float@C .)
+   (param@6 pitch . . float@7 .)
+   (param@K onGround . . bool@K .)
+   (param@U collided . . bool@A .))
+  (at@o seq~3 int@1). .
+  (stmts@2,1
+   (var@4 w . . .
+    (call@A writer~6))
+   (call@8,1 putFloat~8 w@1 yaw@4)
+   (call@8,2 putFloat~8 w@1 pitch@4)
+   (call@7,3 putByte~7 w@1
+    (call@D moveFlags~9 onGround@1 collided@B))
+   (dot@1,4 w~1 data@1)))
+ (proc@,Dg bodyMovePlayerStatusOnly@5 x . .
+  (params@U
+   (param@1 onGround . . bool@K .)
+   (param@B collided . . bool@A .))
+  (at@V seq~3 int@1). .
+  (stmts@2,1
+   (var@4 w . . .
+    (call@A writer~6))
+   (call@7,1 putByte~7 w@1
+    (call@D moveFlags~9 onGround@1 collided@B))
+   (dot@1,2 w~1 data@1)))
+ (proc@,Dl bodyChunkBatchReceived@5 x . .
+  (params@S
+   (param@1 chunksPerTick . . float@F .))
+  (at@R seq~3 int@1). .
+  (stmts@2,1
+   (comment)
+   (var@4,4 w . . .
+    (call@A writer~6))
+   (call@8,5 putFloat~8 w@1 chunksPerTick@4)
+   (dot@1,6 w~1 data@1)))
+ (proc@,Du bodyPlayerLoaded@5 x . .
+  (params@M)
+  (at@7 seq~3 int@1). .
+  (stmts@2,1
+   (comment)
+   (var@4,2 w . . .
+    (call@A writer~6))
+   (dot@1,3 w~1 data@1)))
+ (proc@,E0 bodyClientTickEnd@5 x . .
+  (params@N)
+  (at@7 seq~3 int@1). .
+  (stmts@2,1
+   (var@4 w . . .
+    (call@A writer~6))
+   (dot@1,1 w~1 data@1)))
+ (proc@,E4 bodyClientCommand@5 x . .
+  (params@N
+   (param@1 action . . int@8 .))
+  (at@I seq~3 int@1). .
+  (stmts@2,1
+   (var@4 w . . .
+    (call@A writer~6))
+   (call@9,1 putVarInt~9 w@1 action@4)
+   (dot@1,2 w~1 data@1)))
+ (proc@,E9 bodyPlayerAction@5 x . .
+  (params@M
+   (param@1 status . . int@8 .)
+   (param@E at . . BlockPos@4 .)
+   (param@S face . . int@G .)
+   (param@Y sequence . . int@A .))
+  (at@r seq~3 int@1). .
+  (stmts@2,1
+   (comment)
+   (var@4,4 w . . .
+    (call@A writer~6))
+   (call@9,5 putVarInt~9 w@1 status@4)
+   (call@B,6 putPosition~B w@1 at@4)
+   (call@7,7 putByte~7 w@1 face@4)
+   (call@9,8 putVarInt~9 w@1 sequence@4)
+   (dot@1,9 w~1 data@1)))
+ (proc@,EL bodyUseItemOn@5 x . .
+  (params@J
+   (param@1 hand . . int@6 .)
+   (param@C at . . BlockPos@4 .)
+   (param@Q face . . int@6 .)
+   (param@1,1 cursorX . . float@R .)
+   (param@A,1 cursorY . . float@I .)
+   (param@J,1 cursorZ . . float@9 .)
+   (param@1,2 insideBlock . . bool@T .)
+   (param@E,2 worldBorderHit . . bool@G .)
+   (param@1,3 sequence . . int@A .))
+  (at@K,3 seq~3 int@1). .
+  (stmts@2,4
+   (comment)
+   (var@4,3 w . . .
+    (call@A writer~6))
+   (call@9,4 putVarInt~9 w@1 hand@4)
+   (call@B,5 putPosition~B w@1 at@4)
+   (call@9,6 putVarInt~9 w@1 face@4)
+   (call@8,7 putFloat~8 w@1 cursorX@4)
+   (call@8,8 putFloat~8 w@1 cursorY@4)
+   (call@8,9 putFloat~8 w@1 cursorZ@4)
+   (call@7,A putBool~7 w@1 insideBlock@4)
+   (call@7,B putBool~7 w@1 worldBorderHit@4)
+   (call@9,C putVarInt~9 w@1 sequence@4)
+   (dot@1,D w~1 data@1)))
+ (proc@,Ee bodyUseItem@5 x . .
+  (params@H
+   (param@1 hand . . int@G .)
+   (param@7 sequence . . int@A .)
+   (param@M yaw . . float@C .)
+   (param@R pitch . . float@7 .))
+  (at@j seq~3 int@1). .
+  (stmts@2,1
+   (var@4 w . . .
+    (call@A writer~6))
+   (call@9,1 putVarInt~9 w@1 hand@4)
+   (call@9,2 putVarInt~9 w@1 sequence@4)
+   (call@8,3 putFloat~8 w@1 yaw@4)
+   (call@8,4 putFloat~8 w@1 pitch@4)
+   (dot@1,5 w~1 data@1)))
+ (proc@,Em bodySwing@5 x . .
+  (params@F
+   (param@1 hand . . int@6 .))
+  (at@G seq~3 int@1). .
+  (stmts@2,1
+   (var@4 w . . .
+    (call@A writer~6))
+   (call@9,1 putVarInt~9 w@1 hand@4)
+   (dot@1,2 w~1 data@1)))
+ (proc@,Er bodySetCarriedItem@5 x . .
+  (params@O
+   (param@1 slot . . int@6 .))
+  (at@G seq~3 int@1). .
+  (stmts@2,1
+   (var@4 w . . .
+    (call@A writer~6))
+   (call@8,1 putShort~8 w@1 slot@4)
+   (dot@1,2 w~1 data@1)))
+ (proc@,Ew bodyPlayerCommand@5 x . .
+  (params@N
+   (param@1 entityId . . int@T .)
+   (param@B action . . int@J .)
+   (param@J jumpBoost . . int@B .))
+  (at@d seq~3 int@1). .
+  (stmts@2,1
+   (var@4 w . . .
+    (call@A writer~6))
+   (call@9,1 putVarInt~9 w@1 entityId@4)
+   (call@9,2 putVarInt~9 w@1 action@4)
+   (call@9,3 putVarInt~9 w@1 jumpBoost@4)
+   (dot@1,4 w~1 data@1)))
+ (proc@,F3 bodyPlayerInput@5 x . .
+  (params@L
+   (param@1 flags . . int@7 .))
+  (at@H seq~3 int@1). .
+  (stmts@2,1
+   (var@4 w . . .
+    (call@A writer~6))
+   (call@7,1 putByte~7 w@1 flags@4)
+   (dot@1,2 w~1 data@1)))
+ (type@C,FJ Outbound~A x . .
+  (object@2 .
+   (fld~6,1 name~4 x . string@3 .)
+   (fld~6,2 body~4 x .
+    (at@6 seq~3 int@1).)))
+ (type@8,FN Play~6 x . .
+  (object@2 .
+   (fld~2,1 live~4 x . bool@3 .)
+   (fld@2,2 entityId~8 x . int@3 .)
+   (fld@2,3 hardcore~8 x . bool@3 .)
+   (fld@2,4 gamemode~8 x . int@3 .)
+   (fld@3,5 dimension~9 x . int@3 .)
+   (fld@3,6 worldName~9 x . string@3 .)
+   (fld@2,7 seaLevel~8 x . int@3 .)
+   (fld@6,8 viewDistance~C x . int@3 .)
+   (fld@C,9 simulationDistance~I x . int@3 .)
+   (fld~5,B x~1 x . float@B .)
+   (fld~1,B y~1 x . float@7 .)
+   (fld@3,B z~1 x . float@3 .)
+   (fld~3,C yaw~3 x . float@B .)
+   (fld@5,C pitch~5 x . float@3 .)
+   (fld~4,D dx~2 x . float@D .)
+   (fld@1,D dy~2 x . float@8 .)
+   (fld@6,D dz~2 x . float@3 .)
+   (fld@2,E onGround~8 x . bool@3 .)
+   (fld@4,F positioned~A x . bool@3 .)
+   (fld@8,G lastTeleportId~E x . int@3 .)
+   (fld@A,H pendingTeleports~G x . int@3 .)
+   (fld@6,K chunkCenterX~C x . int@I .)
+   (fld@L,K chunkCenterZ~C x . int@3 .)
+   (fld@3,L batchOpen~9 x . bool@3 .)
+   (fld@5,M batchesSeen~B x . int@3 .)
+   (fld@7,N chunksInBatch~D x . int@3 .)
+   (fld@7,O chunksPerTick~D x . float@3 .)
+   (fld@9,Q loadedAnnounced~F x . bool@3 .)
+   (fld@6,R terrainReady~C x . bool@3 .)
+   (fld@,T health~6 x . float@3 .)
+   (fld~2,U food~4 x . int@3 .)
+   (fld@4,V saturation~A x . float@3 .)
+   (fld@9,W experienceLevel~F x . int@3 .)
+   (fld~2,X dead~4 x . bool@3 .)
+   (fld@,Y deaths~6 x . int@3 .)
+   (fld~6,c respawnAsked . . bool@E .)
+   (fld@2,e worldAge~8 x . int@3 .)
+   (fld@3,f timeOfDay~9 x . int@3 .)
+   (fld~1,g spawn~5 x . BlockPos@3 .)
+   (fld@C,i keepAlivesAnswered~I x . int@3 .)
+   (fld~2,j out0~4 x .
+    (at@6 seq~3 Outbound@1).)
+   (fld@1,k problem~7 x . string@3 .)))
+ (const@M,GA DefaultChunksPerTick~K x . . 16.0@4)
+ (const@I,GD MinChunksPerTick~G x . . 0.01@4)
+ (const@I,GE MaxChunksPerTick~G x . . 64.0@4)
+ (proc@,GG playSession@5 x . .
+  (params@H)Play@4 . .
+  (stmts@2,1
+   (oconstr@4 Play~4
+    (kv@5 live~4 false@2)
+    (kv@M entityId~8 0@2)
+    (kv@Z hardcore~8 false@2)
+    (kv@q gamemode~8 0@2)
+    (kv@14 dimension~9 0@2)
+    (kv@A,1 worldName~9 ""@2)
+    (kv@O,1 seaLevel~8 0@2)
+    (kv@f,1 viewDistance~C 0@2)
+    (kv@12,1 simulationDistance~I 0@2)
+    (kv@2,2 x~1 0.0@2)
+    (kv@A,2 y~1 0.0@2)
+    (kv@I,2 z~1 0.0@2)
+    (kv@S,2 yaw~3 0.0@2)
+    (kv@e,2 pitch~5 0.0@2)
+    (kv@n,2 dx~2 0.0@2)
+    (kv@w,2 dy~2 0.0@2)
+    (kv@15,2 dz~2 0.0@2)
+    (kv@9,3 onGround~8 false@2)
+    (kv@S,3 positioned~A false@2)
+    (kv@p,3 lastTeleportId~E -1@2)
+    (kv@H,4 pendingTeleports~G 0@2)
+    (kv@Y,4 chunkCenterX~C 0@2)
+    (kv@p,4 chunkCenterZ~C 0@2)
+    (kv@13,4 batchOpen~9 false@2)
+    (kv@C,5 batchesSeen~B 0@2)
+    (kv@U,5 chunksInBatch~D 0@2)
+    (kv@m,5 chunksPerTick~D DefaultChunksPerTick@2)
+    (kv@G,6 loadedAnnounced~F false@2)
+    (kv@b,6 terrainReady~C false@2)
+    (kv@q,6 health~6 20.0@2)
+    (kv@12,6 food~4 20@2)
+    (kv@B,7 saturation~A 5.0@2)
+    (kv@X,7 experienceLevel~F 0@2)
+    (kv@g,7 dead~4 false@2)
+    (kv@v,7 deaths~6 0@2)
+    (kv@D,8 respawnAsked~C false@2)
+    (kv@U,8 worldAge~8 0@2)
+    (kv@A,9 timeOfDay~9 0@2)
+    (kv@K,9 spawn~5
+     (oconstr@A BlockPos~8
+      (kv@2 x~1 0@2)
+      (kv@8 y~1 0@2)
+      (kv@E z~1 0@2)))
+    (kv@16,9 keepAlivesAnswered~I 0@2)
+    (kv@5,A out0~4
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@J,A problem~7 ""@2))))
+ (proc@,GT send@5 . . .
+  (params@9
+   (param@1 s . .
+    (mut@3 Play@4).)
+   (param@E name . . string@6 .)
+   (param@S body . .
+    (at@9 seq~3 int@1).)). . .
+  (stmts@2,1
+   (cmd@6
+    (dot
+     (dot~5 s~1 out0@1)add@1)
+    (oconstr@D Outbound~8
+     (kv@5 name~4 name@2)
+     (kv@H body~4 body@2)))))
+ (proc@,GW noteProblem@5 . . .
+  (params@G
+   (param@1 s . .
+    (mut@3 Play@4).)
+   (param@E why . . string@5 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@E ==
+      (dot~5
+       (dot~8 s~1 problem@1)len@1)0@3)
+     (stmts@K
+      (asgn@A
+       (dot~9 s~1 problem@1)why@2))))))
+ (proc@,GZ takeOutbound@5 x . .
+  (params@I
+   (param@1 s . .
+    (mut@3 Play@4).))
+  (at@I seq~3 Outbound@1). .
+  (stmts@2,1
+   (comment)
+   (asgn@7,3 result~7
+    (dot@3 s~1 out0@1))
+   (asgn@7,4
+    (dot~6 s~1 out0@1)
+    (prefix@2 \40
+     (bracket@1)))))
+ (proc@,Gg pace@5 x . .
+  (params@A
+   (param@1 s . .
+    (mut@3 Play@4).)
+   (param@E chunksPerTick . . float@F .)). . .
+  (stmts@2,1
+   (comment)
+   (var@4,3 v . . . chunksPerTick@4)
+   (if@,4
+    (elif@3
+     (infix@2 < v~2 MinChunksPerTick@2)
+     (stmts@M
+      (asgn@2 v~2 MinChunksPerTick@2))))
+   (if@,5
+    (elif@3
+     (infix@2 > v~2 MaxChunksPerTick@2)
+     (stmts@M
+      (asgn@2 v~2 MaxChunksPerTick@2))))
+   (asgn@G,6
+    (dot~F s~1 chunksPerTick@1)v@2)))
+ (proc@,Gp applyTeleport@5 . . .
+  (params@I
+   (param@1 s . .
+    (mut@3 Play@4).)
+   (param@E p . . PositionPacket@3 .)). . .
+  (stmts@2,1
+   (comment)
+   (if@,3
+    (elif@3
+     (call@8 relative~8 p@1 RelX@4)
+     (stmts@J
+      (asgn@4
+       (dot~3 s~1 x@1)
+       (infix@6 \2B
+        (dot~3 s~1 x@1)
+        (dot@3 p~1 x@1)))))
+    (else@c
+     (stmts@6
+      (asgn@4
+       (dot~3 s~1 x@1)
+       (dot@3 p~1 x@1)))))
+   (if@,4
+    (elif@3
+     (call@8 relative~8 p@1 RelY@4)
+     (stmts@J
+      (asgn@4
+       (dot~3 s~1 y@1)
+       (infix@6 \2B
+        (dot~3 s~1 y@1)
+        (dot@3 p~1 y@1)))))
+    (else@c
+     (stmts@6
+      (asgn@4
+       (dot~3 s~1 y@1)
+       (dot@3 p~1 y@1)))))
+   (if@,5
+    (elif@3
+     (call@8 relative~8 p@1 RelZ@4)
+     (stmts@J
+      (asgn@4
+       (dot~3 s~1 z@1)
+       (infix@6 \2B
+        (dot~3 s~1 z@1)
+        (dot@3 p~1 z@1)))))
+    (else@c
+     (stmts@6
+      (asgn@4
+       (dot~3 s~1 z@1)
+       (dot@3 p~1 z@1)))))
+   (if@,6
+    (elif@3
+     (call@8 relative~8 p@1 RelYaw@4)
+     (stmts@L
+      (asgn@6
+       (dot~5 s~1 yaw@1)
+       (infix@8 \2B
+        (dot~5 s~1 yaw@1)
+        (dot@3 p~1 yaw@1)))))
+    (else@k
+     (stmts@6
+      (asgn@6
+       (dot~5 s~1 yaw@1)
+       (dot@3 p~1 yaw@1)))))
+   (if@,7
+    (elif@3
+     (call@8 relative~8 p@1 RelPitch@4)
+     (stmts@N
+      (asgn@8
+       (dot~7 s~1 pitch@1)
+       (infix@A \2B
+        (dot~7 s~1 pitch@1)
+        (dot@3 p~1 pitch@1)))))
+    (else@s
+     (stmts@6
+      (asgn@8
+       (dot~7 s~1 pitch@1)
+       (dot@3 p~1 pitch@1)))))
+   (if@,8
+    (elif@3
+     (call@8 relative~8 p@1 RelDeltaX@4)
+     (stmts@O
+      (asgn@5
+       (dot~4 s~1 dx@1)
+       (infix@7 \2B
+        (dot~4 s~1 dx@1)
+        (dot@3 p~1 dx@1)))))
+    (else@k
+     (stmts@6
+      (asgn@5
+       (dot~4 s~1 dx@1)
+       (dot@3 p~1 dx@1)))))
+   (if@,9
+    (elif@3
+     (call@8 relative~8 p@1 RelDeltaY@4)
+     (stmts@O
+      (asgn@5
+       (dot~4 s~1 dy@1)
+       (infix@7 \2B
+        (dot~4 s~1 dy@1)
+        (dot@3 p~1 dy@1)))))
+    (else@k
+     (stmts@6
+      (asgn@5
+       (dot~4 s~1 dy@1)
+       (dot@3 p~1 dy@1)))))
+   (if@,A
+    (elif@3
+     (call@8 relative~8 p@1 RelDeltaZ@4)
+     (stmts@O
+      (asgn@5
+       (dot~4 s~1 dz@1)
+       (infix@7 \2B
+        (dot~4 s~1 dz@1)
+        (dot@3 p~1 dz@1)))))
+    (else@k
+     (stmts@6
+      (asgn@5
+       (dot~4 s~1 dz@1)
+       (dot@3 p~1 dz@1)))))))
+ (proc@,H2 enterPlay@5 x . .
+  (params@F
+   (param@1 s . .
+    (mut@3 Play@4).)). . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,3
+    (dot~6 s~1 live@1)true@2)))
+ (proc@,H8 onPlayPacket@5 x . .
+  (params@I
+   (param@1 s . .
+    (mut@3 Play@4).)
+   (param@E name . . string@6 .)
+   (param@S r . .
+    (mut@3 Reader@4).)). . .
+  (stmts@2,1
+   (comment)
+   (if@,3
+    (elif@3
+     (prefix not
+      (dot@5 s~1 live@1))
+     (stmts@C
+      (ret .))))
+   (if@,4
+    (elif@3
+     (infix@5 == name~5 PlayLogin@3)
+     (stmts~1,1
+      (let@4 p . . .
+       (call@J readLoginPacket~F r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts~1,1
+         (call@B noteProblem~B s@1 "a truncated login packet"@4)
+         (ret@,1 .))))
+      (asgn@B,4
+       (dot~A s~1 entityId@1)
+       (dot@3 p~1 entityId@1))
+      (asgn@B,5
+       (dot~A s~1 hardcore@1)
+       (dot@3 p~1 hardcore@1))
+      (asgn@F,6
+       (dot~E s~1 viewDistance@1)
+       (dot@3 p~1 viewDistance@1))
+      (asgn@L,7
+       (dot~K s~1 simulationDistance@1)
+       (dot@3 p~1 simulationDistance@1))
+      (asgn@B,8
+       (dot~A s~1 gamemode@1)
+       (dot@9
+        (dot~6 p~1 world@1)gamemode@1))
+      (asgn@C,9
+       (dot~B s~1 dimension@1)
+       (dot@9
+        (dot~6 p~1 world@1)dimension@1))
+      (asgn@C,A
+       (dot~B s~1 worldName@1)
+       (dot@9
+        (dot~6 p~1 world@1)worldName@1))
+      (asgn@B,B
+       (dot~A s~1 seaLevel@1)
+       (dot@9
+        (dot~6 p~1 world@1)seaLevel@1))
+      (asgn@D,F
+       (dot~C s~1 positioned@1)false@2)
+      (asgn@7,G
+       (dot~6 s~1 dead@1)false@2)
+      (ret@,H .))))
+   (if@,O
+    (elif@3
+     (infix@5 == name~5 PlayRespawn@3)
+     (stmts~1,1
+      (let@4 p . . .
+       (call@L readRespawnPacket~H r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts~1,1
+         (call@B noteProblem~B s@1 "a truncated respawn packet"@4)
+         (ret@,1 .))))
+      (asgn@B,4
+       (dot~A s~1 gamemode@1)
+       (dot@9
+        (dot~6 p~1 world@1)gamemode@1))
+      (asgn@C,5
+       (dot~B s~1 dimension@1)
+       (dot@9
+        (dot~6 p~1 world@1)dimension@1))
+      (asgn@C,6
+       (dot~B s~1 worldName@1)
+       (dot@9
+        (dot~6 p~1 world@1)worldName@1))
+      (asgn@B,7
+       (dot~A s~1 seaLevel@1)
+       (dot@9
+        (dot~6 p~1 world@1)seaLevel@1))
+      (asgn@D,8
+       (dot~C s~1 positioned@1)false@2)
+      (asgn@7,9
+       (dot~6 s~1 dead@1)false@2)
+      (asgn@F,A
+       (dot~E s~1 terrainReady@1)false@2)
+      (ret@,D .))))
+   (if@,e
+    (elif@3
+     (infix@5 == name~5 PlayPlayerPosition@3)
+     (stmts~1,1
+      (let@4 p . . .
+       (call@M readPositionPacket~I r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts~1,1
+         (call@B noteProblem~B s@1 "a truncated player position"@4)
+         (ret@,1 .))))
+      (call@D,4 applyTeleport~D s@1 p@4)
+      (asgn@H,5
+       (dot~G s~1 lastTeleportId@1)
+       (dot@3 p~1 teleportId@1))
+      (asgn@D,6
+       (dot~C s~1 positioned@1)true@2)
+      (call@4,B send~4 s@1 PlayAcceptTeleportation@4
+       (call@q bodyAcceptTeleportation~N
+        (dot@2 p~1 teleportId@1)))
+      (call@4,C send~4 s@1 PlayMovePlayerPosRot@4
+       (call@L,1 bodyMovePlayerPosRot~K
+        (dot@2 s~1 x@1)
+        (dot@7 s~1 y@1)
+        (dot@C s~1 z@1)
+        (dot@H s~1 yaw@1)
+        (dot@O s~1 pitch@1)
+        (dot@X s~1 onGround@1)false@i))
+      (ret@,E .))))
+   (if@,v
+    (elif@3
+     (infix@5 == name~5 PlayPlayerRotation@3)
+     (stmts~1,1
+      (let@4 p . . .
+       (call@M readRotationPacket~I r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts~1,1
+         (call@B noteProblem~B s@1 "a truncated player rotation"@4)
+         (ret@,1 .))))
+      (if@,4
+       (elif@3
+        (dot@1 p~1 relativeYaw@1)
+        (stmts@F
+         (asgn@6
+          (dot~5 s~1 yaw@1)
+          (infix@8 \2B
+           (dot~5 s~1 yaw@1)
+           (dot@3 p~1 yaw@1)))))
+       (else@e
+        (stmts@6
+         (asgn@6
+          (dot~5 s~1 yaw@1)
+          (dot@3 p~1 yaw@1)))))
+      (if@,5
+       (elif@3
+        (dot@1 p~1 relativePitch@1)
+        (stmts@H
+         (asgn@8
+          (dot~7 s~1 pitch@1)
+          (infix@A \2B
+           (dot~7 s~1 pitch@1)
+           (dot@3 p~1 pitch@1)))))
+       (else@m
+        (stmts@6
+         (asgn@8
+          (dot~7 s~1 pitch@1)
+          (dot@3 p~1 pitch@1)))))
+      (ret@,6 .))))
+   (if@,14
+    (elif@3
+     (infix@5 == name~5 PlayDisconnect@3)
+     (stmts~1,E
+      (var@4 best . . . ""@7)
+      (var@4,1 run . . . ""@6)
+      (while@,2 true@6
+       (stmts@2,1
+        (let@4 b . . .
+         (call@C readByte~8 r@1))
+        (if@,1
+         (elif@3
+          (prefix not
+           (call@6 ok~2 r@1))
+          (stmts@B
+           (break .))))
+        (if@,2
+         (elif@3
+          (infix@8 and
+           (infix~6 >= b~2 32@3)
+           (infix@6 < b~2 127@2))
+          (stmts~1,1
+           (cmd@3
+            (dot run~3 add@1)
+            (call@9 char~4 b@1))))
+         (else@,2
+          (stmts@2,1
+           (if
+            (elif@3
+             (infix@8 >
+              (dot~5 run~3 len@1)
+              (dot@6 best~4 len@1))
+             (stmts@K
+              (asgn@5 best~5 run@2))))
+           (asgn@4,1 run~4 ""@2))))))
+      (if@,A
+       (elif@3
+        (infix@8 >
+         (dot~5 run~3 len@1)
+         (dot@6 best~4 len@1))
+        (stmts@K
+         (asgn@5 best~5 run@2))))
+      (call@B,B noteProblem~B s@1
+       (if@4
+        (elif@3
+         (infix@9 >
+          (dot~5 best~4 len@1)2@2)
+         (stmts@E
+          (infix@V & "the server disconnected us\3A "~V best@2)))
+        (else@,1
+         (stmts@6 "the server disconnected us, with no readable reason"))))
+      (ret@,D .))))
+   (if@,1X
+    (elif@3
+     (infix@5 == name~5 PlayKeepAlive@3)
+     (stmts~1,1
+      (let@4 id . . .
+       (call@D readLong~8 r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts~1,1
+         (call@B noteProblem~B s@1 "a truncated keep alive"@4)
+         (ret@,1 .))))
+      (call@4,7 send~4 s@1 PlayKeepAliveOut@4
+       (call@Z bodyKeepAlive~D id@1))
+      (cmd@,8 inc
+       (dot@5 s~1 keepAlivesAnswered@1))
+      (ret@,9 .))))
+   (if@,1j
+    (elif@3
+     (infix@5 == name~5 PlayPing@3)
+     (stmts~1,1
+      (let@4 id . . .
+       (call@C readInt~7 r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts~1,1
+         (call@B noteProblem~B s@1 "a truncated ping"@4)
+         (ret@,1 .))))
+      (call@4,4 send~4 s@1 PlayPongOut@4
+       (call@P bodyPong~8 id@1))
+      (ret@,5 .))))
+   (if@,1r
+    (elif@3
+     (infix@5 == name~5 PlaySetTime@3)
+     (stmts~1,1
+      (let@4 p . . .
+       (call@I readTimePacket~E r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts~1,1
+         (call@B noteProblem~B s@1 "a truncated set time"@4)
+         (ret@,1 .))))
+      (asgn@B,4
+       (dot~A s~1 worldAge@1)
+       (dot@3 p~1 age@1))
+      (asgn@C,8
+       (dot~B s~1 timeOfDay@1)
+       (dot@3 p~1 time@1))
+      (if@,9
+       (elif@3
+        (infix@C <
+         (dot~B s~1 timeOfDay@1)0@2)
+        (stmts@H
+         (asgn@C
+          (dot~B s~1 timeOfDay@1)
+          (prefix@2 \2D
+           (dot@2 s~1 timeOfDay@1))))))
+      (ret@,A .))))
+   (if@,24
+    (elif@3
+     (infix@5 == name~5 PlaySetDefaultSpawnPosition@3)
+     (stmts~1,1
+      (let@4 p . . .
+       (call@R readSpawnPositionPacket~N r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts~1,1
+         (call@B noteProblem~B s@1 "a truncated spawn position"@4)
+         (ret@,1 .))))
+      (asgn@8,4
+       (dot~7 s~1 spawn@1)
+       (dot@6
+        (dot~3 p~1 at@1)at@1))
+      (ret@,5 .))))
+   (if@,2C
+    (elif@3
+     (infix@5 == name~5 PlaySetChunkCacheCenter@3)
+     (stmts~1,1
+      (let@4 p . . .
+       (call@P readChunkCenterPacket~L r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts~1,1
+         (call@B noteProblem~B s@1 "a truncated chunk cache centre"@4)
+         (ret@,1 .))))
+      (asgn@F,4
+       (dot~E s~1 chunkCenterX@1)
+       (dot@3 p~1 chunkX@1))
+      (asgn@F,5
+       (dot~E s~1 chunkCenterZ@1)
+       (dot@3 p~1 chunkZ@1))
+      (ret@,6 .))))
+   (if@,2L
+    (elif@3
+     (infix@5 == name~5 PlaySetChunkCacheRadius@3)
+     (stmts~1,1
+      (let@4 v . . .
+       (call@E readVarInt~A r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts~1,1
+         (call@B noteProblem~B s@1 "a truncated chunk cache radius"@4)
+         (ret@,1 .))))
+      (asgn@F,4
+       (dot~E s~1 viewDistance@1)v@2)
+      (ret@,5 .))))
+   (if@,2T
+    (elif@3
+     (infix@5 == name~5 PlaySetSimulationDistance@3)
+     (stmts~1,1
+      (let@4 v . . .
+       (call@E readVarInt~A r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts~1,1
+         (call@B noteProblem~B s@1 "a truncated simulation distance"@4)
+         (ret@,1 .))))
+      (asgn@L,4
+       (dot~K s~1 simulationDistance@1)v@2)
+      (ret@,5 .))))
+   (if@,2b
+    (elif@3
+     (infix@5 == name~5 PlayChunkBatchStart@3)
+     (stmts~1,2
+      (asgn@C
+       (dot~B s~1 batchOpen@1)true@2)
+      (asgn@G,1
+       (dot~F s~1 chunksInBatch@1)0@2)
+      (ret@,2 .))))
+   (if@,2h
+    (elif@3
+     (infix@5 == name~5 PlayChunkBatchFinished@3)
+     (stmts~1,1
+      (let@4 size . . .
+       (call@H readVarInt~A r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts~1,1
+         (call@B noteProblem~B s@1 "a truncated chunk batch end"@4)
+         (ret@,1 .))))
+      (if@,4
+       (elif@3
+        (prefix not
+         (dot@5 s~1 batchOpen@1))
+        (stmts~1,3
+         (call@B noteProblem~B s@1 "a chunk batch finished that never started"@4)
+         (ret@,1 .))))
+      (asgn@C,9
+       (dot~B s~1 batchOpen@1)false@2)
+      (cmd@,A inc
+       (dot@5 s~1 batchesSeen@1))
+      (if@,B
+       (elif@3
+        (infix@5 != size~5
+         (dot@4 s~1 chunksInBatch@1))
+        (stmts~1,4
+         (discard .))))
+      (call@4,G send~4 s@1 PlayChunkBatchReceived@4
+       (call@o bodyChunkBatchReceived~M
+        (dot@2 s~1 chunksPerTick@1)))
+      (ret@,H .))))
+   (if@,31
+    (elif@3
+     (infix@5 == name~5 PlayGameEvent@3)
+     (stmts~1,1
+      (let@4 p . . .
+       (call@N readGameEventPacket~J r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts~1,1
+         (call@B noteProblem~B s@1 "a truncated game event"@4)
+         (ret@,1 .))))
+      (if@,4
+       (elif@3
+        (infix@9 ==
+         (dot~8 p~1 reason@1)EventChangeGameMode@3)
+        (stmts~1,1
+         (asgn@B
+          (dot~A s~1 gamemode@1)
+          (call@5 int~3
+           (dot@2 p~1 value@1)))))
+       (elif@5,2
+        (infix@9 ==
+         (dot~8 p~1 reason@1)EventLevelChunksLoaded@3)
+        (stmts~3,1
+         (asgn@F
+          (dot~E s~1 terrainReady@1)true@2)
+         (if@,1
+          (elif@3
+           (prefix not
+            (dot@5 s~1 loadedAnnounced@1))
+           (stmts~1,4
+            (call@4 send~4 s@1 PlayPlayerLoaded@4
+             (call@c bodyPlayerLoaded~G))
+            (asgn@I,1
+             (dot~H s~1 loadedAnnounced@1)true@2)))))))
+      (ret@,E .))))
+   (if@,3I
+    (elif@3
+     (infix@5 == name~5 PlaySetHealth@3)
+     (stmts~1,1
+      (let@4 p . . .
+       (call@K readHealthPacket~G r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts~1,1
+         (call@B noteProblem~B s@1 "a truncated set health"@4)
+         (ret@,1 .))))
+      (let@4,4 wasDead . . .
+       (dot@B s~1 dead@1))
+      (asgn@9,5
+       (dot~8 s~1 health@1)
+       (dot@3 p~1 health@1))
+      (asgn@7,6
+       (dot~6 s~1 food@1)
+       (dot@3 p~1 food@1))
+      (asgn@D,7
+       (dot~C s~1 saturation@1)
+       (dot@3 p~1 saturation@1))
+      (if@,8
+       (elif@3
+        (infix@9 <=
+         (dot~8 s~1 health@1)0.0@3)
+        (stmts~1,1
+         (asgn@7
+          (dot~6 s~1 dead@1)true@2)
+         (if@,7
+          (elif@3
+           (infix@C and
+            (prefix~C not wasDead@4)
+            (prefix@4 not
+             (dot@5 s~1 respawnAsked@1)))
+           (stmts~1,1
+            (asgn@9
+             (dot~8 s~1 deaths@1)
+             (infix@B \2B
+              (dot~8 s~1 deaths@1)1@2))
+            (call@4,1 send~4 s@1 PlayClientCommand@4
+             (call@e bodyClientCommand~H CommandRespawn@1))
+            (asgn@F,2
+             (dot~E s~1 respawnAsked@1)true@2))))))
+       (else@,C
+        (stmts@2,1
+         (asgn@7
+          (dot~6 s~1 dead@1)false@2)
+         (asgn@F,1
+          (dot~E s~1 respawnAsked@1)false@2))))
+      (ret@,N .))))
+   (if@,3i
+    (elif@3
+     (infix@5 == name~5 PlaySetExperience@3)
+     (stmts~1,1
+      (let@4 p . . .
+       (call@O readExperiencePacket~K r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts~1,1
+         (call@B noteProblem~B s@1 "a truncated set experience"@4)
+         (ret@,1 .))))
+      (asgn@I,4
+       (dot~H s~1 experienceLevel@1)
+       (dot@3 p~1 level@1))
+      (ret@,5 .))))
+   (if@,3q
+    (elif@3
+     (infix@5 == name~5 PlayPlayerCombatKill@3)
+     (stmts~1,1
+      (let@4 p . . .
+       (call@O readCombatKillPacket~K r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts~1,1
+         (call@B noteProblem~B s@1 "a truncated combat kill"@4)
+         (ret@,1 .))))
+      (if@,4
+       (elif@3
+        (infix@P and
+         (infix~E ==
+          (dot~A p~1 playerId@1)
+          (dot@4 s~1 entityId@1))
+         (prefix@4 not
+          (dot@5 s~1 dead@1)))
+        (stmts~1,1
+         (asgn@7
+          (dot~6 s~1 dead@1)true@2)
+         (asgn@9,D
+          (dot~8 s~1 deaths@1)
+          (infix@B \2B
+           (dot~8 s~1 deaths@1)1@2))
+         (call@4,E send~4 s@1 PlayClientCommand@4
+          (call@e bodyClientCommand~H CommandRespawn@1)))))
+      (ret@,K .))))
+   (if@,4D
+    (elif@3
+     (infix@5 == name~5 PlayStartConfiguration@3)
+     (stmts~1,3
+      (asgn@7
+       (dot~6 s~1 live@1)false@2)
+      (ret@,1 .))))
+   (discard@,4L .)))
+ (proc@,LW respawnNow@5 x . .
+  (params@G
+   (param@1 s . .
+    (mut@3 Play@4).)). . .
+  (stmts@2,1
+   (comment)
+   (if@,3
+    (elif@3
+     (infix@B or
+      (prefix~B not
+       (dot@5 s~1 dead@1))
+      (dot@4 s~1 respawnAsked@1))
+     (stmts@U
+      (ret .))))
+   (call@4,4 send~4 s@1 PlayClientCommand@4
+    (call@e bodyClientCommand~H CommandRespawn@1))
+   (asgn@F,5
+    (dot~E s~1 respawnAsked@1)true@2)))
+ (proc@,Le noteChunk@5 x . .
+  (params@F
+   (param@1 s . .
+    (mut@3 Play@4).)). . .
+  (stmts@2,1
+   (comment)
+   (if@,2
+    (elif@3
+     (dot@1 s~1 batchOpen@1)
+     (stmts@D
+      (cmd inc
+       (dot@5 s~1 chunksInBatch@1)))))))
+ (proc@,Lj stepMovement@5 x . .
+  (params@I
+   (param@1 s . .
+    (mut@3 Play@4).)
+   (param@E x . . float@L .)
+   (param@H y . . float@I .)
+   (param@K z . . float@F .)
+   (param@N yaw . . float@C .)
+   (param@S pitch . . float@7 .)
+   (param@1,1 onGround . . bool@A .)). . .
+  (stmts@2,2
+   (comment)
+   (if@,4
+    (elif@3
+     (prefix not
+      (dot@5 s~1 positioned@1))
+     (stmts@I
+      (ret .))))
+   (let@4,5 movedPos . . .
+    (infix@W or
+     (infix~C or
+      (infix~7 != x~2
+       (dot@4 s~1 x@1))
+      (infix@5 != y~2
+       (dot@4 s~1 y@1)))
+     (infix@5 != z~2
+      (dot@4 s~1 z@1))))
+   (let@4,6 movedLook . . .
+    (infix@P or
+     (infix~9 != yaw~4
+      (dot@4 s~1 yaw@1))
+     (infix@9 != pitch~6
+      (dot@4 s~1 pitch@1))))
+   (let@4,7 movedGround . . .
+    (infix@N != onGround~9
+     (dot@4 s~1 onGround@1)))
+   (asgn@4,8
+    (dot~3 s~1 x@1)x@2)
+   (asgn@4,9
+    (dot~3 s~1 y@1)y@2)
+   (asgn@4,A
+    (dot~3 s~1 z@1)z@2)
+   (asgn@6,B
+    (dot~5 s~1 yaw@1)yaw@2)
+   (asgn@8,C
+    (dot~7 s~1 pitch@1)pitch@2)
+   (asgn@B,D
+    (dot~A s~1 onGround@1)onGround@2)
+   (if@,E
+    (elif@3
+     (infix@9 and movedPos~9 movedLook@4)
+     (stmts~1,1
+      (call@4 send~4 s@1 PlayMovePlayerPosRot@4
+       (call@L,1 bodyMovePlayerPosRot~K x@1 y@4 z@7 yaw@A pitch@F onGround@M false@W))))
+    (elif@5,3 movedPos
+     (stmts~3,1
+      (call@4 send~4 s@1 PlayMovePlayerPos@4
+       (call@e bodyMovePlayerPos~H x@1 y@4 z@7 onGround@A false@K))))
+    (elif@5,5 movedLook
+     (stmts~3,1
+      (call@4 send~4 s@1 PlayMovePlayerRot@4
+       (call@e bodyMovePlayerRot~H yaw@1 pitch@6 onGround@D false@N))))
+    (elif@5,7 movedGround
+     (stmts~3,1
+      (call@4 send~4 s@1 PlayMovePlayerStatusOnly@4
+       (call@s bodyMovePlayerStatusOnly~O onGround@1 false@B)))))))
+ (proc@,M9 digStart@5 x . .
+  (params@E
+   (param@1 s . .
+    (mut@3 Play@4).)
+   (param@E at . . BlockPos@4 .)
+   (param@S face . . int@G .)
+   (param@Y sequence . . int@A .)). . .
+  (stmts@2,1
+   (call@4 send~4 s@1 PlayPlayerAction@4
+    (call@c bodyPlayerAction~G DigStart@1 at@B face@F sequence@L))))
+ (proc@,MC digCancel@5 x . .
+  (params@F
+   (param@1 s . .
+    (mut@3 Play@4).)
+   (param@E at . . BlockPos@4 .)
+   (param@S face . . int@G .)
+   (param@Y sequence . . int@A .)). . .
+  (stmts@2,1
+   (call@4 send~4 s@1 PlayPlayerAction@4
+    (call@c bodyPlayerAction~G DigCancel@1 at@C face@G sequence@M))))
+ (proc@,MF digFinish@5 x . .
+  (params@F
+   (param@1 s . .
+    (mut@3 Play@4).)
+   (param@E at . . BlockPos@4 .)
+   (param@S face . . int@G .)
+   (param@Y sequence . . int@A .)). . .
+  (stmts@2,1
+   (call@4 send~4 s@1 PlayPlayerAction@4
+    (call@c bodyPlayerAction~G DigFinish@1 at@C face@G sequence@M))))
+ (proc@,MI placeBlock@5 x . .
+  (params@G
+   (param@1 s . .
+    (mut@3 Play@4).)
+   (param@E hand . . int@6 .)
+   (param@P at . . BlockPos@4 .)
+   (param@d face . . int@6 .)
+   (param@1,1 cursorX . . float@R .)
+   (param@A,1 cursorY . . float@I .)
+   (param@J,1 cursorZ . . float@9 .)
+   (param@Z,1 insideBlock . . bool@D .)
+   (param@1,2 sequence . . int@A .)). . .
+  (stmts@2,3
+   (call@4 send~4 s@1 PlayUseItemOn@4
+    (call@E,1 bodyUseItemOn~D hand@1 at@7 face@B cursorX@H cursorY@Q cursorZ@Z insideBlock@i false@1,1 sequence@8,1))))
+ (proc@,MP swing@5 x . .
+  (params@B
+   (param@1 s . .
+    (mut@3 Play@4).)
+   (param@E hand . . int@6 .)). . .
+  (stmts@2,1
+   (call@4 send~4 s@1 PlaySwing@4
+    (call@O bodySwing~9 hand@1)))))

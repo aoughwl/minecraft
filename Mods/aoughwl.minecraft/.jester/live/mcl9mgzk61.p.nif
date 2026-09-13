@@ -1,0 +1,326 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,mclangassets.nim
+ (comment)
+ (import@,1 jester@7)
+ (import@,2 importing@7)
+ (import@,3 mcjson@7)
+ (const@6,5 Store . . . "Imported/language-assets"@8)
+ (var@2,7 selected . . . ""@B)
+ (var@2,8 phase . . . 0@8)
+ (var@2,9 job . . . 0@6)
+ (var@2,A descriptor . . . ""@D)
+ (var@2,B indexId . . . ""@A)
+ (var@2,C codes . .
+  (at@A seq~3 string@1)
+  (prefix@L \40
+   (bracket@1)))
+ (var@2,D hashes . .
+  (at@B seq~3 string@1)
+  (prefix@M \40
+   (bracket@1)))
+ (var@2,E cursor . . . 0@9)
+ (var@2,F available . .
+  (at@E seq~3 string@1)
+  (prefix@P \40
+   (bracket@1)))
+ (var@2,G files . .
+  (at@A seq~3 string@1)
+  (prefix@L \40
+   (bracket@1)))
+ (proc@,I languageAsset@5 x . .
+  (params@J
+   (param@1 code . . string@6 .))string@G . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@B available~9 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@D ==
+        (at~4 available~9 i@1)code@3)
+       (stmts@M
+        (ret
+         (at@C files~5 i@1)))))
+     (cmd@,1 inc i@4)))""@,4))
+ (proc@,P assetLanguages@5 x . .
+  (params@K)string@4 . .
+  (stmts@2,1
+   (asgn@7 result~7 "en_us"@2)
+   (for@4,1 available@8
+    (unpackflat
+     (let code . . ..))
+    (stmts~2,1
+     (if
+      (elif@3
+       (infix@5 != code~5 "en_us"@3)
+       (stmts@H
+        (cmd@6
+         (dot result~6 add@1)
+         (infix@A & "\0A"~5 code@2)))))))))
+ (proc@,U stepLanguageAssets@5 x . .
+  (params@O
+   (param@1 root . . string@B .)
+   (param@7 jar . . string@5 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@E or
+      (infix~5 ==
+       (dot~5 root~4 len@1)0@3)
+      (infix@B <
+       (dot~5 jar~3 len@1)4@2))
+     (stmts@U
+      (ret .))))
+   (let@4,1 identity . . .
+    (infix@M &
+     (infix~6 & root~5 "|"@2)jar@2))
+   (if@,2
+    (elif@3
+     (infix@9 != identity~9 selected@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@4 > job~4 0@2)
+        (stmts~1,1
+         (call@C importCancel~C job@1)
+         (call@D,1 importRelease~D job@1))))
+      (asgn@9,3 selected~9 identity@2)
+      (asgn@6,4 phase~6 0@2)
+      (asgn@4,5 job~4 0@2)
+      (asgn@A,6 available~A
+       (prefix@2 \40
+        (bracket@1)))
+      (asgn@6,7 files~6
+       (prefix@2 \40
+        (bracket@1)))
+      (asgn@6,8 codes~6
+       (prefix@2 \40
+        (bracket@1)))
+      (asgn@7,9 hashes~7
+       (prefix@2 \40
+        (bracket@1)))
+      (asgn@7,A cursor~7 0@2))))
+   (if@,E
+    (elif@3
+     (infix@6 == phase~6 4@3)
+     (stmts@C
+      (ret .))))
+   (if@,F
+    (elif@3
+     (infix@4 > job~4 0@2)
+     (stmts~1,1
+      (if
+       (elif@3
+        (prefix not
+         (call@E importDone~A job@1))
+        (stmts@L
+         (ret .))))
+      (let@4,1 problem . . .
+       (call@L importError~B job@1))
+      (call@D,2 importRelease~D job@1)
+      (asgn@4,3 job~4 0@2)
+      (if@,4
+       (elif@3
+        (infix@C >
+         (dot~5 problem~7 len@1)0@2)
+        (stmts~1,1
+         (call@3 log~3
+          (infix@Q & "\5Bminecraft languages\5D "~P problem@2))
+         (if@,1
+          (elif@3
+           (infix@6 != phase~6 3@3)
+           (stmts~1,1
+            (asgn@6 phase~6 4@2)
+            (ret@,1 .))))))))))
+   (if@,P
+    (elif@3
+     (infix@6 == phase~6 0@3)
+     (stmts~1,1
+      (asgn@B descriptor~B
+       (infix@P &
+        (at~K jar~3
+         (infix@3 \2E\2E< 0~2
+          (infix@C \2D
+           (dot~5 jar~3 len@1)4@2)))".json"@2))
+      (asgn@4,1 job~4
+       (call@F importExtract~D root@1 descriptor@7 "*"@J
+        (infix@U & Store~6 "/version"@2)))
+      (asgn@6,2 phase~6 1@2)))
+    (elif@5,4
+     (infix@6 == phase~6 1@3)
+     (stmts~3,1
+      (var@4 leaf . . . 0@7)
+      (for@4,1
+       (infix@7 \2E\2E< 0~2
+        (dot@E descriptor~A len@1))
+       (unpackflat
+        (let i . . ..))
+       (stmts~2,1
+        (if
+         (elif@3
+          (infix@L or
+           (infix~7 ==
+            (at~4 descriptor~A i@1)'/'@3)
+           (infix@H ==
+            (at~4 descriptor~A i@1)'\5C'@3))
+          (stmts@l
+           (asgn@5 leaf~5
+            (infix@4 \2B i~2 1@2)))))))
+      (let@4,3 doc . . .
+       (call@F parseJson~9
+        (call@B importRead~A
+         (infix@L &
+          (infix~E & Store~6 "/version/"@2)
+          (at@C descriptor~A
+           (infix@6 \2E\2E leaf~5
+            (prefix@3 ^ 1@1)))))))
+      (asgn@8,4 indexId~8
+       (call@6 text~4 doc@1
+        (call@C member~6 doc@1
+         (call@C member~6 doc@1
+          (dot@9 doc~3 root@1)"assetIndex"@G)"id"@h)))
+      (if@,5
+       (elif@3
+        (infix@C ==
+         (dot~5 indexId~7 len@1)0@3)
+        (stmts~1,1
+         (call@3 log~3 "\5Bminecraft languages\5D selected version has no asset index"@1)
+         (asgn@6,1 phase~6 4@2)
+         (ret@,2 .))))
+      (asgn@4,9 job~4
+       (call@F importExtract~D root@1
+        (infix@Z &
+         (infix~A & "assets/indexes/"~I indexId@2)".json"@2)"*"@k
+        (infix@v & Store~6 "/index"@2)))
+      (asgn@6,A phase~6 2@2)))
+    (elif@5,G
+     (infix@6 == phase~6 2@3)
+     (stmts~3,1
+      (let@4 doc . . .
+       (call@F parseJson~9
+        (call@B importRead~A
+         (infix@T &
+          (infix~A &
+           (infix~C & Store~6 "/index/"@2)indexId@2)".json"@2))))
+      (let@4,1 objects . . .
+       (call@G member~6 doc@1
+        (dot@9 doc~3 root@1)"objects"@G))
+      (var@4,2 i . . . 0@4)
+      (while@,3
+       (infix@8 < i~2
+        (call@5 len~3 doc@1 objects@6))
+       (stmts@2,1
+        (let@4 entry . . .
+         (call@C item~4 doc@1 objects@6 i@F))
+        (let@4,1 name . . .
+         (call@C keyAt~5 doc@1 entry@6))
+        (if@,2
+         (elif@3
+          (infix@s and
+           (infix~e and
+            (infix~5 >
+             (dot~5 name~4 len@1)20@2)
+            (infix@J ==
+             (at~B name~4
+              (infix@3 \2E\2E< 0~2 15@4))"minecraft/lang/"@3))
+           (infix~S,1 ==
+            (at~L name~4
+             (infix@E \2E\2E
+              (infix~4 \2D
+               (dot~5 name~4 len@1)5@2)
+              (prefix@3 ^ 1@1)))".json"@3))
+          (stmts~1,2
+           (let@4 hash . . .
+            (call@B text~4 doc@1
+             (call@C member~6 doc@1 entry@6 "hash"@D)))
+           (var@4,1 valid . . .
+            (infix@H ==
+             (dot~5 hash~4 len@1)40@3))
+           (for@4,2 hash@5
+            (unpackflat
+             (let c . . ..))
+            (stmts~2,1
+             (if
+              (elif@3
+               (prefix not
+                (par@4
+                 (infix@N or
+                  (infix~D and
+                   (infix~7 >= c~2 '0'@3)
+                   (infix@6 <= c~2 '9'@3))
+                  (infix@C and
+                   (infix~7 >= c~2 'a'@3)
+                   (infix@6 <= c~2 'f'@3)))))
+               (stmts@s
+                (asgn@6 valid~6 false@2))))))
+           (if@,4
+            (elif@3 valid
+             (stmts~1,1
+              (cmd@5
+               (dot codes~5 add@1)
+               (at@9 name~4
+                (infix@4 \2E\2E< 15~3
+                 (infix@D \2D
+                  (dot~5 name~4 len@1)5@2))))
+              (cmd@6,1
+               (dot hashes~6 add@1)hash@5)))))))
+        (cmd@,B inc i@4)))
+      (asgn@6,G phase~6 3@2)))
+    (elif@5,Y
+     (infix@6 == phase~6 3@3)
+     (stmts~3,1
+      (if
+       (elif@3
+        (infix@7 > cursor~7 0@2)
+        (stmts~1,1
+         (let@4 file . . .
+          (infix@R &
+           (infix~E & Store~6 "/objects/"@2)
+           (at@8 hashes~6
+            (infix@8 \2D cursor~7 1@2))))
+         (if@,1
+          (elif@3
+           (call@9 importHas~9 file@1)
+           (stmts~1,1
+            (cmd@9
+             (dot available~9 add@1)
+             (at@A codes~5
+              (infix@8 \2D cursor~7 1@2)))
+            (cmd@5,1
+             (dot files~5 add@1)file@5)))))))
+      (if@,5
+       (elif@3
+        (infix@7 >= cursor~7
+         (dot@8 codes~5 len@1))
+        (stmts~1,1
+         (call@3 log~3
+          (infix@c & "\5Bassert\5D minecraft.assetlanguages="~b
+           (prefix@2 $
+            (dot@A available~9 len@1))))
+         (asgn@6,1 phase~6 4@2)
+         (ret@,2 .))))
+      (let@4,9 hash . . .
+       (at@D hashes~6 cursor@1))
+      (cmd@,A inc cursor@4)
+      (asgn@4,B job~4
+       (call@F importExtract~D root@1
+        (infix@k &
+         (infix~6 &
+          (infix~F & "assets/objects/"~I
+           (at@6 hash~4
+            (infix@3 \2E\2E 0~2 1@3)))"/"@2)hash@2)"*"~H,1
+        (infix~6,1 & Store~6 "/objects"@2))))))
+   (if@,1B
+    (elif@3
+     (infix@9 and
+      (infix~5 == job~4 0@3)
+      (infix@A != phase~6 3@3))
+     (stmts~1,1
+      (call@3 log~3
+       (infix@Q & "\5Bminecraft languages\5D "~P
+        (call@F importProblem~D)))
+      (asgn@6,1 phase~6 4@2)))))))

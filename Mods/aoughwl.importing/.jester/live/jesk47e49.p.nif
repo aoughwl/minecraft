@@ -1,0 +1,174 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/source/jester_mod_48a51b3f57aa71e2.nim
+ (comment)
+ (import@,G jester@7)
+ (import@,H importing@7)
+ (import@,I importpanel@7)
+ (var@2,L ask . . . AskNothing@6)
+ (var@2,M open . . . false@7)
+ (var@2,N said . . . false@7)
+ (proc@,P start@5 . . .
+  (params@A). . .
+  (stmts@2,4
+   (call@C importLedger~C)
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@J importAvailable~F))
+     (stmts~1,1
+      (call@3 log~3 "This host does not let mods import anything."@1)))
+    (else@,2
+     (stmts@2,1
+      (call@3 log~3
+       (infix@f,1 &
+        (infix~L &
+         (infix@q,~1 &
+          (infix~L & "Importing ready. Granted folders are listed in "~o
+           (call@I importPolicyFile~G))"; this host opens "~1B,1)
+         (call@I importContainers~G))"."@2)))))))
+ (comment@,a)
+ (proc@,d showing@5 . . .
+  (params@C)bool@4 . .
+  (stmts@2,1
+   (let@4 sources . . .
+    (if@A
+     (elif@3
+      (call@F importAvailable~F)
+      (stmts@J
+       (call@H importSourceCount~H)))
+     (else@g
+      (stmts@6 0))))
+   (call@6,1 wanted~6 sources@1
+    (call@N importedCount~D)
+    (prefix@R not
+     (call@J importAvailable~F))ask@o)))
+ (proc@,h update@5 . . .
+  (params@B). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@7 pressed~7 "I"@1)
+     (stmts@E
+      (asgn@4 ask~4
+       (call@9 toggled~7
+        (call@8 showing~7))))))
+   (asgn@5,1 open~5
+    (call@9 showing~7))
+   (if@,2
+    (elif@3
+     (infix@V and
+      (infix~M and
+       (prefix~9 not said@4)
+       (call@J importAvailable~F))
+      (infix@O ==
+       (call~3 importSourceCount~H)0@3))
+     (stmts~1,1
+      (asgn@5 said~5 true@2)
+      (call@3,1 log~3
+       (infix@1A,2 &
+        (infix@,~1 &
+         (infix~H &
+          (infix~P &
+           (infix@b,~1 &
+            (infix~L & "No folder is granted yet. Add one line to "~j
+             (call@I importPolicyFile~G))" - for example  minecraft = "~16,1)
+           (call@D importKnown~B "appdata"@1))"\5C.minecraft"@2)". I shows the importing screen; it stays hidden while there is nothing"~1B,1)" on it."~1B,1)))))))
+ (proc@,r drawGui@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not open@4)
+     (stmts@A
+      (ret .))))
+   (let@4,1 sources . . .
+    (if@A
+     (elif@3
+      (call@F importAvailable~F)
+      (stmts@J
+       (call@H importSourceCount~H)))
+     (else@g
+      (stmts@6 0))))
+   (let@4,2 receipts . . .
+    (call@O importedCount~D))
+   (let@4,8 advice . . .
+    (if@9
+     (elif@3
+      (infix@8 == sources~8 0@3)
+      (stmts@E 2))
+     (else@J
+      (stmts@6 0))))
+   (call@A,9 beginPanel~A 20.0@1 20.0@7 720.0@D
+    (infix~2,1 \2B 170.0~6
+     (infix@7 * 24.0~5
+      (call@9 float64~7
+       (infix@K \2B
+        (infix~B \2B sources~8 receipts@2)advice@2)))))
+   (call@7,B heading~7 "Importing"@1)
+   (if@,C
+    (elif@3
+     (prefix not
+      (call@J importAvailable~F))
+     (stmts~1,1
+      (call@5 label~5 "This host does not let mods read anything outside themselves."@1)
+      (call@8,1 endPanel~8)
+      (ret@,2 .))))
+   (call@5,G label~5
+    (infix@12 &
+     (infix~W &
+      (infix~B & "Granted folders \28"~K
+       (prefix@2 $ sources@1))"\29 - the player decides, in "@2)
+     (call~p,1 importPolicyFile~G)))
+   (if@,I
+    (elif@3
+     (infix@8 == sources~8 0@3)
+     (stmts~1,1
+      (call@5 label~5 "  none yet. One line per folder\3A  label = C\3A\5Cpath\5Cto\5Ca\5Cgame"@1)
+      (call@5,1 label~5
+       (infix@j & "  this machine keeps application data in "~i
+        (call@D importKnown~B "appdata"@1))))))
+   (var@4,L i . . . 0@4)
+   (while@,M
+    (infix@8 < i~2 sources@2)
+    (stmts@2,1
+     (call@5 label~5
+      (infix@e &
+       (infix~B &
+        (infix~N & "  "~5
+         (call@J importSourceLabel~H i@1))"  ->  "@2)
+       (call@I importSourcePath~G i@1)))
+     (cmd@,1 inc i@4)))
+   (call@5,P space~5 8.0@1)
+   (call@5,Q label~5
+    (infix@Q &
+     (infix~C & "Imported \28"~D
+      (prefix@2 $ receipts@1))"\29"@2))
+   (var@4,R j . . . 0@4)
+   (while@,S
+    (infix@8 < j~2 receipts@2)
+    (stmts@2,1
+     (call@5 label~5
+      (infix@t &
+       (infix~7 &
+        (infix~G &
+         (infix~A &
+          (infix~G & "  "~5
+           (call@C importedId~A j@1))"  by "@2)
+         (call@C importedBy~A j@1))"  "@2)
+       (call~h,1 importedSummary~F j@1)))
+     (cmd@,2 inc j@4)))
+   (call@5,W space~5 8.0@1)
+   (call@5,X label~5
+    (infix@r &
+     (infix~L & "Containers this host opens\3A "~V
+      (call@I importContainers~G))"   -   I hides this"@2))
+   (if@,Y
+    (elif@3
+     (infix@D and
+      (infix~5 == sources~8 0@3)
+      (infix@D == receipts~9 0@3))
+     (stmts~1,1
+      (call@5 label~5 "Nothing is granted and nothing is imported, so this stays hidden."@1))))
+   (call@8,a endPanel~8))))

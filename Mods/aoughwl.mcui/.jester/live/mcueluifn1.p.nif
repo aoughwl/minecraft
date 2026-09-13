@@ -1,0 +1,783 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,mcuikeys.nim
+ (comment)
+ (import@,h mcuicore@7)
+ (const@9,k Unbound~7 x . . ""@4)
+ (const@F,o UnknownKeyKey~D x . . "key.keyboard.unknown"@4)
+ (const@B,r MouseLeft~9 x . . "mouse.left"@4)
+ (const@C,s MouseRight~A x . . "mouse.right"@4)
+ (const@D,t MouseMiddle~B x . . "mouse.middle"@4)
+ (const@D,y CatMovement~B x . . "key.categories.movement"@4)
+ (const@D,z CatGameplay~B x . . "key.categories.gameplay"@4)
+ (const@E,10 CatInventory~C x . . "key.categories.inventory"@4)
+ (const@D,11 CatCreative~B x . . "key.categories.creative"@4)
+ (const@G,12 CatMultiplayer~E x . . "key.categories.multiplayer"@4)
+ (const@7,13 CatUi~5 x . . "key.categories.ui"@4)
+ (const@9,14 CatMisc~7 x . . "key.categories.misc"@4)
+ (const@C,16 Categories~A x . .
+  (bracket@4 CatMovement@1 CatGameplay@E CatInventory@R CatCreative@f CatMultiplayer@1,1 CatUi@H,1 CatMisc@O,1))
+ (comment@,19)
+ (const@A,1H Bindings~8 x . .
+  (bracket@4 "key.forward"~A,1 "key.left"@5,1 "key.back"@H,1 "key.right"@T,1 "key.jump"@g,1 "key.sneak"~A,2 "key.sprint"@3,2 "key.attack"~A,3 "key.pickItem"@4,3 "key.use"@K,3 "key.drop"~A,4 "key.hotbar.1"@2,4 "key.hotbar.2"@I,4 "key.hotbar.3"@Y,4 "key.hotbar.4"@o,4 "key.hotbar.5"~A,5 "key.hotbar.6"@6,5 "key.hotbar.7"@M,5 "key.hotbar.8"@c,5 "key.hotbar.9"~A,6 "key.inventory"@6,6 "key.swapOffhand"@N,6 "key.loadToolbarActivator"~A,7 "key.saveToolbarActivator"@I,7 "key.playerlist"~A,8 "key.chat"@8,8 "key.command"@K,8 "key.socialInteractions"@Z,8 "key.advancements"~A,9 "key.spectatorOutlines"@A,9 "key.screenshot"~A,A "key.smoothCamera"@8,A "key.fullscreen"@S,A "key.togglePerspective"~A,B))
+ (const@H,1U BindingCategory~F x . .
+  (bracket@4 CatMovement~H,1 CatMovement~4,1 CatMovement@9,1 CatMovement@M,1 CatMovement@Z,1 CatMovement~H,2 CatMovement~4,2 CatGameplay~H,3 CatGameplay~4,3 CatGameplay@9,3 CatInventory~H,4 CatInventory~3,4 CatInventory@B,4 CatInventory@P,4 CatInventory@d,4 CatInventory~H,5 CatInventory~3,5 CatInventory@B,5 CatInventory@P,5 CatInventory~H,6 CatInventory~3,6 CatInventory@B,6 CatCreative~H,7 CatCreative~4,7 CatMultiplayer~H,8 CatMultiplayer~1,8 CatMultiplayer@F,8 CatMultiplayer@V,8 CatUi~H,9 CatUi~A,9 CatMisc~H,A CatMisc~8,A CatMisc@1,A CatMisc~H,B))
+ (const@G,1h BindingDefault~E x . .
+  (bracket@4 "W"~G,1 "A"~B,1 "S"~6,1 "D"~1,1 "Space"@4,1 "LeftShift"~G,2 "LeftCtrl"~3,2 MouseLeft~G,3 MouseMiddle~5,3 MouseRight@8,3 "Q"~G,4 "Digit1"~B,4 "Digit2"~1,4 "Digit3"@9,4 "Digit4"@J,4 "Digit5"~G,5 "Digit6"~6,5 "Digit7"@4,5 "Digit8"@E,5 "Digit9"~G,6 "E"~6,6 "F"~1,6 "X"~G,7 "C"~B,7 "Tab"~G,8 "T"~9,8 "Slash"~4,8 "P"@5,8 "L"~G,9 Unbound~B,9 "F2"~G,A Unbound~A,A "F11"~1,A "F5"~G,B))
+ (comment@2,1u)
+ (const@F,1y BindingWiring~D x . .
+  (bracket@4 "world\3Aforward"~F,1 "world\3Aleft"@2,1 "world\3Aback"@G,1 "world\3Aright"@U,1 "world\3Ajump"@j,1 ""~F,2 "world\3Asprint"~B,2 ""~F,3 ""~B,3 ""~7,3 ""~F,4 ""~B,4 ""~7,4 ""~3,4 ""@1,4 ""~F,5 ""~B,5 ""~7,5 ""~3,5 ""~F,6 ""~B,6 ""~7,6 ""~F,7 ""~B,7 ""~F,8 ""~B,8 ""~7,8 ""~3,8 ""~F,9 ""~B,9 ""~F,A ""~B,A "self\3Afullscreen"~7,A ""~F,B))
+ (comment@2,2B)
+ (const@F,2E BindingReason~D x . .
+  (bracket@4 ""~F,1 ""~B,1 ""~7,1 ""~3,1 ""@1,1
+   (infix@x,2 & "the character has no crouch\3A ModSdk bindKey takes forward, back, left, "~1C "right, jump and run and nothing else"~1A,1)""~F,4
+   (infix@u,5 & "digging is wired to the mouse inside aoughwl.voxel; it would need a "~19 "bind.attack line on voxel.settings"~17,1)"picking a block is wired to the middle button inside aoughwl.voxel"~F,7
+   (infix@u,8 & "placing is wired to the mouse inside aoughwl.voxel; it would need a "~19 "bind.use line on voxel.settings"~17,1)"dropping is Q inside aoughwl.voxel"~F,A "the hotbar is Digit1..9 inside aoughwl.voxel"~F,B "the hotbar is Digit1..9 inside aoughwl.voxel"~F,C "the hotbar is Digit1..9 inside aoughwl.voxel"~F,D "the hotbar is Digit1..9 inside aoughwl.voxel"~F,E "the hotbar is Digit1..9 inside aoughwl.voxel"~F,F "the hotbar is Digit1..9 inside aoughwl.voxel"~F,G "the hotbar is Digit1..9 inside aoughwl.voxel"~F,H "the hotbar is Digit1..9 inside aoughwl.voxel"~F,I "the hotbar is Digit1..9 inside aoughwl.voxel"~F,J "the bag is opened on E inside aoughwl.hud"~F,K "nothing in this tree gives the player an off hand to swap into"~F,L "there is no creative toolbar to load"~F,M "there is no creative toolbar to save"~F,N "there is no player list\3A nothing here knows who else is on the server"~F,O "chat is opened inside aoughwl.chat"~F,P "chat is opened inside aoughwl.chat"~F,Q "there is no social interactions screen"~F,R "nothing in this tree awards an advancement"~F,S "there is no spectator mode"~F,T "no host call takes a screenshot from inside a mod"~F,U "there is no cinematic camera"~F,V ""~F,W
+   (infix@s,X & "F5 is read inside aoughwl.voxel; it would need a bind.perspective "~17 "line on voxel.settings"~15,1)))
+ (comment@,2o)
+ (const@H,2z CaptureKeys~B x . .
+  (bracket@4 "Space"~J,1 "Enter"~A,1 "Tab"~1,1 "Backquote"@6,1 "Quote"@J,1 "Semicolon"@S,1 "Comma"@f,1 "Period"~J,2 "Slash"~9,2 "Backslash"@,2 "LeftBracket"@D,2 "RightBracket"@S,2 "Minus"@i,2 "Equals"~J,3 "A"~9,3 "B"~4,3 "C"@1,3 "D"@6,3 "E"@B,3 "F"@G,3 "G"@L,3 "H"@Q,3 "I"@V,3 "J"@a,3 "K"@f,3 "L"@k,3 "M"@p,3 "N"~J,4 "O"~E,4 "P"~9,4 "Q"~4,4 "R"@1,4 "S"@6,4 "T"@B,4 "U"@G,4 "V"@L,4 "W"@Q,4 "X"@V,4 "Y"@a,4 "Z"@f,4 "Digit1"~J,5 "Digit2"~9,5 "Digit3"@1,5 "Digit4"@B,5 "Digit5"@L,5 "Digit6"@V,5 "Digit7"@f,5 "Digit8"~J,6 "Digit9"~9,6 "Digit0"@1,6 "LeftShift"~J,7 "RightShift"~6,7 "LeftAlt"@8,7 "RightAlt"@J,7 "LeftCtrl"@V,7 "RightCtrl"@h,7 "LeftMeta"~J,8 "RightMeta"~7,8 "ContextMenu"@6,8 "Escape"@L,8 "LeftArrow"@V,8 "RightArrow"@i,8 "UpArrow"~J,9 "DownArrow"~8,9 "Backspace"@5,9 "PageDown"@I,9 "PageUp"@U,9 "Home"@e,9 "End"@m,9 "Insert"~J,A "Delete"~9,A "CapsLock"@1,A "NumLock"@D,A "PrintScreen"@O,A "ScrollLock"@d,A "Pause"~J,B "NumpadEnter"~A,B "NumpadDivide"@5,B "NumpadMultiply"@L,B "NumpadPlus"@d,B "NumpadMinus"~J,C "NumpadPeriod"~4,C "NumpadEquals"@C,C "Numpad0"@S,C "Numpad1"@d,C "Numpad2"~J,D "Numpad3"~8,D "Numpad4"@3,D "Numpad5"@E,D "Numpad6"@P,D "Numpad7"@a,D "Numpad8"@l,D "Numpad9"~J,E "F1"~8,E "F2"~2,E "F3"@4,E "F4"@A,E "F5"@G,E "F6"@M,E "F7"@S,E "F8"@Y,E "F9"@e,E "F10"@k,E "F11"~J,F "F12"~C,F "OEM1"~5,F "OEM2"@3,F "OEM3"@B,F "OEM4"@J,F "OEM5"@R,F))
+ (comment@,3G)
+ (proc@,3H bindingWired@5 x . .
+  (params@I
+   (param@1 i . . int@3 .))bool@A . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 or
+      (infix~4 < i~2 0@2)
+      (infix@5 >= i~2
+       (dot@G BindingWiring~D len@1)))
+     (stmts@X
+      (ret false@7))))
+   (infix@L,1 >
+    (dot~5
+     (at~3 BindingWiring~D i@1)len@1)0@2)))
+ (proc@,3L bindingIndex@5 x . .
+  (params@I
+   (param@1 action . . string@8 .))int@I . .
+  (stmts@2,1
+   (asgn@7 result~7 -1@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@A Bindings~8 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@C ==
+        (at~4 Bindings~8 i@1)action@3)
+       (stmts@N
+        (ret i@7))))
+     (cmd@,1 inc i@4)))))
+ (proc@,3V lowered@5 . . .
+  (params@C
+   (param@1 text . . string@6 .))string@G . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 text~4 len@1))
+    (stmts@2,1
+     (var@4 c . . .
+      (at@8 text~4 i@1))
+     (if@,1
+      (elif@3
+       (infix@9 and
+        (infix~7 >= c~2 'A'@3)
+        (infix@6 <= c~2 'Z'@3))
+       (stmts@N
+        (asgn@2 c~2
+         (call@6 char~4
+          (infix@8 \2B
+           (call~4 int~3 c@1)32@2))))))
+     (cmd@6,2
+      (dot result~6 add@1)c@5)
+     (cmd@,3 inc i@4)))))
+ (comment@,3e)
+ (proc@,3g namedKey@5 . . .
+  (params@D
+   (param@1 name . . string@6 .))string@G . .
+  (stmts@2,1
+   (case name@5
+    (of@,1
+     (ranges "Space"@3)
+     (stmts@C "key.keyboard.space"))
+    (of@,2
+     (ranges "Enter"@3)
+     (stmts@C "key.keyboard.enter"))
+    (of@,3
+     (ranges "Tab"@3)
+     (stmts@A "key.keyboard.tab"))
+    (of@,4
+     (ranges "Backquote"@3)
+     (stmts@G "key.keyboard.grave.accent"))
+    (of@,5
+     (ranges "Quote"@3)
+     (stmts@C "key.keyboard.apostrophe"))
+    (of@,6
+     (ranges "Semicolon"@3)
+     (stmts@G "key.keyboard.semicolon"))
+    (of@,7
+     (ranges "Comma"@3)
+     (stmts@C "key.keyboard.comma"))
+    (of@,8
+     (ranges "Period"@3)
+     (stmts@D "key.keyboard.period"))
+    (of@,9
+     (ranges "Slash"@3)
+     (stmts@C "key.keyboard.slash"))
+    (of@,A
+     (ranges "Backslash"@3)
+     (stmts@G "key.keyboard.backslash"))
+    (of@,B
+     (ranges "LeftBracket"@3)
+     (stmts@I "key.keyboard.left.bracket"))
+    (of@,C
+     (ranges "RightBracket"@3)
+     (stmts@J "key.keyboard.right.bracket"))
+    (of@,D
+     (ranges "Minus"@3)
+     (stmts@C "key.keyboard.minus"))
+    (of@,E
+     (ranges "Equals"@3)
+     (stmts@D "key.keyboard.equal"))
+    (of@,F
+     (ranges "LeftShift"@3)
+     (stmts@G "key.keyboard.left.shift"))
+    (of@,G
+     (ranges "RightShift"@3)
+     (stmts@H "key.keyboard.right.shift"))
+    (of@,H
+     (ranges "LeftAlt"@3)
+     (stmts@E "key.keyboard.left.alt"))
+    (of@,I
+     (ranges "RightAlt"@3)
+     (stmts@F "key.keyboard.right.alt"))
+    (of@,J
+     (ranges "LeftCtrl"@3)
+     (stmts@F "key.keyboard.left.control"))
+    (of@,K
+     (ranges "RightCtrl"@3)
+     (stmts@G "key.keyboard.right.control"))
+    (of@,L
+     (ranges "LeftMeta"@3)
+     (stmts@F "key.keyboard.left.win"))
+    (of@,M
+     (ranges "RightMeta"@3)
+     (stmts@G "key.keyboard.right.win"))
+    (of@,N
+     (ranges "ContextMenu"@3)
+     (stmts@I "key.keyboard.menu"))
+    (of@,O
+     (ranges "Escape"@3)
+     (stmts@D "key.keyboard.escape"))
+    (of@,P
+     (ranges "LeftArrow"@3)
+     (stmts@G "key.keyboard.left"))
+    (of@,Q
+     (ranges "RightArrow"@3)
+     (stmts@H "key.keyboard.right"))
+    (of@,R
+     (ranges "UpArrow"@3)
+     (stmts@E "key.keyboard.up"))
+    (of@,S
+     (ranges "DownArrow"@3)
+     (stmts@G "key.keyboard.down"))
+    (of@,T
+     (ranges "Backspace"@3)
+     (stmts@G "key.keyboard.backspace"))
+    (of@,U
+     (ranges "PageDown"@3)
+     (stmts@F "key.keyboard.page.down"))
+    (of@,V
+     (ranges "PageUp"@3)
+     (stmts@D "key.keyboard.page.up"))
+    (of@,W
+     (ranges "Home"@3)
+     (stmts@B "key.keyboard.home"))
+    (of@,X
+     (ranges "End"@3)
+     (stmts@A "key.keyboard.end"))
+    (of@,Y
+     (ranges "Insert"@3)
+     (stmts@D "key.keyboard.insert"))
+    (of@,Z
+     (ranges "Delete"@3)
+     (stmts@D "key.keyboard.delete"))
+    (of@,a
+     (ranges "CapsLock"@3)
+     (stmts@F "key.keyboard.caps.lock"))
+    (of@,b
+     (ranges "NumLock"@3)
+     (stmts@E "key.keyboard.num.lock"))
+    (of@,c
+     (ranges "PrintScreen"@3)
+     (stmts@I "key.keyboard.print.screen"))
+    (of@,d
+     (ranges "ScrollLock"@3)
+     (stmts@H "key.keyboard.scroll.lock"))
+    (of@,e
+     (ranges "Pause"@3)
+     (stmts@C "key.keyboard.pause"))
+    (of@,f
+     (ranges "NumpadEnter"@3)
+     (stmts@I "key.keyboard.keypad.enter"))
+    (of@,g
+     (ranges "NumpadDivide"@3)
+     (stmts@J "key.keyboard.keypad.divide"))
+    (of@,h
+     (ranges "NumpadMultiply"@3)
+     (stmts@L "key.keyboard.keypad.multiply"))
+    (of@,i
+     (ranges "NumpadPlus"@3)
+     (stmts@H "key.keyboard.keypad.add"))
+    (of@,j
+     (ranges "NumpadMinus"@3)
+     (stmts@I "key.keyboard.keypad.subtract"))
+    (of@,k
+     (ranges "NumpadPeriod"@3)
+     (stmts@J "key.keyboard.keypad.decimal"))
+    (of@,l
+     (ranges "NumpadEquals"@3)
+     (stmts@J "key.keyboard.keypad.equal"))
+    (of@,m
+     (ranges "F1"@3)
+     (stmts@9 "key.keyboard.f1"))
+    (of@,n
+     (ranges "F2"@3)
+     (stmts@9 "key.keyboard.f2"))
+    (of@,o
+     (ranges "F3"@3)
+     (stmts@9 "key.keyboard.f3"))
+    (of@,p
+     (ranges "F4"@3)
+     (stmts@9 "key.keyboard.f4"))
+    (of@,q
+     (ranges "F5"@3)
+     (stmts@9 "key.keyboard.f5"))
+    (of@,r
+     (ranges "F6"@3)
+     (stmts@9 "key.keyboard.f6"))
+    (of@,s
+     (ranges "F7"@3)
+     (stmts@9 "key.keyboard.f7"))
+    (of@,t
+     (ranges "F8"@3)
+     (stmts@9 "key.keyboard.f8"))
+    (of@,u
+     (ranges "F9"@3)
+     (stmts@9 "key.keyboard.f9"))
+    (of@,v
+     (ranges "F10"@3)
+     (stmts@A "key.keyboard.f10"))
+    (of@,w
+     (ranges "F11"@3)
+     (stmts@A "key.keyboard.f11"))
+    (of@,x
+     (ranges "F12"@3)
+     (stmts@A "key.keyboard.f12"))
+    (else@,y
+     (stmts@6 UnknownKeyKey)))))
+ (comment@,4h)
+ (proc@,4p boundKey@5 x . .
+  (params@E
+   (param@1 name . . string@6 .))string@G . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 ==
+      (dot~5 name~4 len@1)0@3)
+     (stmts@F
+      (ret UnknownKeyKey@7))))
+   (if@,1
+    (elif@3
+     (infix@5 == name~5 MouseLeft@3)
+     (stmts@J
+      (ret "key.mouse.left"@7))))
+   (if@,2
+    (elif@3
+     (infix@5 == name~5 MouseRight@3)
+     (stmts@K
+      (ret "key.mouse.right"@7))))
+   (if@,3
+    (elif@3
+     (infix@5 == name~5 MouseMiddle@3)
+     (stmts@L
+      (ret "key.mouse.middle"@7))))
+   (if@,6
+    (elif@3
+     (infix@X and
+      (infix~J and
+       (infix~5 ==
+        (dot~5 name~4 len@1)1@3)
+       (infix@C >=
+        (at~4 name~4 0@1)'A'@3))
+      (infix@C <=
+       (at~4 name~4 0@1)'Z'@3))
+     (stmts~1,1
+      (ret
+       (infix@N & "key.keyboard."~G
+        (call@9 lowered~7 name@1))))))
+   (if@,A
+    (elif@3
+     (infix@F,1 and
+      (infix@u,~1 and
+       (infix~J and
+        (infix~J and
+         (infix~J and
+          (infix~5 ==
+           (dot~5 name~4 len@1)6@3)
+          (infix@C ==
+           (at~4 name~4 0@1)'D'@3))
+         (infix@C ==
+          (at~4 name~4 1@1)'i'@3))
+        (infix@C ==
+         (at~4 name~4 2@1)'g'@3))
+       (infix~11,1 >=
+        (at~4 name~4 5@1)'0'@3))
+      (infix@C <=
+       (at~4 name~4 5@1)'9'@3))
+     (stmts~1,2
+      (asgn@7 result~7 "key.keyboard."@2)
+      (cmd@6,1
+       (dot result~6 add@1)
+       (at@9 name~4 5@1))
+      (ret@,2 result@7))))
+   (if@,F
+    (elif@3
+     (infix@F,2 and
+      (infix@c,~1 and
+       (infix~J and
+        (infix~J and
+         (infix@u,~1 and
+          (infix~J and
+           (infix~J and
+            (infix~J and
+             (infix~5 ==
+              (dot~5 name~4 len@1)7@3)
+             (infix@C ==
+              (at~4 name~4 0@1)'N'@3))
+            (infix@C ==
+             (at~4 name~4 1@1)'u'@3))
+           (infix@C ==
+            (at~4 name~4 2@1)'m'@3))
+          (infix~11,1 ==
+           (at~4 name~4 3@1)'p'@3))
+         (infix@C ==
+          (at~4 name~4 4@1)'a'@3))
+        (infix@C ==
+         (at~4 name~4 5@1)'d'@3))
+       (infix~j,1 >=
+        (at~4 name~4 6@1)'0'@3))
+      (infix@C <=
+       (at~4 name~4 6@1)'9'@3))
+     (stmts~1,3
+      (asgn@7 result~7 "key.keyboard.keypad."@2)
+      (cmd@6,1
+       (dot result~6 add@1)
+       (at@9 name~4 6@1))
+      (ret@,2 result@7))))
+   (call@8,L namedKey~8 name@1)))
+ (type@C,5G Binds~7 x . .
+  (object@2 .
+   (fld~A,4 to~2 x .
+    (at@6 seq~3 string@1).)))
+ (proc@,5M defaultBinds@5 x . .
+  (params@I)Binds@4 . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@7 Binds~5
+     (kv@3 to~2
+      (prefix@2 \40
+       (bracket@1)))))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@G BindingDefault~E len@1))
+    (stmts@2,1
+     (cmd@9
+      (dot
+       (dot~3 result~6 to@1)add@1)
+      (at@J BindingDefault~E i@1))
+     (cmd@,1 inc i@4)))))
+ (proc@,5T boundTo@5 x . .
+  (params@D
+   (param@1 b . . Binds@3 .)
+   (param@B i . . int@3 .))string@K . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 or
+      (infix~4 < i~2 0@2)
+      (infix@5 >= i~2
+       (dot@7
+        (dot~3 b~1 to@1)len@1)))
+     (stmts@O
+      (ret Unbound@7))))
+   (at@4,1
+    (dot~3 b~1 to@1)i@1)))
+ (comment@,5X)
+ (proc@,5g rebind@5 x . .
+  (params@C
+   (param@1 b . .
+    (mut@3 Binds@4).)
+   (param@F i . . int@3 .)
+   (param@N name . . string@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 or
+      (infix~4 < i~2 0@2)
+      (infix@5 >= i~2
+       (dot@7
+        (dot~3 b~1 to@1)len@1)))
+     (stmts@O
+      (ret .))))
+   (asgn@8,1
+    (at~4
+     (dot~3 b~1 to@1)i@1)name@2)))
+ (proc@,5k unbind@5 x . .
+  (params@C
+   (param@1 b . .
+    (mut@3 Binds@4).)
+   (param@F i . . int@3 .)). . .
+  (stmts@b
+   (call@6 rebind~6 b@1 i@4 Unbound@7)))
+ (proc@,5m resetOne@5 x . .
+  (params@E
+   (param@1 b . .
+    (mut@3 Binds@4).)
+   (param@F i . . int@3 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 or
+      (infix~4 < i~2 0@2)
+      (infix@5 >= i~2
+       (dot@H BindingDefault~E len@1)))
+     (stmts@Y
+      (ret .))))
+   (call@6,1 rebind~6 b@1 i@4
+    (at@L BindingDefault~E i@1))))
+ (proc@,5q resetAll@5 x . .
+  (params@E
+   (param@1 b . .
+    (mut@3 Binds@4).)). . .
+  (stmts@2,1
+   (asgn@2 b~2
+    (call@E defaultBinds~C))))
+ (comment@,5t)
+ (proc@,5w clashes@5 x . .
+  (params@D
+   (param@1 b . . Binds@3 .)
+   (param@B i . . int@3 .))int@K . .
+  (stmts@2,1
+   (asgn@7 result~7 0@2)
+   (if@,1
+    (elif@3
+     (infix@6 or
+      (infix~4 < i~2 0@2)
+      (infix@5 >= i~2
+       (dot@7
+        (dot~3 b~1 to@1)len@1)))
+     (stmts@O
+      (ret .))))
+   (if@,2
+    (elif@3
+     (infix@C ==
+      (dot~5
+       (at~3
+        (dot~3 b~1 to@1)i@1)len@1)0@3)
+     (stmts@I
+      (ret .))))
+   (var@4,3 j . . . 0@4)
+   (while@,4
+    (infix@8 < j~2
+     (dot@6
+      (dot~3 b~1 to@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@7 and
+        (infix~5 != j~2 i@3)
+        (infix@C ==
+         (at~4
+          (dot~3 b~1 to@1)j@1)
+         (at@7
+          (dot~3 b~1 to@1)i@1)))
+       (stmts@V
+        (cmd inc result@4))))
+     (cmd@,1 inc j@4)))))
+ (proc@,65 anyClash@5 x . .
+  (params@E
+   (param@1 b . . Binds@3 .))bool@C . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@6
+      (dot~3 b~1 to@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@E >
+        (call~7 clashes~7 b@1 i@4)0@2)
+       (stmts@J
+        (ret true@7))))
+     (cmd@,1 inc i@4)))false@,4))
+ (comment@,6C)
+ (proc@,6K waitingLabel@5 x . .
+  (params@I
+   (param@1 keyName . . string@9 .))string@J . .
+  (stmts@k
+   (infix@F &
+    (infix~A & "> "~5 keyName@2)" <"@2)))
+ (proc@,6L clashLabel@5 x . .
+  (params@G
+   (param@1 keyName . . string@9 .))string@J . .
+  (stmts@i
+   (infix@F &
+    (infix~A & "\5B "~5 keyName@2)" \5D"@2)))
+ (proc@,6N atDefaults@5 x . .
+  (params@G
+   (param@1 b . . Binds@3 .))bool@C . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 !=
+      (dot~5
+       (dot~3 b~1 to@1)len@1)
+      (dot@H BindingDefault~E len@1))
+     (stmts@W
+      (ret false@7))))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6
+      (dot~3 b~1 to@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@8 !=
+        (at~4
+         (dot~3 b~1 to@1)i@1)
+        (at@H BindingDefault~E i@1))
+       (stmts@U
+        (ret false@7))))
+     (cmd@,1 inc i@4)))true@,5))
+ (proc@,6d writeBinds@5 x . .
+  (params@G
+   (param@1 b . . Binds@3 .))string@C . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@J and
+     (infix~B < i~2
+      (dot@6
+       (dot~3 b~1 to@1)len@1))
+     (infix@6 < i~2
+      (dot@A Bindings~8 len@1)))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@8 !=
+        (at~4
+         (dot~3 b~1 to@1)i@1)
+        (at@H BindingDefault~E i@1))
+       (stmts~1,1
+        (cmd@6
+         (dot result~6 add@1)
+         (at@D Bindings~8 i@1))
+        (cmd@6,1
+         (dot result~6 add@1)' '@5)
+        (cmd@6,2
+         (dot result~6 add@1)
+         (at@9
+          (dot~3 b~1 to@1)i@1))
+        (cmd@6,3
+         (dot result~6 add@1)'\0A'@5))))
+     (cmd@,5 inc i@4)))))
+ (proc@,6o readBinds@5 x . .
+  (params@F
+   (param@1 body . . string@6 .))Binds@G . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@E defaultBinds~C))
+   (var@4,1 line . . . ""@7)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 <= i~2
+     (dot@7 body~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@E or
+        (infix~C == i~2
+         (dot@7 body~4 len@1))
+        (infix@B ==
+         (at~4 body~4 i@1)'\0A'@3))
+       (stmts~1,1
+        (var@4 action . . . ""@9)
+        (var@4,1 j . . . 0@4)
+        (while@,2
+         (infix@J and
+          (infix~B < j~2
+           (dot@6 line~4 len@1))
+          (infix@C !=
+           (at~4 line~4 j@1)' '@3))
+         (stmts@2,1
+          (cmd@6
+           (dot action~6 add@1)
+           (at@9 line~4 j@1))
+          (cmd@,1 inc j@4)))
+        (var@4,5 name . . . ""@7)
+        (cmd@,6 inc j@4)
+        (while@,7
+         (infix@8 < j~2
+          (dot@6 line~4 len@1))
+         (stmts@2,1
+          (if
+           (elif@3
+            (infix@8 !=
+             (at~4 line~4 j@1)'\0D'@3)
+            (stmts@H
+             (cmd@4
+              (dot name~4 add@1)
+              (at@9 line~4 j@1)))))
+          (cmd@,1 inc j@4)))
+        (let@4,A at . . .
+         (call@H bindingIndex~C action@1))
+        (if@,B
+         (elif@3
+          (infix@3 >= at~3 0@3)
+          (stmts@9
+           (asgn@E
+            (at~5
+             (dot~3 result~6 to@1)at@1)name@2))))
+        (asgn@5,C line~5 ""@2)))
+      (else@,E
+       (stmts@2,1
+        (cmd@4
+         (dot line~4 add@1)
+         (at@9 body~4 i@1)))))
+     (cmd@,G inc i@4)))))
+ (const@I,7R KeyControlsTitle~G x . . "controls.title"@4)
+ (const@E,7S KeyBindReset~C x . . "controls.reset"@4)
+ (const@D,7T KeyResetAll~B x . . "controls.resetAll"@4)
+ (const@I,7U ControlsTitleTop~G x . . 8@4)
+ (const@G,7W ControlsTopRow~E x . . 18@4)
+ (const@H,7X ControlsListTop~F x . . 43@4)
+ (const@K,7Y ControlsListBottom~I x . . 32@4)
+ (const@G,7a ControlsFooter~E x . . 29@4)
+ (const@F,7c BindRowHeight~D x . . 20@4)
+ (const@F,7d BindNameRight~D x . . 90@4)
+ (const@G,7f BindButtonLeft~E x . . 105@4)
+ (const@H,7g BindButtonWidth~F x . . 75@4)
+ (const@F,7h BindResetLeft~D x . . 190@4)
+ (const@G,7i BindResetWidth~E x . . 50@4)
+ (const@I,7j ControlsGridLeft~G x . . 155@4)
+ (const@J,7m ControlsHalfWidth~H x . . 150@4)
+ (const@K,7n ControlsColumnStep~I x . . 160@4)
+ (proc@,7p bindRowLeft@5 x . .
+  (params@H
+   (param@1 guiW . . int@6 .))int@D . .
+  (stmts@a
+   (infix@B \2D
+    (infix~6 div guiW~5 2@4)ControlsGridLeft@2)))
+ (proc@,7r bindKeyRect@5 x . .
+  (params@H
+   (param@1 guiW . . int@6 .)
+   (param@C row . . MRect@5 .))MRect@P . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@J \2B
+      (call~7 bindRowLeft~B guiW@1)BindButtonLeft@2))
+    (dot@l row~3 y@1)
+    (call@6,1 float~5 BindButtonWidth@1)
+    (call@U,1 float~5 BindRowHeight@1))))
+ (proc@,7v bindResetRect@5 x . .
+  (params@J
+   (param@1 guiW . . int@6 .)
+   (param@C row . . MRect@5 .))MRect@P . .
+  (stmts@2,1
+   (call@5 mrect~5
+    (call@6 float~5
+     (infix@J \2B
+      (call~7 bindRowLeft~B guiW@1)BindResetLeft@2))
+    (dot@k row~3 y@1)
+    (call@6,1 float~5 BindResetWidth@1)
+    (call@T,1 float~5 BindRowHeight@1))))
+ (comment@,7z)
+ (proc@,81 bindNameRight@5 x . .
+  (params@J
+   (param@1 guiW . . int@6 .))float@D . .
+  (stmts@2,1
+   (call@5 float~5
+    (infix@J \2B
+     (call~7 bindRowLeft~B guiW@1)BindNameRight@2))))
+ (type@D,8E EntryKind~B x . .
+  (enum@2 .
+   (efld~B,1 HeadingRow . . . .)
+   (efld~B,2 BindingRow . . . .)))
+ (type@D,8I BindEntry~B x . .
+  (object@2 .
+   (fld~7,1 kind~4 x . EntryKind@3 .)
+   (fld~9,2 at~2 x . int@3 .)))
+ (comment@,8M)
+ (proc@,8N bindEntries@5 x . .
+  (params@H)
+  (at@7 seq~3 BindEntry@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 c . . . 0@4)
+   (while@,2
+    (infix@8 < c~2
+     (dot@C Categories~A len@1))
+    (stmts@2,1
+     (var@4 any . . . false@6)
+     (var@4,1 i . . . 0@4)
+     (while@,2
+      (infix@8 < i~2
+       (dot@A Bindings~8 len@1))
+      (stmts@2,1
+       (if
+        (elif@3
+         (infix@J ==
+          (at~4 BindingCategory~F i@1)
+          (at@D Categories~A c@1))
+         (stmts@b
+          (asgn@4 any~4 true@2))))
+       (cmd@,1 inc i@4)))
+     (if@,5
+      (elif@3 any
+       (stmts~1,1
+        (cmd@6
+         (dot result~6 add@1)
+         (oconstr@E BindEntry~9
+          (kv@5 kind~4 HeadingRow@2)
+          (kv@L at~2 c@2)))
+        (asgn@2,1 i~2 0@2)
+        (while@,2
+         (infix@8 < i~2
+          (dot@A Bindings~8 len@1))
+         (stmts@2,1
+          (if
+           (elif@3
+            (infix@J ==
+             (at~4 BindingCategory~F i@1)
+             (at@D Categories~A c@1))
+            (stmts~1,1
+             (cmd@6
+              (dot result~6 add@1)
+              (oconstr@E BindEntry~9
+               (kv@5 kind~4 BindingRow@2)
+               (kv@L at~2 i@2))))))
+          (cmd@,2 inc i@4))))))
+     (cmd@,C inc c@4))))))

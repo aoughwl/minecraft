@@ -1,0 +1,402 @@
+(.nif27)
+(.indexat 11000            )
+(stmts@,1,.jester/deps/aoughwl_handoff/handoff.nim
+ (import
+  (kv sysvq0asl "../../../../../../nimony/lib/std/system.nim")
+  (kv jesaqohvh1 "../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim")
+  (kv catbyu542 "../../../../Packages/com.aoughwl.jester/ModSdk/catalogs.nim"))
+ (const@D,w :HandoffKind.0.~B x . string.0.sysvq0asl~4,B "aoughwl.handoff"@4)
+ (const@G,z :HandoffCatalog.0.~E x . string.0.sysvq0asl~7,8 "aoughwl.player.handoff"@4)
+ (type@E,12 :Handoff.0.~9 x .
+  (pragmas
+   (destroy =destroy_SX48andoff0hang9qz5t.0.)
+   (wasmoved =wasmoved_SX48andoff0hang9qz5t.0.)
+   (dup =dup_SX48andoff0hang9qz5t.0.)
+   (copy =copy_SX48andoff0hang9qz5t.0.))
+  (object@2 .
+   (fld~A,5 :verb.0~4 x . string.0.sysvq0asl@3 .)
+   (fld~7,6 :subject.0~7 x . string.0.sysvq0asl@3 .)
+   (fld~8,7 :amount.0~6 x .
+    (i@3 64).)
+   (fld~9,8 :from0.0~5 x . string.0.sysvq0asl@3 .)))
+ (gvar@4,1D :posted.0. . .
+  (i 64)0@9)
+ (proc@,1P :ensureHandoff.0.@5 x . .
+  (params@J). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)0@i,1R,.jester/deps/aoughwl_handoff/handoff.nim
+       (call@b,1R,.jester/deps/aoughwl_handoff/handoff.nim len.4.sysvq0asl@1
+        (call~G catalogSignature.0.jesaqohvh1~G HandoffCatalog.0.@1))))
+     (stmts@g
+      (ret .))))
+   (call@H,1 defineCatalogKind.0.jesaqohvh1~H HandoffKind.0.@1 "text"@E "One thing a mod handed the player\3A a verb, a subject and an amount."~F,1)
+   (call@D,3 createCatalog.0.jesaqohvh1~D HandoffCatalog.0.@1 HandoffKind.0.@H "Everything mods have handed the player, in the order it happened."~B,1)))
+ (proc@,1Y :handOver.0.@5 x . .
+  (params@E
+   (param@1 :verb.0 . . string.0.sysvq0asl@F .)
+   (param@7 :subject.0 . . string.0.sysvq0asl@9 .)
+   (param@O :amount.0 . .
+    (i~R,~P 64)1@9)). . .
+  (stmts@2,1
+   (call@D ensureHandoff.0.~D)
+   (asgn@7,1 posted.0.~7
+    (add@9
+     (i 64)posted.0.~7 1@2))
+   (call@C,2 addToCatalog.0.jesaqohvh1~C HandoffCatalog.0.@1
+    (infix@L &.0.sysvq0asl "h"~4
+     (prefix@2 $.1.sysvq0asl posted.0.@1))
+    (infix@H,1 &.0.sysvq0asl
+     (infix~6 &.0.sysvq0asl
+      (infix~A &.0.sysvq0asl
+       (infix~6 &.0.sysvq0asl verb.0~5 "|"@2)subject.0@2)"|"@2)
+     (prefix@2 $.1.sysvq0asl amount.0@1)))))
+ (proc@,1g :handoffCount.0.@5 x . .
+  (params@I)
+  (i@4 64). .
+  (stmts@S
+   (result@C :result.0 . .
+    (i~T,~X 64).)
+   (asgn@C result.0
+    (call catalogCount.0.jesaqohvh1~C HandoffCatalog.0.@1))
+   (ret~S result.0)))
+ (proc@,1i :wholeOf.0.@5 . . .
+  (params@C
+   (param@1 :text.0 . . string.0.sysvq0asl@6 .)
+   (param@F :fallback.0 . .
+    (i@A 64).))
+  (i@V 64). .
+  (stmts@2,1
+   (result :result.1 . .
+    (i@9,~a 64).)
+   (if
+    (elif@3
+     (eq@9
+      (i 64)
+      (call~5 len.4.sysvq0asl@1 text.0~4)0@3)
+     (stmts@F
+      (ret fallback.0@7))))
+   (var@4,1 :i.0 . .
+    (i 64)0@4)
+   (var@4,2 :sign.0 . .
+    (i 64)1@7)
+   (if@,3
+    (elif@3
+     (eq@8
+      (c 8)
+      (call~8 \5B\5D.9.sysvq0asl text.0 0@5)'-'@3)
+     (stmts~1,1
+      (asgn@5 sign.0~5 -1@2)
+      (asgn@2,1 i.0~2 1@2))))
+   (var@4,6 :value.0 . .
+    (i 64)0@8)
+   (var@4,7 :digits.0 . .
+    (i 64)0@9)
+   (while@,8
+    (lt@8
+     (i 64)i.0~2
+     (call@6 len.4.sysvq0asl@1 text.0~4))
+    (stmts@2,1
+     (if
+      (elif@3
+       (or@E
+        (lt~6
+         (c 8)
+         (call~8 \5B\5D.9.sysvq0asl text.0 i.0@5)'0'@2)
+        (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+         (lt@2,1
+          (c 8)'9'@Y,1t,.jester/deps/aoughwl_handoff/handoff.nim
+          (call@O,1t,.jester/deps/aoughwl_handoff/handoff.nim \5B\5D.9.sysvq0asl text.0 i.0@5))))
+       (stmts@W
+        (ret fallback.0@7))))
+     (asgn@6,1 value.0~6
+      (add@D
+       (i 64)
+       (mul~5
+        (i 64)value.0~6 10@2)
+       (sub@G
+        (i 64)
+        (expr@2,3S,../../../../../../nimony/lib/std/system.nim
+         (conv@3,2
+          (i@U,E,../../../../../../nimony/lib/std/system/defaults.nim 64)
+          (call@U,1u,.jester/deps/aoughwl_handoff/handoff.nim \5B\5D.9.sysvq0asl text.0 i.0@5)))
+        (expr@2,3S,../../../../../../nimony/lib/std/system.nim
+         (conv@3,2
+          (i@U,E,../../../../../../nimony/lib/std/system/defaults.nim 64)'0'@j,1u,.jester/deps/aoughwl_handoff/handoff.nim)))))
+     (asgn@7,2 digits.0~7
+      (add@9
+       (i 64)digits.0~7 1@2))
+     (asgn@2,3 i.0~2
+      (add@4
+       (i 64)i.0~2 1@2))))
+   (if@,D
+    (elif@3
+     (eq@7
+      (i 64)digits.0~7 0@3)
+     (stmts@D
+      (ret fallback.0@7))))
+   (asgn@5,E result.1
+    (mul
+     (i 64)sign.0~5 value.0@2))
+   (ret~2,~1 result.1)))
+ (proc@,21 :handoffAt.0.@5 x . .
+  (params@F
+   (param@1 :index.0 . .
+    (i@7 64).))Handoff.0.@E . .
+  (stmts@2,1
+   (result@7 :result.2 . . Handoff.0.@5,~1 .)
+   (asgn@7 result.2~7
+    (oconstr@9 Handoff.0.~4,~1
+     (kv@5 verb.0~4 ""@2)
+     (kv@I subject.0~7 ""@2)
+     (kv@U amount.0~6 0@2)
+     (kv@e from0.0~5 ""@2)))
+   (if@,1
+    (elif@3
+     (or@A
+      (lt~4
+       (i 64)index.0~6 0@2)
+      (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+       (le@2,1
+        (i 64)
+        (call@d,24,.jester/deps/aoughwl_handoff/handoff.nim catalogCount.0.jesaqohvh1~C HandoffCatalog.0.@1)index.0@I,24,.jester/deps/aoughwl_handoff/handoff.nim)))
+     (stmts@q
+      (ret result.2@7))))
+   (let@4,2 :text.1 . . string.0.sysvq0asl@3,~x
+    (call@I catalogText.0.jesaqohvh1~B HandoffCatalog.0.@1 index.0@H))
+   (var@4,3 :field.0 . .
+    (i 64)0@8)
+   (var@4,4 :part.0 . . string.0.sysvq0asl ""@7)
+   (var@4,5 :verb.2 . . string.0.sysvq0asl ""@7)
+   (var@4,6 :subject.1 . . string.0.sysvq0asl ""@A)
+   (var@4,7 :amount.1 . . string.0.sysvq0asl "1"@9)
+   (var@4,8 :i.1 . .
+    (i 64)0@4)
+   (while@,9
+    (le@8
+     (i 64)i.1~2
+     (call@7 len.4.sysvq0asl@1 text.1~4))
+    (stmts@2,1
+     (if
+      (elif@3
+       (or@E
+        (eq~C
+         (i 64)i.1~2
+         (call@7 len.4.sysvq0asl@1 text.1~4))
+        (eq@B
+         (c 8)
+         (call~8 \5B\5D.9.sysvq0asl text.1 i.1@5)'|'@3))
+       (stmts~1,1
+        (if
+         (elif@3
+          (eq@6
+           (i 64)field.0~6 0@3)
+          (stmts@C
+           (asgn@5 verb.2~5 part.0@2)))
+         (elif@5,1
+          (eq@6
+           (i 64)field.0~6 1@3)
+          (stmts@C
+           (asgn@8 subject.1~8 part.0@2)))
+         (elif@5,2
+          (eq@6
+           (i 64)field.0~6 2@3)
+          (stmts@C
+           (asgn@7 amount.1~7 part.0@2))))
+        (asgn@5,3 part.0~5 ""@2)
+        (asgn@6,4 field.0~6
+         (add@8
+          (i 64)field.0~6 1@2))))
+      (else@,6
+       (stmts@2,1
+        (cmd@4 add.1.sysvq0asl@1
+         (haddr~4 part.0)
+         (call@5 \5B\5D.9.sysvq0asl text.1 i.1@5)))))
+     (asgn@2,8 i.1~2
+      (add@4
+       (i 64)i.1~2 1@2))))
+   (if@,J
+    (elif@3
+     (lt@6
+      (i 64)field.0~6 2@2)
+     (stmts@B
+      (ret result.2@7))))
+   (asgn@7,K result.2~7
+    (oconstr@9 Handoff.0.~4,~L
+     (kv@5 verb.0~4 verb.2@2)
+     (kv@K subject.0~7 subject.1@2)
+     (kv~8,1 amount.0~6
+      (call@9 wholeOf.0.~7 amount.1@1 1@9))
+     (kv~9,2 from0.0~5
+      (call@L catalogItemProvider.0.jesaqohvh1~J HandoffCatalog.0.@1 index.0@H))))
+   (ret~2,~1 result.2)))
+ (iterator@,2T :handed.0.@9 x . .
+  (params@G
+   (param@1 :cursor.0 . .
+    (mut@8
+     (i@4 64)).))Handoff.0.@J
+  (pragmas@h
+   (sideEffect@2)).
+  (stmts@2,1
+   (let@4 :now.0 . .
+    (i@5,~1L 64)
+    (call@I catalogCount.0.jesaqohvh1~C HandoffCatalog.0.@1))
+   (if@,1
+    (elif@3
+     (lt@7
+      (i 64)
+      (hderef~7 cursor.0)0@2)
+     (stmts@C
+      (asgn@7
+       (hderef~7 cursor.0)0@2))))
+   (while@,2
+    (lt@D
+     (i 64)
+     (hderef~7 cursor.0)now.0@2)
+    (stmts@2,1
+     (let@4 :one.0 . . Handoff.0.@6,~W
+      (call@F handoffAt.0.~9
+       (hderef@1 cursor.0)))
+     (asgn@7,1
+      (hderef~7 cursor.0)
+      (add@9
+       (i 64)
+       (hderef~7 cursor.0)1@2))
+     (if@,2
+      (elif@3
+       (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+        (lt@2,1
+         (i 64)0@M,2a,.jester/deps/aoughwl_handoff/handoff.nim
+         (call@F,2a,.jester/deps/aoughwl_handoff/handoff.nim len.4.sysvq0asl@1
+          (dot~5 one.0~3 verb.0 0))))
+       (stmts@I
+        (yld one.0@6))))))))
+ (proc@,2e :anybodySaid.0.@5 x . .
+  (params@H
+   (param@1 :verb.1 . . string.0.sysvq0asl@6 .))
+  (bool@G). .
+  (stmts@2,1
+   (result@7 :result.3 . .
+    (bool@7,~1).)
+   (asgn@7 result.3~7
+    (false@2))
+   (var@4,1 :i.2 . .
+    (i 64)0@4)
+   (let@4,2 :now.1 . .
+    (i@5,~1Y 64)
+    (call@I catalogCount.0.jesaqohvh1~C HandoffCatalog.0.@1))
+   (while@,3
+    (lt@8
+     (i 64)i.2~2 now.1@2)
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@I ==.20.sysvq0asl
+        (dot~6
+         (call~3 handoffAt.0.~9 i.2@1)verb.0 0)verb.1@3)
+       (stmts@R
+        (ret
+         (true@7)))))
+     (asgn@2,1 i.2~2
+      (add@4
+       (i 64)i.2~2 1@2))))
+   (ret~2,~1 result.3)))
+ (comment@B,19 int.0.sysvq0asl int.0.sysvq0asl~7,X int.0.sysvq0asl@Q,Z int.0.sysvq0asl@K,Z int.0.sysvq0asl@C,s int.0.sysvq0asl@I,1K bool.0.sysvq0asl@5,1V >.0.sysvq0asl@V,H >.0.sysvq0asl@L,j ord.0.sysvq0asl@I,k ord.0.sysvq0asl@X,k >=.0.sysvq0asl@D,u >.0.sysvq0asl@9,1Q false.0.sysvq0asl@,1W true.0.sysvq0asl@U,1a)
+ (proc@E,12 :=destroy_SX48andoff0hang9qz5t.0. . . .
+  (params
+   (param :dest.0 . . Handoff.0. .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 from0.0 0))
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 subject.0 0))
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 verb.0 0))))
+ (proc@E,12 :=wasmoved_SX48andoff0hang9qz5t.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut Handoff.0.).)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)verb.0 0)))
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)subject.0 0)))
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)from0.0 0)))))
+ (proc@E,12 :=dup_SX48andoff0hang9qz5t.0. . . .
+  (params
+   (param :src.0 . . Handoff.0. .))Handoff.0.
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (result :dest.0 .
+    (pragmas
+     (noinit))Handoff.0. .)
+   (asgn
+    (dot dest.0 verb.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 verb.0 0)))
+   (asgn
+    (dot dest.0 subject.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 subject.0 0)))
+   (asgn
+    (dot dest.0 amount.0 0)
+    (dot src.0 amount.0 0))
+   (asgn
+    (dot dest.0 from0.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 from0.0 0)))
+   (ret dest.0)))
+ (proc@E,12 :=copy_SX48andoff0hang9qz5t.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut Handoff.0.).)
+   (param :src.0 . . Handoff.0. .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)verb.0 0)
+    (dot src.0 verb.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)subject.0 0)
+    (dot src.0 subject.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)amount.0 0)
+    (dot src.0 amount.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)from0.0 0)
+    (dot src.0 from0.0 0)))))(.index@,1,.jester/deps/aoughwl_handoff/handoff.nim
+ (x HandoffKind.0. 318)
+ (x HandoffCatalog.0. 78)
+ (x Handoff.0. 88)
+ (h posted.0. 427)
+ (x ensureHandoff.0. 40)
+ (x handOver.0. 717)
+ (x handoffCount.0. 636)
+ (h wholeOf.0. 221)
+ (x handoffAt.0. 2091)
+ (x handed.0. 2553)
+ (x anybodySaid.0. 1018)
+ (h =destroy_SX48andoff0hang9qz5t.0. 984)
+ (h =wasmoved_SX48andoff0hang9qz5t.0. 314)
+ (h =dup_SX48andoff0hang9qz5t.0. 408)
+ (h =copy_SX48andoff0hang9qz5t.0. 564))

@@ -1,0 +1,1133 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,vxbeing.nim
+ (comment)
+ (import@,m vxview@7)
+ (import@,n vxmodel@7)
+ (import@,o vxblocks@7)
+ (const@E,r SnapDistance~C x . . 4.0@4)
+ (const@9,w CatchUp~7 x . . 12.0@4)
+ (const@A,11 TurnRate~8 x . . 14.0@4)
+ (const@9,13 WalkTop~7 x . . 4.3@4)
+ (const@B,18 Forgotten~9 x . . 12.0@4)
+ (type@9,1E Being~7 x . .
+  (object@2 .
+   (fld~5,1 id~2 x . int@3 .)
+   (fld~3,2 kind~4 x . string@3 .)
+   (fld~2,5 label~5 x . string@3 .)
+   (fld~6,8 x~1 x . float@B .)
+   (fld~2,8 y~1 x . float@7 .)
+   (fld@2,8 z~1 x . float@3 .)
+   (fld~4,A toX~3 x . float@F .)
+   (fld@2,A toY~3 x . float@9 .)
+   (fld@8,A toZ~3 x . float@3 .)
+   (fld~4,F yaw~3 x . float@L .)
+   (fld@6,F headYaw~7 x . float@B .)
+   (fld@E,F pitch~5 x . float@3 .)
+   (fld@,G bodyYaw~7 x . float@V .)
+   (fld@F,G drawnHeadYaw~C x . float@G .)
+   (fld@S,G drawnPitch~A x . float@3 .)
+   (fld~1,I walked~6 x . float@3 .)
+   (fld~3,J pace~4 x . float@3 .)
+   (fld@,K deadFor~7 x . float@3 .)
+   (fld@,M hurtFor~7 x . float@3 .)
+   (fld~3,O fuse~4 x . float@3 .)
+   (fld~1,R offset~6 x . float@3 .)
+   (fld@,V falling~7 x . bool@3 .)
+   (fld~2,W quiet~5 x . float@3 .)
+   (fld~2,Y fresh~5 x . bool@3 .)
+   (fld~1,b placed~6 x . bool@3 .)
+   (fld~2,h model~5 x . int@3 .)))
+ (type@A,20 Beings~8 x . .
+  (object@2 .
+   (fld~4,4 list~4 x .
+    (at@6 seq~3 Being@1).)
+   (fld~4,5 tick~4 x . int@3 .)
+   (fld~1,8 unknown~7 x .
+    (at@6 seq~3 string@1).)))
+ (proc@,2E noBeings@5 x . .
+  (params@E)Beings@4 . .
+  (stmts@R
+   (oconstr@6 Beings~6
+    (kv@5 list~4
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@G tick~4 0@2)
+    (kv@S unknown~7
+     (prefix@2 \40
+      (bracket@1))))))
+ (proc@,2G beingCount@5 x . .
+  (params@G
+   (param@1 b . . Beings@3 .))int@D . .
+  (stmts@Z
+   (dot@6
+    (dot~5 b~1 list@1)len@1)))
+ (comment@,2I)
+ (proc@,2J indexOf@5 x . .
+  (params@D
+   (param@1 b . . Beings@3 .)
+   (param@C id . . int@4 .))int@M . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@8
+      (dot~5 b~1 list@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@D ==
+        (dot~4
+         (at~3
+          (dot~5 b~1 list@1)i@1)id@1)id@3)
+       (stmts@K
+        (ret i@7))))
+     (cmd@,1 inc i@4)))-1@,4))
+ (comment@,2Q)
+ (proc@,2S newBeing@5 x . .
+  (params@E
+   (param@1 id . . int@4 .)
+   (param@A kind . . string@6 .))Being@P . .
+  (stmts@2,4
+   (let@4 scatter . . .
+    (infix@c *
+     (call~N float~5
+      (infix@D mod
+       (par~C
+        (infix@4 * id~3 7919@2))1000@4))0.001@2))
+   (oconstr@5,1 Being~5
+    (kv@3 id~2 id@2)
+    (kv@D kind~4 kind@2)
+    (kv@Q label~5 ""@2)
+    (kv~2,1 x~1 0.0@2)
+    (kv@6,1 y~1 0.0@2)
+    (kv@E,1 z~1 0.0@2)
+    (kv@O,1 toX~3 0.0@2)
+    (kv@Y,1 toY~3 0.0@2)
+    (kv@i,1 toZ~3 0.0@2)
+    (kv@,2 yaw~3 0.0@2)
+    (kv@E,2 headYaw~7 0.0@2)
+    (kv@Q,2 pitch~5 0.0@2)
+    (kv@4,3 bodyYaw~7 0.0@2)
+    (kv@N,3 drawnHeadYaw~C 0.0@2)
+    (kv@e,3 drawnPitch~A 0.0@2)
+    (kv@3,4 walked~6 0.0@2)
+    (kv@E,4 pace~4 0.0@2)
+    (kv@S,4 deadFor~7 -1.0@2)
+    (kv@h,4 hurtFor~7 -1.0@2)
+    (kv@t,4 fuse~4 0.0@2)
+    (kv@3,5 offset~6 scatter@2)
+    (kv@L,5 falling~7 false@2)
+    (kv@Z,5 quiet~5 0.0@2)
+    (kv@l,5 fresh~5 true@2)
+    (kv@z,5 placed~6 false@2)
+    (kv@2,6 model~5 -1@2))))
+ (comment@,2i)
+ (proc@,2m wordAt@5 . . .
+  (params@B
+   (param@1 text . . string@6 .)
+   (param@F at . . int@4 .)
+   (param@O word . .
+    (mut@6 string@4).))int@h . .
+  (stmts@2,1
+   (asgn@5 word~5 ""@2)
+   (var@4,1 i . . . at@4)
+   (while@,2
+    (infix@J and
+     (infix~B < i~2
+      (dot@6 text~4 len@1))
+     (par@4
+      (infix@Z or
+       (infix~J or
+        (infix~7 ==
+         (at~4 text~4 i@1)' '@3)
+        (infix@B ==
+         (at~4 text~4 i@1)'\09'@3))
+       (infix@B ==
+        (at~4 text~4 i@1)'\0D'@3))))
+    (stmts@2,1
+     (cmd inc i@4)))
+   (while@,4
+    (infix@w and
+     (infix~K and
+      (infix~J and
+       (infix~B < i~2
+        (dot@6 text~4 len@1))
+       (infix@C !=
+        (at~4 text~4 i@1)' '@3))
+      (infix@C !=
+       (at~4 text~4 i@1)'\09'@3))
+     (infix@C !=
+      (at~4 text~4 i@1)'\0D'@3))
+    (stmts@2,1
+     (cmd@4
+      (dot word~4 add@1)
+      (at@9 text~4 i@1))
+     (cmd@,1 inc i@4)))i@,7))
+ (comment@,2w)
+ (proc@,2z restAt@5 . . .
+  (params@B
+   (param@1 text . . string@6 .)
+   (param@F at . . int@4 .))string@P . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 i . . . at@4)
+   (while@,2
+    (infix@J and
+     (infix~B < i~2
+      (dot@6 text~4 len@1))
+     (par@4
+      (infix@G or
+       (infix~7 ==
+        (at~4 text~4 i@1)' '@3)
+       (infix@B ==
+        (at~4 text~4 i@1)'\09'@3))))
+    (stmts@y
+     (cmd inc i@4)))
+   (while@,3
+    (infix@8 < i~2
+     (dot@6 text~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@8 !=
+        (at~4 text~4 i@1)'\0D'@3)
+       (stmts@H
+        (cmd@6
+         (dot result~6 add@1)
+         (at@9 text~4 i@1)))))
+     (cmd@,1 inc i@4)))))
+ (proc@,37 wholeOf@5 . . .
+  (params@C
+   (param@1 word . . string@6 .))int@G . .
+  (stmts@2,1
+   (var@4 ok . . . false@5)
+   (let@4,1 value . . .
+    (call@I readNumber~A word@1 ok@7))
+   (if@,2
+    (elif@3
+     (prefix not ok@4)
+     (stmts@8
+      (ret 0@7))))
+   (call@3,3 int~3 value@1)))
+ (proc@,3D numberOf@5 . . .
+  (params@D
+   (param@1 word . . string@6 .))float@G . .
+  (stmts@2,1
+   (var@4 ok . . . false@5)
+   (let@4,1 value . . .
+    (call@I readNumber~A word@1 ok@7))
+   (if@,2
+    (elif@3
+     (prefix not ok@4)
+     (stmts@8
+      (ret 0.0@7))))value@,3))
+ (comment@,3J)
+ (proc@,3O slotFor@5 . . .
+  (params@C
+   (param@1 b . .
+    (mut@3 Beings@4).)
+   (param@G id . . int@4 .)
+   (param@P kind . . string@6 .))int@e . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@9 indexOf~7 b@1 id@4))
+   (if@,1
+    (elif@3
+     (infix@7 < result~7 0@2)
+     (stmts~1,1
+      (cmd@6
+       (dot
+        (dot~5 b~1 list@1)add@1)
+       (call@D newBeing~8 id@1 kind@5))
+      (ret@,1
+       (infix@I \2D
+        (dot~5
+         (dot~5 b~1 list@1)len@1)1@2)))))
+   (if@,4
+    (elif@3
+     (infix@D and
+      (infix~4 >
+       (dot~5 kind~4 len@1)0@2)
+      (infix@O !=
+       (dot~6
+        (at~8
+         (dot~5 b~1 list@1)result@1)kind@1)kind@3))
+     (stmts~1,1
+      (asgn@K
+       (dot~6
+        (at~8
+         (dot~5 b~1 list@1)result@1)kind@1)kind@2)
+      (asgn@L,1
+       (dot~7
+        (at~8
+         (dot~5 b~1 list@1)result@1)model@1)-1@2)
+      (asgn@L,2
+       (dot~7
+        (at~8
+         (dot~5 b~1 list@1)result@1)fresh@1)true@2))))))
+ (comment@,3Y)
+ (proc@,3a readLine@5 x . .
+  (params@E
+   (param@1 b . .
+    (mut@3 Beings@4).)
+   (param@G line . . string@6 .))bool@V . .
+  (stmts@2,1
+   (var@4 verb . . . ""@7)
+   (var@4,1 at . . .
+    (call@B wordAt~6 line@1 0@7 verb@A))
+   (if@,2
+    (elif@3
+     (infix@9 ==
+      (dot~5 verb~4 len@1)0@3)
+     (stmts@F
+      (ret true@7))))
+   (if@,3
+    (elif@3
+     (infix@5 == verb~5 "\23"@3)
+     (stmts@D
+      (ret true@7))))
+   (if@,4
+    (elif@3
+     (infix@5 == verb~5 "t"@3)
+     (stmts~1,1
+      (var@4 word . . . ""@7)
+      (asgn@3,1 at~3
+       (call@8 wordAt~6 line@1 at@7 word@B))
+      (asgn@7,2
+       (dot~6 b~1 tick@1)
+       (call@9 wholeOf~7 word@1))
+      (ret@,3 true@7))))
+   (var@4,9 idWord . . . ""@9)
+   (asgn@3,A at~3
+    (call@8 wordAt~6 line@1 at@7 idWord@B))
+   (if@,B
+    (elif@3
+     (infix@B ==
+      (dot~5 idWord~6 len@1)0@3)
+     (stmts@H
+      (ret false@7))))
+   (let@4,C id . . .
+    (call@C wholeOf~7 idWord@1))
+   (if@,D
+    (elif@3
+     (infix@5 == verb~5 "-"@3)
+     (stmts~1,1
+      (let@4 slot . . .
+       (call@E indexOf~7 b@1 id@4))
+      (if@,1
+       (elif@3
+        (infix@5 >= slot~5 0@3)
+        (stmts~1,1
+         (var@4 j . . . slot@4)
+         (while@,1
+          (infix@C <
+           (infix~4 \2B j~2 1@2)
+           (dot@8
+            (dot~5 b~1 list@1)len@1))
+          (stmts@2,4
+           (let@4 moved . . .
+            (at@E
+             (dot~5 b~1 list@1)
+             (infix@3 \2B j~2 1@2)))
+           (asgn@A,1
+            (at~4
+             (dot~5 b~1 list@1)j@1)moved@2)
+           (cmd@,2 inc j@4)))
+         (call@D,8
+          (dot~7
+           (dot~5 b~1 list@1)setLen@1)
+          (infix@C \2D
+           (dot~5
+            (dot~5 b~1 list@1)len@1)1@2)))))
+      (ret@,B true@7))))
+   (if@,Q
+    (elif@3
+     (infix@5 == verb~5 "+"@3)
+     (stmts~1,1
+      (var@4 kind . . . ""@7)
+      (asgn@3,1 at~3
+       (call@8 wordAt~6 line@1 at@7 kind@B))
+      (let@4,2 slot . . .
+       (call@E slotFor~7 b@1 id@4 kind@8))
+      (let@4,3 label . . .
+       (call@E restAt~6 line@1 at@7))
+      (asgn@J,4
+       (dot~7
+        (at~6
+         (dot~5 b~1 list@1)slot@1)label@1)label@2)
+      (asgn@J,5
+       (dot~7
+        (at~6
+         (dot~5 b~1 list@1)slot@1)quiet@1)0.0@2)
+      (ret@,6 true@7))))
+   (if@,Y
+    (elif@3
+     (infix@5 == verb~5 "\40"@3)
+     (stmts~1,1
+      (let@4 slot . . .
+       (call@E slotFor~7 b@1 id@4 ""@8))
+      (var@4,1 word . . . ""@7)
+      (asgn@3,2 at~3
+       (call@8 wordAt~6 line@1 at@7 word@B))
+      (let@4,3 x . . .
+       (call@C numberOf~8 word@1))
+      (asgn@3,4 at~3
+       (call@8 wordAt~6 line@1 at@7 word@B))
+      (let@4,5 y . . .
+       (call@C numberOf~8 word@1))
+      (asgn@3,6 at~3
+       (call@8 wordAt~6 line@1 at@7 word@B))
+      (let@4,7 z . . .
+       (call@C numberOf~8 word@1))
+      (asgn@3,8 at~3
+       (call@8 wordAt~6 line@1 at@7 word@B))
+      (let@4,9 yaw . . .
+       (call@E numberOf~8 word@1))
+      (asgn@3,A at~3
+       (call@8 wordAt~6 line@1 at@7 word@B))
+      (let@4,B head . . .
+       (call@F numberOf~8 word@1))
+      (asgn@3,C at~3
+       (call@8 wordAt~6 line@1 at@7 word@B))
+      (let@4,D pitch . . .
+       (call@G numberOf~8 word@1))
+      (asgn@H,E
+       (dot~5
+        (at~6
+         (dot~5 b~1 list@1)slot@1)toX@1)x@2)
+      (asgn@H,F
+       (dot~5
+        (at~6
+         (dot~5 b~1 list@1)slot@1)toY@1)y@2)
+      (asgn@H,G
+       (dot~5
+        (at~6
+         (dot~5 b~1 list@1)slot@1)toZ@1)z@2)
+      (asgn@H,H
+       (dot~5
+        (at~6
+         (dot~5 b~1 list@1)slot@1)yaw@1)
+       (call@B wrapAngle~9 yaw@1))
+      (asgn@L,I
+       (dot~9
+        (at~6
+         (dot~5 b~1 list@1)slot@1)headYaw@1)
+       (call@B wrapAngle~9 head@1))
+      (asgn@J,J
+       (dot~7
+        (at~6
+         (dot~5 b~1 list@1)slot@1)pitch@1)pitch@2)
+      (asgn@J,K
+       (dot~7
+        (at~6
+         (dot~5 b~1 list@1)slot@1)quiet@1)0.0@2)
+      (let@4,N dx . . .
+       (infix@7 \2D x~2
+        (dot@E
+         (at~6
+          (dot~5 b~1 list@1)slot@1)x@1)))
+      (let@4,O dy . . .
+       (infix@7 \2D y~2
+        (dot@E
+         (at~6
+          (dot~5 b~1 list@1)slot@1)y@1)))
+      (let@4,P dz . . .
+       (infix@7 \2D z~2
+        (dot@E
+         (at~6
+          (dot~5 b~1 list@1)slot@1)z@1)))
+      (if@,Q
+       (elif@3
+        (infix@O or
+         (prefix~O not
+          (dot@G
+           (at~6
+            (dot~5 b~1 list@1)slot@1)placed@1))
+         (infix@4,1 >
+          (infix~A \2B
+           (infix~A \2B
+            (infix~5 * dx~3 dx@2)
+            (infix@5 * dy~3 dy@2))
+           (infix@5 * dz~3 dz@2))
+          (infix@F * SnapDistance~D SnapDistance@2)))
+        (stmts~1,2
+         (asgn@F
+          (dot~3
+           (at~6
+            (dot~5 b~1 list@1)slot@1)x@1)x@2)
+         (asgn@F,1
+          (dot~3
+           (at~6
+            (dot~5 b~1 list@1)slot@1)y@1)y@2)
+         (asgn@F,2
+          (dot~3
+           (at~6
+            (dot~5 b~1 list@1)slot@1)z@1)z@2)
+         (asgn@L,3
+          (dot~9
+           (at~6
+            (dot~5 b~1 list@1)slot@1)bodyYaw@1)
+          (dot@E
+           (at~6
+            (dot~5 b~1 list@1)slot@1)yaw@1))
+         (asgn@Q,4
+          (dot~E
+           (at~6
+            (dot~5 b~1 list@1)slot@1)drawnHeadYaw@1)
+          (dot@E
+           (at~6
+            (dot~5 b~1 list@1)slot@1)headYaw@1))
+         (asgn@O,5
+          (dot~C
+           (at~6
+            (dot~5 b~1 list@1)slot@1)drawnPitch@1)pitch@2))))
+      (asgn@K,Y
+       (dot~8
+        (at~6
+         (dot~5 b~1 list@1)slot@1)placed@1)true@2)
+      (ret@,Z true@7))))
+   (if@,19
+    (elif@3
+     (infix@5 == verb~5 "!"@3)
+     (stmts~1,1
+      (let@4 slot . . .
+       (call@E slotFor~7 b@1 id@4 ""@8))
+      (var@4,1 what . . . ""@7)
+      (asgn@3,2 at~3
+       (call@8 wordAt~6 line@1 at@7 what@B))
+      (var@4,3 word . . . ""@7)
+      (asgn@3,4 at~3
+       (call@8 wordAt~6 line@1 at@7 word@B))
+      (let@4,5 value . . .
+       (call@G numberOf~8 word@1))
+      (asgn@J,6
+       (dot~7
+        (at~6
+         (dot~5 b~1 list@1)slot@1)quiet@1)0.0@2)
+      (if@,7
+       (elif@3
+        (infix@5 == what~5 "hurt"@3)
+        (stmts~1,1
+         (asgn@L
+          (dot~9
+           (at~6
+            (dot~5 b~1 list@1)slot@1)hurtFor@1)0.0@2)
+         (ret@,1 true@7))))
+      (if@,A
+       (elif@3
+        (infix@5 == what~5 "dead"@3)
+        (stmts~1,1
+         (if
+          (elif@3
+           (infix@L <
+            (dot~9
+             (at~6
+              (dot~5 b~1 list@1)slot@1)deadFor@1)0.0@2)
+           (stmts@S
+            (asgn@L
+             (dot~9
+              (at~6
+               (dot~5 b~1 list@1)slot@1)deadFor@1)0.0@2))))
+         (ret@,1 true@7))))
+      (if@,D
+       (elif@3
+        (infix@5 == what~5 "alive"@3)
+        (stmts~1,1
+         (asgn@L
+          (dot~9
+           (at~6
+            (dot~5 b~1 list@1)slot@1)deadFor@1)-1.0@2)
+         (ret@,1 true@7))))
+      (if@,G
+       (elif@3
+        (infix@5 == what~5 "fuse"@3)
+        (stmts~1,1
+         (asgn@I
+          (dot~6
+           (at~6
+            (dot~5 b~1 list@1)slot@1)fuse@1)value@2)
+         (ret@,1 true@7))))
+      (if@,J
+       (elif@3
+        (infix@5 == what~5 "falling"@3)
+        (stmts~1,1
+         (asgn@L
+          (dot~9
+           (at~6
+            (dot~5 b~1 list@1)slot@1)falling@1)
+          (infix@8 != value~6 0.0@3))
+         (ret@,1 true@7))))
+      (if@,M
+       (elif@3
+        (infix@5 == what~5 "name"@3)
+        (stmts~1,1
+         (asgn@J
+          (dot~7
+           (at~6
+            (dot~5 b~1 list@1)slot@1)label@1)
+          (call@8 restAt~6 line@1 at@7))
+         (ret@,1 true@7))))
+      (ret@,Q true@7))))true@,1f))
+ (comment@,5I)
+ (proc@,5L applyFeed@5 x . .
+  (params@F
+   (param@1 b . .
+    (mut@3 Beings@4).)
+   (param@G body . . string@6 .))int@V . .
+  (stmts@2,1
+   (asgn@7 result~7 0@2)
+   (var@4,1 line . . . ""@7)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 <= i~2
+     (dot@7 body~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@E or
+        (infix~C == i~2
+         (dot@7 body~4 len@1))
+        (infix@B ==
+         (at~4 body~4 i@1)'\0A'@3))
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@9 >
+           (dot~5 line~4 len@1)0@2)
+          (stmts~1,1
+           (if
+            (elif@3
+             (prefix not
+              (call@C readLine~8 b@1 line@4))
+             (stmts@N
+              (cmd inc result@4)))))))
+        (asgn@5,2 line~5 ""@2)))
+      (else@,4
+       (stmts@2,1
+        (cmd@4
+         (dot line~4 add@1)
+         (at@9 body~4 i@1)))))
+     (cmd@,6 inc i@4)))))
+ (comment@,5Y)
+ (proc@,5a askFor@5 x . .
+  (params@C
+   (param@1 b . . Beings@3 .))string@D . .
+  (stmts@Y
+   (infix@9 & "since "~9
+    (prefix@2 $
+     (dot@2 b~1 tick@1)))))
+ (proc@,5l sayTick@5 x . .
+  (params@D
+   (param@1 tick . . int@6 .))string@D . .
+  (stmts@Z
+   (infix@5 & "t "~5
+    (prefix@2 $ tick@1))))
+ (proc@,5n sayAppear@5 x . .
+  (params@F
+   (param@1 id . . int@4 .)
+   (param@A kind . . string@D .)
+   (param@G label . . string@7 .))string@W . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (infix@J &
+     (infix~6 &
+      (infix~6 & "+ "~5
+       (prefix@2 $ id@1))" "@2)kind@2))
+   (if@,1
+    (elif@3
+     (infix@A >
+      (dot~5 label~5 len@1)0@2)
+     (stmts@F
+      (asgn@7 result~7
+       (infix@F &
+        (infix~6 & result~7 " "@2)label@2)))))))
+ (proc@,5r sayGone@5 x . .
+  (params@D
+   (param@1 id . . int@4 .))string@B . .
+  (stmts@X
+   (infix@5 & "- "~5
+    (prefix@2 $ id@1))))
+ (comment@,5t)
+ (proc@,5w wireNumber@5 x . .
+  (params@G
+   (param@1 value . . float@7 .))string@G . .
+  (stmts@2,1
+   (var@4 v . . . value@4)
+   (var@4,1 sign . . . ""@7)
+   (if@,2
+    (elif@3
+     (infix@2 < v~2 0.0@2)
+     (stmts~1,1
+      (asgn@5 sign~5 "-"@2)
+      (asgn@2,1 v~2
+       (prefix@2 \2D v@1)))))
+   (let@4,5 hundredths . . .
+    (call@G int~3
+     (infix@B \2B
+      (infix~8 * v~2 100.0@2)0.5@2)))
+   (let@4,6 whole . . .
+    (infix@J div hundredths~B 100@4))
+   (let@4,7 rest . . .
+    (infix@I mod hundredths~B 100@4))
+   (var@4,8 tail . . .
+    (prefix@7 $ rest@1))
+   (if@,9
+    (elif@3
+     (infix@5 < rest~5 10@2)
+     (stmts@B
+      (asgn@5 tail~5
+       (infix@6 & "0"~4 tail@2)))))
+   (infix@K,A &
+    (infix~6 &
+     (infix~9 & sign~5
+      (prefix@2 $ whole@1))"."@2)tail@2)))
+ (proc@,69 sayAt@5 x . .
+  (params@B
+   (param@1 id . . int@4 .)
+   (param@A x . . float@R .)
+   (param@D y . . float@O .)
+   (param@G z . . float@L .)
+   (param@J yaw . . float@I .)
+   (param@O head . . float@D .)
+   (param@U pitch . . float@7 .))string@j . .
+  (stmts@2,1
+   (infix@19,1 &
+    (infix~6 &
+     (infix~J &
+      (infix~6 &
+       (infix~I &
+        (infix~6 &
+         (infix@j,~1 &
+          (infix~6 &
+           (infix~G &
+            (infix~6 &
+             (infix~G &
+              (infix~6 &
+               (infix~6 & "\40 "~5
+                (prefix@2 $ id@1))" "@2)
+              (call@C wireNumber~A x@1))" "@2)
+            (call@C wireNumber~A y@1))" "@2)
+          (call~n,1 wireNumber~A z@1))" "@2)
+        (call@C wireNumber~A yaw@1))" "@2)
+      (call@C wireNumber~A head@1))" "@2)
+    (call~x,1 wireNumber~A pitch@1))))
+ (proc@,6E sayState@5 x . .
+  (params@E
+   (param@1 id . . int@4 .)
+   (param@A what . . string@6 .)
+   (param@O value . . float@7 .))string@d . .
+  (stmts@2,1
+   (infix@U &
+    (infix~6 &
+     (infix~7 &
+      (infix~6 &
+       (infix~6 & "! "~5
+        (prefix@2 $ id@1))" "@2)what@2)" "@2)
+    (call@C wireNumber~A value@1))))
+ (proc@,6N easeTowards@5 . . .
+  (params@G
+   (param@1 now . . float@Q .)
+   (param@6 want . . float@L .)
+   (param@C rate . . float@F .)
+   (param@I seconds . . float@9 .))float@Z . .
+  (stmts@2,1
+   (var@4 step . . .
+    (infix@C * rate~5 seconds@2))
+   (if@,1
+    (elif@3
+     (infix@5 < step~5 0.0@2)
+     (stmts@C
+      (asgn@5 step~5 0.0@2))))
+   (if@,2
+    (elif@3
+     (infix@5 > step~5 1.0@2)
+     (stmts@C
+      (asgn@5 step~5 1.0@2))))
+   (infix@4,3 \2B now~4
+    (infix@F *
+     (par~D
+      (infix@6 \2D want~5 now@2))step@2))))
+ (proc@,6T easeAngle@5 . . .
+  (params@E
+   (param@1 now . . float@Q .)
+   (param@6 want . . float@L .)
+   (param@C rate . . float@F .)
+   (param@I seconds . . float@9 .))float@Z . .
+  (stmts@2,1
+   (var@4 step . . .
+    (infix@C * rate~5 seconds@2))
+   (if@,1
+    (elif@3
+     (infix@5 < step~5 0.0@2)
+     (stmts@C
+      (asgn@5 step~5 0.0@2))))
+   (if@,2
+    (elif@3
+     (infix@5 > step~5 1.0@2)
+     (stmts@C
+      (asgn@5 step~5 1.0@2))))
+   (call@9,3 wrapAngle~9
+    (infix@5 \2B now~4
+     (infix@m *
+      (call~Y angleBetween~C
+       (call@A wrapAngle~9 now@1)
+       (call@Q wrapAngle~9 want@1))step@2)))))
+ (comment@,6Z)
+ (proc@,6a rootOf@5 . . .
+  (params@B
+   (param@1 value . . float@7 .))float@G . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 <= value~6 0.0@3)
+     (stmts@E
+      (ret 0.0@7))))
+   (var@4,1 guess . . . value@8)
+   (if@,2
+    (elif@3
+     (infix@6 < guess~6 1.0@2)
+     (stmts@D
+      (asgn@6 guess~6 1.0@2))))
+   (var@4,3 step . . . 0@7)
+   (while@,4
+    (infix@B < step~5 20@2)
+    (stmts@2,1
+     (asgn@6 guess~6
+      (infix@6 * 0.5~4
+       (par@2
+        (infix@7 \2B guess~6
+         (infix@8 / value~6 guess@2)))))
+     (cmd@,1 inc step@4)))guess@,7))
+ (comment@,6k)
+ (proc@,6s stepBeings@5 x . .
+  (params@G
+   (param@1 b . .
+    (mut@3 Beings@4).)
+   (param@G seconds . . float@9 .)). . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@8
+      (dot~5 b~1 list@1)len@1))
+    (stmts@2,1
+     (let@4 wasX . . .
+      (dot@G
+       (at~3
+        (dot~5 b~1 list@1)i@1)x@1))
+     (let@4,1 wasZ . . .
+      (dot@G
+       (at~3
+        (dot~5 b~1 list@1)i@1)z@1))
+     (asgn@C,2
+      (dot~3
+       (at~3
+        (dot~5 b~1 list@1)i@1)x@1)
+      (call@D easeTowards~B
+       (dot@A
+        (at~3
+         (dot~5 b~1 list@1)i@1)x@1)
+       (dot@N
+        (at~3
+         (dot~5 b~1 list@1)i@1)toX@1)CatchUp@T seconds@c))
+     (asgn@C,3
+      (dot~3
+       (at~3
+        (dot~5 b~1 list@1)i@1)y@1)
+      (call@D easeTowards~B
+       (dot@A
+        (at~3
+         (dot~5 b~1 list@1)i@1)y@1)
+       (dot@N
+        (at~3
+         (dot~5 b~1 list@1)i@1)toY@1)CatchUp@T seconds@c))
+     (asgn@C,4
+      (dot~3
+       (at~3
+        (dot~5 b~1 list@1)i@1)z@1)
+      (call@D easeTowards~B
+       (dot@A
+        (at~3
+         (dot~5 b~1 list@1)i@1)z@1)
+       (dot@N
+        (at~3
+         (dot~5 b~1 list@1)i@1)toZ@1)CatchUp@T seconds@c))
+     (let@4,5 stepX . . .
+      (infix@K \2D
+       (dot~3
+        (at~3
+         (dot~5 b~1 list@1)i@1)x@1)wasX@2))
+     (let@4,6 stepZ . . .
+      (infix@K \2D
+       (dot~3
+        (at~3
+         (dot~5 b~1 list@1)i@1)z@1)wasZ@2))
+     (let@4,7 went . . .
+      (call@D rootOf~6
+       (infix@F \2B
+        (infix~8 * stepX~6 stepX@2)
+        (infix@8 * stepZ~6 stepZ@2))))
+     (asgn@H,8
+      (dot~8
+       (at~3
+        (dot~5 b~1 list@1)i@1)walked@1)
+      (infix@J \2B
+       (dot~8
+        (at~3
+         (dot~5 b~1 list@1)i@1)walked@1)went@2))
+     (var@4,9 pace . . . 0.0@7)
+     (if@,A
+      (elif@3
+       (infix@8 > seconds~8 0.0@2)
+       (stmts@F
+        (asgn@5 pace~5
+         (infix@H /
+          (infix~A / went~5 seconds@2)WalkTop@2)))))
+     (if@,B
+      (elif@3
+       (infix@5 > pace~5 1.0@2)
+       (stmts@C
+        (asgn@5 pace~5 1.0@2))))
+     (asgn@F,E
+      (dot~6
+       (at~3
+        (dot~5 b~1 list@1)i@1)pace@1)
+      (call@D easeTowards~B
+       (dot@A
+        (at~3
+         (dot~5 b~1 list@1)i@1)pace@1)pace@H 10.0@N seconds@T))
+     (asgn@N,F
+      (dot~E
+       (at~3
+        (dot~5 b~1 list@1)i@1)drawnHeadYaw@1)
+      (call~C,1 easeAngle~9
+       (dot@A
+        (at~3
+         (dot~5 b~1 list@1)i@1)drawnHeadYaw@1)
+       (dot@Y
+        (at~3
+         (dot~5 b~1 list@1)i@1)headYaw@1)TurnRate@i seconds@s))
+     (asgn@L,H
+      (dot~C
+       (at~3
+        (dot~5 b~1 list@1)i@1)drawnPitch@1)
+      (call~8,1 easeTowards~B
+       (dot@A
+        (at~3
+         (dot~5 b~1 list@1)i@1)drawnPitch@1)
+       (dot@W
+        (at~3
+         (dot~5 b~1 list@1)i@1)pitch@1)TurnRate@e seconds@o))
+     (asgn@I,L
+      (dot~9
+       (at~3
+        (dot~5 b~1 list@1)i@1)bodyYaw@1)
+      (call@C bodyYawFor~A
+       (dot@A
+        (at~3
+         (dot~5 b~1 list@1)i@1)bodyYaw@1)
+       (dot@T
+        (at~3
+         (dot~5 b~1 list@1)i@1)drawnHeadYaw@1)
+       (dot~J,1
+        (at~3
+         (dot~5 b~1 list@1)i@1)yaw@1)
+       (infix@2,1 >
+        (dot~6
+         (at~3
+          (dot~5 b~1 list@1)i@1)pace@1)0.02@2)
+       (infix@I,1 * seconds~8 BodyTurnRate@2)))
+     (if@,N
+      (elif@3
+       (infix@I >=
+        (dot~9
+         (at~3
+          (dot~5 b~1 list@1)i@1)deadFor@1)0.0@3)
+       (stmts~1,1
+        (asgn@I
+         (dot~9
+          (at~3
+           (dot~5 b~1 list@1)i@1)deadFor@1)
+         (infix@K \2B
+          (dot~9
+           (at~3
+            (dot~5 b~1 list@1)i@1)deadFor@1)seconds@2)))))
+     (if@,P
+      (elif@3
+       (infix@I >=
+        (dot~9
+         (at~3
+          (dot~5 b~1 list@1)i@1)hurtFor@1)0.0@3)
+       (stmts~1,1
+        (asgn@I
+         (dot~9
+          (at~3
+           (dot~5 b~1 list@1)i@1)hurtFor@1)
+         (infix@K \2B
+          (dot~9
+           (at~3
+            (dot~5 b~1 list@1)i@1)hurtFor@1)seconds@2))
+        (if@,1
+         (elif@3
+          (infix@I >
+           (dot~9
+            (at~3
+             (dot~5 b~1 list@1)i@1)hurtFor@1)1.0@2)
+          (stmts@P
+           (asgn@I
+            (dot~9
+             (at~3
+              (dot~5 b~1 list@1)i@1)hurtFor@1)-1.0@2)))))))
+     (if@,S
+      (elif@3
+       (infix@F >
+        (dot~6
+         (at~3
+          (dot~5 b~1 list@1)i@1)fuse@1)0.0@2)
+       (stmts~1,1
+        (asgn@F
+         (dot~6
+          (at~3
+           (dot~5 b~1 list@1)i@1)fuse@1)
+         (infix@H \2B
+          (dot~6
+           (at~3
+            (dot~5 b~1 list@1)i@1)fuse@1)seconds@2)))))
+     (asgn@G,U
+      (dot~7
+       (at~3
+        (dot~5 b~1 list@1)i@1)quiet@1)
+      (infix@I \2B
+       (dot~7
+        (at~3
+         (dot~5 b~1 list@1)i@1)quiet@1)seconds@2))
+     (asgn@G,V
+      (dot~7
+       (at~3
+        (dot~5 b~1 list@1)i@1)fresh@1)false@2)
+     (cmd@,W inc i@4)))))
+ (comment@,7T)
+ (proc@,7Y forgetQuiet@5 x . .
+  (params@H
+   (param@1 b . .
+    (mut@3 Beings@4).)
+   (param@G after . . . Forgotten@8))
+  (at@d seq~3 int@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@8
+      (dot~5 b~1 list@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@G >
+        (dot~7
+         (at~3
+          (dot~5 b~1 list@1)i@1)quiet@1)after@2)
+       (stmts~1,1
+        (cmd@6
+         (dot result~6 add@1)
+         (dot@E
+          (at~3
+           (dot~5 b~1 list@1)i@1)id@1))
+        (var@4,1 j . . . i@4)
+        (while@,2
+         (infix@C <
+          (infix~4 \2B j~2 1@2)
+          (dot@8
+           (dot~5 b~1 list@1)len@1))
+         (stmts@2,4
+          (let@4 moved . . .
+           (at@E
+            (dot~5 b~1 list@1)
+            (infix@3 \2B j~2 1@2)))
+          (asgn@A,1
+           (at~4
+            (dot~5 b~1 list@1)j@1)moved@2)
+          (cmd@,2 inc j@4)))
+        (call@D,9
+         (dot~7
+          (dot~5 b~1 list@1)setLen@1)
+         (infix@C \2D
+          (dot~5
+           (dot~5 b~1 list@1)len@1)1@2))))
+      (else@,B
+       (stmts@2,1
+        (cmd inc i@4))))))))
+ (comment@,7q)
+ (proc@,7u resolveModels@5 x . .
+  (params@J
+   (param@1 b . .
+    (mut@3 Beings@4).)
+   (param@G set0 . . ModelSet@6 .)). . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@8
+      (dot~5 b~1 list@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@K and
+        (infix~4 <
+         (dot~7
+          (at~3
+           (dot~5 b~1 list@1)i@1)model@1)0@2)
+        (infix@N >
+         (dot~5
+          (dot~5
+           (at~3
+            (dot~5 b~1 list@1)i@1)kind@1)len@1)0@2))
+       (stmts~1,1
+        (let@4 at . . .
+         (call@F modelIndex~A set0@1
+          (dot@G
+           (at~3
+            (dot~5 b~1 list@1)i@1)kind@1)))
+        (if@,1
+         (elif@3
+          (infix@3 >= at~3 0@3)
+          (stmts~1,1
+           (asgn@G
+            (dot~7
+             (at~3
+              (dot~5 b~1 list@1)i@1)model@1)at@2)))
+         (else@,2
+          (stmts@2,1
+           (var@4 known . . . false@8)
+           (var@4,1 k . . . 0@4)
+           (while@,2
+            (infix@8 < k~2
+             (dot@B
+              (dot~8 b~1 unknown@1)len@1))
+            (stmts@2,1
+             (if
+              (elif@3
+               (infix@D ==
+                (at~4
+                 (dot~8 b~1 unknown@1)k@1)
+                (dot@C
+                 (at~3
+                  (dot~5 b~1 list@1)i@1)kind@1))
+               (stmts@W
+                (asgn@6 known~6 true@2))))
+             (cmd@,1 inc k@4)))
+           (if@,5
+            (elif@3
+             (prefix not known@4)
+             (stmts@B
+              (cmd@9
+               (dot
+                (dot~8 b~1 unknown@1)add@1)
+               (dot@E
+                (at~3
+                 (dot~5 b~1 list@1)i@1)kind@1)))))))))))
+     (cmd@,B inc i@4))))))

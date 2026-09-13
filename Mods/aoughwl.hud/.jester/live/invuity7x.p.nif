@@ -1,0 +1,1931 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/deps/aoughwl_inventory/inventory.nim
+ (comment)
+ (import@,Z jester@7)
+ (import@,a catalogs@7)
+ (comment@,g)
+ (const@A,m ItemKind~8 x . . "aoughwl.item"@4)
+ (const@F,o ItemStackKind~D x . . "aoughwl.item.stack"@4)
+ (const@E,q ItemBulkKind~C x . . "aoughwl.item.bulk"@4)
+ (const@G,s ItemWeightKind~E x . . "aoughwl.item.weight"@4)
+ (const@F,u ItemShapeKind~D x . . "aoughwl.item.shape"@4)
+ (const@D,w ItemTagKind~B x . . "aoughwl.item.tags"@4)
+ (const@F,z ContainerKind~D x . . "aoughwl.container"@4)
+ (const@J,11 ContainerSlotKind~H x . . "aoughwl.container.slots"@4)
+ (const@N,13 ContainerCapacityKind~L x . . "aoughwl.container.capacity"@4)
+ (const@J,15 ContainerLoadKind~H x . . "aoughwl.container.load"@4)
+ (const@L,17 ContainerAcceptKind~J x . . "aoughwl.container.accepts"@4)
+ (const@L,19 ContainerRejectKind~J x . . "aoughwl.container.rejects"@4)
+ (const@C,1C StackFacet~A x . . ".stack"@4)
+ (const@B,1D BulkFacet~9 x . . ".bulk"@4)
+ (const@D,1E WeightFacet~B x . . ".weight"@4)
+ (const@C,1F ShapeFacet~A x . . ".shape"@4)
+ (const@A,1G TagFacet~8 x . . ".tags"@4)
+ (const@B,1H SlotFacet~9 x . . ".slots"@4)
+ (const@F,1I CapacityFacet~D x . . ".capacity"@4)
+ (const@B,1J LoadFacet~9 x . . ".load"@4)
+ (const@D,1K AcceptFacet~B x . . ".accepts"@4)
+ (const@D,1L RejectFacet~B x . . ".rejects"@4)
+ (const@J,1N KindsDeclared~D x . . "aoughwl.inventory.kinds"@4)
+ (var@4,1W kindsDeclared . . . false@G)
+ (comment@,1Y)
+ (proc@,1b declareInventoryKinds@5 x . .
+  (params@R). . .
+  (stmts@2,1
+   (if
+    (elif@3 kindsDeclared
+     (stmts@F
+      (ret .))))
+   (asgn@E,1 kindsDeclared~E true@2)
+   (if@,2
+    (elif@3
+     (infix@a >
+      (dot~5
+       (call~F catalogSignature~G KindsDeclared@1)len@1)0@2)
+     (stmts@f
+      (ret .))))
+   (call@H,3 defineCatalogKind~H ItemKind@1 "text"@B "Something that can be held, carried or stored, and what to call it."~F,1)
+   (call@H,5 defineCatalogKind~H ItemStackKind@1 "integer"@G "How many units of an item one stack may hold."~F,1)
+   (call@H,7 defineCatalogKind~H ItemBulkKind@1 "number"@F "How much room one unit of an item takes."~F,1)
+   (call@H,9 defineCatalogKind~H ItemWeightKind@1 "number"@H "What one unit of an item weighs."~F,1)
+   (call@H,B defineCatalogKind~H ItemShapeKind@1 "text"@G "An item\27s shape, as a token only a presentation layer reads."~F,1)
+   (call@H,D defineCatalogKind~H ItemTagKind@1 "text"@E "An item\27s tags, space separated."~F,1)
+   (call@H,F defineCatalogKind~H ContainerKind@1 "text"@G "Something that holds items, and what to call it."~F,1)
+   (call@H,H defineCatalogKind~H ContainerSlotKind@1 "integer"@K "Most stacks a container may hold. Below zero is no limit."~F,1)
+   (call@H,J defineCatalogKind~H ContainerCapacityKind@1 "number"@O "Most bulk a container may hold. Below zero is no limit."~F,1)
+   (call@H,L defineCatalogKind~H ContainerLoadKind@1 "number"@K "Most weight a container may hold. Below zero is no limit."~F,1)
+   (call@H,N defineCatalogKind~H ContainerAcceptKind@1 "text"@M "The tags a container takes. Empty takes anything."~F,1)
+   (call@H,P defineCatalogKind~H ContainerRejectKind@1 "text"@M "The tags a container refuses."~F,1)
+   (call@D,R createCatalog~D KindsDeclared@1 ItemKind@G "That the inventory kinds are declared, and by whom."~B,1)))
+ (type@8,2B Item~6 x . .
+  (object@2 .
+   (fld~4,2 id~2 x . string@3 .)
+   (fld@1,3 display~7 x . string@3 .)
+   (fld~1,4 stack~5 x . int@3 .)
+   (fld~2,5 bulk~4 x . float64@3 .)
+   (fld@,6 weight~6 x . float64@3 .)
+   (fld~1,7 shape~5 x . string@3 .)
+   (fld~2,8 tags~4 x . string@3 .)
+   (fld~1,9 known~5 x . bool@3 .)))
+ (type@A,2O Holder~8 x . .
+  (object@2 .
+   (fld~6,4 id~2 x . string@3 .)
+   (fld~1,5 display~7 x . string@3 .)
+   (fld~3,6 slots~5 x . int@3 .)
+   (fld@,7 capacity~8 x . float64@3 .)
+   (fld~4,8 load~4 x . float64@3 .)
+   (fld~1,9 accepts~7 x . string@3 .)
+   (fld~1,A rejects~7 x . string@3 .)
+   (fld~3,B known~5 x . bool@3 .)))
+ (type@9,2b Stack~7 x . .
+  (object@2 .
+   (fld~3,2 item~4 x . string@3 .)
+   (fld~2,3 count~5 x . int@3 .)))
+ (type@D,2g Container~B x . .
+  (distinct@2 int@9))
+ (type@B,2k Trouble~9 x . .
+  (enum@2 .
+   (efld~9,4 NoTrouble . . . .)
+   (efld~9,5 NoSuchContainer . . . .)
+   (efld~9,6 NoSuchStack . . . .)
+   (efld~9,7 UnknownItem . . . .)
+   (efld~9,8 NotAccepted . . . .)
+   (efld~9,9 NoRoom . . . .)
+   (efld~9,A TooHeavy . . . .)
+   (efld~9,B NotEnough . . . .)
+   (efld~9,C Nowhere . . . .)
+   (efld~9,D BadCount . . . .)))
+ (type@B,2z Outcome~9 x . .
+  (object@2 .
+   (fld~2,3 trouble~7 x . Trouble@3 .)
+   (fld~4,4 moved~5 x . int@3 .)
+   (fld~5,5 slot~4 x . int@3 .)
+   (fld~5,6 note~4 x . string@3 .)))
+ (proc@,37 went@5 x . .
+  (params@A
+   (param@1 o . . Outcome@3 .))bool@E . .
+  (stmts@V
+   (infix@A ==
+    (dot~9 o~1 trouble@1)NoTrouble@3)))
+ (comment@,3A)
+ (proc@,3D name@5 x . .
+  (params@A
+   (param@1 t . . Trouble@3 .))string@E . .
+  (stmts@2,1
+   (case t@5
+    (of@,1
+     (ranges NoTrouble@3)
+     (stmts@E "fine"))
+    (of@,2
+     (ranges NoSuchContainer@3)
+     (stmts@K "no such container"))
+    (of@,3
+     (ranges NoSuchStack@3)
+     (stmts@G "no such stack"))
+    (of@,4
+     (ranges UnknownItem@3)
+     (stmts@G "no mod defines that item"))
+    (of@,5
+     (ranges NotAccepted@3)
+     (stmts@G "this container does not take that"))
+    (of@,6
+     (ranges NoRoom@3)
+     (stmts@B "no room"))
+    (of@,7
+     (ranges TooHeavy@3)
+     (stmts@D "too heavy"))
+    (of@,8
+     (ranges NotEnough@3)
+     (stmts@E "not that many there"))
+    (of@,9
+     (ranges Nowhere@3)
+     (stmts@C "nothing to do"))
+    (of@,A
+     (ranges BadCount@3)
+     (stmts@D "count must be one or more")))))
+ (proc@,3Q isNothing@5 x . .
+  (params@F
+   (param@1 c . . Container@3 .))bool@G . .
+  (stmts@c
+   (infix@7 ==
+    (call~4 int~3 c@1)0@3)))
+ (proc@,3R isSame@5 x . .
+  (params@C
+   (param@1 a . . Container@6 .)
+   (param@4 b . . Container@3 .))bool@J . .
+  (stmts@c
+   (infix@7 ==
+    (call~4 int~3 a@1)
+    (call@6 int~3 b@1))))
+ (proc@,3S nothingContainer@5 x . .
+  (params@M)Container@4 . .
+  (stmts@c
+   (call@9 Container~9 0@1)))
+ (proc@,3U fine@5 . . .
+  (params@9
+   (param@1 moved . . int@D .)
+   (param@8 slot . . int@6 .))Outcome@K . .
+  (stmts@2,1
+   (oconstr@7 Outcome~7
+    (kv@8 trouble~7 NoTrouble@2)
+    (kv@Q moved~5 moved@2)
+    (kv@d slot~4 slot@2)
+    (kv@p note~4 ""@2))))
+ (proc@,3X refused@5 . . .
+  (params@C
+   (param@1 t . . Trouble@3 .)
+   (param@D note . . . ""@7))Outcome@P . .
+  (stmts@2,1
+   (oconstr@7 Outcome~7
+    (kv@8 trouble~7 t@2)
+    (kv@I moved~5 0@2)
+    (kv@R slot~4 -1@2)
+    (kv@b note~4
+     (expr
+      (stmts@2)
+      (if@1
+       (elif@3
+        (infix@9 >
+         (dot~5 note~4 len@1)0@2)note@E)
+       (else@M
+        (call@A name~4 t@1))))))))
+ (comment@,3e)
+ (proc@,3h holdsWord@5 . . .
+  (params@E
+   (param@1 tags . . string@C .)
+   (param@7 word . . string@6 .)
+   (param@L at . . int@C .)
+   (param@P length . . int@8 .))bool@d . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 <= length~7 0@3)
+     (stmts@D
+      (ret false@7))))
+   (if@,1
+    (elif@3
+     (infix@7 > length~7
+      (dot@6 tags~4 len@1))
+     (stmts@J
+      (ret false@7))))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@H <=
+     (infix~9 \2B i~2 length@2)
+     (dot@7 tags~4 len@1))
+    (stmts@2,1
+     (var@4 j . . . 0@4)
+     (var@4,1 same . . . true@7)
+     (while@,2
+      (infix@8 < j~2 length@2)
+      (stmts@2,1
+       (if
+        (elif@3
+         (infix@C !=
+          (at~8 tags~4
+           (infix@3 \2B i~2 j@2))
+          (at@7 word~4
+           (infix@4 \2B at~3 j@2)))
+         (stmts~1,1
+          (asgn@5 same~5 false@2)
+          (break@,1 .))))
+       (cmd@,3 inc j@4)))
+     (if@,7
+      (elif@3 same
+       (stmts~1,1
+        (var@4 ends . . .
+         (infix@I ==
+          (infix~9 \2B i~2 length@2)
+          (dot@7 tags~4 len@1)))
+        (if@,1
+         (elif@3
+          (prefix not ends@4)
+          (stmts@A
+           (asgn@5 ends~5
+            (infix@J ==
+             (at~D tags~4
+              (infix@3 \2B i~2 length@2))' '@3)))))
+        (var@4,2 begins . . .
+         (infix@B == i~2 0@3))
+        (if@,3
+         (elif@3
+          (prefix not begins@4)
+          (stmts@C
+           (asgn@7 begins~7
+            (infix@E ==
+             (at~8 tags~4
+              (infix@3 \2D i~2 1@2))' '@3)))))
+        (if@,4
+         (elif@3
+          (infix@5 and ends~5 begins@4)
+          (stmts@H
+           (ret true@7)))))))
+     (cmd@,D inc i@4)))false@,I))
+ (comment@,42)
+ (proc@,43 tagged@5 x . .
+  (params@C
+   (param@1 tags . . string@B .)
+   (param@7 tag . . string@5 .))bool@L . .
+  (stmts@e
+   (call@9 holdsWord~9 tags@1 tag@7 0@C
+    (dot@I tag~3 len@1))))
+ (comment@,45)
+ (proc@,47 taggedAny@5 x . .
+  (params@F
+   (param@1 tags . . string@E .)
+   (param@7 wanted . . string@8 .))bool@O . .
+  (stmts@2,1
+   (var@4 start . . . 0@8)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 <= i~2
+     (dot@9 wanted~6 len@1))
+    (stmts@2,1
+     (var@4 boundary . . .
+      (infix@D == i~2
+       (dot@9 wanted~6 len@1)))
+     (if@,1
+      (elif@3
+       (prefix not boundary@4)
+       (stmts@E
+        (asgn@9 boundary~9
+         (infix@C ==
+          (at~4 wanted~6 i@1)' '@3)))))
+     (if@,2
+      (elif@3 boundary
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@2 > i~2 start@2)
+          (stmts~1,1
+           (if
+            (elif@3
+             (call@9 holdsWord~9 tags@1 wanted@7 start@F
+              (infix@O \2D i~2 start@2))
+             (stmts@h
+              (ret true@7)))))))
+        (asgn@6,2 start~6
+         (infix@4 \2B i~2 1@2)))))
+     (cmd@,6 inc i@4)))false@,A))
+ (var@2,4P itemCatalogs . .
+  (at@H seq~3 string@1).)
+ (var@2,4Q holderCatalogs . .
+  (at@J seq~3 string@1).)
+ (proc@,4S listed@5 . . .
+  (params@B
+   (param@1 list . .
+    (at@9 seq~3 string@1).)
+   (param@K id . . string@4 .))bool@X . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@6 list~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@8 ==
+        (at~4 list~4 i@1)id@3)
+       (stmts@F
+        (ret true@7))))
+     (cmd@,1 inc i@4)))false@,4))
+ (comment@,4Z)
+ (proc@,4c useItems@5 x . .
+  (params@E
+   (param@1 catalog . . string@9 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@A listed~6 itemCatalogs@1 catalog@F))
+     (stmts@Z
+      (cmd@C
+       (dot itemCatalogs~C add@1)catalog@5))))))
+ (comment@,4f)
+ (proc@,4g useContainers@5 x . .
+  (params@J
+   (param@1 catalog . . string@9 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@A listed~6 holderCatalogs@1 catalog@H))
+     (stmts@b
+      (cmd@E
+       (dot holderCatalogs~E add@1)catalog@5))))))
+ (comment@,4j)
+ (proc@,4l dropItems@5 x . .
+  (params@F
+   (param@1 catalog . . string@9 .)). . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@E itemCatalogs~C len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@G ==
+        (at~4 itemCatalogs~C i@1)catalog@3)
+       (stmts~1,1
+        (var@4 j . . . i@4)
+        (while@,1
+         (infix@C <
+          (infix~4 \2B j~2 1@2)
+          (dot@E itemCatalogs~C len@1))
+         (stmts@2,1
+          (let@4 next . . .
+           (at@J itemCatalogs~C
+            (infix@3 \2B j~2 1@2)))
+          (asgn@G,1
+           (at~4 itemCatalogs~C j@1)next@2)
+          (cmd@,2 inc j@4)))
+        (call@J,5
+         (dot~7 itemCatalogs~C setLen@1)
+         (infix@I \2D
+          (dot~5 itemCatalogs~C len@1)1@2))
+        (ret@,6 .))))
+     (cmd@,8 inc i@4)))))
+ (proc@,4y dropContainers@5 x . .
+  (params@K
+   (param@1 catalog . . string@9 .)). . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@G holderCatalogs~E len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@I ==
+        (at~4 holderCatalogs~E i@1)catalog@3)
+       (stmts~1,1
+        (var@4 j . . . i@4)
+        (while@,1
+         (infix@C <
+          (infix~4 \2B j~2 1@2)
+          (dot@G holderCatalogs~E len@1))
+         (stmts@2,1
+          (let@4 next . . .
+           (at@L holderCatalogs~E
+            (infix@3 \2B j~2 1@2)))
+          (asgn@I,1
+           (at~4 holderCatalogs~E j@1)next@2)
+          (cmd@,2 inc j@4)))
+        (call@L,5
+         (dot~7 holderCatalogs~E setLen@1)
+         (infix@K \2D
+          (dot~5 holderCatalogs~E len@1)1@2))
+        (ret@,6 .))))
+     (cmd@,8 inc i@4)))))
+ (comment@,5B)
+ (proc@,5E catalogPresent@5 x . .
+  (params@K
+   (param@1 id . . string@4 .))bool@E . .
+  (stmts@f
+   (infix@P >
+    (dot~5
+     (call~4 catalogSignature~G id@1)len@1)0@2)))
+ (proc@,5G facetText@5 . . .
+  (params@E
+   (param@1 base . . string@R .)
+   (param@7 facet . . string@L .)
+   (param@E id . . string@E .)
+   (param@I fallback . . string@A .))string@b . .
+  (stmts@2,1
+   (let@4 cat . . .
+    (infix@B & base~5 facet@2))
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@I catalogPresent~E cat@1))
+     (stmts@P
+      (ret fallback@7))))
+   (let@4,2 row . . .
+    (call@L
+     (dot~5
+      (call~5 named~5 cat@1)find@1)id@1))
+   (if@,3
+    (elif@3
+     (prefix not
+      (dot@7 row~3 exists@1))
+     (stmts@G
+      (ret fallback@7))))
+   (dot@3,4 row~3 text@1)))
+ (proc@,5N facetNumber@5 . . .
+  (params@G
+   (param@1 base . . string@H .)
+   (param@7 facet . . string@B .)
+   (param@E id . . string@4 .)
+   (param@Q fallback . . float64@A .))float64@k . .
+  (stmts@2,1
+   (let@4 cat . . .
+    (infix@B & base~5 facet@2))
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@I catalogPresent~E cat@1))
+     (stmts@P
+      (ret fallback@7))))
+   (let@4,2 row . . .
+    (call@L
+     (dot~5
+      (call~5 named~5 cat@1)find@1)id@1))
+   (if@,3
+    (elif@3
+     (prefix not
+      (dot@7 row~3 exists@1))
+     (stmts@G
+      (ret fallback@7))))
+   (dot@3,4 row~3 number@1)))
+ (proc@,5U facetInteger@5 . . .
+  (params@H
+   (param@1 base . . string@H .)
+   (param@7 facet . . string@B .)
+   (param@E id . . string@4 .)
+   (param@Q fallback . . int@A .))int@g . .
+  (stmts@2,1
+   (let@4 cat . . .
+    (infix@B & base~5 facet@2))
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@I catalogPresent~E cat@1))
+     (stmts@P
+      (ret fallback@7))))
+   (let@4,2 row . . .
+    (call@L
+     (dot~5
+      (call~5 named~5 cat@1)find@1)id@1))
+   (if@,3
+    (elif@3
+     (prefix not
+      (dot@7 row~3 exists@1))
+     (stmts@G
+      (ret fallback@7))))
+   (call@3,4 int~3
+    (dot@4 row~3 integer@1))))
+ (comment@,5b)
+ (proc@,5d itemOf@5 x . .
+  (params@C
+   (param@1 id . . string@4 .))Item@E . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@6 Item~4
+     (kv@3 id~2 id@2)
+     (kv@G display~7 id@2)
+     (kv@R stack~5 1@2)
+     (kv@a bulk~4 1.0@2)
+     (kv@n weight~6 0.0@2)
+     (kv~6,1 shape~5 ""@2)
+     (kv@4,1 tags~4 ""@2)
+     (kv@F,1 known~5 false@2)))
+   (var@4,2 i . . .
+    (infix@L \2D
+     (dot~5 itemCatalogs~C len@1)1@2))
+   (while@,3
+    (infix@8 >= i~2 0@3)
+    (stmts@2,1
+     (let@4 base . . .
+      (at@J itemCatalogs~C i@1))
+     (if@,1
+      (elif@3
+       (call@E catalogPresent~E base@1)
+       (stmts~1,1
+        (let@4 row . . .
+         (call@M
+          (dot~5
+           (call~6 named~5 base@1)find@1)id@1))
+        (if@,1
+         (elif@3
+          (dot@3 row~3 exists@1)
+          (stmts~1,1
+           (asgn@D
+            (dot~7 result~6 known@1)true@2)
+           (asgn@F,1
+            (dot~9 result~6 display@1)
+            (dot@5 row~3 text@1))
+           (asgn@D,2
+            (dot~7 result~6 stack@1)
+            (call@E facetInteger~C base@1 StackFacet@7 id@J 1@N))
+           (asgn@C,3
+            (dot~6 result~6 bulk@1)
+            (call@D facetNumber~B base@1 BulkFacet@7 id@I 1.0@M))
+           (asgn@E,4
+            (dot~8 result~6 weight@1)
+            (call@D facetNumber~B base@1 WeightFacet@7 id@K 0.0@O))
+           (asgn@D,5
+            (dot~7 result~6 shape@1)
+            (call@B facetText~9 base@1 ShapeFacet@7 id@J ""@N))
+           (asgn@C,6
+            (dot~6 result~6 tags@1)
+            (call@B facetText~9 base@1 TagFacet@7 id@H ""@L))
+           (if@,7
+            (elif@3
+             (infix@D <
+              (dot~7 result~6 stack@1)1@2)
+             (stmts@I
+              (asgn@D
+               (dot~7 result~6 stack@1)1@2))))
+           (if@,8
+            (elif@3
+             (infix@C <
+              (dot~6 result~6 bulk@1)0.0@2)
+             (stmts@J
+              (asgn@C
+               (dot~6 result~6 bulk@1)0.0@2))))
+           (ret@,9 .)))))))
+     (cmd@,E dec i@4)))))
+ (comment@,5y)
+ (proc@,5z holderIn@5 x . .
+  (params@E
+   (param@1 catalog . . string@D .)
+   (param@A id . . string@4 .))Holder@N . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@8 Holder~6
+     (kv@3 id~2 id@2)
+     (kv@G display~7 id@2)
+     (kv@R slots~5 -1@2)
+     (kv@f capacity~8 -1.0@2)
+     (kv@r load~4 -1.0@2)
+     (kv~6,1 accepts~7 ""@2)
+     (kv@7,1 rejects~7 ""@2)
+     (kv@I,1 known~5 false@2)))
+   (if@,2
+    (elif@3
+     (prefix not
+      (call@I catalogPresent~E catalog@1))
+     (stmts@T
+      (ret .))))
+   (let@4,3 row . . .
+    (call@P
+     (dot~5
+      (call~9 named~5 catalog@1)find@1)id@1))
+   (if@,4
+    (elif@3
+     (prefix not
+      (dot@7 row~3 exists@1))
+     (stmts@G
+      (ret .))))
+   (asgn@D,5
+    (dot~7 result~6 known@1)true@2)
+   (asgn@F,6
+    (dot~9 result~6 display@1)
+    (dot@5 row~3 text@1))
+   (asgn@D,7
+    (dot~7 result~6 slots@1)
+    (call@E facetInteger~C catalog@1 SlotFacet@A id@L -1@P))
+   (asgn@G,8
+    (dot~A result~6 capacity@1)
+    (call@D facetNumber~B catalog@1 CapacityFacet@A id@P -1.0@T))
+   (asgn@C,9
+    (dot~6 result~6 load@1)
+    (call@D facetNumber~B catalog@1 LoadFacet@A id@L -1.0@P))
+   (asgn@F,A
+    (dot~9 result~6 accepts@1)
+    (call@B facetText~9 catalog@1 AcceptFacet@A id@N ""@R))
+   (asgn@F,B
+    (dot~9 result~6 rejects@1)
+    (call@B facetText~9 catalog@1 RejectFacet@A id@N ""@R))))
+ (comment@,6D)
+ (proc@,6F holderOf@5 x . .
+  (params@E
+   (param@1 id . . string@4 .))Holder@E . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@8 Holder~6
+     (kv@3 id~2 id@2)
+     (kv@G display~7 id@2)
+     (kv@R slots~5 -1@2)
+     (kv@f capacity~8 -1.0@2)
+     (kv@r load~4 -1.0@2)
+     (kv~6,1 accepts~7 ""@2)
+     (kv@7,1 rejects~7 ""@2)
+     (kv@I,1 known~5 false@2)))
+   (var@4,2 i . . .
+    (infix@N \2D
+     (dot~5 holderCatalogs~E len@1)1@2))
+   (while@,3
+    (infix@8 >= i~2 0@3)
+    (stmts@2,1
+     (let@4 found . . .
+      (call@G holderIn~8
+       (at@F holderCatalogs~E i@1)id@K))
+     (if@,1
+      (elif@3
+       (dot@5 found~5 known@1)
+       (stmts@D
+        (ret found@7))))
+     (cmd@,2 dec i@4)))))
+ (comment@,6S)
+ (proc@,6W itemCatalog@5 x . .
+  (params@H
+   (param@1 id . . string@4 .)
+   (param@D description . . . ""@E))Catalog@W . .
+  (stmts@2,1
+   (call@L declareInventoryKinds~L)
+   (call@D,1 createCatalog~D id@1 ItemKind@5 description@F)
+   (call@D,2 createCatalog~D
+    (infix@4 & id~3 StackFacet@2)ItemStackKind@I
+    (infix@q & "Stack sizes for "~J id@2))
+   (call@D,3 createCatalog~D
+    (infix@4 & id~3 BulkFacet@2)ItemBulkKind@H
+    (infix@h & "Bulk for "~C id@2))
+   (call@D,4 createCatalog~D
+    (infix@4 & id~3 WeightFacet@2)ItemWeightKind@J
+    (infix@o & "Weights for "~F id@2))
+   (call@D,5 createCatalog~D
+    (infix@4 & id~3 ShapeFacet@2)ItemShapeKind@I
+    (infix@l & "Shapes for "~E id@2))
+   (call@D,6 createCatalog~D
+    (infix@4 & id~3 TagFacet@2)ItemTagKind@G
+    (infix@f & "Tags for "~C id@2))
+   (call@8,7 useItems~8 id@1)
+   (call@7,8 Catalog~7 id@1)))
+ (comment@,6h)
+ (proc@,6i containerCatalog@5 x . .
+  (params@M
+   (param@1 id . . string@4 .)
+   (param@D description . . . ""@E))Catalog@W . .
+  (stmts@2,1
+   (call@L declareInventoryKinds~L)
+   (call@D,1 createCatalog~D id@1 ContainerKind@5 description@K)
+   (call@D,2 createCatalog~D
+    (infix@4 & id~3 SlotFacet@2)ContainerSlotKind@H
+    (infix@t & "Slot counts for "~J id@2))
+   (call@D,3 createCatalog~D
+    (infix@4 & id~3 CapacityFacet@2)ContainerCapacityKind@L
+    (infix@y & "Capacity for "~G id@2))
+   (call@D,4 createCatalog~D
+    (infix@4 & id~3 LoadFacet@2)ContainerLoadKind@H
+    (infix@t & "Load limits for "~J id@2))
+   (call@D,5 createCatalog~D
+    (infix@4 & id~3 AcceptFacet@2)ContainerAcceptKind@J
+    (infix@z & "Accepted tags for "~L id@2))
+   (call@D,6 createCatalog~D
+    (infix@4 & id~3 RejectFacet@2)ContainerRejectKind@J
+    (infix@y & "Refused tags for "~K id@2))
+   (call@D,7 useContainers~D id@1)
+   (call@7,8 Catalog~7 id@1)))
+ (comment@,6t)
+ (proc@,6u defineItem@5 x . .
+  (params@G
+   (param@1 c . . Catalog@3 .)
+   (param@D id . . string@D .)
+   (param@H display . . string@9 .)
+   (param@Y stack . . . 1@8)
+   (param@j bulk . . . 1.0@7)
+   (param~C,1 weight . . . 0.0@9)
+   (param@2,1 shape . . . ""@8)
+   (param@E,1 tags . . . ""@7)). . .
+  (stmts@2,2
+   (let@4 base . . .
+    (call@B name~4 c@1))
+   (call@C,1 addToCatalog~C base@1 id@7 display@B)
+   (call@C,2 addToCatalog~C
+    (infix@6 & base~5 StackFacet@2)id@K
+    (call@T int64~5
+     (if@1
+      (elif@3
+       (infix@6 < stack~6 1@2)
+       (stmts@B 1))
+      (else@G
+       (stmts@6 stack)))))
+   (call@C,3 addToCatalog~C
+    (infix@6 & base~5 BulkFacet@2)id@J bulk@N)
+   (call@C,4 addToCatalog~C
+    (infix@6 & base~5 WeightFacet@2)id@L weight@P)
+   (call@C,5 addToCatalog~C
+    (infix@6 & base~5 ShapeFacet@2)id@K shape@O)
+   (call@C,6 addToCatalog~C
+    (infix@6 & base~5 TagFacet@2)id@I tags@M)))
+ (comment@,74)
+ (proc@,75 defineContainer@5 x . .
+  (params@L
+   (param@1 c . . Catalog@3 .)
+   (param@D id . . string@D .)
+   (param@H display . . string@9 .)
+   (param@Y slots . . . -1@8)
+   (param~H,1 capacity . . . -1.0@B)
+   (param@,1 load . . . -1.0@7)
+   (param@D,1 accepts . . . ""@A)
+   (param@R,1 rejects . . . ""@A)). . .
+  (stmts@2,2
+   (let@4 base . . .
+    (call@B name~4 c@1))
+   (call@C,1 addToCatalog~C base@1 id@7 display@B)
+   (call@C,2 addToCatalog~C
+    (infix@6 & base~5 SlotFacet@2)id@J
+    (call@S int64~5 slots@1))
+   (call@C,3 addToCatalog~C
+    (infix@6 & base~5 CapacityFacet@2)id@N capacity@R)
+   (call@C,4 addToCatalog~C
+    (infix@6 & base~5 LoadFacet@2)id@J load@N)
+   (call@C,5 addToCatalog~C
+    (infix@6 & base~5 AcceptFacet@2)id@L accepts@P)
+   (call@C,6 addToCatalog~C
+    (infix@6 & base~5 RejectFacet@2)id@L rejects@P)))
+ (type@9,7J Bin~4 . . .
+  (object@2 .
+   (fld~9,1 definition . . Holder@C .)
+   (fld~9,2 label . . string@7 .)
+   (fld~9,3 live . . bool@6 .)
+   (fld~9,4 slots . .
+    (at@A seq~3 Stack@1).)))
+ (var@4,7P bins . .
+  (at@9 seq~3 Bin@1).)
+ (proc@,7R indexOf@5 . . .
+  (params@C
+   (param@1 c . . Container@3 .))int@G . .
+  (stmts@2,1
+   (let@4 at . . .
+    (infix@C \2D
+     (call~4 int~3 c@1)1@2))
+   (if@,1
+    (elif@3
+     (infix@7 or
+      (infix~4 < at~3 0@2)
+      (infix@6 >= at~3
+       (dot@7 bins~4 len@1)))
+     (stmts@Q
+      (ret -1@7))))
+   (if@,2
+    (elif@3
+     (prefix not
+      (dot@C
+       (at~4 bins~4 at@1)live@1))
+     (stmts@J
+      (ret -1@7))))at@,3))
+ (proc@,7X least@5 . . .
+  (params@A
+   (param@1 a . . int@6 .)
+   (param@4 b . . int@3 .))int@D . .
+  (stmts@T
+   (expr
+    (stmts)
+    (if@1
+     (elif@3
+      (infix@2 < a~2 b@2)a@7)
+     (else@C b@6)))))
+ (proc@,7Z perStack@5 . . .
+  (params@D
+   (param@1 it . . Item@4 .))int@C . .
+  (stmts@V
+   (expr
+    (stmts)
+    (if@1
+     (elif@3
+      (infix@9 <
+       (dot~7 it~2 stack@1)1@2)1@E)
+     (else@J
+      (dot@8 it~2 stack@1))))))
+ (proc@,7b usedBulk@5 . . .
+  (params@D
+   (param@1 b . . Bin@3 .))float64@A . .
+  (stmts@2,1
+   (asgn@7 result~7 0.0@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@9
+      (dot~6 b~1 slots@1)len@1))
+    (stmts@2,1
+     (asgn@7 result~7
+      (infix@9 \2B result~7
+       (infix@V *
+        (dot~6
+         (call~H itemOf~6
+          (dot@B
+           (at~3
+            (dot~6 b~1 slots@1)i@1)item@1))bulk@1)
+        (call@9 float64~7
+         (dot@B
+          (at~3
+           (dot~6 b~1 slots@1)i@1)count@1)))))
+     (cmd@,1 inc i@4)))))
+ (proc@,7i usedLoad@5 . . .
+  (params@D
+   (param@1 b . . Bin@3 .))float64@A . .
+  (stmts@2,1
+   (asgn@7 result~7 0.0@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@9
+      (dot~6 b~1 slots@1)len@1))
+    (stmts@2,1
+     (asgn@7 result~7
+      (infix@9 \2B result~7
+       (infix@X *
+        (dot~8
+         (call~H itemOf~6
+          (dot@B
+           (at~3
+            (dot~6 b~1 slots@1)i@1)item@1))weight@1)
+        (call@9 float64~7
+         (dot@B
+          (at~3
+           (dot~6 b~1 slots@1)i@1)count@1)))))
+     (cmd@,1 inc i@4)))))
+ (comment@,7p)
+ (proc@,7s lets@5 . . .
+  (params@9
+   (param@1 d . . Holder@3 .)
+   (param@C it . . Item@4 .))bool@N . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@E >
+      (dot~5
+       (dot~8 d~1 accepts@1)len@1)0@2)
+     (stmts~1,1
+      (if
+       (elif@3
+        (prefix not
+         (call@D taggedAny~9
+          (dot@3 it~2 tags@1)
+          (dot@B d~1 accepts@1)))
+        (stmts@Z
+         (ret false@7)))))))
+   (if@,2
+    (elif@3
+     (infix@E >
+      (dot~5
+       (dot~8 d~1 rejects@1)len@1)0@2)
+     (stmts~1,1
+      (if
+       (elif@3
+        (call@9 taggedAny~9
+         (dot@3 it~2 tags@1)
+         (dot@B d~1 rejects@1))
+        (stmts@V
+         (ret false@7)))))))true@,4))
+ (comment@,7z)
+ (proc@,82 trouble@5 . . .
+  (params@C
+   (param@1 b . . Bin@3 .)
+   (param@9 it . . Item@4 .)
+   (param@J count . . int@7 .))Trouble@W . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 < count~6 1@2)
+     (stmts@B
+      (ret BadCount@7))))
+   (if@,1
+    (elif@3
+     (prefix not
+      (dot@6 it~2 known@1))
+     (stmts@E
+      (ret UnknownItem@7))))
+   (let@4,2 d . . .
+    (dot@5 b~1 definition@1))
+   (if@,3
+    (elif@3
+     (prefix not
+      (call@8 lets~4 d@1 it@4))
+     (stmts@H
+      (ret NotAccepted@7))))
+   (if@,4
+    (elif@3
+     (infix@B >=
+      (dot~A d~1 capacity@1)0.0@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@d >
+         (infix~R \2B
+          (call~4 usedBulk~8 b@1)
+          (infix@A *
+           (dot~6 it~2 bulk@1)
+           (call@9 float64~7 count@1)))
+         (dot@3 d~1 capacity@1))
+        (stmts@r
+         (ret NoRoom@7)))))))
+   (if@,6
+    (elif@3
+     (infix@7 >=
+      (dot~6 d~1 load@1)0.0@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@f >
+         (infix~T \2B
+          (call~4 usedLoad~8 b@1)
+          (infix@C *
+           (dot~8 it~2 weight@1)
+           (call@9 float64~7 count@1)))
+         (dot@3 d~1 load@1))
+        (stmts@p
+         (ret TooHeavy@7)))))))
+   (if@,8
+    (elif@3
+     (infix@8 >=
+      (dot~7 d~1 slots@1)0@3)
+     (stmts~1,1
+      (let@4 per . . .
+       (call@E perStack~8 it@1))
+      (var@4,1 remaining . . . count@C)
+      (var@4,2 i . . . 0@4)
+      (while@,3
+       (infix@M and
+        (infix~E < i~2
+         (dot@9
+          (dot~6 b~1 slots@1)len@1))
+        (infix@E > remaining~A 0@2))
+       (stmts@2,1
+        (if
+         (elif@3
+          (infix@G ==
+           (dot~6
+            (at~3
+             (dot~6 b~1 slots@1)i@1)item@1)
+           (dot@5 it~2 id@1))
+          (stmts~1,1
+           (let@4 room . . .
+            (infix@B \2D per~4
+             (dot@C
+              (at~3
+               (dot~6 b~1 slots@1)i@1)count@1)))
+           (if@,1
+            (elif@3
+             (infix@5 > room~5 0@2)
+             (stmts@A
+              (asgn@A remaining~A
+               (infix@C \2D remaining~A
+                (call@7 least~5 room@1 remaining@7)))))))))
+        (cmd@,3 inc i@4)))
+      (if@,8
+       (elif@3
+        (infix@A > remaining~A 0@2)
+        (stmts~1,1
+         (let@4 need . . .
+          (infix@T div
+           (par~M
+            (infix@H \2D
+             (infix~6 \2B remaining~A per@2)1@2))per@4))
+         (if@,1
+          (elif@3
+           (infix@J >
+            (infix~7 \2B
+             (dot~5
+              (dot~6 b~1 slots@1)len@1)need@2)
+            (dot@3 d~1 slots@1))
+           (stmts@U
+            (ret NoRoom@7))))))))))NoTrouble@,K))
+ (comment@,8P)
+ (proc@,8Q place@5 . . .
+  (params@A
+   (param@1 b . .
+    (mut@3 Bin@4).)
+   (param@D it . . Item@4 .)
+   (param@N count . . int@7 .))int@a . .
+  (stmts@2,1
+   (var@4 remaining . . . count@C)
+   (let@4,1 per . . .
+    (call@E perStack~8 it@1))
+   (var@4,2 i . . . 0@4)
+   (var@4,3 landed . . . -1@9)
+   (while@,4
+    (infix@M and
+     (infix~E < i~2
+      (dot@9
+       (dot~6 b~1 slots@1)len@1))
+     (infix@E > remaining~A 0@2))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@P and
+        (infix~9 ==
+         (dot~6
+          (at~3
+           (dot~6 b~1 slots@1)i@1)item@1)
+         (dot@5 it~2 id@1))
+        (infix@L <
+         (dot~7
+          (at~3
+           (dot~6 b~1 slots@1)i@1)count@1)per@2))
+       (stmts~1,1
+        (let@4 take . . .
+         (call@C least~5
+          (infix@5 \2D per~4
+           (dot@C
+            (at~3
+             (dot~6 b~1 slots@1)i@1)count@1))remaining@P))
+        (var@4,1 s . . .
+         (at@B
+          (dot~6 b~1 slots@1)i@1))
+        (asgn@8,2
+         (dot~7 s~1 count@1)
+         (infix@A \2B
+          (dot~7 s~1 count@1)take@2))
+        (asgn@B,3
+         (at~4
+          (dot~6 b~1 slots@1)i@1)s@2)
+        (asgn@A,4 remaining~A
+         (infix@C \2D remaining~A take@2))
+        (asgn@7,5 landed~7 i@2))))
+     (cmd@,7 inc i@4)))
+   (while@,D
+    (infix@G > remaining~A 0@2)
+    (stmts@2,1
+     (let@4 take . . .
+      (call@C least~5 per@1 remaining@6))
+     (cmd@7,1
+      (dot
+       (dot~6 b~1 slots@1)add@1)
+      (oconstr@A Stack~5
+       (kv@5 item~4
+        (dot@4 it~2 id@1))
+       (kv@J count~5 take@2)))
+     (asgn@7,2 landed~7
+      (infix@E \2D
+       (dot~5
+        (dot~6 b~1 slots@1)len@1)1@2))
+     (asgn@A,3 remaining~A
+      (infix@C \2D remaining~A take@2))))landed@,I))
+ (proc@,8l dropSlot@5 . . .
+  (params@D
+   (param@1 b . .
+    (mut@3 Bin@4).)
+   (param@D slot . . int@6 .)). . .
+  (stmts@2,1
+   (var@4 i . . . slot@4)
+   (while@,1
+    (infix@C <
+     (infix~4 \2B i~2 1@2)
+     (dot@9
+      (dot~6 b~1 slots@1)len@1))
+    (stmts@2,1
+     (let@4 next . . .
+      (at@E
+       (dot~6 b~1 slots@1)
+       (infix@3 \2B i~2 1@2)))
+     (asgn@B,1
+      (at~4
+       (dot~6 b~1 slots@1)i@1)next@2)
+     (cmd@,2 inc i@4)))
+   (call@E,5
+    (dot~7
+     (dot~6 b~1 slots@1)setLen@1)
+    (infix@D \2D
+     (dot~5
+      (dot~6 b~1 slots@1)len@1)1@2))))
+ (proc@,8t drawOff@5 . . .
+  (params@C
+   (param@1 b . .
+    (mut@3 Bin@4).)
+   (param@D slot . . int@D .)
+   (param@J count . . int@7 .)). . .
+  (stmts@2,1
+   (var@4 s . . .
+    (at@B
+     (dot~6 b~1 slots@1)slot@1))
+   (asgn@8,1
+    (dot~7 s~1 count@1)
+    (infix@A \2D
+     (dot~7 s~1 count@1)count@2))
+   (if@,2
+    (elif@3
+     (infix@8 <
+      (dot~7 s~1 count@1)1@2)
+     (stmts@D
+      (call@8 dropSlot~8 b@1 slot@4)))
+    (else@,1
+     (stmts@6
+      (asgn@E
+       (at~7
+        (dot~6 b~1 slots@1)slot@1)s@2))))))
+ (comment@,93)
+ (proc@,95 openContainer@5 x . .
+  (params@J
+   (param@1 catalog . . string@L .)
+   (param@A definition . . string@C .)
+   (param@U label . . . ""@8))Container@h . .
+  (stmts@2,1
+   (let@4 d . . .
+    (call@C holderIn~8 catalog@1 definition@A))
+   (if@,1
+    (elif@3
+     (prefix not
+      (dot@5 d~1 known@1))
+     (stmts@D
+      (ret
+       (call@G Container~9 0@1)))))
+   (cmd@4,2
+    (dot bins~4 add@1)
+    (oconstr@8 Bin~3
+     (kv@B definition~A d@2)
+     (kv@L label~5
+      (expr
+       (stmts@2)
+       (if@1
+        (elif@3
+         (infix@A >
+          (dot~5 label~5 len@1)0@2)label@F)
+        (else@O
+         (dot@7 d~1 display@1)))))
+     (kv~6,1 live~4 true@2)
+     (kv@7,1 slots~5
+      (prefix@2 \40
+       (bracket@1)))))
+   (call@9,4 Container~9
+    (dot@5 bins~4 len@1))))
+ (comment@,9C)
+ (proc@,9D openContainerOf@5 x . .
+  (params@L
+   (param@1 definition . . string@C .)
+   (param@L label . . . ""@8))Container@Y . .
+  (stmts@2,1
+   (let@4 d . . .
+    (call@C holderOf~8 definition@1))
+   (if@,1
+    (elif@3
+     (prefix not
+      (dot@5 d~1 known@1))
+     (stmts@D
+      (ret
+       (call@G Container~9 0@1)))))
+   (cmd@4,2
+    (dot bins~4 add@1)
+    (oconstr@8 Bin~3
+     (kv@B definition~A d@2)
+     (kv@L label~5
+      (expr
+       (stmts@2)
+       (if@1
+        (elif@3
+         (infix@A >
+          (dot~5 label~5 len@1)0@2)label@F)
+        (else@O
+         (dot@7 d~1 display@1)))))
+     (kv~6,1 live~4 true@2)
+     (kv@7,1 slots~5
+      (prefix@2 \40
+       (bracket@1)))))
+   (call@9,4 Container~9
+    (dot@5 bins~4 len@1))))
+ (comment@,9K)
+ (proc@,9M openHolder@5 x . .
+  (params@G
+   (param@1 d . . Holder@3 .)
+   (param@C label . . . ""@8))Container@P . .
+  (stmts@2,1
+   (cmd@4
+    (dot bins~4 add@1)
+    (oconstr@8 Bin~3
+     (kv@B definition~A d@2)
+     (kv@L label~5
+      (expr
+       (stmts@2)
+       (if@1
+        (elif@3
+         (infix@A >
+          (dot~5 label~5 len@1)0@2)label@F)
+        (else@O
+         (dot@7 d~1 display@1)))))
+     (kv~6,1 live~4 true@2)
+     (kv@7,1 slots~5
+      (prefix@2 \40
+       (bracket@1)))))
+   (call@9,2 Container~9
+    (dot@5 bins~4 len@1))))
+ (comment@,9R)
+ (proc@,9T closeContainer@5 x . .
+  (params@K
+   (param@1 c . . Container@3 .))Outcome@G . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@C indexOf~7 c@1))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret
+       (call@E refused~7 NoSuchContainer@1)))))
+   (var@4,2 b . . .
+    (at@8 bins~4 at@1))
+   (let@4,3 held . . .
+    (dot@E
+     (dot~6 b~1 slots@1)len@1))
+   (asgn@7,4
+    (dot~6 b~1 live@1)false@2)
+   (asgn@8,5
+    (dot~7 b~1 slots@1)
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@9,6
+    (at~5 bins~4 at@1)b@2)
+   (call@4,7 fine~4 held@1 -1@7)))
+ (comment@,9d)
+ (proc@,9e open@5 x . .
+  (params@A
+   (param@1 c . . Container@3 .))bool@G . .
+  (stmts@X
+   (infix@B >=
+    (call~4 indexOf~7 c@1)0@3)))
+ (proc@,9g containerLabel@5 x . .
+  (params@K
+   (param@1 c . . Container@3 .))string@G . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@C indexOf~7 c@1))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret ""@7))))
+   (dot@8,2
+    (at~4 bins~4 at@1)label@1)))
+ (proc@,9l containerDefinition@5 x . .
+  (params@P
+   (param@1 c . . Container@3 .))Holder@G . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@C indexOf~7 c@1))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret
+       (oconstr@D Holder~6
+        (kv@3 id~2 ""@2)
+        (kv@G display~7 ""@2)
+        (kv@R slots~5 -1@2)
+        (kv@f capacity~8 -1.0@2)
+        (kv~I,1 load~4 -1.0@2)
+        (kv~3,1 accepts~7 ""@2)
+        (kv@A,1 rejects~7 ""@2)
+        (kv@L,1 known~5 false@2))))))
+   (dot@8,3
+    (at~4 bins~4 at@1)definition@1)))
+ (comment@,9r)
+ (proc@,9u put@5 x . .
+  (params@9
+   (param@1 c . . Container@3 .)
+   (param@F item . . string@6 .)
+   (param@T count . . . 1@8))Outcome@f . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@C indexOf~7 c@1))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret
+       (call@E refused~7 NoSuchContainer@1)))))
+   (let@4,2 it . . .
+    (call@B itemOf~6 item@1))
+   (let@4,3 why . . .
+    (call@D trouble~7
+     (at@5 bins~4 at@1)it@B count@F))
+   (if@,4
+    (elif@3
+     (infix@4 != why~4 NoTrouble@3)
+     (stmts@I
+      (ret
+       (call@E refused~7 why@1)))))
+   (var@4,5 b . . .
+    (at@8 bins~4 at@1))
+   (let@4,6 slot . . .
+    (call@C place~5 b@1 it@4 count@8))
+   (asgn@9,7
+    (at~5 bins~4 at@1)b@2)
+   (call@4,8 fine~4 count@1 slot@8)))
+ (comment@,A5)
+ (proc@,A6 take@5 x . .
+  (params@A
+   (param@1 c . . Container@3 .)
+   (param@F item . . string@6 .)
+   (param@T count . . . 1@8))Outcome@f . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@C indexOf~7 c@1))
+   (if@,1
+    (elif@3
+     (infix@6 < count~6 1@2)
+     (stmts@B
+      (ret
+       (call@E refused~7 BadCount@1)))))
+   (if@,2
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret
+       (call@E refused~7 NoSuchContainer@1)))))
+   (var@4,3 b . . .
+    (at@8 bins~4 at@1))
+   (var@4,4 have . . . 0@7)
+   (var@4,5 i . . . 0@4)
+   (while@,6
+    (infix@8 < i~2
+     (dot@9
+      (dot~6 b~1 slots@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@G ==
+        (dot~6
+         (at~3
+          (dot~6 b~1 slots@1)i@1)item@1)item@3)
+       (stmts@P
+        (asgn@5 have~5
+         (infix@7 \2B have~5
+          (dot@C
+           (at~3
+            (dot~6 b~1 slots@1)i@1)count@1))))))
+     (cmd@,1 inc i@4)))
+   (if@,9
+    (elif@3
+     (infix@5 < have~5 count@2)
+     (stmts@E
+      (ret
+       (call@E refused~7 NotEnough@1)))))
+   (var@4,A remaining . . . count@C)
+   (asgn@2,B i~2
+    (infix@E \2D
+     (dot~5
+      (dot~6 b~1 slots@1)len@1)1@2))
+   (while@,C
+    (infix@D and
+     (infix~5 >= i~2 0@3)
+     (infix@E > remaining~A 0@2))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@G ==
+        (dot~6
+         (at~3
+          (dot~6 b~1 slots@1)i@1)item@1)item@3)
+       (stmts~1,1
+        (let@4 gone . . .
+         (call@C least~5
+          (dot@B
+           (at~3
+            (dot~6 b~1 slots@1)i@1)count@1)remaining@J))
+        (call@7,1 drawOff~7 b@1 i@4 gone@7)
+        (asgn@A,2 remaining~A
+         (infix@C \2D remaining~A gone@2)))))
+     (cmd@,4 dec i@4)))
+   (asgn@9,I
+    (at~5 bins~4 at@1)b@2)
+   (call@4,J fine~4 count@1 -1@8)))
+ (comment@,AS)
+ (proc@,AT takeFrom@5 x . .
+  (params@E
+   (param@1 c . . Container@3 .)
+   (param@F slot . . int@6 .)
+   (param@Q count . . . 0@8))Outcome@c . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@C indexOf~7 c@1))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret
+       (call@E refused~7 NoSuchContainer@1)))))
+   (var@4,2 b . . .
+    (at@8 bins~4 at@1))
+   (if@,3
+    (elif@3
+     (infix@9 or
+      (infix~4 < slot~5 0@2)
+      (infix@8 >= slot~5
+       (dot@A
+        (dot~6 b~1 slots@1)len@1)))
+     (stmts@X
+      (ret
+       (call@E refused~7 NoSuchStack@1)))))
+   (let@4,4 want . . .
+    (expr
+     (stmts@7)
+     (if@1
+      (elif@3
+       (infix@6 < count~6 1@2)
+       (dot@O
+        (at~6
+         (dot~6 b~1 slots@1)slot@1)count@1))
+      (else@Y count@6))))
+   (if@,5
+    (elif@3
+     (infix@5 > want~5
+      (dot@F
+       (at~6
+        (dot~6 b~1 slots@1)slot@1)count@1))
+     (stmts@S
+      (ret
+       (call@E refused~7 NotEnough@1)))))
+   (call@7,6 drawOff~7 b@1 slot@4 want@A)
+   (asgn@9,7
+    (at~5 bins~4 at@1)b@2)
+   (call@4,8 fine~4 want@1 -1@7)))
+ (comment@,Ae)
+ (proc@,Ai moveStack@5 x . .
+  (params@F
+   (param@1 source . . Container@G .)
+   (param@9 target . . Container@8 .)
+   (param@S slot . . int@6 .)
+   (param@d count . . . 0@8))Outcome@p . .
+  (stmts@2,1
+   (let@4 from0 . . .
+    (call@F indexOf~7 source@1))
+   (let@4,1 to0 . . .
+    (call@D indexOf~7 target@1))
+   (if@,2
+    (elif@3
+     (infix@A or
+      (infix~4 < from0~6 0@2)
+      (infix@7 < to0~4 0@2))
+     (stmts@M
+      (ret
+       (call@E refused~7 NoSuchContainer@1)))))
+   (if@,3
+    (elif@3
+     (infix@6 == from0~6 to0@3)
+     (stmts~1,1
+      (ret
+       (call@E refused~7 Nowhere@1 "a move within one container is a split or a merge"@A)))))
+   (if@,5
+    (elif@3
+     (infix@9 or
+      (infix~4 < slot~5 0@2)
+      (infix@8 >= slot~5
+       (dot@K
+        (dot~6
+         (at~7 bins~4 from0@1)slots@1)len@1)))
+     (stmts@h
+      (ret
+       (call@E refused~7 NoSuchStack@1)))))
+   (let@4,6 held . . .
+    (at@O
+     (dot~6
+      (at~7 bins~4 from0@1)slots@1)slot@1))
+   (let@4,7 want . . .
+    (expr
+     (stmts@7)
+     (if@1
+      (elif@3
+       (infix@6 < count~6 1@2)
+       (dot@F held~4 count@1))
+      (else@P count@6))))
+   (if@,8
+    (elif@3
+     (infix@5 > want~5
+      (dot@6 held~4 count@1))
+     (stmts@J
+      (ret
+       (call@E refused~7 NotEnough@1)))))
+   (let@4,9 it . . .
+    (call@B itemOf~6
+     (dot@5 held~4 item@1)))
+   (let@4,A why . . .
+    (call@D trouble~7
+     (at@5 bins~4 to0@1)it@C want@G))
+   (if@,B
+    (elif@3
+     (infix@4 != why~4 NoTrouble@3)
+     (stmts@I
+      (ret
+       (call@E refused~7 why@1)))))
+   (var@4,C src . . .
+    (at@A bins~4 from0@1))
+   (call@7,D drawOff~7 src@1 slot@6 want@C)
+   (asgn@C,E
+    (at~8 bins~4 from0@1)src@2)
+   (var@4,F dst . . .
+    (at@A bins~4 to0@1))
+   (let@4,G landed . . .
+    (call@E place~5 dst@1 it@6 want@A))
+   (asgn@A,H
+    (at~6 bins~4 to0@1)dst@2)
+   (call@4,I fine~4 want@1 landed@7)))
+ (comment@,B3)
+ (proc@,B5 splitStack@5 x . .
+  (params@G
+   (param@1 c . . Container@3 .)
+   (param@F slot . . int@D .)
+   (param@L count . . int@7 .))Outcome@Y . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@C indexOf~7 c@1))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret
+       (call@E refused~7 NoSuchContainer@1)))))
+   (if@,2
+    (elif@3
+     (infix@6 < count~6 1@2)
+     (stmts@B
+      (ret
+       (call@E refused~7 BadCount@1)))))
+   (var@4,3 b . . .
+    (at@8 bins~4 at@1))
+   (if@,4
+    (elif@3
+     (infix@9 or
+      (infix~4 < slot~5 0@2)
+      (infix@8 >= slot~5
+       (dot@A
+        (dot~6 b~1 slots@1)len@1)))
+     (stmts@X
+      (ret
+       (call@E refused~7 NoSuchStack@1)))))
+   (if@,5
+    (elif@3
+     (infix@6 >= count~6
+      (dot@G
+       (at~6
+        (dot~6 b~1 slots@1)slot@1)count@1))
+     (stmts~1,1
+      (ret
+       (call@E refused~7 NotEnough@1 "a split has to leave something behind"@C)))))
+   (let@4,7 d . . .
+    (dot@5 b~1 definition@1))
+   (if@,8
+    (elif@3
+     (infix@D and
+      (infix~5 >=
+       (dot~7 d~1 slots@1)0@3)
+      (infix@K >
+       (infix~4 \2B
+        (dot~5
+         (dot~6 b~1 slots@1)len@1)1@2)
+       (dot@3 d~1 slots@1)))
+     (stmts@i
+      (ret
+       (call@E refused~7 NoRoom@1)))))
+   (let@4,9 item . . .
+    (dot@K
+     (at~6
+      (dot~6 b~1 slots@1)slot@1)item@1))
+   (var@4,A s . . .
+    (at@B
+     (dot~6 b~1 slots@1)slot@1))
+   (asgn@8,B
+    (dot~7 s~1 count@1)
+    (infix@A \2D
+     (dot~7 s~1 count@1)count@2))
+   (asgn@E,C
+    (at~7
+     (dot~6 b~1 slots@1)slot@1)s@2)
+   (cmd@7,D
+    (dot
+     (dot~6 b~1 slots@1)add@1)
+    (oconstr@A Stack~5
+     (kv@5 item~4 item@2)
+     (kv@I count~5 count@2)))
+   (asgn@9,E
+    (at~5 bins~4 at@1)b@2)
+   (call@4,F fine~4 count@1
+    (infix@K \2D
+     (dot~5
+      (dot~6 b~1 slots@1)len@1)1@2))))
+ (comment@,BN)
+ (proc@,BQ mergeStacks@5 x . .
+  (params@H
+   (param@1 c . . Container@3 .)
+   (param@F source . . int@G .)
+   (param@N target . . int@8 .))Outcome@b . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@C indexOf~7 c@1))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret
+       (call@E refused~7 NoSuchContainer@1)))))
+   (var@4,2 b . . .
+    (at@8 bins~4 at@1))
+   (if@,3
+    (elif@3
+     (infix@B or
+      (infix~4 < source~7 0@2)
+      (infix@A >= source~7
+       (dot@A
+        (dot~6 b~1 slots@1)len@1)))
+     (stmts@b
+      (ret
+       (call@E refused~7 NoSuchStack@1)))))
+   (if@,4
+    (elif@3
+     (infix@B or
+      (infix~4 < target~7 0@2)
+      (infix@A >= target~7
+       (dot@A
+        (dot~6 b~1 slots@1)len@1)))
+     (stmts@b
+      (ret
+       (call@E refused~7 NoSuchStack@1)))))
+   (if@,5
+    (elif@3
+     (infix@7 == source~7 target@3)
+     (stmts@I
+      (ret
+       (call@E refused~7 Nowhere@1)))))
+   (if@,6
+    (elif@3
+     (infix@L !=
+      (dot~6
+       (at~8
+        (dot~6 b~1 slots@1)source@1)item@1)
+      (dot@I
+       (at~8
+        (dot~6 b~1 slots@1)target@1)item@1))
+     (stmts~1,1
+      (ret
+       (call@E refused~7 NotAccepted@1 "those are not the same item"@E)))))
+   (let@4,8 it . . .
+    (call@B itemOf~6
+     (dot@G
+      (at~8
+       (dot~6 b~1 slots@1)source@1)item@1)))
+   (let@4,9 room . . .
+    (infix@K \2D
+     (call~5 perStack~8 it@1)
+     (dot@H
+      (at~8
+       (dot~6 b~1 slots@1)target@1)count@1)))
+   (if@,A
+    (elif@3
+     (infix@5 < room~5 1@2)
+     (stmts@A
+      (ret
+       (call@E refused~7 NoRoom@1)))))
+   (let@4,B moved . . .
+    (call@D least~5 room@1
+     (dot@M
+      (at~8
+       (dot~6 b~1 slots@1)source@1)count@1)))
+   (var@4,C t . . .
+    (at@B
+     (dot~6 b~1 slots@1)target@1))
+   (asgn@8,D
+    (dot~7 t~1 count@1)
+    (infix@A \2B
+     (dot~7 t~1 count@1)moved@2))
+   (asgn@G,E
+    (at~9
+     (dot~6 b~1 slots@1)target@1)t@2)
+   (call@7,F drawOff~7 b@1 source@4 moved@C)
+   (asgn@9,G
+    (at~5 bins~4 at@1)b@2)
+   (call@4,H fine~4 moved@1
+    (expr
+     (stmts@8)
+     (if@1
+      (elif@3
+       (infix@7 < source~7 target@2)
+       (infix@O \2D target~7 1@2))
+      (else@V target@6))))))
+ (comment@,Bk)
+ (proc@,Bm emptyContainer@5 x . .
+  (params@K
+   (param@1 c . . Container@3 .))Outcome@G . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@C indexOf~7 c@1))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret
+       (call@E refused~7 NoSuchContainer@1)))))
+   (var@4,2 b . . .
+    (at@8 bins~4 at@1))
+   (let@4,3 held . . .
+    (dot@E
+     (dot~6 b~1 slots@1)len@1))
+   (asgn@8,4
+    (dot~7 b~1 slots@1)
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@9,5
+    (at~5 bins~4 at@1)b@2)
+   (call@4,6 fine~4 held@1 -1@7)))
+ (proc@,Bz stackCount@5 x . .
+  (params@G
+   (param@1 c . . Container@3 .))int@G . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@C indexOf~7 c@1))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret 0@7))))
+   (dot@E,2
+    (dot~6
+     (at~4 bins~4 at@1)slots@1)len@1)))
+ (proc@,C4 stackAt@5 x . .
+  (params@D
+   (param@1 c . . Container@3 .)
+   (param@F slot . . int@6 .))Stack@R . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@C indexOf~7 c@1))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret
+       (oconstr@C Stack~5
+        (kv@5 item~4 ""@2)
+        (kv@G count~5 0@2))))))
+   (if@,2
+    (elif@3
+     (infix@9 or
+      (infix~4 < slot~5 0@2)
+      (infix@8 >= slot~5
+       (dot@H
+        (dot~6
+         (at~4 bins~4 at@1)slots@1)len@1)))
+     (stmts@e
+      (ret
+       (oconstr@C Stack~5
+        (kv@5 item~4 ""@2)
+        (kv@G count~5 0@2))))))
+   (at@E,3
+    (dot~6
+     (at~4 bins~4 at@1)slots@1)slot@1)))
+ (comment@,CA)
+ (iterator@,CD contents@9 x . .
+  (params@I
+   (param@1 c . . Container@3 .))Stack@G
+  (pragmas@e sideEffect@2).
+  (stmts@2,1
+   (let@4 at . . .
+    (call@C indexOf~7 c@1))
+   (if@,1
+    (elif@3
+     (infix@3 >= at~3 0@3)
+     (stmts~1,1
+      (var@4 i . . . 0@4)
+      (while@,1
+       (infix@8 < i~2
+        (dot@G
+         (dot~6
+          (at~4 bins~4 at@1)slots@1)len@1))
+       (stmts@2,1
+        (yld
+         (at@K
+          (dot~6
+           (at~4 bins~4 at@1)slots@1)i@1))
+        (cmd@,1 inc i@4))))))))
+ (comment@,CL)
+ (proc@,CM countOf@5 x . .
+  (params@D
+   (param@1 c . . Container@3 .)
+   (param@F item . . string@6 .))int@U . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@C indexOf~7 c@1))
+   (asgn@7,1 result~7 0@2)
+   (if@,2
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret .))))
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@G
+      (dot~6
+       (at~4 bins~4 at@1)slots@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@N ==
+        (dot~6
+         (at~3
+          (dot~6
+           (at~4 bins~4 at@1)slots@1)i@1)item@1)item@3)
+       (stmts@W
+        (asgn@7 result~7
+         (infix@9 \2B result~7
+          (dot@J
+           (at~3
+            (dot~6
+             (at~4 bins~4 at@1)slots@1)i@1)count@1))))))
+     (cmd@,1 inc i@4)))))
+ (proc@,CV holds@5 x . .
+  (params@B
+   (param@1 c . . Container@3 .)
+   (param@F item . . string@6 .))bool@U . .
+  (stmts@m
+   (infix@H >
+    (call~A countOf~7 c@1 item@4)0@2)))
+ (proc@,CX bulkUsed@5 x . .
+  (params@E
+   (param@1 c . . Container@3 .))float64@G . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@C indexOf~7 c@1))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret 0.0@7))))
+   (call@8,2 usedBulk~8
+    (at@5 bins~4 at@1))))
+ (proc@,Cc loadUsed@5 x . .
+  (params@E
+   (param@1 c . . Container@3 .))float64@G . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@C indexOf~7 c@1))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret 0.0@7))))
+   (call@8,2 usedLoad~8
+    (at@5 bins~4 at@1))))
+ (comment@,Ch)
+ (proc@,Cj troubleWith@5 x . .
+  (params@H
+   (param@1 c . . Container@3 .)
+   (param@F item . . string@6 .)
+   (param@T count . . . 1@8))Trouble@f . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@C indexOf~7 c@1))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret NoSuchContainer@7))))
+   (call@7,2 trouble~7
+    (at@5 bins~4 at@1)
+    (call@H itemOf~6 item@1)count@P)))
+ (proc@,Co roomFor@5 x . .
+  (params@D
+   (param@1 c . . Container@3 .)
+   (param@F item . . string@6 .)
+   (param@T count . . . 1@8))bool@f . .
+  (stmts@2,1
+   (infix@S ==
+    (call~H troubleWith~B c@1 item@4 count@A)NoTrouble@3)))
+ (comment@,Cr)
+ (proc@,Cs accepts@5 x . .
+  (params@D
+   (param@1 c . . Container@3 .)
+   (param@F item . . string@6 .))bool@U . .
+  (stmts@2,1
+   (let@4 at . . .
+    (call@C indexOf~7 c@1))
+   (if@,1
+    (elif@3
+     (infix@3 < at~3 0@2)
+     (stmts@8
+      (ret false@7))))
+   (call@4,2 lets~4
+    (dot@9
+     (at~4 bins~4 at@1)definition@1)
+    (call@S itemOf~6 item@1)))))

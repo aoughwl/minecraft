@@ -1,0 +1,90 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/source/jester_mod_3544d3afed850ed6.nim
+ (comment)
+ (import@,6 jester@7)
+ (comment@,8)
+ (proc@,A face@5 . . .
+  (params@9
+   (param@1 ax . . float64@m .)
+   (param@5 ay . . float64@i .)
+   (param@9 az . . float64@e .)
+   (param@D bx . . float64@a .)
+   (param@H by . . float64@W .)
+   (param@L bz . . float64@S .)
+   (param@P cx . . float64@O .)
+   (param@T cy . . float64@K .)
+   (param@X cz . . float64@G .)
+   (param@b nx . . float64@C .)
+   (param@f ny . . float64@8 .)
+   (param@j nz . . float64@4 .)). . .
+  (stmts@2,1
+   (let@4 a . . .
+    (call@D addVertex~9 ax@1 ay@5 az@9))
+   (call@9,1 addNormal~9 nx@1 ny@5 nz@9)
+   (let@4,2 b . . .
+    (call@D addVertex~9 bx@1 by@5 bz@9))
+   (call@9,3 addNormal~9 nx@1 ny@5 nz@9)
+   (let@4,4 c . . .
+    (call@D addVertex~9 cx@1 cy@5 cz@9))
+   (call@9,5 addNormal~9 nx@1 ny@5 nz@9)
+   (call@B,6 addTriangle~B a@1 b@4 c@7)))
+ (proc@,J quad@5 . . .
+  (params@9
+   (param@1 ax . . float64@6,1 .)
+   (param@5 ay . . float64@2,1 .)
+   (param@9 az . . float64~2,1 .)
+   (param@D bx . . float64~6,1 .)
+   (param@H by . . float64~A,1 .)
+   (param@L bz . . float64~E,1 .)
+   (param@P cx . . float64~I,1 .)
+   (param@T cy . . float64~M,1 .)
+   (param@X cz . . float64~Q,1 .)
+   (param@b dx . . float64~U,1 .)
+   (param@f dy . . float64~Y,1 .)
+   (param@j dz . . float64~c,1 .)
+   (param~5,1 nx . . float64@C .)
+   (param~1,1 ny . . float64@8 .)
+   (param@3,1 nz . . float64@4 .)). . .
+  (stmts@2,2
+   (call@4 face~4 ax@1 ay@5 az@9 bx@D by@H bz@L cx@P cy@T cz@X nx@b ny@f nz@j)
+   (call@4,1 face~4 ax@1 ay@5 az@9 cx@D cy@H cz@L dx@P dy@T dz@X nx@b ny@f nz@j)))
+ (comment@,O)
+ (proc@,R wedge@5 . . .
+  (params@A). . .
+  (stmts@2,1
+   (let@4 s . . . 0.7071067811865476@4)
+   (call@9,1 beginMesh~9)
+   (call@4,2 quad~4 -0.5@1 -0.5@7 -0.5@D 0.5@J -0.5@O -0.5@U 0.5@a -0.5@f 0.5@l -0.5@q -0.5@w 0.5@12 0.0~2,1 -1.0@3,1 0.0@9,1)
+   (call@4,4 quad~4 -0.5@1 -0.5@7 -0.5@D -0.5@J -0.5@P 0.5@V -0.5@a 0.5@g 0.5@l -0.5@q 0.5@w -0.5@11 -1.0~2,1 0.0@4,1 0.0@9,1)
+   (call@4,6 quad~4 0.5@1 -0.5@6 -0.5@C -0.5@I 0.5@O -0.5@T -0.5@Z 0.5@f 0.5@k 0.5@p -0.5@u 0.5@10 s~2,1 s@1,1 0.0@4,1)
+   (call@4,8 face~4 -0.5@1 -0.5@7 -0.5@D -0.5@J 0.5@P -0.5@U 0.5@a -0.5@f -0.5@l 0.0@r 0.0@w -1.0@11)
+   (call@4,9 face~4 -0.5@1 -0.5@7 0.5@D 0.5@I -0.5@N 0.5@T -0.5@Y 0.5@e 0.5@j 0.0@o 0.0@t 1.0@y)
+   (call@A,A finishMesh~A)))
+ (comment@,e)
+ (proc@,g resolveModFile@5 . . .
+  (params@J). . .
+  (stmts@2,1
+   (call@C useModelFile~C
+    (call@C partLocator~B))))
+ (comment@,j)
+ (proc@,l resolveBuiltin@5 . . .
+  (params@J). . .
+  (stmts@2,1
+   (let@4 what . . .
+    (call@I partLocator~B))
+   (if@,1
+    (elif@3
+     (infix@5 == what~5 "wedge"@3)
+     (stmts~1,1
+      (call@5 wedge~5)))
+    (else@,2
+     (stmts@2,1
+      (call@8 useShape~8 what@1))))))
+ (proc@,s start@5 . . .
+  (params@A). . .
+  (stmts@2,1
+   (call@H defineCatalogKind~H "aoughwl.part"@1 "text"@H "Anything that can be placed in the world and has a visual asset."~F,1)
+   (call@D,2 provideScheme~D "builtin"@1 "resolveBuiltin"@C)
+   (call@D,3 provideScheme~D "mod"@1 "resolveModFile"@8))))

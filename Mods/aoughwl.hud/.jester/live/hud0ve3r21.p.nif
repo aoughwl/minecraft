@@ -1,0 +1,1513 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,hudrecipe.nim
+ (comment)
+ (import@,I hudcore@7)
+ (type@D,K Recipe~8 x . .
+  (object@2 .
+   (fld~B,4 id~2 x . string@3 .)
+   (fld~7,5 shaped~6 x . bool@3 .)
+   (fld~9,6 wide~4 x . int@A .)
+   (fld~2,6 tall~4 x . int@3 .)
+   (fld~8,7 cells~5 x .
+    (at@6 seq~3 string@1).)
+   (fld~8,9 needs~5 x .
+    (at@6 seq~3 string@1).)
+   (fld~9,B made~4 x . string@3 .)
+   (fld~8,C count~5 x . int@3 .)
+   (fld~6,D problem~7 x . string@3 .)))
+ (proc@,Z broken@5 . . .
+  (params@B
+   (param@1 id . . string@9 .)
+   (param@5 why . . string@5 .))Recipe@J . .
+  (stmts@2,1
+   (oconstr@6 Recipe~6
+    (kv@3 id~2 id@2)
+    (kv@F shaped~6 false@2)
+    (kv@S wide~4 0@2)
+    (kv@b tall~4 0@2)
+    (kv@l cells~5
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@x needs~5
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@,1 made~4 ""@2)
+    (kv@B,1 count~5 0@2)
+    (kv@N,1 problem~7 why@2))))
+ (proc@,d usable@5 x . .
+  (params@C
+   (param@1 r . . Recipe@3 .))bool@D . .
+  (stmts@W
+   (infix@J and
+    (infix~5 ==
+     (dot~5
+      (dot~8 r~1 problem@1)len@1)0@3)
+    (infix@F >
+     (dot~5
+      (dot~5 r~1 made@1)len@1)0@2))))
+ (comment@,f)
+ (proc@,g parseOutput@5 . . .
+  (params@G
+   (param@1 text . . string@6 .)
+   (param@F made . .
+    (mut@6 string@4).)
+   (param@X count . .
+    (mut@7 int@4).))bool@o . .
+  (stmts@2,1
+   (let@4 parts . . .
+    (call@F splitOn~7 text@1 '*'@7))
+   (asgn@5,1 made~5
+    (call@9 trimmed~7
+     (at@6 parts~5 0@1)))
+   (asgn@6,2 count~6 1@2)
+   (if@,3
+    (elif@3
+     (infix@A >
+      (dot~5 parts~5 len@1)2@2)
+     (stmts@F
+      (ret false@7))))
+   (if@,4
+    (elif@3
+     (infix@A ==
+      (dot~5 parts~5 len@1)2@3)
+     (stmts~1,1
+      (asgn@6 count~6
+       (call@9 wholeOf~7
+        (at@6 parts~5 1@1)-1@B))
+      (if@,1
+       (elif@3
+        (infix@6 < count~6 1@2)
+        (stmts@B
+         (ret false@7)))))))
+   (infix@9,7 >
+    (dot~5 made~4 len@1)0@2)))
+ (comment@,q)
+ (proc@,r parseKeys@5 . . .
+  (params@E
+   (param@1 text . . string@6 .)
+   (param@F marks . .
+    (mut@7
+     (at@7 seq~3 char@1)).)
+   (param~A,1 items . .
+    (mut@7
+     (at@7 seq~3 string@1)).))bool@F,1 . .
+  (stmts@2,2
+   (asgn@6 marks~6
+    (prefix@2 \40
+     (bracket@1)))
+   (asgn@6,1 items~6
+    (prefix@2 \40
+     (bracket@1)))
+   (let@4,2 body . . .
+    (call@E trimmed~7 text@1))
+   (if@,3
+    (elif@3
+     (infix@9 ==
+      (dot~5 body~4 len@1)0@3)
+     (stmts@F
+      (ret true@7))))
+   (let@4,4 pairs . . .
+    (call@F splitOn~7 body@1 ','@7))
+   (var@4,5 i . . . 0@4)
+   (while@,6
+    (infix@8 < i~2
+     (dot@7 pairs~5 len@1))
+    (stmts@2,1
+     (let@4 one . . .
+      (call@D trimmed~7
+       (at@6 pairs~5 i@1)))
+     (if@,1
+      (elif@3
+       (infix@8 >
+        (dot~5 one~3 len@1)0@2)
+       (stmts~1,1
+        (let@4 halves . . .
+         (call@G splitOn~7 one@1 '='@6))
+        (if@,1
+         (elif@3
+          (infix@B !=
+           (dot~5 halves~6 len@1)2@3)
+          (stmts@H
+           (ret false@7))))
+        (let@4,2 mark . . .
+         (call@E trimmed~7
+          (at@7 halves~6 0@1)))
+        (let@4,3 item . . .
+         (call@E trimmed~7
+          (at@7 halves~6 1@1)))
+        (if@,4
+         (elif@3
+          (infix@E or
+           (infix~5 !=
+            (dot~5 mark~4 len@1)1@3)
+           (infix@C ==
+            (dot~5 item~4 len@1)0@3))
+          (stmts@W
+           (ret false@7))))
+        (cmd@5,5
+         (dot marks~5 add@1)
+         (at@9 mark~4 0@1))
+        (cmd@5,6
+         (dot items~5 add@1)item@5))))
+     (asgn@2,9 i~2
+      (infix@4 \2B i~2 1@2))))true@,H))
+ (proc@,1C itemForMark@5 . . .
+  (params@G
+   (param@1 marks . .
+    (at@A seq~3 char@1).)
+   (param@J items . .
+    (at@A seq~3 string@1).)
+   (param@d mark . . char@6 .))string@q . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@7 marks~5 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@9 ==
+        (at~4 marks~5 i@1)mark@3)
+       (stmts@I
+        (asgn@7 result~7
+         (at@7 items~5 i@1)))))
+     (asgn@2,1 i~2
+      (infix@4 \2B i~2 1@2))))))
+ (comment@,1J)
+ (proc@,1L parseRecipe@5 x . .
+  (params@H
+   (param@1 id . . string@A .)
+   (param@5 text . . string@6 .))Recipe@K . .
+  (stmts@2,1
+   (let@4 fields . . .
+    (call@G splitOn~7 text@1 '|'@7))
+   (if@,1
+    (elif@3
+     (infix@B <
+      (dot~5 fields~6 len@1)3@2)
+     (stmts@G
+      (ret
+       (call@D broken~6 id@1 "a recipe is at least three fields"@5)))))
+   (let@4,2 form . . .
+    (call@E trimmed~7
+     (at@7 fields~6 0@1)))
+   (if@,3
+    (elif@3
+     (infix@5 == form~5 "shapeless"@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@B !=
+         (dot~5 fields~6 len@1)3@3)
+        (stmts@H
+         (ret
+          (call@D broken~6 id@1 "a shapeless recipe is three fields"@5)))))
+      (var@4,1 needs . .
+       (at@A seq~3 string@1)
+       (prefix@L \40
+        (bracket@1)))
+      (let@4,2 listed . . .
+       (call@G splitOn~7
+        (at@7 fields~6 1@1)','@C))
+      (var@4,3 i . . . 0@4)
+      (while@,4
+       (infix@8 < i~2
+        (dot@8 listed~6 len@1))
+       (stmts@2,1
+        (let@4 one . . .
+         (call@D trimmed~7
+          (at@7 listed~6 i@1)))
+        (if@,1
+         (elif@3
+          (infix@8 >
+           (dot~5 one~3 len@1)0@2)
+          (stmts@D
+           (cmd@5
+            (dot needs~5 add@1)one@5))))
+        (asgn@2,2 i~2
+         (infix@4 \2B i~2 1@2))))
+      (if@,8
+       (elif@3
+        (infix@A ==
+         (dot~5 needs~5 len@1)0@3)
+        (stmts@G
+         (ret
+          (call@D broken~6 id@1 "a recipe needs an ingredient"@5)))))
+      (if@,9
+       (elif@3
+        (infix@A >
+         (dot~5 needs~5 len@1)9@2)
+        (stmts@F
+         (ret
+          (call@D broken~6 id@1 "no bench has ten slots"@5)))))
+      (var@4,A made . . . ""@7)
+      (var@4,B count . . . 0@8)
+      (if@,C
+       (elif@3
+        (prefix not
+         (call@F parseOutput~B
+          (at@7 fields~6 2@1)made@C count@I))
+        (stmts~1,1
+         (ret
+          (call@D broken~6 id@1 "a recipe ends in item*count"@5)))))
+      (ret@,E
+       (oconstr@D Recipe~6
+        (kv@3 id~2 id@2)
+        (kv@F shaped~6 false@2)
+        (kv@S wide~4 0@2)
+        (kv@b tall~4 0@2)
+        (kv@l cells~5
+         (prefix@2 \40
+          (bracket@1)))
+        (kv~6,1 needs~5 needs@2)
+        (kv@7,1 made~4 made@2)
+        (kv@K,1 count~5 count@2)
+        (kv@a,1 problem~7 ""@2))))))
+   (if@,K
+    (elif@3
+     (infix@5 != form~5 "shaped"@3)
+     (stmts@I
+      (ret
+       (call@D broken~6 id@1 "a recipe is shaped or shapeless"@5)))))
+   (if@,L
+    (elif@3
+     (infix@B !=
+      (dot~5 fields~6 len@1)5@3)
+     (stmts@H
+      (ret
+       (call@D broken~6 id@1 "a shaped recipe is five fields"@5)))))
+   (let@4,M size . . .
+    (call@E splitOn~7
+     (call@8 trimmed~7
+      (at@7 fields~6 1@1))'x'@L))
+   (if@,N
+    (elif@3
+     (infix@9 !=
+      (dot~5 size~4 len@1)2@3)
+     (stmts@F
+      (ret
+       (call@D broken~6 id@1 "a shape is spelled WxH"@5)))))
+   (let@4,O wide . . .
+    (call@E wholeOf~7
+     (at@5 size~4 0@1)-1@A))
+   (let@4,P tall . . .
+    (call@E wholeOf~7
+     (at@5 size~4 1@1)-1@A))
+   (if@,Q
+    (elif@3
+     (infix@X or
+      (infix~C or
+       (infix~C or
+        (infix~4 < wide~5 1@2)
+        (infix@8 < tall~5 1@2))
+       (infix@8 > wide~5 3@2))
+      (infix@8 > tall~5 3@2))
+     (stmts~1,1
+      (ret
+       (call@D broken~6 id@1 "a shape is between 1x1 and 3x3"@5)))))
+   (let@4,S rows . . .
+    (call@E splitOn~7
+     (call@8 trimmed~7
+      (at@7 fields~6 2@1))'/'@L))
+   (if@,T
+    (elif@3
+     (infix@9 !=
+      (dot~5 rows~4 len@1)tall@3)
+     (stmts@I
+      (ret
+       (call@D broken~6 id@1
+        (infix@V &
+         (infix~8 & "the shape says "~I
+          (prefix@2 $ tall@1))" rows"@2))))))
+   (var@4,U marks . .
+    (at@A seq~3 char@1)
+    (prefix@J \40
+     (bracket@1)))
+   (var@4,V items . .
+    (at@A seq~3 string@1)
+    (prefix@L \40
+     (bracket@1)))
+   (if@,W
+    (elif@3
+     (prefix not
+      (call@D parseKeys~9
+       (at@7 fields~6 3@1)marks@C items@J))
+     (stmts~1,1
+      (ret
+       (call@D broken~6 id@1 "the keys are spelled k=item,k=item"@5)))))
+   (var@4,Y cells . .
+    (at@A seq~3 string@1)
+    (prefix@L \40
+     (bracket@1)))
+   (var@4,Z row . . . 0@6)
+   (while@,a
+    (infix@A < row~4 tall@2)
+    (stmts@2,1
+     (let@4 line . . .
+      (at@B rows~4 row@1))
+     (if@,1
+      (elif@3
+       (infix@9 !=
+        (dot~5 line~4 len@1)wide@3)
+       (stmts@I
+        (ret
+         (call@D broken~6 id@1
+          (infix@e &
+           (infix~8 &
+            (infix~D &
+             (infix~7 & "row "~7
+              (prefix@2 $ row@1))" is not "@2)
+            (prefix@2 $ wide@1))" wide"@2))))))
+     (var@4,2 column . . . 0@9)
+     (while@,3
+      (infix@D < column~7 wide@2)
+      (stmts@2,1
+       (let@4 mark . . .
+        (at@B line~4 column@1))
+       (if@,1
+        (elif@3
+         (infix@C or
+          (infix~7 == mark~5 '.'@3)
+          (infix@8 == mark~5 ' '@3))
+         (stmts~1,1
+          (cmd@5
+           (dot cells~5 add@1)""@5)))
+        (else@,2
+         (stmts@2,1
+          (let@4 item . . .
+           (call@I itemForMark~B marks@1 items@8 mark@F))
+          (if@,1
+           (elif@3
+            (infix@9 ==
+             (dot~5 item~4 len@1)0@3)
+            (stmts@F
+             (ret
+              (call@D broken~6 id@1 "nothing is keyed to that mark"@5)))))
+          (cmd@5,2
+           (dot cells~5 add@1)item@5))))
+       (asgn@7,7 column~7
+        (infix@9 \2B column~7 1@2))))
+     (asgn@4,C row~4
+      (infix@6 \2B row~4 1@2))))
+   (var@4,o made . . . ""@7)
+   (var@4,p count . . . 0@8)
+   (if@,q
+    (elif@3
+     (prefix not
+      (call@F parseOutput~B
+       (at@7 fields~6 4@1)made@C count@I))
+     (stmts~1,1
+      (ret
+       (call@D broken~6 id@1 "a recipe ends in item*count"@5)))))
+   (oconstr@6,s Recipe~6
+    (kv@3 id~2 id@2)
+    (kv@F shaped~6 true@2)
+    (kv@R wide~4 wide@2)
+    (kv@d tall~4 tall@2)
+    (kv@q cells~5 cells@2)
+    (kv@1,1 needs~5
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@C,1 made~4 made@2)
+    (kv@P,1 count~5 count@2)
+    (kv@f,1 problem~7 ""@2))))
+ (comment@,2H)
+ (proc@,2K recipeText@5 x . .
+  (params@G
+   (param@1 r . . Recipe@3 .))string@D . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (dot@5 r~1 shaped@1))
+     (stmts~1,1
+      (asgn@7 result~7 "shapeless|"@2)
+      (var@4,1 i . . . 0@4)
+      (while@,2
+       (infix@8 < i~2
+        (dot@9
+         (dot~6 r~1 needs@1)len@1))
+       (stmts@2,1
+        (if
+         (elif@3
+          (infix@2 > i~2 0@2)
+          (stmts@7
+           (cmd@6
+            (dot result~6 add@1)","@5))))
+        (cmd@6,1
+         (dot result~6 add@1)
+         (at@C
+          (dot~6 r~1 needs@1)i@1))
+        (asgn@2,2 i~2
+         (infix@4 \2B i~2 1@2))))
+      (cmd@6,6
+       (dot result~6 add@1)
+       (infix@O &
+        (infix~6 &
+         (infix~9 & "|"~4
+          (dot@3 r~1 made@1))"*"@2)
+        (prefix@2 $
+         (dot@2 r~1 count@1))))
+      (ret@,7 result@7))))
+   (const@6,B Marks . . . "abcdefghi"@8)
+   (var@4,C distinct0 . .
+    (at@E seq~3 string@1)
+    (prefix@P \40
+     (bracket@1)))
+   (var@4,D i . . . 0@4)
+   (while@,E
+    (infix@8 < i~2
+     (dot@9
+      (dot~6 r~1 cells@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@F >
+        (dot~5
+         (at~3
+          (dot~6 r~1 cells@1)i@1)len@1)0@2)
+       (stmts~1,1
+        (var@4 seen . . . false@7)
+        (var@4,1 j . . . 0@4)
+        (while@,2
+         (infix@8 < j~2
+          (dot@B distinct0~9 len@1))
+         (stmts@2,1
+          (if
+           (elif@3
+            (infix@D ==
+             (at~4 distinct0~9 j@1)
+             (at@A
+              (dot~6 r~1 cells@1)i@1))
+            (stmts@S
+             (asgn@5 seen~5 true@2))))
+          (asgn@2,1 j~2
+           (infix@4 \2B j~2 1@2))))
+        (if@,5
+         (elif@3
+          (prefix not seen@4)
+          (stmts@A
+           (cmd@9
+            (dot distinct0~9 add@1)
+            (at@C
+             (dot~6 r~1 cells@1)i@1))))))))
+     (asgn@2,7 i~2
+      (infix@4 \2B i~2 1@2))))
+   (asgn@7,N result~7
+    (infix@c &
+     (infix~A &
+      (infix~6 &
+       (infix~A & "shaped|"~A
+        (prefix@2 $
+         (dot@2 r~1 wide@1)))"x"@2)
+      (prefix@2 $
+       (dot@2 r~1 tall@1)))"|"@2))
+   (var@4,O row . . . 0@6)
+   (while@,P
+    (infix@A < row~4
+     (dot@3 r~1 tall@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@4 > row~4 0@2)
+       (stmts@9
+        (cmd@6
+         (dot result~6 add@1)"/"@5))))
+     (var@4,1 column . . . 0@9)
+     (while@,2
+      (infix@D < column~7
+       (dot@3 r~1 wide@1))
+      (stmts@2,1
+       (let@4 cell . . .
+        (at@E
+         (dot~6 r~1 cells@1)
+         (infix@E \2B
+          (infix~9 * row~4
+           (dot@3 r~1 wide@1))column@2)))
+       (if@,1
+        (elif@3
+         (infix@9 ==
+          (dot~5 cell~4 len@1)0@3)
+         (stmts@F
+          (cmd@6
+           (dot result~6 add@1)"."@5)))
+        (else@,1
+         (stmts@2,1
+          (var@4 at . . . 0@5)
+          (var@4,1 j . . . 0@4)
+          (while@,2
+           (infix@8 < j~2
+            (dot@B distinct0~9 len@1))
+           (stmts@2,1
+            (if
+             (elif@3
+              (infix@D ==
+               (at~4 distinct0~9 j@1)cell@3)
+              (stmts@M
+               (asgn@3 at~3 j@2))))
+            (asgn@2,1 j~2
+             (infix@4 \2B j~2 1@2))))
+          (cmd@6,5
+           (dot result~6 add@1)
+           (at@A Marks~5 at@1)))))
+       (asgn@7,9 column~7
+        (infix@9 \2B column~7 1@2))))
+     (asgn@4,D row~4
+      (infix@6 \2B row~4 1@2))))
+   (cmd@6,e
+    (dot result~6 add@1)"|"@5)
+   (asgn@2,f i~2 0@2)
+   (while@,g
+    (infix@8 < i~2
+     (dot@B distinct0~9 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 > i~2 0@2)
+       (stmts@7
+        (cmd@6
+         (dot result~6 add@1)","@5))))
+     (cmd@6,1
+      (dot result~6 add@1)
+      (at@A Marks~5 i@1))
+     (cmd@6,2
+      (dot result~6 add@1)"="@5)
+     (cmd@6,3
+      (dot result~6 add@1)
+      (at@E distinct0~9 i@1))
+     (asgn@2,4 i~2
+      (infix@4 \2B i~2 1@2))))
+   (cmd@6,m
+    (dot result~6 add@1)
+    (infix@O &
+     (infix~6 &
+      (infix~9 & "|"~4
+       (dot@3 r~1 made@1))"*"@2)
+     (prefix@2 $
+      (dot@2 r~1 count@1))))))
+ (type@C,3D Bench~7 x . .
+  (object@2 .
+   (fld~8,4 wide~4 x . int@A .)
+   (fld~1,4 tall~4 x . int@3 .)
+   (fld~7,5 cells~5 x .
+    (at@6 seq~3 ItemStack@1).)
+   (fld~8,6 made~4 x . ItemStack@3 .)
+   (fld~6,7 recipe~6 x . int@3 .)))
+ (proc@,3O newBench@5 x . .
+  (params@E
+   (param@1 wide . . int@C .)
+   (param@7 tall . . int@6 .))Bench@J . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@7 Bench~5
+     (kv@5 wide~4 wide@2)
+     (kv@H tall~4 tall@2)
+     (kv@U cells~5
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@f made~4
+      (call@E nothingStack~C))
+     (kv~6,1 recipe~6 -1@2)))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (infix@7 * wide~5 tall@2))
+    (stmts@2,1
+     (cmd@C
+      (dot
+       (dot~6 result~6 cells@1)add@1)
+      (call@H nothingStack~C))
+     (asgn@2,1 i~2
+      (infix@4 \2B i~2 1@2))))))
+ (proc@,3W benchAt@5 x . .
+  (params@D
+   (param@1 b . . Bench@3 .)
+   (param@B slot . . int@6 .))ItemStack@N . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 or
+      (infix~4 < slot~5 0@2)
+      (infix@8 >= slot~5
+       (dot@A
+        (dot~6 b~1 cells@1)len@1)))
+     (stmts@X
+      (call@C nothingStack~C)))
+    (else@p
+     (stmts@6
+      (at@7
+       (dot~6 b~1 cells@1)slot@1))))))
+ (proc@,3Z benchPut@5 x . .
+  (params@E
+   (param@1 b . .
+    (mut@3 Bench@4).)
+   (param@F slot . . int@6 .)
+   (param@Q s . . ItemStack@3 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 or
+      (infix~4 < slot~5 0@2)
+      (infix@8 >= slot~5
+       (dot@A
+        (dot~6 b~1 cells@1)len@1)))
+     (stmts@X
+      (ret .))))
+   (asgn@E,1
+    (at~7
+     (dot~6 b~1 cells@1)slot@1)s@2)))
+ (proc@,3h filled@5 . . .
+  (params@B
+   (param@1 b . . Bench@3 .))int@C . .
+  (stmts@2,1
+   (asgn@7 result~7 0@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@9
+      (dot~6 b~1 cells@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (prefix not
+        (call@B isEmpty~7
+         (at@8
+          (dot~6 b~1 cells@1)i@1)))
+       (stmts@P
+        (asgn@7 result~7
+         (infix@9 \2B result~7 1@2)))))
+     (asgn@2,1 i~2
+      (infix@4 \2B i~2 1@2))))))
+ (proc@,3o matchesShapeless@5 . . .
+  (params@L
+   (param@1 r . . Recipe@3 .)
+   (param@C b . . Bench@3 .))bool@N . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A !=
+      (call~4 filled~6 b@1)
+      (dot@A
+       (dot~6 r~1 needs@1)len@1))
+     (stmts@Q
+      (ret false@7))))
+   (var@4,1 used . .
+    (at@9 seq~3 bool@1)
+    (prefix@I \40
+     (bracket@1)))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@9
+      (dot~6 b~1 cells@1)len@1))
+    (stmts@2,1
+     (cmd@4
+      (dot used~4 add@1)false@5)
+     (asgn@2,1 i~2
+      (infix@4 \2B i~2 1@2))))
+   (var@4,6 need . . . 0@7)
+   (while@,7
+    (infix@B < need~5
+     (dot@9
+      (dot~6 r~1 needs@1)len@1))
+    (stmts@2,1
+     (var@4 found . . . false@8)
+     (var@4,1 cell . . . 0@7)
+     (while@,2
+      (infix@P and
+       (infix~E < cell~5
+        (dot@9
+         (dot~6 b~1 cells@1)len@1))
+       (prefix@4 not found@4))
+      (stmts@2,1
+       (if
+        (elif@3
+         (infix@o and
+          (infix~X and
+           (par~H
+            (prefix@1 not
+             (at@8 used~4 cell@1)))
+           (par@4
+            (prefix@1 not
+             (call@B isEmpty~7
+              (at@8
+               (dot~6 b~1 cells@1)cell@1)))))
+          (infix~U,1 ==
+           (dot~6
+            (at~6
+             (dot~6 b~1 cells@1)cell@1)item@1)
+           (at@A
+            (dot~6 r~1 needs@1)need@1)))
+         (stmts~1,2
+          (asgn@B
+           (at~7 used~4 cell@1)true@2)
+          (asgn@6,1 found~6 true@2))))
+       (asgn@5,4 cell~5
+        (infix@7 \2B cell~5 1@2))))
+     (if@,8
+      (elif@3
+       (prefix not found@4)
+       (stmts@B
+        (ret false@7))))
+     (asgn@5,9 need~5
+      (infix@7 \2B need~5 1@2))))true@,I))
+ (comment@,49)
+ (proc@,4B extentOf@5 . . .
+  (params@D
+   (param@1 b . . Bench@3 .)
+   (param@B left . .
+    (mut@N int@4).)
+   (param@H top . .
+    (mut@H int@4).)
+   (param@M wide . .
+    (mut@C int@4).)
+   (param@S tall . .
+    (mut@6 int@4).)). . .
+  (stmts@2,1
+   (asgn@5 left~5
+    (dot@3 b~1 wide@1))
+   (asgn@4,1 top~4
+    (dot@3 b~1 tall@1))
+   (var@4,2 right . . . -1@8)
+   (var@4,3 bottom . . . -1@9)
+   (var@4,4 row . . . 0@6)
+   (while@,5
+    (infix@A < row~4
+     (dot@3 b~1 tall@1))
+    (stmts@2,1
+     (var@4 column . . . 0@9)
+     (while@,1
+      (infix@D < column~7
+       (dot@3 b~1 wide@1))
+      (stmts@2,1
+       (if
+        (elif@3
+         (prefix not
+          (call@B isEmpty~7
+           (at@8
+            (dot~6 b~1 cells@1)
+            (infix@E \2B
+             (infix~9 * row~4
+              (dot@3 b~1 wide@1))column@2))))
+         (stmts~1,1
+          (if
+           (elif@3
+            (infix@7 < column~7 left@2)
+            (stmts@F
+             (asgn@5 left~5 column@2))))
+          (if@,1
+           (elif@3
+            (infix@7 > column~7 right@2)
+            (stmts@G
+             (asgn@6 right~6 column@2))))
+          (if@,2
+           (elif@3
+            (infix@4 < row~4 top@2)
+            (stmts@B
+             (asgn@4 top~4 row@2))))
+          (if@,3
+           (elif@3
+            (infix@4 > row~4 bottom@2)
+            (stmts@E
+             (asgn@7 bottom~7 row@2)))))))
+       (asgn@7,5 column~7
+        (infix@9 \2B column~7 1@2))))
+     (asgn@4,8 row~4
+      (infix@6 \2B row~4 1@2))))
+   (if@,F
+    (elif@3
+     (infix@6 < right~6 0@2)
+     (stmts~1,1
+      (asgn@5 left~5 0@2)
+      (asgn@4,1 top~4 0@2)
+      (asgn@5,2 wide~5 0@2)
+      (asgn@5,3 tall~5 0@2)
+      (ret@,4 .))))
+   (asgn@5,L wide~5
+    (infix@F \2B
+     (infix~7 \2D right~6 left@2)1@2))
+   (asgn@5,M tall~5
+    (infix@F \2B
+     (infix~6 \2D bottom~7 top@2)1@2))))
+ (proc@,4a matchesShapedAt@5 . . .
+  (params@K
+   (param@1 r . . Recipe@3 .)
+   (param@C b . . Bench@3 .)
+   (param@M left . . int@B .)
+   (param@S top . . int@5 .)
+   (param@c mirrored . . bool@A .))bool@t . .
+  (stmts@2,1
+   (var@4 row . . . 0@6)
+   (while@,1
+    (infix@A < row~4
+     (dot@3 r~1 tall@1))
+    (stmts@2,1
+     (var@4 column . . . 0@9)
+     (while@,1
+      (infix@D < column~7
+       (dot@3 r~1 wide@1))
+      (stmts@2,1
+       (var@4 take . . . column@7)
+       (if@,1
+        (elif@3 mirrored
+         (stmts@A
+          (asgn@5 take~5
+           (infix@D \2D
+            (infix~4 \2D
+             (dot~6 r~1 wide@1)1@2)column@2)))))
+       (let@4,2 wanted . . .
+        (at@G
+         (dot~6 r~1 cells@1)
+         (infix@E \2B
+          (infix~9 * row~4
+           (dot@3 r~1 wide@1))take@2)))
+       (let@4,3 here . . .
+        (at@E
+         (dot~6 b~1 cells@1)
+         (infix@M \2B
+          (infix~9 *
+           (par~C
+            (infix@5 \2B top~4 row@2))
+           (dot@3 b~1 wide@1))
+          (par@2
+           (infix@6 \2B left~5 column@2)))))
+       (if@,4
+        (elif@3
+         (infix@B ==
+          (dot~5 wanted~6 len@1)0@3)
+         (stmts~1,1
+          (if
+           (elif@3
+            (prefix not
+             (call@B isEmpty~7 here@1))
+            (stmts@J
+             (ret false@7))))))
+        (else@,2
+         (stmts@2,1
+          (if
+           (elif@3
+            (infix@E or
+             (call~7 isEmpty~7 here@1)
+             (infix@D !=
+              (dot~6 here~4 item@1)wanted@3))
+            (stmts@c
+             (ret false@7)))))))
+       (asgn@7,8 column~7
+        (infix@9 \2B column~7 1@2))))
+     (asgn@4,B row~4
+      (infix@6 \2B row~4 1@2))))true@,E))
+ (proc@,4r matchesShaped@5 . . .
+  (params@I
+   (param@1 r . . Recipe@3 .)
+   (param@C b . . Bench@3 .))bool@N . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@G or
+      (infix~9 >
+       (dot~6 r~1 wide@1)
+       (dot@3 b~1 wide@1))
+      (infix@A >
+       (dot~6 r~1 tall@1)
+       (dot@3 b~1 tall@1)))
+     (stmts@a
+      (ret false@7))))
+   (var@4,1 left . . . 0@7)
+   (var@4,2 top . . . 0@6)
+   (var@4,3 wide . . . 0@7)
+   (var@4,4 tall . . . 0@7)
+   (call@8,5 extentOf~8 b@1 left@4 top@A wide@F tall@L)
+   (if@,6
+    (elif@3
+     (infix@5 == wide~5 0@3)
+     (stmts@B
+      (ret false@7))))
+   (if@,7
+    (elif@3
+     (infix@F or
+      (infix~A != wide~5
+       (dot@4 r~1 wide@1))
+      (infix@8 != tall~5
+       (dot@4 r~1 tall@1)))
+     (stmts@Y
+      (ret false@7))))
+   (if@,8
+    (elif@3
+     (call@F matchesShapedAt~F r@1 b@4 left@7 top@D false@I)
+     (stmts@f
+      (ret true@7))))
+   (call@F,9 matchesShapedAt~F r@1 b@4 left@7 top@D true@I)))
+ (comment@,53)
+ (proc@,54 matches@5 x . .
+  (params@D
+   (param@1 r . . Recipe@3 .)
+   (param@C b . . Bench@3 .))bool@N . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@A usable~6 r@1))
+     (stmts@F
+      (ret false@7))))
+   (if@,1
+    (elif@3
+     (dot@1 r~1 shaped@1)
+     (stmts@A
+      (call@D matchesShaped~D r@1 b@4)))
+    (else@X
+     (stmts@6
+      (call@G matchesShapeless~G r@1 b@4))))))
+ (comment@,58)
+ (proc@,5B matching@5 x . .
+  (params@E
+   (param@1 recipes . .
+    (at@C seq~3 Recipe@1).)
+   (param@N b . . Bench@3 .))int@Y . .
+  (stmts@2,1
+   (asgn@7 result~7 -1@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@9 recipes~7 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (call@7 matches~7
+        (at@8 recipes~7 i@1)b@D)
+       (stmts@O
+        (asgn@7 result~7 i@2))))
+     (asgn@2,1 i~2
+      (infix@4 \2B i~2 1@2))))))
+ (comment@,5I)
+ (proc@,5K settle@5 x . .
+  (params@C
+   (param@1 b . .
+    (mut@3 Bench@4).)
+   (param@F recipes . .
+    (at@C seq~3 Recipe@1).)). . .
+  (stmts@2,1
+   (asgn@9
+    (dot~8 b~1 recipe@1)
+    (call@A matching~8 recipes@1 b@A))
+   (if@,1
+    (elif@3
+     (infix@9 <
+      (dot~8 b~1 recipe@1)0@2)
+     (stmts~1,1
+      (asgn@7
+       (dot~6 b~1 made@1)
+       (call@E nothingStack~C))
+      (ret@,1 .))))
+   (let@4,4 r . . .
+    (at@B recipes~7
+     (dot@2 b~1 recipe@1)))
+   (asgn@7,5
+    (dot~6 b~1 made@1)
+    (call@7 stack~5
+     (dot@2 r~1 made@1)
+     (dot@A r~1 count@1)))))
+ (comment@,5S)
+ (proc@,5U takeResult@5 x . .
+  (params@G
+   (param@1 b . .
+    (mut@3 Bench@4).)
+   (param@F recipes . .
+    (at@C seq~3 Recipe@1).))ItemStack@c . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@D or
+      (infix~4 <
+       (dot~8 b~1 recipe@1)0@2)
+      (call@A isEmpty~7
+       (dot@2 b~1 made@1)))
+     (stmts@X
+      (ret
+       (call@J nothingStack~C)))))
+   (let@4,1 made . . .
+    (dot@8 b~1 made@1))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@9
+      (dot~6 b~1 cells@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (prefix not
+        (call@B isEmpty~7
+         (at@8
+          (dot~6 b~1 cells@1)i@1)))
+       (stmts~1,1
+        (asgn@H
+         (dot~7
+          (at~3
+           (dot~6 b~1 cells@1)i@1)count@1)
+         (infix@J \2D
+          (dot~7
+           (at~3
+            (dot~6 b~1 cells@1)i@1)count@1)1@2))
+        (if@,1
+         (elif@3
+          (infix@H <=
+           (dot~7
+            (at~3
+             (dot~6 b~1 cells@1)i@1)count@1)0@3)
+          (stmts@N
+           (asgn@B
+            (at~4
+             (dot~6 b~1 cells@1)i@1)
+            (call@E nothingStack~C))))))))
+     (asgn@2,3 i~2
+      (infix@4 \2B i~2 1@2))))
+   (call@6,8 settle~6 b@1 recipes@4)made@,9))
+ (comment@,5g)
+ (proc@,5j clearBench@5 x . .
+  (params@G
+   (param@1 b . .
+    (mut@3 Bench@4).)
+   (param@F inv . .
+    (mut@5 Inventory@4).)
+   (param@Z reg . . Registry@5 .)
+   (param~C,1 recipes . .
+    (at@C seq~3 Recipe@1).))int@B,1 . .
+  (stmts@2,2
+   (asgn@7 result~7 0@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@9
+      (dot~6 b~1 cells@1)len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (prefix not
+        (call@B isEmpty~7
+         (at@8
+          (dot~6 b~1 cells@1)i@1)))
+       (stmts~1,1
+        (let@4 left . . .
+         (call@B give~4 inv@1 reg@6
+          (dot@L
+           (at~3
+            (dot~6 b~1 cells@1)i@1)item@1)
+          (dot@c
+           (at~3
+            (dot~6 b~1 cells@1)i@1)count@1)))
+        (if@,1
+         (elif@3
+          (infix@5 <= left~5 0@3)
+          (stmts@B
+           (asgn@B
+            (at~4
+             (dot~6 b~1 cells@1)i@1)
+            (call@E nothingStack~C))))
+         (else@,1
+          (stmts@2,1
+           (asgn@H
+            (dot~7
+             (at~3
+              (dot~6 b~1 cells@1)i@1)count@1)left@2)
+           (asgn@7,1 result~7
+            (infix@9 \2B result~7 left@2))))))))
+     (asgn@2,6 i~2
+      (infix@4 \2B i~2 1@2))))
+   (call@6,A settle~6 b@1 recipes@4)))
+ (type@A,68 Hud~5 x . .
+  (object@2 .
+   (fld~7,1 inv~3 x . Inventory@3 .)
+   (fld~5,2 bench~5 x . Bench@3 .)
+   (fld~6,3 life~4 x . Survival@3 .)
+   (fld~3,4 carried~7 x . ItemStack@3 .)
+   (fld~2,8 selected~8 x . int@3 .)
+   (fld~6,A open~4 x . bool@3 .)))
+ (proc@,6L newHud@5 x . .
+  (params@C
+   (param@1 benchWide . . . 2@C)
+   (param@G benchTall . . . 2@C))Hud@W . .
+  (stmts@2,1
+   (oconstr@3 Hud~3
+    (kv@4 inv~3
+     (call@E newInventory~C))
+    (kv@R bench~5
+     (call@A newBench~8 benchWide@1 benchTall@C))
+    (kv@3,1 life~4
+     (call@D newSurvival~B))
+    (kv@R,1 carried~7
+     (call@E nothingStack~C))
+    (kv@r,1 selected~8 0@2)
+    (kv@10,1 open~4 false@2))))
+ (comment@,6P)
+ (proc@,6Q held@5 x . .
+  (params@A
+   (param@1 h . . Hud@3 .))ItemStack@A . .
+  (stmts@W
+   (call@8
+    (dot~3
+     (dot~4 h~1 inv@1)at@1)
+    (dot@2 h~1 selected@1))))
+ (comment@,6S)
+ (proc@,6T spendHeld@5 x . .
+  (params@F
+   (param@1 h . .
+    (mut@3 Hud@4).)). . .
+  (stmts@2,1
+   (var@4 s . . .
+    (call@C
+     (dot~3
+      (dot~4 h~1 inv@1)at@1)
+     (dot@2 h~1 selected@1)))
+   (if@,1
+    (elif@3
+     (call@7 isEmpty~7 s@1)
+     (stmts@C
+      (ret .))))
+   (asgn@8,2
+    (dot~7 s~1 count@1)
+    (infix@A \2D
+     (dot~7 s~1 count@1)1@2))
+   (if@,3
+    (elif@3
+     (infix@8 <=
+      (dot~7 s~1 count@1)0@3)
+     (stmts@E
+      (asgn@2 s~2
+       (call@E nothingStack~C)))))
+   (call@9,4
+    (dot~4
+     (dot~4 h~1 inv@1)put@1)
+    (dot@2 h~1 selected@1)s@D)))
+ (comment@,6a)
+ (proc@,6c eatHeld@5 x . .
+  (params@D
+   (param@1 h . .
+    (mut@3 Hud@4).)
+   (param@D reg . . Registry@5 .))bool@T . .
+  (stmts@2,1
+   (let@4 s . . .
+    (call@C
+     (dot~3
+      (dot~4 h~1 inv@1)at@1)
+     (dot@2 h~1 selected@1)))
+   (if@,1
+    (elif@3
+     (call@7 isEmpty~7 s@1)
+     (stmts@C
+      (ret false@7))))
+   (let@4,2 d . . .
+    (call@G definitionOf~C reg@1
+     (dot@7 s~1 item@1)))
+   (if@,3
+    (elif@3
+     (prefix not
+      (call@C wouldEat~8
+       (dot@2 h~1 life@1)
+       (dot@A d~1 food@1)))
+     (stmts@U
+      (ret false@7))))
+   (call@3,4 eat~3
+    (dot@2 h~1 life@1)
+    (dot@A d~1 food@1)
+    (dot@I d~1 saturation@1))
+   (call@9,5 spendHeld~9 h@1)true@,6))
+ (comment@,6l)
+ (proc@,6m refreshArmour@5 x . .
+  (params@J
+   (param@1 h . .
+    (mut@3 Hud@4).)
+   (param@D reg . . Registry@5 .)). . .
+  (stmts@2,1
+   (asgn@E
+    (dot~8
+     (dot~5 h~1 life@1)armour@1)
+    (call@C armourWorn~A
+     (dot@2 h~1 inv@1)reg@8))))
+ (comment@,6p)
+ (proc@,6q clickAt@5 x . .
+  (params@D
+   (param@1 h . .
+    (mut@3 Hud@4).)
+   (param@D reg . . Registry@5 .)
+   (param@S slot . . int@6 .)
+   (param@d right . . . false@8)). . .
+  (stmts@2,1
+   (if
+    (elif@3 right
+     (stmts~1,1
+      (let@4 next . . .
+       (call@L rightClickSlot~E
+        (dot@2 h~1 inv@1)reg@8 slot@D
+        (dot@K h~1 carried@1)))
+      (asgn@A,1
+       (dot~9 h~1 carried@1)next@2)))
+    (else@,3
+     (stmts@2,1
+      (let@4 next . . .
+       (call@G clickSlot~9
+        (dot@2 h~1 inv@1)reg@8 slot@D
+        (dot@K h~1 carried@1)))
+      (asgn@A,1
+       (dot~9 h~1 carried@1)next@2))))
+   (call@D,6 refreshArmour~D h@1 reg@4)))
+ (comment@,6z)
+ (proc@,72 clickBench@5 x . .
+  (params@G
+   (param@1 h . .
+    (mut@3 Hud@4).)
+   (param@D reg . . Registry@5 .)
+   (param@S cell . . int@6 .)
+   (param@d recipes . .
+    (at@C seq~3 Recipe@1).)
+   (param~C,1 right . . . false@8)). . .
+  (stmts@2,2
+   (if
+    (elif@3
+     (infix@9 or
+      (infix~4 < cell~5 0@2)
+      (infix@8 >= cell~5
+       (dot@G
+        (dot~6
+         (dot~6 h~1 bench@1)cells@1)len@1)))
+     (stmts@d
+      (ret .))))
+   (var@4,1 one . . .
+    (call@I newInventory~C))
+   (call@7,2
+    (dot~4 one~3 put@1)0@1
+    (at@H
+     (dot~6
+      (dot~6 h~1 bench@1)cells@1)cell@1))
+   (if@,3
+    (elif@3 right
+     (stmts~1,1
+      (let@4 next . . .
+       (call@L rightClickSlot~E one@1 reg@6 0@B
+        (dot@F h~1 carried@1)))
+      (asgn@A,1
+       (dot~9 h~1 carried@1)next@2)))
+    (else@,3
+     (stmts@2,1
+      (let@4 next . . .
+       (call@G clickSlot~9 one@1 reg@6 0@B
+        (dot@F h~1 carried@1)))
+      (asgn@A,1
+       (dot~9 h~1 carried@1)next@2))))
+   (asgn@K,9
+    (at~7
+     (dot~6
+      (dot~6 h~1 bench@1)cells@1)cell@1)
+    (call@8
+     (dot~3 one~3 at@1)0@1))
+   (call@6,A settle~6
+    (dot@2 h~1 bench@1)recipes@A)))
+ (comment@,7G)
+ (proc@,7K takeMade@5 x . .
+  (params@E
+   (param@1 h . .
+    (mut@3 Hud@4).)
+   (param@D reg . . Registry@5 .)
+   (param@S recipes . .
+    (at@C seq~3 Recipe@1).))bool@p . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@7 isEmpty~7
+      (dot@8
+       (dot~6 h~1 bench@1)made@1))
+     (stmts@N
+      (ret false@7))))
+   (if@,1
+    (elif@3
+     (call@7 isEmpty~7
+      (dot@2 h~1 carried@1))
+     (stmts~1,1
+      (asgn@A
+       (dot~9 h~1 carried@1)
+       (call@C takeResult~A
+        (dot@2 h~1 bench@1)recipes@A))
+      (ret@,1 true@7))))
+   (if@,4
+    (elif@3
+     (infix@a and
+      (infix~L ==
+       (dot~6
+        (dot~8 h~1 carried@1)item@1)
+       (dot@F
+        (dot~5
+         (dot~6 h~1 bench@1)made@1)item@1))
+      (infix@2,1 <=
+       (infix~L \2B
+        (dot~7
+         (dot~8 h~1 carried@1)count@1)
+        (dot@E
+         (dot~5
+          (dot~6 h~1 bench@1)made@1)count@1))
+       (call@D stackLimit~A reg@1
+        (dot@F
+         (dot~8 h~1 carried@1)item@1))))
+     (stmts~1,2
+      (let@4 made . . .
+       (call@H takeResult~A
+        (dot@2 h~1 bench@1)recipes@A))
+      (asgn@G,1
+       (dot~7
+        (dot~8 h~1 carried@1)count@1)
+       (infix@I \2B
+        (dot~7
+         (dot~8 h~1 carried@1)count@1)
+        (dot@6 made~4 count@1)))
+      (ret@,2 true@7))))
+   (let@4,9 made . . .
+    (call@H takeResult~A
+     (dot@2 h~1 bench@1)recipes@A))
+   (if@,A
+    (elif@3
+     (call@7 isEmpty~7 made@1)
+     (stmts@F
+      (ret false@7))))
+   (let@4,B over . . .
+    (call@B give~4
+     (dot@2 h~1 inv@1)reg@8
+     (dot@H made~4 item@1)
+     (dot@S made~4 count@1)))
+   (infix@5,C <= over~5 0@3)))
+ (comment@,7Z)
+ (proc@,7c closeScreen@5 x . .
+  (params@H
+   (param@1 h . .
+    (mut@3 Hud@4).)
+   (param@D reg . . Registry@5 .)
+   (param@S recipes . .
+    (at@C seq~3 Recipe@1).))int@p . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@C clearBench~A
+     (dot@2 h~1 bench@1)
+     (dot@B h~1 inv@1)reg@H recipes@M))
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@B isEmpty~7
+       (dot@2 h~1 carried@1)))
+     (stmts~1,1
+      (let@4 over . . .
+       (call@B give~4
+        (dot@2 h~1 inv@1)reg@8
+        (dot@M
+         (dot~8 h~1 carried@1)item@1)
+        (dot@c
+         (dot~8 h~1 carried@1)count@1)))
+      (if@,1
+       (elif@3
+        (infix@5 <= over~5 0@3)
+        (stmts@B
+         (asgn@A
+          (dot~9 h~1 carried@1)
+          (call@E nothingStack~C))))
+       (else@,1
+        (stmts@2,1
+         (asgn@G
+          (dot~7
+           (dot~8 h~1 carried@1)count@1)over@2)
+         (asgn@7,1 result~7
+          (infix@9 \2B result~7 over@2))))))))
+   (asgn@7,7
+    (dot~6 h~1 open@1)false@2)
+   (call@D,8 refreshArmour~D h@1 reg@4)))
+ (comment@,7n)
+ (const@K,7r FirstBenchSlot~E x . . PlayerSlots@4)
+ (proc@,7t stackAtWide@5 x . .
+  (params@H
+   (param@1 h . . Hud@3 .)
+   (param@9 slot . . int@6 .))ItemStack@L . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 < slot~5 FirstBenchSlot@2)
+     (stmts@N
+      (call@8
+       (dot~3
+        (dot~4 h~1 inv@1)at@1)slot@1)))
+    (else@,1
+     (stmts@6
+      (call@7 benchAt~7
+       (dot@2 h~1 bench@1)
+       (infix@F \2D slot~5 FirstBenchSlot@2)))))))
+ (proc@,7x putWide@5 . . .
+  (params@C
+   (param@1 h . .
+    (mut@3 Hud@4).)
+   (param@D slot . . int@6 .)
+   (param@O s . . ItemStack@3 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 < slot~5 FirstBenchSlot@2)
+     (stmts@N
+      (call@9
+       (dot~4
+        (dot~4 h~1 inv@1)put@1)slot@1 s@7)))
+    (else@,1
+     (stmts@6
+      (call@8 benchPut~8
+       (dot@2 h~1 bench@1)
+       (infix@F \2D slot~5 FirstBenchSlot@2)s@X))))))
+ (comment@,81)
+ (proc@,84 dragSlot@5 x . .
+  (params@E
+   (param@1 h . .
+    (mut@3 Hud@4).)
+   (param@D reg . . Registry@5 .)
+   (param@S source . . int@G .)
+   (param@a target . . int@8 .)
+   (param~A,1 recipes . .
+    (at@C seq~3 Recipe@1).))bool@D,1 . .
+  (stmts@2,2
+   (if
+    (elif@3
+     (infix@7 == source~7 target@3)
+     (stmts@I
+      (ret false@7))))
+   (let@4,1 moving . . .
+    (call@K stackAtWide~B h@1 source@4))
+   (if@,2
+    (elif@3
+     (call@7 isEmpty~7 moving@1)
+     (stmts@H
+      (ret false@7))))
+   (if@,3
+    (elif@3
+     (infix@O and
+      (infix~H < target~7 FirstBenchSlot@2)
+      (prefix@4 not
+       (call@F slotAccepts~B reg@1 target@6 moving@E)))
+     (stmts~1,1
+      (ret false@7))))
+   (var@4,5 here . . .
+    (call@I stackAtWide~B h@1 target@4))
+   (if@,6
+    (elif@3
+     (call@8 sameItem~8 here@1 moving@7)
+     (stmts~1,1
+      (let@4 left . . .
+       (call@F pourInto~8 reg@1 here@6 moving@C))
+      (call@7,1 putWide~7 h@1 target@4 here@C)
+      (call@7,2 putWide~7 h@1 source@4 left@C)))
+    (else@,4
+     (stmts@2,1
+      (if
+       (elif@3
+        (infix@O and
+         (infix~H < source~7 FirstBenchSlot@2)
+         (prefix@4 not
+          (call@F slotAccepts~B reg@1 source@6 here@E)))
+        (stmts~1,1
+         (ret false@7))))
+      (call@7,2 putWide~7 h@1 target@4 moving@C)
+      (call@7,3 putWide~7 h@1 source@4 here@C))))
+   (call@6,F settle~6
+    (dot@2 h~1 bench@1)recipes@A)
+   (call@D,G refreshArmour~D h@1 reg@4)true@,H)))

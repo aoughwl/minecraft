@@ -1,0 +1,229 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/deps/aoughwl_handoff/handoff.nim
+ (comment)
+ (import@,s jester@7)
+ (import@,t catalogs@7)
+ (const@D,w HandoffKind~B x . . "aoughwl.handoff"@4)
+ (const@G,z HandoffCatalog~E x . . "aoughwl.player.handoff"@4)
+ (type@E,12 Handoff~9 x . .
+  (object@2 .
+   (fld~A,5 verb~4 x . string@3 .)
+   (fld~7,6 subject~7 x . string@3 .)
+   (fld~8,7 amount~6 x . int@3 .)
+   (fld~9,8 from0~5 x . string@3 .)))
+ (var@4,1D posted . . . 0@9)
+ (comment@,1J)
+ (proc@,1P ensureHandoff@5 x . .
+  (params@J). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@b >
+      (dot~5
+       (call~G catalogSignature~G HandoffCatalog@1)len@1)0@2)
+     (stmts@g
+      (ret .))))
+   (call@H,1 defineCatalogKind~H HandoffKind@1 "text"@E "One thing a mod handed the player\3A a verb, a subject and an amount."~F,1)
+   (call@D,3 createCatalog~D HandoffCatalog@1 HandoffKind@H "Everything mods have handed the player, in the order it happened."~B,1)))
+ (comment@,1W)
+ (proc@,1Y handOver@5 x . .
+  (params@E
+   (param@1 verb . . string@F .)
+   (param@7 subject . . string@9 .)
+   (param@O amount . . . 1@9)). . .
+  (stmts@2,1
+   (call@D ensureHandoff~D)
+   (asgn@7,1 posted~7
+    (infix@9 \2B posted~7 1@2))
+   (call@C,2 addToCatalog~C HandoffCatalog@1
+    (infix@L & "h"~4
+     (prefix@2 $ posted@1))
+    (infix@H,1 &
+     (infix~6 &
+      (infix~A &
+       (infix~6 & verb~5 "|"@2)subject@2)"|"@2)
+     (prefix@2 $ amount@1)))))
+ (comment@,1e)
+ (proc@,1g handoffCount@5 x . .
+  (params@I)int@4 . .
+  (stmts@S
+   (call@C catalogCount~C HandoffCatalog@1)))
+ (proc@,1i wholeOf@5 . . .
+  (params@C
+   (param@1 text . . string@6 .)
+   (param@F fallback . . int@A .))int@V . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 ==
+      (dot~5 text~4 len@1)0@3)
+     (stmts@F
+      (ret fallback@7))))
+   (var@4,1 i . . . 0@4)
+   (var@4,2 sign . . . 1@7)
+   (if@,3
+    (elif@3
+     (infix@8 ==
+      (at~4 text~4 0@1)'-'@3)
+     (stmts~1,1
+      (asgn@5 sign~5 -1@2)
+      (asgn@2,1 i~2 1@2))))
+   (var@4,6 value . . . 0@8)
+   (var@4,7 digits . . . 0@9)
+   (while@,8
+    (infix@8 < i~2
+     (dot@6 text~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@E or
+        (infix~6 <
+         (at~4 text~4 i@1)'0'@2)
+        (infix@B >
+         (at~4 text~4 i@1)'9'@2))
+       (stmts@W
+        (ret fallback@7))))
+     (asgn@6,1 value~6
+      (infix@D \2B
+       (infix~5 * value~6 10@2)
+       (par@2
+        (infix@E \2D
+         (call~A ord~3
+          (at@5 text~4 i@1))
+         (call@5 ord~3 '0'@1)))))
+     (asgn@7,2 digits~7
+      (infix@9 \2B digits~7 1@2))
+     (asgn@2,3 i~2
+      (infix@4 \2B i~2 1@2))))
+   (if@,D
+    (elif@3
+     (infix@7 == digits~7 0@3)
+     (stmts@D
+      (ret fallback@7))))
+   (infix@5,E * sign~5 value@2)))
+ (comment@,1z)
+ (proc@,21 handoffAt@5 x . .
+  (params@F
+   (param@1 index . . int@7 .))Handoff@E . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@9 Handoff~7
+     (kv@5 verb~4 ""@2)
+     (kv@I subject~7 ""@2)
+     (kv@U amount~6 0@2)
+     (kv@e from0~5 ""@2)))
+   (if@,1
+    (elif@3
+     (infix@A or
+      (infix~4 < index~6 0@2)
+      (infix@9 >= index~6
+       (call@F catalogCount~C HandoffCatalog@1)))
+     (stmts@q
+      (ret result@7))))
+   (let@4,2 text . . .
+    (call@I catalogText~B HandoffCatalog@1 index@H))
+   (var@4,3 field . . . 0@8)
+   (var@4,4 part . . . ""@7)
+   (var@4,5 verb . . . ""@7)
+   (var@4,6 subject . . . ""@A)
+   (var@4,7 amount . . . "1"@9)
+   (var@4,8 i . . . 0@4)
+   (while@,9
+    (infix@8 <= i~2
+     (dot@7 text~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@E or
+        (infix~C == i~2
+         (dot@7 text~4 len@1))
+        (infix@B ==
+         (at~4 text~4 i@1)'|'@3))
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@6 == field~6 0@3)
+          (stmts@C
+           (asgn@5 verb~5 part@2)))
+         (elif@5,1
+          (infix@6 == field~6 1@3)
+          (stmts@C
+           (asgn@8 subject~8 part@2)))
+         (elif@5,2
+          (infix@6 == field~6 2@3)
+          (stmts@C
+           (asgn@7 amount~7 part@2))))
+        (asgn@5,3 part~5 ""@2)
+        (asgn@6,4 field~6
+         (infix@8 \2B field~6 1@2))))
+      (else@,6
+       (stmts@2,1
+        (cmd@4
+         (dot part~4 add@1)
+         (at@9 text~4 i@1)))))
+     (asgn@2,8 i~2
+      (infix@4 \2B i~2 1@2))))
+   (if@,J
+    (elif@3
+     (infix@6 < field~6 2@2)
+     (stmts@B
+      (ret result@7))))
+   (asgn@7,K result~7
+    (oconstr@9 Handoff~7
+     (kv@5 verb~4 verb@2)
+     (kv@K subject~7 subject@2)
+     (kv~8,1 amount~6
+      (call@9 wholeOf~7 amount@1 1@9))
+     (kv~9,2 from0~5
+      (call@L catalogItemProvider~J HandoffCatalog@1 index@H))))))
+ (comment@,2Q)
+ (iterator@,2T handed@9 x . .
+  (params@G
+   (param@1 cursor . .
+    (mut@8 int@4).))Handoff@J
+  (pragmas@h sideEffect@2).
+  (stmts@2,1
+   (let@4 now . . .
+    (call@I catalogCount~C HandoffCatalog@1))
+   (if@,1
+    (elif@3
+     (infix@7 < cursor~7 0@2)
+     (stmts@C
+      (asgn@7 cursor~7 0@2))))
+   (while@,2
+    (infix@D < cursor~7 now@2)
+    (stmts@2,1
+     (let@4 one . . .
+      (call@F handoffAt~9 cursor@1))
+     (asgn@7,1 cursor~7
+      (infix@9 \2B cursor~7 1@2))
+     (if@,2
+      (elif@3
+       (infix@D >
+        (dot~5
+         (dot~5 one~3 verb@1)len@1)0@2)
+       (stmts@I
+        (yld one@6))))))))
+ (comment@,2b)
+ (proc@,2e anybodySaid@5 x . .
+  (params@H
+   (param@1 verb . . string@6 .))bool@G . .
+  (stmts@2,1
+   (asgn@7 result~7 false@2)
+   (var@4,1 i . . . 0@4)
+   (let@4,2 now . . .
+    (call@I catalogCount~C HandoffCatalog@1))
+   (while@,3
+    (infix@8 < i~2 now@2)
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@I ==
+        (dot~6
+         (call~3 handoffAt~9 i@1)verb@1)verb@3)
+       (stmts@R
+        (ret true@7))))
+     (asgn@2,1 i~2
+      (infix@4 \2B i~2 1@2)))))))

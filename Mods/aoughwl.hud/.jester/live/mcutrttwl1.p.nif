@@ -1,0 +1,94 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/deps/aoughwl_mcui/mcuiscale.nim
+ (comment)
+ (const@D,W MinGuiWidth~B x . . 320@4)
+ (const@E,Z MinGuiHeight~C x . . 240@4)
+ (const@D,a MaxGuiScale~B x . . 4@4)
+ (const@E,d AutoGuiScale~C x . . 0@4)
+ (comment@,f)
+ (proc@,h guiScale@5 x . .
+  (params@E
+   (param@1 width . . int@F .)
+   (param@8 height . . int@8 .)
+   (param@L setting . . . AutoGuiScale@A))int@k . .
+  (stmts@2,1
+   (var@4 i . . . 1@4)
+   (while@,1
+    (infix@d,1 and
+     (infix@9,~1 and
+      (infix~F and
+       (infix~E and
+        (infix~B != i~2 setting@3)
+        (infix@6 < i~2 width@2))
+       (infix@6 < i~2 height@2))
+      (infix~O,1 >=
+       (infix~C div width~6
+        (par@4
+         (infix@3 \2B i~2 1@2)))MinGuiWidth@3))
+     (infix~E,1 >=
+      (infix~C div height~7
+       (par@4
+        (infix@3 \2B i~2 1@2)))MinGuiHeight@3))
+    (stmts@2,3
+     (cmd inc i@4)))i@,5))
+ (comment@,p)
+ (proc@,s guiWidth@5 x . .
+  (params@E
+   (param@1 width . . int@E .)
+   (param@8 scale . . int@7 .))int@L . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 <= scale~6 0@3)
+     (stmts@C width))
+    (else@L
+     (stmts@6
+      (infix@6 div width~6 scale@4))))))
+ (proc@,u guiHeight@5 x . .
+  (params@F
+   (param@1 height . . int@F .)
+   (param@9 scale . . int@7 .))int@M . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 <= scale~6 0@3)
+     (stmts@C height))
+    (else@M
+     (stmts@6
+      (infix@7 div height~7 scale@4))))))
+ (comment@,x)
+ (proc@,10 toGui@5 x . .
+  (params@B
+   (param@1 px . . float@4 .)
+   (param@C scale . . int@7 .))float@P . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@6 <= scale~6 0@3)
+     (stmts@C px))
+    (else@I
+     (stmts@6
+      (infix@3 / px~3
+       (call@7 float~5 scale@1)))))))
+ (comment@,13)
+ (proc@,15 toScreen@5 x . .
+  (params@E
+   (param@1 gui . . float@5 .)
+   (param@D scale . . int@7 .))float@Q . .
+  (stmts@m
+   (infix@4 * gui~4
+    (call@7 float~5 scale@1))))
+ (comment@,17)
+ (proc@,1A snapped@5 x . .
+  (params@D
+   (param@1 guiValue . . float@A .)
+   (param@I scale . . int@7 .))bool@V . .
+  (stmts@2,1
+   (let@4 px . . .
+    (infix@E * guiValue~9
+     (call@7 float~5 scale@1)))
+   (infix@3,1 == px~3
+    (call@8 float~5
+     (call@4 int~3 px@1))))))

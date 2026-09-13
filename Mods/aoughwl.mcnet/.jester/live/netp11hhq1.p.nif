@@ -1,0 +1,721 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,netchunk.nim
+ (comment)
+ (import@,l netwire@7)
+ (const@F,o SectionBlocks~D x . . 4096@4)
+ (const@F,p SectionBiomes~D x . . 64@4)
+ (const@M,q MaxBlockIndirectBits~K x . . 8@4)
+ (const@M,r MaxBiomeIndirectBits~K x . . 3@4)
+ (const@9,s MaxBits~7 x . . 31@4)
+ (type@D,x Container~B x . .
+  (object@2 .
+   (fld~7,1 bits~4 x . int@3 .)
+   (fld~5,2 single~6 x . int@3 .)
+   (fld~4,3 palette~7 x .
+    (at@6 seq~3 int@1).)
+   (fld~5,4 direct~6 x . bool@3 .)
+   (fld~5,5 values~6 x .
+    (at@6 seq~3 int@1).)))
+ (type@B,14 Section~9 x . .
+  (object@2 .
+   (fld@1,1 blockCount~A x . int@3 .)
+   (fld~3,2 blocks~6 x . Container@3 .)
+   (fld~3,3 biomes~6 x . Container@3 .)))
+ (type@A,19 Column~8 x . .
+  (object@2 .
+   (fld~7,1 x~1 x . int@7 .)
+   (fld~3,1 z~1 x . int@3 .)
+   (fld@,2 sections~8 x .
+    (at@6 seq~3 Section@1).)
+   (fld~1,3 problem~7 x . string@3 .)))
+ (proc@,1E emptyContainer@5 x . .
+  (params@K)Container@4 . .
+  (stmts@2,1
+   (oconstr@9 Container~9
+    (kv@5 bits~4 0@2)
+    (kv@G single~6 0@2)
+    (kv@S palette~7
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@f direct~6 false@2)
+    (kv@u values~6
+     (prefix@2 \40
+      (bracket@1))))))
+ (proc@,1K longsFor@5 x . .
+  (params@E
+   (param@1 entries . . int@F .)
+   (param@A bits . . int@6 .))int@M . .
+  (stmts@2,1
+   (comment)
+   (if@,1
+    (elif@3
+     (infix@5 <= bits~5 0@3)
+     (stmts@B
+      (ret 0@7))))
+   (let@4,2 perLong . . .
+    (infix@D div 64~3 bits@4))
+   (infix@O,3 div
+    (par~O
+     (infix@J \2D
+      (infix~A \2B entries~8 perLong@2)1@2))perLong@4)))
+ (proc@,1Q unpack@5 x . .
+  (params@C
+   (param@1 data . .
+    (at@9 seq~3 int@1).)
+   (param@H at . . int@J .)
+   (param@L entries . . int@F .)
+   (param@U bits . . int@6 .)
+   (param@f palette . .
+    (at@C seq~3 int@1).)
+   (param@1,1 direct . . bool@8 .)
+   (param@F,1 values . .
+    (mut@8
+     (at@7 seq~3 int@1)).)
+   (param@b,1 problem . .
+    (mut@9 string@4).))int@x,1 . .
+  (stmts@2,2
+   (comment)
+   (asgn@7,8 result~7 at@2)
+   (if@,9
+    (elif@3
+     (infix@A or
+      (infix~5 <= bits~5 0@3)
+      (infix@8 > bits~5 MaxBits@2))
+     (stmts~1,1
+      (asgn@8 problem~8 "bits per entry out of range"@2)
+      (ret@,1 .))))
+   (let@4,C perLong . . .
+    (infix@D div 64~3 bits@4))
+   (let@4,D longs . . .
+    (infix@W div
+     (par~O
+      (infix@J \2D
+       (infix~A \2B entries~8 perLong@2)1@2))perLong@4))
+   (if@,E
+    (elif@3
+     (infix@F >
+      (infix~C \2B at~3
+       (infix@8 * longs~6 8@2))
+      (dot@6 data~4 len@1))
+     (stmts~1,1
+      (asgn@8 problem~8 "the data array runs past the end of the section"@2)
+      (ret@,1 .))))
+   (let@4,H mask . . .
+    (infix@K \2D
+     (par~D
+      (infix@3 shl 1~2 bits@4))1@2))
+   (var@4,I p . . . at@4)
+   (var@4,J produced . . . 0@B)
+   (var@4,K li . . . 0@5)
+   (if@,L
+    (elif@3 direct
+     (stmts~1,1
+      (while
+       (infix@9 < li~3 longs@2)
+       (stmts@2,1
+        (let@4 hi32 . . .
+         (infix@R,1 or
+          (infix@L,~1 or
+           (infix~O or
+            (par~H
+             (infix@9 shl
+              (at~4 data~4 p@1)24@4))
+            (par@3
+             (infix@D shl
+              (at~8 data~4
+               (infix@3 \2B p~2 1@2))16@4)))
+           (par~f,1
+            (infix@D shl
+             (at~8 data~4
+              (infix@3 \2B p~2 2@2))8@4)))
+          (at@7 data~4
+           (infix@3 \2B p~2 3@2))))
+        (let@4,2 lo32 . . .
+         (infix@R,1 or
+          (infix@P,~1 or
+           (infix~O or
+            (par~L
+             (infix@D shl
+              (at~8 data~4
+               (infix@3 \2B p~2 4@2))24@4))
+            (par@3
+             (infix@D shl
+              (at~8 data~4
+               (infix@3 \2B p~2 5@2))16@4)))
+           (par~j,1
+            (infix@D shl
+             (at~8 data~4
+              (infix@3 \2B p~2 6@2))8@4)))
+          (at@7 data~4
+           (infix@3 \2B p~2 7@2))))
+        (asgn@2,4 p~2
+         (infix@4 \2B p~2 8@2))
+        (var@4,5 j . . . 0@4)
+        (var@4,6 k . . . 0@4)
+        (while@,7
+         (infix@I and
+          (infix~A < k~2 perLong@2)
+          (infix@D < produced~9 entries@2))
+         (stmts@2,1
+          (if
+           (elif@3
+            (infix@9 <=
+             (infix~7 \2B j~2 bits@2)32@3)
+            (stmts~1,1
+             (asgn@H
+              (at~B values~6 produced@1)
+              (infix@F and
+               (par~D
+                (infix@6 shr lo32~5 j@4))mask@4))))
+           (elif@5,2
+            (infix@2 >= j~2 32@3)
+            (stmts~3,1
+             (asgn@H
+              (at~B values~6 produced@1)
+              (infix@M and
+               (par~K
+                (infix@6 shr hi32~5
+                 (par@4
+                  (infix@3 \2D j~2 32@2))))mask@4))))
+           (else@,4
+            (stmts@2,1
+             (asgn@H
+              (at~B values~6 produced@1)
+              (infix@e and
+               (par~c
+                (infix@E or
+                 (par~D
+                  (infix@6 shr lo32~5 j@4))
+                 (par@3
+                  (infix@6 shl hi32~5
+                   (par@4
+                    (infix@4 \2D 32~3 j@2))))))mask@4)))))
+          (asgn@9,6 produced~9
+           (infix@B \2B produced~9 1@2))
+          (asgn@2,7 j~2
+           (infix@4 \2B j~2 bits@2))
+          (asgn@2,8 k~2
+           (infix@4 \2B k~2 1@2))))
+        (asgn@3,H li~3
+         (infix@5 \2B li~3 1@2))))))
+    (else@,K
+     (stmts@2,1
+      (let@4 top . . .
+       (dot@D palette~7 len@1))
+      (while@,1
+       (infix@9 < li~3 longs@2)
+       (stmts@2,1
+        (let@4 hi32 . . .
+         (infix@R,1 or
+          (infix@L,~1 or
+           (infix~O or
+            (par~H
+             (infix@9 shl
+              (at~4 data~4 p@1)24@4))
+            (par@3
+             (infix@D shl
+              (at~8 data~4
+               (infix@3 \2B p~2 1@2))16@4)))
+           (par~f,1
+            (infix@D shl
+             (at~8 data~4
+              (infix@3 \2B p~2 2@2))8@4)))
+          (at@7 data~4
+           (infix@3 \2B p~2 3@2))))
+        (let@4,2 lo32 . . .
+         (infix@R,1 or
+          (infix@P,~1 or
+           (infix~O or
+            (par~L
+             (infix@D shl
+              (at~8 data~4
+               (infix@3 \2B p~2 4@2))24@4))
+            (par@3
+             (infix@D shl
+              (at~8 data~4
+               (infix@3 \2B p~2 5@2))16@4)))
+           (par~j,1
+            (infix@D shl
+             (at~8 data~4
+              (infix@3 \2B p~2 6@2))8@4)))
+          (at@7 data~4
+           (infix@3 \2B p~2 7@2))))
+        (asgn@2,4 p~2
+         (infix@4 \2B p~2 8@2))
+        (var@4,5 j . . . 0@4)
+        (var@4,6 k . . . 0@4)
+        (while@,7
+         (infix@I and
+          (infix~A < k~2 perLong@2)
+          (infix@D < produced~9 entries@2))
+         (stmts@2,1
+          (var@4 index . . . 0@8)
+          (if@,1
+           (elif@3
+            (infix@9 <=
+             (infix~7 \2B j~2 bits@2)32@3)
+            (stmts~1,1
+             (asgn@6 index~6
+              (infix@F and
+               (par~D
+                (infix@6 shr lo32~5 j@4))mask@4))))
+           (elif@5,2
+            (infix@2 >= j~2 32@3)
+            (stmts~3,1
+             (asgn@6 index~6
+              (infix@M and
+               (par~K
+                (infix@6 shr hi32~5
+                 (par@4
+                  (infix@3 \2D j~2 32@2))))mask@4))))
+           (else@,4
+            (stmts@2,1
+             (asgn@6 index~6
+              (infix@e and
+               (par~c
+                (infix@E or
+                 (par~D
+                  (infix@6 shr lo32~5 j@4))
+                 (par@3
+                  (infix@6 shl hi32~5
+                   (par@4
+                    (infix@4 \2D 32~3 j@2))))))mask@4)))))
+          (if@,7
+           (elif@3
+            (infix@6 >= index~6 top@3)
+            (stmts~1,1
+             (asgn@8 problem~8 "an entry indexed past the end of its palette"@2)
+             (ret@,1 p@7))))
+          (asgn@H,A
+           (at~B values~6 produced@1)
+           (at@9 palette~7 index@1))
+          (asgn@9,B produced~9
+           (infix@B \2B produced~9 1@2))
+          (asgn@2,C j~2
+           (infix@4 \2B j~2 bits@2))
+          (asgn@2,D k~2
+           (infix@4 \2B k~2 1@2))))
+        (asgn@3,M li~3
+         (infix@5 \2B li~3 1@2)))))))
+   (asgn@7,15 result~7 p@2)))
+ (proc@,2Z readContainer@5 x . .
+  (params@J
+   (param@1 r . .
+    (mut@3 Reader@4).)
+   (param@G entries . . int@Q .)
+   (param@P maxIndirectBits . . int@H .)
+   (param@1,1 expectArrayLength . . bool@J .))Container@R,1 . .
+  (stmts@2,2
+   (asgn@7 result~7
+    (call@G emptyContainer~E))
+   (if@,1
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (let@4,2 bits . . .
+    (call@F readByte~8 r@1))
+   (if@,3
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (asgn@C,4
+    (dot~6 result~6 bits@1)bits@2)
+   (if@,6
+    (elif@3
+     (infix@5 == bits~5 0@3)
+     (stmts~1,1
+      (asgn@E
+       (dot~8 result~6 single@1)
+       (call@C readVarInt~A r@1))
+      (if@,1
+       (elif@3 expectArrayLength
+        (stmts~1,1
+         (let@4 count . . .
+          (call@I readVarInt~A r@1))
+         (if@,1
+          (elif@3
+           (infix@6 and
+            (call~4 ok~2 r@1)
+            (infix@A != count~6 0@3))
+           (stmts~1,1
+            (call@4 fail~4 r@1 "a single-valued container carried a data array"@4)
+            (ret@,1 .)))))))
+      (ret@,6 .))))
+   (if@,F
+    (elif@3
+     (infix@5 > bits~5 MaxBits@2)
+     (stmts~1,1
+      (call@4 fail~4 r@1 "bits per entry out of range"@4)
+      (ret@,1 .))))
+   (asgn@E,J
+    (dot~8 result~6 direct@1)
+    (infix@7 > bits~5 maxIndirectBits@2))
+   (if@,K
+    (elif@3
+     (prefix not
+      (dot@A result~6 direct@1))
+     (stmts~1,1
+      (let@4 size . . .
+       (call@H readVarInt~A r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts@B
+         (ret .))))
+      (if@,2
+       (elif@3
+        (infix@A or
+         (infix~5 <= size~5 0@3)
+         (infix@8 > size~5
+          (par@2
+           (infix@3 shl 1~2 bits@4))))
+        (stmts~1,1
+         (call@4 fail~4 r@1 "palette size out of range for its bits per entry"@4)
+         (ret@,1 .))))
+      (var@4,5 i . . . 0@4)
+      (while@,6
+       (infix@8 < i~2 size@2)
+       (stmts@2,1
+        (cmd@E
+         (dot
+          (dot~8 result~6 palette@1)add@1)
+         (call@F readVarInt~A r@1))
+        (cmd@,1 inc i@4)))
+      (if@,9
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts@B
+         (ret .)))))))
+   (let@4,W derived . . .
+    (call@I longsFor~8 entries@1 bits@A))
+   (if@,X
+    (elif@3 expectArrayLength
+     (stmts~1,1
+      (let@4 sent . . .
+       (call@H readVarInt~A r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts@B
+         (ret .))))
+      (if@,2
+       (elif@3
+        (infix@5 != sent~5 derived@3)
+        (stmts~1,1
+         (call@4 fail~4 r@1 "the data array length disagrees with the one its shape implies"@4)
+         (ret@,1 .)))))))
+   (if@,d
+    (elif@3
+     (infix@C >
+      (infix~4 * derived~8 8@2)
+      (call@B remaining~9 r@1))
+     (stmts~1,1
+      (call@4 fail~4 r@1 "the data array runs past the end"@4)
+      (ret@,1 .))))
+   (asgn@E,h
+    (dot~8 result~6 values@1)
+    (call@D
+     (at~5 newSeq~6 int@1)entries@1))
+   (var@4,i problem . . . ""@A)
+   (let@4,j after . . .
+    (call@E unpack~6
+     (dot@2 r~1 data@1)
+     (dot@A r~1 at@1)entries@F bits@O
+     (dot@a result~6 palette@1)
+     (dot@q result~6 direct@1)
+     (dot@7,1 result~6 values@1)problem@G,1))
+   (if@,l
+    (elif@3
+     (infix@C >
+      (dot~5 problem~7 len@1)0@2)
+     (stmts~1,1
+      (call@4 fail~4 r@1 problem@4)
+      (ret@,1 .))))
+   (asgn@5,o
+    (dot~4 r~1 at@1)after@2)))
+ (proc@,3R readSection@5 x . .
+  (params@H
+   (param@1 r . .
+    (mut@3 Reader@4).)
+   (param@G expectArrayLength . . bool@J .))Section@g . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@9 Section~7
+     (kv@B blockCount~A 0@2)
+     (kv@M blocks~6
+      (call@G emptyContainer~E))
+     (kv@7,1 biomes~6
+      (call@G emptyContainer~E))))
+   (asgn@I,2
+    (dot~C result~6 blockCount@1)
+    (call@B readShort~9 r@1))
+   (asgn@E,3
+    (dot~8 result~6 blocks@1)
+    (call@F readContainer~D r@1 SectionBlocks@4 MaxBlockIndirectBits@J expectArrayLength@1,1))
+   (asgn@E,5
+    (dot~8 result~6 biomes@1)
+    (call@F readContainer~D r@1 SectionBiomes@4 MaxBiomeIndirectBits@J expectArrayLength@1,1))))
+ (proc@,3a readSections@5 x . .
+  (params@I
+   (param@1 data . .
+    (at@9 seq~3 int@1).)
+   (param@H sectionCount . . int@E .)
+   (param@1,1 expectArrayLength . . bool@J .))Column@R,1 . .
+  (stmts@2,2
+   (comment)
+   (asgn@7,5 result~7
+    (oconstr@8 Column~6
+     (kv@2 x~1 0@2)
+     (kv@8 z~1 0@2)
+     (kv@L sections~8
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@Z problem~7 ""@2)))
+   (var@4,6 r . . .
+    (call@A reader~6 data@1))
+   (var@4,7 i . . . 0@4)
+   (while@,8
+    (infix@8 < i~2 sectionCount@2)
+    (stmts@2,1
+     (let@4 s . . .
+      (call@F readSection~B r@1 expectArrayLength@4))
+     (if@,1
+      (elif@3
+       (prefix not
+        (call@6 ok~2 r@1))
+       (stmts~1,1
+        (asgn@F
+         (dot~9 result~6 problem@1)
+         (dot@3 r~1 problem@1))
+        (ret@,1 .))))
+     (cmd@F,4
+      (dot
+       (dot~9 result~6 sections@1)add@1)s@5)
+     (cmd@,5 inc i@4)))
+   (if@,F
+    (elif@3
+     (infix@D !=
+      (call~4 remaining~9 r@1)0@3)
+     (stmts~1,3
+      (asgn@F
+       (dot~9 result~6 problem@1)"there were bytes left over after the last section"@2))))))
+ (proc@,3w blockAt@5 x . .
+  (params@D
+   (param@1 s . . Section@3 .)
+   (param@D x . . int@9 .)
+   (param@G y . . int@6 .)
+   (param@J z . . int@3 .))int@S . .
+  (stmts@2,1
+   (comment)
+   (if@,2
+    (elif@3
+     (infix@E ==
+      (dot~6
+       (dot~7 s~1 blocks@1)bits@1)0@3)
+     (stmts@K
+      (ret
+       (dot@F
+        (dot~7 s~1 blocks@1)single@1)))))
+   (if@,3
+    (elif@3
+     (infix@K !=
+      (dot~5
+       (dot~7
+        (dot~7 s~1 blocks@1)values@1)len@1)SectionBlocks@3)
+     (stmts@c
+      (ret 0@7))))
+   (at@F,4
+    (dot~7
+     (dot~7 s~1 blocks@1)values@1)
+    (infix@O or
+     (infix~D or
+      (par~A
+       (infix@3 shl y~2 8@4))
+      (par@3
+       (infix@3 shl z~2 4@4)))x@3))))
+ (proc@,43 biomeAt@5 x . .
+  (params@D
+   (param@1 s . . Section@3 .)
+   (param@D x . . int@9 .)
+   (param@G y . . int@6 .)
+   (param@J z . . int@3 .))int@S . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@E ==
+      (dot~6
+       (dot~7 s~1 biomes@1)bits@1)0@3)
+     (stmts@K
+      (ret
+       (dot@F
+        (dot~7 s~1 biomes@1)single@1)))))
+   (if@,1
+    (elif@3
+     (infix@K !=
+      (dot~5
+       (dot~7
+        (dot~7 s~1 biomes@1)values@1)len@1)SectionBiomes@3)
+     (stmts@c
+      (ret 0@7))))
+   (at@F,2
+    (dot~7
+     (dot~7 s~1 biomes@1)values@1)
+    (infix@O or
+     (infix~D or
+      (par~A
+       (infix@3 shl y~2 4@4))
+      (par@3
+       (infix@3 shl z~2 2@4)))x@3))))
+ (proc@,4C packInto@5 x . .
+  (params@E
+   (param@1 w . .
+    (mut@3 Writer@4).)
+   (param@G values . .
+    (at@B seq~3 int@1).)
+   (param@Y bits . . int@6 .)). . .
+  (stmts@2,1
+   (let@4 perLong . . .
+    (infix@D div 64~3 bits@4))
+   (let@4,1 longs . . .
+    (infix@Z div
+     (par~R
+      (infix@M \2D
+       (infix~A \2B
+        (dot~5 values~6 len@1)perLong@2)1@2))perLong@4))
+   (var@4,2 at . . . 0@5)
+   (var@4,3 li . . . 0@5)
+   (while@,4
+    (infix@9 < li~3 longs@2)
+    (stmts@2,1
+     (var@4 hi32 . . . 0@7)
+     (var@4,1 lo32 . . . 0@7)
+     (var@4,2 j . . . 0@4)
+     (var@4,3 k . . . 0@4)
+     (while@,4
+      (infix@I and
+       (infix~A < k~2 perLong@2)
+       (infix@7 < at~3
+        (dot@8 values~6 len@1)))
+      (stmts@2,1
+       (let@4 v . . .
+        (infix@F and
+         (at~5 values~6 at@1)
+         (par@4
+          (infix@E \2D
+           (par~D
+            (infix@3 shl 1~2 bits@4))1@2))))
+       (if@,1
+        (elif@3
+         (infix@9 <=
+          (infix~7 \2B j~2 bits@2)32@3)
+         (stmts~1,1
+          (asgn@5 lo32~5
+           (infix@7 or lo32~5
+            (par@3
+             (infix@3 shl v~2 j@4))))))
+        (elif@5,2
+         (infix@2 >= j~2 32@3)
+         (stmts~3,1
+          (asgn@5 hi32~5
+           (infix@7 or hi32~5
+            (par@3
+             (infix@3 shl v~2
+              (par@4
+               (infix@3 \2D j~2 32@2))))))))
+        (else@,4
+         (stmts@2,1
+          (asgn@5 lo32~5
+           (infix@7 or lo32~5
+            (par@3
+             (infix@B and
+              (par~A
+               (infix@3 shl v~2 j@4))
+              (suf@4 4294967295 "i64")))))
+          (asgn@5,1 hi32~5
+           (infix@7 or hi32~5
+            (par@3
+             (infix@3 shr v~2
+              (par@4
+               (infix@4 \2D 32~3 j@2)))))))))
+       (asgn@3,8 at~3
+        (infix@5 \2B at~3 1@2))
+       (asgn@2,9 j~2
+        (infix@4 \2B j~2 bits@2))
+       (asgn@2,A k~2
+        (infix@4 \2B k~2 1@2))))
+     (call@6,G putInt~6 w@1
+      (infix@9 and hi32~5
+       (suf@4 4294967295 "i64")))
+     (call@6,H putInt~6 w@1
+      (infix@9 and lo32~5
+       (suf@4 4294967295 "i64")))
+     (asgn@3,I li~3
+      (infix@5 \2B li~3 1@2))))))
+ (proc@,4c writeSingle@5 x . .
+  (params@H
+   (param@1 w . .
+    (mut@3 Writer@4).)
+   (param@G value . . int@7 .)
+   (param@S withArrayLength . . bool@H .)). . .
+  (stmts@2,1
+   (call@7 putByte~7 w@1 0@4)
+   (call@9,1 putVarInt~9 w@1 value@4)
+   (if@,2
+    (elif@3 withArrayLength
+     (stmts@H
+      (call@9 putVarInt~9 w@1 0@4))))))
+ (proc@,4h writeIndirect@5 x . .
+  (params@J
+   (param@1 w . .
+    (mut@3 Writer@4).)
+   (param@G palette . .
+    (at@C seq~3 int@1).)
+   (param@Z indices . .
+    (at@C seq~3 int@1).)
+   (param@1,1 bits . . int@6 .)
+   (param@C,1 withArrayLength . . bool@H .)). . .
+  (stmts@2,2
+   (call@7 putByte~7 w@1 bits@4)
+   (call@9,1 putVarInt~9 w@1
+    (dot@B palette~7 len@1))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@9 palette~7 len@1))
+    (stmts@2,1
+     (call@9 putVarInt~9 w@1
+      (at@B palette~7 i@1))
+     (cmd@,1 inc i@4)))
+   (if@,6
+    (elif@3 withArrayLength
+     (stmts@H
+      (call@9 putVarInt~9 w@1
+       (call@C longsFor~8
+        (dot@8 indices~7 len@1)bits@E)))))
+   (call@8,7 packInto~8 w@1 indices@4 bits@D)))
+ (proc@,4s writeDirect@5 x . .
+  (params@H
+   (param@1 w . .
+    (mut@3 Writer@4).)
+   (param@G values . .
+    (at@B seq~3 int@1).)
+   (param@Y bits . . int@6 .)
+   (param@1,1 withArrayLength . . bool@H .)). . .
+  (stmts@2,2
+   (call@7 putByte~7 w@1 bits@4)
+   (if@,1
+    (elif@3 withArrayLength
+     (stmts@H
+      (call@9 putVarInt~9 w@1
+       (call@C longsFor~8
+        (dot@7 values~6 len@1)bits@D)))))
+   (call@8,2 packInto~8 w@1 values@4 bits@C))))

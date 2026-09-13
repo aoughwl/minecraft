@@ -1,0 +1,730 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,dbgline.nim
+ (comment)
+ (type@B,t Section~9 x . .
+  (enum@2 .
+   (efld~9,4 LeftSection . . . .)
+   (efld@4,4 RightSection . . . .)))
+ (type@D,z DebugLine~B x . .
+  (object@2 .
+   (fld~9,1 id~2 x . string@3 .)
+   (fld~3,5 provider~8 x . string@3 .)
+   (fld~4,8 section~7 x . Section@3 .)
+   (fld~6,9 order~5 x . int@3 .)
+   (fld~8,A key~3 x . string@3 .)
+   (fld~6,E label~5 x . string@3 .)
+   (fld~4,I service~7 x . string@3 .)
+   (fld~3,L argument~8 x . string@3 .)
+   (fld~6,O every~5 x . int@3 .)
+   (fld~9,S on~2 x . bool@3 .)
+   (fld~6,T needs~5 x . string@3 .)
+   (fld~6,Y value~5 x . string@3 .)
+   (fld~3,b answered~8 x . bool@3 .)))
+ (const@E,1h DefaultEvery~C x . int@3 1@9)
+ (const@B,1i EveryLine~9 x . string@3 "*"@C)
+ (proc@,1l newLine@5 x . .
+  (params@D
+   (param@1 id . . string@E .)
+   (param@5 provider . . string@A .))DebugLine@O . .
+  (stmts@2,1
+   (oconstr@9 DebugLine~9
+    (kv@3 id~2 id@2)
+    (kv@H provider~8 provider@2)
+    (kv@a section~7 LeftSection@2)
+    (kv@u order~5 0@2)
+    (kv~4,1 key~3 ""@2)
+    (kv@7,1 label~5 ""@2)
+    (kv@K,1 service~7 ""@2)
+    (kv@Y,1 argument~8 ""@2)
+    (kv@j,1 every~5 DefaultEvery@2)
+    (kv~5,2 on~2 true@2)
+    (kv@8,2 needs~5 ""@2)
+    (kv@J,2 value~5 ""@2)
+    (kv@X,2 answered~8 false@2))))
+ (proc@,1y wholeOf@5 x . .
+  (params@D
+   (param@1 text . . string@6 .)
+   (param@F fallback . . int@A .))int@V . .
+  (stmts@2,1
+   (var@4 value . . . 0@8)
+   (var@4,1 sign . . . 1@7)
+   (var@4,2 digits . . . false@9)
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@6 text~4 len@1))
+    (stmts@2,1
+     (let@4 c . . .
+      (at@8 text~4 i@1))
+     (if@,1
+      (elif@3
+       (infix@O and
+        (infix~F and
+         (infix~7 == c~2 '-'@3)
+         (prefix@4 not digits@4))
+        (infix@6 == i~2 0@3))
+       (stmts@a
+        (asgn@5 sign~5 -1@2)))
+      (elif@5,1
+       (infix@9 and
+        (infix~7 >= c~2 '0'@3)
+        (infix@6 <= c~2 '9'@3))
+       (stmts~3,1
+        (asgn@6 value~6
+         (infix@D \2B
+          (infix~5 * value~6 10@2)
+          (par@2
+           (infix@8 \2D
+            (call~4 int~3 c@1)
+            (call@5 int~3 '0'@1)))))
+        (asgn@7,1 digits~7 true@2)))
+      (else@,4
+       (stmts@6
+        (ret fallback@7))))
+     (cmd@,6 inc i@4)))
+   (if@,C
+    (elif@3
+     (prefix not digits@4)
+     (stmts@C
+      (ret fallback@7))))
+   (infix@6,D * value~6 sign@2)))
+ (proc@,2E truth@5 x . .
+  (params@B
+   (param@1 text . . string@6 .)
+   (param@F fallback . . bool@A .))bool@W . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@k or
+      (infix~G or
+       (infix~I or
+        (infix~7 == text~5 "1"@3)
+        (infix@8 == text~5 "true"@3))
+       (infix@8 == text~5 "on"@3))
+      (infix@8 == text~5 "yes"@3))
+     (stmts@12
+      (ret true@7))))
+   (if@,1
+    (elif@3
+     (infix@m or
+      (infix~H or
+       (infix~J or
+        (infix~7 == text~5 "0"@3)
+        (infix@8 == text~5 "false"@3))
+       (infix@8 == text~5 "off"@3))
+      (infix@8 == text~5 "no"@3))
+     (stmts@13
+      (ret false@7))))fallback@,2))
+ (comment@,2S)
+ (proc@,2W assign@5 x . .
+  (params@C
+   (param@1 line . .
+    (mut@6 DebugLine@4).)
+   (param@M name . . string@D .)
+   (param@S value . . string@7 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 == name~5 "section"@3)
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@6 == value~6 "right"@3)
+        (stmts@I
+         (asgn@D
+          (dot~9 line~4 section@1)RightSection@2)))
+       (elif@5,1
+        (infix@6 == value~6 "left"@3)
+        (stmts@H
+         (asgn@D
+          (dot~9 line~4 section@1)LeftSection@2))))))
+    (elif@5,3
+     (infix@5 == name~5 "order"@3)
+     (stmts@H
+      (asgn@B
+       (dot~7 line~4 order@1)
+       (call@9 wholeOf~7 value@1
+        (dot@C line~4 order@1)))))
+    (elif@5,4
+     (infix@5 == name~5 "key"@3)
+     (stmts@F
+      (asgn@9
+       (dot~5 line~4 key@1)value@2)))
+    (elif@5,5
+     (infix@5 == name~5 "label"@3)
+     (stmts@H
+      (asgn@B
+       (dot~7 line~4 label@1)value@2)))
+    (elif@5,6
+     (infix@5 == name~5 "service"@3)
+     (stmts@J
+      (asgn@D
+       (dot~9 line~4 service@1)value@2)))
+    (elif@5,7
+     (infix@5 == name~5 "arg"@3)
+     (stmts@F
+      (asgn@E
+       (dot~A line~4 argument@1)value@2)))
+    (elif@5,8
+     (infix@5 == name~5 "every"@3)
+     (stmts~3,1
+      (let@4 n . . .
+       (call@B wholeOf~7 value@1
+        (dot@C line~4 every@1)))
+      (asgn@B,1
+       (dot~7 line~4 every@1)
+       (if@2
+        (elif@3
+         (infix@2 < n~2 1@2)
+         (stmts@7 1))
+        (else@C
+         (stmts@6 n))))))
+    (elif@5,B
+     (infix@5 == name~5 "on"@3)
+     (stmts@E
+      (asgn@8
+       (dot~4 line~4 on@1)
+       (call@7 truth~5 value@1
+        (dot@C line~4 on@1)))))
+    (elif@5,C
+     (infix@5 == name~5 "needs"@3)
+     (stmts@H
+      (asgn@B
+       (dot~7 line~4 needs@1)value@2))))))
+ (comment@,2l)
+ (proc@,2p readRow@5 x . .
+  (params@D
+   (param@1 line . .
+    (mut@6 DebugLine@4).)
+   (param@M row . . string@5 .)). . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@8 < i~2
+     (dot@5 row~3 len@1))
+    (stmts@2,1
+     (while
+      (infix@I and
+       (infix~A < i~2
+        (dot@5 row~3 len@1))
+       (par@4
+        (infix@F or
+         (infix~7 ==
+          (at~4 row~3 i@1)' '@3)
+         (infix@A ==
+          (at~4 row~3 i@1)'\09'@3))))
+      (stmts@v
+       (cmd inc i@4)))
+     (if@,1
+      (elif@3
+       (infix@2 >= i~2
+        (dot@6 row~3 len@1))
+       (stmts@E
+        (ret .))))
+     (var@4,2 name . . . ""@7)
+     (while@,3
+      (infix@s and
+       (infix~I and
+        (infix~I and
+         (infix~A < i~2
+          (dot@5 row~3 len@1))
+         (infix@B !=
+          (at~4 row~3 i@1)'='@3))
+        (infix@B !=
+         (at~4 row~3 i@1)' '@3))
+       (infix@B !=
+        (at~4 row~3 i@1)'\09'@3))
+      (stmts@2,1
+       (cmd@4
+        (dot name~4 add@1)
+        (at@8 row~3 i@1))
+       (cmd@,1 inc i@4)))
+     (if@,6
+      (elif@3
+       (infix@D or
+        (infix~B >= i~2
+         (dot@6 row~3 len@1))
+        (infix@A !=
+         (at~4 row~3 i@1)'='@3))
+       (stmts~1,2
+        (while
+         (infix@a and
+          (infix~I and
+           (infix~A < i~2
+            (dot@5 row~3 len@1))
+           (infix@B !=
+            (at~4 row~3 i@1)' '@3))
+          (infix@B !=
+           (at~4 row~3 i@1)'\09'@3))
+         (stmts@u
+          (cmd inc i@4)))))
+      (else@,3
+       (stmts@2,1
+        (cmd inc i@4)
+        (var@4,1 value . . . ""@8)
+        (if@,2
+         (elif@3
+          (infix@C and
+           (infix~A < i~2
+            (dot@5 row~3 len@1))
+           (infix@B ==
+            (at~4 row~3 i@1)'\22'@3))
+          (stmts~1,1
+           (cmd inc i@4)
+           (while@,1
+            (infix@I and
+             (infix~A < i~2
+              (dot@5 row~3 len@1))
+             (infix@B !=
+              (at~4 row~3 i@1)'\22'@3))
+            (stmts@2,1
+             (cmd@5
+              (dot value~5 add@1)
+              (at@8 row~3 i@1))
+             (cmd@,1 inc i@4)))
+           (if@,4
+            (elif@3
+             (infix@2 < i~2
+              (dot@5 row~3 len@1))
+             (stmts@D
+              (cmd inc i@4))))))
+         (else@,6
+          (stmts@2,1
+           (while
+            (infix@a and
+             (infix~I and
+              (infix~A < i~2
+               (dot@5 row~3 len@1))
+              (infix@B !=
+               (at~4 row~3 i@1)' '@3))
+             (infix@B !=
+              (at~4 row~3 i@1)'\09'@3))
+            (stmts@2,1
+             (cmd@5
+              (dot value~5 add@1)
+              (at@8 row~3 i@1))
+             (cmd@,1 inc i@4))))))
+        (call@6,C assign~6 line@1 name@7 value@D))))))))
+ (comment@,3G)
+ (proc@,3J fieldOf@5 x . .
+  (params@D
+   (param@1 row . . string@L .)
+   (param@6 want . . string@G .)
+   (param@C fallback . . string@A .))string@V . .
+  (stmts@2,1
+   (asgn@7 result~7 fallback@2)
+   (var@4,1 found . . . false@8)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@5 row~3 len@1))
+    (stmts@2,1
+     (while
+      (infix@I and
+       (infix~A < i~2
+        (dot@5 row~3 len@1))
+       (par@4
+        (infix@F or
+         (infix~7 ==
+          (at~4 row~3 i@1)' '@3)
+         (infix@A ==
+          (at~4 row~3 i@1)'\09'@3))))
+      (stmts@v
+       (cmd inc i@4)))
+     (if@,1
+      (elif@3
+       (infix@2 >= i~2
+        (dot@6 row~3 len@1))
+       (stmts@E
+        (ret result@7))))
+     (var@4,2 name . . . ""@7)
+     (while@,3
+      (infix@s and
+       (infix~I and
+        (infix~I and
+         (infix~A < i~2
+          (dot@5 row~3 len@1))
+         (infix@B !=
+          (at~4 row~3 i@1)'='@3))
+        (infix@B !=
+         (at~4 row~3 i@1)' '@3))
+       (infix@B !=
+        (at~4 row~3 i@1)'\09'@3))
+      (stmts@2,1
+       (cmd@4
+        (dot name~4 add@1)
+        (at@8 row~3 i@1))
+       (cmd@,1 inc i@4)))
+     (if@,6
+      (elif@3
+       (infix@D or
+        (infix~B >= i~2
+         (dot@6 row~3 len@1))
+        (infix@A !=
+         (at~4 row~3 i@1)'='@3))
+       (stmts~1,1
+        (while
+         (infix@a and
+          (infix~I and
+           (infix~A < i~2
+            (dot@5 row~3 len@1))
+           (infix@B !=
+            (at~4 row~3 i@1)' '@3))
+          (infix@B !=
+           (at~4 row~3 i@1)'\09'@3))
+         (stmts@u
+          (cmd inc i@4)))))
+      (else@,2
+       (stmts@2,1
+        (cmd inc i@4)
+        (var@4,1 value . . . ""@8)
+        (if@,2
+         (elif@3
+          (infix@C and
+           (infix~A < i~2
+            (dot@5 row~3 len@1))
+           (infix@B ==
+            (at~4 row~3 i@1)'\22'@3))
+          (stmts~1,1
+           (cmd inc i@4)
+           (while@,1
+            (infix@I and
+             (infix~A < i~2
+              (dot@5 row~3 len@1))
+             (infix@B !=
+              (at~4 row~3 i@1)'\22'@3))
+            (stmts@2,1
+             (cmd@5
+              (dot value~5 add@1)
+              (at@8 row~3 i@1))
+             (cmd@,1 inc i@4)))
+           (if@,4
+            (elif@3
+             (infix@2 < i~2
+              (dot@5 row~3 len@1))
+             (stmts@D
+              (cmd inc i@4))))))
+         (else@,6
+          (stmts@2,1
+           (while
+            (infix@a and
+             (infix~I and
+              (infix~A < i~2
+               (dot@5 row~3 len@1))
+              (infix@B !=
+               (at~4 row~3 i@1)' '@3))
+             (infix@B !=
+              (at~4 row~3 i@1)'\09'@3))
+            (stmts@2,1
+             (cmd@5
+              (dot value~5 add@1)
+              (at@8 row~3 i@1))
+             (cmd@,1 inc i@4))))))
+        (if@,E
+         (elif@3
+          (infix@5 == name~5 want@3)
+          (stmts~1,1
+           (asgn@7 result~7 value@2)
+           (asgn@6,1 found~6 true@2)))))))))
+   (if@,U
+    (elif@3
+     (prefix not found@4)
+     (stmts@B
+      (ret fallback@7))))result@,V))
+ (comment@,3r)
+ (proc@,3u lineFrom@5 x . .
+  (params@E
+   (param@1 id . . string@J .)
+   (param@5 provider . . string@F .)
+   (param@F row . . string@5 .))DebugLine@T . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@9 newLine~7 id@1 provider@5))
+   (call@7,1 readRow~7 result@1 row@9)
+   (if@,2
+    (elif@3
+     (infix@K ==
+      (dot~5
+       (dot~9 result~6 argument@1)len@1)0@3)
+     (stmts@Q
+      (asgn@G
+       (dot~A result~6 argument@1)id@2))))))
+ (type@A,43 Config~8 x . .
+  (object@2 .
+   (fld~6,1 id~2 x .
+    (at@6 seq~3 string@1).)
+   (fld~5,2 row~3 x .
+    (at@6 seq~3 string@1).)))
+ (proc@,47 noConfig@5 x . .
+  (params@E)Config@4 . .
+  (stmts@R
+   (oconstr@6 Config~6
+    (kv@3 id~2
+     (prefix@2 \40
+      (bracket@1)))
+    (kv@D row~3
+     (prefix@2 \40
+      (bracket@1))))))
+ (proc@,49 rows@5 x . .
+  (params@A
+   (param@1 c . . Config@3 .))int@D . .
+  (stmts@T
+   (dot@4
+    (dot~3 c~1 id@1)len@1)))
+ (comment@,4B)
+ (proc@,4H parseConfig@5 x . .
+  (params@H
+   (param@1 body . . string@6 .))Config@G . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@A noConfig~8))
+   (var@4,1 line . . . ""@7)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 <= i~2
+     (dot@7 body~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@E or
+        (infix~C == i~2
+         (dot@7 body~4 len@1))
+        (infix@B ==
+         (at~4 body~4 i@1)'\0A'@3))
+       (stmts~1,1
+        (var@4 j . . . 0@4)
+        (while@,1
+         (infix@J and
+          (infix~B < j~2
+           (dot@6 line~4 len@1))
+          (par@4
+           (infix@G or
+            (infix~7 ==
+             (at~4 line~4 j@1)' '@3)
+            (infix@B ==
+             (at~4 line~4 j@1)'\09'@3))))
+         (stmts@y
+          (cmd inc j@4)))
+        (if@,2
+         (elif@3
+          (infix@D and
+           (infix~B < j~2
+            (dot@6 line~4 len@1))
+           (infix@C !=
+            (at~4 line~4 j@1)'\23'@3))
+          (stmts~1,1
+           (var@4 id . . . ""@5)
+           (while@,1
+            (infix@c and
+             (infix~J and
+              (infix~B < j~2
+               (dot@6 line~4 len@1))
+              (infix@C !=
+               (at~4 line~4 j@1)' '@3))
+             (infix@C !=
+              (at~4 line~4 j@1)'\09'@3))
+            (stmts@2,1
+             (if
+              (elif@3
+               (infix@8 !=
+                (at~4 line~4 j@1)'\0D'@3)
+               (stmts@H
+                (cmd@2
+                 (dot id~2 add@1)
+                 (at@9 line~4 j@1)))))
+             (cmd@,1 inc j@4)))
+           (while@,5
+            (infix@J and
+             (infix~B < j~2
+              (dot@6 line~4 len@1))
+             (par@4
+              (infix@G or
+               (infix~7 ==
+                (at~4 line~4 j@1)' '@3)
+               (infix@B ==
+                (at~4 line~4 j@1)'\09'@3))))
+            (stmts@y
+             (cmd inc j@4)))
+           (var@4,6 rest . . . ""@7)
+           (while@,7
+            (infix@8 < j~2
+             (dot@6 line~4 len@1))
+            (stmts@2,1
+             (if
+              (elif@3
+               (infix@8 !=
+                (at~4 line~4 j@1)'\0D'@3)
+               (stmts@H
+                (cmd@4
+                 (dot rest~4 add@1)
+                 (at@9 line~4 j@1)))))
+             (cmd@,1 inc j@4)))
+           (if@,A
+            (elif@3
+             (infix@7 >
+              (dot~5 id~2 len@1)0@2)
+             (stmts~1,1
+              (cmd@9
+               (dot
+                (dot~3 result~6 id@1)add@1)id@5)
+              (cmd@A,1
+               (dot
+                (dot~4 result~6 row@1)add@1)rest@5)))))))
+        (asgn@5,G line~5 ""@2)))
+      (else@,I
+       (stmts@2,1
+        (cmd@4
+         (dot line~4 add@1)
+         (at@9 body~4 i@1)))))
+     (cmd@,K inc i@4)))))
+ (comment@,4i)
+ (proc@,4m applyTo@5 x . .
+  (params@D
+   (param@1 c . . Config@3 .)
+   (param@C lines . .
+    (mut@7
+     (at@7 seq~3 DebugLine@1)).)). . .
+  (stmts@2,1
+   (var@4 r . . . 0@4)
+   (while@,1
+    (infix@8 < r~2
+     (dot@6
+      (dot~3 c~1 id@1)len@1))
+    (stmts@2,1
+     (var@4 i . . . 0@4)
+     (while@,1
+      (infix@8 < i~2
+       (dot@7 lines~5 len@1))
+      (stmts@2,1
+       (if
+        (elif@3
+         (infix@L or
+          (infix~D ==
+           (at~4
+            (dot~3 c~1 id@1)r@1)EveryLine@3)
+          (infix@F ==
+           (dot~4
+            (at~3 lines~5 i@1)id@1)
+           (at@7
+            (dot~3 c~1 id@1)r@1)))
+         (stmts~1,1
+          (var@4 one . . .
+           (at@B lines~5 i@1))
+          (call@7,1 readRow~7 one@1
+           (at@B
+            (dot~4 c~1 row@1)r@1))
+          (asgn@9,2
+           (at~4 lines~5 i@1)one@2))))
+       (cmd@,4 inc i@4)))
+     (cmd@,7 inc r@4)))))
+ (comment@,56)
+ (proc@,58 laterId@5 x . .
+  (params@D
+   (param@1 a . . string@6 .)
+   (param@4 b . . string@3 .))bool@G . .
+  (stmts@2,1
+   (var@4 i . . . 0@4)
+   (while@,1
+    (infix@G and
+     (infix~8 < i~2
+      (dot@3 a~1 len@1))
+     (infix@6 < i~2
+      (dot@3 b~1 len@1)))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@5 !=
+        (at~4 a~1 i@1)
+        (at@4 b~1 i@1))
+       (stmts@E
+        (ret
+         (infix@H >
+          (call~7 int~3
+           (at@2 a~1 i@1))
+          (call@5 int~3
+           (at@2 b~1 i@1)))))))
+     (cmd@,1 inc i@4)))
+   (infix@6,4 >
+    (dot~5 a~1 len@1)
+    (dot@3 b~1 len@1))))
+ (proc@,5F after@5 x . .
+  (params@B
+   (param@1 a . . DebugLine@6 .)
+   (param@4 b . . DebugLine@3 .))bool@J . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@8 !=
+      (dot~7 a~1 order@1)
+      (dot@4 b~1 order@1))
+     (stmts@K
+      (ret
+       (infix@F >
+        (dot~7 a~1 order@1)
+        (dot@3 b~1 order@1))))))
+   (call@7,1 laterId~7
+    (dot@2 a~1 id@1)
+    (dot@8 b~1 id@1))))
+ (comment@,5J)
+ (proc@,5N ordered@5 x . .
+  (params@D
+   (param@1 lines . .
+    (at@A seq~3 DebugLine@1).)
+   (param@O section . . Section@9 .))
+  (at@k seq~3 int@1). .
+  (stmts@2,1
+   (asgn@7 result~7
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@7 lines~5 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@C and
+        (dot~4
+         (at~3 lines~5 i@1)on@1)
+        (infix@L ==
+         (dot~9
+          (at~3 lines~5 i@1)section@1)section@3))
+       (stmts~1,1
+        (cmd@6
+         (dot result~6 add@1)i@5)
+        (var@4,1 at . . .
+         (infix@G \2D
+          (dot~5 result~6 len@1)1@2))
+        (while@,2
+         (infix@D and
+          (infix~4 > at~3 0@2)
+          (call@9 after~5
+           (at@6 lines~5
+            (at@7 result~6
+             (infix@4 \2D at~3 1@2)))
+           (at@T lines~5
+            (at@7 result~6 at@1))))
+         (stmts@2,3
+          (let@4 lower . . .
+           (at@E result~6
+            (infix@4 \2D at~3 1@2)))
+          (let@4,1 higher . . .
+           (at@F result~6 at@1))
+          (asgn@F,2
+           (at~9 result~6
+            (infix@4 \2D at~3 1@2))higher@2)
+          (asgn@B,3
+           (at~5 result~6 at@1)lower@2)
+          (asgn@3,4 at~3
+           (infix@5 \2D at~3 1@2)))))))
+     (cmd@,B inc i@4)))))
+ (comment@,5e)
+ (proc@,5h sourced@5 x . .
+  (params@D
+   (param@1 line . . DebugLine@6 .))bool@J . .
+  (stmts@d
+   (infix@H >
+    (dot~5
+     (dot~8 line~4 service@1)len@1)0@2))))

@@ -1,0 +1,5055 @@
+(.nif27)
+(.indexat 153609           )
+(stmts@,1,.jester/deps/aoughwl_inventory/inventory.nim
+ (import
+  (kv sysvq0asl "../../../../../../nimony/lib/std/system.nim")
+  (kv jesaqohvh1 "../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim")
+  (kv catbyu542 "../../../../Packages/com.aoughwl.jester/ModSdk/catalogs.nim"))
+ (const@A,m :ItemKind.0.~8 x . string.0.sysvq0asl~1,1R "aoughwl.item"@4)
+ (const@F,o :ItemStackKind.0.~D x . string.0.sysvq0asl~6,1P "aoughwl.item.stack"@4)
+ (const@E,q :ItemBulkKind.0.~C x . string.0.sysvq0asl~5,1N "aoughwl.item.bulk"@4)
+ (const@G,s :ItemWeightKind.0.~E x . string.0.sysvq0asl~7,1L "aoughwl.item.weight"@4)
+ (const@F,u :ItemShapeKind.0.~D x . string.0.sysvq0asl~6,1J "aoughwl.item.shape"@4)
+ (const@D,w :ItemTagKind.0.~B x . string.0.sysvq0asl~4,1H "aoughwl.item.tags"@4)
+ (const@F,z :ContainerKind.0.~D x . string.0.sysvq0asl~6,1E "aoughwl.container"@4)
+ (const@J,11 :ContainerSlotKind.0.~H x . string.0.sysvq0asl~A,1C "aoughwl.container.slots"@4)
+ (const@N,13 :ContainerCapacityKind.0.~L x . string.0.sysvq0asl~E,1A "aoughwl.container.capacity"@4)
+ (const@J,15 :ContainerLoadKind.0.~H x . string.0.sysvq0asl~A,18 "aoughwl.container.load"@4)
+ (const@L,17 :ContainerAcceptKind.0.~J x . string.0.sysvq0asl~C,16 "aoughwl.container.accepts"@4)
+ (const@L,19 :ContainerRejectKind.0.~J x . string.0.sysvq0asl~C,14 "aoughwl.container.rejects"@4)
+ (const@C,1C :StackFacet.0.~A x . string.0.sysvq0asl~3,11 ".stack"@4)
+ (const@B,1D :BulkFacet.0.~9 x . string.0.sysvq0asl~2,10 ".bulk"@4)
+ (const@D,1E :WeightFacet.0.~B x . string.0.sysvq0asl~4,z ".weight"@4)
+ (const@C,1F :ShapeFacet.0.~A x . string.0.sysvq0asl~3,y ".shape"@4)
+ (const@A,1G :TagFacet.0.~8 x . string.0.sysvq0asl~1,x ".tags"@4)
+ (const@B,1H :SlotFacet.0.~9 x . string.0.sysvq0asl~2,w ".slots"@4)
+ (const@F,1I :CapacityFacet.0.~D x . string.0.sysvq0asl~6,v ".capacity"@4)
+ (const@B,1J :LoadFacet.0.~9 x . string.0.sysvq0asl~2,u ".load"@4)
+ (const@D,1K :AcceptFacet.0.~B x . string.0.sysvq0asl~4,t ".accepts"@4)
+ (const@D,1L :RejectFacet.0.~B x . string.0.sysvq0asl~4,s ".rejects"@4)
+ (const@J,1N :KindsDeclared.0.~D x . string.0.sysvq0asl~A,q "aoughwl.inventory.kinds"@4)
+ (gvar@4,1W :kindsDeclared.0. . .
+  (bool@C,h,../../../../../../nimony/lib/std/system/basic_types.nim)
+  (false@G))
+ (proc@,1b :declareInventoryKinds.0.@5 x . .
+  (params@R). . .
+  (stmts@2,1
+   (if
+    (elif@3 kindsDeclared.0.
+     (stmts@F
+      (ret .))))
+   (asgn@E,1 kindsDeclared.0.~E
+    (true@2))
+   (if@,2
+    (elif@3
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)0@h,1f,.jester/deps/aoughwl_inventory/inventory.nim
+       (call@a,1f,.jester/deps/aoughwl_inventory/inventory.nim len.4.sysvq0asl@1
+        (call~F catalogSignature.0.jesaqohvh1~G KindsDeclared.0.@1))))
+     (stmts@f
+      (ret .))))
+   (call@H,3 defineCatalogKind.0.jesaqohvh1~H ItemKind.0.@1 "text"@B "Something that can be held, carried or stored, and what to call it."~F,1)
+   (call@H,5 defineCatalogKind.0.jesaqohvh1~H ItemStackKind.0.@1 "integer"@G "How many units of an item one stack may hold."~F,1)
+   (call@H,7 defineCatalogKind.0.jesaqohvh1~H ItemBulkKind.0.@1 "number"@F "How much room one unit of an item takes."~F,1)
+   (call@H,9 defineCatalogKind.0.jesaqohvh1~H ItemWeightKind.0.@1 "number"@H "What one unit of an item weighs."~F,1)
+   (call@H,B defineCatalogKind.0.jesaqohvh1~H ItemShapeKind.0.@1 "text"@G "An item\27s shape, as a token only a presentation layer reads."~F,1)
+   (call@H,D defineCatalogKind.0.jesaqohvh1~H ItemTagKind.0.@1 "text"@E "An item\27s tags, space separated."~F,1)
+   (call@H,F defineCatalogKind.0.jesaqohvh1~H ContainerKind.0.@1 "text"@G "Something that holds items, and what to call it."~F,1)
+   (call@H,H defineCatalogKind.0.jesaqohvh1~H ContainerSlotKind.0.@1 "integer"@K "Most stacks a container may hold. Below zero is no limit."~F,1)
+   (call@H,J defineCatalogKind.0.jesaqohvh1~H ContainerCapacityKind.0.@1 "number"@O "Most bulk a container may hold. Below zero is no limit."~F,1)
+   (call@H,L defineCatalogKind.0.jesaqohvh1~H ContainerLoadKind.0.@1 "number"@K "Most weight a container may hold. Below zero is no limit."~F,1)
+   (call@H,N defineCatalogKind.0.jesaqohvh1~H ContainerAcceptKind.0.@1 "text"@M "The tags a container takes. Empty takes anything."~F,1)
+   (call@H,P defineCatalogKind.0.jesaqohvh1~H ContainerRejectKind.0.@1 "text"@M "The tags a container refuses."~F,1)
+   (call@D,R createCatalog.0.jesaqohvh1~D KindsDeclared.0.@1 ItemKind.0.@G "That the inventory kinds are declared, and by whom."~B,1)))
+ (type@8,2B :Item.0.~6 x .
+  (pragmas
+   (destroy =destroy_SX49tem0invuity7x.0.)
+   (wasmoved =wasmoved_SX49tem0invuity7x.0.)
+   (dup =dup_SX49tem0invuity7x.0.)
+   (copy =copy_SX49tem0invuity7x.0.))
+  (object@2 .
+   (fld~4,2 :id.0~2 x . string.0.sysvq0asl@3 .)
+   (fld@1,3 :display.0~7 x . string.0.sysvq0asl@3 .)
+   (fld~1,4 :stack.0~5 x .
+    (i@3 64).)
+   (fld~2,5 :bulk.0~4 x .
+    (f@3 64).)
+   (fld@,6 :weight.0~6 x .
+    (f@3 64).)
+   (fld~1,7 :shape.0~5 x . string.0.sysvq0asl@3 .)
+   (fld~2,8 :tags.0~4 x . string.0.sysvq0asl@3 .)
+   (fld~1,9 :known.0~5 x .
+    (bool@3).)))
+ (type@A,2O :Holder.0.~8 x .
+  (pragmas
+   (destroy =destroy_SX48older0invuity7x.0.)
+   (wasmoved =wasmoved_SX48older0invuity7x.0.)
+   (dup =dup_SX48older0invuity7x.0.)
+   (copy =copy_SX48older0invuity7x.0.))
+  (object@2 .
+   (fld~6,4 :id.0~2 x . string.0.sysvq0asl@3 .)
+   (fld~1,5 :display.0~7 x . string.0.sysvq0asl@3 .)
+   (fld~3,6 :slots.0~5 x .
+    (i@3 64).)
+   (fld@,7 :capacity.0~8 x .
+    (f@3 64).)
+   (fld~4,8 :load.0~4 x .
+    (f@3 64).)
+   (fld~1,9 :accepts.0~7 x . string.0.sysvq0asl@3 .)
+   (fld~1,A :rejects.0~7 x . string.0.sysvq0asl@3 .)
+   (fld~3,B :known.0~5 x .
+    (bool@3).)))
+ (type@9,2b :Stack.0.~7 x .
+  (pragmas
+   (destroy =destroy_SX53tack0invuity7x.0.)
+   (wasmoved =wasmoved_SX53tack0invuity7x.0.)
+   (dup =dup_SX53tack0invuity7x.0.)
+   (copy =copy_SX53tack0invuity7x.0.))
+  (object@2 .
+   (fld~3,2 :item.0~4 x . string.0.sysvq0asl@3 .)
+   (fld~2,3 :count.0~5 x .
+    (i@3 64).)))
+ (type@D,2g :Container.0.~B x .
+  (pragmas)
+  (distinct@2
+   (i@9 64)))
+ (type@B,2k :Trouble.0.~9 x . .
+  (enum@2
+   (u 8)
+   (efld~9,4 :NoTrouble.0. x . Trouble.0.
+    (tup 0 "NoTrouble"))
+   (efld~9,5 :NoSuchContainer.0. x . Trouble.0.
+    (tup 1 "NoSuchContainer"))
+   (efld~9,6 :NoSuchStack.0. x . Trouble.0.
+    (tup 2 "NoSuchStack"))
+   (efld~9,7 :UnknownItem.0. x . Trouble.0.
+    (tup 3 "UnknownItem"))
+   (efld~9,8 :NotAccepted.0. x . Trouble.0.
+    (tup 4 "NotAccepted"))
+   (efld~9,9 :NoRoom.0. x . Trouble.0.
+    (tup 5 "NoRoom"))
+   (efld~9,A :TooHeavy.0. x . Trouble.0.
+    (tup 6 "TooHeavy"))
+   (efld~9,B :NotEnough.0. x . Trouble.0.
+    (tup 7 "NotEnough"))
+   (efld~9,C :Nowhere.0. x . Trouble.0.
+    (tup 8 "Nowhere"))
+   (efld~9,D :BadCount.0. x . Trouble.0.
+    (tup 9 "BadCount"))))
+ (proc@2,2k :dollar`.Trouble.0. x . .
+  (params
+   (param :e.0 . . Trouble.0. .))string.0.sysvq0asl . .
+  (stmts
+   (result@B :result.0 . . string.0.sysvq0asl~4,~X .)
+   (case@B e.0
+    (of~9,4
+     (ranges NoTrouble.0.)
+     (stmts
+      (ret "NoTrouble")))
+    (of~9,5
+     (ranges NoSuchContainer.0.)
+     (stmts
+      (ret "NoSuchContainer")))
+    (of~9,6
+     (ranges NoSuchStack.0.)
+     (stmts
+      (ret "NoSuchStack")))
+    (of~9,7
+     (ranges UnknownItem.0.)
+     (stmts
+      (ret "UnknownItem")))
+    (of~9,8
+     (ranges NotAccepted.0.)
+     (stmts
+      (ret "NotAccepted")))
+    (of~9,9
+     (ranges NoRoom.0.)
+     (stmts
+      (ret "NoRoom")))
+    (of~9,A
+     (ranges TooHeavy.0.)
+     (stmts
+      (ret "TooHeavy")))
+    (of~9,B
+     (ranges NotEnough.0.)
+     (stmts
+      (ret "NotEnough")))
+    (of~9,C
+     (ranges Nowhere.0.)
+     (stmts
+      (ret "Nowhere")))
+    (of~9,D
+     (ranges BadCount.0.)
+     (stmts
+      (ret "BadCount"))))
+   (ret result.0)))
+ (type@B,2z :Outcome.0.~9 x .
+  (pragmas
+   (destroy =destroy_SX4futcome0invuity7x.0.)
+   (wasmoved =wasmoved_SX4futcome0invuity7x.0.)
+   (dup =dup_SX4futcome0invuity7x.0.)
+   (copy =copy_SX4futcome0invuity7x.0.))
+  (object@2 .
+   (fld~2,3 :trouble.0~7 x . Trouble.0.@3 .)
+   (fld~4,4 :moved.0~5 x .
+    (i@3 64).)
+   (fld~5,5 :slot.0~4 x .
+    (i@3 64).)
+   (fld~5,6 :note.0~4 x . string.0.sysvq0asl@3 .)))
+ (proc@,37 :went.0.@5 x . .
+  (params@A
+   (param@1 :o.0 . . Outcome.0.@3 .))
+  (bool@E). .
+  (stmts@V
+   (result@A :result.1 . .
+    (bool~T,~n).)
+   (asgn@A result.1
+    (eq Trouble.0.
+     (dot~9 o.0~1 trouble.0 0)NoTrouble.0.@3))
+   (ret~V result.1)))
+ (proc@,3D :name.0.@5 x . .
+  (params@A
+   (param@1 :t.0 . . Trouble.0.@3 .))string.0.sysvq0asl@E . .
+  (stmts@2,1
+   (result :result.2 . . string.0.sysvq0asl@7,~11 .)
+   (asgn result.2
+    (case t.0@5
+     (of@,1
+      (ranges NoTrouble.0.@3)
+      (expr@E "fine"))
+     (of@,2
+      (ranges NoSuchContainer.0.@3)
+      (expr@K "no such container"))
+     (of@,3
+      (ranges NoSuchStack.0.@3)
+      (expr@G "no such stack"))
+     (of@,4
+      (ranges UnknownItem.0.@3)
+      (expr@G "no mod defines that item"))
+     (of@,5
+      (ranges NotAccepted.0.@3)
+      (expr@G "this container does not take that"))
+     (of@,6
+      (ranges NoRoom.0.@3)
+      (expr@B "no room"))
+     (of@,7
+      (ranges TooHeavy.0.@3)
+      (expr@D "too heavy"))
+     (of@,8
+      (ranges NotEnough.0.@3)
+      (expr@E "not that many there"))
+     (of@,9
+      (ranges Nowhere.0.@3)
+      (expr@C "nothing to do"))
+     (of@,A
+      (ranges BadCount.0.@3)
+      (expr@D "count must be one or more"))))
+   (ret~2,~1 result.2)))
+ (proc@,3Q :isNothing.0.@5 x . .
+  (params@F
+   (param@1 :c.0 . . Container.0.@3 .))
+  (bool@G). .
+  (stmts@c
+   (result@7 :result.3 . .
+    (bool~X,~16).)
+   (asgn@7 result.3
+    (eq
+     (i 64)
+     (conv~4
+      (i~3 64)c.0@1)0@3))
+   (ret~c result.3)))
+ (proc@,3R :isSame.0.@5 x . .
+  (params@C
+   (param@1 :a.0 . . Container.0.@6 .)
+   (param@4 :b.0 . . Container.0.@3 .))
+  (bool@J). .
+  (stmts@c
+   (result@7 :result.4 . .
+    (bool~X,~17).)
+   (asgn@7 result.4
+    (eq
+     (i 64)
+     (conv~4
+      (i~3,~1 64)a.0@1)
+     (conv@6
+      (i~D,~1 64)b.0@1)))
+   (ret~c result.4)))
+ (proc@,3S :nothingContainer.0.@5 x . .
+  (params@M)Container.0.@4 . .
+  (stmts@c
+   (result@9 :result.5 . . Container.0.~S,~2 .)
+   (asgn@9 result.5
+    (conv Container.0.~9 0@1))
+   (ret~c result.5)))
+ (proc@,3U :fine.0.@5 . . .
+  (params@9
+   (param@1 :moved.0 . .
+    (i@D 64).)
+   (param@8 :slot.0 . .
+    (i@6 64).))Outcome.0.@K . .
+  (stmts@2,1
+   (result@7 :result.6 . . Outcome.0.@5,~O .)
+   (asgn@7 result.6
+    (oconstr Outcome.0.@5,~O
+     (kv@8 trouble.0~7 NoTrouble.0.@2)
+     (kv@Q moved.0~5 moved.0@2)
+     (kv@d slot.0~4 slot.0@2)
+     (kv@p note.0~4 ""@2)))
+   (ret~2,~1 result.6)))
+ (proc@,3X :refused.0.@5 . . .
+  (params@C
+   (param@1 :t.1 . . Trouble.0.@3 .)
+   (param@D :note.0 . . string.0.sysvq0asl~G,~1K ""@7))Outcome.0.@P . .
+  (stmts@2,1
+   (result@7 :result.7 . . Outcome.0.@5,~R .)
+   (asgn@7 result.7
+    (oconstr Outcome.0.@5,~R
+     (kv@8 trouble.0~7 t.1@2)
+     (kv@I moved.0~5 0@2)
+     (kv@R slot.0~4 -1@2)
+     (kv@b note.0~4
+      (expr
+       (stmts@2)
+       (if@1
+        (elif@3
+         (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+          (lt@2,1
+           (i 64)0@z,3Z,.jester/deps/aoughwl_inventory/inventory.nim
+           (call@s,3Z,.jester/deps/aoughwl_inventory/inventory.nim len.4.sysvq0asl@1 note.0~4)))note.0@E)
+        (else@M
+         (call@A name.0.~4 t.1@1)))))))
+   (ret~2,~1 result.7)))
+ (proc@,3h :holdsWord.0.@5 . . .
+  (params@E
+   (param@1 :tags.0 . . string.0.sysvq0asl@C .)
+   (param@7 :word.0 . . string.0.sysvq0asl@6 .)
+   (param@L :at.0 . .
+    (i@C 64).)
+   (param@P :length.0 . .
+    (i@8 64).))
+  (bool@d). .
+  (stmts@2,1
+   (result :result.8 . .
+    (bool@A,~1O).)
+   (if
+    (elif@3
+     (le@7
+      (i 64)length.0~7 0@3)
+     (stmts@D
+      (ret
+       (false@7)))))
+   (if@,1
+    (elif@3
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)
+       (call@I,3k,.jester/deps/aoughwl_inventory/inventory.nim len.4.sysvq0asl@1 tags.0~4)length.0@5,3k,.jester/deps/aoughwl_inventory/inventory.nim))
+     (stmts@J
+      (ret
+       (false@7)))))
+   (var@4,2 :i.0 . .
+    (i 64)0@4)
+   (while@,3
+    (le@H
+     (i 64)
+     (add~9
+      (i 64)i.0~2 length.0@2)
+     (call@7 len.4.sysvq0asl@1 tags.0~4))
+    (stmts@2,1
+     (var@4 :j.0 . .
+      (i 64)0@4)
+     (var@4,1 :same.0 . .
+      (bool@M,h,../../../../../../nimony/lib/std/system/basic_types.nim)
+      (true@7))
+     (while@,2
+      (lt@8
+       (i 64)j.0~2 length.0@2)
+      (stmts@2,1
+       (if
+        (elif@3
+         (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+          (not@,1
+           (eq@7
+            (c 8)
+            (call@9,3q,.jester/deps/aoughwl_inventory/inventory.nim \5B\5D.9.sysvq0asl tags.0
+             (add@7
+              (i 64)i.0~2 j.0@2))
+            (call@O,3q,.jester/deps/aoughwl_inventory/inventory.nim \5B\5D.9.sysvq0asl word.0
+             (add@8
+              (i 64)at.0~3 j.0@2)))))
+         (stmts~1,1
+          (asgn@5 same.0~5
+           (false@2))
+          (break@,1 .))))
+       (cmd@,3 inc.1.Irn1g7r1.
+        (haddr@4 j.0))))
+     (if@,7
+      (elif@3 same.0
+       (stmts~1,1
+        (var@4 :ends.0 . .
+         (bool@2,~1a)
+         (eq@I
+          (i 64)
+          (add~9
+           (i 64)i.0~2 length.0@2)
+          (call@7 len.4.sysvq0asl@1 tags.0~4)))
+        (if@,1
+         (elif@3
+          (not ends.0@4)
+          (stmts@A
+           (asgn@5 ends.0~5
+            (eq@J
+             (c 8)
+             (call~H \5B\5D.9.sysvq0asl tags.0
+              (add@7
+               (i 64)i.0~2 length.0@2))' '@3)))))
+        (var@4,2 :begins.0 . .
+         (bool@2,~1c)
+         (eq@B
+          (i 64)i.0~2 0@3))
+        (if@,3
+         (elif@3
+          (not begins.0@4)
+          (stmts@C
+           (asgn@7 begins.0~7
+            (eq@E
+             (c 8)
+             (call~C \5B\5D.9.sysvq0asl tags.0
+              (sub@7
+               (i 64)i.0~2 1@2))' '@3)))))
+        (if@,4
+         (elif@3
+          (and@5 ends.0~5 begins.0@4)
+          (stmts@H
+           (ret
+            (true@7))))))))
+     (cmd@,D inc.1.Irn1g7r1.
+      (haddr@4 i.0))))
+   (asgn@,I result.8
+    (false))
+   (ret~2,~1 result.8)))
+ (proc@,43 :tagged.0.@5 x . .
+  (params@C
+   (param@1 :tags.1 . . string.0.sysvq0asl@B .)
+   (param@7 :tag.0 . . string.0.sysvq0asl@5 .))
+  (bool@L). .
+  (stmts@e
+   (result@9 :result.9 . .
+    (bool~b,~1j).)
+   (asgn@9 result.9
+    (call holdsWord.0.~9 tags.1@1 tag.0@7 0@C
+     (call@I len.4.sysvq0asl@1 tag.0~3)))
+   (ret~e result.9)))
+ (proc@,47 :taggedAny.0.@5 x . .
+  (params@F
+   (param@1 :tags.2 . . string.0.sysvq0asl@E .)
+   (param@7 :wanted.0 . . string.0.sysvq0asl@8 .))
+  (bool@O). .
+  (stmts@2,1
+   (result@4 :result.10 . .
+    (bool@6,~1o).)
+   (var@4 :start.0 . .
+    (i 64)0@8)
+   (var@4,1 :i.1 . .
+    (i 64)0@4)
+   (while@,2
+    (le@8
+     (i 64)i.1~2
+     (call@9 len.4.sysvq0asl@1 wanted.0~6))
+    (stmts@2,1
+     (var@4 :boundary.0 . .
+      (bool@4,~1r)
+      (eq@D
+       (i 64)i.1~2
+       (call@9 len.4.sysvq0asl@1 wanted.0~6)))
+     (if@,1
+      (elif@3
+       (not boundary.0@4)
+       (stmts@E
+        (asgn@9 boundary.0~9
+         (eq@C
+          (c 8)
+          (call~A \5B\5D.9.sysvq0asl wanted.0 i.1@7)' '@3)))))
+     (if@,2
+      (elif@3 boundary.0
+       (stmts~1,1
+        (if
+         (elif@3
+          (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+           (lt@2,1
+            (i 64)start.0@D,4F,.jester/deps/aoughwl_inventory/inventory.nim i.1@9,4F,.jester/deps/aoughwl_inventory/inventory.nim))
+          (stmts~1,1
+           (if
+            (elif@3
+             (call@9 holdsWord.0.~9 tags.2@1 wanted.0@7 start.0@F
+              (sub@O
+               (i 64)i.1~2 start.0@2))
+             (stmts@h
+              (ret
+               (true@7))))))))
+        (asgn@6,2 start.0~6
+         (add@4
+          (i 64)i.1~2 1@2)))))
+     (cmd@,6 inc.1.Irn1g7r1.
+      (haddr@4 i.1))))
+   (asgn@,A result.10
+    (false))
+   (ret~2,~1 result.10)))
+ (gvar@2,4P :itemCatalogs.0. . . seq.0.Ixdx2fh1.@H .)
+ (gvar@2,4Q :holderCatalogs.0. . . seq.0.Ixdx2fh1.@J .)
+ (proc@,4S :listed.0.@5 . . .
+  (params@B
+   (param@1 :list.0 . . seq.0.Ixdx2fh1.@9 .)
+   (param@K :id.0 . . string.0.sysvq0asl@4 .))
+  (bool@X). .
+  (stmts@2,1
+   (result@4 :result.11 . .
+    (bool@6,~29).)
+   (var@4 :i.2 . .
+    (i 64)0@4)
+   (while@,1
+    (lt@8
+     (i 64)i.2~2
+     (call@6 len.3.Ixq6taz.@1 list.0~4))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@8 ==.20.sysvq0asl
+        (hderef~8
+         (call \5B\5D.7.Ir6d0tw. list.0 i.2@5))id.0@3)
+       (stmts@F
+        (ret
+         (true@7)))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.2))))
+   (asgn@,4 result.11
+    (false))
+   (ret~2,~1 result.11)))
+ (proc@,4c :useItems.0.@5 x . .
+  (params@E
+   (param@1 :catalog.0 . . string.0.sysvq0asl@9 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (not
+      (call@A listed.0.~6 itemCatalogs.0.@1 catalog.0@F))
+     (stmts@Z
+      (cmd@C add.0.Ig6072n.@1
+       (haddr~C itemCatalogs.0.)catalog.0@5))))))
+ (proc@,4g :useContainers.0.@5 x . .
+  (params@J
+   (param@1 :catalog.1 . . string.0.sysvq0asl@9 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (not
+      (call@A listed.0.~6 holderCatalogs.0.@1 catalog.1@H))
+     (stmts@b
+      (cmd@E add.0.Ig6072n.@1
+       (haddr~E holderCatalogs.0.)catalog.1@5))))))
+ (proc@,4l :dropItems.0.@5 x . .
+  (params@F
+   (param@1 :catalog.2 . . string.0.sysvq0asl@9 .)). . .
+  (stmts@2,1
+   (var@4 :i.4 . .
+    (i 64)0@4)
+   (while@,1
+    (lt@8
+     (i 64)i.4~2
+     (call@E len.3.Ixq6taz.@1 itemCatalogs.0.~C))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@G ==.20.sysvq0asl
+        (hderef~G
+         (call \5B\5D.7.Ir6d0tw. itemCatalogs.0. i.4@D))catalog.2@3)
+       (stmts~1,1
+        (var@4 :j.1 . .
+         (i 64)i.4@4)
+        (while@,1
+         (lt@C
+          (i 64)
+          (add~4
+           (i 64)j.1~2 1@2)
+          (call@E len.3.Ixq6taz.@1 itemCatalogs.0.~C))
+         (stmts@2,1
+          (let@4 :next.0 . . string.0.sysvq0asl@A,~P
+           (hderef@7
+            (call \5B\5D.7.Ir6d0tw. itemCatalogs.0.
+             (add@F
+              (i 64)j.1~2 1@2))))
+          (call@,1 \5B\5D=.7.Ild9iim.
+           (haddr itemCatalogs.0.)j.1@D next.0@I)
+          (cmd@,2 inc.1.Irn1g7r1.
+           (haddr@4 j.1))))
+        (call@J,5 setLen.0.Iejjsiw.~6
+         (haddr~J itemCatalogs.0.)
+         (sub@I
+          (i 64)
+          (call~5 len.3.Ixq6taz.@1 itemCatalogs.0.~C)1@2))
+        (ret@,6 .))))
+     (cmd@,8 inc.1.Irn1g7r1.
+      (haddr@4 i.4))))))
+ (proc@,4y :dropContainers.0.@5 x . .
+  (params@K
+   (param@1 :catalog.3 . . string.0.sysvq0asl@9 .)). . .
+  (stmts@2,1
+   (var@4 :i.6 . .
+    (i 64)0@4)
+   (while@,1
+    (lt@8
+     (i 64)i.6~2
+     (call@G len.3.Ixq6taz.@1 holderCatalogs.0.~E))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@I ==.20.sysvq0asl
+        (hderef~I
+         (call \5B\5D.7.Ir6d0tw. holderCatalogs.0. i.6@F))catalog.3@3)
+       (stmts~1,1
+        (var@4 :j.2 . .
+         (i 64)i.6@4)
+        (while@,1
+         (lt@C
+          (i 64)
+          (add~4
+           (i 64)j.2~2 1@2)
+          (call@G len.3.Ixq6taz.@1 holderCatalogs.0.~E))
+         (stmts@2,1
+          (let@4 :next.1 . . string.0.sysvq0asl@A,~c
+           (hderef@7
+            (call \5B\5D.7.Ir6d0tw. holderCatalogs.0.
+             (add@H
+              (i 64)j.2~2 1@2))))
+          (call@,1 \5B\5D=.7.Ild9iim.
+           (haddr holderCatalogs.0.)j.2@F next.1@K)
+          (cmd@,2 inc.1.Irn1g7r1.
+           (haddr@4 j.2))))
+        (call@L,5 setLen.0.Iejjsiw.~6
+         (haddr~L holderCatalogs.0.)
+         (sub@K
+          (i 64)
+          (call~5 len.3.Ixq6taz.@1 holderCatalogs.0.~E)1@2))
+        (ret@,6 .))))
+     (cmd@,8 inc.1.Irn1g7r1.
+      (haddr@4 i.6))))))
+ (proc@,5E :catalogPresent.0.@5 x . .
+  (params@K
+   (param@1 :id.1 . . string.0.sysvq0asl@4 .))
+  (bool@E). .
+  (stmts@f
+   (result@P :result.12 . .
+    (bool~s,~2u).)
+   (asgn@P result.12
+    (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+     (lt@2,1
+      (i 64)0@16,5F,.jester/deps/aoughwl_inventory/inventory.nim
+      (call@z,5F,.jester/deps/aoughwl_inventory/inventory.nim len.4.sysvq0asl@1
+       (call~4 catalogSignature.0.jesaqohvh1~G id.1@1)))))
+   (ret~f result.12)))
+ (proc@,5G :facetText.0.@5 . . .
+  (params@E
+   (param@1 :base.0 . . string.0.sysvq0asl@R .)
+   (param@7 :facet.0 . . string.0.sysvq0asl@L .)
+   (param@E :id.2 . . string.0.sysvq0asl@E .)
+   (param@I :fallback.0 . . string.0.sysvq0asl@A .))string.0.sysvq0asl@b . .
+  (stmts@2,1
+   (result@4 :result.13 . . string.0.sysvq0asl@3,~34 .)
+   (let@4 :cat.0 . . string.0.sysvq0asl@3,~34
+    (infix@B &.0.sysvq0asl base.0~5 facet.0@2))
+   (if@,1
+    (elif@3
+     (not
+      (call@I catalogPresent.0.~E cat.0@1))
+     (stmts@P
+      (ret fallback.0@7))))
+   (let@4,2 :row.0 . . CatalogItem.0.catbyu542@Q,2E,../../../../Packages/com.aoughwl.jester/ModSdk/catalogs.nim
+    (call@L find.0.catbyu542~4
+     (call~A named.0.catbyu542~5 cat.0@1)id.2@1))
+   (if@,3
+    (elif@3
+     (not
+      (call@7 exists.0.catbyu542@1 row.0~3))
+     (stmts@G
+      (ret fallback.0@7))))
+   (asgn@3,4 result.13
+    (call text.0.catbyu542@1 row.0~3))
+   (ret~2,~1 result.13)))
+ (proc@,5N :facetNumber.0.@5 . . .
+  (params@G
+   (param@1 :base.1 . . string.0.sysvq0asl@H .)
+   (param@7 :facet.1 . . string.0.sysvq0asl@B .)
+   (param@E :id.3 . . string.0.sysvq0asl@4 .)
+   (param@Q :fallback.1 . .
+    (f@A 64).))
+  (f@k 64). .
+  (stmts@2,1
+   (result@4 :result.14 . .
+    (f@5,~38 64).)
+   (let@4 :cat.1 . . string.0.sysvq0asl@3,~3B
+    (infix@B &.0.sysvq0asl base.1~5 facet.1@2))
+   (if@,1
+    (elif@3
+     (not
+      (call@I catalogPresent.0.~E cat.1@1))
+     (stmts@P
+      (ret fallback.1@7))))
+   (let@4,2 :row.1 . . CatalogItem.0.catbyu542@Q,2E,../../../../Packages/com.aoughwl.jester/ModSdk/catalogs.nim
+    (call@L find.0.catbyu542~4
+     (call~A named.0.catbyu542~5 cat.1@1)id.3@1))
+   (if@,3
+    (elif@3
+     (not
+      (call@7 exists.0.catbyu542@1 row.1~3))
+     (stmts@G
+      (ret fallback.1@7))))
+   (asgn@3,4 result.14
+    (call number.0.catbyu542@1 row.1~3))
+   (ret~2,~1 result.14)))
+ (proc@,5U :facetInteger.0.@5 . . .
+  (params@H
+   (param@1 :base.2 . . string.0.sysvq0asl@H .)
+   (param@7 :facet.2 . . string.0.sysvq0asl@B .)
+   (param@E :id.4 . . string.0.sysvq0asl@4 .)
+   (param@Q :fallback.2 . .
+    (i@A 64).))
+  (i@g 64). .
+  (stmts@2,1
+   (result@4 :result.15 . .
+    (i@6,~3G 64).)
+   (let@4 :cat.2 . . string.0.sysvq0asl@3,~3I
+    (infix@B &.0.sysvq0asl base.2~5 facet.2@2))
+   (if@,1
+    (elif@3
+     (not
+      (call@I catalogPresent.0.~E cat.2@1))
+     (stmts@P
+      (ret fallback.2@7))))
+   (let@4,2 :row.2 . . CatalogItem.0.catbyu542@Q,2E,../../../../Packages/com.aoughwl.jester/ModSdk/catalogs.nim
+    (call@L find.0.catbyu542~4
+     (call~A named.0.catbyu542~5 cat.2@1)id.4@1))
+   (if@,3
+    (elif@3
+     (not
+      (call@7 exists.0.catbyu542@1 row.2~3))
+     (stmts@G
+      (ret fallback.2@7))))
+   (asgn@3,4 result.15
+    (conv
+     (i@X,~29 64)
+     (call@4 integer.0.catbyu542@1 row.2~3)))
+   (ret~2,~1 result.15)))
+ (proc@,5d :itemOf.0.@5 x . .
+  (params@C
+   (param@1 :id.5 . . string.0.sysvq0asl@4 .))Item.0.@E . .
+  (stmts@2,1
+   (result@7 :result.16 . . Item.0.@5,~1 .)
+   (asgn@7 result.16~7
+    (oconstr@6 Item.0.~1,~1
+     (kv@3 id.0~2 id.5@2)
+     (kv@G display.0~7 id.5@2)
+     (kv@R stack.0~5 1@2)
+     (kv@a bulk.0~4 1.0@2)
+     (kv@n weight.0~6 0.0@2)
+     (kv~6,1 shape.0~5 ""@2)
+     (kv@4,1 tags.0~4 ""@2)
+     (kv@F,1 known.0~5
+      (false@2))))
+   (var@4,2 :i.7 . .
+    (i@6,~3R 64)
+    (sub@L
+     (i 64)
+     (call~5 len.3.Ixq6taz.@1 itemCatalogs.0.~C)1@2))
+   (while@,3
+    (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+     (le@2,1
+      (i 64)0@D,5i,.jester/deps/aoughwl_inventory/inventory.nim i.7@8,5i,.jester/deps/aoughwl_inventory/inventory.nim))
+    (stmts@2,1
+     (let@4 :base.3 . . string.0.sysvq0asl@E,~1G
+      (hderef@7
+       (call \5B\5D.7.Ir6d0tw. itemCatalogs.0. i.7@D)))
+     (if@,1
+      (elif@3
+       (call@E catalogPresent.0.~E base.3@1)
+       (stmts~1,1
+        (let@4 :row.3 . . CatalogItem.0.catbyu542@Q,2E,../../../../Packages/com.aoughwl.jester/ModSdk/catalogs.nim
+         (call@M find.0.catbyu542~4
+          (call~B named.0.catbyu542~5 base.3@1)id.5@1))
+        (if@,1
+         (elif@3
+          (call@3 exists.0.catbyu542@1 row.3~3)
+          (stmts~1,1
+           (asgn@D
+            (dot~7 result.16~6 known.0 0)
+            (true@2))
+           (asgn@F,1
+            (dot~9 result.16~6 display.0 0)
+            (call@5 text.0.catbyu542@1 row.3~3))
+           (asgn@D,2
+            (dot~7 result.16~6 stack.0 0)
+            (call@E facetInteger.0.~C base.3@1 StackFacet.0.@7 id.5@J 1@N))
+           (asgn@C,3
+            (dot~6 result.16~6 bulk.0 0)
+            (call@D facetNumber.0.~B base.3@1 BulkFacet.0.@7 id.5@I 1.0@M))
+           (asgn@E,4
+            (dot~8 result.16~6 weight.0 0)
+            (call@D facetNumber.0.~B base.3@1 WeightFacet.0.@7 id.5@K 0.0@O))
+           (asgn@D,5
+            (dot~7 result.16~6 shape.0 0)
+            (call@B facetText.0.~9 base.3@1 ShapeFacet.0.@7 id.5@J ""@N))
+           (asgn@C,6
+            (dot~6 result.16~6 tags.0 0)
+            (call@B facetText.0.~9 base.3@1 TagFacet.0.@7 id.5@H ""@L))
+           (if@,7
+            (elif@3
+             (lt@D
+              (i 64)
+              (dot~7 result.16~6 stack.0 0)1@2)
+             (stmts@I
+              (asgn@D
+               (dot~7 result.16~6 stack.0 0)1@2))))
+           (if@,8
+            (elif@3
+             (lt@C
+              (f 64)
+              (dot~6 result.16~6 bulk.0 0)0.0@2)
+             (stmts@J
+              (asgn@C
+               (dot~6 result.16~6 bulk.0 0)0.0@2))))
+           (ret@,9 result.16)))))))
+     (cmd@,E dec.1.I2mwrey1.
+      (haddr@4 i.7))))
+   (ret~2,~1 result.16)))
+ (proc@,5z :holderIn.0.@5 x . .
+  (params@E
+   (param@1 :catalog.4 . . string.0.sysvq0asl@D .)
+   (param@A :id.6 . . string.0.sysvq0asl@4 .))Holder.0.@N . .
+  (stmts@2,1
+   (result@7 :result.17 . . Holder.0.@E,~1 .)
+   (asgn@7 result.17~7
+    (oconstr@8 Holder.0.@6,~1
+     (kv@3 id.0~2 id.6@2)
+     (kv@G display.0~7 id.6@2)
+     (kv@R slots.0~5 -1@2)
+     (kv@f capacity.0~8 -1.0@2)
+     (kv@r load.0~4 -1.0@2)
+     (kv~6,1 accepts.0~7 ""@2)
+     (kv@7,1 rejects.0~7 ""@2)
+     (kv@I,1 known.0~5
+      (false@2))))
+   (if@,2
+    (elif@3
+     (not
+      (call@I catalogPresent.0.~E catalog.4@1))
+     (stmts@T
+      (ret result.17))))
+   (let@4,3 :row.4 . . CatalogItem.0.catbyu542@Q,2E,../../../../Packages/com.aoughwl.jester/ModSdk/catalogs.nim
+    (call@P find.0.catbyu542~4
+     (call~E named.0.catbyu542~5 catalog.4@1)id.6@1))
+   (if@,4
+    (elif@3
+     (not
+      (call@7 exists.0.catbyu542@1 row.4~3))
+     (stmts@G
+      (ret result.17))))
+   (asgn@D,5
+    (dot~7 result.17~6 known.0 0)
+    (true@2))
+   (asgn@F,6
+    (dot~9 result.17~6 display.0 0)
+    (call@5 text.0.catbyu542@1 row.4~3))
+   (asgn@D,7
+    (dot~7 result.17~6 slots.0 0)
+    (call@E facetInteger.0.~C catalog.4@1 SlotFacet.0.@A id.6@L -1@P))
+   (asgn@G,8
+    (dot~A result.17~6 capacity.0 0)
+    (call@D facetNumber.0.~B catalog.4@1 CapacityFacet.0.@A id.6@P -1.0@T))
+   (asgn@C,9
+    (dot~6 result.17~6 load.0 0)
+    (call@D facetNumber.0.~B catalog.4@1 LoadFacet.0.@A id.6@L -1.0@P))
+   (asgn@F,A
+    (dot~9 result.17~6 accepts.0 0)
+    (call@B facetText.0.~9 catalog.4@1 AcceptFacet.0.@A id.6@N ""@R))
+   (asgn@F,B
+    (dot~9 result.17~6 rejects.0 0)
+    (call@B facetText.0.~9 catalog.4@1 RejectFacet.0.@A id.6@N ""@R))
+   (ret~2,~1 result.17)))
+ (proc@,6F :holderOf.0.@5 x . .
+  (params@E
+   (param@1 :id.7 . . string.0.sysvq0asl@4 .))Holder.0.@E . .
+  (stmts@2,1
+   (result@7 :result.18 . . Holder.0.@E,~H .)
+   (asgn@7 result.18~7
+    (oconstr@8 Holder.0.@6,~H
+     (kv@3 id.0~2 id.7@2)
+     (kv@G display.0~7 id.7@2)
+     (kv@R slots.0~5 -1@2)
+     (kv@f capacity.0~8 -1.0@2)
+     (kv@r load.0~4 -1.0@2)
+     (kv~6,1 accepts.0~7 ""@2)
+     (kv@7,1 rejects.0~7 ""@2)
+     (kv@I,1 known.0~5
+      (false@2))))
+   (var@4,2 :i.8 . .
+    (i@6,~43 64)
+    (sub@N
+     (i 64)
+     (call~5 len.3.Ixq6taz.@1 holderCatalogs.0.~E)1@2))
+   (while@,3
+    (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+     (le@2,1
+      (i 64)0@D,6K,.jester/deps/aoughwl_inventory/inventory.nim i.8@8,6K,.jester/deps/aoughwl_inventory/inventory.nim))
+    (stmts@2,1
+     (let@4 :found.0 . . Holder.0.@F,~L
+      (call@G holderIn.0.~8
+       (hderef@1
+        (call \5B\5D.7.Ir6d0tw. holderCatalogs.0. i.8@F))id.7@K))
+     (if@,1
+      (elif@3
+       (dot@5 found.0~5 known.0 0)
+       (stmts@D
+        (ret found.0@7))))
+     (cmd@,2 dec.1.I2mwrey1.
+      (haddr@4 i.8))))
+   (ret~2,~1 result.18)))
+ (proc@,6W :itemCatalog.0.@5 x . .
+  (params@H
+   (param@1 :id.8 . . string.0.sysvq0asl@4 .)
+   (param@D :description.0 . . string.0.sysvq0asl~L,~4J ""@E))Catalog.0.catbyu542@W . .
+  (stmts@2,1
+   (result@L :result.19 . . Catalog.0.catbyu542@9,~1 .)
+   (call@L declareInventoryKinds.0.~L)
+   (call@D,1 createCatalog.0.jesaqohvh1~D id.8@1 ItemKind.0.@5 description.0@F)
+   (call@D,2 createCatalog.0.jesaqohvh1~D
+    (infix@4 &.0.sysvq0asl id.8~3 StackFacet.0.@2)ItemStackKind.0.@I
+    (infix@q &.0.sysvq0asl "Stack sizes for "~J id.8@2))
+   (call@D,3 createCatalog.0.jesaqohvh1~D
+    (infix@4 &.0.sysvq0asl id.8~3 BulkFacet.0.@2)ItemBulkKind.0.@H
+    (infix@h &.0.sysvq0asl "Bulk for "~C id.8@2))
+   (call@D,4 createCatalog.0.jesaqohvh1~D
+    (infix@4 &.0.sysvq0asl id.8~3 WeightFacet.0.@2)ItemWeightKind.0.@J
+    (infix@o &.0.sysvq0asl "Weights for "~F id.8@2))
+   (call@D,5 createCatalog.0.jesaqohvh1~D
+    (infix@4 &.0.sysvq0asl id.8~3 ShapeFacet.0.@2)ItemShapeKind.0.@I
+    (infix@l &.0.sysvq0asl "Shapes for "~E id.8@2))
+   (call@D,6 createCatalog.0.jesaqohvh1~D
+    (infix@4 &.0.sysvq0asl id.8~3 TagFacet.0.@2)ItemTagKind.0.@G
+    (infix@f &.0.sysvq0asl "Tags for "~C id.8@2))
+   (call@8,7 useItems.0.~8 id.8@1)
+   (asgn@7,8 result.19
+    (conv Catalog.0.catbyu542~7 id.8@1))
+   (ret~2,~1 result.19)))
+ (proc@,6i :containerCatalog.0.@5 x . .
+  (params@M
+   (param@1 :id.9 . . string.0.sysvq0asl@4 .)
+   (param@D :description.1 . . string.0.sysvq0asl~Q,~4V ""@E))Catalog.0.catbyu542@W . .
+  (stmts@2,1
+   (result@L :result.20 . . Catalog.0.catbyu542@9,~D .)
+   (call@L declareInventoryKinds.0.~L)
+   (call@D,1 createCatalog.0.jesaqohvh1~D id.9@1 ContainerKind.0.@5 description.1@K)
+   (call@D,2 createCatalog.0.jesaqohvh1~D
+    (infix@4 &.0.sysvq0asl id.9~3 SlotFacet.0.@2)ContainerSlotKind.0.@H
+    (infix@t &.0.sysvq0asl "Slot counts for "~J id.9@2))
+   (call@D,3 createCatalog.0.jesaqohvh1~D
+    (infix@4 &.0.sysvq0asl id.9~3 CapacityFacet.0.@2)ContainerCapacityKind.0.@L
+    (infix@y &.0.sysvq0asl "Capacity for "~G id.9@2))
+   (call@D,4 createCatalog.0.jesaqohvh1~D
+    (infix@4 &.0.sysvq0asl id.9~3 LoadFacet.0.@2)ContainerLoadKind.0.@H
+    (infix@t &.0.sysvq0asl "Load limits for "~J id.9@2))
+   (call@D,5 createCatalog.0.jesaqohvh1~D
+    (infix@4 &.0.sysvq0asl id.9~3 AcceptFacet.0.@2)ContainerAcceptKind.0.@J
+    (infix@z &.0.sysvq0asl "Accepted tags for "~L id.9@2))
+   (call@D,6 createCatalog.0.jesaqohvh1~D
+    (infix@4 &.0.sysvq0asl id.9~3 RejectFacet.0.@2)ContainerRejectKind.0.@J
+    (infix@y &.0.sysvq0asl "Refused tags for "~K id.9@2))
+   (call@D,7 useContainers.0.~D id.9@1)
+   (asgn@7,8 result.20
+    (conv Catalog.0.catbyu542~7,~C id.9@1))
+   (ret~2,~1 result.20)))
+ (proc@,6u :defineItem.0.@5 x . .
+  (params@G
+   (param@1 :c.1 . . Catalog.0.catbyu542@3 .)
+   (param@D :id.10 . . string.0.sysvq0asl@D .)
+   (param@H :display.0 . . string.0.sysvq0asl@9 .)
+   (param@Y :stack.0 . .
+    (i~c,~4f 64)1@8)
+   (param@j :bulk.0 . .
+    (f~o,~4e 64)1.0@7)
+   (param~C,1 :weight.0 . .
+    (f@7,~4f 64)0.0@9)
+   (param@2,1 :shape.0 . . string.0.sysvq0asl~9,~4i ""@8)
+   (param@E,1 :tags.3 . . string.0.sysvq0asl~L,~4i ""@7)). . .
+  (stmts@2,2
+   (let@4 :base.4 . . string.0.sysvq0asl@3,~4j
+    (call@B name.0.catbyu542~4 c.1@1))
+   (call@C,1 addToCatalog.0.jesaqohvh1~C base.4@1 id.10@7 display.0@B)
+   (call@C,2 addToCatalog.1.jesaqohvh1~C
+    (infix@6 &.0.sysvq0asl base.4~5 StackFacet.0.@2)id.10@K
+    (conv@T
+     (i~5,~3Y 64)
+     (if@1
+      (elif@3
+       (lt@6
+        (i 64)stack.0~6 1@2)
+       (expr@B 1))
+      (else@G
+       (expr@6 stack.0)))))
+   (call@C,3 addToCatalog.2.jesaqohvh1~C
+    (infix@6 &.0.sysvq0asl base.4~5 BulkFacet.0.@2)id.10@J bulk.0@N)
+   (call@C,4 addToCatalog.2.jesaqohvh1~C
+    (infix@6 &.0.sysvq0asl base.4~5 WeightFacet.0.@2)id.10@L weight.0@P)
+   (call@C,5 addToCatalog.0.jesaqohvh1~C
+    (infix@6 &.0.sysvq0asl base.4~5 ShapeFacet.0.@2)id.10@K shape.0@O)
+   (call@C,6 addToCatalog.0.jesaqohvh1~C
+    (infix@6 &.0.sysvq0asl base.4~5 TagFacet.0.@2)id.10@I tags.3@M)))
+ (proc@,75 :defineContainer.0.@5 x . .
+  (params@L
+   (param@1 :c.2 . . Catalog.0.catbyu542@3 .)
+   (param@D :id.11 . . string.0.sysvq0asl@D .)
+   (param@H :display.1 . . string.0.sysvq0asl@9 .)
+   (param@Y :slots.0 . .
+    (i~h,~4q 64)-1@8)
+   (param~H,1 :capacity.0 . .
+    (f@7,~4q 64)-1.0@B)
+   (param@,1 :load.0 . .
+    (f~A,~4q 64)-1.0@7)
+   (param@D,1 :accepts.0 . . string.0.sysvq0asl~P,~4t ""@A)
+   (param@R,1 :rejects.0 . . string.0.sysvq0asl~d,~4t ""@A)). . .
+  (stmts@2,2
+   (let@4 :base.5 . . string.0.sysvq0asl@3,~4u
+    (call@B name.0.catbyu542~4 c.2@1))
+   (call@C,1 addToCatalog.0.jesaqohvh1~C base.5@1 id.11@7 display.1@B)
+   (call@C,2 addToCatalog.1.jesaqohvh1~C
+    (infix@6 &.0.sysvq0asl base.5~5 SlotFacet.0.@2)id.11@J
+    (conv@S
+     (i~4,~3j 64)slots.0@1))
+   (call@C,3 addToCatalog.2.jesaqohvh1~C
+    (infix@6 &.0.sysvq0asl base.5~5 CapacityFacet.0.@2)id.11@N capacity.0@R)
+   (call@C,4 addToCatalog.2.jesaqohvh1~C
+    (infix@6 &.0.sysvq0asl base.5~5 LoadFacet.0.@2)id.11@J load.0@N)
+   (call@C,5 addToCatalog.0.jesaqohvh1~C
+    (infix@6 &.0.sysvq0asl base.5~5 AcceptFacet.0.@2)id.11@L accepts.0@P)
+   (call@C,6 addToCatalog.0.jesaqohvh1~C
+    (infix@6 &.0.sysvq0asl base.5~5 RejectFacet.0.@2)id.11@L rejects.0@P)))
+ (type@9,7J :Bin.0.~4 . .
+  (pragmas
+   (destroy =destroy_SX42in0invuity7x.0.)
+   (wasmoved =wasmoved_SX42in0invuity7x.0.)
+   (dup =dup_SX42in0invuity7x.0.)
+   (copy =copy_SX42in0invuity7x.0.))
+  (object@2 .
+   (fld~9,1 :definition.0 . . Holder.0.@C .)
+   (fld~9,2 :label.0 . . string.0.sysvq0asl@7 .)
+   (fld~9,3 :live.0 . .
+    (bool@6).)
+   (fld~9,4 :slots.0 . . seq.0.Incy2q.@A .)))
+ (gvar@4,7P :bins.0. . . seq.0.Iumofnp1.@9 .)
+ (proc@,7R :indexOf.0.@5 . . .
+  (params@C
+   (param@1 :c.3 . . Container.0.@3 .))
+  (i@G 64). .
+  (stmts@2,1
+   (result@4 :result.21 . .
+    (i@6,~5D 64).)
+   (let@4 :at.1 . .
+    (i@6,~5D 64)
+    (sub@C
+     (i 64)
+     (conv~4
+      (i@O,~42 64)c.3@1)1@2))
+   (if@,1
+    (elif@3
+     (or@7
+      (lt~4
+       (i 64)at.1~3 0@2)
+      (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+       (le@2,1
+        (i 64)
+        (dot@P,7U,.jester/deps/aoughwl_inventory/inventory.nim bins.0.~4 len.0 0 "x")at.1@F,7U,.jester/deps/aoughwl_inventory/inventory.nim)))
+     (stmts@Q
+      (ret -1@7))))
+   (if@,2
+    (elif@3
+     (not
+      (dot@C
+       (hderef~8
+        (call \5B\5D.7.In2o1931. bins.0. at.1@5))live.0 0 "x"))
+     (stmts@J
+      (ret -1@7))))
+   (asgn@,3 result.21 at.1)
+   (ret~2,~1 result.21)))
+ (proc@,7X :least.0.@5 . . .
+  (params@A
+   (param@1 :a.1 . .
+    (i@6 64).)
+   (param@4 :b.1 . .
+    (i@3 64).))
+  (i@D 64). .
+  (stmts@T
+   (result :result.22 . .
+    (i~H,~5I 64).)
+   (asgn result.22
+    (expr
+     (stmts)
+     (if@1
+      (elif@3
+       (lt@2
+        (i 64)a.1~2 b.1@2)a.1@7)
+      (else@C b.1@6))))
+   (ret~T result.22)))
+ (proc@,7Z :perStack.0.@5 . . .
+  (params@D
+   (param@1 :it.0 . . Item.0.@4 .))
+  (i@C 64). .
+  (stmts@V
+   (result :result.23 . .
+    (i~J,~5K 64).)
+   (asgn result.23
+    (expr
+     (stmts)
+     (if@1
+      (elif@3
+       (lt@9
+        (i 64)
+        (dot~7 it.0~2 stack.0 0)1@2)1@E)
+      (else@J
+       (dot@8 it.0~2 stack.0 0)))))
+   (ret~V result.23)))
+ (proc@,7b :usedBulk.0.@5 . . .
+  (params@D
+   (param@1 :b.2 . . Bin.0.@3 .))
+  (f@A 64). .
+  (stmts@2,1
+   (result@7 :result.24 . .
+    (f@2,~5M 64).)
+   (asgn@7 result.24~7 0.0@2)
+   (var@4,1 :i.10 . .
+    (i 64)0@4)
+   (while@,2
+    (lt@8
+     (i 64)i.10~2
+     (call@9 len.3.I9p8e9.@1
+      (dot~6 b.2~1 slots.0 0 "x")))
+    (stmts@2,1
+     (asgn@7 result.24~7
+      (add@9
+       (f 64)result.24~7
+       (mul@V
+        (f 64)
+        (dot~6
+         (call~H itemOf.0.~6
+          (dot@B
+           (hderef~9
+            (call \5B\5D.7.Irpdib9.
+             (dot b.2~1 slots.0 0 "x")i.10@7))item.0 0))bulk.0 0)
+        (conv@9
+         (f~7 64)
+         (dot@B
+          (hderef~9
+           (call \5B\5D.7.Irpdib9.
+            (dot b.2~1 slots.0 0 "x")i.10@7))count.0 0)))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.10))))
+   (ret~2,~1 result.24)))
+ (proc@,7i :usedLoad.0.@5 . . .
+  (params@D
+   (param@1 :b.3 . . Bin.0.@3 .))
+  (f@A 64). .
+  (stmts@2,1
+   (result@7 :result.25 . .
+    (f@2,~5T 64).)
+   (asgn@7 result.25~7 0.0@2)
+   (var@4,1 :i.12 . .
+    (i 64)0@4)
+   (while@,2
+    (lt@8
+     (i 64)i.12~2
+     (call@9 len.3.I9p8e9.@1
+      (dot~6 b.3~1 slots.0 0 "x")))
+    (stmts@2,1
+     (asgn@7 result.25~7
+      (add@9
+       (f 64)result.25~7
+       (mul@X
+        (f 64)
+        (dot~8
+         (call~H itemOf.0.~6
+          (dot@B
+           (hderef~9
+            (call \5B\5D.7.Irpdib9.
+             (dot b.3~1 slots.0 0 "x")i.12@7))item.0 0))weight.0 0)
+        (conv@9
+         (f~9,~7 64)
+         (dot@B
+          (hderef~9
+           (call \5B\5D.7.Irpdib9.
+            (dot b.3~1 slots.0 0 "x")i.12@7))count.0 0)))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.12))))
+   (ret~2,~1 result.25)))
+ (proc@,7s :lets.0.@5 . . .
+  (params@9
+   (param@1 :d.0 . . Holder.0.@3 .)
+   (param@C :it.1 . . Item.0.@4 .))
+  (bool@N). .
+  (stmts@2,1
+   (result :result.26 . .
+    (bool@A,~5Z).)
+   (if
+    (elif@3
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)0@L,7u,.jester/deps/aoughwl_inventory/inventory.nim
+       (call@E,7u,.jester/deps/aoughwl_inventory/inventory.nim len.4.sysvq0asl@1
+        (dot~8 d.0~1 accepts.0 0))))
+     (stmts~1,1
+      (if
+       (elif@3
+        (not
+         (call@D taggedAny.0.~9
+          (dot@3 it.1~2 tags.0 0)
+          (dot@B d.0~1 accepts.0 0)))
+        (stmts@Z
+         (ret
+          (false@7))))))))
+   (if@,2
+    (elif@3
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)0@L,7w,.jester/deps/aoughwl_inventory/inventory.nim
+       (call@E,7w,.jester/deps/aoughwl_inventory/inventory.nim len.4.sysvq0asl@1
+        (dot~8 d.0~1 rejects.0 0))))
+     (stmts~1,1
+      (if
+       (elif@3
+        (call@9 taggedAny.0.~9
+         (dot@3 it.1~2 tags.0 0)
+         (dot@B d.0~1 rejects.0 0))
+        (stmts@V
+         (ret
+          (false@7))))))))
+   (asgn@,4 result.26
+    (true))
+   (ret~2,~1 result.26)))
+ (proc@,82 :trouble.0.@5 . . .
+  (params@C
+   (param@1 :b.4 . . Bin.0.@3 .)
+   (param@9 :it.2 . . Item.0.@4 .)
+   (param@J :count.0 . .
+    (i@7 64).))Trouble.0.@W . .
+  (stmts@2,1
+   (result :result.27 . . Trouble.0.@,~5J .)
+   (if
+    (elif@3
+     (lt@6
+      (i 64)count.0~6 1@2)
+     (stmts@B
+      (ret BadCount.0.@7))))
+   (if@,1
+    (elif@3
+     (not
+      (dot@6 it.2~2 known.0 0))
+     (stmts@E
+      (ret UnknownItem.0.@7))))
+   (let@4,2 :d.2 . . Holder.0.@8,~l
+    (dot@5 b.4~1 definition.0 0 "x"))
+   (if@,3
+    (elif@3
+     (not
+      (call@8 lets.0.~4 d.2@1 it.2@4))
+     (stmts@H
+      (ret NotAccepted.0.@7))))
+   (if@,4
+    (elif@3
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (f 64)0.0@J,88,.jester/deps/aoughwl_inventory/inventory.nim
+       (dot@6,88,.jester/deps/aoughwl_inventory/inventory.nim d.2~1 capacity.0 0)))
+     (stmts~1,1
+      (if
+       (elif@3
+        (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+         (lt@2,1
+          (f 64)
+          (dot@n,89,.jester/deps/aoughwl_inventory/inventory.nim d.2~1 capacity.0 0)
+          (add@J,89,.jester/deps/aoughwl_inventory/inventory.nim
+           (f 64)
+           (call~4 usedBulk.0.~8 b.4@1)
+           (mul@A
+            (f 64)
+            (dot~6 it.2~2 bulk.0 0)
+            (conv@9
+             (f@F,~T 64)count.0@1)))))
+        (stmts@r
+         (ret NoRoom.0.@7)))))))
+   (if@,6
+    (elif@3
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (f 64)0.0@F,8A,.jester/deps/aoughwl_inventory/inventory.nim
+       (dot@6,8A,.jester/deps/aoughwl_inventory/inventory.nim d.2~1 load.0 0)))
+     (stmts~1,1
+      (if
+       (elif@3
+        (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+         (lt@2,1
+          (f 64)
+          (dot@p,8B,.jester/deps/aoughwl_inventory/inventory.nim d.2~1 load.0 0)
+          (add@J,8B,.jester/deps/aoughwl_inventory/inventory.nim
+           (f 64)
+           (call~4 usedLoad.0.~8 b.4@1)
+           (mul@C
+            (f 64)
+            (dot~8 it.2~2 weight.0 0)
+            (conv@9
+             (f@D,~V 64)count.0@1)))))
+        (stmts@p
+         (ret TooHeavy.0.@7)))))))
+   (if@,8
+    (elif@3
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)0@G,8C,.jester/deps/aoughwl_inventory/inventory.nim
+       (dot@6,8C,.jester/deps/aoughwl_inventory/inventory.nim d.2~1 slots.0 0)))
+     (stmts~1,1
+      (let@4 :per.0 . .
+       (i@4,~5x 64)
+       (call@E perStack.0.~8 it.2@1))
+      (var@4,1 :remaining.0 . .
+       (i@U,~B 64)count.0@C)
+      (var@4,2 :i.13 . .
+       (i 64)0@4)
+      (while@,3
+       (and@M
+        (lt~E
+         (i 64)i.13~2
+         (call@9 len.3.I9p8e9.@1
+          (dot~6 b.4~1 slots.0 0 "x")))
+        (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+         (lt@2,1
+          (i 64)0@g,8G,.jester/deps/aoughwl_inventory/inventory.nim remaining.0@U,8G,.jester/deps/aoughwl_inventory/inventory.nim)))
+       (stmts@2,1
+        (if
+         (elif@3
+          (infix@G ==.20.sysvq0asl
+           (dot~6
+            (hderef~9
+             (call \5B\5D.7.Irpdib9.
+              (dot b.4~1 slots.0 0 "x")i.13@7))item.0 0)
+           (dot@5 it.2~2 id.0 0))
+          (stmts~1,1
+           (let@4 :room.0 . .
+            (i@,~62 64)
+            (sub@B
+             (i 64)per.0~4
+             (dot@C
+              (hderef~9
+               (call \5B\5D.7.Irpdib9.
+                (dot b.4~1 slots.0 0 "x")i.13@7))count.0 0)))
+           (if@,1
+            (elif@3
+             (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+              (lt@2,1
+               (i 64)0@I,8J,.jester/deps/aoughwl_inventory/inventory.nim room.0@B,8J,.jester/deps/aoughwl_inventory/inventory.nim))
+             (stmts@A
+              (asgn@A remaining.0~A
+               (sub@C
+                (i 64)remaining.0~A
+                (call@7 least.0.~5 room.0@1 remaining.0@7)))))))))
+        (cmd@,3 inc.1.Irn1g7r1.
+         (haddr@4 i.13))))
+      (if@,8
+       (elif@3
+        (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+         (lt@2,1
+          (i 64)0@J,8L,.jester/deps/aoughwl_inventory/inventory.nim remaining.0@7,8L,.jester/deps/aoughwl_inventory/inventory.nim))
+        (stmts~1,1
+         (let@4 :need.0 . .
+          (i@2,~66 64)
+          (div@T
+           (i 64)
+           (sub~5
+            (i 64)
+            (add~6
+             (i 64)remaining.0~A per.0@2)1@2)per.0@4))
+         (if@,1
+          (elif@3
+           (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+            (lt@2,1
+             (i 64)
+             (dot@V,8N,.jester/deps/aoughwl_inventory/inventory.nim d.2~1 slots.0 0)
+             (add@L,8N,.jester/deps/aoughwl_inventory/inventory.nim
+              (i 64)
+              (dot~5
+               (dot~6 b.4~1 slots.0 0 "x")len.0 0 "x")need.0@2)))
+           (stmts@U
+            (ret NoRoom.0.@7))))))))))
+   (asgn@,K result.27 NoTrouble.0.)
+   (ret~2,~1 result.27)))
+ (proc@,8Q :place.0.@5 . . .
+  (params@A
+   (param@1 :b.5 . .
+    (mut@3 Bin.0.@4).)
+   (param@D :it.3 . . Item.0.@4 .)
+   (param@N :count.1 . .
+    (i@7 64).))
+  (i@a 64). .
+  (stmts@2,1
+   (result@4 :result.28 . .
+    (i@6,~6C 64).)
+   (var@4 :remaining.1 . .
+    (i@Y,~1 64)count.1@C)
+   (let@4,1 :per.1 . .
+    (i@6,~6D 64)
+    (call@E perStack.0.~8 it.3@1))
+   (var@4,2 :i.14 . .
+    (i 64)0@4)
+   (var@4,3 :landed.0 . .
+    (i 64)-1@9)
+   (while@,4
+    (and@M
+     (lt~E
+      (i 64)i.14~2
+      (call@9 len.3.I9p8e9.@1
+       (dot~6
+        (hderef~1 b.5)slots.0 0 "x")))
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)0@e,8W,.jester/deps/aoughwl_inventory/inventory.nim remaining.1@S,8W,.jester/deps/aoughwl_inventory/inventory.nim)))
+    (stmts@2,1
+     (if
+      (elif@3
+       (and@P
+        (infix~9 ==.20.sysvq0asl
+         (dot~6
+          (hderef~9
+           (call \5B\5D.7.Irpdib9.
+            (dot
+             (hderef~1 b.5)slots.0 0 "x")i.14@7))item.0 0)
+         (dot@5 it.3~2 id.0 0))
+        (lt@L
+         (i 64)
+         (dot~7
+          (hderef~9
+           (call \5B\5D.7.Irpdib9.
+            (dot
+             (hderef~1 b.5)slots.0 0 "x")i.14@7))count.0 0)per.1@2))
+       (stmts~1,1
+        (let@4 :take.0 . .
+         (i@2,~6I 64)
+         (call@C least.0.~5
+          (sub@5
+           (i 64)per.1~4
+           (dot@C
+            (hderef~9
+             (call \5B\5D.7.Irpdib9.
+              (dot
+               (hderef~1 b.5)slots.0 0 "x")i.14@7))count.0 0))remaining.1@P))
+        (var@4,1 :s.9 . . Stack.0.@3,~1B
+         (hderef@5
+          (call \5B\5D.7.Irpdib9.
+           (dot
+            (hderef~1 b.5)slots.0 0 "x")i.14@7)))
+        (asgn@8,2
+         (dot~7 s.9~1 count.0 0)
+         (add@A
+          (i 64)
+          (dot~7 s.9~1 count.0 0)take.0@2))
+        (call@1,3 \5B\5D=.7.I0z9rtl1.
+         (haddr
+          (dot
+           (hderef~1 b.5)slots.0 0 "x"))i.14@7 s.9@C)
+        (asgn@A,4 remaining.1~A
+         (sub@C
+          (i 64)remaining.1~A take.0@2))
+        (asgn@7,5 landed.0~7 i.14@2))))
+     (cmd@,7 inc.1.Irn1g7r1.
+      (haddr@4 i.14))))
+   (while@,D
+    (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+     (lt@2,1
+      (i 64)0@K,8f,.jester/deps/aoughwl_inventory/inventory.nim remaining.1@8,8f,.jester/deps/aoughwl_inventory/inventory.nim))
+    (stmts@2,1
+     (let@4 :take.1 . .
+      (i@4,~6Q 64)
+      (call@C least.0.~5 per.1@1 remaining.1@6))
+     (cmd@7,1 add.0.Isc1m7i1.@1
+      (haddr~6
+       (dot
+        (hderef~1 b.5)slots.0 0 "x"))
+      (oconstr@A Stack.0.@6,3O
+       (kv@5 item.0~4
+        (dot@4 it.3~2 id.0 0))
+       (kv@J count.0~5 take.1@2)))
+     (asgn@7,2 landed.0~7
+      (sub@E
+       (i 64)
+       (call~5 len.3.I9p8e9.@1
+        (dot~6
+         (hderef~1 b.5)slots.0 0 "x"))1@2))
+     (asgn@A,3 remaining.1~A
+      (sub@C
+       (i 64)remaining.1~A take.1@2))))
+   (asgn@,I result.28 landed.0)
+   (ret~2,~1 result.28)))
+ (proc@,8l :dropSlot.0.@5 . . .
+  (params@D
+   (param@1 :b.6 . .
+    (mut@3 Bin.0.@4).)
+   (param@D :slot.1 . .
+    (i@6 64).)). . .
+  (stmts@2,1
+   (var@4 :i.16 . .
+    (i@Q,~1 64)slot.1@4)
+   (while@,1
+    (lt@C
+     (i 64)
+     (add~4
+      (i 64)i.16~2 1@2)
+     (call@9 len.3.I9p8e9.@1
+      (dot~6
+       (hderef~1 b.6)slots.0 0 "x")))
+    (stmts@2,1
+     (let@4 :next.2 . . Stack.0.@5,~1R
+      (hderef@8
+       (call \5B\5D.7.Irpdib9.
+        (dot
+         (hderef~1 b.6)slots.0 0 "x")
+        (add@9
+         (i 64)i.16~2 1@2))))
+     (call@1,1 \5B\5D=.7.I0z9rtl1.
+      (haddr
+       (dot
+        (hderef~1 b.6)slots.0 0 "x"))i.16@7 next.2@C)
+     (cmd@,2 inc.1.Irn1g7r1.
+      (haddr@4 i.16))))
+   (call@E,5 setLen.0.Ip4rtpn.~6
+    (haddr~D
+     (dot
+      (hderef~1 b.6)slots.0 0 "x"))
+    (sub@D
+     (i 64)
+     (call~5 len.3.I9p8e9.@1
+      (dot~6
+       (hderef~1 b.6)slots.0 0 "x"))1@2))))
+ (proc@,8t :drawOff.0.@5 . . .
+  (params@C
+   (param@1 :b.7 . .
+    (mut@3 Bin.0.@4).)
+   (param@D :slot.2 . .
+    (i@D 64).)
+   (param@J :count.2 . .
+    (i@7 64).)). . .
+  (stmts@2,1
+   (var@4 :s.13 . . Stack.0.@7,~1X
+    (hderef@5
+     (call \5B\5D.7.Irpdib9.
+      (dot
+       (hderef~1 b.7)slots.0 0 "x")slot.2@7)))
+   (asgn@8,1
+    (dot~7 s.13~1 count.0 0)
+    (sub@A
+     (i 64)
+     (dot~7 s.13~1 count.0 0)count.2@2))
+   (if@,2
+    (elif@3
+     (lt@8
+      (i 64)
+      (dot~7 s.13~1 count.0 0)1@2)
+     (stmts@D
+      (call@8 dropSlot.0.~8 b.7@1 slot.2@4)))
+    (else@,1
+     (stmts@6
+      (call@1 \5B\5D=.7.I0z9rtl1.
+       (haddr
+        (dot
+         (hderef~1 b.7)slots.0 0 "x"))slot.2@7 s.13@F))))))
+ (proc@,95 :openContainer.0.@5 x . .
+  (params@J
+   (param@1 :catalog.5 . . string.0.sysvq0asl@L .)
+   (param@A :definition.0 . . string.0.sysvq0asl@C .)
+   (param@U :label.0 . . string.0.sysvq0asl~e,~6s ""@8))Container.0.@h . .
+  (stmts@2,1
+   (result@4 :result.29 . . Container.0.@D,~5g .)
+   (let@4 :d.3 . . Holder.0.@H,~37
+    (call@C holderIn.0.~8 catalog.5@1 definition.0@A))
+   (if@,1
+    (elif@3
+     (not
+      (dot@5 d.3~1 known.0 0))
+     (stmts@D
+      (ret
+       (conv@G Container.0.@4,~5f 0@1)))))
+   (cmd@4,2 add.0.I47qm811.@1
+    (haddr~4 bins.0.)
+    (oconstr@8 Bin.0.@3,~1X
+     (kv@B definition.0~A d.3@2)
+     (kv@L label.0~5
+      (expr
+       (stmts@2)
+       (if@1
+        (elif@3
+         (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+          (lt@2,1
+           (i 64)0@p,99,.jester/deps/aoughwl_inventory/inventory.nim
+           (call@i,99,.jester/deps/aoughwl_inventory/inventory.nim len.4.sysvq0asl@1 label.0~5)))label.0@F)
+        (else@O
+         (dot@7 d.3~1 display.0 0)))))
+     (kv~6,1 live.0~4
+      (true@2))
+     (kv@7,1 slots.0~5
+      (expr@2,32,../../../../../../nimony/lib/std/system/seqimpl.nim
+       (call@F,1 newSeqUninit.0.I2zkky41.~F 0@1)))))
+   (asgn@9,4 result.29
+    (conv Container.0.@R,~5i
+     (call@5 len.3.Io81gb31.@1 bins.0.~4)))
+   (ret~2,~1 result.29)))
+ (proc@,9D :openContainerOf.0.@5 x . .
+  (params@L
+   (param@1 :definition.1 . . string.0.sysvq0asl@C .)
+   (param@L :label.1 . . string.0.sysvq0asl~X,~70 ""@8))Container.0.@Y . .
+  (stmts@2,1
+   (result@4 :result.30 . . Container.0.@D,~5o .)
+   (let@4 :d.4 . . Holder.0.@H,~3F
+    (call@C holderOf.0.~8 definition.1@1))
+   (if@,1
+    (elif@3
+     (not
+      (dot@5 d.4~1 known.0 0))
+     (stmts@D
+      (ret
+       (conv@G Container.0.@4,~5n 0@1)))))
+   (cmd@4,2 add.0.I47qm811.@1
+    (haddr~4 bins.0.)
+    (oconstr@8 Bin.0.@3,~1f
+     (kv@B definition.0~A d.4@2)
+     (kv@L label.0~5
+      (expr
+       (stmts@2)
+       (if@1
+        (elif@3
+         (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+          (lt@2,1
+           (i 64)0@p,9H,.jester/deps/aoughwl_inventory/inventory.nim
+           (call@i,9H,.jester/deps/aoughwl_inventory/inventory.nim len.4.sysvq0asl@1 label.1~5)))label.1@F)
+        (else@O
+         (dot@7 d.4~1 display.0 0)))))
+     (kv~6,1 live.0~4
+      (true@2))
+     (kv@7,1 slots.0~5
+      (expr@2,32,../../../../../../nimony/lib/std/system/seqimpl.nim
+       (call@F,1 newSeqUninit.0.I2zkky41.~F 0@1)))))
+   (asgn@9,4 result.30
+    (conv Container.0.@R,~5q
+     (call@5 len.3.Io81gb31.@1 bins.0.~4)))
+   (ret~2,~1 result.30)))
+ (proc@,9M :openHolder.0.@5 x . .
+  (params@G
+   (param@1 :d.1 . . Holder.0.@3 .)
+   (param@C :label.2 . . string.0.sysvq0asl~J,~79 ""@8))Container.0.@P . .
+  (stmts@2,1
+   (result@4 :result.31 . . Container.0.@D,~5x .)
+   (cmd@4 add.0.I47qm811.@1
+    (haddr~4 bins.0.)
+    (oconstr@8 Bin.0.@3,~1m
+     (kv@B definition.0~A d.1@2)
+     (kv@L label.0~5
+      (expr
+       (stmts@2)
+       (if@1
+        (elif@3
+         (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+          (lt@2,1
+           (i 64)0@p,9O,.jester/deps/aoughwl_inventory/inventory.nim
+           (call@i,9O,.jester/deps/aoughwl_inventory/inventory.nim len.4.sysvq0asl@1 label.2~5)))label.2@F)
+        (else@O
+         (dot@7 d.1~1 display.0 0)))))
+     (kv~6,1 live.0~4
+      (true@2))
+     (kv@7,1 slots.0~5
+      (expr@2,32,../../../../../../nimony/lib/std/system/seqimpl.nim
+       (call@F,1 newSeqUninit.0.I2zkky41.~F 0@1)))))
+   (asgn@9,2 result.31
+    (conv Container.0.@R,~5x
+     (call@5 len.3.Io81gb31.@1 bins.0.~4)))
+   (ret~2,~1 result.31)))
+ (proc@,9T :closeContainer.0.@5 x . .
+  (params@K
+   (param@1 :c.4 . . Container.0.@3 .))Outcome.0.@G . .
+  (stmts@2,1
+   (result@4 :result.32 . . Outcome.0.@8,~6N .)
+   (let@4 :at.2 . .
+    (i@6,~7F 64)
+    (call@C indexOf.0.~7 c.4@1))
+   (if@,1
+    (elif@3
+     (lt@3
+      (i 64)at.2~3 0@2)
+     (stmts@8
+      (ret
+       (call@E refused.0.~7 NoSuchContainer.0.@1 ""@5,~5y)))))
+   (var@4,2 :b.8 . . Bin.0.@C,~16
+    (hderef@4
+     (call \5B\5D.7.In2o1931. bins.0. at.2@5)))
+   (let@4,3 :held.0 . .
+    (i@6,~7I 64)
+    (call@E len.3.I9p8e9.@1
+     (dot~6 b.8~1 slots.0 0 "x")))
+   (asgn@7,4
+    (dot~6 b.8~1 live.0 0 "x")
+    (false@2))
+   (asgn@8,5
+    (dot~7 b.8~1 slots.0 0 "x")
+    (expr@2,32,../../../../../../nimony/lib/std/system/seqimpl.nim
+     (call@F,1 newSeqUninit.0.I2zkky41.~F 0@1)))
+   (call@,6 \5B\5D=.7.Iafoovr.
+    (haddr bins.0.)at.2@5 b.8@B)
+   (asgn@4,7 result.32
+    (call fine.0.~4 held.0@1 -1@7))
+   (ret~2,~1 result.32)))
+ (proc@,9e :open.0.@5 x . .
+  (params@A
+   (param@1 :c.5 . . Container.0.@3 .))
+  (bool@G). .
+  (stmts@X
+   (result@B :result.33 . .
+    (bool~W,~7K).)
+   (asgn@B result.33
+    (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+     (le@2,1
+      (i 64)0@l,9f,.jester/deps/aoughwl_inventory/inventory.nim
+      (call@e,9f,.jester/deps/aoughwl_inventory/inventory.nim indexOf.0.~7 c.5@1))))
+   (ret~X result.33)))
+ (proc@,9g :containerLabel.0.@5 x . .
+  (params@K
+   (param@1 :c.6 . . Container.0.@3 .))string.0.sysvq0asl@G . .
+  (stmts@2,1
+   (result@4 :result.34 . . string.0.sysvq0asl@3,~7U .)
+   (let@4 :at.3 . .
+    (i@6,~7S 64)
+    (call@C indexOf.0.~7 c.6@1))
+   (if@,1
+    (elif@3
+     (lt@3
+      (i 64)at.3~3 0@2)
+     (stmts@8
+      (ret ""@7))))
+   (asgn@8,2 result.34
+    (dot
+     (hderef~8
+      (call \5B\5D.7.In2o1931. bins.0. at.3@5))label.0 0 "x"))
+   (ret~2,~1 result.34)))
+ (proc@,9l :containerDefinition.0.@5 x . .
+  (params@P
+   (param@1 :c.7 . . Container.0.@3 .))Holder.0.@G . .
+  (stmts@2,1
+   (result@4 :result.35 . . Holder.0.@H,~3n .)
+   (let@4 :at.4 . .
+    (i@6,~7X 64)
+    (call@C indexOf.0.~7 c.7@1))
+   (if@,1
+    (elif@3
+     (lt@3
+      (i 64)at.4~3 0@2)
+     (stmts@8
+      (ret
+       (oconstr@D Holder.0.~3,~3o
+        (kv@3 id.0~2 ""@2)
+        (kv@G display.0~7 ""@2)
+        (kv@R slots.0~5 -1@2)
+        (kv@f capacity.0~8 -1.0@2)
+        (kv~I,1 load.0~4 -1.0@2)
+        (kv~3,1 accepts.0~7 ""@2)
+        (kv@A,1 rejects.0~7 ""@2)
+        (kv@L,1 known.0~5
+         (false@2)))))))
+   (asgn@8,3 result.35
+    (dot
+     (hderef~8
+      (call \5B\5D.7.In2o1931. bins.0. at.4@5))definition.0 0 "x"))
+   (ret~2,~1 result.35)))
+ (proc@,9u :put.0.@5 x . .
+  (params@9
+   (param@1 :c.8 . . Container.0.@3 .)
+   (param@F :item.0 . . string.0.sysvq0asl@6 .)
+   (param@T :count.3 . .
+    (i~Q,~7f 64)1@8))Outcome.0.@f . .
+  (stmts@2,1
+   (result@4 :result.36 . . Outcome.0.@8,~6o .)
+   (let@4 :at.5 . .
+    (i@6,~7g 64)
+    (call@C indexOf.0.~7 c.8@1))
+   (if@,1
+    (elif@3
+     (lt@3
+      (i 64)at.5~3 0@2)
+     (stmts@8
+      (ret
+       (call@E refused.0.~7 NoSuchContainer.0.@1 ""@5,~6P)))))
+   (let@4,2 :it.4 . . Item.0.@8,~4K
+    (call@B itemOf.0.~6 item.0@1))
+   (let@4,3 :why.0 . . Trouble.0.~4,~7E
+    (call@D trouble.0.~7
+     (hderef@1
+      (call \5B\5D.7.In2o1931. bins.0. at.5@5))it.4@B count.3@F))
+   (if@,4
+    (elif@3
+     (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+      (not@,1
+       (eq@7 Trouble.0. why.0@5,A0,.jester/deps/aoughwl_inventory/inventory.nim NoTrouble.0.@C,A0,.jester/deps/aoughwl_inventory/inventory.nim)))
+     (stmts@I
+      (ret
+       (call@E refused.0.~7 why.0@1 ""~5,~6S)))))
+   (var@4,5 :b.9 . . Bin.0.@C,~1a
+    (hderef@4
+     (call \5B\5D.7.In2o1931. bins.0. at.5@5)))
+   (let@4,6 :slot.7 . .
+    (i@6,~7m 64)
+    (call@C place.0.~5
+     (haddr@1 b.9)it.4@4 count.3@8))
+   (call@,7 \5B\5D=.7.Iafoovr.
+    (haddr bins.0.)at.5@5 b.9@B)
+   (asgn@4,8 result.36
+    (call fine.0.~4 count.3@1 slot.7@8))
+   (ret~2,~1 result.36)))
+ (proc@,A6 :take.0.@5 x . .
+  (params@A
+   (param@1 :c.9 . . Container.0.@3 .)
+   (param@F :item.1 . . string.0.sysvq0asl@6 .)
+   (param@T :count.4 . .
+    (i~R,~7r 64)1@8))Outcome.0.@f . .
+  (stmts@2,1
+   (result@4 :result.37 . . Outcome.0.@8,~70 .)
+   (let@4 :at.6 . .
+    (i@6,~7s 64)
+    (call@C indexOf.0.~7 c.9@1))
+   (if@,1
+    (elif@3
+     (lt@6
+      (i 64)count.4~6 1@2)
+     (stmts@B
+      (ret
+       (call@E refused.0.~7 BadCount.0.@1 ""@2,~6b)))))
+   (if@,2
+    (elif@3
+     (lt@3
+      (i 64)at.6~3 0@2)
+     (stmts@8
+      (ret
+       (call@E refused.0.~7 NoSuchContainer.0.@1 ""@5,~6c)))))
+   (var@4,3 :b.10 . . Bin.0.@C,~1k
+    (hderef@4
+     (call \5B\5D.7.In2o1931. bins.0. at.6@5)))
+   (var@4,4 :have.0 . .
+    (i 64)0@7)
+   (var@4,5 :i.18 . .
+    (i 64)0@4)
+   (while@,6
+    (lt@8
+     (i 64)i.18~2
+     (call@9 len.3.I9p8e9.@1
+      (dot~6 b.10~1 slots.0 0 "x")))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@G ==.20.sysvq0asl
+        (dot~6
+         (hderef~9
+          (call \5B\5D.7.Irpdib9.
+           (dot b.10~1 slots.0 0 "x")i.18@7))item.0 0)item.1@3)
+       (stmts@P
+        (asgn@5 have.0~5
+         (add@7
+          (i 64)have.0~5
+          (dot@C
+           (hderef~9
+            (call \5B\5D.7.Irpdib9.
+             (dot b.10~1 slots.0 0 "x")i.18@7))count.0 0))))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.18))))
+   (if@,9
+    (elif@3
+     (lt@5
+      (i 64)have.0~5 count.4@2)
+     (stmts@E
+      (ret
+       (call@E refused.0.~7 NotEnough.0.@1 ""~1,~6j)))))
+   (var@4,A :remaining.2 . .
+    (i@6,~82 64)count.4@C)
+   (asgn@2,B i.18~2
+    (sub@E
+     (i 64)
+     (call~5 len.3.I9p8e9.@1
+      (dot~6 b.10~1 slots.0 0 "x"))1@2))
+   (while@,C
+    (and@D
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)0@D,AK,.jester/deps/aoughwl_inventory/inventory.nim i.18@8,AK,.jester/deps/aoughwl_inventory/inventory.nim))
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)0@V,AK,.jester/deps/aoughwl_inventory/inventory.nim remaining.2@J,AK,.jester/deps/aoughwl_inventory/inventory.nim)))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@G ==.20.sysvq0asl
+        (dot~6
+         (hderef~9
+          (call \5B\5D.7.Irpdib9.
+           (dot b.10~1 slots.0 0 "x")i.18@7))item.0 0)item.1@3)
+       (stmts~1,1
+        (let@4 :gone.0 . .
+         (i@2,~86 64)
+         (call@C least.0.~5
+          (dot@B
+           (hderef~9
+            (call \5B\5D.7.Irpdib9.
+             (dot b.10~1 slots.0 0 "x")i.18@7))count.0 0)remaining.2@J))
+        (call@7,1 drawOff.0.~7
+         (haddr@1 b.10)i.18@4 gone.0@7)
+        (asgn@A,2 remaining.2~A
+         (sub@C
+          (i 64)remaining.2~A gone.0@2)))))
+     (cmd@,4 dec.1.I2mwrey1.
+      (haddr@4 i.18))))
+   (call@,I \5B\5D=.7.Iafoovr.
+    (haddr bins.0.)at.6@5 b.10@B)
+   (asgn@4,J result.37
+    (call fine.0.~4 count.4@1 -1@8))
+   (ret~2,~1 result.37)))
+ (proc@,AT :takeFrom.0.@5 x . .
+  (params@E
+   (param@1 :c.10 . . Container.0.@3 .)
+   (param@F :slot.3 . .
+    (i@6 64).)
+   (param@Q :count.5 . .
+    (i~S,~8E 64)0@8))Outcome.0.@c . .
+  (stmts@2,1
+   (result@4 :result.38 . . Outcome.0.@8,~7N .)
+   (let@4 :at.7 . .
+    (i@6,~8F 64)
+    (call@C indexOf.0.~7 c.10@1))
+   (if@,1
+    (elif@3
+     (lt@3
+      (i 64)at.7~3 0@2)
+     (stmts@8
+      (ret
+       (call@E refused.0.~7 NoSuchContainer.0.@1 ""@5,~6y)))))
+   (var@4,2 :b.11 . . Bin.0.@C,~26
+    (hderef@4
+     (call \5B\5D.7.In2o1931. bins.0. at.7@5)))
+   (if@,3
+    (elif@3
+     (or@9
+      (lt~4
+       (i 64)slot.3~5 0@2)
+      (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+       (le@2,1
+        (i 64)
+        (dot@W,AY,.jester/deps/aoughwl_inventory/inventory.nim
+         (dot~6 b.11~1 slots.0 0 "x")len.0 0 "x")slot.3@H,AY,.jester/deps/aoughwl_inventory/inventory.nim)))
+     (stmts@X
+      (ret
+       (call@E refused.0.~7 NoSuchStack.0.@1 ""~K,~70)))))
+   (let@4,4 :want.0 . .
+    (i@6,~7u 64)
+    (expr
+     (stmts@7)
+     (if@1
+      (elif@3
+       (lt@6
+        (i 64)count.5~6 1@2)
+       (dot@O
+        (hderef~C
+         (call \5B\5D.7.Irpdib9.
+          (dot b.11~1 slots.0 0 "x")slot.3@7))count.0 0))
+      (else@Y count.5@6))))
+   (if@,5
+    (elif@3
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)
+       (dot@P,Aa,.jester/deps/aoughwl_inventory/inventory.nim
+        (hderef~C
+         (call \5B\5D.7.Irpdib9.
+          (dot b.11~1 slots.0 0 "x")slot.3@7))count.0 0)want.0@5,Aa,.jester/deps/aoughwl_inventory/inventory.nim))
+     (stmts@S
+      (ret
+       (call@E refused.0.~7 NotEnough.0.@1 ""~F,~72)))))
+   (call@7,6 drawOff.0.~7
+    (haddr@1 b.11)slot.3@4 want.0@A)
+   (call@,7 \5B\5D=.7.Iafoovr.
+    (haddr bins.0.)at.7@5 b.11@B)
+   (asgn@4,8 result.38
+    (call fine.0.~4 want.0@1 -1@7))
+   (ret~2,~1 result.38)))
+ (proc@,Ai :moveStack.0.@5 x . .
+  (params@F
+   (param@1 :source.0 . . Container.0.@G .)
+   (param@9 :target.0 . . Container.0.@8 .)
+   (param@S :slot.4 . .
+    (i@6 64).)
+   (param@d :count.6 . .
+    (i~g,~8T 64)0@8))Outcome.0.@p . .
+  (stmts@2,1
+   (result@4 :result.39 . . Outcome.0.@8,~7c .)
+   (let@4 :from0.0 . .
+    (i@6,~8U 64)
+    (call@F indexOf.0.~7 source.0@1))
+   (let@4,1 :to0.0 . .
+    (i@6,~8V 64)
+    (call@D indexOf.0.~7 target.0@1))
+   (if@,2
+    (elif@3
+     (or@A
+      (lt~4
+       (i 64)from0.0~6 0@2)
+      (lt@7
+       (i 64)to0.0~4 0@2))
+     (stmts@M
+      (ret
+       (call@E refused.0.~7 NoSuchContainer.0.@1 ""~9,~7E)))))
+   (if@,3
+    (elif@3
+     (eq@6
+      (i 64)from0.0~6 to0.0@3)
+     (stmts~1,1
+      (ret
+       (call@E refused.0.~7 Nowhere.0.@1 "a move within one container is a split or a merge"@A)))))
+   (if@,5
+    (elif@3
+     (or@9
+      (lt~4
+       (i 64)slot.4~5 0@2)
+      (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+       (le@2,1
+        (i 64)
+        (dot@g,Ap,.jester/deps/aoughwl_inventory/inventory.nim
+         (dot~6
+          (hderef~B
+           (call \5B\5D.7.In2o1931. bins.0. from0.0@5))slots.0 0 "x")len.0 0 "x")slot.4@H,Ap,.jester/deps/aoughwl_inventory/inventory.nim)))
+     (stmts@h
+      (ret
+       (call@E refused.0.~7 NoSuchStack.0.@1 ""~U,~7H)))))
+   (let@4,6 :held.1 . . Stack.0.@7,~3S
+    (hderef@I
+     (call \5B\5D.7.Irpdib9.
+      (dot
+       (hderef~B
+        (call \5B\5D.7.In2o1931. bins.0. from0.0@5))slots.0 0 "x")slot.4@7)))
+   (let@4,7 :want.1 . .
+    (i@6,~8C 64)
+    (expr
+     (stmts@7)
+     (if@1
+      (elif@3
+       (lt@6
+        (i 64)count.6~6 1@2)
+       (dot@F held.1~4 count.0 0))
+      (else@P count.6@6))))
+   (if@,8
+    (elif@3
+     (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+      (lt@2,1
+       (i 64)
+       (dot@G,As,.jester/deps/aoughwl_inventory/inventory.nim held.1~4 count.0 0)want.1@5,As,.jester/deps/aoughwl_inventory/inventory.nim))
+     (stmts@J
+      (ret
+       (call@E refused.0.~7 NotEnough.0.@1 ""~6,~7K)))))
+   (let@4,9 :it.5 . . Item.0.@8,~5F
+    (call@B itemOf.0.~6
+     (dot@5 held.1~4 item.0 0)))
+   (let@4,A :why.1 . . Trouble.0.~4,~89
+    (call@D trouble.0.~7
+     (hderef@1
+      (call \5B\5D.7.In2o1931. bins.0. to0.0@5))it.5@C want.1@G))
+   (if@,B
+    (elif@3
+     (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+      (not@,1
+       (eq@7 Trouble.0. why.1@5,Av,.jester/deps/aoughwl_inventory/inventory.nim NoTrouble.0.@C,Av,.jester/deps/aoughwl_inventory/inventory.nim)))
+     (stmts@I
+      (ret
+       (call@E refused.0.~7 why.1@1 ""~5,~7N)))))
+   (var@4,C :src.0 . . Bin.0.@C,~2V
+    (hderef@6
+     (call \5B\5D.7.In2o1931. bins.0. from0.0@5)))
+   (call@7,D drawOff.0.~7
+    (haddr@1 src.0)slot.4@6 want.1@C)
+   (call@,E \5B\5D=.7.Iafoovr.
+    (haddr bins.0.)from0.0@5 src.0@E)
+   (var@4,F :dst.0 . . Bin.0.@C,~2Y
+    (hderef@6
+     (call \5B\5D.7.In2o1931. bins.0. to0.0@5)))
+   (let@4,G :landed.1 . .
+    (i@6,~8k 64)
+    (call@E place.0.~5
+     (haddr@1 dst.0)it.5@6 want.1@A))
+   (call@,H \5B\5D=.7.Iafoovr.
+    (haddr bins.0.)to0.0@5 dst.0@C)
+   (asgn@4,I result.39
+    (call fine.0.~4 want.1@1 landed.1@7))
+   (ret~2,~1 result.39)))
+ (proc@,B5 :splitStack.0.@5 x . .
+  (params@G
+   (param@1 :c.11 . . Container.0.@3 .)
+   (param@F :slot.5 . .
+    (i@D 64).)
+   (param@L :count.7 . .
+    (i@7 64).))Outcome.0.@Y . .
+  (stmts@2,1
+   (result@4 :result.40 . . Outcome.0.@8,~7z .)
+   (let@4 :at.8 . .
+    (i@6,~8r 64)
+    (call@C indexOf.0.~7 c.11@1))
+   (if@,1
+    (elif@3
+     (lt@3
+      (i 64)at.8~3 0@2)
+     (stmts@8
+      (ret
+       (call@E refused.0.~7 NoSuchContainer.0.@1 ""@5,~7a)))))
+   (if@,2
+    (elif@3
+     (lt@6
+      (i 64)count.7~6 1@2)
+     (stmts@B
+      (ret
+       (call@E refused.0.~7 BadCount.0.@1 ""@2,~7b)))))
+   (var@4,3 :b.12 . . Bin.0.@C,~2j
+    (hderef@4
+     (call \5B\5D.7.In2o1931. bins.0. at.8@5)))
+   (if@,4
+    (elif@3
+     (or@9
+      (lt~4
+       (i 64)slot.5~5 0@2)
+      (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+       (le@2,1
+        (i 64)
+        (dot@W,BB,.jester/deps/aoughwl_inventory/inventory.nim
+         (dot~6 b.12~1 slots.0 0 "x")len.0 0 "x")slot.5@H,BB,.jester/deps/aoughwl_inventory/inventory.nim)))
+     (stmts@X
+      (ret
+       (call@E refused.0.~7 NoSuchStack.0.@1 ""~K,~7d)))))
+   (if@,5
+    (elif@3
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)
+       (dot@R,BC,.jester/deps/aoughwl_inventory/inventory.nim
+        (hderef~C
+         (call \5B\5D.7.Irpdib9.
+          (dot b.12~1 slots.0 0 "x")slot.5@7))count.0 0)count.7@5,BC,.jester/deps/aoughwl_inventory/inventory.nim))
+     (stmts~1,1
+      (ret
+       (call@E refused.0.~7 NotEnough.0.@1 "a split has to leave something behind"@C)))))
+   (let@4,7 :d.5 . . Holder.0.@8,~3t
+    (dot@5 b.12~1 definition.0 0 "x"))
+   (if@,8
+    (elif@3
+     (and@D
+      (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+       (le@2,1
+        (i 64)0@G,BF,.jester/deps/aoughwl_inventory/inventory.nim
+        (dot@6,BF,.jester/deps/aoughwl_inventory/inventory.nim d.5~1 slots.0 0)))
+      (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+       (lt@2,1
+        (i 64)
+        (dot@f,BF,.jester/deps/aoughwl_inventory/inventory.nim d.5~1 slots.0 0)
+        (add@Y,BF,.jester/deps/aoughwl_inventory/inventory.nim
+         (i 64)
+         (dot~5
+          (dot~6 b.12~1 slots.0 0 "x")len.0 0 "x")1@2))))
+     (stmts@i
+      (ret
+       (call@E refused.0.~7 NoRoom.0.@1 ""~V,~7h)))))
+   (let@4,9 :item.7 . . string.0.sysvq0asl@5,~8c
+    (dot@K
+     (hderef~C
+      (call \5B\5D.7.Irpdib9.
+       (dot b.12~1 slots.0 0 "x")slot.5@7))item.0 0))
+   (var@4,A :s.16 . . Stack.0.@7,~3t
+    (hderef@5
+     (call \5B\5D.7.Irpdib9.
+      (dot b.12~1 slots.0 0 "x")slot.5@7)))
+   (asgn@8,B
+    (dot~7 s.16~1 count.0 0)
+    (sub@A
+     (i 64)
+     (dot~7 s.16~1 count.0 0)count.7@2))
+   (call@1,C \5B\5D=.7.I0z9rtl1.
+    (haddr
+     (dot b.12~1 slots.0 0 "x"))slot.5@7 s.16@F)
+   (cmd@7,D add.0.Isc1m7i1.@1
+    (haddr~6
+     (dot b.12~1 slots.0 0 "x"))
+    (oconstr@A Stack.0.@8,l
+     (kv@5 item.0~4 item.7@2)
+     (kv@I count.0~5 count.7@2)))
+   (call@,E \5B\5D=.7.Iafoovr.
+    (haddr bins.0.)at.8@5 b.12@B)
+   (asgn@4,F result.40
+    (call fine.0.~4 count.7@1
+     (sub@K
+      (i 64)
+      (call~5 len.3.I9p8e9.@1
+       (dot~6 b.12~1 slots.0 0 "x"))1@2)))
+   (ret~2,~1 result.40)))
+ (proc@,BQ :mergeStacks.0.@5 x . .
+  (params@H
+   (param@1 :c.12 . . Container.0.@3 .)
+   (param@F :source.1 . .
+    (i@G 64).)
+   (param@N :target.1 . .
+    (i@8 64).))Outcome.0.@b . .
+  (stmts@2,1
+   (result@4 :result.41 . . Outcome.0.@8,~8K .)
+   (let@4 :at.9 . .
+    (i@6,~9C 64)
+    (call@C indexOf.0.~7 c.12@1))
+   (if@,1
+    (elif@3
+     (lt@3
+      (i 64)at.9~3 0@2)
+     (stmts@8
+      (ret
+       (call@E refused.0.~7 NoSuchContainer.0.@1 ""@5,~7v)))))
+   (var@4,2 :b.13 . . Bin.0.@C,~33
+    (hderef@4
+     (call \5B\5D.7.In2o1931. bins.0. at.9@5)))
+   (if@,3
+    (elif@3
+     (or@B
+      (lt~4
+       (i 64)source.1~7 0@2)
+      (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+       (le@2,1
+        (i 64)
+        (dot@a,BV,.jester/deps/aoughwl_inventory/inventory.nim
+         (dot~6 b.13~1 slots.0 0 "x")len.0 0 "x")source.1@J,BV,.jester/deps/aoughwl_inventory/inventory.nim)))
+     (stmts@b
+      (ret
+       (call@E refused.0.~7 NoSuchStack.0.@1 ""~O,~7x)))))
+   (if@,4
+    (elif@3
+     (or@B
+      (lt~4
+       (i 64)target.1~7 0@2)
+      (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+       (le@2,1
+        (i 64)
+        (dot@a,BW,.jester/deps/aoughwl_inventory/inventory.nim
+         (dot~6 b.13~1 slots.0 0 "x")len.0 0 "x")target.1@J,BW,.jester/deps/aoughwl_inventory/inventory.nim)))
+     (stmts@b
+      (ret
+       (call@E refused.0.~7 NoSuchStack.0.@1 ""~O,~7y)))))
+   (if@,5
+    (elif@3
+     (eq@7
+      (i 64)source.1~7 target.1@3)
+     (stmts@I
+      (ret
+       (call@E refused.0.~7 Nowhere.0.@1 ""~5,~7z)))))
+   (if@,6
+    (elif@3
+     (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+      (not@,1
+       (infix@7 ==.20.sysvq0asl
+        (dot@K,BY,.jester/deps/aoughwl_inventory/inventory.nim
+         (hderef~E
+          (call \5B\5D.7.Irpdib9.
+           (dot b.13~1 slots.0 0 "x")source.1@7))item.0 0)
+        (dot@i,BY,.jester/deps/aoughwl_inventory/inventory.nim
+         (hderef~E
+          (call \5B\5D.7.Irpdib9.
+           (dot b.13~1 slots.0 0 "x")target.1@7))item.0 0))))
+     (stmts~1,1
+      (ret
+       (call@E refused.0.~7 NotAccepted.0.@1 "those are not the same item"@E)))))
+   (let@4,8 :it.6 . . Item.0.@8,~5w
+    (call@B itemOf.0.~6
+     (dot@G
+      (hderef~E
+       (call \5B\5D.7.Irpdib9.
+        (dot b.13~1 slots.0 0 "x")source.1@7))item.0 0)))
+   (let@4,9 :room.1 . .
+    (i@6,~9L 64)
+    (sub@K
+     (i 64)
+     (call~5 perStack.0.~8 it.6@1)
+     (dot@H
+      (hderef~E
+       (call \5B\5D.7.Irpdib9.
+        (dot b.13~1 slots.0 0 "x")target.1@7))count.0 0)))
+   (if@,A
+    (elif@3
+     (lt@5
+      (i 64)room.1~5 1@2)
+     (stmts@A
+      (ret
+       (call@E refused.0.~7 NoRoom.0.@1 ""@3,~84)))))
+   (let@4,B :moved.1 . .
+    (i@6,~9N 64)
+    (call@D least.0.~5 room.1@1
+     (dot@M
+      (hderef~E
+       (call \5B\5D.7.Irpdib9.
+        (dot b.13~1 slots.0 0 "x")source.1@7))count.0 0)))
+   (var@4,C :t.2 . . Stack.0.@7,~4G
+    (hderef@5
+     (call \5B\5D.7.Irpdib9.
+      (dot b.13~1 slots.0 0 "x")target.1@7)))
+   (asgn@8,D
+    (dot~7 t.2~1 count.0 0)
+    (add@A
+     (i 64)
+     (dot~7 t.2~1 count.0 0)moved.1@2))
+   (call@1,E \5B\5D=.7.I0z9rtl1.
+    (haddr
+     (dot b.13~1 slots.0 0 "x"))target.1@7 t.2@H)
+   (call@7,F drawOff.0.~7
+    (haddr@1 b.13)source.1@4 moved.1@C)
+   (call@,G \5B\5D=.7.Iafoovr.
+    (haddr bins.0.)at.9@5 b.13@B)
+   (asgn@4,H result.41
+    (call fine.0.~4 moved.1@1
+     (expr
+      (stmts@8)
+      (if@1
+       (elif@3
+        (lt@7
+         (i 64)source.1~7 target.1@2)
+        (sub@O
+         (i 64)target.1~7 1@2))
+       (else@V target.1@6)))))
+   (ret~2,~1 result.41)))
+ (proc@,Bm :emptyContainer.0.@5 x . .
+  (params@K
+   (param@1 :c.13 . . Container.0.@3 .))Outcome.0.@G . .
+  (stmts@2,1
+   (result@4 :result.42 . . Outcome.0.@8,~8g .)
+   (let@4 :at.10 . .
+    (i@6,~9Y 64)
+    (call@C indexOf.0.~7 c.13@1))
+   (if@,1
+    (elif@3
+     (lt@3
+      (i 64)at.10~3 0@2)
+     (stmts@8
+      (ret
+       (call@E refused.0.~7 NoSuchContainer.0.@1 ""@5,~8H)))))
+   (var@4,2 :b.14 . . Bin.0.@C,~3P
+    (hderef@4
+     (call \5B\5D.7.In2o1931. bins.0. at.10@5)))
+   (let@4,3 :held.2 . .
+    (i@6,~9b 64)
+    (call@E len.3.I9p8e9.@1
+     (dot~6 b.14~1 slots.0 0 "x")))
+   (asgn@8,4
+    (dot~7 b.14~1 slots.0 0 "x")
+    (expr@2,32,../../../../../../nimony/lib/std/system/seqimpl.nim
+     (call@F,1 newSeqUninit.0.I2zkky41.~F 0@1)))
+   (call@,5 \5B\5D=.7.Iafoovr.
+    (haddr bins.0.)at.10@5 b.14@B)
+   (asgn@4,6 result.42
+    (call fine.0.~4 held.2@1 -1@7))
+   (ret~2,~1 result.42)))
+ (proc@,Bz :stackCount.0.@5 x . .
+  (params@G
+   (param@1 :c.14 . . Container.0.@3 .))
+  (i@G 64). .
+  (stmts@2,1
+   (result@4 :result.43 . .
+    (i@6,~9l 64).)
+   (let@4 :at.11 . .
+    (i@6,~9l 64)
+    (call@C indexOf.0.~7 c.14@1))
+   (if@,1
+    (elif@3
+     (lt@3
+      (i 64)at.11~3 0@2)
+     (stmts@8
+      (ret 0@7))))
+   (asgn@E,2 result.43
+    (call len.3.I9p8e9.@1
+     (dot~6
+      (hderef~8
+       (call \5B\5D.7.In2o1931. bins.0. at.11@5))slots.0 0 "x")))
+   (ret~2,~1 result.43)))
+ (proc@,C4 :stackAt.0.@5 x . .
+  (params@D
+   (param@1 :c.15 . . Container.0.@3 .)
+   (param@F :slot.6 . .
+    (i@6 64).))Stack.0.@R . .
+  (stmts@2,1
+   (result@4 :result.44 . . Stack.0.@L,~1 .)
+   (let@4 :at.12 . .
+    (i@6,~9q 64)
+    (call@C indexOf.0.~7 c.15@1))
+   (if@,1
+    (elif@3
+     (lt@3
+      (i 64)at.12~3 0@2)
+     (stmts@8
+      (ret
+       (oconstr@C Stack.0.@2,~2
+        (kv@5 item.0~4 ""@2)
+        (kv@G count.0~5 0@2))))))
+   (if@,2
+    (elif@3
+     (or@9
+      (lt~4
+       (i 64)slot.6~5 0@2)
+      (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+       (le@2,1
+        (i 64)
+        (dot@d,C8,.jester/deps/aoughwl_inventory/inventory.nim
+         (dot~6
+          (hderef~8
+           (call \5B\5D.7.In2o1931. bins.0. at.12@5))slots.0 0 "x")len.0 0 "x")slot.6@H,C8,.jester/deps/aoughwl_inventory/inventory.nim)))
+     (stmts@e
+      (ret
+       (oconstr@C Stack.0.~U,~3
+        (kv@5 item.0~4 ""@2)
+        (kv@G count.0~5 0@2))))))
+   (asgn@E,3 result.44
+    (hderef~6
+     (call \5B\5D.7.Irpdib9.
+      (dot
+       (hderef~8
+        (call \5B\5D.7.In2o1931. bins.0. at.12@5))slots.0 0 "x")slot.6@7)))
+   (ret~2,~1 result.44)))
+ (iterator@,CD :contents.0.@9 x . .
+  (params@I
+   (param@1 :c.16 . . Container.0.@3 .))Stack.0.@G
+  (pragmas@e
+   (sideEffect@2)).
+  (stmts@2,1
+   (let@4 :at.13 . .
+    (i@6,~9z 64)
+    (call@C indexOf.0.~7 c.16@1))
+   (if@,1
+    (elif@3
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)0@B,CG,.jester/deps/aoughwl_inventory/inventory.nim at.13@5,CG,.jester/deps/aoughwl_inventory/inventory.nim))
+     (stmts~1,1
+      (var@4 :i.19 . .
+       (i 64)0@4)
+      (while@,1
+       (lt@8
+        (i 64)i.19~2
+        (call@G len.3.I9p8e9.@1
+         (dot~6
+          (hderef~8
+           (call \5B\5D.7.In2o1931. bins.0. at.13@5))slots.0 0 "x")))
+       (stmts@2,1
+        (yld
+         (hderef@E
+          (call \5B\5D.7.Irpdib9.
+           (dot
+            (hderef~8
+             (call \5B\5D.7.In2o1931. bins.0. at.13@5))slots.0 0 "x")i.19@7)))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.19)))))))))
+ (proc@,CM :countOf.0.@5 x . .
+  (params@D
+   (param@1 :c.17 . . Container.0.@3 .)
+   (param@F :item.2 . . string.0.sysvq0asl@6 .))
+  (i@U 64). .
+  (stmts@2,1
+   (result@4 :result.45 . .
+    (i@6,~A8 64).)
+   (let@4 :at.14 . .
+    (i@6,~A8 64)
+    (call@C indexOf.0.~7 c.17@1))
+   (asgn@7,1 result.45~7 0@2)
+   (if@,2
+    (elif@3
+     (lt@3
+      (i 64)at.14~3 0@2)
+     (stmts@8
+      (ret result.45))))
+   (var@4,3 :i.20 . .
+    (i 64)0@4)
+   (while@,4
+    (lt@8
+     (i 64)i.20~2
+     (call@G len.3.I9p8e9.@1
+      (dot~6
+       (hderef~8
+        (call \5B\5D.7.In2o1931. bins.0. at.14@5))slots.0 0 "x")))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@N ==.20.sysvq0asl
+        (dot~6
+         (hderef~9
+          (call \5B\5D.7.Irpdib9.
+           (dot
+            (hderef~8
+             (call \5B\5D.7.In2o1931. bins.0. at.14@5))slots.0 0 "x")i.20@7))item.0 0)item.2@3)
+       (stmts@W
+        (asgn@7 result.45~7
+         (add@9
+          (i 64)result.45~7
+          (dot@J
+           (hderef~9
+            (call \5B\5D.7.Irpdib9.
+             (dot
+              (hderef~8
+               (call \5B\5D.7.In2o1931. bins.0. at.14@5))slots.0 0 "x")i.20@7))count.0 0))))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.20))))
+   (ret~2,~1 result.45)))
+ (proc@,CV :holds.0.@5 x . .
+  (params@B
+   (param@1 :c.18 . . Container.0.@3 .)
+   (param@F :item.3 . . string.0.sysvq0asl@6 .))
+  (bool@U). .
+  (stmts@m
+   (result@H :result.46 . .
+    (bool~r,~AB).)
+   (asgn@H result.46
+    (expr@2,1t,../../../../../../nimony/lib/std/system/comparisons.nim
+     (lt@2,1
+      (i 64)0@15,CW,.jester/deps/aoughwl_inventory/inventory.nim
+      (call@t,CW,.jester/deps/aoughwl_inventory/inventory.nim countOf.0.~7 c.18@1 item.3@4))))
+   (ret~m result.46)))
+ (proc@,CX :bulkUsed.0.@5 x . .
+  (params@E
+   (param@1 :c.19 . . Container.0.@3 .))
+  (f@G 64). .
+  (stmts@2,1
+   (result@4 :result.47 . .
+    (f@5,~AI 64).)
+   (let@4 :at.15 . .
+    (i@6,~AJ 64)
+    (call@C indexOf.0.~7 c.19@1))
+   (if@,1
+    (elif@3
+     (lt@3
+      (i 64)at.15~3 0@2)
+     (stmts@8
+      (ret 0.0@7))))
+   (asgn@8,2 result.47
+    (call usedBulk.0.~8
+     (hderef@1
+      (call \5B\5D.7.In2o1931. bins.0. at.15@5))))
+   (ret~2,~1 result.47)))
+ (proc@,Cc :loadUsed.0.@5 x . .
+  (params@E
+   (param@1 :c.20 . . Container.0.@3 .))
+  (f@G 64). .
+  (stmts@2,1
+   (result@4 :result.48 . .
+    (f@5,~AN 64).)
+   (let@4 :at.16 . .
+    (i@6,~AO 64)
+    (call@C indexOf.0.~7 c.20@1))
+   (if@,1
+    (elif@3
+     (lt@3
+      (i 64)at.16~3 0@2)
+     (stmts@8
+      (ret 0.0@7))))
+   (asgn@8,2 result.48
+    (call usedLoad.0.~8
+     (hderef@1
+      (call \5B\5D.7.In2o1931. bins.0. at.16@5))))
+   (ret~2,~1 result.48)))
+ (proc@,Cj :troubleWith.0.@5 x . .
+  (params@H
+   (param@1 :c.21 . . Container.0.@3 .)
+   (param@F :item.4 . . string.0.sysvq0asl@6 .)
+   (param@T :count.8 . .
+    (i~Y,~AU 64)1@8))Trouble.0.@f . .
+  (stmts@2,1
+   (result@4 :result.49 . . Trouble.0.~4,~A0 .)
+   (let@4 :at.17 . .
+    (i@6,~AV 64)
+    (call@C indexOf.0.~7 c.21@1))
+   (if@,1
+    (elif@3
+     (lt@3
+      (i 64)at.17~3 0@2)
+     (stmts@8
+      (ret NoSuchContainer.0.@7))))
+   (asgn@7,2 result.49
+    (call trouble.0.~7
+     (hderef@1
+      (call \5B\5D.7.In2o1931. bins.0. at.17@5))
+     (call@H itemOf.0.~6 item.4@1)count.8@P))
+   (ret~2,~1 result.49)))
+ (proc@,Co :roomFor.0.@5 x . .
+  (params@D
+   (param@1 :c.22 . . Container.0.@3 .)
+   (param@F :item.5 . . string.0.sysvq0asl@6 .)
+   (param@T :count.9 . .
+    (i~U,~AZ 64)1@8))
+  (bool@f). .
+  (stmts@2,1
+   (result@S :result.50 . .
+    (bool~I,~AV).)
+   (asgn@S result.50
+    (eq Trouble.0.
+     (call~H troubleWith.0.~B c.22@1 item.5@4 count.9@A)NoTrouble.0.@3))
+   (ret~2,~1 result.50)))
+ (proc@,Cs :accepts.0.@5 x . .
+  (params@D
+   (param@1 :c.23 . . Container.0.@3 .)
+   (param@F :item.6 . . string.0.sysvq0asl@6 .))
+  (bool@U). .
+  (stmts@2,1
+   (result@4 :result.51 . .
+    (bool@6,~AZ).)
+   (let@4 :at.18 . .
+    (i@6,~Ae 64)
+    (call@C indexOf.0.~7 c.23@1))
+   (if@,1
+    (elif@3
+     (lt@3
+      (i 64)at.18~3 0@2)
+     (stmts@8
+      (ret
+       (false@7)))))
+   (asgn@4,2 result.51
+    (call lets.0.~4
+     (dot@9
+      (hderef~8
+       (call \5B\5D.7.In2o1931. bins.0. at.18@5))definition.0 0 "x")
+     (call@S itemOf.0.~6 item.6@1)))
+   (ret~2,~1 result.51)))
+ (comment@C,2F int.0.sysvq0asl float64.0.sysvq0asl~1,1 float64.0.sysvq0asl@1,2 bool.0.sysvq0asl@,5 int.0.sysvq0asl@,F float64.0.sysvq0asl@3,G float64.0.sysvq0asl~1,H bool.0.sysvq0asl@,K int.0.sysvq0asl@,P int.0.sysvq0asl@C,R int.0.sysvq0asl@,o int.0.sysvq0asl~1,p bool.0.sysvq0asl@2,s bool.0.sysvq0asl@4,1B bool.0.sysvq0asl@7,1C int.0.sysvq0asl@B,1F int.0.sysvq0asl@B,1F int.0.sysvq0asl@Z,1S int.0.sysvq0asl@Z,1S bool.0.sysvq0asl@R,1S bool.0.sysvq0asl@9,1o bool.0.sysvq0asl@C,1s bool.0.sysvq0asl@L,2D bool.0.sysvq0asl@2,2z float64.0.sysvq0asl@e,38 float64.0.sysvq0asl@Y,38 int.0.sysvq0asl@f,3F int.0.sysvq0asl@U,3F bool.0.sysvq0asl~4,57 int.0.sysvq0asl@4,5C int.0.sysvq0asl@5,5I int.0.sysvq0asl@5,5I int.0.sysvq0asl@1,5I int.0.sysvq0asl@,5K float64.0.sysvq0asl~2,5M float64.0.sysvq0asl~2,5T bool.0.sysvq0asl@B,5d int.0.sysvq0asl@Q,5n int.0.sysvq0asl@S,6B int.0.sysvq0asl@O,6B int.0.sysvq0asl@K,6W int.0.sysvq0asl@Q,6e int.0.sysvq0asl@Q,6e bool.0.sysvq0asl@4,7P int.0.sysvq0asl@N,8E int.0.sysvq0asl@b,8T int.0.sysvq0asl@W,8q int.0.sysvq0asl@W,8q int.0.sysvq0asl@a,9B int.0.sysvq0asl@a,9B int.0.sysvq0asl@4,9k int.0.sysvq0asl@M,9p int.0.sysvq0asl@I,A7 bool.0.sysvq0asl@I,AG float64.0.sysvq0asl@4,AI float64.0.sysvq0asl@4,AN bool.0.sysvq0asl@T,AZ bool.0.sysvq0asl@I,Ad false.0.sysvq0asl@8,~j true.0.sysvq0asl@6,~c >.0.sysvq0asl@T,~b int.0.sysvq0asl@Q,1B int.0.sysvq0asl@Q,1C int.0.sysvq0asl@a,1C >.0.sysvq0asl@l,1J false.0.sysvq0asl@D,1T >.0.sysvq0asl@,1U false.0.sysvq0asl@J,1U true.0.sysvq0asl@3,1Y !=.0.sysvq0asl@9,1a false.0.sysvq0asl@3,1b true.0.sysvq0asl@L,1j false.0.sysvq0asl~A,1l >.0.sysvq0asl~1,1z true.0.sysvq0asl@n,20 false.0.sysvq0asl~A,23 true.0.sysvq0asl@H,2G false.0.sysvq0asl~A,2I >.0.sysvq0asl@s,2z int.0.sysvq0asl~A,3K false.0.sysvq0asl@K,3Q >=.0.sysvq0asl~2,3S true.0.sysvq0asl@B,3X false.0.sysvq0asl@P,3m true.0.sysvq0asl@5,3q false.0.sysvq0asl@P,42 >=.0.sysvq0asl~2,44 int64.0.sysvq0asl@Q,4j int64.0.sysvq0asl@P,4u int.0.sysvq0asl~1,5D >=.0.sysvq0asl@6,5E float64.0.sysvq0asl@f,5Q float64.0.sysvq0asl@h,5X >.0.sysvq0asl@7,5e false.0.sysvq0asl@b,5f >.0.sysvq0asl@7,5g false.0.sysvq0asl@X,5h true.0.sysvq0asl~A,5i >=.0.sysvq0asl@4,5s float64.0.sysvq0asl@J,5t >.0.sysvq0asl@Y,5t float64.0.sysvq0asl@J,5t >=.0.sysvq0asl@,5u float64.0.sysvq0asl@L,5v >.0.sysvq0asl@a,5v float64.0.sysvq0asl@L,5v >=.0.sysvq0asl@1,5w >.0.sysvq0asl@S,60 >.0.sysvq0asl@4,63 >.0.sysvq0asl@5,65 >.0.sysvq0asl@G,67 >.0.sysvq0asl@Q,6G >.0.sysvq0asl@6,6P >.0.sysvq0asl@b,6t true.0.sysvq0asl~2,6u \40.1.sysvq0asl@B,6u >.0.sysvq0asl@b,71 true.0.sysvq0asl~2,72 \40.1.sysvq0asl@B,72 >.0.sysvq0asl@b,78 true.0.sysvq0asl~2,79 \40.1.sysvq0asl@B,79 false.0.sysvq0asl~1,7J \40.1.sysvq0asl@,7K >=.0.sysvq0asl@W,7P false.0.sysvq0asl@b,7Z !=.0.sysvq0asl~3,7k >=.0.sysvq0asl~2,84 >.0.sysvq0asl@H,84 >=.0.sysvq0asl@A,8I >.0.sysvq0asl~2,8K >=.0.sysvq0asl@A,8Z >.0.sysvq0asl~2,8c !=.0.sysvq0asl~3,8f >=.0.sysvq0asl@A,8v >=.0.sysvq0asl~1,8w >=.0.sysvq0asl@1,8z >.0.sysvq0asl@Q,8z >=.0.sysvq0asl@E,9F >=.0.sysvq0asl@E,9G !=.0.sysvq0asl@E,9I \40.1.sysvq0asl@,9c >=.0.sysvq0asl@A,9s >=.0.sysvq0asl~4,A0 >.0.sysvq0asl@r,AG false.0.sysvq0asl@8,Af)
+ (func@6,3s :inc.1.Irn1g7r1. . .@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (at inc.1.sysvq0asl
+   (i 64))
+  (params@L,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (param@1 :x.2 . .
+    (mut@3
+     (i 64)).)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (pragmas@W,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (inline@2)).@,E,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (stmts@2,F,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (asgn@2,1
+    (hderef~2 x.2)
+    (add@6
+     (i 64)
+     (hderef@1 x.2)
+     (conv@U,~F
+      (i 64)1@1)))))
+ (func@G,4U :len.3.Ixq6taz. . .@,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at len.3.sysvq0asl string.0.sysvq0asl@6,~2)
+  (params@C,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.17 . . seq.0.Ixdx2fh1.@6 .))
+  (i@D,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim 64)
+  (pragmas@T,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (inline@2)).@,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,2a,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (result :result.52 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@1,1 result.52
+    (dot s.17~1 len.0 0 "x"))
+   (ret~2,~1 result.52)))
+ (func@7,4V :\5B\5D.7.Ir6d0tw. . .@,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at \5B\5D.7.sysvq0asl string.0.sysvq0asl@F,~3)
+  (params@D,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.18 . . seq.0.Ixdx2fh1.@6 .)
+   (param@C :i.21 . .
+    (i@3 64).))
+  (mut@L,2h,../../../../../../nimony/lib/std/system/seqimpl.nim string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+  (pragmas@e,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (requires@2
+    (and@L
+     (lt~8
+      (i 64)i.21~2
+      (dot@3 s.18~1 len.0 0 "x"))
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)0@1A,2h,../../../../../../nimony/lib/std/system/seqimpl.nim i.21@15,2h,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+   (inline@a)).@,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@1P,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (result@6 :result.53 . .
+    (mut~1A string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim).)
+   (asgn@6 result.53
+    (haddr~5
+     (pat
+      (dot s.18~1 data.0 0 "x")i.21@6)))
+   (ret~1P result.53)))
+ (func@q,4d :add.0.Ig6072n. . .@,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at add.0.sysvq0asl string.0.sysvq0asl~U,~B)
+  (params@C,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.19 . .
+    (mut@3 seq.0.Ixdx2fh1.@7).)
+   (param@G :elem.6 . .
+    (sink@6 string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim).)).@,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (pragmas@g,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (inline@2)
+   (nodestroy@A)).@,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,2O,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (let@4,1 :L.0 . .
+    (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+    (dot@5
+     (hderef~1 s.19)len.0 0 "x"))
+   (if@,2
+    (elif@3
+     (lt@D
+      (i 64)
+      (call~C capInBytes.0.Ih2sbn01.@1
+       (hderef~1 s.19))
+      (add@I
+       (i 64)
+       (mul~D
+        (i 64)L.0~2
+        (sizeof@8 string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim))
+       (sizeof@8 string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)))
+     (stmts~1,1
+      (if
+       (elif@3
+        (not
+         (call@A resize.0.I4buliy.~6 s.19@1 1@4))
+        (stmts~1,3
+         (destroy@A elem.6@1)
+         (ret@,1 .)))))))
+   (cmd@,8 inc.1.Irn1g7r1.
+    (haddr@5
+     (dot
+      (hderef~1 s.19)len.0 0 "x")))
+   (asgn@C,9
+    (pat~A
+     (dot
+      (hderef~1 s.19)data.0 0 "x")L.0@6)elem.6@2)))
+ (func@8,4s :\5B\5D=.7.Ild9iim. . .@,2j,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at \5B\5D=.7.sysvq0asl string.0.sysvq0asl@E,~Q)
+  (params@E,2j,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.21 . .
+    (mut@3 seq.0.Ixdx2fh1.@7).)
+   (param@G :i.22 . .
+    (i@3 64).)
+   (param@O :elem.7 . .
+    (sink~4,~M string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim).)).@,2j,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (pragmas@q,2j,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (requires@2
+    (and@L
+     (lt~8
+      (i 64)i.22~2
+      (dot@3
+       (hderef~1 s.21)len.0 0 "x"))
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)0@1M,2j,../../../../../../nimony/lib/std/system/seqimpl.nim i.22@1H,2j,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+   (inline@a)
+   (pragma@i linear.0.sysvq0asl)).@,2j,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,2k,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (asgn@C
+    (pat~A
+     (dot
+      (hderef~1 s.21)data.0 0 "x")i.22@6)elem.7@2)))
+ (func@P,4u :setLen.0.Iejjsiw. . .@,3m,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at setLen.0.sysvq0asl string.0.sysvq0asl~3,~S)
+  (params@R,3m,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.22 . .
+    (mut@3 seq.0.Ixdx2fh1.@7).)
+   (param@G :newLen.2 . .
+    (i@8 64).)).@,3m,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (pragmas@u,3m,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (nodestroy@2)).@,3m,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,3n,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (if@,1
+    (elif@3
+     (lt@7
+      (i 64)newLen.2~7
+      (dot@3
+       (hderef~1 s.22)len.0 0 "x"))
+     (stmts~1,1
+      (call@6 shrink.0.Iiotmvc.~6 s.22@1 newLen.2@4)))
+    (else@,2
+     (stmts@2,1
+      (var@4 :i.23 . .
+       (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+       (dot@5
+        (hderef~1 s.22)len.0 0 "x"))
+      (call@A,1 growUnsafe.0.Iejqx1p.~A s.22@1 newLen.2@4)
+      (if@,2
+       (elif@3
+        (eq@7
+         (ptr
+          (uarray string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+          (unchecked))
+         (dot~6
+          (hderef~1 s.22)data.0 0 "x")
+         (nil@3))
+        (stmts@F
+         (ret .))))
+      (while@,3
+       (lt@8
+        (i 64)i.23~2 newLen.2@2)
+       (stmts@2,1
+        (asgn@C
+         (pat~A
+          (dot
+           (hderef~1 s.22)data.0 0 "x")i.23@6)
+         (expr@n,I,../../../../../../nimony/lib/std/system/defaults.nim ""))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.23)))))))))
+ (func@4,5w :dec.1.I2mwrey1. . .@,I,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (at dec.1.sysvq0asl
+   (i@8,~3h 64))
+  (params@L,I,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (param@1 :x.3 . .
+    (mut@3
+     (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)).)).@,I,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (pragmas@W,I,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (inline@2)).@,I,../../../../../../nimony/lib/std/system/arithmetics.nim
+  (stmts@2,J,../../../../../../nimony/lib/std/system/arithmetics.nim
+   (asgn@2,1
+    (hderef~2 x.3)
+    (sub@6
+     (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+     (hderef@1 x.3)
+     (conv@U,~H
+      (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)1@1)))))
+ (func@P,7T :len.3.Io81gb31. . .@,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at len.3.sysvq0asl Bin.0.~B,~4)
+  (params@C,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.25 . . seq.0.Iumofnp1.@6 .))
+  (i@D,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim 64)
+  (pragmas@T,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (inline@2)).@,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,2a,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (result :result.54 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@1,1 result.54
+    (dot s.25~1 len.0 0 "x"))
+   (ret~2,~1 result.54)))
+ (func@9,7U :\5B\5D.7.In2o1931. . .@,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at \5B\5D.7.sysvq0asl Bin.0.@5,~5)
+  (params@D,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.26 . . seq.0.Iumofnp1.@6 .)
+   (param@C :i.24 . .
+    (i@3 64).))
+  (mut@L,2h,../../../../../../nimony/lib/std/system/seqimpl.nim Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)
+  (pragmas@e,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (requires@2
+    (and@L
+     (lt~8
+      (i 64)i.24~2
+      (dot@3 s.26~1 len.0 0 "x"))
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)0@1A,2h,../../../../../../nimony/lib/std/system/seqimpl.nim i.24@15,2h,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+   (inline@a)).@,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@1P,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (result@6 :result.55 . .
+    (mut~1A Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim).)
+   (asgn@6 result.55
+    (haddr~5
+     (pat
+      (dot s.26~1 data.0 0 "x")i.24@6)))
+   (ret~1P result.55)))
+ (func@J,7e :len.3.I9p8e9. . .@,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at len.3.sysvq0asl Stack.0.~6,~H)
+  (params@C,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.27 . . seq.0.Incy2q.@6 .))
+  (i@D,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim 64)
+  (pragmas@T,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (inline@2)).@,2Z,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,2a,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (result :result.56 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@1,1 result.56
+    (dot s.27~1 len.0 0 "x"))
+   (ret~2,~1 result.56)))
+ (func@U,7f :\5B\5D.7.Irpdib9. . .@,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at \5B\5D.7.sysvq0asl Stack.0.~H,~I)
+  (params@D,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.28 . . seq.0.Incy2q.@6 .)
+   (param@C :i.25 . .
+    (i@3 64).))
+  (mut@L,2h,../../../../../../nimony/lib/std/system/seqimpl.nim Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+  (pragmas@e,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (requires@2
+    (and@L
+     (lt~8
+      (i 64)i.25~2
+      (dot@3 s.28~1 len.0 0 "x"))
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)0@1A,2h,../../../../../../nimony/lib/std/system/seqimpl.nim i.25@15,2h,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+   (inline@a)).@,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@1P,2h,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (result@6 :result.57 . .
+    (mut~1A Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim).)
+   (asgn@6 result.57
+    (haddr~5
+     (pat
+      (dot s.28~1 data.0 0 "x")i.25@6)))
+   (ret~1P result.57)))
+ (func@7,8a :\5B\5D=.7.I0z9rtl1. . .@,2j,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at \5B\5D=.7.sysvq0asl Stack.0.@6,~1D)
+  (params@E,2j,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.29 . .
+    (mut@3 seq.0.Incy2q.@7).)
+   (param@G :i.26 . .
+    (i@3 64).)
+   (param@O :elem.8 . .
+    (sink~4,~M Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim).)).@,2j,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (pragmas@q,2j,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (requires@2
+    (and@L
+     (lt~8
+      (i 64)i.26~2
+      (dot@3
+       (hderef~1 s.29)len.0 0 "x"))
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)0@1M,2j,../../../../../../nimony/lib/std/system/seqimpl.nim i.26@1H,2j,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+   (inline@a)
+   (pragma@i linear.0.sysvq0asl)).@,2j,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,2k,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (asgn@C
+    (pat~A
+     (dot
+      (hderef~1 s.29)data.0 0 "x")i.26@6)elem.8@2)))
+ (func@B,8g :add.0.Isc1m7i1. . .@,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at add.0.sysvq0asl Stack.0.@2,~1J)
+  (params@C,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.30 . .
+    (mut@3 seq.0.Incy2q.@7).)
+   (param@G :elem.9 . .
+    (sink@6 Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim).)).@,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (pragmas@g,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (inline@2)
+   (nodestroy@A)).@,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,2O,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (let@4,1 :L.1 . .
+    (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+    (dot@5
+     (hderef~1 s.30)len.0 0 "x"))
+   (if@,2
+    (elif@3
+     (lt@D
+      (i 64)
+      (call~C capInBytes.0.Irivwka.@1
+       (hderef~1 s.30))
+      (add@I
+       (i 64)
+       (mul~D
+        (i 64)L.1~2
+        (sizeof@8 Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim))
+       (sizeof@8 Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)))
+     (stmts~1,1
+      (if
+       (elif@3
+        (not
+         (call@A resize.0.Ilmu1m91.~6 s.30@1 1@4))
+        (stmts~1,3
+         (destroy@A elem.9@1)
+         (ret@,1 .)))))))
+   (cmd@,8 inc.1.Irn1g7r1.
+    (haddr@5
+     (dot
+      (hderef~1 s.30)len.0 0 "x")))
+   (asgn@C,9
+    (pat~A
+     (dot
+      (hderef~1 s.30)data.0 0 "x")L.1@6)elem.9@2)))
+ (func@G,8r :setLen.0.Ip4rtpn. . .@,3m,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at setLen.0.sysvq0asl Stack.0.~3,~1U)
+  (params@R,3m,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.32 . .
+    (mut@3 seq.0.Incy2q.@7).)
+   (param@G :newLen.5 . .
+    (i@8 64).)).@,3m,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (pragmas@u,3m,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (nodestroy@2)).@,3m,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,3n,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (if@,1
+    (elif@3
+     (lt@7
+      (i 64)newLen.5~7
+      (dot@3
+       (hderef~1 s.32)len.0 0 "x"))
+     (stmts~1,1
+      (call@6 shrink.0.Itsnuwd1.~6 s.32@1 newLen.5@4)))
+    (else@,2
+     (stmts@2,1
+      (var@4 :i.27 . .
+       (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+       (dot@5
+        (hderef~1 s.32)len.0 0 "x"))
+      (call@A,1 growUnsafe.0.Iv6p70n.~A s.32@1 newLen.5@4)
+      (if@,2
+       (elif@3
+        (eq@7
+         (ptr
+          (uarray Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+          (unchecked))
+         (dot~6
+          (hderef~1 s.32)data.0 0 "x")
+         (nil@3))
+        (stmts@F
+         (ret .))))
+      (while@,3
+       (lt@8
+        (i 64)i.27~2 newLen.5@2)
+       (stmts@2,1
+        (asgn@C
+         (pat~A
+          (dot
+           (hderef~1 s.32)data.0 0 "x")i.27@6)
+         (oconstr@9 Stack.0.@R,C5,.jester/deps/aoughwl_inventory/inventory.nim
+          (kv item.0
+           (expr@n,I,../../../../../../nimony/lib/std/system/defaults.nim ""))
+          (kv count.0
+           (expr@l,E,../../../../../../nimony/lib/std/system/defaults.nim
+            (suf 0 "i64")))))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.27)))))))))
+ (func@H,33,../../../../../../nimony/lib/std/system/seqimpl.nim :newSeqUninit.0.I2zkky41. . .~H,~1z
+  (at newSeqUninit.0.sysvq0asl Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params@4,~1z
+   (param@1 :size.1 . .
+    (i@6 64).))seq.0.Incy2q.~1,~1z
+  (pragmas@O,~1z
+   (nodestroy@2)
+   (inline@D)).~H,~1z
+  (stmts~F,~1y
+   (result :result.58 . . seq.0.Incy2q.@E,~1 .)
+   (if@,1
+    (elif@3
+     (eq@5
+      (i 64)size.1~5 0@3)
+     (stmts~1,1
+      (asgn@7 result.58~7
+       (oconstr@8 seq.0.Incy2q.@C,7O,.jester/deps/aoughwl_inventory/inventory.nim
+        (kv@4 len.0~3 size.1@2)
+        (kv@G data.0~4
+         (nil@2))))))
+    (else@,2
+     (stmts@2,1
+      (let@4 :memSize.0 . .
+       (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+       (call@R memSizeInBytes.0.Ibwdpgu.~H size.1@1))
+      (asgn@7,1 result.58~7
+       (oconstr@8 seq.0.Incy2q.@C,7O,.jester/deps/aoughwl_inventory/inventory.nim
+        (kv@4 len.0~3 size.1@2)
+        (kv@G data.0~4
+         (cast@2
+          (ptr@5
+           (uarray@I Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+           (unchecked))
+          (call@X alloc.0.sysvq0asl~5 memSize.0@1)))))
+      (if@,2
+       (elif@3
+        (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+         (not@,1
+          (eq@7
+           (ptr
+            (uarray Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+            (unchecked))
+           (dot@D,1B,../../../../../../nimony/lib/std/system/seqimpl.nim result.58~6 data.0 0 "x")
+           (nil@M,1B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+        (stmts~1,1
+         (discard "leave uninitialized"@8)))
+       (else@,2
+        (stmts@2,1
+         (asgn@B
+          (dot~5 result.58~6 len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.0@B)))))))))
+   (ret~2,~1 result.58)))
+ (func@6,98 :add.0.I47qm811. . .@,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at add.0.sysvq0asl Bin.0.@8,~1j)
+  (params@C,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.35 . .
+    (mut@3 seq.0.Iumofnp1.@7).)
+   (param@G :elem.10 . .
+    (sink@6 Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim).)).@,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (pragmas@g,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (inline@2)
+   (nodestroy@A)).@,2N,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,2O,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (let@4,1 :L.2 . .
+    (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+    (dot@5
+     (hderef~1 s.35)len.0 0 "x"))
+   (if@,2
+    (elif@3
+     (lt@D
+      (i 64)
+      (call~C capInBytes.0.Imjxv2t1.@1
+       (hderef~1 s.35))
+      (add@I
+       (i 64)
+       (mul~D
+        (i 64)L.2~2
+        (sizeof@8 Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim))
+       (sizeof@8 Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)))
+     (stmts~1,1
+      (if
+       (elif@3
+        (not
+         (call@A resize.0.I50evek1.~6 s.35@1 1@4))
+        (stmts~1,3
+         (destroy@A elem.10@1)
+         (ret@,1 .)))))))
+   (cmd@,8 inc.1.Irn1g7r1.
+    (haddr@5
+     (dot
+      (hderef~1 s.35)len.0 0 "x")))
+   (asgn@C,9
+    (pat~A
+     (dot
+      (hderef~1 s.35)data.0 0 "x")L.2@6)elem.10@2)))
+ (func@2,9a :\5B\5D=.7.Iafoovr. . .@,2j,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (at \5B\5D=.7.sysvq0asl Bin.0.@C,~2B)
+  (params@E,2j,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (param@1 :s.37 . .
+    (mut@3 seq.0.Iumofnp1.@7).)
+   (param@G :i.28 . .
+    (i@3 64).)
+   (param@O :elem.11 . .
+    (sink~4,~M Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim).)).@,2j,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (pragmas@q,2j,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (requires@2
+    (and@L
+     (lt~8
+      (i 64)i.28~2
+      (dot@3
+       (hderef~1 s.37)len.0 0 "x"))
+     (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+      (le@2,1
+       (i 64)0@1M,2j,../../../../../../nimony/lib/std/system/seqimpl.nim i.28@1H,2j,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+   (inline@a)
+   (pragma@i linear.0.sysvq0asl)).@,2j,../../../../../../nimony/lib/std/system/seqimpl.nim
+  (stmts@2,2k,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (asgn@C
+    (pat~A
+     (dot
+      (hderef~1 s.37)data.0 0 "x")i.28@6)elem.11@2)))
+ (func@6,2Q,../../../../../../nimony/lib/std/system/seqimpl.nim :capInBytes.0.Ih2sbn01. . .~6,~2G
+  (at capInBytes.0.sysvq0asl string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params@C,~2G
+   (param@1 :s.38 . . seq.0.Ixdx2fh1.@6 .))
+  (i@7,~2G 64)
+  (pragmas@T,~2G
+   (inline@2)).~6,~2G
+  (stmts~4,~2F
+   (result@7 :result.59 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@7 result.59~7
+    (if@2
+     (elif@3
+      (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+       (not@,1
+        (eq@7
+         (ptr
+          (uarray string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+          (unchecked))
+         (dot@F,B,../../../../../../nimony/lib/std/system/seqimpl.nim s.38~1 data.0 0 "x")
+         (nil@O,B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+      (expr@F
+       (call@D allocatedSize.0.sysvq0asl~D
+        (hconv@2
+         (pointer@N,1O,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (hconv
+          (pointer@D,1C,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (dot s.38~1 data.0 0 "x"))))))
+     (else@e
+      (expr@6 0))))
+   (ret~2,~1 result.59)))
+ (func@H,2R,../../../../../../nimony/lib/std/system/seqimpl.nim :resize.0.I4buliy. . .~H,~e
+  (at resize.0.sysvq0asl string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params~3,~e
+   (param@1 :dest.3 . .
+    (mut@6 seq.0.Ixdx2fh1.@7).)
+   (param@J :addedElements.3 . .
+    (i@F 64).))
+  (bool@N,~e)
+  (pragmas@g,~e
+   (nodestroy@2)).~H,~e
+  (stmts~F,~d
+   (result@4 :result.60 . .
+    (bool@2,g,../../../../../../nimony/lib/std/system/basic_types.nim).)
+   (let@4 :oldCap.0 . .
+    (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+    (div@P
+     (i 64)
+     (call~C capInBytes.0.Ih2sbn01.@1
+      (hderef~4 dest.3))
+     (sizeof@A string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)))
+   (let@4,1 :newCap.0 . .
+    (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+    (call@I recalcCap.0.sysvq0asl~9 oldCap.0@1 addedElements.3@9))
+   (let@4,2 :memSize.1 . .
+    (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+    (call@R memSizeInBytes.0.I7me00i.~H newCap.0@1))
+   (asgn@A,3
+    (dot~6
+     (hderef~4 dest.3)data.0 0 "x")
+    (cast@2
+     (ptr@5
+      (uarray@I string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+      (unchecked))
+     (call@Z realloc.0.sysvq0asl~7
+      (hconv@5
+       (pointer@H,1I,../../../../../../nimony/lib/std/system/mimalloc.nim
+        (unchecked))
+       (hconv
+        (pointer@D,1C,../../../../../../nimony/lib/std/system/mimalloc.nim
+         (unchecked))
+        (dot
+         (hderef~4 dest.3)data.0 0 "x")))memSize.1@C)))
+   (if@,4
+    (elif@3
+     (eq@A
+      (ptr
+       (uarray string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+       (unchecked))
+      (dot~6
+       (hderef~4 dest.3)data.0 0 "x")
+      (nil@3))
+     (stmts~1,1
+      (asgn@9
+       (dot~5
+        (hderef~4 dest.3)len.0 0 "x")0@2)
+      (pragmax@,1
+       (pragmas
+        (cast@2
+         (pragmas
+          (noSideEffect@5))))
+       (stmts@2,1
+        (cmd oomHandler.0.sysvq0asl memSize.1@B)))
+      (asgn@7,3 result.60~7
+       (false@2))))
+    (else@,5
+     (stmts@2,1
+      (asgn@7 result.60~7
+       (true@2)))))
+   (ret~2,~1 result.60)))
+ (func@A,3p,../../../../../../nimony/lib/std/system/seqimpl.nim :shrink.0.Iiotmvc. . .~A,~W
+  (at shrink.0.sysvq0asl string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params@5,~W
+   (param@1 :s.39 . .
+    (mut@3 seq.0.Ixdx2fh1.@7).)
+   (param@G :newLen.8 . .
+    (i@8 64).)).~A,~W . .~A,~W
+  (stmts~8,~V
+   (var@4,1 :i.29 . .
+    (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+    (sub@9
+     (i 64)
+     (dot~4
+      (hderef~1 s.39)len.0 0 "x")1@1))
+   (while@,2
+    (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+     (le@2,1
+      (i 64)newLen.8@D,3M,../../../../../../nimony/lib/std/system/seqimpl.nim i.29@8,3M,../../../../../../nimony/lib/std/system/seqimpl.nim))
+    (stmts@2,1
+     (destroy@A
+      (pat@2
+       (dot
+        (hderef~1 s.39)data.0 0 "x")i.29@6))
+     (cmd@,1 dec.1.I2mwrey1.
+      (haddr@4 i.29))))
+   (asgn@6,5
+    (dot~5
+     (hderef~1 s.39)len.0 0 "x")newLen.8@2)))
+ (func@E,3s,../../../../../../nimony/lib/std/system/seqimpl.nim :growUnsafe.0.Iejqx1p. . .~E,~R
+  (at growUnsafe.0.sysvq0asl string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params@5,~R
+   (param@1 :s.40 . .
+    (mut@3 seq.0.Ixdx2fh1.@7).)
+   (param@G :newLen.9 . .
+    (i@8 64).)).~E,~R . .~E,~R
+  (stmts~C,~Q
+   (pragmax@,1
+    (pragmas
+     (keepOverflowFlag@2))
+    (stmts@2,1
+     (let@4 :newSize.0 . .
+      (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+      (mul@H
+       (i 64)newLen.9~7
+       (sizeof@8 string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)))
+     (if@,1
+      (elif@3
+       (ovf@C)
+       (stmts~1,1
+        (pragmax
+         (pragmas
+          (cast@2
+           (pragmas
+            (noSideEffect@5))))
+         (stmts@2,1
+          (cmd oomHandler.0.sysvq0asl
+           (suf@F 9223372036854775807 "i64"))))
+        (ret@,2 .))))))
+   (if@,7
+    (elif@3
+     (lt@D
+      (i 64)
+      (call~C capInBytes.0.Ih2sbn01.@1
+       (hderef~1 s.40))newSize.0@2)
+     (stmts~1,1
+      (if
+       (elif@3
+        (not
+         (call@A resize.0.I4buliy.~6 s.40@1
+          (sub@B
+           (i 64)newLen.9~7
+           (dot@3
+            (hderef~1 s.40)len.0 0 "x"))))
+        (stmts@V
+         (ret .)))))))
+   (asgn@6,9
+    (dot~5
+     (hderef~1 s.40)len.0 0 "x")newLen.9@2)))
+ (func@6,2Q,../../../../../../nimony/lib/std/system/seqimpl.nim :capInBytes.0.Irivwka. . .~6,~2G
+  (at capInBytes.0.sysvq0asl Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params@C,~2G
+   (param@1 :s.41 . . seq.0.Incy2q.@6 .))
+  (i@7,~2G 64)
+  (pragmas@T,~2G
+   (inline@2)).~6,~2G
+  (stmts~4,~2F
+   (result@7 :result.61 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@7 result.61~7
+    (if@2
+     (elif@3
+      (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+       (not@,1
+        (eq@7
+         (ptr
+          (uarray Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+          (unchecked))
+         (dot@F,B,../../../../../../nimony/lib/std/system/seqimpl.nim s.41~1 data.0 0 "x")
+         (nil@O,B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+      (expr@F
+       (call@D allocatedSize.0.sysvq0asl~D
+        (hconv@2
+         (pointer@N,1O,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (hconv
+          (pointer@D,1C,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (dot s.41~1 data.0 0 "x"))))))
+     (else@e
+      (expr@6 0))))
+   (ret~2,~1 result.61)))
+ (func@H,2R,../../../../../../nimony/lib/std/system/seqimpl.nim :resize.0.Ilmu1m91. . .~H,~e
+  (at resize.0.sysvq0asl Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params~3,~e
+   (param@1 :dest.4 . .
+    (mut@6 seq.0.Incy2q.@7).)
+   (param@J :addedElements.4 . .
+    (i@F 64).))
+  (bool@N,~e)
+  (pragmas@g,~e
+   (nodestroy@2)).~H,~e
+  (stmts~F,~d
+   (result@4 :result.62 . .
+    (bool@2,g,../../../../../../nimony/lib/std/system/basic_types.nim).)
+   (let@4 :oldCap.1 . .
+    (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+    (div@P
+     (i 64)
+     (call~C capInBytes.0.Irivwka.@1
+      (hderef~4 dest.4))
+     (sizeof@A Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)))
+   (let@4,1 :newCap.1 . .
+    (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+    (call@I recalcCap.0.sysvq0asl~9 oldCap.1@1 addedElements.4@9))
+   (let@4,2 :memSize.2 . .
+    (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+    (call@R memSizeInBytes.0.Ibwdpgu.~H newCap.1@1))
+   (asgn@A,3
+    (dot~6
+     (hderef~4 dest.4)data.0 0 "x")
+    (cast@2
+     (ptr@5
+      (uarray@I Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+      (unchecked))
+     (call@Z realloc.0.sysvq0asl~7
+      (hconv@5
+       (pointer@H,1I,../../../../../../nimony/lib/std/system/mimalloc.nim
+        (unchecked))
+       (hconv
+        (pointer@D,1C,../../../../../../nimony/lib/std/system/mimalloc.nim
+         (unchecked))
+        (dot
+         (hderef~4 dest.4)data.0 0 "x")))memSize.2@C)))
+   (if@,4
+    (elif@3
+     (eq@A
+      (ptr
+       (uarray Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+       (unchecked))
+      (dot~6
+       (hderef~4 dest.4)data.0 0 "x")
+      (nil@3))
+     (stmts~1,1
+      (asgn@9
+       (dot~5
+        (hderef~4 dest.4)len.0 0 "x")0@2)
+      (pragmax@,1
+       (pragmas
+        (cast@2
+         (pragmas
+          (noSideEffect@5))))
+       (stmts@2,1
+        (cmd oomHandler.0.sysvq0asl memSize.2@B)))
+      (asgn@7,3 result.62~7
+       (false@2))))
+    (else@,5
+     (stmts@2,1
+      (asgn@7 result.62~7
+       (true@2)))))
+   (ret~2,~1 result.62)))
+ (func@A,3p,../../../../../../nimony/lib/std/system/seqimpl.nim :shrink.0.Itsnuwd1. . .~A,~W
+  (at shrink.0.sysvq0asl Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params@5,~W
+   (param@1 :s.42 . .
+    (mut@3 seq.0.Incy2q.@7).)
+   (param@G :newLen.10 . .
+    (i@8 64).)).~A,~W . .~A,~W
+  (stmts~8,~V
+   (var@4,1 :i.30 . .
+    (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+    (sub@9
+     (i 64)
+     (dot~4
+      (hderef~1 s.42)len.0 0 "x")1@1))
+   (while@,2
+    (expr@2,1p,../../../../../../nimony/lib/std/system/comparisons.nim
+     (le@2,1
+      (i 64)newLen.10@D,3M,../../../../../../nimony/lib/std/system/seqimpl.nim i.30@8,3M,../../../../../../nimony/lib/std/system/seqimpl.nim))
+    (stmts@2,1
+     (destroy@A
+      (pat@2
+       (dot
+        (hderef~1 s.42)data.0 0 "x")i.30@6))
+     (cmd@,1 dec.1.I2mwrey1.
+      (haddr@4 i.30))))
+   (asgn@6,5
+    (dot~5
+     (hderef~1 s.42)len.0 0 "x")newLen.10@2)))
+ (func@E,3s,../../../../../../nimony/lib/std/system/seqimpl.nim :growUnsafe.0.Iv6p70n. . .~E,~R
+  (at growUnsafe.0.sysvq0asl Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params@5,~R
+   (param@1 :s.43 . .
+    (mut@3 seq.0.Incy2q.@7).)
+   (param@G :newLen.11 . .
+    (i@8 64).)).~E,~R . .~E,~R
+  (stmts~C,~Q
+   (pragmax@,1
+    (pragmas
+     (keepOverflowFlag@2))
+    (stmts@2,1
+     (let@4 :newSize.1 . .
+      (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+      (mul@H
+       (i 64)newLen.11~7
+       (sizeof@8 Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)))
+     (if@,1
+      (elif@3
+       (ovf@C)
+       (stmts~1,1
+        (pragmax
+         (pragmas
+          (cast@2
+           (pragmas
+            (noSideEffect@5))))
+         (stmts@2,1
+          (cmd oomHandler.0.sysvq0asl
+           (suf@F 9223372036854775807 "i64"))))
+        (ret@,2 .))))))
+   (if@,7
+    (elif@3
+     (lt@D
+      (i 64)
+      (call~C capInBytes.0.Irivwka.@1
+       (hderef~1 s.43))newSize.1@2)
+     (stmts~1,1
+      (if
+       (elif@3
+        (not
+         (call@A resize.0.Ilmu1m91.~6 s.43@1
+          (sub@B
+           (i 64)newLen.11~7
+           (dot@3
+            (hderef~1 s.43)len.0 0 "x"))))
+        (stmts@V
+         (ret .)))))))
+   (asgn@6,9
+    (dot~5
+     (hderef~1 s.43)len.0 0 "x")newLen.11@2)))
+ (func@Z,19,../../../../../../nimony/lib/std/system/seqimpl.nim :memSizeInBytes.0.Ibwdpgu. . .~Z,~k
+  (at memSizeInBytes.0.sysvq0asl Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params~D,~k
+   (param@1 :size.4 . .
+    (i@6 64).))
+  (i~M,~k 64)
+  (pragmas@4,~k
+   (inline@2)).~Z,~k
+  (stmts~X,~j
+   (result :result.63 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (pragmax
+    (pragmas
+     (keepOverflowFlag@2))
+    (stmts@2,1
+     (asgn@7 result.63~7
+      (mul@7
+       (i 64)size.4~5
+       (sizeof@8 Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)))
+     (if@,1
+      (elif@3
+       (ovf@C)
+       (stmts~1,2
+        (asgn@7 result.63~7
+         (suf@6 9223372036854775807 "i64")))))))
+   (ret~2,~1 result.63)))
+ (func@6,2Q,../../../../../../nimony/lib/std/system/seqimpl.nim :capInBytes.0.Imjxv2t1. . .~6,~2G
+  (at capInBytes.0.sysvq0asl Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params@C,~2G
+   (param@1 :s.44 . . seq.0.Iumofnp1.@6 .))
+  (i@7,~2G 64)
+  (pragmas@T,~2G
+   (inline@2)).~6,~2G
+  (stmts~4,~2F
+   (result@7 :result.64 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (asgn@7 result.64~7
+    (if@2
+     (elif@3
+      (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+       (not@,1
+        (eq@7
+         (ptr
+          (uarray Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)
+          (unchecked))
+         (dot@F,B,../../../../../../nimony/lib/std/system/seqimpl.nim s.44~1 data.0 0 "x")
+         (nil@O,B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+      (expr@F
+       (call@D allocatedSize.0.sysvq0asl~D
+        (hconv@2
+         (pointer@N,1O,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (hconv
+          (pointer@D,1C,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (dot s.44~1 data.0 0 "x"))))))
+     (else@e
+      (expr@6 0))))
+   (ret~2,~1 result.64)))
+ (func@H,2R,../../../../../../nimony/lib/std/system/seqimpl.nim :resize.0.I50evek1. . .~H,~e
+  (at resize.0.sysvq0asl Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params~3,~e
+   (param@1 :dest.5 . .
+    (mut@6 seq.0.Iumofnp1.@7).)
+   (param@J :addedElements.5 . .
+    (i@F 64).))
+  (bool@N,~e)
+  (pragmas@g,~e
+   (nodestroy@2)).~H,~e
+  (stmts~F,~d
+   (result@4 :result.65 . .
+    (bool@2,g,../../../../../../nimony/lib/std/system/basic_types.nim).)
+   (let@4 :oldCap.2 . .
+    (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+    (div@P
+     (i 64)
+     (call~C capInBytes.0.Imjxv2t1.@1
+      (hderef~4 dest.5))
+     (sizeof@A Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)))
+   (let@4,1 :newCap.2 . .
+    (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+    (call@I recalcCap.0.sysvq0asl~9 oldCap.2@1 addedElements.5@9))
+   (let@4,2 :memSize.3 . .
+    (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+    (call@R memSizeInBytes.0.Iy5xwn3.~H newCap.2@1))
+   (asgn@A,3
+    (dot~6
+     (hderef~4 dest.5)data.0 0 "x")
+    (cast@2
+     (ptr@5
+      (uarray@I Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)
+      (unchecked))
+     (call@Z realloc.0.sysvq0asl~7
+      (hconv@5
+       (pointer@H,1I,../../../../../../nimony/lib/std/system/mimalloc.nim
+        (unchecked))
+       (hconv
+        (pointer@D,1C,../../../../../../nimony/lib/std/system/mimalloc.nim
+         (unchecked))
+        (dot
+         (hderef~4 dest.5)data.0 0 "x")))memSize.3@C)))
+   (if@,4
+    (elif@3
+     (eq@A
+      (ptr
+       (uarray Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)
+       (unchecked))
+      (dot~6
+       (hderef~4 dest.5)data.0 0 "x")
+      (nil@3))
+     (stmts~1,1
+      (asgn@9
+       (dot~5
+        (hderef~4 dest.5)len.0 0 "x")0@2)
+      (pragmax@,1
+       (pragmas
+        (cast@2
+         (pragmas
+          (noSideEffect@5))))
+       (stmts@2,1
+        (cmd oomHandler.0.sysvq0asl memSize.3@B)))
+      (asgn@7,3 result.65~7
+       (false@2))))
+    (else@,5
+     (stmts@2,1
+      (asgn@7 result.65~7
+       (true@2)))))
+   (ret~2,~1 result.65)))
+ (func@X,1q,../../../../../../nimony/lib/std/system/seqimpl.nim :memSizeInBytes.0.I7me00i. . .~X,~1R
+  (at memSizeInBytes.0.sysvq0asl string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params~B,~1R
+   (param@1 :size.6 . .
+    (i@6 64).))
+  (i~K,~1R 64)
+  (pragmas@6,~1R
+   (inline@2)).~X,~1R
+  (stmts~V,~1Q
+   (result :result.66 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (pragmax
+    (pragmas
+     (keepOverflowFlag@2))
+    (stmts@2,1
+     (asgn@7 result.66~7
+      (mul@7
+       (i 64)size.6~5
+       (sizeof@8 string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)))
+     (if@,1
+      (elif@3
+       (ovf@C)
+       (stmts~1,2
+        (asgn@7 result.66~7
+         (suf@6 9223372036854775807 "i64")))))))
+   (ret~2,~1 result.66)))
+ (func@X,1q,../../../../../../nimony/lib/std/system/seqimpl.nim :memSizeInBytes.0.Iy5xwn3. . .~X,~1R
+  (at memSizeInBytes.0.sysvq0asl Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params~B,~1R
+   (param@1 :size.7 . .
+    (i@6 64).))
+  (i~K,~1R 64)
+  (pragmas@6,~1R
+   (inline@2)).~X,~1R
+  (stmts~V,~1Q
+   (result :result.67 . .
+    (i@D,V,../../../../../../nimony/lib/std/system/basic_types.nim 64).)
+   (pragmax
+    (pragmas
+     (keepOverflowFlag@2))
+    (stmts@2,1
+     (asgn@7 result.67~7
+      (mul@7
+       (i 64)size.7~5
+       (sizeof@8 Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)))
+     (if@,1
+      (elif@3
+       (ovf@C)
+       (stmts~1,2
+        (asgn@7 result.67~7
+         (suf@6 9223372036854775807 "i64")))))))
+   (ret~2,~1 result.67)))
+ (type@L,4S :seq.0.Ixdx2fh1. .
+  (at seq.0.sysvq0asl string.0.sysvq0asl@1)
+  (pragmas@A,6,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (destroy =destroy.1.Ivioh0a.)
+   (wasmoved =wasMoved.1.I5vdnla.)
+   (dup =dup.1.Imq0s4c.)
+   (copy =copy.1.Iiwrt4i1.))
+  (object@C,6,../../../../../../nimony/lib/std/system/seqimpl.nim .
+   (fld~8,1 :len.0 . .
+    (i@5 64).)
+   (fld~8,2 :data.0 . .
+    (ptr@6
+     (uarray@I string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+     (unchecked)).)))
+ (type@C,7N :seq.0.Incy2q. .
+  (at seq.0.sysvq0asl Stack.0.@1)
+  (pragmas@A,6,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (destroy =destroy.1.I0oc1pn1.)
+   (wasmoved =wasMoved.1.Iukdt6c.)
+   (dup =dup.1.I493sya.)
+   (copy =copy.1.I38xc6u.))
+  (object@C,6,../../../../../../nimony/lib/std/system/seqimpl.nim .
+   (fld~8,1 :len.0 . .
+    (i@5 64).)
+   (fld~8,2 :data.0 . .
+    (ptr@6
+     (uarray@I Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+     (unchecked)).)))
+ (type@D,7P :seq.0.Iumofnp1. .
+  (at seq.0.sysvq0asl Bin.0.@1)
+  (pragmas@A,6,../../../../../../nimony/lib/std/system/seqimpl.nim
+   (destroy =destroy.1.Ifycvh11.)
+   (wasmoved =wasMoved.1.In66lbk.)
+   (dup =dup.1.Ixu11i.)
+   (copy =copy.1.Ish8gie.))
+  (object@C,6,../../../../../../nimony/lib/std/system/seqimpl.nim .
+   (fld~8,1 :len.0 . .
+    (i@5 64).)
+   (fld~8,2 :data.0 . .
+    (ptr@6
+     (uarray@I Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)
+     (unchecked)).)))
+ (func@,D,../../../../../../nimony/lib/std/system/seqimpl.nim :=destroy.1.Ivioh0a. . .
+  (at =destroy.1.sysvq0asl string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params@J
+   (param@1 :s.51 . . seq.0.Ixdx2fh1.@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+      (not@,1
+       (eq@7
+        (ptr
+         (uarray string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+         (unchecked))
+        (dot@6,E,../../../../../../nimony/lib/std/system/seqimpl.nim s.51~1 data.0 0 "x")
+        (nil@F,E,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+     (stmts~1,1
+      (var@4 :i.31 . .
+       (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)0@4)
+      (while@,1
+       (lt@8
+        (i 64)i.31~2
+        (dot@3 s.51~1 len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@2
+          (dot s.51~1 data.0 0 "x")i.31@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.31))))
+      (cmd@,4 dealloc.0.sysvq0asl
+       (hconv@9
+        (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+         (unchecked))
+        (hconv
+         (pointer@D,1C,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (dot s.51~1 data.0 0 "x")))))))))
+ (func@,L,../../../../../../nimony/lib/std/system/seqimpl.nim :=wasMoved.1.I5vdnla. . .
+  (at =wasMoved.1.sysvq0asl string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params@K
+   (param@1 :s.52 . .
+    (mut@3 seq.0.Ixdx2fh1.@7).)).
+  (pragmas@a
+   (inline@2)).
+  (stmts@2,1
+   (asgn@6
+    (dot~5
+     (hderef~1 s.52)len.0 0 "x")0@2)
+   (asgn@7,1
+    (dot~6
+     (hderef~1 s.52)data.0 0 "x")
+    (nil@2))))
+ (func@,1U,../../../../../../nimony/lib/std/system/seqimpl.nim :=dup.1.Imq0s4c. . .
+  (at =dup.1.sysvq0asl string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params@F
+   (param@1 :a.5 . . seq.0.Ixdx2fh1.@6 .))seq.0.Ixdx2fh1.@G
+  (pragmas@Z
+   (nodestroy@2)).
+  (stmts@2,1
+   (result@7 :result.68 . . seq.0.Ixdx2fh1.@D,~1 .)
+   (asgn@7 result.68~7
+    (call@H newSeqUninit.0.Im3cqd9.~F
+     (dot@2 a.5~1 len.0 0 "x")))
+   (var@4,1 :i.32 . .
+    (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)0@4)
+   (while@,2
+    (lt@8
+     (i 64)i.32~2
+     (dot@3 a.5~1 len.0 0 "x"))
+    (stmts@2,1
+     (asgn@H
+      (pat~A
+       (dot result.68~6 data.0 0 "x")i.32@6)
+      (dup@8
+       (pat@2
+        (dot a.5~1 data.0 0 "x")i.32@6)))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.32))))
+   (ret~2,~1 result.68)))
+ (func@,20,../../../../../../nimony/lib/std/system/seqimpl.nim :=copy.1.Iiwrt4i1. . .
+  (at =copy.1.sysvq0asl string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params@G
+   (param@1 :dest.9 . .
+    (mut@6 seq.0.Ixdx2fh1.@7).)
+   (param@J :src.4 . . seq.0.Ixdx2fh1.@8 .)).
+  (pragmas@m
+   (nodestroy@2)).
+  (stmts@2,1
+   (if
+    (elif@3
+     (eq@A
+      (ptr
+       (uarray string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+       (unchecked))
+      (dot~6
+       (hderef~4 dest.9)data.0 0 "x")
+      (dot@6 src.4~3 data.0 0 "x"))
+     (stmts@N
+      (ret .))))
+   (if@,1
+    (elif@3
+     (lt@8
+      (i 64)
+      (dot~5 src.4~3 len.0 0 "x")
+      (dot@6
+       (hderef~4 dest.9)len.0 0 "x"))
+     (stmts~1,1
+      (var@4 :i.33 . .
+       (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+       (dot@7 src.4~3 len.0 0 "x"))
+      (while@,1
+       (lt@8
+        (i 64)i.33~2
+        (dot@6
+         (hderef~4 dest.9)len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@5
+          (dot
+           (hderef~4 dest.9)data.0 0 "x")i.33@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.33))))))
+    (elif@5,5
+     (lt@G
+      (i 64)
+      (call~C capInBytes.0.Ih2sbn01.@1
+       (hderef~4 dest.9))
+      (mul@A
+       (i 64)
+       (dot~5 src.4~3 len.0 0 "x")
+       (sizeof@8 string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)))
+     (stmts~3,1
+      (let@4 :oldCap.3 . .
+       (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+       (div@P
+        (i 64)
+        (call~C capInBytes.0.Ih2sbn01.@1
+         (hderef~4 dest.9))
+        (sizeof@A string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)))
+      (let@4,1 :newCap.3 . .
+       (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+       (call@I recalcCap.0.sysvq0asl~9 oldCap.3@1
+        (sub@H
+         (i 64)
+         (dot~5 src.4~3 len.0 0 "x")oldCap.3@2)))
+      (let@4,2 :memSize.4 . .
+       (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+       (call@R memSizeInBytes.0.I7me00i.~H newCap.3@1))
+      (asgn@A,3
+       (dot~6
+        (hderef~4 dest.9)data.0 0 "x")
+       (cast@2
+        (ptr@5
+         (uarray@I string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+         (unchecked))
+        (call@Z realloc.0.sysvq0asl~7
+         (hconv@5
+          (pointer@H,1I,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (hconv
+           (pointer@D,1C,../../../../../../nimony/lib/std/system/mimalloc.nim
+            (unchecked))
+           (dot
+            (hderef~4 dest.9)data.0 0 "x")))memSize.4@C)))
+      (if@,4
+       (elif@3
+        (eq@A
+         (ptr
+          (uarray string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+          (unchecked))
+         (dot~6
+          (hderef~4 dest.9)data.0 0 "x")
+         (nil@3))
+        (stmts~1,1
+         (asgn@9
+          (dot~5
+           (hderef~4 dest.9)len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.4@B)))
+         (ret@,3 .)))))))
+   (asgn@9,G
+    (dot~5
+     (hderef~4 dest.9)len.0 0 "x")
+    (dot@5 src.4~3 len.0 0 "x"))
+   (var@4,H :i.34 . .
+    (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)0@4)
+   (while@,I
+    (lt@8
+     (i 64)i.34~2
+     (dot@6
+      (hderef~4 dest.9)len.0 0 "x"))
+    (stmts@2,1
+     (stmts@2,Y,../../../../../../nimony/lib/std/system.nim
+      (asgn@7
+       (pat~6
+        (dot@8,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+         (hderef~4 dest.9)data.0 0 "x")i.34@E,2K,../../../../../../nimony/lib/std/system/seqimpl.nim)
+       (dup@P,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+        (pat@4
+         (dot src.4~3 data.0 0 "x")i.34@6))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.34))))))
+ (func@,D,../../../../../../nimony/lib/std/system/seqimpl.nim :=destroy.1.I0oc1pn1. . .
+  (at =destroy.1.sysvq0asl Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params@J
+   (param@1 :s.53 . . seq.0.Incy2q.@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+      (not@,1
+       (eq@7
+        (ptr
+         (uarray Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+         (unchecked))
+        (dot@6,E,../../../../../../nimony/lib/std/system/seqimpl.nim s.53~1 data.0 0 "x")
+        (nil@F,E,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+     (stmts~1,1
+      (var@4 :i.35 . .
+       (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)0@4)
+      (while@,1
+       (lt@8
+        (i 64)i.35~2
+        (dot@3 s.53~1 len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@2
+          (dot s.53~1 data.0 0 "x")i.35@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.35))))
+      (cmd@,4 dealloc.0.sysvq0asl
+       (hconv@9
+        (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+         (unchecked))
+        (hconv
+         (pointer@D,1C,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (dot s.53~1 data.0 0 "x")))))))))
+ (func@,L,../../../../../../nimony/lib/std/system/seqimpl.nim :=wasMoved.1.Iukdt6c. . .
+  (at =wasMoved.1.sysvq0asl Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params@K
+   (param@1 :s.54 . .
+    (mut@3 seq.0.Incy2q.@7).)).
+  (pragmas@a
+   (inline@2)).
+  (stmts@2,1
+   (asgn@6
+    (dot~5
+     (hderef~1 s.54)len.0 0 "x")0@2)
+   (asgn@7,1
+    (dot~6
+     (hderef~1 s.54)data.0 0 "x")
+    (nil@2))))
+ (func@,1U,../../../../../../nimony/lib/std/system/seqimpl.nim :=dup.1.I493sya. . .
+  (at =dup.1.sysvq0asl Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params@F
+   (param@1 :a.6 . . seq.0.Incy2q.@6 .))seq.0.Incy2q.@G
+  (pragmas@Z
+   (nodestroy@2)).
+  (stmts@2,1
+   (result@7 :result.69 . . seq.0.Incy2q.@D,~1 .)
+   (asgn@7 result.69~7
+    (call@H newSeqUninit.0.I2zkky41.~F
+     (dot@2 a.6~1 len.0 0 "x")))
+   (var@4,1 :i.36 . .
+    (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)0@4)
+   (while@,2
+    (lt@8
+     (i 64)i.36~2
+     (dot@3 a.6~1 len.0 0 "x"))
+    (stmts@2,1
+     (asgn@H
+      (pat~A
+       (dot result.69~6 data.0 0 "x")i.36@6)
+      (dup@8
+       (pat@2
+        (dot a.6~1 data.0 0 "x")i.36@6)))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.36))))
+   (ret~2,~1 result.69)))
+ (func@,20,../../../../../../nimony/lib/std/system/seqimpl.nim :=copy.1.I38xc6u. . .
+  (at =copy.1.sysvq0asl Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params@G
+   (param@1 :dest.10 . .
+    (mut@6 seq.0.Incy2q.@7).)
+   (param@J :src.5 . . seq.0.Incy2q.@8 .)).
+  (pragmas@m
+   (nodestroy@2)).
+  (stmts@2,1
+   (if
+    (elif@3
+     (eq@A
+      (ptr
+       (uarray Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+       (unchecked))
+      (dot~6
+       (hderef~4 dest.10)data.0 0 "x")
+      (dot@6 src.5~3 data.0 0 "x"))
+     (stmts@N
+      (ret .))))
+   (if@,1
+    (elif@3
+     (lt@8
+      (i 64)
+      (dot~5 src.5~3 len.0 0 "x")
+      (dot@6
+       (hderef~4 dest.10)len.0 0 "x"))
+     (stmts~1,1
+      (var@4 :i.37 . .
+       (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+       (dot@7 src.5~3 len.0 0 "x"))
+      (while@,1
+       (lt@8
+        (i 64)i.37~2
+        (dot@6
+         (hderef~4 dest.10)len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@5
+          (dot
+           (hderef~4 dest.10)data.0 0 "x")i.37@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.37))))))
+    (elif@5,5
+     (lt@G
+      (i 64)
+      (call~C capInBytes.0.Irivwka.@1
+       (hderef~4 dest.10))
+      (mul@A
+       (i 64)
+       (dot~5 src.5~3 len.0 0 "x")
+       (sizeof@8 Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)))
+     (stmts~3,1
+      (let@4 :oldCap.4 . .
+       (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+       (div@P
+        (i 64)
+        (call~C capInBytes.0.Irivwka.@1
+         (hderef~4 dest.10))
+        (sizeof@A Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)))
+      (let@4,1 :newCap.4 . .
+       (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+       (call@I recalcCap.0.sysvq0asl~9 oldCap.4@1
+        (sub@H
+         (i 64)
+         (dot~5 src.5~3 len.0 0 "x")oldCap.4@2)))
+      (let@4,2 :memSize.5 . .
+       (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+       (call@R memSizeInBytes.0.Ibwdpgu.~H newCap.4@1))
+      (asgn@A,3
+       (dot~6
+        (hderef~4 dest.10)data.0 0 "x")
+       (cast@2
+        (ptr@5
+         (uarray@I Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+         (unchecked))
+        (call@Z realloc.0.sysvq0asl~7
+         (hconv@5
+          (pointer@H,1I,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (hconv
+           (pointer@D,1C,../../../../../../nimony/lib/std/system/mimalloc.nim
+            (unchecked))
+           (dot
+            (hderef~4 dest.10)data.0 0 "x")))memSize.5@C)))
+      (if@,4
+       (elif@3
+        (eq@A
+         (ptr
+          (uarray Stack.0.@D,7O,.jester/deps/aoughwl_inventory/inventory.nim)
+          (unchecked))
+         (dot~6
+          (hderef~4 dest.10)data.0 0 "x")
+         (nil@3))
+        (stmts~1,1
+         (asgn@9
+          (dot~5
+           (hderef~4 dest.10)len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.5@B)))
+         (ret@,3 .)))))))
+   (asgn@9,G
+    (dot~5
+     (hderef~4 dest.10)len.0 0 "x")
+    (dot@5 src.5~3 len.0 0 "x"))
+   (var@4,H :i.38 . .
+    (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)0@4)
+   (while@,I
+    (lt@8
+     (i 64)i.38~2
+     (dot@6
+      (hderef~4 dest.10)len.0 0 "x"))
+    (stmts@2,1
+     (stmts@2,Y,../../../../../../nimony/lib/std/system.nim
+      (asgn@7
+       (pat~6
+        (dot@8,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+         (hderef~4 dest.10)data.0 0 "x")i.38@E,2K,../../../../../../nimony/lib/std/system/seqimpl.nim)
+       (dup@P,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+        (pat@4
+         (dot src.5~3 data.0 0 "x")i.38@6))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.38))))))
+ (func@,D,../../../../../../nimony/lib/std/system/seqimpl.nim :=destroy.1.Ifycvh11. . .
+  (at =destroy.1.sysvq0asl Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params@J
+   (param@1 :s.55 . . seq.0.Iumofnp1.@6 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+      (not@,1
+       (eq@7
+        (ptr
+         (uarray Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)
+         (unchecked))
+        (dot@6,E,../../../../../../nimony/lib/std/system/seqimpl.nim s.55~1 data.0 0 "x")
+        (nil@F,E,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+     (stmts~1,1
+      (var@4 :i.39 . .
+       (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)0@4)
+      (while@,1
+       (lt@8
+        (i 64)i.39~2
+        (dot@3 s.55~1 len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@2
+          (dot s.55~1 data.0 0 "x")i.39@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.39))))
+      (cmd@,4 dealloc.0.sysvq0asl
+       (hconv@9
+        (pointer@H,1L,../../../../../../nimony/lib/std/system/mimalloc.nim
+         (unchecked))
+        (hconv
+         (pointer@D,1C,../../../../../../nimony/lib/std/system/mimalloc.nim
+          (unchecked))
+         (dot s.55~1 data.0 0 "x")))))))))
+ (func@,L,../../../../../../nimony/lib/std/system/seqimpl.nim :=wasMoved.1.In66lbk. . .
+  (at =wasMoved.1.sysvq0asl Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params@K
+   (param@1 :s.56 . .
+    (mut@3 seq.0.Iumofnp1.@7).)).
+  (pragmas@a
+   (inline@2)).
+  (stmts@2,1
+   (asgn@6
+    (dot~5
+     (hderef~1 s.56)len.0 0 "x")0@2)
+   (asgn@7,1
+    (dot~6
+     (hderef~1 s.56)data.0 0 "x")
+    (nil@2))))
+ (func@,1U,../../../../../../nimony/lib/std/system/seqimpl.nim :=dup.1.Ixu11i. . .
+  (at =dup.1.sysvq0asl Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params@F
+   (param@1 :a.7 . . seq.0.Iumofnp1.@6 .))seq.0.Iumofnp1.@G
+  (pragmas@Z
+   (nodestroy@2)).
+  (stmts@2,1
+   (result@7 :result.70 . . seq.0.Iumofnp1.@D,~1 .)
+   (asgn@7 result.70~7
+    (call@H newSeqUninit.0.Iew8ai31.~F
+     (dot@2 a.7~1 len.0 0 "x")))
+   (var@4,1 :i.40 . .
+    (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)0@4)
+   (while@,2
+    (lt@8
+     (i 64)i.40~2
+     (dot@3 a.7~1 len.0 0 "x"))
+    (stmts@2,1
+     (asgn@H
+      (pat~A
+       (dot result.70~6 data.0 0 "x")i.40@6)
+      (dup@8
+       (pat@2
+        (dot a.7~1 data.0 0 "x")i.40@6)))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.40))))
+   (ret~2,~1 result.70)))
+ (func@,20,../../../../../../nimony/lib/std/system/seqimpl.nim :=copy.1.Ish8gie. . .
+  (at =copy.1.sysvq0asl Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params@G
+   (param@1 :dest.11 . .
+    (mut@6 seq.0.Iumofnp1.@7).)
+   (param@J :src.6 . . seq.0.Iumofnp1.@8 .)).
+  (pragmas@m
+   (nodestroy@2)).
+  (stmts@2,1
+   (if
+    (elif@3
+     (eq@A
+      (ptr
+       (uarray Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)
+       (unchecked))
+      (dot~6
+       (hderef~4 dest.11)data.0 0 "x")
+      (dot@6 src.6~3 data.0 0 "x"))
+     (stmts@N
+      (ret .))))
+   (if@,1
+    (elif@3
+     (lt@8
+      (i 64)
+      (dot~5 src.6~3 len.0 0 "x")
+      (dot@6
+       (hderef~4 dest.11)len.0 0 "x"))
+     (stmts~1,1
+      (var@4 :i.41 . .
+       (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+       (dot@7 src.6~3 len.0 0 "x"))
+      (while@,1
+       (lt@8
+        (i 64)i.41~2
+        (dot@6
+         (hderef~4 dest.11)len.0 0 "x"))
+       (stmts@2,1
+        (destroy@A
+         (pat@5
+          (dot
+           (hderef~4 dest.11)data.0 0 "x")i.41@6))
+        (cmd@,1 inc.1.Irn1g7r1.
+         (haddr@4 i.41))))))
+    (elif@5,5
+     (lt@G
+      (i 64)
+      (call~C capInBytes.0.Imjxv2t1.@1
+       (hderef~4 dest.11))
+      (mul@A
+       (i 64)
+       (dot~5 src.6~3 len.0 0 "x")
+       (sizeof@8 Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)))
+     (stmts~3,1
+      (let@4 :oldCap.5 . .
+       (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+       (div@P
+        (i 64)
+        (call~C capInBytes.0.Imjxv2t1.@1
+         (hderef~4 dest.11))
+        (sizeof@A Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)))
+      (let@4,1 :newCap.5 . .
+       (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+       (call@I recalcCap.0.sysvq0asl~9 oldCap.5@1
+        (sub@H
+         (i 64)
+         (dot~5 src.6~3 len.0 0 "x")oldCap.5@2)))
+      (let@4,2 :memSize.6 . .
+       (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+       (call@R memSizeInBytes.0.Iy5xwn3.~H newCap.5@1))
+      (asgn@A,3
+       (dot~6
+        (hderef~4 dest.11)data.0 0 "x")
+       (cast@2
+        (ptr@5
+         (uarray@I Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)
+         (unchecked))
+        (call@Z realloc.0.sysvq0asl~7
+         (hconv@5
+          (pointer@H,1I,../../../../../../nimony/lib/std/system/mimalloc.nim
+           (unchecked))
+          (hconv
+           (pointer@D,1C,../../../../../../nimony/lib/std/system/mimalloc.nim
+            (unchecked))
+           (dot
+            (hderef~4 dest.11)data.0 0 "x")))memSize.6@C)))
+      (if@,4
+       (elif@3
+        (eq@A
+         (ptr
+          (uarray Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)
+          (unchecked))
+         (dot~6
+          (hderef~4 dest.11)data.0 0 "x")
+         (nil@3))
+        (stmts~1,1
+         (asgn@9
+          (dot~5
+           (hderef~4 dest.11)len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.6@B)))
+         (ret@,3 .)))))))
+   (asgn@9,G
+    (dot~5
+     (hderef~4 dest.11)len.0 0 "x")
+    (dot@5 src.6~3 len.0 0 "x"))
+   (var@4,H :i.42 . .
+    (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)0@4)
+   (while@,I
+    (lt@8
+     (i 64)i.42~2
+     (dot@6
+      (hderef~4 dest.11)len.0 0 "x"))
+    (stmts@2,1
+     (stmts@2,Y,../../../../../../nimony/lib/std/system.nim
+      (asgn@7
+       (pat~6
+        (dot@8,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+         (hderef~4 dest.11)data.0 0 "x")i.42@E,2K,../../../../../../nimony/lib/std/system/seqimpl.nim)
+       (dup@P,2K,../../../../../../nimony/lib/std/system/seqimpl.nim
+        (pat@4
+         (dot src.6~3 data.0 0 "x")i.42@6))))
+     (cmd@,1 inc.1.Irn1g7r1.
+      (haddr@4 i.42))))))
+ (func@Q,1V,../../../../../../nimony/lib/std/system/seqimpl.nim :newSeqUninit.0.Im3cqd9. . .~Q,~R
+  (at newSeqUninit.0.sysvq0asl string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params~5,~R
+   (param@1 :size.10 . .
+    (i@6 64).))seq.0.Ixdx2fh1.~A,~R
+  (pragmas@F,~R
+   (nodestroy@2)
+   (inline@D)).~Q,~R
+  (stmts~O,~Q
+   (result :result.71 . . seq.0.Ixdx2fh1.@E,~1 .)
+   (if@,1
+    (elif@3
+     (eq@5
+      (i 64)size.10~5 0@3)
+     (stmts~1,1
+      (asgn@7 result.71~7
+       (oconstr@8 seq.0.Ixdx2fh1.@L,4T,.jester/deps/aoughwl_inventory/inventory.nim
+        (kv@4 len.0~3 size.10@2)
+        (kv@G data.0~4
+         (nil@2))))))
+    (else@,2
+     (stmts@2,1
+      (let@4 :memSize.7 . .
+       (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+       (call@R memSizeInBytes.0.I7me00i.~H size.10@1))
+      (asgn@7,1 result.71~7
+       (oconstr@8 seq.0.Ixdx2fh1.@L,4T,.jester/deps/aoughwl_inventory/inventory.nim
+        (kv@4 len.0~3 size.10@2)
+        (kv@G data.0~4
+         (cast@2
+          (ptr@5
+           (uarray@I string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+           (unchecked))
+          (call@X alloc.0.sysvq0asl~5 memSize.7@1)))))
+      (if@,2
+       (elif@3
+        (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+         (not@,1
+          (eq@7
+           (ptr
+            (uarray string.0.sysvq0asl@M,4T,.jester/deps/aoughwl_inventory/inventory.nim)
+            (unchecked))
+           (dot@D,1B,../../../../../../nimony/lib/std/system/seqimpl.nim result.71~6 data.0 0 "x")
+           (nil@M,1B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+        (stmts~1,1
+         (discard "leave uninitialized"@8)))
+       (else@,2
+        (stmts@2,1
+         (asgn@B
+          (dot~5 result.71~6 len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.7@B)))))))))
+   (ret~2,~1 result.71)))
+ (func@Q,1V,../../../../../../nimony/lib/std/system/seqimpl.nim :newSeqUninit.0.Iew8ai31. . .~Q,~R
+  (at newSeqUninit.0.sysvq0asl Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)
+  (params~5,~R
+   (param@1 :size.11 . .
+    (i@6 64).))seq.0.Iumofnp1.~A,~R
+  (pragmas@F,~R
+   (nodestroy@2)
+   (inline@D)).~Q,~R
+  (stmts~O,~Q
+   (result :result.72 . . seq.0.Iumofnp1.@E,~1 .)
+   (if@,1
+    (elif@3
+     (eq@5
+      (i 64)size.11~5 0@3)
+     (stmts~1,1
+      (asgn@7 result.72~7
+       (oconstr@8 seq.0.Iumofnp1.@D,7Q,.jester/deps/aoughwl_inventory/inventory.nim
+        (kv@4 len.0~3 size.11@2)
+        (kv@G data.0~4
+         (nil@2))))))
+    (else@,2
+     (stmts@2,1
+      (let@4 :memSize.8 . .
+       (i@C,2G,.jester/deps/aoughwl_inventory/inventory.nim 64)
+       (call@R memSizeInBytes.0.Iy5xwn3.~H size.11@1))
+      (asgn@7,1 result.72~7
+       (oconstr@8 seq.0.Iumofnp1.@D,7Q,.jester/deps/aoughwl_inventory/inventory.nim
+        (kv@4 len.0~3 size.11@2)
+        (kv@G data.0~4
+         (cast@2
+          (ptr@5
+           (uarray@I Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)
+           (unchecked))
+          (call@X alloc.0.sysvq0asl~5 memSize.8@1)))))
+      (if@,2
+       (elif@3
+        (expr@2,1l,../../../../../../nimony/lib/std/system/comparisons.nim
+         (not@,1
+          (eq@7
+           (ptr
+            (uarray Bin.0.@E,7Q,.jester/deps/aoughwl_inventory/inventory.nim)
+            (unchecked))
+           (dot@D,1B,../../../../../../nimony/lib/std/system/seqimpl.nim result.72~6 data.0 0 "x")
+           (nil@M,1B,../../../../../../nimony/lib/std/system/seqimpl.nim))))
+        (stmts~1,1
+         (discard "leave uninitialized"@8)))
+       (else@,2
+        (stmts@2,1
+         (asgn@B
+          (dot~5 result.72~6 len.0 0 "x")0@2)
+         (pragmax@,1
+          (pragmas
+           (cast@2
+            (pragmas
+             (noSideEffect@5))))
+          (stmts@2,1
+           (cmd oomHandler.0.sysvq0asl memSize.8@B)))))))))
+   (ret~2,~1 result.72)))
+ (proc@9,7J :=destroy_SX49tem0invuity7x.0. . . .
+  (params
+   (param :dest.0 . . Item.0.~1,~58 .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 tags.0 0))
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 shape.0 0))
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 display.0 0))
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 id.0 0))))
+ (proc@9,7J :=wasmoved_SX49tem0invuity7x.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut Item.0.~1,~58).)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)id.0 0)))
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)display.0 0)))
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)shape.0 0)))
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)tags.0 0)))))
+ (proc@9,7J :=dup_SX49tem0invuity7x.0. . . .
+  (params
+   (param :src.0 . . Item.0.~1,~58 .))Item.0.~1,~58
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (result :dest.0 .
+    (pragmas
+     (noinit))Item.0.~1,~58 .)
+   (asgn
+    (dot dest.0 id.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 id.0 0)))
+   (asgn
+    (dot dest.0 display.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 display.0 0)))
+   (asgn
+    (dot dest.0 stack.0 0)
+    (dot src.0 stack.0 0))
+   (asgn
+    (dot dest.0 bulk.0 0)
+    (dot src.0 bulk.0 0))
+   (asgn
+    (dot dest.0 weight.0 0)
+    (dot src.0 weight.0 0))
+   (asgn
+    (dot dest.0 shape.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 shape.0 0)))
+   (asgn
+    (dot dest.0 tags.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 tags.0 0)))
+   (asgn
+    (dot dest.0 known.0 0)
+    (dot src.0 known.0 0))
+   (ret dest.0)))
+ (proc@9,7J :=copy_SX49tem0invuity7x.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut Item.0.~1,~58).)
+   (param :src.0 . . Item.0.~1,~58 .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)id.0 0)
+    (dot src.0 id.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)display.0 0)
+    (dot src.0 display.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)stack.0 0)
+    (dot src.0 stack.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)bulk.0 0)
+    (dot src.0 bulk.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)weight.0 0)
+    (dot src.0 weight.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)shape.0 0)
+    (dot src.0 shape.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)tags.0 0)
+    (dot src.0 tags.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)known.0 0)
+    (dot src.0 known.0 0))))
+ (proc@9,7J :=destroy_SX48older0invuity7x.0. . . .
+  (params
+   (param :dest.0 . . Holder.0.@1,~4v .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 rejects.0 0))
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 accepts.0 0))
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 display.0 0))
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 id.0 0))))
+ (proc@9,7J :=wasmoved_SX48older0invuity7x.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut Holder.0.@1,~4v).)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)id.0 0)))
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)display.0 0)))
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)accepts.0 0)))
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)rejects.0 0)))))
+ (proc@9,7J :=dup_SX48older0invuity7x.0. . . .
+  (params
+   (param :src.0 . . Holder.0.@1,~4v .))Holder.0.@1,~4v
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (result :dest.0 .
+    (pragmas
+     (noinit))Holder.0.@1,~4v .)
+   (asgn
+    (dot dest.0 id.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 id.0 0)))
+   (asgn
+    (dot dest.0 display.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 display.0 0)))
+   (asgn
+    (dot dest.0 slots.0 0)
+    (dot src.0 slots.0 0))
+   (asgn
+    (dot dest.0 capacity.0 0)
+    (dot src.0 capacity.0 0))
+   (asgn
+    (dot dest.0 load.0 0)
+    (dot src.0 load.0 0))
+   (asgn
+    (dot dest.0 accepts.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 accepts.0 0)))
+   (asgn
+    (dot dest.0 rejects.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 rejects.0 0)))
+   (asgn
+    (dot dest.0 known.0 0)
+    (dot src.0 known.0 0))
+   (ret dest.0)))
+ (proc@9,7J :=copy_SX48older0invuity7x.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut Holder.0.@1,~4v).)
+   (param :src.0 . . Holder.0.@1,~4v .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)id.0 0)
+    (dot src.0 id.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)display.0 0)
+    (dot src.0 display.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)slots.0 0)
+    (dot src.0 slots.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)capacity.0 0)
+    (dot src.0 capacity.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)load.0 0)
+    (dot src.0 load.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)accepts.0 0)
+    (dot src.0 accepts.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)rejects.0 0)
+    (dot src.0 rejects.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)known.0 0)
+    (dot src.0 known.0 0))))
+ (proc@9,7J :=destroy_SX53tack0invuity7x.0. . . .
+  (params
+   (param :dest.0 . . Stack.0.@,~4i .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 item.0 0))))
+ (proc@9,7J :=wasmoved_SX53tack0invuity7x.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut Stack.0.@,~4i).)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)item.0 0)))))
+ (proc@9,7J :=dup_SX53tack0invuity7x.0. . . .
+  (params
+   (param :src.0 . . Stack.0.@,~4i .))Stack.0.@,~4i
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (result :dest.0 .
+    (pragmas
+     (noinit))Stack.0.@,~4i .)
+   (asgn
+    (dot dest.0 item.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 item.0 0)))
+   (asgn
+    (dot dest.0 count.0 0)
+    (dot src.0 count.0 0))
+   (ret dest.0)))
+ (proc@9,7J :=copy_SX53tack0invuity7x.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut Stack.0.@,~4i).)
+   (param :src.0 . . Stack.0.@,~4i .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)item.0 0)
+    (dot src.0 item.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)count.0 0)
+    (dot src.0 count.0 0))))
+ (proc@9,7J :=destroy_SX4futcome0invuity7x.0. . . .
+  (params
+   (param :dest.0 . . Outcome.0.@2,~4K .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 note.0 0))))
+ (proc@9,7J :=wasmoved_SX4futcome0invuity7x.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut Outcome.0.@2,~4K).)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)note.0 0)))))
+ (proc@9,7J :=dup_SX4futcome0invuity7x.0. . . .
+  (params
+   (param :src.0 . . Outcome.0.@2,~4K .))Outcome.0.@2,~4K
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (result :dest.0 .
+    (pragmas
+     (noinit))Outcome.0.@2,~4K .)
+   (asgn
+    (dot dest.0 trouble.0 0)
+    (dot src.0 trouble.0 0))
+   (asgn
+    (dot dest.0 moved.0 0)
+    (dot src.0 moved.0 0))
+   (asgn
+    (dot dest.0 slot.0 0)
+    (dot src.0 slot.0 0))
+   (asgn
+    (dot dest.0 note.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 note.0 0)))
+   (ret dest.0)))
+ (proc@9,7J :=copy_SX4futcome0invuity7x.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut Outcome.0.@2,~4K).)
+   (param :src.0 . . Outcome.0.@2,~4K .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (asgn
+    (dot
+     (hderef dest.0)trouble.0 0)
+    (dot src.0 trouble.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)moved.0 0)
+    (dot src.0 moved.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)slot.0 0)
+    (dot src.0 slot.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)note.0 0)
+    (dot src.0 note.0 0))))
+ (proc@9,7J :=destroy_SX42in0invuity7x.0. . . .
+  (params
+   (param :dest.0 . . Bin.0. .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =destroy.1.I0oc1pn1.
+    (dot dest.0 slots.0 0))
+   (call =destroy.2.sysvq0asl
+    (dot dest.0 label.0 0))
+   (call =destroy_SX48older0invuity7x.0.
+    (dot dest.0 definition.0 0))))
+ (proc@9,7J :=wasmoved_SX42in0invuity7x.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut Bin.0.).)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =wasmoved_SX48older0invuity7x.0.
+    (haddr
+     (dot
+      (hderef dest.0)definition.0 0)))
+   (call =wasMoved.2.sysvq0asl
+    (haddr
+     (dot
+      (hderef dest.0)label.0 0)))
+   (call =wasMoved.1.Iukdt6c.
+    (haddr
+     (dot
+      (hderef dest.0)slots.0 0)))))
+ (proc@9,7J :=dup_SX42in0invuity7x.0. . . .
+  (params
+   (param :src.0 . . Bin.0. .))Bin.0.
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (result :dest.0 .
+    (pragmas
+     (noinit))Bin.0. .)
+   (asgn
+    (dot dest.0 definition.0 0)
+    (call =dup_SX48older0invuity7x.0.
+     (dot src.0 definition.0 0)))
+   (asgn
+    (dot dest.0 label.0 0)
+    (call =dup.2.sysvq0asl
+     (dot src.0 label.0 0)))
+   (asgn
+    (dot dest.0 live.0 0)
+    (dot src.0 live.0 0))
+   (asgn
+    (dot dest.0 slots.0 0)
+    (call =dup.1.I493sya.
+     (dot src.0 slots.0 0)))
+   (ret dest.0)))
+ (proc@9,7J :=copy_SX42in0invuity7x.0. . . .
+  (params
+   (param :dest.0 . .
+    (mut Bin.0.).)
+   (param :src.0 . . Bin.0. .)).
+  (pragmas
+   (nodestroy)).
+  (stmts
+   (call =copy_SX48older0invuity7x.0.
+    (dot
+     (hderef dest.0)definition.0 0)
+    (dot src.0 definition.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (hderef dest.0)label.0 0)
+    (dot src.0 label.0 0))
+   (asgn
+    (dot
+     (hderef dest.0)live.0 0)
+    (dot src.0 live.0 0))
+   (call =copy.1.I38xc6u.
+    (dot
+     (hderef dest.0)slots.0 0)
+    (dot src.0 slots.0 0)))))(.index@,1,.jester/deps/aoughwl_inventory/inventory.nim
+ (x ItemKind.0. 322)
+ (x ItemStackKind.0. 73)
+ (x ItemBulkKind.0. 84)
+ (x ItemWeightKind.0. 82)
+ (x ItemShapeKind.0. 86)
+ (x ItemTagKind.0. 84)
+ (x ContainerKind.0. 81)
+ (x ContainerSlotKind.0. 83)
+ (x ContainerCapacityKind.0. 94)
+ (x ContainerLoadKind.0. 101)
+ (x ContainerAcceptKind.0. 93)
+ (x ContainerRejectKind.0. 98)
+ (x StackFacet.0. 98)
+ (x BulkFacet.0. 70)
+ (x WeightFacet.0. 68)
+ (x ShapeFacet.0. 71)
+ (x TagFacet.0. 69)
+ (x SlotFacet.0. 66)
+ (x CapacityFacet.0. 68)
+ (x LoadFacet.0. 75)
+ (x AcceptFacet.0. 67)
+ (x RejectFacet.0. 72)
+ (x KindsDeclared.0. 72)
+ (h kindsDeclared.0. 89)
+ (x declareInventoryKinds.0. 116)
+ (x Item.0. 2275)
+ (x Holder.0. 584)
+ (x Stack.0. 601)
+ (x Container.0. 312)
+ (x Trouble.0. 72)
+ (x@D,2k NoTrouble.0. 51)
+ (x@D,2k NoSuchContainer.0. 67)
+ (x@D,2k NoSuchStack.0. 79)
+ (x@D,2k UnknownItem.0. 71)
+ (x@D,2k NotAccepted.0. 71)
+ (x@D,2k NoRoom.0. 71)
+ (x@D,2k TooHeavy.0. 61)
+ (x@D,2k NotEnough.0. 65)
+ (x@D,2k Nowhere.0. 67)
+ (x@D,2k BadCount.0. 63)
+ (x dollar`.Trouble.0. 67)
+ (x Outcome.0. 983)
+ (x went.0. 408)
+ (x name.0. 256)
+ (x isNothing.0. 1008)
+ (x isSame.0. 257)
+ (x nothingContainer.0. 330)
+ (h fine.0. 203)
+ (h refused.0. 398)
+ (h holdsWord.0. 770)
+ (x tagged.0. 2806)
+ (x taggedAny.0. 339)
+ (h itemCatalogs.0. 1461)
+ (h holderCatalogs.0. 54)
+ (h listed.0. 56)
+ (x useItems.0. 630)
+ (x useContainers.0. 295)
+ (x dropItems.0. 304)
+ (x dropContainers.0. 1201)
+ (x catalogPresent.0. 1220)
+ (h facetText.0. 501)
+ (h facetNumber.0. 946)
+ (h facetInteger.0. 922)
+ (x itemOf.0. 956)
+ (x holderIn.0. 2760)
+ (x holderOf.0. 1726)
+ (x itemCatalog.0. 1148)
+ (x containerCatalog.0. 1307)
+ (x defineItem.0. 1383)
+ (x defineContainer.0. 1331)
+ (h Bin.0. 1242)
+ (h bins.0. 387)
+ (h indexOf.0. 46)
+ (h least.0. 824)
+ (h perStack.0. 344)
+ (h usedBulk.0. 359)
+ (h usedLoad.0. 860)
+ (h lets.0. 865)
+ (h trouble.0. 1238)
+ (h place.0. 5073)
+ (h dropSlot.0. 2981)
+ (h drawOff.0. 907)
+ (x openContainer.0. 716)
+ (x openContainerOf.0. 1336)
+ (x openHolder.0. 1275)
+ (x closeContainer.0. 1041)
+ (x open.0. 951)
+ (x containerLabel.0. 429)
+ (x containerDefinition.0. 480)
+ (x put.0. 773)
+ (x take.0. 1362)
+ (x takeFrom.0. 2936)
+ (x moveStack.0. 1920)
+ (x splitStack.0. 3233)
+ (x mergeStacks.0. 3249)
+ (x emptyContainer.0. 3621)
+ (x stackCount.0. 902)
+ (x stackAt.0. 493)
+ (x contents.0. 1174)
+ (x countOf.0. 958)
+ (x holds.0. 1259)
+ (x bulkUsed.0. 490)
+ (x loadUsed.0. 463)
+ (x troubleWith.0. 463)
+ (x roomFor.0. 621)
+ (x accepts.0. 391)
+ (h inc.1.Irn1g7r1. 3698)
+ (h len.3.Ixq6taz. 630)
+ (h \5B\5D.7.Ir6d0tw. 696)
+ (h add.0.Ig6072n. 1167)
+ (h \5B\5D=.7.Ild9iim. 1471)
+ (h setLen.0.Iejjsiw. 1125)
+ (h dec.1.I2mwrey1. 1564)
+ (h len.3.Io81gb31. 786)
+ (h \5B\5D.7.In2o1931. 685)
+ (h len.3.I9p8e9. 1132)
+ (h \5B\5D.7.Irpdib9. 683)
+ (h \5B\5D=.7.I0z9rtl1. 1135)
+ (h add.0.Isc1m7i1. 1105)
+ (h setLen.0.Ip4rtpn. 1431)
+ (h newSeqUninit.0.I2zkky41. 1772)
+ (h add.0.I47qm811. 1994)
+ (h \5B\5D=.7.Iafoovr. 1429)
+ (h capInBytes.0.Ih2sbn01. 1104)
+ (h resize.0.I4buliy. 1255)
+ (h shrink.0.Iiotmvc. 2160)
+ (h growUnsafe.0.Iejqx1p. 947)
+ (h capInBytes.0.Irivwka. 1350)
+ (h resize.0.Ilmu1m91. 1232)
+ (h shrink.0.Itsnuwd1. 2118)
+ (h growUnsafe.0.Iv6p70n. 939)
+ (h memSizeInBytes.0.Ibwdpgu. 1332)
+ (h capInBytes.0.Imjxv2t1. 780)
+ (h resize.0.I50evek1. 1231)
+ (h memSizeInBytes.0.I7me00i. 2113)
+ (h memSizeInBytes.0.Iy5xwn3. 806)
+ (h seq.0.Ixdx2fh1. 782)
+ (h seq.0.Incy2q. 512)
+ (h seq.0.Iumofnp1. 490)
+ (h =destroy.1.Ivioh0a. 487)
+ (h =wasMoved.1.I5vdnla. 1314)
+ (h =dup.1.Imq0s4c. 428)
+ (h =copy.1.Iiwrt4i1. 834)
+ (h =destroy.1.I0oc1pn1. 3925)
+ (h =wasMoved.1.Iukdt6c. 1293)
+ (h =dup.1.I493sya. 416)
+ (h =copy.1.I38xc6u. 819)
+ (h =destroy.1.Ifycvh11. 3872)
+ (h =wasMoved.1.In66lbk. 1291)
+ (h =dup.1.Ixu11i. 416)
+ (h =copy.1.Ish8gie. 822)
+ (h newSeqUninit.0.Im3cqd9. 3866)
+ (h newSeqUninit.0.Iew8ai31. 2030)
+ (h =destroy_SX49tem0invuity7x.0. 1995)
+ (h =wasmoved_SX49tem0invuity7x.0. 369)
+ (h =dup_SX49tem0invuity7x.0. 491)
+ (h =copy_SX49tem0invuity7x.0. 843)
+ (h =destroy_SX48older0invuity7x.0. 859)
+ (h =wasmoved_SX48older0invuity7x.0. 378)
+ (h =dup_SX48older0invuity7x.0. 500)
+ (h =copy_SX48older0invuity7x.0. 865)
+ (h =destroy_SX53tack0invuity7x.0. 879)
+ (h =wasmoved_SX53tack0invuity7x.0. 197)
+ (h =dup_SX53tack0invuity7x.0. 235)
+ (h =copy_SX53tack0invuity7x.0. 381)
+ (h =destroy_SX4futcome0invuity7x.0. 352)
+ (h =wasmoved_SX4futcome0invuity7x.0. 202)
+ (h =dup_SX4futcome0invuity7x.0. 240)
+ (h =copy_SX4futcome0invuity7x.0. 520)
+ (h =destroy_SX42in0invuity7x.0. 514)
+ (h =wasmoved_SX42in0invuity7x.0. 321)
+ (h =dup_SX42in0invuity7x.0. 414)
+ (h =copy_SX42in0invuity7x.0. 562))

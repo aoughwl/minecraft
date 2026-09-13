@@ -1,0 +1,1376 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,vxlod.nim
+ (comment)
+ (import@,1X vxblocks@7)
+ (import@,1Y vxnoise@7)
+ (import@,1Z vxatlas@7)
+ (import@,1a vxworld@7)
+ (const@B,1d LodRegion~9 x . . 48@4)
+ (const@E,1i LodBandCells~C x . . 24@4)
+ (const@A,1v LodFloor~8 x . . 0@4)
+ (const@B,1y RingLevel~9 x .
+  (at@8 array~5 8@1 int@4)
+  (bracket@J 0@1 1@4 2@7 3@A 4@D 4@G 4@J 4@M))
+ (type@C,25 LodField~A x . .
+  (object@2 .
+   (fld~8,3 rx~2 x . int@8 .)
+   (fld~3,3 rz~2 x . int@3 .)
+   (fld~5,4 level~5 x . int@3 .)
+   (fld~6,5 span~4 x . int@3 .)
+   (fld~4,7 height~6 x .
+    (at@6 seq~3 int@1).)
+   (fld~6,8 kind~4 x .
+    (at@6 seq~3 int@1).)
+   (fld~6,9 rows~4 x . int@3 .)))
+ (type@C,2I LodScene~A x . .
+  (object@2 .
+   (fld~4,3 fields~6 x .
+    (at@6 seq~3 LodField@1).)
+   (fld~5,4 minRx~5 x . int@I .)
+   (fld@3,4 minRz~5 x . int@A .)
+   (fld@A,4 wide~4 x . int@3 .)
+   (fld~2,5 centreRx~8 x . int@E .)
+   (fld@9,5 centreRz~8 x . int@3 .)
+   (fld~5,G order~5 x .
+    (at@6 seq~3 int@1).)))
+ (proc@,2f lodStride@5 x . .
+  (params@F
+   (param@1 level . . int@7 .))int@E . .
+  (stmts@Z
+   (infix@2 shl 1~2 level@4)))
+ (comment@,2h)
+ (proc@,2k levelForRing@5 x . .
+  (params@I
+   (param@1 ring . . int@6 .))int@D . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@5 <= ring~5 0@3)
+     (stmts@B
+      (ret 0@7))))
+   (if@,1
+    (elif@3
+     (infix@5 < ring~5 8@2)
+     (stmts@A
+      (ret
+       (at@G RingLevel~9 ring@1)))))
+   (at@9,2 RingLevel~9 7@1)))
+ (comment@,2p)
+ (proc@,2r levelForDistance@5 x . .
+  (params@M
+   (param@1 blocks . . int@8 .))int@F . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 < blocks~7 0@2)
+     (stmts@C
+      (ret 0@7))))
+   (call@C,1 levelForRing~C
+    (infix@8 div blocks~7 LodRegion@4))))
+ (comment@,2v)
+ (proc@,2z ringOf@5 x . .
+  (params@C
+   (param@1 rx . . int@8 .)
+   (param@5 rz . . int@4 .))int@F . .
+  (stmts@2,1
+   (var@4 ax . . . rx@5)
+   (if@,1
+    (elif@3
+     (infix@3 < ax~3 0@2)
+     (stmts@8
+      (asgn@3 ax~3
+       (prefix@2 \2D ax@1)))))
+   (var@4,2 az . . . rz@5)
+   (if@,3
+    (elif@3
+     (infix@3 < az~3 0@2)
+     (stmts@8
+      (asgn@3 az~3
+       (prefix@2 \2D az@1)))))
+   (if@,4
+    (elif@3
+     (infix@3 > ax~3 az@2)
+     (stmts@9
+      (ret ax@7))))az@,5))
+ (proc@,3E slotAt@5 x . .
+  (params@C
+   (param@1 s . . LodScene@3 .)
+   (param@E rx . . int@8 .)
+   (param@I rz . . int@4 .))int@S . .
+  (stmts@2,1
+   (comment)
+   (if@,4
+    (elif@3
+     (infix@D or
+      (infix~A < rx~3
+       (dot@3 s~1 minRx@1))
+      (infix@6 < rz~3
+       (dot@3 s~1 minRz@1)))
+     (stmts@U
+      (ret -1@7))))
+   (if@,5
+    (elif@3
+     (infix@N or
+      (infix~K >= rx~3
+       (infix@B \2B
+        (dot~7 s~1 minRx@1)
+        (dot@3 s~1 wide@1)))
+      (infix@6 >= rz~3
+       (infix@B \2B
+        (dot~7 s~1 minRz@1)
+        (dot@3 s~1 wide@1))))
+     (stmts@o
+      (ret -1@7))))
+   (infix@O,6 \2B
+    (infix~9 *
+     (par~F
+      (infix@4 \2D rz~3
+       (dot@3 s~1 minRz@1)))
+     (dot@3 s~1 wide@1))
+    (par@2
+     (infix@4 \2D rx~3
+      (dot@3 s~1 minRx@1))))))
+ (proc@,3N fieldAt@5 x . .
+  (params@D
+   (param@1 s . . LodScene@3 .)
+   (param@E rx . . int@8 .)
+   (param@I rz . . int@4 .))int@S . .
+  (stmts@2,1
+   (comment)
+   (let@4,3 i . . .
+    (call@C
+     (dot~7 s~1 slotAt@1)rx@1 rz@5))
+   (if@,4
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret -1@7))))
+   (if@,5
+    (elif@3
+     (infix@I <=
+      (dot~7
+       (at~3
+        (dot~7 s~1 fields@1)i@1)level@1)0@3)
+     (stmts@O
+      (ret -1@7))))i@,6))
+ (comment@,3W)
+ (proc@,3g levelForRegion@5 x . .
+  (params@K
+   (param@1 cRx . . int@T .)
+   (param@6 cRz . . int@O .)
+   (param@B rx . . int@J .)
+   (param@F rz . . int@F .)
+   (param@J nearLevel . . int@B .))int@a . .
+  (stmts@2,1
+   (let@4 ring . . .
+    (call@D ringOf~6
+     (infix@4 \2D rx~3 cRx@2)
+     (infix@E \2D rz~3 cRz@2)))
+   (if@,1
+    (elif@3
+     (infix@5 == ring~5 0@3)
+     (stmts@B
+      (ret nearLevel@7))))
+   (call@C,2 levelForRing~C ring@1)))
+ (proc@,3l fieldDone@5 x . .
+  (params@F
+   (param@1 s . . LodScene@3 .)
+   (param@E index . . int@7 .))bool@R . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A or
+      (infix~4 < index~6 0@2)
+      (infix@9 >= index~6
+       (dot@B
+        (dot~7 s~1 fields@1)len@1)))
+     (stmts@a
+      (ret false@7))))
+   (infix@P,1 and
+    (infix~4 >
+     (dot~6
+      (at~7
+       (dot~7 s~1 fields@1)index@1)span@1)0@2)
+    (infix@P >=
+     (dot~6
+      (at~7
+       (dot~7 s~1 fields@1)index@1)rows@1)
+     (dot@I
+      (at~7
+       (dot~7 s~1 fields@1)index@1)span@1)))))
+ (comment@,3p)
+ (proc@,3z reorderLod@5 x . .
+  (params@G
+   (param@1 s . .
+    (mut@3 LodScene@4).)). . .
+  (stmts@2,1
+   (comment)
+   (asgn@8,4
+    (dot~7 s~1 order@1)
+    (prefix@2 \40
+     (bracket@1)))
+   (let@4,5 radius . . .
+    (infix@M div
+     (par~D
+      (infix@8 \2D
+       (dot~6 s~1 wide@1)1@2))2@4))
+   (var@4,6 ring . . . 0@7)
+   (while@,7
+    (infix@B <= ring~5 radius@3)
+    (stmts@2,1
+     (var@4 z . . .
+      (infix@F \2D
+       (dot~A s~1 centreRz@1)ring@2))
+     (while@,1
+      (infix@8 <= z~2
+       (infix@E \2B
+        (dot~A s~1 centreRz@1)ring@2))
+      (stmts@2,1
+       (var@4 x . . .
+        (infix@F \2D
+         (dot~A s~1 centreRx@1)ring@2))
+       (while@,1
+        (infix@8 <= x~2
+         (infix@E \2B
+          (dot~A s~1 centreRx@1)ring@2))
+        (stmts@2,1
+         (if
+          (elif@3
+           (infix@d ==
+            (call~X ringOf~6
+             (infix@3 \2D x~2
+              (dot@3 s~1 centreRx@1))
+             (infix@J \2D z~2
+              (dot@3 s~1 centreRz@1)))ring@3)
+           (stmts~1,1
+            (let@4 i . . .
+             (call@C
+              (dot~7 s~1 slotAt@1)x@1 z@4))
+            (if@,1
+             (elif@3
+              (infix@7 and
+               (infix~5 >= i~2 0@3)
+               (infix@L >
+                (dot~6
+                 (at~3
+                  (dot~7 s~1 fields@1)i@1)span@1)0@2))
+              (stmts@X
+               (cmd@7
+                (dot
+                 (dot~6 s~1 order@1)add@1)i@5)))))))
+         (cmd@,3 inc x@4)))
+       (cmd@,6 inc z@4)))
+     (cmd@,9 inc ring@4)))))
+ (proc@,4J newLodScene@5 x . .
+  (params@H
+   (param@1 radius . . int@8 .)
+   (param@E cRx . . . 0@6)
+   (param@N cRz . . . 0@6)
+   (param@W nearLevel . . . 0@C))LodScene@m . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@A LodScene~8
+     (kv@7 fields~6
+      (prefix@2 \40
+       (bracket@1)))
+     (kv@J minRx~5
+      (infix@6 \2D cRx~4 radius@2))
+     (kv@e minRz~5
+      (infix@6 \2D cRz~4 radius@2))
+     (kv~B,1 wide~4
+      (infix@D \2B
+       (infix~4 * radius~7 2@2)1@2))
+     (kv@F,1 centreRx~8 cRx@2)
+     (kv@U,1 centreRz~8 cRz@2)
+     (kv@g,1 order~5
+      (prefix@2 \40
+       (bracket@1)))))
+   (var@4,2 rz . . .
+    (infix@9 \2D cRz~4 radius@2))
+   (while@,3
+    (infix@9 <= rz~3
+     (infix@7 \2B cRz~4 radius@2))
+    (stmts@2,1
+     (var@4 rx . . .
+      (infix@9 \2D cRx~4 radius@2))
+     (while@,1
+      (infix@9 <= rx~3
+       (infix@7 \2B cRx~4 radius@2))
+      (stmts@2,1
+       (let@4 level . . .
+        (call@M levelForRegion~E cRx@1 cRz@6 rx@B rz@F nearLevel@J))
+       (var@4,1 span . . . 0@7)
+       (if@,2
+        (elif@3
+         (infix@6 > level~6 0@2)
+         (stmts@B
+          (asgn@5 span~5
+           (infix@C div LodRegion~A
+            (call@D lodStride~9 level@1))))))
+       (var@4,3 f . . .
+        (oconstr@C LodField~8
+         (kv@3 rx~2 rx@2)
+         (kv@B rz~2 rz@2)
+         (kv@M level~5 level@2)
+         (kv@Z span~4 span@2)
+         (kv@n height~6
+          (prefix@2 \40
+           (bracket@1)))
+         (kv~A,1 kind~4
+          (prefix@2 \40
+           (bracket@1)))
+         (kv@1,1 rows~4 0@2)))
+       (var@4,5 c . . . 0@4)
+       (while@,6
+        (infix@8 < c~2
+         (infix@7 * span~5 span@2))
+        (stmts@2,1
+         (cmd@8
+          (dot
+           (dot~7 f~1 height@1)add@1)-1@5)
+         (cmd@6,1
+          (dot
+           (dot~5 f~1 kind@1)add@1)AirId@5)
+         (cmd@,2 inc c@4)))
+       (cmd@D,A
+        (dot
+         (dot~7 result~6 fields@1)add@1)f@5)
+       (cmd@,B inc rx@4)))
+     (cmd@,E inc rz@4)))
+   (call@H,J
+    (dot~B result~6 reorderLod@1))))
+ (comment@,4i)
+ (proc@,4w lodTopOf@5 x . .
+  (params@E
+   (param@1 w . . World@3 .)
+   (param@B ground . . int@8 .))int@P . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 < ground~7
+      (dot@3 w~1 waterLevel@1))
+     (stmts@N
+      (ret
+       (dot@8 w~1 waterLevel@1)))))ground@,1))
+ (proc@,50 lodKindOf@5 x . .
+  (params@F
+   (param@1 w . . World@3 .)
+   (param@B x . . int@E .)
+   (param@E z . . int@B .)
+   (param@H ground . . int@8 .))int@V . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 < ground~7
+      (dot@3 w~1 waterLevel@1))
+     (stmts@N
+      (ret
+       (dot@G
+        (dot~8 w~1 palette@1)water@1)))))
+   (var@4,1 id . . .
+    (call@G
+     (dot~A w~1 terrainAt@1)x@1 ground@4 z@C ground@F))
+   (if@,4
+    (elif@3
+     (infix@3 == id~3 AirId@3)
+     (stmts@D
+      (asgn@3 id~3
+       (dot@B
+        (dot~8 w~1 palette@1)stone@1)))))id@,5))
+ (comment@,58)
+ (proc@,5F sampleRows@5 x . .
+  (params@G
+   (param@1 w . . World@3 .)
+   (param@B f . .
+    (mut@3 LodField@4).)
+   (param@S fromCz . . int@E .)
+   (param@a toCz . . int@6 .))int@m . .
+  (stmts@2,1
+   (asgn@7 result~7 0@2)
+   (if@,1
+    (elif@3
+     (infix@7 <=
+      (dot~6 f~1 span@1)0@3)
+     (stmts@D
+      (ret result@7))))
+   (let@4,2 stride . . .
+    (call@I lodStride~9
+     (dot@2 f~1 level@1)))
+   (var@4,3 cz . . . fromCz@5)
+   (if@,4
+    (elif@3
+     (infix@3 < cz~3 0@2)
+     (stmts@8
+      (asgn@3 cz~3 0@2))))
+   (while@,5
+    (infix@H and
+     (infix~8 <= cz~3 toCz@3)
+     (infix@7 < cz~3
+      (dot@3 f~1 span@1)))
+    (stmts@2,1
+     (let@4 z . . .
+      (infix@L \2B
+       (infix~C *
+        (dot~4 f~1 rz@1)LodRegion@2)
+       (infix@5 * cz~3 stride@2)))
+     (var@4,1 cx . . . 0@5)
+     (while@,2
+      (infix@9 < cx~3
+       (dot@3 f~1 span@1))
+      (stmts@2,1
+       (let@4 x . . .
+        (infix@L \2B
+         (infix~C *
+          (dot~4 f~1 rx@1)LodRegion@2)
+         (infix@5 * cx~3 stride@2)))
+       (var@4,7 ground . . . -1@9)
+       (let@4,8 known . . .
+        (call@K
+         (dot~B w~1 heightSlot@1)x@1 z@4))
+       (if@,9
+        (elif@3
+         (infix@B and
+          (infix~5 >= known~6 0@3)
+          (infix@A < known~6
+           (dot@B
+            (dot~8 w~1 heights@1)len@1)))
+         (stmts@c
+          (asgn@7 ground~7
+           (at@B
+            (dot~8 w~1 heights@1)known@1)))))
+       (if@,A
+        (elif@3
+         (infix@7 < ground~7 0@2)
+         (stmts@C
+          (asgn@7 ground~7
+           (call@H
+            (dot~E w~1 surfaceHeight@1)x@1 z@4)))))
+       (asgn@R,B
+        (at~J
+         (dot~7 f~1 height@1)
+         (infix@D \2B
+          (infix~9 * cz~3
+           (dot@3 f~1 span@1))cx@2))
+        (call@C
+         (dot~9 w~1 lodTopOf@1)ground@1))
+       (asgn@P,C
+        (at~J
+         (dot~5 f~1 kind@1)
+         (infix@D \2B
+          (infix~9 * cz~3
+           (dot@3 f~1 span@1))cx@2))
+        (call@D
+         (dot~A w~1 lodKindOf@1)x@1 z@4 ground@7))
+       (cmd@,D inc result@4)
+       (cmd@,E inc cx@4)))
+     (cmd@,I inc cz@4)))
+   (if@,P
+    (elif@3
+     (infix@9 >
+      (infix~4 \2B toCz~5 1@2)
+      (dot@3 f~1 rows@1))
+     (stmts@J
+      (asgn@7
+       (dot~6 f~1 rows@1)
+       (infix@7 \2B toCz~5 1@2)))))
+   (if@,Q
+    (elif@3
+     (infix@7 >
+      (dot~6 f~1 rows@1)
+      (dot@3 f~1 span@1))
+     (stmts@H
+      (asgn@7
+       (dot~6 f~1 rows@1)
+       (dot@3 f~1 span@1)))))))
+ (proc@,5i sampleField@5 x . .
+  (params@H
+   (param@1 w . . World@3 .)
+   (param@B f . .
+    (mut@3 LodField@4).))int@T . .
+  (stmts@2,1
+   (comment)
+   (call@A,2 sampleRows~A w@1 f@4 0@7
+    (infix@H \2D
+     (dot~6 f~1 span@1)1@2))))
+ (comment@,5q)
+ (proc@,5s lodCellOf@5 x . .
+  (params@F
+   (param@1 s . . LodScene@3 .)
+   (param@E index . . int@D .)
+   (param@L x . . int@6 .)
+   (param@O z . . int@3 .))int@X . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A or
+      (infix~4 < index~6 0@2)
+      (infix@9 >= index~6
+       (dot@B
+        (dot~7 s~1 fields@1)len@1)))
+     (stmts@a
+      (ret -1@7))))
+   (if@,1
+    (elif@3
+     (infix@L <=
+      (dot~6
+       (at~7
+        (dot~7 s~1 fields@1)index@1)span@1)0@3)
+     (stmts@R
+      (ret -1@7))))
+   (let@4,2 stride . . .
+    (call@I lodStride~9
+     (dot@G
+      (at~7
+       (dot~7 s~1 fields@1)index@1)level@1)))
+   (let@4,3 lx . . .
+    (infix@7 \2D x~2
+     (infix@L *
+      (dot~4
+       (at~7
+        (dot~7 s~1 fields@1)index@1)rx@1)LodRegion@2)))
+   (let@4,4 lz . . .
+    (infix@7 \2D z~2
+     (infix@L *
+      (dot~4
+       (at~7
+        (dot~7 s~1 fields@1)index@1)rz@1)LodRegion@2)))
+   (if@,5
+    (elif@3
+     (infix@a or
+      (infix~J or
+       (infix~A or
+        (infix~4 < lx~3 0@2)
+        (infix@6 < lz~3 0@2))
+       (infix@6 >= lx~3 LodRegion@3))
+      (infix@6 >= lz~3 LodRegion@3))
+     (stmts@u
+      (ret -1@7))))
+   (infix@d,6 \2B
+    (infix~N *
+     (par~G
+      (infix@4 div lz~3 stride@4))
+     (dot@H
+      (at~7
+       (dot~7 s~1 fields@1)index@1)span@1))
+    (par@2
+     (infix@4 div lx~3 stride@4)))))
+ (comment@,61)
+ (proc@,6C nearCovers@5 x . .
+  (params@G
+   (param@1 w . . World@3 .)
+   (param@B x . . int@E .)
+   (param@E z . . int@B .)
+   (param@H stride . . int@8 .))bool@V . .
+  (stmts@2,1
+   (comment)
+   (if@,G
+    (elif@3
+     (infix@G or
+      (infix~E < x~2
+       (call@B
+        (dot~8 w~1 worldX0@1)))
+      (infix@5 < z~2
+       (call@B
+        (dot~8 w~1 worldZ0@1))))
+     (stmts@a
+      (ret false@7))))
+   (if@,H
+    (elif@3
+     (infix@B >
+      (infix~9 \2B x~2 stride@2)
+      (infix@E \2B
+       (call~3
+        (dot~8 w~1 worldX0@1))
+       (call@E
+        (dot~B w~1 blocksWide@1))))
+     (stmts@h
+      (ret false@7))))
+   (if@,I
+    (elif@3
+     (infix@B >
+      (infix~9 \2B z~2 stride@2)
+      (infix@E \2B
+       (call~3
+        (dot~8 w~1 worldZ0@1))
+       (call@E
+        (dot~B w~1 blocksDeep@1))))
+     (stmts@h
+      (ret false@7))))true@,J))
+ (proc@,6Y renderHeightAt@5 x . .
+  (params@K
+   (param@1 s . . LodScene@3 .)
+   (param@E w . . World@3 .)
+   (param@O x . . int@6 .)
+   (param@R z . . int@3 .))int@a . .
+  (stmts@2,1
+   (let@4 slot . . .
+    (call@J
+     (dot~B w~1 heightSlot@1)x@1 z@4))
+   (if@,1
+    (elif@3
+     (infix@5 >= slot~5 0@3)
+     (stmts~1,1
+      (var@4 h . . . -1@4)
+      (if@,1
+       (elif@3
+        (infix@5 < slot~5
+         (dot@B
+          (dot~8 w~1 heights@1)len@1))
+        (stmts@M
+         (asgn@2 h~2
+          (at@B
+           (dot~8 w~1 heights@1)slot@1)))))
+      (if@,2
+       (elif@3
+        (infix@2 < h~2 0@2)
+        (stmts@7
+         (asgn@2 h~2
+          (call@H
+           (dot~E w~1 surfaceHeight@1)x@1 z@4)))))
+      (if@,3
+       (elif@3
+        (infix@2 < h~2
+         (dot@3 w~1 waterLevel@1))
+        (stmts@I
+         (asgn@2 h~2
+          (dot@3 w~1 waterLevel@1)))))
+      (ret@,4 h@7))))
+   (let@4,7 i . . .
+    (call@D
+     (dot~8 s~1 fieldAt@1)
+     (call@9 floorDiv~8 x@1 LodRegion@4)
+     (call@X floorDiv~8 z@1 LodRegion@4)))
+   (if@,8
+    (elif@3
+     (infix@2 < i~2 0@2)
+     (stmts@7
+      (ret -1@7))))
+   (if@,9
+    (elif@3
+     (prefix not
+      (call@F
+       (dot~A s~1 fieldDone@1)i@1))
+     (stmts@K
+      (ret -1@7))))
+   (let@4,A c . . .
+    (call@F
+     (dot~A s~1 lodCellOf@1)i@1 x@4 z@7))
+   (if@,B
+    (elif@3
+     (infix@2 < c~2 0@2)
+     (stmts@7
+      (ret -1@7))))
+   (at@I,C
+    (dot~7
+     (at~3
+      (dot~7 s~1 fields@1)i@1)height@1)c@1)))
+ (comment@,6s)
+ (proc@,73 seamFloor@5 x . .
+  (params@F
+   (param@1 s . . LodScene@3 .)
+   (param@E w . . World@3 .)
+   (param@O index . . int@K .)
+   (param@V cx . . int@D .)
+   (param@Z cz . . int@9 .)
+   (param@d dir . . int@5 .))int@o . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A or
+      (infix~4 < index~6 0@2)
+      (infix@9 >= index~6
+       (dot@B
+        (dot~7 s~1 fields@1)len@1)))
+     (stmts@a
+      (ret -1@7))))
+   (let@4,1 stride . . .
+    (call@I lodStride~9
+     (dot@G
+      (at~7
+       (dot~7 s~1 fields@1)index@1)level@1)))
+   (let@4,2 x0 . . .
+    (infix@a \2B
+     (infix~C *
+      (dot~4
+       (at~7
+        (dot~7 s~1 fields@1)index@1)rx@1)LodRegion@2)
+     (infix@5 * cx~3 stride@2)))
+   (let@4,3 z0 . . .
+    (infix@a \2B
+     (infix~C *
+      (dot~4
+       (at~7
+        (dot~7 s~1 fields@1)index@1)rz@1)LodRegion@2)
+     (infix@5 * cz~3 stride@2)))
+   (var@4,4 low . . . -1@6)
+   (var@4,5 have . . . false@7)
+   (var@4,6 i . . . 0@4)
+   (while@,7
+    (infix@8 < i~2 stride@2)
+    (stmts@2,1
+     (var@4 x . . . x0@4)
+     (var@4,1 z . . . z0@4)
+     (if@,2
+      (elif@3
+       (infix@4 == dir~4 0@3)
+       (stmts~1,1
+        (asgn@2 x~2
+         (infix@5 \2B x0~3 stride@2))
+        (asgn@2,1 z~2
+         (infix@5 \2B z0~3 i@2))))
+      (elif@5,3
+       (infix@4 == dir~4 1@3)
+       (stmts~3,1
+        (asgn@2 x~2
+         (infix@5 \2D x0~3 1@2))
+        (asgn@2,1 z~2
+         (infix@5 \2B z0~3 i@2))))
+      (elif@5,6
+       (infix@4 == dir~4 2@3)
+       (stmts~3,1
+        (asgn@2 x~2
+         (infix@5 \2B x0~3 i@2))
+        (asgn@2,1 z~2
+         (infix@5 \2B z0~3 stride@2))))
+      (else@,9
+       (stmts@2,1
+        (asgn@2 x~2
+         (infix@5 \2B x0~3 i@2))
+        (asgn@2,1 z~2
+         (infix@5 \2D z0~3 1@2)))))
+     (let@4,E h . . .
+      (call@K
+       (dot~F s~1 renderHeightAt@1)w@1 x@4 z@7))
+     (if@,F
+      (elif@3
+       (infix@2 < h~2 0@2)
+       (stmts@7
+        (ret -1@7))))
+     (if@,G
+      (elif@3
+       (infix@9 or
+        (prefix~9 not have@4)
+        (infix@5 < h~2 low@2))
+       (stmts~1,1
+        (asgn@4 low~4 h@2)
+        (asgn@5,1 have~5 true@2))))
+     (cmd@,J inc i@4)))
+   (if@,S
+    (elif@3
+     (prefix not have@4)
+     (stmts@A
+      (ret -1@7))))low@,T))
+ (comment@,7Z)
+ (proc@,7h naiveFloor@5 x . .
+  (params@G
+   (param@1 s . . LodScene@3 .)
+   (param@E index . . int@K .)
+   (param@L cx . . int@D .)
+   (param@P cz . . int@9 .)
+   (param@T dir . . int@5 .))int@e . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A or
+      (infix~4 < index~6 0@2)
+      (infix@9 >= index~6
+       (dot@B
+        (dot~7 s~1 fields@1)len@1)))
+     (stmts@a
+      (ret -1@7))))
+   (var@4,1 nx . . . cx@5)
+   (var@4,2 nz . . . cz@5)
+   (if@,3
+    (elif@3
+     (infix@4 == dir~4 0@3)
+     (stmts@A
+      (cmd inc nx@4)))
+    (elif@5,1
+     (infix@4 == dir~4 1@3)
+     (stmts@A
+      (cmd dec nx@4)))
+    (elif@5,2
+     (infix@4 == dir~4 2@3)
+     (stmts@A
+      (cmd inc nz@4)))
+    (else@,3
+     (stmts@6
+      (cmd dec nz@4))))
+   (let@4,7 span . . .
+    (dot@M
+     (at~7
+      (dot~7 s~1 fields@1)index@1)span@1))
+   (if@,8
+    (elif@3
+     (infix@V or
+      (infix~E or
+       (infix~A or
+        (infix~4 < nx~3 0@2)
+        (infix@6 < nz~3 0@2))
+       (infix@6 >= nx~3 span@3))
+      (infix@6 >= nz~3 span@3))
+     (stmts@k
+      (ret -1@7))))
+   (at@M,9
+    (dot~7
+     (at~7
+      (dot~7 s~1 fields@1)index@1)height@1)
+    (infix@B \2B
+     (infix~7 * nz~3 span@2)nx@2))))
+ (const@A,81 WallFace~8 x .
+  (at@8 array~5 4@1 int@4)
+  (bracket@J 0@1 1@4 4@7 5@A))
+ (comment@,87)
+ (proc@,8C buildLodFaces@5 x . .
+  (params@J
+   (param@1 s . . LodScene@3 .)
+   (param@E w . . World@3 .)
+   (param@O skins . .
+    (at@A seq~3 Skin@1).)
+   (param@g index . . int@7 .)
+   (param@1,1 fromCz . . . 0@9)
+   (param@D,1 toCz . . .
+    (infix@9 shl 1~2 24@4))
+   (param@U,1 stitched . . . true@B))Faces@m,1 . .
+  (stmts@2,2
+   (asgn@7 result~7
+    (call@C emptyFaces~A))
+   (if@,1
+    (elif@3
+     (infix@A or
+      (infix~4 < index~6 0@2)
+      (infix@9 >= index~6
+       (dot@B
+        (dot~7 s~1 fields@1)len@1)))
+     (stmts@a
+      (ret result@7))))
+   (if@,2
+    (elif@3
+     (prefix not
+      (call@F
+       (dot~A s~1 fieldDone@1)index@1))
+     (stmts@O
+      (ret result@7))))
+   (let@4,3 span . . .
+    (dot@M
+     (at~7
+      (dot~7 s~1 fields@1)index@1)span@1))
+   (let@4,4 stride . . .
+    (call@I lodStride~9
+     (dot@G
+      (at~7
+       (dot~7 s~1 fields@1)index@1)level@1)))
+   (let@4,5 side . . .
+    (call@C float~5 stride@1))
+   (var@4,6 lowZ . . . fromCz@7)
+   (var@4,7 highZ . . . toCz@8)
+   (if@,8
+    (elif@3
+     (infix@5 < lowZ~5 0@2)
+     (stmts@A
+      (asgn@5 lowZ~5 0@2))))
+   (if@,9
+    (elif@3
+     (infix@6 > highZ~6
+      (infix@7 \2D span~5 1@2))
+     (stmts@I
+      (asgn@6 highZ~6
+       (infix@7 \2D span~5 1@2)))))
+   (var@4,A cz . . . lowZ@5)
+   (while@,B
+    (infix@9 <= cz~3 highZ@3)
+    (stmts@2,1
+     (var@4 cx . . . 0@5)
+     (while@,1
+      (infix@9 < cx~3 span@2)
+      (stmts@2,1
+       (let@4 h . . .
+        (at@Q
+         (dot~7
+          (at~7
+           (dot~7 s~1 fields@1)index@1)height@1)
+         (infix@B \2B
+          (infix~7 * cz~3 span@2)cx@2)))
+       (let@4,1 id . . .
+        (at@P
+         (dot~5
+          (at~7
+           (dot~7 s~1 fields@1)index@1)kind@1)
+         (infix@B \2B
+          (infix~7 * cz~3 span@2)cx@2)))
+       (let@4,5 wx . . .
+        (infix@a \2B
+         (infix~C *
+          (dot~4
+           (at~7
+            (dot~7 s~1 fields@1)index@1)rx@1)LodRegion@2)
+         (infix@5 * cx~3 stride@2)))
+       (let@4,6 wz . . .
+        (infix@a \2B
+         (infix~C *
+          (dot~4
+           (at~7
+            (dot~7 s~1 fields@1)index@1)rz@1)LodRegion@2)
+         (infix@5 * cz~3 stride@2)))
+       (if@,7
+        (elif@3
+         (infix@N and
+          (infix~G and
+           (infix~5 >= h~2 0@3)
+           (infix@7 != id~3 AirId@3))
+          (prefix@4 not
+           (call@G
+            (dot~B w~1 nearCovers@1)wx@1 wz@5 stride@9)))
+         (stmts~1,3
+          (var@4 texColumns . . . 0@D)
+          (var@4,1 texSide . . . DefaultSide@A)
+          (var@4,2 texPitch . . .
+           (call@G float~5
+            (infix@D \2B DefaultSide~C
+             (infix@4 * 2~2 Pad@2))))
+          (if@,3
+           (elif@3
+            (infix@f and
+             (infix~Q and
+              (infix~C < id~3
+               (dot@7 skins~5 len@1))
+              (infix@M >
+               (dot~9
+                (at~4 skins~5 id@1)columns@1)0@2))
+             (infix@O >
+              (dot~5
+               (dot~6
+                (at~4 skins~5 id@1)atlas@1)len@1)0@2))
+            (stmts~1,1
+             (asgn@B texColumns~B
+              (dot@B
+               (at~4 skins~5 id@1)columns@1))
+             (asgn@8,1 texSide~8
+              (dot@B
+               (at~4 skins~5 id@1)side@1))
+             (asgn@9,2 texPitch~9
+              (call@7 float~5
+               (infix@9 \2B texSide~8
+                (infix@4 * 2~2 Pad@2)))))))
+          (let@4,7 x0 . . .
+           (call@A float~5
+            (infix@4 * cx~3 stride@2)))
+          (let@4,8 z0 . . .
+           (call@A float~5
+            (infix@4 * cz~3 stride@2)))
+          (let@4,9 x1 . . .
+           (infix@8 \2B x0~3 side@2))
+          (let@4,A z1 . . .
+           (infix@8 \2B z0~3 side@2))
+          (let@4,B top . . .
+           (call@B float~5
+            (infix@3 \2B h~2 1@2)))
+          (var@4,H slot . . . 0@7)
+          (while@,I
+           (infix@B < slot~5 5@2)
+           (stmts@2,1
+            (var@4 face . . . 2@7)
+            (var@4,1 yLo . . . top@6)
+            (var@4,2 draw . . . false@7)
+            (if@,3
+             (elif@3
+              (infix@5 == slot~5 0@3)
+              (stmts~1,1
+               (asgn@5 draw~5 true@2)))
+             (else@,2
+              (stmts@2,1
+               (let@4 dir . . .
+                (infix@B \2D slot~5 1@2))
+               (asgn@5,1 face~5
+                (at@A WallFace~8 dir@1))
+               (var@4,2 floorY . . . LodFloor@9)
+               (var@4,3 skip . . . false@7)
+               (if@,4
+                (elif@3 stitched
+                 (stmts~1,6
+                  (var@4 nx . . . cx@5)
+                  (var@4,1 nz . . . cz@5)
+                  (if@,2
+                   (elif@3
+                    (infix@4 == dir~4 0@3)
+                    (stmts@A
+                     (cmd inc nx@4)))
+                   (elif@5,1
+                    (infix@4 == dir~4 1@3)
+                    (stmts@A
+                     (cmd dec nx@4)))
+                   (elif@5,2
+                    (infix@4 == dir~4 2@3)
+                    (stmts@A
+                     (cmd inc nz@4)))
+                   (else@,3
+                    (stmts@6
+                     (cmd dec nz@4))))
+                  (if@,B
+                   (elif@3
+                    (infix@m and
+                     (infix~E and
+                      (infix~E and
+                       (infix~C and
+                        (infix~5 >= nx~3 0@3)
+                        (infix@7 >= nz~3 0@3))
+                       (infix@7 < nx~3 span@2))
+                      (infix@7 < nz~3 span@2))
+                     (prefix~m,1 not
+                      (call@G
+                       (dot~B w~1 nearCovers@1)
+                       (infix@4 \2B wx~3
+                        (infix@C *
+                         (par~A
+                          (infix@4 \2D nx~3 cx@2))stride@2))
+                       (infix@4,1 \2B wz~3
+                        (infix@C *
+                         (par~A
+                          (infix@4 \2D nz~3 cz@2))stride@2))stride@Q,1)))
+                    (stmts~1,3
+                     (asgn@7 floorY~7
+                      (at@O
+                       (dot~7
+                        (at~7
+                         (dot~7 s~1 fields@1)index@1)height@1)
+                       (infix@B \2B
+                        (infix~7 * nz~3 span@2)nx@2)))))
+                   (else@,4
+                    (stmts@2,1
+                     (let@4 beyond . . .
+                      (call@K
+                       (dot~A s~1 seamFloor@1)w@1 index@4 cx@B cz@F dir@J))
+                     (if@,1
+                      (elif@3
+                       (infix@7 >= beyond~7 0@3)
+                       (stmts@D
+                        (asgn@7 floorY~7 beyond@2)))
+                      (else@,1
+                       (stmts@6
+                        (asgn@7 floorY~7 LodFloor@2)))))))))
+                (else@,P
+                 (stmts@2,1
+                  (let@4 beyond . . .
+                   (call@L
+                    (dot~B s~1 naiveFloor@1)index@1 cx@8 cz@C dir@G))
+                  (if@,1
+                   (elif@3
+                    (infix@7 < beyond~7 0@2)
+                    (stmts@C
+                     (asgn@5 skip~5 true@2)))
+                   (else@,1
+                    (stmts@6
+                     (asgn@7 floorY~7 beyond@2)))))))
+               (if@,X
+                (elif@3
+                 (infix@9 and
+                  (prefix~9 not skip@4)
+                  (infix@B < floorY~7 h@2))
+                 (stmts~1,1
+                  (asgn@5 draw~5 true@2)
+                  (asgn@4,1 yLo~4
+                   (call@7 float~5
+                    (infix@8 \2B floorY~7 1@2)))))))))
+            (if@,g
+             (elif@3 draw
+              (stmts~1,1
+               (var@4 uLo . . . 0.0@6)
+               (var@4,1 uHi . . . 1.0@6)
+               (var@4,2 vLo . . . 0.0@6)
+               (var@4,3 vHi . . . 1.0@6)
+               (if@,4
+                (elif@3
+                 (infix@B > texColumns~B 0@2)
+                 (stmts~1,1
+                  (let@4 across . . .
+                   (infix@I * texPitch~9
+                    (call@7 float~5 texColumns@1)))
+                  (let@4,1 left . . .
+                   (infix@k \2B
+                    (infix~B *
+                     (call~N float~5
+                      (at@F
+                       (dot~5
+                        (at~4 skins~5 id@1)tile@1)face@1))texPitch@2)
+                    (call@7 float~5 Pad@1)))
+                  (asgn@4,2 uLo~4
+                   (infix@7 / left~5 across@2))
+                  (asgn@4,3 uHi~4
+                   (infix@Q /
+                    (par~O
+                     (infix@6 \2B left~5
+                      (call@7 float~5 texSide@1)))across@2))
+                  (asgn@4,4 vLo~4
+                   (infix@D /
+                    (call~6 float~5 Pad@1)texPitch@2))
+                  (asgn@4,5 vHi~4
+                   (infix@W /
+                    (par~U
+                     (infix@C \2B
+                      (call~6 float~5 Pad@1)
+                      (call@7 float~5 texSide@1)))texPitch@2)))))
+               (var@4,B c . . . 0@4)
+               (while@,C
+                (infix@8 < c~2 4@2)
+                (stmts@2,1
+                 (if
+                  (elif@3
+                   (infix@O ==
+                    (at~8
+                     (at~6 FaceCorner~A face@1)
+                     (infix@3 * c~2 3@2))0@3)
+                   (stmts@U
+                    (cmd@A
+                     (dot
+                      (dot~4 result~6 pos@1)add@1)x0@5)))
+                  (else@,1
+                   (stmts@6
+                    (cmd@A
+                     (dot
+                      (dot~4 result~6 pos@1)add@1)x1@5))))
+                 (if@,2
+                  (elif@3
+                   (infix@S ==
+                    (at~C
+                     (at~6 FaceCorner~A face@1)
+                     (infix@7 \2B
+                      (infix~4 * c~2 3@2)1@2))0@3)
+                   (stmts@Y
+                    (cmd@A
+                     (dot
+                      (dot~4 result~6 pos@1)add@1)yLo@5)))
+                  (else@,1
+                   (stmts@6
+                    (cmd@A
+                     (dot
+                      (dot~4 result~6 pos@1)add@1)top@5))))
+                 (if@,4
+                  (elif@3
+                   (infix@S ==
+                    (at~C
+                     (at~6 FaceCorner~A face@1)
+                     (infix@7 \2B
+                      (infix~4 * c~2 3@2)2@2))0@3)
+                   (stmts@Y
+                    (cmd@A
+                     (dot
+                      (dot~4 result~6 pos@1)add@1)z0@5)))
+                  (else@,1
+                   (stmts@6
+                    (cmd@A
+                     (dot
+                      (dot~4 result~6 pos@1)add@1)z1@5))))
+                 (if@,6
+                  (elif@3
+                   (infix@K >
+                    (at~8
+                     (at~6 FaceUv~6 face@1)
+                     (infix@3 * c~2 2@2))0.5@2)
+                   (stmts@R
+                    (cmd@9
+                     (dot
+                      (dot~3 result~6 uv@1)add@1)uHi@5)))
+                  (else@,1
+                   (stmts@6
+                    (cmd@9
+                     (dot
+                      (dot~3 result~6 uv@1)add@1)uLo@5))))
+                 (if@,8
+                  (elif@3
+                   (infix@O >
+                    (at~C
+                     (at~6 FaceUv~6 face@1)
+                     (infix@7 \2B
+                      (infix~4 * c~2 2@2)1@2))0.5@2)
+                   (stmts@V
+                    (cmd@9
+                     (dot
+                      (dot~3 result~6 uv@1)add@1)vHi@5)))
+                  (else@,1
+                   (stmts@6
+                    (cmd@9
+                     (dot
+                      (dot~3 result~6 uv@1)add@1)vLo@5))))
+                 (cmd@9,F
+                  (dot
+                   (dot~3 result~6 ao@1)add@1)1.0@5)
+                 (cmd@,G inc c@4)))
+               (cmd@B,U
+                (dot
+                 (dot~5 result~6 norm@1)add@1)
+                (call@A float~5
+                 (at@H
+                  (at~6 FaceNormal~A face@1)0@1)))
+               (cmd@B,V
+                (dot
+                 (dot~5 result~6 norm@1)add@1)
+                (call@A float~5
+                 (at@H
+                  (at~6 FaceNormal~A face@1)1@1)))
+               (cmd@B,W
+                (dot
+                 (dot~5 result~6 norm@1)add@1)
+                (call@A float~5
+                 (at@H
+                  (at~6 FaceNormal~A face@1)2@1)))
+               (cmd@B,X
+                (dot
+                 (dot~5 result~6 kind@1)add@1)id@5)
+               (cmd@,Y inc
+                (dot@A result~6 count@1)))))
+            (cmd@,1G inc slot@4))))))
+       (cmd@,1k inc cx@4)))
+     (cmd@,1n inc cz@4)))))
+ (comment@,AF)
+ (proc@,AH lodBandRows@5 x . .
+  (params@H
+   (param@1 s . . LodScene@3 .)
+   (param@E index . . int@7 .))int@R . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A or
+      (infix~4 < index~6 0@2)
+      (infix@9 >= index~6
+       (dot@B
+        (dot~7 s~1 fields@1)len@1)))
+     (stmts@a
+      (ret 0@7))))
+   (let@4,1 span . . .
+    (dot@M
+     (at~7
+      (dot~7 s~1 fields@1)index@1)span@1))
+   (if@,2
+    (elif@3
+     (infix@5 <= span~5 0@3)
+     (stmts@B
+      (ret 0@7))))
+   (var@4,3 rows . . .
+    (infix@K div LodBandCells~D span@4))
+   (if@,4
+    (elif@3
+     (infix@5 < rows~5 1@2)
+     (stmts@A
+      (asgn@5 rows~5 1@2))))
+   (if@,5
+    (elif@3
+     (infix@5 > rows~5 span@2)
+     (stmts@D
+      (asgn@5 rows~5 span@2))))rows@,6))
+ (proc@,AQ lodBands@5 x . .
+  (params@E
+   (param@1 s . . LodScene@3 .)
+   (param@E index . . int@7 .))int@R . .
+  (stmts@2,1
+   (comment)
+   (if@,1
+    (elif@3
+     (infix@A or
+      (infix~4 < index~6 0@2)
+      (infix@9 >= index~6
+       (dot@B
+        (dot~7 s~1 fields@1)len@1)))
+     (stmts@a
+      (ret 0@7))))
+   (let@4,2 span . . .
+    (dot@M
+     (at~7
+      (dot~7 s~1 fields@1)index@1)span@1))
+   (if@,3
+    (elif@3
+     (infix@5 <= span~5 0@3)
+     (stmts@B
+      (ret 0@7))))
+   (let@4,4 rows . . .
+    (call@K
+     (dot~C s~1 lodBandRows@1)index@1))
+   (infix@I,5 div
+    (par~I
+     (infix@D \2D
+      (infix~7 \2B span~5 rows@2)1@2))rows@4)))
+ (comment@,AY)
+ (proc@,Ad lodReady@5 x . .
+  (params@E
+   (param@1 s . . LodScene@3 .)
+   (param@E index . . int@7 .))bool@R . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@F
+       (dot~A s~1 fieldDone@1)index@1))
+     (stmts@O
+      (ret false@7))))
+   (let@4,1 rx . . .
+    (dot@K
+     (at~7
+      (dot~7 s~1 fields@1)index@1)rx@1))
+   (let@4,2 rz . . .
+    (dot@K
+     (at~7
+      (dot~7 s~1 fields@1)index@1)rz@1))
+   (var@4,3 d . . . 0@4)
+   (while@,4
+    (infix@8 < d~2 4@2)
+    (stmts@2,1
+     (var@4 nx . . . rx@5)
+     (var@4,1 nz . . . rz@5)
+     (if@,2
+      (elif@3
+       (infix@2 == d~2 0@3)
+       (stmts@8
+        (cmd inc nx@4)))
+      (elif@5,1
+       (infix@2 == d~2 1@3)
+       (stmts@8
+        (cmd dec nx@4)))
+      (elif@5,2
+       (infix@2 == d~2 2@3)
+       (stmts@8
+        (cmd inc nz@4)))
+      (else@,3
+       (stmts@6
+        (cmd dec nz@4))))
+     (let@4,6 other . . .
+      (call@H
+       (dot~8 s~1 fieldAt@1)nx@1 nz@5))
+     (if@,7
+      (elif@3
+       (infix@B and
+        (infix~5 >= other~6 0@3)
+        (prefix@4 not
+         (call@F
+          (dot~A s~1 fieldDone@1)other@1)))
+       (stmts@d
+        (ret false@7))))
+     (cmd@,8 inc d@4)))true@,E))
+ (proc@,Au lodCells@5 x . .
+  (params@E
+   (param@1 s . . LodScene@3 .))int@F . .
+  (stmts@2,1
+   (comment)
+   (asgn@7,2 result~7 0@2)
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@A
+      (dot~7 s~1 fields@1)len@1))
+    (stmts@2,1
+     (asgn@7 result~7
+      (infix@9 \2B result~7
+       (infix@J *
+        (dot~6
+         (at~3
+          (dot~7 s~1 fields@1)i@1)span@1)
+        (dot@D
+         (at~3
+          (dot~7 s~1 fields@1)i@1)span@1))))
+     (cmd@,1 inc i@4)))))
+ (proc@,B3 lodBlocksWide@5 x . .
+  (params@J
+   (param@1 s . . LodScene@3 .))int@F . .
+  (stmts@e
+   (infix@7 *
+    (dot~6 s~1 wide@1)LodRegion@2))))

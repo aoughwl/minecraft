@@ -1,0 +1,83 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,vxskin.nim
+ (comment)
+ (import@,S vxmodel@7)
+ (import@,T vxbeasts@7)
+ (export@,U vxmodel@7)
+ (const@D,X PlayerModel~B x . . "player"@4)
+ (const@A,a SkinSide~8 x . . DefaultTexSide@4)
+ (const@C,e ModelScale~A x . . DefaultScale@4)
+ (const@B,i LimbCount~9 x . . 6@4)
+ (const@A,j HeadLimb~8 x . . 0@4)
+ (type@8,p Limb~6 x . . Box@2)
+ (type@C,s SkinRect~A x . . TexRect@2)
+ (type@C,t LimbQuad~A x . . BoxQuad@2)
+ (comment@,v)
+ (var@4,10 cached . . .
+  (call@H noModels~8))
+ (var@4,11 cachedAt . . . -1@B)
+ (proc@,13 playerModel@5 x . .
+  (params@H)Model@4 . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 < cachedAt~9 0@2)
+     (stmts~1,1
+      (asgn@7 cached~7
+       (call@C readModels~A Models@1))
+      (asgn@9,1 cachedAt~9
+       (call@C modelIndex~A cached@1 PlayerModel@9)))))
+   (if@,3
+    (elif@3
+     (infix@9 < cachedAt~9 0@2)
+     (stmts@E
+      (ret
+       (call@H blankModel~A PlayerModel@1)))))
+   (at@C,4
+    (dot~6 cached~6 model@1)cachedAt@1)))
+ (comment@,1A)
+ (proc@,1C limbs@5 x . .
+  (params@B)
+  (at@7 seq~3 Limb@1). .
+  (stmts@R
+   (dot@D
+    (call~2 playerModel~B)boxes@1)))
+ (comment@,1E)
+ (proc@,1H pivotXOf@5 x . .
+  (params@E
+   (param@1 l . . Limb@3 .))float@B . .
+  (stmts@X
+   (infix@Q *
+    (infix~H /
+     (dot~8 l~1 pivotX@1)PixelsPerBlock@2)ModelScale@2)))
+ (proc@,1I pivotYOf@5 x . .
+  (params@E
+   (param@1 l . . Limb@3 .))float@B . .
+  (stmts@X
+   (infix@Q *
+    (infix~H /
+     (dot~8 l~1 pivotY@1)PixelsPerBlock@2)ModelScale@2)))
+ (proc@,1J pivotZOf@5 x . .
+  (params@E
+   (param@1 l . . Limb@3 .))float@B . .
+  (stmts@X
+   (infix@Q *
+    (infix~H /
+     (dot~8 l~1 pivotZ@1)PixelsPerBlock@2)ModelScale@2)))
+ (comment@,1L)
+ (proc@,1O modelHeight@5 x . .
+  (params@H)float@4 . .
+  (stmts@T
+   (call@D pictureHeight~D
+    (call@C playerModel~B))))
+ (comment@,1Q)
+ (proc@,1T limbQuad@5 x . .
+  (params@E
+   (param@1 l . . Limb@3 .)
+   (param@A face . . int@6 .)
+   (param@L skinned . . . true@A))LimbQuad@c . .
+  (stmts@2,1
+   (call@7 boxQuad~7
+    (call@C playerModel~B)l@G face@J skinned@P))))

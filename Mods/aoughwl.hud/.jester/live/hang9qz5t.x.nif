@@ -1,0 +1,709 @@
+(.nif27)
+(.indexat 20531            )
+(stmts@,1,.jester/deps/aoughwl_handoff/handoff.nim
+ (const@H,w :strlit.0.I10030341160781941668. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 15)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "aoughwl.handoff")))
+ (const@K,z :strlit.0.I6940916649581723384. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 22)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "aoughwl.player.handoff")))
+ (const@4,1S :strlit.0.I5072535707184723567. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 67)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "One thing a mod handed the player\3A a verb, a subject and an amount.")))
+ (const@4,1U :strlit.0.I15351408329496649121. . LongString.0.sysvq0asl
+  (oconstr LongString.0.sysvq0asl
+   (kv fullLen.0 65)
+   (kv rc.0 0)
+   (kv capImpl.0 0)
+   (kv data.0 "Everything mods have handed the player, in the order it happened.")))
+ (const@D,w :HandoffKind.0.~B . string.0.sysvq0asl~4,B
+  (oconstr@4 string.0.sysvq0asl
+   (kv bytes.0 7815830471885939198u)
+   (kv more.0
+    (addr strlit.0.I10030341160781941668.))))
+ (const@G,z :HandoffCatalog.0.~E . string.0.sysvq0asl~7,8
+  (oconstr@4 string.0.sysvq0asl
+   (kv bytes.0 7815830471885939198u)
+   (kv more.0
+    (addr strlit.0.I6940916649581723384.))))
+ (type@E,12 :Handoff.0.~9 .
+  (object@2 .
+   (fld~A,5 :verb.0~4 . string.0.sysvq0asl@3)
+   (fld~7,6 :subject.0~7 . string.0.sysvq0asl@3)
+   (fld~8,7 :amount.0~6 .
+    (i@3 64))
+   (fld~9,8 :from0.0~5 . string.0.sysvq0asl@3)))
+ (gvar@4,1D :posted.0. .
+  (i 64)0@9)
+ (proc@,1P :ensureHandoff.0.@5
+  (params@J).
+  (pragmas
+   (smry callsUnknown))
+  (stmts@2,1
+   (stmts@J
+    (var :`tmp.0 . string.0.sysvq0asl@J,C7,../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim
+     (call catalogSignature.0.jesaqohvh1~G
+      (oconstr~1,~R string.0.sysvq0asl
+       (kv bytes.0 7815830471885939198u)
+       (kv more.0
+        (addr strlit.0.I6940916649581723384.))))))
+   (var@Z :`x.2 .
+    (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+    (call len.4.sysvq0asl@1 `tmp.0~G))
+   (if
+    (elif@3
+     (lt@4,1u,../../../../../../nimony/lib/std/system/comparisons.nim 0@i,1R,.jester/deps/aoughwl_handoff/handoff.nim `x.2@b,1R,.jester/deps/aoughwl_handoff/handoff.nim)
+     (stmts@g
+      (call =destroy.2.sysvq0asl `tmp.0)
+      (ret .))))
+   (call@H,1 defineCatalogKind.0.jesaqohvh1~H
+    (oconstr~2,~V string.0.sysvq0asl
+     (kv bytes.0 7815830471885939198u)
+     (kv more.0
+      (addr strlit.0.I10030341160781941668.)))
+    (oconstr@E string.0.sysvq0asl
+     (kv bytes.0 500236121092u)
+     (kv more.0
+      (nil)))
+    (oconstr~F,1 string.0.sysvq0asl
+     (kv bytes.0 7595448454049845246u)
+     (kv more.0
+      (addr strlit.0.I5072535707184723567.))))
+   (call@D,3 createCatalog.0.jesaqohvh1~D
+    (oconstr@5,~U string.0.sysvq0asl
+     (kv bytes.0 7815830471885939198u)
+     (kv more.0
+      (addr strlit.0.I6940916649581723384.)))
+    (oconstr@2,~X string.0.sysvq0asl
+     (kv bytes.0 7815830471885939198u)
+     (kv more.0
+      (addr strlit.0.I10030341160781941668.)))
+    (oconstr~B,1 string.0.sysvq0asl
+     (kv bytes.0 7526774409478424062u)
+     (kv more.0
+      (addr strlit.0.I15351408329496649121.))))
+   (call =destroy.2.sysvq0asl `tmp.0)))
+ (proc@,1Y :handOver.0.@5
+  (params@E
+   (param@1 :verb.0 . string.0.sysvq0asl@F)
+   (param@7 :subject.0 . string.0.sysvq0asl@9)
+   (param@O :amount.0 .
+    (i~R,~P 64))).
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads writes escapes)
+    (param 1 1 reads writes escapes)
+    (param 2 2 reads writes escapes)))
+  (stmts@2,1
+   (call@D ensureHandoff.0.~D)
+   (asgn@7,1 posted.0.~7
+    (add@9
+     (i 64)posted.0.~7 1@2))
+   (var@V,3 :`desugar.0 . string.0.sysvq0asl
+    (call $.1.sysvq0asl amount.0@1))
+   (var@T,3 :`x.3 .
+    (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+    (call len.4.sysvq0asl verb.0~R))
+   (var@T,3 :`x.4 .
+    (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+    (call len.4.sysvq0asl
+     (oconstr~K string.0.sysvq0asl
+      (kv bytes.0 31745u)
+      (kv more.0
+       (nil)))))
+   (var@T,3 :`x.5 .
+    (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+    (call len.4.sysvq0asl subject.0~E))
+   (var@T,3 :`x.6 .
+    (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+    (call len.4.sysvq0asl
+     (oconstr~4 string.0.sysvq0asl
+      (kv bytes.0 31745u)
+      (kv more.0
+       (nil)))))
+   (var@T,3 :`x.7 .
+    (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+    (call len.4.sysvq0asl `desugar.0@2))
+   (var@T,3 :`desugar.1 . string.0.sysvq0asl
+    (call newStringOfCap.0.sysvq0asl
+     (add
+      (i -1)
+      (add
+       (i -1)
+       (add
+        (i -1)
+        (add
+         (i -1)`x.3 `x.4)`x.5)`x.6)`x.7)))
+   (call@T,3 add.2.sysvq0asl
+    (addr `desugar.1)verb.0~R)
+   (call@T,3 add.2.sysvq0asl
+    (addr `desugar.1)
+    (oconstr~K string.0.sysvq0asl
+     (kv bytes.0 31745u)
+     (kv more.0
+      (nil))))
+   (call@T,3 add.2.sysvq0asl
+    (addr `desugar.1)subject.0~E)
+   (call@T,3 add.2.sysvq0asl
+    (addr `desugar.1)
+    (oconstr~4 string.0.sysvq0asl
+     (kv bytes.0 31745u)
+     (kv more.0
+      (nil))))
+   (call@T,3 add.2.sysvq0asl
+    (addr `desugar.1)`desugar.0@2)
+   (stmts@X,2
+    (stmts@2
+     (var :`tmp.2 . string.0.sysvq0asl@C,1V,../../../../../../nimony/lib/std/system.nim
+      (call $.1.sysvq0asl posted.0.@1)))
+    (var :`tmp.1 . string.0.sysvq0asl@G,Ay,../../../../../../nimony/lib/std/system/stringimpl.nim
+     (call &.0.sysvq0asl
+      (oconstr~4 string.0.sysvq0asl
+       (kv bytes.0 26625u)
+       (kv more.0
+        (nil)))`tmp.2@2)))
+   (call@C,2 addToCatalog.0.jesaqohvh1~C
+    (oconstr@6,~c string.0.sysvq0asl
+     (kv bytes.0 7815830471885939198u)
+     (kv more.0
+      (addr strlit.0.I6940916649581723384.)))`tmp.1@L `desugar.1@H,1)
+   (call =destroy.2.sysvq0asl `tmp.1)
+   (call =destroy.2.sysvq0asl `tmp.2)
+   (call =destroy.2.sysvq0asl `desugar.1)
+   (call =destroy.2.sysvq0asl `desugar.0)))
+ (proc@,1g :handoffCount.0.@5
+  (params@I)
+  (i@4 64)
+  (pragmas
+   (smry callsUnknown))
+  (stmts@S
+   (var@C :result.0 .
+    (i~T,~X 64).)
+   (var@C :`x.8 .
+    (i@J,Bp,../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim 64)
+    (call catalogCount.0.jesaqohvh1~C
+     (oconstr~K,~h string.0.sysvq0asl
+      (kv bytes.0 7815830471885939198u)
+      (kv more.0
+       (addr strlit.0.I6940916649581723384.)))))
+   (asgn@C result.0 `x.8)
+   (ret~S result.0)))
+ (proc@,1i :wholeOf.0.@5
+  (params@C
+   (param@1 :text.0 . string.0.sysvq0asl@6)
+   (param@F :fallback.0 .
+    (i@A 64)))
+  (i@V 64)
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads writes escapes)
+    (param 1 1 reads)result 1))
+  (stmts@2,1
+   (var :result.1 .
+    (i@9,~a 64).)
+   (var@7 :`x.9 .
+    (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+    (call len.4.sysvq0asl@1 text.0~4))
+   (if
+    (elif@3
+     (eq@9 `x.9~5 0@3)
+     (stmts@F
+      (ret fallback.0@7))))
+   (var@4,1 :i.0 .
+    (i 64)0@4)
+   (var@4,2 :sign.0 .
+    (i 64)1@7)
+   (var@3,3 :`x.10 .
+    (c@L,6V,../../../../../../nimony/lib/std/system/stringimpl.nim 8)
+    (call \5B\5D.9.sysvq0asl text.0 0@5))
+   (if@,3
+    (elif@3
+     (eq@8 `x.10~8 '-'@3)
+     (stmts~1,1
+      (asgn@5 sign.0~5 -1@2)
+      (asgn@2,1 i.0~2 1@2))))
+   (var@4,6 :value.0 .
+    (i 64)0@8)
+   (var@4,7 :digits.0 .
+    (i 64)0@9)
+   (scope@,8
+    (stmts
+     (while
+      (true)
+      (stmts
+       (var@E :`x.11 .
+        (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+        (call len.4.sysvq0asl@1 text.0~4))
+       (if
+        (elif
+         (lt@8 i.0~2 `x.11@6)
+         (stmts@2,1
+          (var@H :`x.12 .
+           (bool).)
+          (var@3 :`x.13 .
+           (c@L,6V,../../../../../../nimony/lib/std/system/stringimpl.nim 8)
+           (call \5B\5D.9.sysvq0asl text.0 i.0@5))
+          (if@H
+           (elif
+            (lt~6 `x.13~8 '0'@2)
+            (stmts
+             (asgn `x.12
+              (true))))
+           (else
+            (stmts
+             (var@3 :`x.14 .
+              (c@L,6V,../../../../../../nimony/lib/std/system/stringimpl.nim 8)
+              (call \5B\5D.9.sysvq0asl text.0 i.0@5))
+             (asgn@4,1u,../../../../../../nimony/lib/std/system/comparisons.nim `x.12
+              (lt '9'@Y,1t,.jester/deps/aoughwl_handoff/handoff.nim `x.14@O,1t,.jester/deps/aoughwl_handoff/handoff.nim)))))
+          (if
+           (elif@3 `x.12@E
+            (stmts@W
+             (ret fallback.0@7))))
+          (var@Q,1 :`x.15 .
+           (c@L,6V,../../../../../../nimony/lib/std/system/stringimpl.nim 8)
+           (call \5B\5D.9.sysvq0asl text.0 i.0@5))
+          (asgn@6,1 value.0~6
+           (add@D
+            (i 64)
+            (mul~5
+             (i 64)value.0~6 10@2)
+            (sub@G
+             (i 64)
+             (conv@5,3U,../../../../../../nimony/lib/std/system.nim
+              (i@U,E,../../../../../../nimony/lib/std/system/defaults.nim 64)`x.15@U,1u,.jester/deps/aoughwl_handoff/handoff.nim)
+             (conv@5,3U,../../../../../../nimony/lib/std/system.nim
+              (i@U,E,../../../../../../nimony/lib/std/system/defaults.nim 64)'0'@j,1u,.jester/deps/aoughwl_handoff/handoff.nim))))
+          (asgn@7,2 digits.0~7
+           (add@9
+            (i 64)digits.0~7 1@2))
+          (asgn@2,3 i.0~2
+           (add@4
+            (i 64)i.0~2 1@2))))
+        (else
+         (stmts
+          (break))))))))
+   (lab@,8 :whileStmtLabel.0)
+   (if@,D
+    (elif@3
+     (eq@7 digits.0~7 0@3)
+     (stmts@D
+      (ret fallback.0@7))))
+   (asgn@5,E result.1
+    (mul
+     (i 64)sign.0~5 value.0@2))
+   (ret~2,~1 result.1)))
+ (proc@,21 :handoffAt.0.@5
+  (params@F
+   (param@1 :index.0 .
+    (i@7 64)))Handoff.0.@E
+  (pragmas
+   (smry writeGlobal readGlobal callsUnknown
+    (param 0 0 reads writes escapes)))
+  (stmts@2,1
+   (var@7 :result.2 . Handoff.0.@5,~1 .)
+   (call@7 =wasmoved_SX48andoff0hang9qz5t.0.
+    (addr result.2))
+   (call =destroy_SX48andoff0hang9qz5t.0.
+    (addr result.2))
+   (asgn@7 result.2~7
+    (oconstr@9 Handoff.0.~4,~1
+     (kv@5 verb.0~4
+      (oconstr@2 string.0.sysvq0asl
+       (kv bytes.0 0u)
+       (kv more.0
+        (nil))))
+     (kv@I subject.0~7
+      (oconstr@2 string.0.sysvq0asl
+       (kv bytes.0 0u)
+       (kv more.0
+        (nil))))
+     (kv@U amount.0~6 0@2)
+     (kv@e from0.0~5
+      (oconstr@2 string.0.sysvq0asl
+       (kv bytes.0 0u)
+       (kv more.0
+        (nil))))))
+   (var@D,1 :`x.16 .
+    (bool).)
+   (if@D,1
+    (elif
+     (lt~4 index.0~6 0@2)
+     (stmts
+      (asgn `x.16
+       (true))))
+    (else
+     (stmts
+      (var@O :`x.17 .
+       (i@J,Bp,../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim 64)
+       (call catalogCount.0.jesaqohvh1~C
+        (oconstr~J,~14 string.0.sysvq0asl
+         (kv bytes.0 7815830471885939198u)
+         (kv more.0
+          (addr strlit.0.I6940916649581723384.)))))
+      (asgn@4,1q,../../../../../../nimony/lib/std/system/comparisons.nim `x.16
+       (le `x.17@d,24,.jester/deps/aoughwl_handoff/handoff.nim index.0@I,24,.jester/deps/aoughwl_handoff/handoff.nim)))))
+   (if@,1
+    (elif@3 `x.16@A
+     (stmts@q
+      (ret result.2@7))))
+   (var@4,2 :text.1 . string.0.sysvq0asl@3,~x
+    (call@I catalogText.0.jesaqohvh1~B
+     (oconstr~4,~15 string.0.sysvq0asl
+      (kv bytes.0 7815830471885939198u)
+      (kv more.0
+       (addr strlit.0.I6940916649581723384.)))index.0@H))
+   (var@4,3 :field.0 .
+    (i 64)0@8)
+   (var@4,4 :part.0 . string.0.sysvq0asl
+    (oconstr@7 string.0.sysvq0asl
+     (kv bytes.0 0u)
+     (kv more.0
+      (nil))))
+   (var@4,5 :verb.2 . string.0.sysvq0asl
+    (oconstr@7 string.0.sysvq0asl
+     (kv bytes.0 0u)
+     (kv more.0
+      (nil))))
+   (var@4,6 :subject.1 . string.0.sysvq0asl
+    (oconstr@A string.0.sysvq0asl
+     (kv bytes.0 0u)
+     (kv more.0
+      (nil))))
+   (var@4,7 :amount.1 . string.0.sysvq0asl
+    (oconstr@9 string.0.sysvq0asl
+     (kv bytes.0 12545u)
+     (kv more.0
+      (nil))))
+   (var@4,8 :i.1 .
+    (i 64)0@4)
+   (scope@,9
+    (stmts
+     (while
+      (true)
+      (stmts
+       (var@F :`x.18 .
+        (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+        (call len.4.sysvq0asl@1 text.1~4))
+       (if
+        (elif
+         (le@8 i.1~2 `x.18@7)
+         (stmts@2,1
+          (var@H :`x.19 .
+           (bool).)
+          (var@C :`x.20 .
+           (i@D,1A,../../../../../../nimony/lib/std/system/stringimpl.nim 64)
+           (call len.4.sysvq0asl@1 text.1~4))
+          (if@H
+           (elif
+            (eq~C i.1~2 `x.20@7)
+            (stmts
+             (asgn `x.19
+              (true))))
+           (else
+            (stmts
+             (var@3 :`x.21 .
+              (c@L,6V,../../../../../../nimony/lib/std/system/stringimpl.nim 8)
+              (call \5B\5D.9.sysvq0asl text.1 i.1@5))
+             (asgn@B `x.19
+              (eq `x.21~8 '|'@3)))))
+          (if
+           (elif@3 `x.19@E
+            (stmts~1,1
+             (if
+              (elif@3
+               (eq@6 field.0~6 0@3)
+               (stmts@C
+                (call =destroy.2.sysvq0asl verb.2)
+                (asgn@5 verb.2~5 part.0@2)
+                (call@7 =wasMoved.2.sysvq0asl
+                 (addr part.0))))
+              (else
+               (stmts
+                (stmts
+                 (stmts
+                  (if
+                   (elif@5,1
+                    (eq@6 field.0~6 1@3)
+                    (stmts@C
+                     (call =destroy.2.sysvq0asl subject.1)
+                     (asgn@8 subject.1~8 part.0@2)
+                     (call@A =wasMoved.2.sysvq0asl
+                      (addr part.0))))
+                   (else
+                    (stmts
+                     (stmts
+                      (stmts
+                       (if
+                        (elif@5,2
+                         (eq@6 field.0~6 2@3)
+                         (stmts@C
+                          (call =destroy.2.sysvq0asl amount.1)
+                          (asgn@7 amount.1~7 part.0@2)
+                          (call@9 =wasMoved.2.sysvq0asl
+                           (addr part.0)))))))))))))))
+             (call@,3 =destroy.2.sysvq0asl part.0)
+             (asgn@5,3 part.0~5
+              (oconstr@2 string.0.sysvq0asl
+               (kv bytes.0 0u)
+               (kv more.0
+                (nil))))
+             (asgn@6,4 field.0~6
+              (add@8
+               (i 64)field.0~6 1@2))))
+           (else
+            (stmts
+             (stmts
+              (stmts
+               (stmts@2,7
+                (var@9 :`x.22 .
+                 (c@L,6V,../../../../../../nimony/lib/std/system/stringimpl.nim 8)
+                 (call \5B\5D.9.sysvq0asl text.1 i.1@5))
+                (call@4 add.1.sysvq0asl@1
+                 (addr~4 part.0)`x.22@5)))))))
+          (asgn@2,8 i.1~2
+           (add@4
+            (i 64)i.1~2 1@2))))
+        (else
+         (stmts
+          (break))))))))
+   (lab@,9 :whileStmtLabel.0)
+   (if@,J
+    (elif@3
+     (lt@6 field.0~6 2@2)
+     (stmts@B
+      (call =destroy.2.sysvq0asl amount.1)
+      (call =destroy.2.sysvq0asl subject.1)
+      (call =destroy.2.sysvq0asl verb.2)
+      (call =destroy.2.sysvq0asl part.0)
+      (call =destroy.2.sysvq0asl text.1)
+      (ret result.2@7))))
+   (call@,K =destroy_SX48andoff0hang9qz5t.0.
+    (addr result.2))
+   (stmts@N,K
+    (var :`tmp.3 . string.0.sysvq0asl~J,~F verb.2)
+    (call =wasMoved.2.sysvq0asl
+     (addr verb.2)))
+   (stmts@c,K
+    (var :`tmp.4 . string.0.sysvq0asl~Y,~E subject.1)
+    (call =wasMoved.2.sysvq0asl
+     (addr subject.1)))
+   (var@H,L :`x.0 .
+    (i@C,~f 64)
+    (call wholeOf.0.~7 amount.1@1 1@9))
+   (var@S,M :`x.1 . string.0.sysvq0asl@V,Bs,../../../../Packages/com.aoughwl.jester/ModSdk/jester.nim
+    (call catalogItemProvider.0.jesaqohvh1~J
+     (oconstr~A,~1P string.0.sysvq0asl
+      (kv bytes.0 7815830471885939198u)
+      (kv more.0
+       (addr strlit.0.I6940916649581723384.)))index.0@H))
+   (asgn@7,K result.2~7
+    (oconstr@9 Handoff.0.~4,~L
+     (kv@5 verb.0~4 `tmp.3@2)
+     (kv@K subject.0~7 `tmp.4@2)
+     (kv~8,1 amount.0~6 `x.0@9)
+     (kv~9,2 from0.0~5 `x.1@L)))
+   (call =destroy.2.sysvq0asl amount.1)
+   (call =destroy.2.sysvq0asl subject.1)
+   (call =destroy.2.sysvq0asl verb.2)
+   (call =destroy.2.sysvq0asl part.0)
+   (call =destroy.2.sysvq0asl text.1)
+   (ret~2,~1 result.2)
+   (call =destroy.2.sysvq0asl amount.1)
+   (call =destroy.2.sysvq0asl subject.1)
+   (call =destroy.2.sysvq0asl verb.2)
+   (call =destroy.2.sysvq0asl part.0)
+   (call =destroy.2.sysvq0asl text.1)
+   (ret result.2)))
+ (proc@,2e :anybodySaid.0.@5
+  (params@H
+   (param@1 :verb.1 . string.0.sysvq0asl@6))
+  (bool@G)
+  (pragmas
+   (smry writeGlobal readGlobal callsUnknown
+    (param 0 0 reads writes escapes)))
+  (stmts@2,1
+   (var@7 :result.3 .
+    (bool@7,~1).)
+   (asgn@7 result.3~7
+    (false@2))
+   (var@4,1 :i.2 .
+    (i 64)0@4)
+   (var@4,2 :now.1 .
+    (i@5,~1Y 64)
+    (call@I catalogCount.0.jesaqohvh1~C
+     (oconstr~4,~1i string.0.sysvq0asl
+      (kv bytes.0 7815830471885939198u)
+      (kv more.0
+       (addr strlit.0.I6940916649581723384.)))))
+   (scope@,3
+    (stmts
+     (while
+      (lt@8 i.2~2 now.1@2)
+      (stmts@2,1
+       (stmts@C
+        (var :`tmp.5 . Handoff.0.~2,~i
+         (call handoffAt.0.~9 i.2@1)))
+       (var@L :`x.23 .
+        (bool@G,9T,../../../../../../nimony/lib/std/system/stringimpl.nim)
+        (call ==.20.sysvq0asl
+         (dot~6 `tmp.5~3 verb.0 0)verb.1@3))
+       (if
+        (elif@3 `x.23@I
+         (stmts@R
+          (call =destroy_SX48andoff0hang9qz5t.0.
+           (addr `tmp.5))
+          (ret
+           (true@7)))))
+       (asgn@2,1 i.2~2
+        (add@4
+         (i 64)i.2~2 1@2))
+       (call =destroy_SX48andoff0hang9qz5t.0.
+        (addr `tmp.5))))))
+   (lab@,3 :whileStmtLabel.0)
+   (ret~2,~1 result.3)))
+ (proc@E,12 :=destroy_SX48andoff0hang9qz5t.0.
+  (params
+   (param :dest.0 .
+    (ptr Handoff.0.))).
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads writes escapes)))
+  (stmts
+   (call =destroy.2.sysvq0asl
+    (dot
+     (deref dest.0)from0.0 0))
+   (call =destroy.2.sysvq0asl
+    (dot
+     (deref dest.0)subject.0 0))
+   (call =destroy.2.sysvq0asl
+    (dot
+     (deref dest.0)verb.0 0))))
+ (proc@E,12 :=wasmoved_SX48andoff0hang9qz5t.0.
+  (params
+   (param :dest.0 .
+    (ptr Handoff.0.))).
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads writes escapes)))
+  (stmts
+   (call =wasMoved.2.sysvq0asl
+    (addr
+     (dot
+      (deref dest.0)verb.0 0)))
+   (call =wasMoved.2.sysvq0asl
+    (addr
+     (dot
+      (deref dest.0)subject.0 0)))
+   (call =wasMoved.2.sysvq0asl
+    (addr
+     (dot
+      (deref dest.0)from0.0 0)))))
+ (proc@E,12 :=dup_SX48andoff0hang9qz5t.0.
+  (params
+   (param :src.0 .
+    (ptr Handoff.0.)))Handoff.0.
+  (pragmas
+   (smry writeGlobal callsUnknown
+    (param 0 0 reads writes escapes)))
+  (stmts
+   (var :dest.0 . Handoff.0. .)
+   (var :`x.24 . string.0.sysvq0asl@D,28,../../../../../../nimony/lib/std/system/stringimpl.nim
+    (call =dup.2.sysvq0asl
+     (dot
+      (deref src.0)verb.0 0)))
+   (asgn
+    (dot dest.0 verb.0 0)`x.24)
+   (var :`x.25 . string.0.sysvq0asl@D,28,../../../../../../nimony/lib/std/system/stringimpl.nim
+    (call =dup.2.sysvq0asl
+     (dot
+      (deref src.0)subject.0 0)))
+   (asgn
+    (dot dest.0 subject.0 0)`x.25)
+   (asgn
+    (dot dest.0 amount.0 0)
+    (dot
+     (deref src.0)amount.0 0))
+   (var :`x.26 . string.0.sysvq0asl@D,28,../../../../../../nimony/lib/std/system/stringimpl.nim
+    (call =dup.2.sysvq0asl
+     (dot
+      (deref src.0)from0.0 0)))
+   (asgn
+    (dot dest.0 from0.0 0)`x.26)
+   (ret dest.0)))
+ (proc@E,12 :=copy_SX48andoff0hang9qz5t.0.
+  (params
+   (param :dest.0 .
+    (ptr Handoff.0.))
+   (param :src.0 .
+    (ptr Handoff.0.))).
+  (pragmas
+   (smry callsUnknown
+    (param 0 0 reads writes escapes)
+    (param 1 0 reads writes escapes)))
+  (stmts
+   (call =copy.2.sysvq0asl
+    (dot
+     (deref dest.0)verb.0 0)
+    (dot
+     (deref src.0)verb.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (deref dest.0)subject.0 0)
+    (dot
+     (deref src.0)subject.0 0))
+   (asgn
+    (dot
+     (deref dest.0)amount.0 0)
+    (dot
+     (deref src.0)amount.0 0))
+   (call =copy.2.sysvq0asl
+    (dot
+     (deref dest.0)from0.0 0)
+    (dot
+     (deref src.0)from0.0 0))))
+ (gvar :`iniGuard.0. .
+  (bool).)
+ (proc :`ini.0.
+  (params).
+  (pragmas
+   (smry callsUnknown))
+  (stmts
+   (if
+    (elif `iniGuard.0.
+     (stmts
+      (ret .))))
+   (asgn `iniGuard.0.
+    (true))
+   (call `ini.0.sysvq0asl)
+   (call `ini.0.jesaqohvh1)
+   (call `ini.0.catbyu542))))(.index@,1,.jester/deps/aoughwl_handoff/handoff.nim
+ (h strlit.0.I10030341160781941668. 88)
+ (h strlit.0.I6940916649581723384. 195)
+ (h strlit.0.I5072535707184723567. 201)
+ (h strlit.0.I15351408329496649121. 249)
+ (h HandoffKind.0. 246)
+ (h HandoffCatalog.0. 184)
+ (h Handoff.0. 186)
+ (h posted.0. 226)
+ (x ensureHandoff.0. 38)
+ (x handOver.0. 1704)
+ (x handoffCount.0. 2758)
+ (x wholeOf.0. 462)
+ (x handoffAt.0. 3158)
+ (x anybodySaid.0. 6864)
+ (x =destroy_SX48andoff0hang9qz5t.0. 1246)
+ (x =wasmoved_SX48andoff0hang9qz5t.0. 394)
+ (x =dup_SX48andoff0hang9qz5t.0. 437)
+ (x =copy_SX48andoff0hang9qz5t.0. 947)
+ (h `iniGuard.0. 664)
+ (x `ini.0. 34))

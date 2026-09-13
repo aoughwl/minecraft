@@ -1,0 +1,1118 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,.jester/source/jester_mod_59bcc23bb161860a.nim
+ (comment)
+ (import@,c jester@7)
+ (import@,d vec@7)
+ (import@,e color@7)
+ (import@,f input@7)
+ (import@,g entities@7)
+ (import@,h catalogs@7)
+ (import@,i character@7)
+ (import@,j
+  (infix@H / aoughwl_ui~A ui@1))
+ (import@,k
+  (infix@M / aoughwl_handoff~F handoff@1))
+ (import@,l hudcore@7)
+ (import@,m hudrecipe@7)
+ (import@,n huditems@7)
+ (import@,o hudscreen@7)
+ (const@2,r Starter . . . "aoughwl.hud.starter"@A)
+ (const@2,s StarterRecipes . . . "aoughwl.hud.starter.recipes"@H)
+ (const@2,t Ground . . . 1.0@9)
+ (const@2,u SpawnHeight . . . 2.0@E)
+ (var@2,11 hud . . .
+  (call@C newHud~6 2@1 2@4))
+ (var@2,12 registry . . .
+  (call@M newRegistry~B))
+ (var@2,13 recipes . .
+  (at@C seq~3 Recipe@1)
+  (prefix@N \40
+   (bracket@1)))
+ (var@2,14 player . . .
+  (call@L newCharacter~C))
+ (var@2,15 ready . . . false@8)
+ (var@2,16 wasAt . . .
+  (call@C vec3~4 0.0@1 0.0@6 0.0@B))
+ (var@2,17 showing . . . true@A)
+ (comment@2,19)
+ (var@2,1H ourWorld . . . true@B)
+ (comment@2,1J)
+ (var@2,1f inWorld . . . true@A)
+ (comment@2,1h)
+ (var@2,1i toldDrawn . . . -1@C)
+ (var@2,1j begun . . . false@8)
+ (var@2,1k handoffSeen . . . 0@E)
+ (var@2,1l toldHold . . . ""@B)
+ (var@2,1m pickups . . . 0@A)
+ (proc@,1s publishStarterKit@5 . . .
+  (params@M). . .
+  (stmts@2,1
+   (let@4 kit . . .
+    (call@K hudItemCatalog~E Starter@1 "Placeholder things to carry"@A))
+   (call@D,1 defineHudItem~D kit@1 "hud.stone"@6 "Stone"@J
+    (vv@Y stack~6 64@2)
+    (vv@j icon~5 "0"@2)
+    (vv~6,1 tags~5 "block"@2))
+   (call@D,3 defineHudItem~D kit@1 "hud.plank"@6 "Planks"@J
+    (vv@Z stack~6 64@2)
+    (vv@k icon~5 "1"@2)
+    (vv~6,1 tags~5 "block wood"@2))
+   (call@D,5 defineHudItem~D kit@1 "hud.stick"@6 "Stick"@J
+    (vv@Y stack~6 64@2)
+    (vv@j icon~5 "2"@2)
+    (vv~6,1 tags~5 "wood"@2))
+   (call@D,7 defineHudItem~D kit@1 "hud.apple"@6 "Apple"@J
+    (vv@Y stack~6 16@2)
+    (vv@j icon~5 "3"@2)
+    (vv@v food~5 4@2)
+    (vv@,1 saturation~B 2.4@2)
+    (vv@C,1 tags~5 "food"@2))
+   (call@D,9 defineHudItem~D kit@1 "hud.bread"@6 "Bread"@J
+    (vv@Y stack~6 16@2)
+    (vv@j icon~5 "4"@2)
+    (vv@v food~5 5@2)
+    (vv@,1 saturation~B 6.0@2)
+    (vv@C,1 tags~5 "food"@2))
+   (call@D,B defineHudItem~D kit@1 "hud.pickaxe"@6 "Pickaxe"@L
+    (vv@c stack~6 1@2)
+    (vv@m icon~5 "5"@2)
+    (vv~6,1 tags~5 "tool"@2))
+   (call@D,D defineHudItem~D kit@1 "hud.sword"@6 "Sword"@J
+    (vv@Y stack~6 1@2)
+    (vv@i icon~5 "6"@2)
+    (vv~6,1 tags~5 "tool"@2))
+   (call@D,F defineHudItem~D kit@1 "hud.helmet"@6 "Helmet"@K
+    (vv@a stack~6 1@2)
+    (vv@k icon~5 "7"@2)
+    (vv~4,1 armour~7 2@2)
+    (vv@6,1 part~5 Head@2)
+    (vv@J,1 tags~5 "armour"@2))
+   (call@D,H defineHudItem~D kit@1 "hud.plate"@6 "Chestplate"@J
+    (vv@d stack~6 1@2)
+    (vv@n icon~5 "8"@2)
+    (vv~4,1 armour~7 6@2)
+    (vv@6,1 part~5 Chest@2)
+    (vv@K,1 tags~5 "armour"@2))
+   (call@D,J defineHudItem~D kit@1 "hud.greaves"@6 "Greaves"@L
+    (vv@c stack~6 1@2)
+    (vv@m icon~5 "9"@2)
+    (vv~4,1 armour~7 5@2)
+    (vv@6,1 part~5 Legs@2)
+    (vv@J,1 tags~5 "armour"@2))
+   (call@D,L defineHudItem~D kit@1 "hud.boots"@6 "Boots"@J
+    (vv@Y stack~6 1@2)
+    (vv@i icon~5 "10"@2)
+    (vv~4,1 armour~7 2@2)
+    (vv@6,1 part~5 Feet@2)
+    (vv@J,1 tags~5 "armour"@2))
+   (call@D,N defineHudItem~D kit@1 "hud.coal"@6 "Coal"@I
+    (vv@W stack~6 64@2)
+    (vv@h icon~5 "11"@2))
+   (call@D,O defineHudItem~D kit@1 "hud.iron"@6 "Iron"@I
+    (vv@W stack~6 64@2)
+    (vv@h icon~5 "12"@2))
+   (call@D,P defineHudItem~D kit@1 "hud.log"@6 "Log"@H
+    (vv@U stack~6 64@2)
+    (vv@f icon~5 "13"@2)
+    (vv@s tags~5 "wood"@2))
+   (call@D,Q defineHudItem~D kit@1 "hud.table"@6 "Crafting table"@J
+    (vv@h stack~6 64@2)
+    (vv@s icon~5 "14"@2)
+    (vv~6,1 tags~5 "block"@2))
+   (call@D,S defineHudItem~D kit@1 "hud.torch"@6 "Torch"@J
+    (vv@Y stack~6 64@2)
+    (vv@j icon~5 "15"@2))
+   (let@4,U book . . .
+    (call@N hudRecipeCatalog~G StarterRecipes@1 "Placeholder recipes"@H))
+   (call@F,V defineShapeless~F book@1 "hud.planks"@7
+    (prefix@L \40
+     (bracket@1 "hud.log"@1))"hud.plank"@Z 4@m)
+   (call@F,W defineShapeless~F book@1 "hud.sticks"@7
+    (prefix@L \40
+     (bracket@1 "hud.plank"@1 "hud.plank"@E))"hud.stick"~D,1 4@,1)
+   (call@C,Y defineShaped~C book@1 "hud.table"@7
+    (prefix@K \40
+     (bracket@1 "pp"@1 "pp"@7))"p=hud.plank"@Z "hud.table"@o 1@11)
+   (call@C,Z defineShaped~C book@1 "hud.torch"@7
+    (prefix@K \40
+     (bracket@1 ".c."@1 ".s."@8))"c=hud.coal,s=hud.stick"~A,1 "hud.torch"@G,1 4@T,1)
+   (call@C,b defineShaped~C book@1 "hud.pickaxe"@7
+    (prefix@M \40
+     (bracket@1 "iii"@1 ".s."@8 ".s."@F))"i=hud.iron,s=hud.stick"~A,1 "hud.pickaxe"@G,1 1@V,1)
+   (call@C,d defineShaped~C book@1 "hud.sword"@7
+    (prefix@K \40
+     (bracket@1 ".i."@1 ".i."@8 ".s."@F))"i=hud.iron,s=hud.stick"~A,1 "hud.sword"@G,1 1@T,1)
+   (call@C,f defineShaped~C book@1 "hud.helmet"@7
+    (prefix@L \40
+     (bracket@1 "iii"@1 "i.i"@8))"i=hud.iron"@c "hud.helmet"~A,1 1@4,1)
+   (call@C,h defineShaped~C book@1 "hud.plate"@7
+    (prefix@K \40
+     (bracket@1 "i.i"@1 "iii"@8 "iii"@F))"i=hud.iron"@i "hud.plate"~A,1 1@3,1)
+   (call@C,j defineShaped~C book@1 "hud.greaves"@7
+    (prefix@M \40
+     (bracket@1 "iii"@1 "i.i"@8 "i.i"@F))"i=hud.iron"@k "hud.greaves"~A,1 1@5,1)
+   (call@C,l defineShaped~C book@1 "hud.boots"@7
+    (prefix@K \40
+     (bracket@1 "i.i"@1 "i.i"@8))"i=hud.iron"@b "hud.boots"~A,1 1@3,1)))
+ (comment@,2h)
+ (proc@,2k giveStarterKit@5 . . .
+  (params@J). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@8 remember~8 "hud.kit.given"@1 false@I)
+     (stmts@Y
+      (ret .))))
+   (call@4,1 save~4 "hud.kit.given"@1 true@I)
+   (discard@,2
+    (call@C give~4
+     (dot@4 hud~3 inv@1)registry@A "hud.stone"@K 64@X))
+   (discard@,3
+    (call@C give~4
+     (dot@4 hud~3 inv@1)registry@A "hud.log"@K 12@V))
+   (discard@,4
+    (call@C give~4
+     (dot@4 hud~3 inv@1)registry@A "hud.iron"@K 24@W))
+   (discard@,5
+    (call@C give~4
+     (dot@4 hud~3 inv@1)registry@A "hud.coal"@K 16@W))
+   (discard@,6
+    (call@C give~4
+     (dot@4 hud~3 inv@1)registry@A "hud.apple"@K 6@X))
+   (discard@,7
+    (call@C give~4
+     (dot@4 hud~3 inv@1)registry@A "hud.bread"@K 3@X))))
+ (comment@,2y)
+ (proc@,36 takeHandoffs@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (for@4
+    (call@D handed~6 handoffSeen@1)
+    (unpackflat
+     (let one . . ..))
+    (stmts~2,1
+     (case
+      (dot@8 one~3 verb@1)
+      (of@,1
+       (ranges "give"@3)
+       (stmts@2,1
+        (let@4 over . . .
+         (call@B give~4
+          (dot@4 hud~3 inv@1)registry@A
+          (dot@N one~3 subject@1)
+          (dot@a one~3 amount@1)))
+        (if@,1
+         (elif@3
+          (infix@5 > over~5 0@2)
+          (stmts~1,1
+           (call@3 say~3
+            (infix@U &
+             (infix~6 &
+              (infix~8 & "no room for "~F
+               (prefix@2 $ over@1))" "@2)
+             (dot@b
+              (call~N definitionOf~C registry@1
+               (dot@E one~3 subject@1))display@1))))))
+        (let@4,3 took . . .
+         (infix@I \2D
+          (dot~8 one~3 amount@1)over@2))
+        (if@,4
+         (elif@3
+          (infix@5 > took~5 0@2)
+          (stmts~1,1
+           (asgn@8 pickups~8
+            (infix@A \2B pickups~8 took@2))
+           (var@4,1 slot . . . 0@7)
+           (var@4,2 found . . . -1@8)
+           (while@,3
+            (infix@B < slot~5 FirstArmour@2)
+            (stmts@2,1
+             (let@4 s . . .
+              (call@E
+               (dot~3
+                (dot~4 hud~3 inv@1)at@1)slot@1))
+             (if@,1
+              (elif@3
+               (infix@h and
+                (infix~Q and
+                 (par~H
+                  (prefix@1 not
+                   (call@B isEmpty~7 s@1)))
+                 (infix@B ==
+                  (dot~6 s~1 item@1)
+                  (dot@6 one~3 subject@1)))
+                (infix@A < found~6 0@2))
+               (stmts@w
+                (asgn@6 found~6 slot@2))))
+             (asgn@5,2 slot~5
+              (infix@7 \2B slot~5 1@2))))
+           (call@3,7 log~3
+            (infix@P & "\5Bassert\5D hud.pickups="~O
+             (prefix@2 $ pickups@1)))
+           (call@3,8 log~3
+            (infix@b &
+             (infix~6 &
+              (infix~E & "\5Bassert\5D hud."~G
+               (dot@5 one~3 subject@1))"="@2)
+             (prefix@2 $
+              (call@8 countOf~7
+               (dot@4 hud~3 inv@1)
+               (dot@D one~3 subject@1)))))
+           (call@3,9 log~3
+            (infix@P & "\5Bassert\5D hud.newslot="~O
+             (prefix@2 $ found@1)))
+           (call@3,A say~3
+            (infix@E & "picked up "~D
+             (dot@b
+              (call~N definitionOf~C registry@1
+               (dot@E one~3 subject@1))display@1))))))))
+      (of@,I
+       (ranges "spend"@3)
+       (stmts@2,1
+        (let@4 gone . . .
+         (call@E takeOut~7
+          (dot@4 hud~3 inv@1)
+          (dot@D one~3 subject@1)
+          (dot@Q one~3 amount@1)))
+        (call@3,1 log~3
+         (infix@b &
+          (infix~6 &
+           (infix~E & "\5Bassert\5D hud."~G
+            (dot@5 one~3 subject@1))"="@2)
+          (prefix@2 $
+           (call@8 countOf~7
+            (dot@4 hud~3 inv@1)
+            (dot@D one~3 subject@1)))))
+        (call@3,2 log~3
+         (infix@N & "\5Bassert\5D hud.spent="~M
+          (prefix@2 $ gone@1)))))
+      (of@,M
+       (ranges "fell"@3)
+       (stmts@2,2
+        (let@4 hurtBy . . .
+         (call@J fallDamage~A
+          (infix@L /
+           (call~D float64~7
+            (dot@4 one~3 amount@1))10.0@2)))
+        (if@,1
+         (elif@3
+          (infix@7 > hurtBy~7 0@2)
+          (stmts~1,1
+           (call@4 hurt~4
+            (dot@4 hud~3 life@1)hurtBy@B)
+           (call@3,1 say~3 "that was a long way down"@1))))
+        (call@3,4 log~3
+         (infix@O & "\5Bassert\5D hud.health="~N
+          (prefix@2 $
+           (dot@9
+            (dot~5 hud~3 life@1)health@1))))))
+      (of@,T
+       (ranges "walked"@3)
+       (stmts@2,1
+        (call@6 walked~6
+         (dot@4 hud~3 life@1)
+         (call@I float64~7
+          (dot@4 one~3 amount@1))false@W)))
+      (of@,V
+       (ranges "world"@3)
+       (stmts@2,4
+        (asgn@8 inWorld~8
+         (infix@E ==
+          (dot~9 one~3 subject@1)"playing"@3))))
+      (else@,a
+       (stmts@6
+        (discard .))))))))
+ (comment@,3k)
+ (proc@,3n tellHold@5 . . .
+  (params@D). . .
+  (stmts@2,1
+   (let@4 s . . .
+    (call@8 held~4 hud@1))
+   (var@4,1 line . . . ""@7)
+   (if@,2
+    (elif@3
+     (prefix not
+      (call@B isEmpty~7 s@1))
+     (stmts@G
+      (asgn@5 line~5
+       (infix@F &
+        (infix~6 &
+         (dot~6 s~1 item@1)"|"@2)
+        (prefix@2 $
+         (dot@2 s~1 count@1)))))))
+   (if@,3
+    (elif@3
+     (infix@5 == line~5 toldHold@3)
+     (stmts@I
+      (ret .))))
+   (asgn@9,4 toldHold~9 line@2)
+   (if@,5
+    (elif@3
+     (call@7 isEmpty~7 s@1)
+     (stmts@C
+      (call@8 handOver~8 "hold"@1 ""@9 0@D)))
+    (else@,1
+     (stmts@6
+      (call@8 handOver~8 "hold"@1
+       (dot@A s~1 item@1)
+       (dot@I s~1 count@1)))))))
+ (proc@,40 reload@5 . . .
+  (params@B). . .
+  (stmts@2,1
+   (asgn@9 registry~9
+    (call@E loadRegistry~C))
+   (asgn@8,1 recipes~8
+    (call@D loadRecipes~B))
+   (call@6,2 settle~6
+    (dot@4 hud~3 bench@1)recipes@C)
+   (call@D,3 refreshArmour~D hud@1 registry@6)))
+ (proc@,46 openScreen@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (asgn@9
+    (dot~6 hud~3 open@1)true@2)
+   (call@B,1 freePointer~B)
+   (call@8,3 handOver~8 "pointer"@1 "free"@C)
+   (call@B,8 proveLayout~B)))
+ (proc@,4H shutScreen@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (let@4 over . . .
+    (call@I closeScreen~B hud@1 registry@6 recipes@G))
+   (if@,1
+    (elif@3
+     (infix@5 > over~5 0@2)
+     (stmts@A
+      (call@3 say~3
+       (infix@O &
+        (infix~8 & "no room for "~F
+         (prefix@2 $ over@1))" of it; still on the bench"@2)))))
+   (call@B,2 lockPointer~B)
+   (call@8,3 handOver~8 "pointer"@1 "held"@C)))
+ (proc@,4N keysForScreen@5 . . .
+  (params@I). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@7 pressed~7 E@1)
+     (stmts~1,1
+      (if
+       (elif@3
+        (dot@3 hud~3 open@1)
+        (stmts@A
+         (call@A shutScreen~A)))
+       (else@Q
+        (stmts@6
+         (call@A openScreen~A))))))
+    (elif@5,2
+     (infix@G and
+      (call~9 pressed~7 Escape@1)
+      (dot@7 hud~3 open@1))
+     (stmts~3,1
+      (call@A shutScreen~A))))))
+ (proc@,4T keysForHotbar@5 . . .
+  (params@I). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (dot@3 hud~3 open@1)
+     (stmts@A
+      (ret .))))
+   (const@6,1 Digits . . .
+    (bracket@9 Digit1@1 Digit2@9 Digit3@H Digit4@P Digit5@X Digit6@f Digit7@n Digit8~D,1 Digit9~5,1))
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@8 Digits~6 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (call@7 pressed~7
+        (at@7 Digits~6 i@1))
+       (stmts@K
+        (asgn@D
+         (dot~A hud~3 selected@1)i@2))))
+     (asgn@2,1 i~2
+      (infix@4 \2B i~2 1@2))))
+   (let@4,7 turn . . .
+    (call@C wheel~5))
+   (if@,8
+    (elif@3
+     (infix@5 != turn~5 0.0@3)
+     (stmts@D
+      (asgn@D
+       (dot~A hud~3 selected@1)
+       (call@E scrolledSlot~C
+        (dot@4 hud~3 selected@1)turn@F)))))))
+ (proc@,4e keysForHands@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (dot@3 hud~3 open@1)
+     (stmts@A
+      (ret .))))
+   (if@,1
+    (elif@3
+     (call@7 pressed~7 F@1)
+     (stmts~1,1
+      (if
+       (elif@3
+        (call@7 eatHeld~7 hud@1 registry@6)
+        (stmts~1,1
+         (call@3 say~3 "eaten"@1)))
+       (else@,2
+        (stmts@2,1
+         (call@3 say~3 "nothing to eat"@1)))))))
+   (if@,6
+    (elif@3
+     (infix@B and
+      (call~4 pressed~7 Q@1)
+      (prefix@4 not
+       (call@B isEmpty~7
+        (call@5 held~4 hud@1))))
+     (stmts~1,1
+      (let@4 name0 . . .
+       (dot@k
+        (call~Q definitionOf~C registry@1
+         (dot@K
+          (call~5 held~4 hud@1)item@1))display@1))
+      (call@9,1 spendHeld~9 hud@1)
+      (call@3,2 say~3
+       (infix@G & "dropped one "~F name0@2))
+      (call@7,3 exhaust~7
+       (dot@4 hud~3 life@1)0.005@B))))))
+ (comment@,4r)
+ (proc@,4u stepSurvival@5 . . .
+  (params@H). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (call@L
+      (dot~A
+       (dot~5 player~6 body@1)isNothing@1))
+     (stmts~1,4
+      (call@4 step~4
+       (dot@4 hud~3 life@1)
+       (call@K deltaTime~9))
+      (if@,1
+       (elif@3
+        (infix@E and
+         (dot~6
+          (dot~5 hud~3 life@1)dead@1)
+         (prefix@4 not
+          (dot@7 hud~3 open@1)))
+        (stmts@W
+         (call@B freePointer~B))))
+      (ret@,2 .))))
+   (let@4,7 at . . .
+    (call@K
+     (dot~9 player~6 position@1)))
+   (let@4,8 onGround . . .
+    (call@V
+     (dot~9
+      (dot~5 player~6 body@1)grounded@1)))
+   (let@4,9 moved . . .
+    (call@C vec3~4
+     (infix@6 \2D
+      (dot~3 at~2 x@1)
+      (dot@7 wasAt~5 x@1))0.0@H
+     (infix@R \2D
+      (dot~3 at~2 z@1)
+      (dot@7 wasAt~5 z@1))))
+   (asgn@6,A wasAt~6 at@2)
+   (if@,B
+    (elif@3 onGround
+     (stmts~1,1
+      (let@4 sprinting . . .
+       (infix@S and
+        (call~C held~4 LeftShift@1)
+        (call@D canSprint~9
+         (dot@4 hud~3 life@1))))
+      (call@6,1 walked~6
+       (dot@4 hud~3 life@1)
+       (call@E len~3 moved@1)sprinting@N))))
+   (let@4,E hurtBy . . .
+    (call@D fell~4
+     (dot@4 hud~3 life@1)
+     (dot@D at~2 y@1)onGround@H))
+   (if@,F
+    (elif@3
+     (infix@7 > hurtBy~7 0@2)
+     (stmts~1,1
+      (call@4 hurt~4
+       (dot@4 hud~3 life@1)hurtBy@B)
+      (call@3,1 say~3 "that was a long way down"@1))))
+   (call@4,I step~4
+    (dot@4 hud~3 life@1)
+    (call@K deltaTime~9))
+   (if@,J
+    (elif@3
+     (infix@E and
+      (dot~6
+       (dot~5 hud~3 life@1)dead@1)
+      (prefix@4 not
+       (dot@7 hud~3 open@1)))
+     (stmts~1,1
+      (call@B freePointer~B))))))
+ (proc@,5H respawnPlayer@5 . . .
+  (params@I). . .
+  (stmts@2,1
+   (call@7 respawn~7
+    (dot@4 hud~3 life@1))
+   (if@,1
+    (elif@3 ourWorld
+     (stmts~1,1
+      (call@F
+       (dot~9 player~6 teleport@1)
+       (call@5 vec3~4 0.0@1 SpawnHeight@6 0.0@J))
+      (call@8,1 groundAt~8
+       (dot@4 hud~3 life@1)SpawnHeight@B)
+      (asgn@6,2 wasAt~6
+       (call@H
+        (dot~9 player~6 position@1))))))
+   (call@D,5 refreshArmour~D hud@1 registry@6)
+   (call@3,6 say~3 ""@1)
+   (if@,7
+    (elif@3
+     (prefix not
+      (dot@7 hud~3 open@1))
+     (stmts@E
+      (call@B lockPointer~B))))))
+ (comment@,5R)
+ (proc@,5V start@5 . . .
+  (params@A). . .
+  (stmts@2,1
+   (call@H publishStarterKit~H)
+   (call@6,1 reload~6)
+   (call@8,4 handOver~8 "keeps"@1 "player"@A)
+   (asgn@6,5 ready~6 true@2)
+   (call@3,6 log~3
+    (infix@t,1 &
+     (infix~O &
+      (infix~J &
+       (infix@k,~1 &
+        (infix~M &
+         (infix~J & "aoughwl.hud\3A "~G
+          (prefix@2 $
+           (call@6 count~5 registry@1)))" kinds of thing, "@2)
+        (prefix~x,1 $
+         (dot@8 recipes~7 len@1)))" recipes from "@2)
+      (prefix@2 $
+       (call@J recipeCatalogCount~I)))" catalogs"@2))))
+ (comment@,5f)
+ (proc@,5i beginWorld@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (asgn@6 begun~6 true@2)
+   (asgn@9,1 ourWorld~9
+    (prefix@2 not
+     (call@F anybodySaid~B "owns"@1)))
+   (call@6,3 reload~6)
+   (if@,4
+    (elif@3 ourWorld
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@7 > Ground~7 0.0@2)
+        (stmts~1,1
+         (let@4 floor0 . . .
+          (call@E shape~5 Plane@1 "Ground"@8))
+         (call@C,1
+          (dot~6 floor0~6 scale@1)
+          (call@5 vec3~4 12.0@1 1.0@7 12.0@C))
+         (call@C,2
+          (dot~6 floor0~6 color@1)
+          (call@4 rgb~3 0.34@1 0.46@7 0.28@D 1.0@J)))))
+      (call@G,4
+       (dot~A player~6 configure@1)"character.controls"@1 "character.movement"@N)
+      (call@C,5
+       (dot~6 player~6 place@1)"Player"@1
+       (call@F vec3~4 0.0@1 SpawnHeight@6 0.0@J))
+      (call@8,6 groundAt~8
+       (dot@4 hud~3 life@1)SpawnHeight@B)
+      (asgn@6,7 wasAt~6
+       (call@H
+        (dot~9 player~6 position@1))))))
+   (if@,G
+    (elif@3 ourWorld
+     (stmts@A
+      (call@E giveStarterKit~E))))
+   (call@D,H refreshArmour~D hud@1 registry@6)
+   (call@B,I lockPointer~B)
+   (call@3,J log~3
+    (infix@Q & "\5Bassert\5D hud.ourworld="~P
+     (prefix@2 $ ourWorld@1)))
+   (call@3,K log~3
+    (infix@N & "\5Bassert\5D hud.kinds="~M
+     (prefix@2 $
+      (call@6 count~5 registry@1))))
+   (call@3,L log~3
+    (infix@G,2 &
+     (infix@e,~1 &
+      (infix~7 &
+       (infix~J,~1 & "aoughwl.hud\3A the world is "~T
+        (expr
+         (stmts~V,1)
+         (if@1
+          (elif@3 ourWorld "this mod\27s"@A)
+          (else@Q "another mod\27s"@6))))", "@2)
+      (prefix~v,1 $
+       (call@6 count~5 registry@1)))" kinds of thing"@2))))
+ (proc@,68 update@5 . . .
+  (params@B). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not ready@4)
+     (stmts@B
+      (ret .))))
+   (if@,1
+    (elif@3
+     (prefix not begun@4)
+     (stmts@B
+      (call@A beginWorld~A))))
+   (call@8,7 warmSkin~8)
+   (call@C,8 takeHandoffs~C)
+   (call@D,9 keysForScreen~D)
+   (call@D,A keysForHotbar~D)
+   (call@C,B keysForHands~C)
+   (if@,C
+    (elif@3
+     (dot@8
+      (dot~5 hud~3 life@1)dead@1)
+     (stmts~1,1
+      (call@9 warmWords~9)
+      (if@,1
+       (elif@3
+        (call@7 pressed~7 R@1)
+        (stmts@C
+         (call@D respawnPlayer~D))))
+      (ret@,2 .))))
+   (if@,G
+    (elif@3 ourWorld
+     (stmts@A
+      (call@B
+       (dot~5 player~6 step@1)
+       (vv@9 turning~8
+        (prefix@2 not
+         (dot@7 hud~3 open@1)))))))
+   (call@C,H stepSurvival~C)
+   (call@8,I tellHold~8)
+   (if@,M
+    (elif@3
+     (dot@3 hud~3 open@1)
+     (stmts@A
+      (call@9 warmWords~9))))))
+ (comment@,6X)
+ (proc@,6f sayDrawn@5 . . .
+  (params@D
+   (param@1 now . . int@5 .)). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A == toldDrawn~A now@3)
+     (stmts@I
+      (ret .))))
+   (asgn@A,1 toldDrawn~A now@2)
+   (call@3,2 log~3
+    (infix@N & "\5Bassert\5D hud.drawn="~M
+     (prefix@2 $ now@1)))))
+ (proc@,6k drawGui@5 . . .
+  (params@C). . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@A or
+      (prefix~A not ready@4)
+      (prefix@3 not showing@4))
+     (stmts~1,1
+      (call@8 sayDrawn~8 0@1)
+      (ret@,1 .))))
+   (if@,7
+    (elif@3
+     (prefix not inWorld@4)
+     (stmts~1,1
+      (call@8 sayDrawn~8 0@1)
+      (ret@,1 .))))
+   (call@8,A sayDrawn~8 1@1)
+   (call@A,B beginFrame~A)
+   (call@7,C drawHud~7 hud@1 registry@6)
+   (if@,D
+    (elif@3
+     (dot@3 hud~3 open@1)
+     (stmts@A
+      (call@D drawInventory~D hud@1 registry@6 recipes@G))))
+   (call@8,E drawHand~8 hud@1 registry@6)
+   (call@D,F settleHudDrag~D)
+   (call@8,G endFrame~8)))
+ (proc@,73 stop@5 . . .
+  (params@9). . .
+  (stmts@2,1
+   (discard .)))
+ (proc@,7B sayState@5 . . .
+  (params@D). . .
+  (stmts@2,1
+   (call@3 log~3
+    (infix@f,2 &
+     (infix~C &
+      (infix@H,~1 &
+       (infix~D &
+        (infix~J &
+         (infix@v,~1 &
+          (infix~J &
+           (infix~H &
+            (infix~J & "hud\3A health "~F
+             (prefix@2 $
+              (dot@9
+               (dot~5 hud~3 life@1)health@1)))"/20, hunger "@2)
+           (prefix@2 $
+            (dot@9
+             (dot~5 hud~3 life@1)hunger@1)))"/20, armour "~1A,1)
+         (prefix@2 $
+          (dot@9
+           (dot~5 hud~3 life@1)armour@1)))", level "@2)
+       (prefix~l,1 $
+        (call@8 levelOf~7
+         (dot@9
+          (dot~5 hud~3 life@1)experience@1))))", slot "@2)
+     (prefix@2 $
+      (dot@4 hud~3 selected@1))))
+   (var@4,3 line . . . ""@7)
+   (var@4,4 i . . . 0@4)
+   (while@,5
+    (infix@8 < i~2 PlayerSlots@2)
+    (stmts@2,1
+     (let@4 s . . .
+      (call@E
+       (dot~3
+        (dot~4 hud~3 inv@1)at@1)i@1))
+     (if@,1
+      (elif@3
+       (prefix not
+        (call@B isEmpty~7 s@1))
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@9 >
+           (dot~5 line~4 len@1)0@2)
+          (stmts@E
+           (asgn@5 line~5
+            (infix@7 & line~5 ", "@2)))))
+        (asgn@5,1 line~5
+         (infix@X &
+          (infix~6 &
+           (infix~9 &
+            (infix~6 &
+             (infix~5 & line~5
+              (prefix@2 $ i@1))"\3A"@2)
+            (dot@3 s~1 item@1))"x"@2)
+          (prefix@2 $
+           (dot@2 s~1 count@1)))))))
+     (asgn@2,4 i~2
+      (infix@4 \2B i~2 1@2))))
+   (call@3,B log~3
+    (infix@F & "hud slots\3A "~E line@2))))
+ (proc@,7P sayCatalogs@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (call@3 log~3
+    (infix@e,1 &
+     (infix~O &
+      (infix@n,~1 &
+       (infix~F &
+        (infix~M &
+         (infix~J & "hud\3A "~8
+          (prefix@2 $
+           (call@6 count~5 registry@1)))" kinds of thing, "@2)
+        (prefix@2 $
+         (dot@8 recipes~7 len@1)))" recipes from "~14,1)
+      (prefix@2 $
+       (call@J recipeCatalogCount~I)))" catalogs"@2))
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 < i~2
+     (dot@9 recipes~7 len@1))
+    (stmts@2,1
+     (call@3 log~3
+      (infix@11 &
+       (infix~7 &
+        (infix~I &
+         (infix~9 &
+          (infix~G & "  recipe "~C
+           (dot@C
+            (at~3 recipes~7 i@1)id@1))" -> "@2)
+         (dot@C
+          (at~3 recipes~7 i@1)made@1))" x"@2)
+       (prefix~12,1 $
+        (dot@B
+         (at~3 recipes~7 i@1)count@1))))
+     (asgn@2,2 i~2
+      (infix@4 \2B i~2 1@2))))))
+ (comment@,7Y)
+ (proc@,7d adoptContent@5 . . .
+  (params@H). . .
+  (stmts@2,4
+   (call@A forgetSkin~A)
+   (call@6,1 reload~6)
+   (call@3,2 log~3
+    (infix@C,1 &
+     (infix@n,~1 &
+      (infix~P &
+       (infix~J & "hud\3A adopted "~G
+        (prefix@2 $
+         (call@6 count~5 registry@1)))" kinds of thing and "@2)
+      (prefix~10,1 $
+       (dot@8 recipes~7 len@1)))" recipes"@2))))
+ (comment@,7m)
+ (proc@,7q proveBench@5 . . .
+  (params@F). . .
+  (stmts@2,1
+   (var@4 one . . . 0@6)
+   (while@,1
+    (infix@A < one~4
+     (dot@H
+      (dot~6
+       (dot~6 hud~3 bench@1)cells@1)len@1))
+    (stmts@2,1
+     (asgn@L
+      (at~6
+       (dot~6
+        (dot~6 hud~3 bench@1)cells@1)one@1)
+      (call@E nothingStack~C))
+     (asgn@4,1 one~4
+      (infix@6 \2B one~4 1@2))))
+   (asgn@J,4
+    (at~4
+     (dot~6
+      (dot~6 hud~3 bench@1)cells@1)0@1)
+    (call@7 stack~5 "hud.log"@1 1@C))
+   (call@6,5 settle~6
+    (dot@4 hud~3 bench@1)recipes@C)
+   (call@3,6 log~3
+    (infix@q &
+     (infix~7 &
+      (infix~M & "bench\3A a log makes "~M
+       (dot@G
+        (dot~5
+         (dot~6 hud~3 bench@1)made@1)item@1))" x"@2)
+     (prefix~r,1 $
+      (dot@F
+       (dot~5
+        (dot~6 hud~3 bench@1)made@1)count@1))))
+   (discard@,8
+    (call@G takeMade~8 hud@1 registry@6 recipes@G))
+   (call@3,9 log~3
+    (infix@k &
+     (infix~7 &
+      (infix~J & "bench\3A in hand, "~J
+       (dot@D
+        (dot~8 hud~3 carried@1)item@1))" x"@2)
+     (prefix@2 $
+      (dot@C
+       (dot~8 hud~3 carried@1)count@1))))
+   (asgn@J,A
+    (at~4
+     (dot~6
+      (dot~6 hud~3 bench@1)cells@1)0@1)
+    (call@7 stack~5 "hud.plank"@1 1@E))
+   (asgn@J,B
+    (at~4
+     (dot~6
+      (dot~6 hud~3 bench@1)cells@1)3@1)
+    (call@7 stack~5 "hud.plank"@1 1@E))
+   (call@6,C settle~6
+    (dot@4 hud~3 bench@1)recipes@C)
+   (call@3,D log~3
+    (infix@18 &
+     (infix~7 &
+      (infix~M & "bench\3A two planks on a diagonal make "~e
+       (dot@G
+        (dot~5
+         (dot~6 hud~3 bench@1)made@1)item@1))" x"@2)
+     (prefix~19,1 $
+      (dot@F
+       (dot~5
+        (dot~6 hud~3 bench@1)made@1)count@1))))
+   (asgn@J,F
+    (at~4
+     (dot~6
+      (dot~6 hud~3 bench@1)cells@1)3@1)
+    (call@E nothingStack~C))
+   (asgn@J,G
+    (at~4
+     (dot~6
+      (dot~6 hud~3 bench@1)cells@1)1@1)
+    (call@7 stack~5 "hud.plank"@1 1@E))
+   (asgn@J,H
+    (at~4
+     (dot~6
+      (dot~6 hud~3 bench@1)cells@1)2@1)
+    (call@7 stack~5 "hud.plank"@1 1@E))
+   (asgn@J,I
+    (at~4
+     (dot~6
+      (dot~6 hud~3 bench@1)cells@1)3@1)
+    (call@7 stack~5 "hud.plank"@1 1@E))
+   (call@6,J settle~6
+    (dot@4 hud~3 bench@1)recipes@C)
+   (call@3,K log~3
+    (infix@17 &
+     (infix~7 &
+      (infix~M & "bench\3A four planks in a square make "~d
+       (dot@G
+        (dot~5
+         (dot~6 hud~3 bench@1)made@1)item@1))" x"@2)
+     (prefix~18,1 $
+      (dot@F
+       (dot~5
+        (dot~6 hud~3 bench@1)made@1)count@1))))
+   (discard@,M
+    (call@I clearBench~A
+     (dot@4 hud~3 bench@1)
+     (dot@F hud~3 inv@1)registry@L recipes@V))))
+ (comment@,8F)
+ (proc@,8H proveArmour@5 . . .
+  (params@G). . .
+  (stmts@2,1
+   (discard
+    (call@C give~4
+     (dot@4 hud~3 inv@1)registry@A "hud.helmet"@K 1@Y))
+   (discard@,1
+    (call@C give~4
+     (dot@4 hud~3 inv@1)registry@A "hud.plate"@K 1@X))
+   (discard@,2
+    (call@C give~4
+     (dot@4 hud~3 inv@1)registry@A "hud.greaves"@K 1@Z))
+   (discard@,3
+    (call@C give~4
+     (dot@4 hud~3 inv@1)registry@A "hud.boots"@K 1@X))
+   (var@4,4 slot . . . 0@7)
+   (while@,5
+    (infix@B < slot~5 FirstArmour@2)
+    (stmts@2,1
+     (if
+      (elif@3
+       (prefix not
+        (call@B isEmpty~7
+         (call@B
+          (dot~3
+           (dot~4 hud~3 inv@1)at@1)slot@1)))
+       (stmts~1,1
+        (discard
+         (call@H quickMove~9
+          (dot@4 hud~3 inv@1)registry@A slot@K)))))
+     (asgn@5,2 slot~5
+      (infix@7 \2B slot~5 1@2))))
+   (call@D,9 refreshArmour~D hud@1 registry@6)
+   (call@3,A log~3
+    (infix@Q,2 &
+     (infix~7 &
+      (infix@a,~1 &
+       (infix~7 &
+        (infix~M &
+         (infix~7 &
+          (infix@U,~1 &
+           (infix~I &
+            (infix~J & "armour\3A "~B
+             (prefix@2 $
+              (dot@9
+               (dot~5 hud~3 life@1)armour@1)))" points from "@2)
+           (dot~a,1
+            (call~4
+             (dot~3
+              (dot~4 hud~3 inv@1)at@1)36@1)item@1))", "@2)
+         (dot@G
+          (call~4
+           (dot~3
+            (dot~4 hud~3 inv@1)at@1)37@1)item@1))", "@2)
+       (dot~g,1
+        (call~4
+         (dot~3
+          (dot~4 hud~3 inv@1)at@1)38@1)item@1))", "@2)
+     (dot@G
+      (call~4
+       (dot~3
+        (dot~4 hud~3 inv@1)at@1)39@1)item@1)))))
+ (proc@,8W showHud@5 . . .
+  (params@C). . .
+  (stmts@H
+   (asgn@8 showing~8 true@2)))
+ (proc@,8X hideHud@5 . . .
+  (params@C). . .
+  (stmts@H
+   (asgn@8 showing~8 false@2)))
+ (comment@,8Z)
+ (proc@,8b openInventory@5 . . .
+  (params@I). . .
+  (stmts@N
+   (call@A openScreen~A)))
+ (proc@,8c closeInventory@5 . . .
+  (params@J). . .
+  (stmts@O
+   (call@A shutScreen~A)))
+ (comment@,8e)
+ (proc@,8h proveSurvival@5 . . .
+  (params@I). . .
+  (stmts@2,1
+   (call@4 hurt~4
+    (dot@4 hud~3 life@1)6@B)
+   (call@3,1 log~3
+    (infix@G,1 &
+     (infix@h,~1 &
+      (infix~L &
+       (infix~J & "hurt 6 through "~I
+        (prefix@2 $
+         (dot@9
+          (dot~5 hud~3 life@1)armour@1)))" armour\3A health "@2)
+      (prefix~y,1 $
+       (dot@9
+        (dot~5 hud~3 life@1)health@1)))"/20"@2))
+   (asgn@G,3
+    (dot~8
+     (dot~5 hud~3 life@1)hunger@1)20@2)
+   (asgn@K,4
+    (dot~C
+     (dot~5 hud~3 life@1)saturation@1)0.0@2)
+   (call@4,5 step~4
+    (dot@4 hud~3 life@1)4.0@B)
+   (call@3,6 log~3
+    (infix@G,1 &
+     (infix@n,~1 &
+      (infix~H &
+       (infix~J & "four seconds fed\3A health "~S
+        (prefix@2 $
+         (dot@9
+          (dot~5 hud~3 life@1)health@1)))"/20, hunger "@2)
+      (prefix~14,1 $
+       (dot@9
+        (dot~5 hud~3 life@1)hunger@1)))"/20"@2))
+   (call@8,8 groundAt~8
+    (dot@4 hud~3 life@1)40.0@B)
+   (discard@,9
+    (call@C fell~4
+     (dot@4 hud~3 life@1)40.0@B false@H))
+   (let@4,A hurtBy . . .
+    (call@D fell~4
+     (dot@4 hud~3 life@1)20.0@B true@H))
+   (call@4,B hurt~4
+    (dot@4 hud~3 life@1)hurtBy@B)
+   (call@3,C log~3
+    (infix@G,1 &
+     (infix@w,~1 &
+      (infix~e &
+       (infix~A & "twenty metres down\3A "~N
+        (prefix@2 $ hurtBy@1))" half hearts before armour, health "@2)
+      (prefix~1D,1 $
+       (dot@9
+        (dot~5 hud~3 life@1)health@1)))"/20"@2))
+   (call@D,E addExperience~D
+    (dot@4 hud~3 life@1)400@B)
+   (call@3,F log~3
+    (infix@V & "four hundred points\3A level "~U
+     (prefix@2 $
+      (call@8 levelOf~7
+       (dot@9
+        (dot~5 hud~3 life@1)experience@1))))))))

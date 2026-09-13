@@ -1,0 +1,468 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,netchat.nim
+ (comment)
+ (import@,a netwire@7)
+ (import@,b netnbt@7)
+ (const@G,e SignatureBytes~E x . . 256@4)
+ (const@J,h AcknowledgedBytes~H x . . 3@4)
+ (const@L,j MaxPreviousMessages~J x . . 20@4)
+ (const@J,m FilterPassThrough~H x . . 0@4)
+ (const@L,n FilterFullyFiltered~J x . . 1@4)
+ (const@P,o FilterPartiallyFiltered~N x . . 2@4)
+ (type@K,r SystemChatPacket~I x . .
+  (object@2 .
+   (fld~B,1 content~7 x . Nbt@3 .)
+   (fld~9,2 actionBar~9 x . bool@3 .)))
+ (type@N,v DisguisedChatPacket~L x . .
+  (object@2 .
+   (fld~E,4 message~7 x . Nbt@3 .)
+   (fld~B,5 chatTypeId~A x . int@3 .)
+   (fld~7,6 inlineChatType~E x . bool@3 .)
+   (fld~B,7 senderName~A x . Nbt@3 .)
+   (fld~C,8 hasTarget~9 x . bool@3 .)
+   (fld~B,9 targetName~A x . Nbt@3 .)))
+ (type@K,16 PlayerChatPacket~I x . .
+  (object@2 .
+   (fld~7,1 globalIndex~B x . int@3 .)
+   (fld~C,2 sender~6 x . Uuid@3 .)
+   (fld~D,3 index~5 x . int@3 .)
+   (fld~6,4 hasSignature~C x . bool@3 .)
+   (fld~D,5 plain~5 x . string@3 .)
+   (fld~9,6 timestamp~9 x . int@3 .)
+   (fld~E,7 salt~4 x . int@3 .)
+   (fld~5,8 previousCount~D x . int@3 .)
+   (fld~7,9 hasUnsigned~B x . bool@3 .)
+   (fld~A,A unsigned~8 x . Nbt@3 .)
+   (fld~8,B filterType~A x . int@3 .)
+   (fld~8,C chatTypeId~A x . int@3 .)
+   (fld~4,D inlineChatType~E x . bool@3 .)
+   (fld~8,E senderName~A x . Nbt@3 .)
+   (fld~9,F hasTarget~9 x . bool@3 .)
+   (fld~8,G targetName~A x . Nbt@3 .)))
+ (proc@,1O readSystemChatPacket@5 x . .
+  (params@Q
+   (param@1 r . .
+    (mut@3 Reader@4).))SystemChatPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@I SystemChatPacket~G
+     (kv@8 content~7
+      (call@A emptyNbt~8))
+     (kv@V actionBar~9 false@2)))
+   (asgn@F,1
+    (dot~9 result~6 content@1)
+    (call@9 readNbt~7 r@1))
+   (if@,2
+    (elif@3
+     (infix@R >
+      (dot~5
+       (dot~8
+        (dot~8 result~6 content@1)problem@1)len@1)0@2)
+     (stmts~1,1
+      (call@4 fail~4 r@1
+       (dot@I
+        (dot~8 result~6 content@1)problem@1))
+      (ret@,1 .))))
+   (asgn@H,5
+    (dot~B result~6 actionBar@1)
+    (call@A readBool~8 r@1))))
+ (proc@,1W readChatTypeHolder@5 . . .
+  (params@N
+   (param@1 r . .
+    (mut@3 Reader@4).)
+   (param@G id . .
+    (mut@4 int@4).)
+   (param@T inline0 . .
+    (mut@9 bool@4).)). . .
+  (stmts@2,1
+   (comment)
+   (asgn@3,4 id~3 0@2)
+   (asgn@8,5 inline0~8 false@2)
+   (let@4,6 tag . . .
+    (call@G readVarInt~A r@1))
+   (if@,7
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (if@,8
+    (elif@3
+     (infix@4 == tag~4 0@3)
+     (stmts~1,1
+      (asgn@8 inline0~8 true@2)
+      (call@4,1 fail~4 r@1 "an inline chat type definition, which this build does not read"@4)))
+    (else@,3
+     (stmts@2,1
+      (asgn@3 id~3
+       (infix@6 \2D tag~4 1@2)))))))
+ (proc@,1l readDisguisedChatPacket@5 x . .
+  (params@T
+   (param@1 r . .
+    (mut@3 Reader@4).))DisguisedChatPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@L DisguisedChatPacket~J
+     (kv@8 message~7
+      (call@A emptyNbt~8))
+     (kv@W chatTypeId~A 0@2)
+     (kv@F,1 inlineChatType~E false@2)
+     (kv@Y,1 senderName~A
+      (call@A emptyNbt~8))
+     (kv@A,2 hasTarget~9 false@2)
+     (kv@T,2 targetName~A
+      (call@A emptyNbt~8))))
+   (asgn@F,3
+    (dot~9 result~6 message@1)
+    (call@9 readNbt~7 r@1))
+   (if@,4
+    (elif@3
+     (infix@R >
+      (dot~5
+       (dot~8
+        (dot~8 result~6 message@1)problem@1)len@1)0@2)
+     (stmts~1,1
+      (call@4 fail~4 r@1
+       (dot@I
+        (dot~8 result~6 message@1)problem@1))
+      (ret@,1 .))))
+   (call@I,7 readChatTypeHolder~I r@1
+    (dot@A result~6 chatTypeId@1)
+    (dot@T result~6 inlineChatType@1))
+   (if@,8
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (asgn@I,9
+    (dot~C result~6 senderName@1)
+    (call@9 readNbt~7 r@1))
+   (if@,A
+    (elif@3
+     (infix@U >
+      (dot~5
+       (dot~8
+        (dot~B result~6 senderName@1)problem@1)len@1)0@2)
+     (stmts~1,1
+      (call@4 fail~4 r@1
+       (dot@L
+        (dot~B result~6 senderName@1)problem@1))
+      (ret@,1 .))))
+   (asgn@H,D
+    (dot~B result~6 hasTarget@1)
+    (call@A readBool~8 r@1))
+   (if@,E
+    (elif@3
+     (infix@H and
+      (dot~B result~6 hasTarget@1)
+      (call@6 ok~2 r@1))
+     (stmts~1,1
+      (asgn@I
+       (dot~C result~6 targetName@1)
+       (call@9 readNbt~7 r@1))
+      (if@,1
+       (elif@3
+        (infix@U >
+         (dot~5
+          (dot~8
+           (dot~B result~6 targetName@1)problem@1)len@1)0@2)
+        (stmts@Z
+         (call@4 fail~4 r@1
+          (dot@L
+           (dot~B result~6 targetName@1)problem@1))))))))))
+ (proc@,24 readPreviousMessages@5 . . .
+  (params@P
+   (param@1 r . .
+    (mut@3 Reader@4).)
+   (param@G count . .
+    (mut@7 int@4).)). . .
+  (stmts@2,1
+   (comment)
+   (asgn@6,5 count~6 0@2)
+   (let@4,6 n . . .
+    (call@E readVarInt~A r@1))
+   (if@,7
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (if@,8
+    (elif@3
+     (infix@6 or
+      (infix~4 < n~2 0@2)
+      (infix@5 > n~2 MaxPreviousMessages@2))
+     (stmts~1,1
+      (call@4 fail~4 r@1 "an acknowledged-message list longer than the window"@4)
+      (ret@,1 .))))
+   (asgn@6,B count~6 n@2)
+   (var@4,C i . . . 0@4)
+   (while@,D
+    (infix@8 < i~2 n@2)
+    (stmts@2,1
+     (let@4 id . . .
+      (call@F readVarInt~A r@1))
+     (if@,1
+      (elif@3
+       (prefix not
+        (call@6 ok~2 r@1))
+       (stmts@B
+        (ret .))))
+     (if@,2
+      (elif@3
+       (infix@3 == id~3 0@3)
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@F > SignatureBytes~F
+           (call@B remaining~9 r@1))
+          (stmts~1,1
+           (call@4 fail~4 r@1 "a previous-message signature runs past the end"@4)
+           (ret@,1 .))))
+        (asgn@5,3
+         (dot~4 r~1 at@1)
+         (infix@7 \2B
+          (dot~4 r~1 at@1)SignatureBytes@2)))))
+     (cmd@,7 inc i@4)))))
+ (proc@,2S readPlayerChatPacket@5 x . .
+  (params@Q
+   (param@1 r . .
+    (mut@3 Reader@4).))PlayerChatPacket@H . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (oconstr@I PlayerChatPacket~G
+     (kv@C globalIndex~B 0@2)
+     (kv@N sender~6
+      (oconstr@6 Uuid~4
+       (kv@3 hi~2 0@2)
+       (kv@A lo~2 0@2)))
+     (kv@6,1 index~5 0@2)
+     (kv@N,1 hasSignature~C false@2)
+     (kv@b,1 plain~5 ""@2)
+     (kv@A,2 timestamp~9 0@2)
+     (kv@J,2 salt~4 0@2)
+     (kv@b,2 previousCount~D 0@2)
+     (kv@C,3 hasUnsigned~B false@2)
+     (kv@T,3 unsigned~8
+      (call@A emptyNbt~8))
+     (kv@B,4 filterType~A 0@2)
+     (kv@Q,4 chatTypeId~A 0@2)
+     (kv@F,5 inlineChatType~E false@2)
+     (kv@Y,5 senderName~A
+      (call@A emptyNbt~8))
+     (kv@A,6 hasTarget~9 false@2)
+     (kv@T,6 targetName~A
+      (call@A emptyNbt~8))))
+   (asgn@J,7
+    (dot~D result~6 globalIndex@1)
+    (call@C readVarInt~A r@1))
+   (asgn@E,8
+    (dot~8 result~6 sender@1)
+    (call@A readUuid~8 r@1))
+   (asgn@D,9
+    (dot~7 result~6 index@1)
+    (call@C readVarInt~A r@1))
+   (asgn@K,A
+    (dot~E result~6 hasSignature@1)
+    (call@A readBool~8 r@1))
+   (if@,B
+    (elif@3
+     (infix@K and
+      (dot~E result~6 hasSignature@1)
+      (call@6 ok~2 r@1))
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@F > SignatureBytes~F
+         (call@B remaining~9 r@1))
+        (stmts~1,1
+         (call@4 fail~4 r@1 "a chat signature runs past the end"@4)
+         (ret@,1 .))))
+      (asgn@5,3
+       (dot~4 r~1 at@1)
+       (infix@7 \2B
+        (dot~4 r~1 at@1)SignatureBytes@2)))))
+   (asgn@D,G
+    (dot~7 result~6 plain@1)
+    (call@C readString~A r@1))
+   (asgn@H,H
+    (dot~B result~6 timestamp@1)
+    (call@A readLong~8 r@1))
+   (asgn@C,I
+    (dot~6 result~6 salt@1)
+    (call@A readLong~8 r@1))
+   (call@K,J readPreviousMessages~K r@1
+    (dot@A result~6 previousCount@1))
+   (if@,K
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (asgn@J,L
+    (dot~D result~6 hasUnsigned@1)
+    (call@A readBool~8 r@1))
+   (if@,M
+    (elif@3
+     (infix@J and
+      (dot~D result~6 hasUnsigned@1)
+      (call@6 ok~2 r@1))
+     (stmts~1,1
+      (asgn@G
+       (dot~A result~6 unsigned@1)
+       (call@9 readNbt~7 r@1))
+      (if@,1
+       (elif@3
+        (infix@S >
+         (dot~5
+          (dot~8
+           (dot~9 result~6 unsigned@1)problem@1)len@1)0@2)
+        (stmts~1,1
+         (call@4 fail~4 r@1
+          (dot@J
+           (dot~9 result~6 unsigned@1)problem@1))
+         (ret@,1 .)))))))
+   (asgn@I,R
+    (dot~C result~6 filterType@1)
+    (call@C readVarInt~A r@1))
+   (if@,S
+    (elif@3
+     (infix@j and
+      (infix~R ==
+       (dot~C result~6 filterType@1)FilterPartiallyFiltered@3)
+      (call@6 ok~2 r@1))
+     (stmts~1,2
+      (let@4 n . . .
+       (call@E readVarInt~A r@1))
+      (if@,1
+       (elif@3
+        (prefix not
+         (call@6 ok~2 r@1))
+        (stmts@B
+         (ret .))))
+      (if@,2
+       (elif@3
+        (infix@6 or
+         (infix~4 < n~2 0@2)
+         (infix@5 > n~2 64@2))
+        (stmts~1,1
+         (call@4 fail~4 r@1 "a filter mask longer than any message"@4)
+         (ret@,1 .))))
+      (var@4,5 i . . . 0@4)
+      (while@,6
+       (infix@8 < i~2 n@2)
+       (stmts@2,1
+        (discard
+         (call@G readLong~8 r@1))
+        (cmd@,1 inc i@4))))))
+   (call@I,d readChatTypeHolder~I r@1
+    (dot@A result~6 chatTypeId@1)
+    (dot@T result~6 inlineChatType@1))
+   (if@,e
+    (elif@3
+     (prefix not
+      (call@6 ok~2 r@1))
+     (stmts@B
+      (ret .))))
+   (asgn@I,f
+    (dot~C result~6 senderName@1)
+    (call@9 readNbt~7 r@1))
+   (if@,g
+    (elif@3
+     (infix@U >
+      (dot~5
+       (dot~8
+        (dot~B result~6 senderName@1)problem@1)len@1)0@2)
+     (stmts~1,1
+      (call@4 fail~4 r@1
+       (dot@L
+        (dot~B result~6 senderName@1)problem@1))
+      (ret@,1 .))))
+   (asgn@H,j
+    (dot~B result~6 hasTarget@1)
+    (call@A readBool~8 r@1))
+   (if@,k
+    (elif@3
+     (infix@H and
+      (dot~B result~6 hasTarget@1)
+      (call@6 ok~2 r@1))
+     (stmts~1,1
+      (asgn@I
+       (dot~C result~6 targetName@1)
+       (call@9 readNbt~7 r@1))
+      (if@,1
+       (elif@3
+        (infix@U >
+         (dot~5
+          (dot~8
+           (dot~B result~6 targetName@1)problem@1)len@1)0@2)
+        (stmts@Z
+         (call@4 fail~4 r@1
+          (dot@L
+           (dot~B result~6 targetName@1)problem@1))))))))))
+ (proc@,3H saidBy@5 x . .
+  (params@C
+   (param@1 p . . PlayerChatPacket@3 .))string@N . .
+  (stmts@2,1
+   (comment)
+   (call@5,1 plain~5
+    (dot@2 p~1 senderName@1))))
+ (proc@,3O bodyChatAck@5 x . .
+  (params@H
+   (param@1 count . . int@7 .))
+  (at@H seq~3 int@1). .
+  (stmts@2,1
+   (comment)
+   (var@4,3 w . . .
+    (call@A writer~6))
+   (call@9,4 putVarInt~9 w@1 count@4)
+   (dot@1,5 w~1 data@1)))
+ (proc@,3W bodyChatUnsigned@5 x . .
+  (params@M
+   (param@1 message . . string@9 .)
+   (param@I timestamp . . int@P .)
+   (param@T salt . . int@E .)
+   (param@Z offset . . int@8 .)
+   (param@1,1 acknowledged . .
+    (at@H seq~3 int@1).)
+   (param@P,1 checksum . . int@A .))
+  (at@i,1 seq~3 int@1). .
+  (stmts@2,2
+   (comment)
+   (var@4,4 w . . .
+    (call@A writer~6))
+   (call@9,5 putString~9 w@1 message@4)
+   (call@7,6 putLong~7 w@1 timestamp@4)
+   (call@7,7 putLong~7 w@1 salt@4)
+   (call@7,8 putBool~7 w@1 false@4)
+   (call@9,9 putVarInt~9 w@1 offset@4)
+   (var@4,A i . . . 0@4)
+   (while@,B
+    (infix@8 < i~2 AcknowledgedBytes@2)
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@2 < i~2
+        (dot@E acknowledged~C len@1))
+       (stmts@M
+        (call@7 putByte~7 w@1
+         (at@G acknowledged~C i@1))))
+      (else@r
+       (stmts@6
+        (call@7 putByte~7 w@1 0@4))))
+     (cmd@,1 inc i@4)))
+   (call@7,E putByte~7 w@1 checksum@4)
+   (dot@1,F w~1 data@1)))
+ (proc@,3p bodyChatCommand@5 x . .
+  (params@L
+   (param@1 command . . string@9 .))
+  (at@M seq~3 int@1). .
+  (stmts@2,1
+   (comment)
+   (var@4,4 w . . .
+    (call@A writer~6))
+   (call@9,5 putString~9 w@1 command@4)
+   (dot@1,6 w~1 data@1))))

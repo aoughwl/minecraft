@@ -1,0 +1,1168 @@
+(.nif27)
+(.vendor "Nifler")
+(.dialect "nim-parsed")
+(stmts@,1,vxblocks.nim
+ (comment)
+ (const@7,K AirId~5 x . . 0@4)
+ (const@B,N UnknownId~9 x . . -1@4)
+ (type@C,Q BlockDef~A x . .
+  (object@2 .
+   (fld~8,4 id~2 x . int@3 .)
+   (fld~6,5 name~4 x . string@3 .)
+   (fld~5,6 label~5 x . string@3 .)
+   (fld~2,7 hardness~8 x . float@3 .)
+   (fld~5,A solid~5 x . bool@3 .)
+   (fld~4,C opaque~6 x . bool@3 .)
+   (fld~4,E liquid~6 x . bool@3 .)
+   (fld~7,F red~3 x . float@I .)
+   (fld@1,F green~5 x . float@A .)
+   (fld@8,F blue~4 x . float@3 .)
+   (fld~3,G texture~7 x . string@3 .)
+   (fld~5,J drops~5 x . string@3 .)
+   (fld~2,M provider~8 x . string@3 .)
+   (fld~3,N problem~7 x . string@3 .)))
+ (type@C,p Registry~A x . .
+  (object@2 .
+   (fld~6,1 defs~4 x .
+    (at@6 seq~3 BlockDef@1).)
+   (fld~1,A solidFlag~9 x .
+    (at@6 seq~3 bool@1).)
+   (fld@,B opaqueFlag~A x .
+    (at@6 seq~3 bool@1).)
+   (fld~1,C hardValue~9 x .
+    (at@6 seq~3 float@1).)
+   (fld~5,D slots~5 x .
+    (at@6 seq~3 int@1).)))
+ (proc@,1Q digitOf@5 . . .
+  (params@C
+   (param@1 c . . char@3 .))int@B . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 and
+      (infix~7 >= c~2 '0'@3)
+      (infix@6 <= c~2 '9'@3))
+     (stmts@N
+      (ret
+       (infix@E \2D
+        (call~4 int~3 c@1)
+        (call@5 int~3 '0'@1))))))-1@,1))
+ (proc@,1U hexOf@5 . . .
+  (params@A
+   (param@1 c . . char@3 .))int@B . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@9 and
+      (infix~7 >= c~2 '0'@3)
+      (infix@6 <= c~2 '9'@3))
+     (stmts@N
+      (ret
+       (infix@E \2D
+        (call~4 int~3 c@1)
+        (call@5 int~3 '0'@1))))))
+   (if@,1
+    (elif@3
+     (infix@9 and
+      (infix~7 >= c~2 'a'@3)
+      (infix@6 <= c~2 'f'@3))
+     (stmts@N
+      (ret
+       (infix@J \2D
+        (infix~9 \2B 10~3
+         (call@5 int~3 c@1))
+        (call@5 int~3 'a'@1))))))
+   (if@,2
+    (elif@3
+     (infix@9 and
+      (infix~7 >= c~2 'A'@3)
+      (infix@6 <= c~2 'F'@3))
+     (stmts@N
+      (ret
+       (infix@J \2D
+        (infix~9 \2B 10~3
+         (call@5 int~3 c@1))
+        (call@5 int~3 'A'@1))))))-1@,3))
+ (comment@,1a)
+ (proc@,1d readNumber@5 x . .
+  (params@G
+   (param@1 text . . string@6 .)
+   (param@F ok . .
+    (mut@4 bool@4).))float@U . .
+  (stmts@2,1
+   (asgn@3 ok~3 false@2)
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@J and
+     (infix~B < i~2
+      (dot@6 text~4 len@1))
+     (par@4
+      (infix@G or
+       (infix~7 ==
+        (at~4 text~4 i@1)' '@3)
+       (infix@B ==
+        (at~4 text~4 i@1)'\09'@3))))
+    (stmts@y
+     (cmd inc i@4)))
+   (var@4,3 sign . . . 1.0@7)
+   (if@,4
+    (elif@3
+     (infix@D and
+      (infix~B < i~2
+       (dot@6 text~4 len@1))
+      (par@4
+       (infix@G or
+        (infix~7 ==
+         (at~4 text~4 i@1)'-'@3)
+        (infix@B ==
+         (at~4 text~4 i@1)'+'@3))))
+     (stmts~1,1
+      (if
+       (elif@3
+        (infix@8 ==
+         (at~4 text~4 i@1)'-'@3)
+        (stmts@G
+         (asgn@5 sign~5 -1.0@2))))
+      (cmd@,1 inc i@4))))
+   (var@4,7 whole . . . 0.0@8)
+   (var@4,8 digits . . . 0@9)
+   (while@,9
+    (infix@J and
+     (infix~B < i~2
+      (dot@6 text~4 len@1))
+     (infix@L >=
+      (call~A digitOf~7
+       (at@5 text~4 i@1))0@3))
+    (stmts@2,1
+     (asgn@6 whole~6
+      (infix@F \2B
+       (infix~7 * whole~6 10.0@2)
+       (call@7 float~5
+        (call@8 digitOf~7
+         (at@5 text~4 i@1)))))
+     (cmd@,1 inc i@4)
+     (cmd@,2 inc digits@4)))
+   (if@,D
+    (elif@3
+     (infix@D and
+      (infix~B < i~2
+       (dot@6 text~4 len@1))
+      (infix@C ==
+       (at~4 text~4 i@1)'.'@3))
+     (stmts~1,1
+      (cmd inc i@4)
+      (var@4,1 scale . . . 0.1@8)
+      (while@,2
+       (infix@J and
+        (infix~B < i~2
+         (dot@6 text~4 len@1))
+        (infix@L >=
+         (call~A digitOf~7
+          (at@5 text~4 i@1))0@3))
+       (stmts@2,1
+        (asgn@6 whole~6
+         (infix@8 \2B whole~6
+          (infix@Q *
+           (call~J float~5
+            (call@8 digitOf~7
+             (at@5 text~4 i@1)))scale@2)))
+        (asgn@6,1 scale~6
+         (infix@8 * scale~6 0.1@2))
+        (cmd@,2 inc i@4)
+        (cmd@,3 inc digits@4))))))
+   (while@,L
+    (infix@J and
+     (infix~B < i~2
+      (dot@6 text~4 len@1))
+     (par@4
+      (infix@G or
+       (infix~7 ==
+        (at~4 text~4 i@1)' '@3)
+       (infix@B ==
+        (at~4 text~4 i@1)'\09'@3))))
+    (stmts@y
+     (cmd inc i@4)))
+   (if@,M
+    (elif@3
+     (infix@C or
+      (infix~5 == digits~7 0@3)
+      (infix@5 != i~2
+       (dot@7 text~4 len@1)))
+     (stmts@U
+      (ret 0.0@7))))
+   (asgn@3,N ok~3 true@2)
+   (infix@5,O * sign~5 whole@2)))
+ (proc@,24 readTruth@5 x . .
+  (params@F
+   (param@1 text . . string@6 .)
+   (param@F ok . .
+    (mut@4 bool@4).))bool@U . .
+  (stmts@2,1
+   (asgn@3 ok~3 true@2)
+   (if@,1
+    (elif@3
+     (infix@W or
+      (infix~H or
+       (infix~A == text~5 "true"@3)
+       (infix@8 == text~5 "yes"@3))
+      (infix@8 == text~5 "1"@3))
+     (stmts@m
+      (ret true@7))))
+   (if@,2
+    (elif@3
+     (infix@W or
+      (infix~G or
+       (infix~B == text~5 "false"@3)
+       (infix@8 == text~5 "no"@3))
+      (infix@8 == text~5 "0"@3))
+     (stmts@m
+      (ret false@7))))
+   (asgn@3,3 ok~3 false@2)false@,4))
+ (comment@,2B)
+ (proc@,2D readColour@5 x . .
+  (params@G
+   (param@1 text . . string@6 .)
+   (param@F r . .
+    (mut@9 float@4).)
+   (param@I g . .
+    (mut@6 float@4).)
+   (param@L b . .
+    (mut@3 float@4).)
+   (param@Z ok . .
+    (mut@4 bool@4).)). . .
+  (stmts@2,1
+   (asgn@3 ok~3 false@2)
+   (var@4,1 start . . . 0@8)
+   (if@,2
+    (elif@3
+     (infix@D and
+      (infix~4 >
+       (dot~5 text~4 len@1)0@2)
+      (infix@C ==
+       (at~4 text~4 0@1)'\23'@3))
+     (stmts@X
+      (asgn@6 start~6 1@2))))
+   (let@4,3 count . . .
+    (infix@H \2D
+     (dot~5 text~4 len@1)start@2))
+   (if@,4
+    (elif@3
+     (infix@Q and
+      (infix~F and
+       (infix~5 != count~6 3@3)
+       (infix@A != count~6 6@3))
+      (infix@A != count~6 8@3))
+     (stmts@g
+      (ret .))))
+   (var@4,5 value . .
+    (at@C array~5 8@1 int@4)
+    (bracket@N 0@1 0@4 0@7 0@A 0@D 0@G 0@J 0@M))
+   (var@4,6 i . . . 0@4)
+   (while@,7
+    (infix@8 < i~2 count@2)
+    (stmts@2,1
+     (let@4 nibble . . .
+      (call@E hexOf~5
+       (at@5 text~4
+        (infix@7 \2B start~6 i@2))))
+     (if@,1
+      (elif@3
+       (infix@7 < nibble~7 0@2)
+       (stmts@C
+        (ret .))))
+     (asgn@9,2
+      (at~4 value~5 i@1)nibble@2)
+     (cmd@,3 inc i@4)))
+   (asgn@3,C ok~3 true@2)
+   (if@,D
+    (elif@3
+     (infix@6 == count~6 3@3)
+     (stmts~1,1
+      (asgn@2 r~2
+       (infix@N /
+        (call~G float~5
+         (infix@A *
+          (at~4 value~5 0@1)17@2))255.0@2))
+      (asgn@2,1 g~2
+       (infix@N /
+        (call~G float~5
+         (infix@A *
+          (at~4 value~5 1@1)17@2))255.0@2))
+      (asgn@2,2 b~2
+       (infix@N /
+        (call~G float~5
+         (infix@A *
+          (at~4 value~5 2@1)17@2))255.0@2))))
+    (else@,4
+     (stmts@2,1
+      (asgn@2 r~2
+       (infix@Y /
+        (call~R float~5
+         (infix@F \2B
+          (infix~5 *
+           (at~4 value~5 0@1)16@2)
+          (at@7 value~5 1@1)))255.0@2))
+      (asgn@2,1 g~2
+       (infix@Y /
+        (call~R float~5
+         (infix@F \2B
+          (infix~5 *
+           (at~4 value~5 2@1)16@2)
+          (at@7 value~5 3@1)))255.0@2))
+      (asgn@2,2 b~2
+       (infix@Y /
+        (call~R float~5
+         (infix@F \2B
+          (infix~5 *
+           (at~4 value~5 4@1)16@2)
+          (at@7 value~5 5@1)))255.0@2)))))))
+ (proc@,2d plainBlock@5 x . .
+  (params@G
+   (param@1 name . . string@6 .))BlockDef@G . .
+  (stmts@2,1
+   (comment)
+   (oconstr@8,1 BlockDef~8
+    (kv@3 id~2 UnknownId@2)
+    (kv@K name~4 name@2)
+    (kv@X label~5 name@2)
+    (kv@n hardness~8 1.0@2)
+    (kv~1,1 solid~5 true@2)
+    (kv@D,1 opaque~6 true@2)
+    (kv@R,1 liquid~6 false@2)
+    (kv~3,2 red~3 0.7@2)
+    (kv@9,2 green~5 0.7@2)
+    (kv@K,2 blue~4 0.7@2)
+    (kv@Y,2 texture~7 ""@2)
+    (kv@j,2 drops~5 ""@2)
+    (kv@2,3 provider~8 ""@2)
+    (kv@F,3 problem~7 ""@2))))
+ (comment@,2k)
+ (proc@,2m splitPair@5 . . .
+  (params@E
+   (param@1 pair . . string@6 .)
+   (param@F key . .
+    (mut@C string@4).)
+   (param@K value . .
+    (mut@7 string@4).)). . .
+  (stmts@2,1
+   (asgn@4 key~4 ""@2)
+   (asgn@6,1 value~6 ""@2)
+   (var@4,2 mark . . . -1@7)
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2
+     (dot@6 pair~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@8 ==
+        (at~4 pair~4 i@1)'='@3)
+       (stmts~1,1
+        (asgn@5 mark~5 i@2)
+        (break@,1 .))))
+     (cmd@,3 inc i@4)))
+   (if@,9
+    (elif@3
+     (infix@5 < mark~5 0@2)
+     (stmts~1,1
+      (asgn@4 key~4 pair@2)
+      (ret@,1 .))))
+   (asgn@2,C i~2 0@2)
+   (while@,D
+    (infix@8 < i~2 mark@2)
+    (stmts@2,1
+     (cmd@3
+      (dot key~3 add@1)
+      (at@9 pair~4 i@1))
+     (cmd@,1 inc i@4)))
+   (asgn@2,G i~2
+    (infix@7 \2B mark~5 1@2))
+   (while@,H
+    (infix@8 < i~2
+     (dot@6 pair~4 len@1))
+    (stmts@2,1
+     (cmd@5
+      (dot value~5 add@1)
+      (at@9 pair~4 i@1))
+     (cmd@,1 inc i@4)))))
+ (proc@,38 trimmed@5 . . .
+  (params@C
+   (param@1 text . . string@6 .))string@G . .
+  (stmts@2,1
+   (asgn@7 result~7 ""@2)
+   (var@4,1 first . . . 0@8)
+   (while@,2
+    (infix@N and
+     (infix~B < first~6
+      (dot@6 text~4 len@1))
+     (par@4
+      (infix@K or
+       (infix~7 ==
+        (at~8 text~4 first@1)' '@3)
+       (infix@F ==
+        (at~8 text~4 first@1)'\09'@3))))
+    (stmts@1A
+     (cmd inc first@4)))
+   (var@4,3 last . . .
+    (infix@G \2D
+     (dot~5 text~4 len@1)1@2))
+   (while@,4
+    (infix@K and
+     (infix~9 >= last~5 first@3)
+     (par@4
+      (infix@J or
+       (infix~7 ==
+        (at~7 text~4 last@1)' '@3)
+       (infix@E ==
+        (at~7 text~4 last@1)'\09'@3))))
+    (stmts@15
+     (cmd dec last@4)))
+   (var@4,5 i . . . first@4)
+   (while@,6
+    (infix@8 <= i~2 last@3)
+    (stmts@2,1
+     (cmd@6
+      (dot result~6 add@1)
+      (at@9 text~4 i@1))
+     (cmd@,1 inc i@4)))))
+ (comment@,3J)
+ (proc@,3L parseBlockSpec@5 x . .
+  (params@K
+   (param@1 name . . string@C .)
+   (param@7 spec . . string@6 .))BlockDef@M . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (call@C plainBlock~A name@1))
+   (var@4,1 field . . . ""@8)
+   (var@4,2 i . . . 0@4)
+   (while@,3
+    (infix@8 <= i~2
+     (dot@7 spec~4 len@1))
+    (stmts@2,1
+     (if
+      (elif@3
+       (infix@E or
+        (infix~C == i~2
+         (dot@7 spec~4 len@1))
+        (infix@B ==
+         (at~4 spec~4 i@1)';'@3))
+       (stmts~1,1
+        (if
+         (elif@3
+          (infix@A >
+           (dot~5 field~5 len@1)0@2)
+          (stmts~1,1
+           (var@4 key . . . ""@6)
+           (var@4,1 value . . . ""@8)
+           (call@9,2 splitPair~9 field@1 key@8 value@D)
+           (let@4,8 trimmedKey . . .
+            (call@K trimmed~7 key@1))
+           (let@4,9 trimmedValue . . .
+            (call@M trimmed~7 value@1))
+           (asgn@4,A key~4 trimmedKey@2)
+           (asgn@6,B value~6 trimmedValue@2)
+           (var@4,C ok . . . false@5)
+           (case@,D key@5
+            (of@,1
+             (ranges ""@3)
+             (stmts@7
+              (discard .)))
+            (of@,2
+             (ranges "label"@3)
+             (stmts@C
+              (asgn@D
+               (dot~7 result~6 label@1)value@2)))
+            (of@,3
+             (ranges "texture"@3)
+             (stmts@E
+              (asgn@F
+               (dot~9 result~6 texture@1)value@2)))
+            (of@,4
+             (ranges "drops"@3)
+             (stmts@C
+              (asgn@D
+               (dot~7 result~6 drops@1)value@2)))
+            (of@,5
+             (ranges "hardness"@3)
+             (stmts@2,1
+              (let@4 v . . .
+               (call@E readNumber~A value@1 ok@8))
+              (if@,1
+               (elif@3 ok
+                (stmts@4
+                 (asgn@G
+                  (dot~A result~6 hardness@1)v@2)))
+               (else@,1
+                (stmts@6
+                 (cmd@E
+                  (dot
+                   (dot~8 result~6 problem@1)add@1)
+                  (infix@Q &
+                   (infix~8 & "hardness \27"~D value@2)"\27 is not a number; "@2)))))))
+            (of@,9
+             (ranges "solid"@3)
+             (stmts@2,1
+              (let@4 v . . .
+               (call@D readTruth~9 value@1 ok@8))
+              (if@,1
+               (elif@3 ok
+                (stmts@4
+                 (asgn@D
+                  (dot~7 result~6 solid@1)v@2)))
+               (else@,1
+                (stmts@6
+                 (cmd@E
+                  (dot
+                   (dot~8 result~6 problem@1)add@1)
+                  (infix@N &
+                   (infix~8 & "solid \27"~A value@2)"\27 is not true or false; "@2)))))))
+            (of@,D
+             (ranges "opaque"@3)
+             (stmts@2,1
+              (let@4 v . . .
+               (call@D readTruth~9 value@1 ok@8))
+              (if@,1
+               (elif@3 ok
+                (stmts@4
+                 (asgn@E
+                  (dot~8 result~6 opaque@1)v@2)))
+               (else@,1
+                (stmts@6
+                 (cmd@E
+                  (dot
+                   (dot~8 result~6 problem@1)add@1)
+                  (infix@O &
+                   (infix~8 & "opaque \27"~B value@2)"\27 is not true or false; "@2)))))))
+            (of@,H
+             (ranges "liquid"@3)
+             (stmts@2,1
+              (let@4 v . . .
+               (call@D readTruth~9 value@1 ok@8))
+              (if@,1
+               (elif@3 ok
+                (stmts~1,1
+                 (asgn@E
+                  (dot~8 result~6 liquid@1)v@2)
+                 (if@,1
+                  (elif@3 v
+                   (stmts~1,1
+                    (asgn@D
+                     (dot~7 result~6 solid@1)false@2)
+                    (asgn@E,1
+                     (dot~8 result~6 opaque@1)false@2))))))
+               (else@,5
+                (stmts@6
+                 (cmd@E
+                  (dot
+                   (dot~8 result~6 problem@1)add@1)
+                  (infix@O &
+                   (infix~8 & "liquid \27"~B value@2)"\27 is not true or false; "@2)))))))
+            (of@,P
+             (ranges "colour"@3 "color"@D)
+             (stmts@2,1
+              (var@4 r . . . 0.0@4)
+              (var@4,1 g . . . 0.0@4)
+              (var@4,2 b . . . 0.0@4)
+              (call@A,3 readColour~A value@1 r@8 g@B b@E ok@H)
+              (if@,4
+               (elif@3 ok
+                (stmts~1,1
+                 (asgn@B
+                  (dot~5 result~6 red@1)r@2)
+                 (asgn@D,1
+                  (dot~7 result~6 green@1)g@2)
+                 (asgn@C,2
+                  (dot~6 result~6 blue@1)b@2)))
+               (else@,4
+                (stmts@6
+                 (cmd@E
+                  (dot
+                   (dot~8 result~6 problem@1)add@1)
+                  (infix@O &
+                   (infix~8 & "colour \27"~B value@2)"\27 is not a hex colour; "@2)))))))
+            (else@,Z
+             (stmts@2,1
+              (cmd@E
+               (dot
+                (dot~8 result~6 problem@1)add@1)
+               (infix@T &
+                (infix~6 & "no such field \27"~I key@2)"\27; "@2))))))))
+        (asgn@6,p field~6 ""@2)))
+      (else@,r
+       (stmts@2,1
+        (cmd@5
+         (dot field~5 add@1)
+         (at@9 spec~4 i@1)))))
+     (cmd@,t inc i@4)))))
+ (comment@,4L)
+ (proc@,4N twoPlaces@5 . . .
+  (params@E
+   (param@1 value . . float@7 .))string@G . .
+  (stmts@2,1
+   (var@4 v . . . value@4)
+   (var@4,1 sign . . . ""@7)
+   (if@,2
+    (elif@3
+     (infix@2 < v~2 0.0@2)
+     (stmts~1,1
+      (asgn@5 sign~5 "-"@2)
+      (asgn@2,1 v~2
+       (prefix@2 \2D v@1)))))
+   (let@4,5 scaled . . .
+    (call@C int~3
+     (infix@B \2B
+      (infix~8 * v~2 100.0@2)0.5@2)))
+   (let@4,6 whole . . .
+    (infix@F div scaled~7 100@4))
+   (let@4,7 rest . . .
+    (infix@E mod scaled~7 100@4))
+   (asgn@7,8 result~7
+    (infix@G &
+     (infix~9 & sign~5
+      (prefix@2 $ whole@1))"."@2))
+   (if@,9
+    (elif@3
+     (infix@5 < rest~5 10@2)
+     (stmts@B
+      (cmd@6
+       (dot result~6 add@1)"0"@5))))
+   (cmd@6,A
+    (dot result~6 add@1)
+    (prefix@5 $ rest@1))))
+ (proc@,4a hexPair@5 . . .
+  (params@C
+   (param@1 value . . float@7 .))string@G . .
+  (stmts@2,1
+   (const@6 Digits . . . "0123456789abcdef"@9)
+   (var@4,1 v . . .
+    (call@7 int~3
+     (infix@F \2B
+      (infix~8 * value~6 255.0@2)0.5@2)))
+   (if@,2
+    (elif@3
+     (infix@2 < v~2 0@2)
+     (stmts@7
+      (asgn@2 v~2 0@2))))
+   (if@,3
+    (elif@3
+     (infix@2 > v~2 255@2)
+     (stmts@9
+      (asgn@2 v~2 255@2))))
+   (asgn@7,4 result~7 ""@2)
+   (cmd@6,5
+    (dot result~6 add@1)
+    (at@B Digits~6
+     (infix@3 div v~2 16@4)))
+   (cmd@6,6
+    (dot result~6 add@1)
+    (at@B Digits~6
+     (infix@3 mod v~2 16@4)))))
+ (comment@,4j)
+ (proc@,4m colourKey@5 x . .
+  (params@F
+   (param@1 d . . BlockDef@3 .))string@F . .
+  (stmts@2,1
+   (infix@Y &
+    (infix~J &
+     (call~8 hexPair~7
+      (dot@2 d~1 red@1))
+     (call@9 hexPair~7
+      (dot@2 d~1 green@1)))
+    (call@9 hexPair~7
+     (dot@2 d~1 blue@1)))))
+ (comment@,4p)
+ (proc@,4r formatBlockSpec@5 x . .
+  (params@L
+   (param@1 d . . BlockDef@3 .))string@F . .
+  (stmts@2,1
+   (asgn@7 result~7
+    (infix@h,4 &
+     (infix~J &
+      (infix~H &
+       (infix@b,~1 &
+        (infix~c &
+         (infix@c,~1 &
+          (infix~c &
+           (infix@a,~1 &
+            (infix~b &
+             (infix@t,~1 &
+              (infix~O &
+               (infix~F &
+                (infix~A & "label="~9
+                 (dot@3 d~1 label@1))";hardness="@2)
+               (call@B twoPlaces~9
+                (dot@2 d~1 hardness@1)))";solid="~13,1)
+             (expr
+              (stmts@2)
+              (if@1
+               (elif@3
+                (dot@1 d~1 solid@1)"true"@9)
+               (else@J "false"@6))))";opaque="~l,1)
+           (expr
+            (stmts@2)
+            (if@1
+             (elif@3
+              (dot@1 d~1 opaque@1)"true"@A)
+             (else@K "false"@6))))";liquid="~n,1)
+         (expr
+          (stmts@2)
+          (if@1
+           (elif@3
+            (dot@1 d~1 liquid@1)"true"@A)
+           (else@K "false"@6))))";colour=\23"~n,1)
+       (call@9 hexPair~7
+        (dot@2 d~1 red@1)))
+      (call@9 hexPair~7
+       (dot@2 d~1 green@1)))
+     (call@9 hexPair~7
+      (dot@2 d~1 blue@1))))
+   (if@,5
+    (elif@3
+     (infix@E >
+      (dot~5
+       (dot~8 d~1 texture@1)len@1)0@2)
+     (stmts@J
+      (cmd@6
+       (dot result~6 add@1)
+       (infix@H & ";texture="~C
+        (dot@3 d~1 texture@1))))))
+   (if@,6
+    (elif@3
+     (infix@C >
+      (dot~5
+       (dot~6 d~1 drops@1)len@1)0@2)
+     (stmts@H
+      (cmd@6
+       (dot result~6 add@1)
+       (infix@F & ";drops="~A
+        (dot@3 d~1 drops@1))))))))
+ (comment@,53)
+ (proc@,54 newRegistry@5 x . .
+  (params@H)Registry@4 . .
+  (stmts@2,1
+   (var@4 air . . .
+    (call@G plainBlock~A "air"@1))
+   (asgn@7,1
+    (dot~4 air~3 id@1)AirId@2)
+   (asgn@A,2
+    (dot~7 air~3 label@1)"Air"@2)
+   (asgn@D,3
+    (dot~A air~3 hardness@1)-1.0@2)
+   (asgn@A,4
+    (dot~7 air~3 solid@1)false@2)
+   (asgn@B,5
+    (dot~8 air~3 opaque@1)false@2)
+   (oconstr@8,6 Registry~8
+    (kv@5 defs~4
+     (prefix@2 \40
+      (bracket@1 air@1)))
+    (kv@O solidFlag~9
+     (prefix@2 \40
+      (bracket@1 false@1)))
+    (kv@k opaqueFlag~A
+     (prefix@2 \40
+      (bracket@1 false@1)))
+    (kv@3,1 hardValue~9
+     (prefix@2 \40
+      (bracket@1 -1.0@1))))))
+ (proc@,5E blockCount@5 x . .
+  (params@G
+   (param@1 r . . Registry@3 .))int@F . .
+  (stmts@b
+   (dot@6
+    (dot~5 r~1 defs@1)len@1)))
+ (comment@,5G)
+ (func@,5L hashOfName@5 x . .
+  (params@G
+   (param@1 text . . string@6 .))int@G . .
+  (stmts@2,1
+   (var@4 h . . .
+    (suf@4 2166136261 "i64"))
+   (var@4,1 i . . . 0@4)
+   (while@,2
+    (infix@8 < i~2
+     (dot@6 text~4 len@1))
+    (stmts@2,1
+     (asgn@2 h~2
+      (infix@4 xor h~2
+       (call@7 int~3
+        (at@5 text~4 i@1))))
+     (asgn@2,1 h~2
+      (infix@H and
+       (par~F
+        (infix@3 * h~2 16777619@2))1073741823@4))
+     (cmd@,2 inc i@4)))h@,6))
+ (comment@,5U)
+ (proc@,5W reindex@5 x . .
+  (params@D
+   (param@1 r . .
+    (mut@3 Registry@4).)). . .
+  (stmts@2,1
+   (var@4 size . . . 8@7)
+   (while@,1
+    (infix@B < size~5
+     (infix@D *
+      (dot~5
+       (dot~5 r~1 defs@1)len@1)2@2))
+    (stmts@T
+     (asgn@5 size~5
+      (infix@7 * size~5 2@2))))
+   (asgn@8,2
+    (dot~7 r~1 slots@1)
+    (prefix@2 \40
+     (bracket@1)))
+   (var@4,3 i . . . 0@4)
+   (while@,4
+    (infix@8 < i~2 size@2)
+    (stmts@2,1
+     (call@B
+      (dot~4
+       (dot~6 r~1 slots@1)add@1)-1@1)
+     (cmd@,1 inc i@4)))
+   (asgn@2,7 i~2 0@2)
+   (while@,8
+    (infix@8 < i~2
+     (dot@8
+      (dot~5 r~1 defs@1)len@1))
+    (stmts@2,1
+     (var@4 at . . .
+      (infix@W and
+       (call~H hashOfName~A
+        (dot@A
+         (at~3
+          (dot~5 r~1 defs@1)i@1)name@1))
+       (par@4
+        (infix@6 \2D size~5 1@2))))
+     (while@,4
+      (infix@N and
+       (infix~5 >=
+        (at~5
+         (dot~6 r~1 slots@1)at@1)0@3)
+       (infix@T !=
+        (dot~6
+         (at~D
+          (dot~5 r~1 defs@1)
+          (at@8
+           (dot~6 r~1 slots@1)at@1))name@1)
+        (dot@C
+         (at~3
+          (dot~5 r~1 defs@1)i@1)name@1)))
+      (stmts@2,1
+       (asgn@3 at~3
+        (infix@B and
+         (par~9
+          (infix@4 \2B at~3 1@2))
+         (par@4
+          (infix@D \2D
+           (dot~5
+            (dot~6 r~1 slots@1)len@1)1@2))))))
+     (if@,6
+      (elif@3
+       (infix@C <
+        (at~5
+         (dot~6 r~1 slots@1)at@1)0@2)
+       (stmts@H
+        (asgn@C
+         (at~5
+          (dot~6 r~1 slots@1)at@1)i@2))))
+     (cmd@,7 inc i@4)))))
+ (proc@,5p idOf@5 x . .
+  (params@A
+   (param@1 r . . Registry@3 .)
+   (param@E name . . string@6 .))int@T . .
+  (stmts@2,4
+   (if
+    (elif@3
+     (infix@C <
+      (dot~5
+       (dot~6 r~1 slots@1)len@1)
+      (infix@D *
+       (dot~5
+        (dot~5 r~1 defs@1)len@1)2@2))
+     (stmts~1,1
+      (var@4 i . . . 0@4)
+      (while@,1
+       (infix@8 < i~2
+        (dot@8
+         (dot~5 r~1 defs@1)len@1))
+       (stmts@2,1
+        (if
+         (elif@3
+          (infix@F ==
+           (dot~6
+            (at~3
+             (dot~5 r~1 defs@1)i@1)name@1)name@3)
+          (stmts@O
+           (ret i@7))))
+        (cmd@,1 inc i@4)))
+      (ret@,4 UnknownId@7))))
+   (let@4,6 mask . . .
+    (infix@J \2D
+     (dot~5
+      (dot~6 r~1 slots@1)len@1)1@2))
+   (var@4,7 at . . .
+    (infix@M and
+     (call~7 hashOfName~A name@1)mask@4))
+   (var@4,8 steps . . . 0@8)
+   (while@,9
+    (infix@C <= steps~6
+     (dot@A
+      (dot~6 r~1 slots@1)len@1))
+    (stmts@2,1
+     (let@4 row . . .
+      (at@D
+       (dot~6 r~1 slots@1)at@1))
+     (if@,1
+      (elif@3
+       (infix@4 < row~4 0@2)
+       (stmts@9
+        (ret UnknownId@7))))
+     (if@,2
+      (elif@3
+       (infix@H ==
+        (dot~6
+         (at~5
+          (dot~5 r~1 defs@1)row@1)name@1)name@3)
+       (stmts@Q
+        (ret row@7))))
+     (asgn@3,3 at~3
+      (infix@B and
+       (par~9
+        (infix@4 \2B at~3 1@2))mask@4))
+     (cmd@,4 inc steps@4)))UnknownId@,F))
+ (proc@,6A known@5 x . .
+  (params@B
+   (param@1 r . . Registry@3 .)
+   (param@E id . . int@4 .))bool@O . .
+  (stmts@g
+   (infix@8 and
+    (infix~5 >= id~3 0@3)
+    (infix@7 < id~3
+     (dot@8
+      (dot~5 r~1 defs@1)len@1)))))
+ (comment@,6C)
+ (proc@,6F defOf@5 x . .
+  (params@B
+   (param@1 r . . Registry@3 .)
+   (param@E id . . int@4 .))BlockDef@O . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (prefix not
+      (call@B
+       (dot~6 r~1 known@1)id@1))
+     (stmts@H
+      (ret
+       (at@D
+        (dot~5 r~1 defs@1)AirId@1)))))
+   (at@6,1
+    (dot~5 r~1 defs@1)id@1)))
+ (comment@,6J)
+ (proc@,6M registerBlock@5 x . .
+  (params@J
+   (param@1 r . .
+    (mut@3 Registry@4).)
+   (param@I d . . BlockDef@3 .))int@W . .
+  (stmts@2,1
+   (let@4 existing . . .
+    (call@H
+     (dot~5 r~1 idOf@1)
+     (dot@2 d~1 name@1)))
+   (var@4,1 entry . . . d@8)
+   (if@,2
+    (elif@3
+     (infix@9 >= existing~9 0@3)
+     (stmts~1,1
+      (asgn@9
+       (dot~4 entry~5 id@1)existing@2)
+      (asgn@H,1
+       (at~B
+        (dot~5 r~1 defs@1)existing@1)entry@2)
+      (asgn@M,2
+       (at~B
+        (dot~A r~1 solidFlag@1)existing@1)
+       (dot@7 entry~5 solid@1))
+      (asgn@N,3
+       (at~B
+        (dot~B r~1 opaqueFlag@1)existing@1)
+       (dot@7 entry~5 opaque@1))
+      (asgn@M,4
+       (at~B
+        (dot~A r~1 hardValue@1)existing@1)
+       (dot@7 entry~5 hardness@1))
+      (ret@,5 existing@7))))
+   (asgn@9,9
+    (dot~4 entry~5 id@1)
+    (dot@8
+     (dot~5 r~1 defs@1)len@1))
+   (cmd@6,A
+    (dot
+     (dot~5 r~1 defs@1)add@1)entry@5)
+   (cmd@B,B
+    (dot
+     (dot~A r~1 solidFlag@1)add@1)
+    (dot@A entry~5 solid@1))
+   (cmd@C,C
+    (dot
+     (dot~B r~1 opaqueFlag@1)add@1)
+    (dot@A entry~5 opaque@1))
+   (cmd@B,D
+    (dot
+     (dot~A r~1 hardValue@1)add@1)
+    (dot@A entry~5 hardness@1))
+   (if@,H
+    (elif@3
+     (infix@C <
+      (dot~5
+       (dot~6 r~1 slots@1)len@1)
+      (infix@D *
+       (dot~5
+        (dot~5 r~1 defs@1)len@1)2@2))
+     (stmts~1,1
+      (call@9
+       (dot~8 r~1 reindex@1))))
+    (else@,2
+     (stmts@2,1
+      (let@4 mask . . .
+       (infix@J \2D
+        (dot~5
+         (dot~6 r~1 slots@1)len@1)1@2))
+      (var@4,1 at . . .
+       (infix@S and
+        (call~D hashOfName~A
+         (dot@6 entry~5 name@1))mask@4))
+      (while@,2
+       (infix@I >=
+        (at~5
+         (dot~6 r~1 slots@1)at@1)0@3)
+       (stmts@O
+        (asgn@3 at~3
+         (infix@B and
+          (par~9
+           (infix@4 \2B at~3 1@2))mask@4))))
+      (asgn@C,3
+       (at~5
+        (dot~6 r~1 slots@1)at@1)
+       (dot@7 entry~5 id@1)))))
+   (dot@5,O entry~5 id@1)))
+ (proc@,6n registerSpec@5 x . .
+  (params@I
+   (param@1 r . .
+    (mut@3 Registry@4).)
+   (param@I name . . string@M .)
+   (param@O spec . . string@G .)
+   (param@U provider . . string@A .))int@n . .
+  (stmts@2,1
+   (var@4 d . . .
+    (call@I parseBlockSpec~E name@1 spec@7))
+   (asgn@B,1
+    (dot~A d~1 provider@1)provider@2)
+   (call@F,2
+    (dot~E r~1 registerBlock@1)d@1)))
+ (comment@,6s)
+ (proc@,6u isSolid@5 x . .
+  (params@D
+   (param@1 r . . Registry@3 .)
+   (param@E id . . int@4 .))bool@O . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 or
+      (infix~4 < id~3 0@2)
+      (infix@6 >= id~3
+       (dot@E
+        (dot~A r~1 solidFlag@1)len@1)))
+     (stmts@X
+      (ret false@7))))
+   (at@B,1
+    (dot~A r~1 solidFlag@1)id@1)))
+ (proc@,6x isOpaque@5 x . .
+  (params@E
+   (param@1 r . . Registry@3 .)
+   (param@E id . . int@4 .))bool@O . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 or
+      (infix~4 < id~3 0@2)
+      (infix@6 >= id~3
+       (dot@F
+        (dot~B r~1 opaqueFlag@1)len@1)))
+     (stmts@Y
+      (ret false@7))))
+   (at@C,1
+    (dot~B r~1 opaqueFlag@1)id@1)))
+ (proc@,70 isLiquid@5 x . .
+  (params@E
+   (param@1 r . . Registry@3 .)
+   (param@E id . . int@4 .))bool@O . .
+  (stmts@j
+   (dot@B
+    (call~4
+     (dot~6 r~1 defOf@1)id@1)liquid@1)))
+ (proc@,71 isAir@5 x . .
+  (params@B
+   (param@1 id . . int@4 .))bool@B . .
+  (stmts@T
+   (infix@3 == id~3 AirId@3)))
+ (comment@,73)
+ (proc@,75 hardnessOf@5 x . .
+  (params@G
+   (param@1 r . . Registry@3 .)
+   (param@E id . . int@4 .))float@O . .
+  (stmts@2,1
+   (if
+    (elif@3
+     (infix@7 or
+      (infix~4 < id~3 0@2)
+      (infix@6 >= id~3
+       (dot@E
+        (dot~A r~1 hardValue@1)len@1)))
+     (stmts@X
+      (ret -1.0@7))))
+   (at@B,1
+    (dot~A r~1 hardValue@1)id@1)))
+ (proc@,78 breakable@5 x . .
+  (params@F
+   (param@1 r . . Registry@3 .)
+   (param@E id . . int@4 .))bool@O . .
+  (stmts@2,1
+   (infix@S and
+    (infix~G and
+     (infix~9 != id~3 AirId@3)
+     (call@B
+      (dot~6 r~1 known@1)id@1))
+    (infix@L >=
+     (call~5
+      (dot~B r~1 hardnessOf@1)id@1)0.0@3))))
+ (comment@,7B)
+ (proc@,7E dropOf@5 x . .
+  (params@C
+   (param@1 r . . Registry@3 .)
+   (param@E id . . int@4 .))int@O . .
+  (stmts@2,1
+   (let@4 d . . .
+    (call@B
+     (dot~6 r~1 defOf@1)id@1))
+   (if@,1
+    (elif@3
+     (infix@C ==
+      (dot~5
+       (dot~6 d~1 drops@1)len@1)0@3)
+     (stmts@I
+      (ret id@7))))
+   (if@,2
+    (elif@3
+     (infix@8 ==
+      (dot~7 d~1 drops@1)"-"@3)
+     (stmts@G
+      (ret AirId@7))))
+   (let@4,3 other . . .
+    (call@E
+     (dot~5 r~1 idOf@1)
+     (dot@2 d~1 drops@1)))
+   (if@,4
+    (elif@3
+     (infix@6 < other~6 0@2)
+     (stmts@B
+      (ret AirId@7))))other@,5)))

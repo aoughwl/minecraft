@@ -1,0 +1,221 @@
+(.nif27)
+(.indexat 3822             )
+(stmts@,1,../../../../Packages/com.aoughwl.jester/ModSdk/render.nim
+ (proc@,R :hostRenderFpsSet.0.@5
+  (params@L
+   (param@1 :rate.0 .
+    (i@6 64))).
+  (pragmas@Z
+   (importc "jester_render_fps_set")
+   (smry~Z
+    (param 0 0)))
+  (stmts .))
+ (proc@,S :hostRenderFps.0.@5
+  (params@I)
+  (i@4 64)
+  (pragmas@S
+   (importc "jester_render_fps")
+   (smry~S))
+  (stmts .))
+ (proc@,T :hostRenderIntervalSet.0.@5
+  (params@Q
+   (param@1 :every.0 .
+    (i@7 64))).
+  (pragmas@f
+   (importc "jester_render_interval_set")
+   (smry~f
+    (param 0 0)))
+  (stmts .))
+ (proc@,U :hostRenderInterval.0.@5
+  (params@N)
+  (i@4 64)
+  (pragmas@X
+   (importc "jester_render_interval")
+   (smry~X))
+  (stmts .))
+ (proc@,V :hostRenderIdle.0.@5
+  (params@J
+   (param@1 :idle.0 .
+    (i@D 64))
+   (param@7 :awake.0 .
+    (i@7 64))
+   (param@L :seconds.0 .
+    (f@9 64))).
+  (pragmas@2,1
+   (importc "jester_render_idle")
+   (smry~2,~1
+    (param 0 0)
+    (param 1 1)
+    (param 2 2)))
+  (stmts .))
+ (proc@,X :hostRenderIdling.0.@5
+  (params@L)
+  (bool@4)
+  (pragmas@U
+   (importc "jester_render_idling")
+   (smry~U))
+  (stmts .))
+ (proc@,Y :hostRenderWake.0.@5
+  (params@J).
+  (pragmas@M
+   (importc "jester_render_wake")
+   (smry~M))
+  (stmts .))
+ (proc@,Z :hostRenderContinuous.0.@5
+  (params@P).
+  (pragmas@S
+   (importc "jester_render_continuous")
+   (smry~S))
+  (stmts .))
+ (proc@,a :hostRenderFrames.0.@5
+  (params@L)
+  (i@4 64)
+  (pragmas@V
+   (importc "jester_render_frames")
+   (smry~V))
+  (stmts .))
+ (proc@,e :frameRate.0.@5
+  (params@F
+   (param@1 :rate.1 .
+    (i@6 64))).
+  (pragmas
+   (smry
+    (param 0 0 reads)))
+  (stmts@T
+   (call@G hostRenderFpsSet.0.~G
+    (conv@6
+     (i~5 64)rate.1@1))))
+ (proc@,g :frameRate.1.@5
+  (params@F)
+  (i@4 64)
+  (pragmas
+   (smry))
+  (stmts@P
+   (var@3 :result.0 .
+    (i@,~F 64).)
+   (var@H :`x.0 .
+    (i~c,~E 64)
+    (call hostRenderFps.0.~D))
+   (asgn@3 result.0
+    (conv
+     (i@I,~2 64)`x.0@E))
+   (ret~P result.0)))
+ (proc@,l :drawEvery.0.@5
+  (params@F
+   (param@1 :frames.0 .
+    (i@8 64))).
+  (pragmas
+   (smry
+    (param 0 0 reads)))
+  (stmts@V
+   (call@L hostRenderIntervalSet.0.~L
+    (conv@6
+     (i~C,~7 64)frames.0@1))))
+ (proc@,n :drawEvery.1.@5
+  (params@F)
+  (i@4 64)
+  (pragmas
+   (smry))
+  (stmts@P
+   (var@3 :result.1 .
+    (i@,~M 64).)
+   (var@M :`x.1 .
+    (i~h,~J 64)
+    (call hostRenderInterval.0.~I))
+   (asgn@3 result.1
+    (conv
+     (i@I,~9 64)`x.1@J))
+   (ret~P result.1)))
+ (proc@,s :idleWhenQuiet.0.@5
+  (params@J
+   (param@1 :idle.1 .
+    (i@8,~R 64))
+   (param@B :awake.1 .
+    (i~2,~R 64))
+   (param@N :seconds.1 .
+    (f@7,~N 64))).
+  (pragmas
+   (smry
+    (param 0 0 reads)
+    (param 1 1 reads)
+    (param 2 2 reads)))
+  (stmts@2,1
+   (call@E hostRenderIdle.0.~E
+    (conv@6
+     (i@O,~F 64)idle.1@1)
+    (conv@J
+     (i@B,~F 64)awake.1@1)seconds.1@S)))
+ (proc@,w :idling.0.@5
+  (params@C)
+  (bool@4)
+  (pragmas
+   (smry))
+  (stmts@N
+   (var@G :result.2 .
+    (bool~Z,~P).)
+   (var@G :`x.2 .
+    (bool~Z,~P)
+    (call hostRenderIdling.0.~G))
+   (asgn@G result.2 `x.2)
+   (ret~N result.2)))
+ (proc@,10 :redraw.0.@5
+  (params@C).
+  (pragmas
+   (smry))
+  (stmts@H
+   (call@E hostRenderWake.0.~E)))
+ (proc@,13 :drawContinuously.0.@5
+  (params@M).
+  (pragmas
+   (smry))
+  (stmts@R
+   (call@K hostRenderContinuous.0.~K)))
+ (proc@,17 :framesDrawn.0.@5
+  (params@H)
+  (i@4 64)
+  (pragmas
+   (smry))
+  (stmts@R
+   (var@3 :result.3 .
+    (i~2,~g 64).)
+   (var@K :`x.3 .
+    (i~h,~X 64)
+    (call hostRenderFrames.0.~G))
+   (asgn@3 result.3
+    (conv
+     (i@G,~T 64)`x.3@H))
+   (ret~R result.3)))
+ (gvar :`iniGuard.0. .
+  (bool).)
+ (proc :`ini.0.
+  (params).
+  (pragmas
+   (smry callsUnknown))
+  (stmts
+   (if
+    (elif `iniGuard.0.
+     (stmts
+      (ret .))))
+   (asgn `iniGuard.0.
+    (true))
+   (call `ini.0.sysvq0asl))))(.index@,1,../../../../Packages/com.aoughwl.jester/ModSdk/render.nim
+ (x hostRenderFpsSet.0. 105)
+ (x hostRenderFps.0. 175)
+ (x hostRenderIntervalSet.0. 126)
+ (x hostRenderInterval.0. 186)
+ (x hostRenderIdle.0. 136)
+ (x hostRenderIdling.0. 283)
+ (x hostRenderWake.0. 132)
+ (x hostRenderContinuous.0. 118)
+ (x hostRenderFrames.0. 130)
+ (x frameRate.0. 132)
+ (x frameRate.1. 202)
+ (x drawEvery.0. 264)
+ (x drawEvery.1. 214)
+ (x idleWhenQuiet.0. 269)
+ (x idling.0. 388)
+ (x redraw.0. 236)
+ (x drawContinuously.0. 105)
+ (x framesDrawn.0. 121)
+ (h `iniGuard.0. 271)
+ (x `ini.0. 34))
